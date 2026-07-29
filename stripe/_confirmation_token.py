@@ -4,7 +4,7 @@ from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -73,7 +73,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["bonus", "fixed_count", "revolving"]
+                    type: Union[
+                        Literal["bonus", "fixed_count", "revolving"], str
+                    ]
                     """
                     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
@@ -266,8 +268,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
                         class Receipt(StripeObject):
                             account_type: Optional[
-                                Literal[
-                                    "checking", "credit", "prepaid", "unknown"
+                                Union[
+                                    Literal[
+                                        "checking",
+                                        "credit",
+                                        "prepaid",
+                                        "unknown",
+                                    ],
+                                    str,
                                 ]
                             ]
                             """
@@ -307,11 +315,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                             """
 
                         class Wallet(StripeObject):
-                            type: Literal[
-                                "apple_pay",
-                                "google_pay",
-                                "samsung_pay",
-                                "unknown",
+                            type: Union[
+                                Literal[
+                                    "apple_pay",
+                                    "google_pay",
+                                    "samsung_pay",
+                                    "unknown",
+                                ],
+                                str,
                             ]
                             """
                             The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
@@ -412,12 +423,15 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
                         """
                         read_method: Optional[
-                            Literal[
-                                "contact_emv",
-                                "contactless_emv",
-                                "contactless_magstripe_mode",
-                                "magnetic_stripe_fallback",
-                                "magnetic_stripe_track2",
+                            Union[
+                                Literal[
+                                    "contact_emv",
+                                    "contactless_emv",
+                                    "contactless_magstripe_mode",
+                                    "magnetic_stripe_fallback",
+                                    "magnetic_stripe_track2",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -732,7 +746,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Contains information about card networks that can be used to process the payment.
             """
-            regulated_status: Optional[Literal["regulated", "unregulated"]]
+            regulated_status: Optional[
+                Union[Literal["regulated", "unregulated"], str]
+            ]
             """
             Status of a card based on the card issuer.
             """
@@ -774,8 +790,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 """
 
             class Wallet(StripeObject):
-                type: Literal[
-                    "apple_pay", "google_pay", "samsung_pay", "unknown"
+                type: Union[
+                    Literal[
+                        "apple_pay", "google_pay", "samsung_pay", "unknown"
+                    ],
+                    str,
                 ]
                 """
                 The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
@@ -844,12 +863,15 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
-                Literal[
-                    "contact_emv",
-                    "contactless_emv",
-                    "contactless_magstripe_mode",
-                    "magnetic_stripe_fallback",
-                    "magnetic_stripe_track2",
+                Union[
+                    Literal[
+                        "contact_emv",
+                        "contactless_emv",
+                        "contactless_magstripe_mode",
+                        "magnetic_stripe_fallback",
+                        "magnetic_stripe_track2",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -929,14 +951,17 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "bank_muamalat",
                 "bank_of_china",
                 "bank_rakyat",
+                "bnp_paribas",
                 "bsn",
                 "cimb",
+                "citibank",
                 "deutsche_bank",
                 "hong_leong_bank",
                 "hsbc",
                 "kfh",
                 "maybank2e",
                 "maybank2u",
+                "mbsb_bank",
                 "ocbc",
                 "pb_enterprise",
                 "public_bank",
@@ -945,7 +970,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "uob",
             ]
             """
-            The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+            The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
             """
 
         class Giropay(StripeObject):
@@ -1077,12 +1102,15 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
-                Literal[
-                    "contact_emv",
-                    "contactless_emv",
-                    "contactless_magstripe_mode",
-                    "magnetic_stripe_fallback",
-                    "magnetic_stripe_track2",
+                Union[
+                    Literal[
+                        "contact_emv",
+                        "contactless_emv",
+                        "contactless_magstripe_mode",
+                        "magnetic_stripe_fallback",
+                        "magnetic_stripe_track2",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1119,29 +1147,32 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
         class KrCard(StripeObject):
             brand: Optional[
-                Literal[
-                    "bc",
-                    "citi",
-                    "hana",
-                    "hyundai",
-                    "jeju",
-                    "jeonbuk",
-                    "kakaobank",
-                    "kbank",
-                    "kdbbank",
-                    "kookmin",
-                    "kwangju",
-                    "lotte",
-                    "mg",
-                    "nh",
-                    "post",
-                    "samsung",
-                    "savingsbank",
-                    "shinhan",
-                    "shinhyup",
-                    "suhyup",
-                    "tossbank",
-                    "woori",
+                Union[
+                    Literal[
+                        "bc",
+                        "citi",
+                        "hana",
+                        "hyundai",
+                        "jeju",
+                        "jeonbuk",
+                        "kakaobank",
+                        "kbank",
+                        "kdbbank",
+                        "kookmin",
+                        "kwangju",
+                        "lotte",
+                        "mg",
+                        "nh",
+                        "post",
+                        "samsung",
+                        "savingsbank",
+                        "shinhan",
+                        "shinhyup",
+                        "suhyup",
+                        "tossbank",
+                        "woori",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1176,7 +1207,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
             """
-            funding: Literal["card", "points"]
+            funding: Union[Literal["card", "points"], str]
             """
             Whether to fund this transaction with Naver Pay points or a card.
             """
@@ -1212,33 +1243,36 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
         class P24(StripeObject):
             bank: Optional[
-                Literal[
-                    "alior_bank",
-                    "bank_millennium",
-                    "bank_nowy_bfg_sa",
-                    "bank_pekao_sa",
-                    "banki_spbdzielcze",
-                    "blik",
-                    "bnp_paribas",
-                    "boz",
-                    "citi_handlowy",
-                    "credit_agricole",
-                    "envelobank",
-                    "etransfer_pocztowy24",
-                    "getin_bank",
-                    "ideabank",
-                    "ing",
-                    "inteligo",
-                    "mbank_mtransfer",
-                    "nest_przelew",
-                    "noble_pay",
-                    "pbac_z_ipko",
-                    "plus_bank",
-                    "santander_przelew24",
-                    "tmobile_usbugi_bankowe",
-                    "toyota_bank",
-                    "velobank",
-                    "volkswagen_bank",
+                Union[
+                    Literal[
+                        "alior_bank",
+                        "bank_millennium",
+                        "bank_nowy_bfg_sa",
+                        "bank_pekao_sa",
+                        "banki_spbdzielcze",
+                        "blik",
+                        "bnp_paribas",
+                        "boz",
+                        "citi_handlowy",
+                        "credit_agricole",
+                        "envelobank",
+                        "etransfer_pocztowy24",
+                        "getin_bank",
+                        "ideabank",
+                        "ing",
+                        "inteligo",
+                        "mbank_mtransfer",
+                        "nest_przelew",
+                        "noble_pay",
+                        "pbac_z_ipko",
+                        "plus_bank",
+                        "santander_przelew24",
+                        "tmobile_usbugi_bankowe",
+                        "toyota_bank",
+                        "velobank",
+                        "volkswagen_bank",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1376,33 +1410,39 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class StatusDetails(StripeObject):
                 class Blocked(StripeObject):
                     network_code: Optional[
-                        Literal[
-                            "R02",
-                            "R03",
-                            "R04",
-                            "R05",
-                            "R07",
-                            "R08",
-                            "R10",
-                            "R11",
-                            "R16",
-                            "R20",
-                            "R29",
-                            "R31",
+                        Union[
+                            Literal[
+                                "R02",
+                                "R03",
+                                "R04",
+                                "R05",
+                                "R07",
+                                "R08",
+                                "R10",
+                                "R11",
+                                "R16",
+                                "R20",
+                                "R29",
+                                "R31",
+                            ],
+                            str,
                         ]
                     ]
                     """
                     The ACH network code that resulted in this block.
                     """
                     reason: Optional[
-                        Literal[
-                            "bank_account_closed",
-                            "bank_account_frozen",
-                            "bank_account_invalid_details",
-                            "bank_account_restricted",
-                            "bank_account_unusable",
-                            "debit_not_authorized",
-                            "tokenized_account_number_deactivated",
+                        Union[
+                            Literal[
+                                "bank_account_closed",
+                                "bank_account_frozen",
+                                "bank_account_invalid_details",
+                                "bank_account_restricted",
+                                "bank_account_unusable",
+                                "debit_not_authorized",
+                                "tokenized_account_number_deactivated",
+                            ],
+                            str,
                         ]
                     ]
                     """
@@ -1412,11 +1452,13 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 blocked: Optional[Blocked]
                 _inner_class_types = {"blocked": Blocked}
 
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             Account holder type: individual or company.
             """
-            account_type: Optional[Literal["checking", "savings"]]
+            account_type: Optional[Union[Literal["checking", "savings"], str]]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
@@ -1463,7 +1505,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
-        allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+        allow_redisplay: Optional[
+            Union[Literal["always", "limited", "unspecified"], str]
+        ]
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
         """
@@ -1521,64 +1565,67 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
-        type: Literal[
-            "acss_debit",
-            "affirm",
-            "afterpay_clearpay",
-            "alipay",
-            "alma",
-            "amazon_pay",
-            "au_becs_debit",
-            "bacs_debit",
-            "bancontact",
-            "billie",
-            "bizum",
-            "blik",
-            "boleto",
-            "card",
-            "card_present",
-            "cashapp",
-            "crypto",
-            "custom",
-            "customer_balance",
-            "eps",
-            "fpx",
-            "giropay",
-            "grabpay",
-            "ideal",
-            "interac_present",
-            "kakao_pay",
-            "klarna",
-            "konbini",
-            "kr_card",
-            "link",
-            "mb_way",
-            "mobilepay",
-            "multibanco",
-            "naver_pay",
-            "nz_bank_account",
-            "oxxo",
-            "p24",
-            "pay_by_bank",
-            "payco",
-            "paynow",
-            "paypal",
-            "payto",
-            "pix",
-            "promptpay",
-            "revolut_pay",
-            "samsung_pay",
-            "satispay",
-            "scalapay",
-            "sepa_debit",
-            "sofort",
-            "sunbit",
-            "swish",
-            "twint",
-            "upi",
-            "us_bank_account",
-            "wechat_pay",
-            "zip",
+        type: Union[
+            Literal[
+                "acss_debit",
+                "affirm",
+                "afterpay_clearpay",
+                "alipay",
+                "alma",
+                "amazon_pay",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "billie",
+                "bizum",
+                "blik",
+                "boleto",
+                "card",
+                "card_present",
+                "cashapp",
+                "crypto",
+                "custom",
+                "customer_balance",
+                "eps",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "interac_present",
+                "kakao_pay",
+                "klarna",
+                "konbini",
+                "kr_card",
+                "link",
+                "mb_way",
+                "mobilepay",
+                "multibanco",
+                "naver_pay",
+                "nz_bank_account",
+                "oxxo",
+                "p24",
+                "pay_by_bank",
+                "payco",
+                "paynow",
+                "paypal",
+                "payto",
+                "pix",
+                "promptpay",
+                "revolut_pay",
+                "samsung_pay",
+                "satispay",
+                "scalapay",
+                "sepa_debit",
+                "sofort",
+                "sunbit",
+                "swish",
+                "twint",
+                "upi",
+                "us_bank_account",
+                "wechat_pay",
+                "zip",
+            ],
+            str,
         ]
         """
         The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -1725,7 +1772,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     """
     Return URL used to confirm the Intent.
     """
-    setup_future_usage: Optional[Literal["off_session", "on_session"]]
+    setup_future_usage: Optional[
+        Union[Literal["off_session", "on_session"], str]
+    ]
     """
     Indicates that you intend to make future payments with this ConfirmationToken's payment method.
 

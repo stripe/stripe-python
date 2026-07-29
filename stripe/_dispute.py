@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -90,7 +90,7 @@ class Dispute(
                     The IP address that the customer used when making the purchase.
                     """
                     merchandise_or_services: Optional[
-                        Literal["merchandise", "services"]
+                        Union[Literal["merchandise", "services"], str]
                     ]
                     """
                     Categorization of disputed payment.
@@ -317,27 +317,34 @@ class Dispute(
 
             class VisaCompellingEvidence3(StripeObject):
                 required_actions: List[
-                    Literal[
-                        "missing_customer_identifiers",
-                        "missing_disputed_transaction_description",
-                        "missing_merchandise_or_services",
-                        "missing_prior_undisputed_transaction_description",
-                        "missing_prior_undisputed_transactions",
+                    Union[
+                        Literal[
+                            "missing_customer_identifiers",
+                            "missing_disputed_transaction_description",
+                            "missing_merchandise_or_services",
+                            "missing_prior_undisputed_transaction_description",
+                            "missing_prior_undisputed_transactions",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
                 """
-                status: Literal[
-                    "not_qualified", "qualified", "requires_action"
+                status: Union[
+                    Literal["not_qualified", "qualified", "requires_action"],
+                    str,
                 ]
                 """
                 Visa Compelling Evidence 3.0 eligibility status.
                 """
 
             class VisaCompliance(StripeObject):
-                status: Literal[
-                    "fee_acknowledged", "requires_fee_acknowledgement"
+                status: Union[
+                    Literal[
+                        "fee_acknowledged", "requires_fee_acknowledgement"
+                    ],
+                    str,
                 ]
                 """
                 Visa compliance eligibility status.
@@ -373,7 +380,7 @@ class Dispute(
 
     class PaymentMethodDetails(StripeObject):
         class AmazonPay(StripeObject):
-            dispute_type: Optional[Literal["chargeback", "claim"]]
+            dispute_type: Optional[Union[Literal["chargeback", "claim"], str]]
             """
             The AmazonPay dispute type, chargeback or claim
             """
@@ -383,11 +390,22 @@ class Dispute(
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
-            case_type: Literal[
-                "block", "chargeback", "compliance", "inquiry", "resolution"
+            case_type: Union[
+                Literal[
+                    "block",
+                    "chargeback",
+                    "compliance",
+                    "inquiry",
+                    "resolution",
+                ],
+                str,
             ]
             """
             The type of dispute opened. Different case types may have varying fees and financial impact.
+            """
+            network: str
+            """
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             network_reason_code: Optional[str]
             """
@@ -418,7 +436,7 @@ class Dispute(
         card: Optional[Card]
         klarna: Optional[Klarna]
         paypal: Optional[Paypal]
-        type: Literal["amazon_pay", "card", "klarna", "paypal"]
+        type: Union[Literal["amazon_pay", "card", "klarna", "paypal"], str]
         """
         Payment method type.
         """
@@ -450,10 +468,13 @@ class Dispute(
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     enhanced_eligibility_types: List[
-        Literal[
-            "mastercard_compliance",
-            "visa_compelling_evidence_3",
-            "visa_compliance",
+        Union[
+            Literal[
+                "mastercard_compliance",
+                "visa_compelling_evidence_3",
+                "visa_compliance",
+            ],
+            str,
         ]
     ]
     """
@@ -494,15 +515,18 @@ class Dispute(
     """
     Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://docs.stripe.com/disputes/categories).
     """
-    status: Literal[
-        "lost",
-        "needs_response",
-        "prevented",
-        "under_review",
-        "warning_closed",
-        "warning_needs_response",
-        "warning_under_review",
-        "won",
+    status: Union[
+        Literal[
+            "lost",
+            "needs_response",
+            "prevented",
+            "under_review",
+            "warning_closed",
+            "warning_needs_response",
+            "warning_under_review",
+            "won",
+        ],
+        str,
     ]
     """
     The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
@@ -513,7 +537,7 @@ class Dispute(
         cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -534,7 +558,7 @@ class Dispute(
         dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -543,7 +567,7 @@ class Dispute(
     @overload
     def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -554,7 +578,7 @@ class Dispute(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -574,7 +598,7 @@ class Dispute(
         cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -595,7 +619,7 @@ class Dispute(
         dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -606,7 +630,7 @@ class Dispute(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -617,7 +641,7 @@ class Dispute(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """

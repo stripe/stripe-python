@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -98,13 +98,16 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
     class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventData(
         StripeObject,
     ):
-        updated_capability: Literal[
-            "bank_accounts.local",
-            "bank_accounts.wire",
-            "cards",
-            "stripe_balance.payouts",
-            "stripe_balance.stripe_transfers",
-            "stripe.transfers",
+        updated_capability: Union[
+            Literal[
+                "bank_accounts.local",
+                "bank_accounts.wire",
+                "cards",
+                "stripe_balance.payouts",
+                "stripe_balance.stripe_transfers",
+                "stripe.transfers",
+            ],
+            str,
         ]
         """
         Open Enum. The capability which had its status updated.

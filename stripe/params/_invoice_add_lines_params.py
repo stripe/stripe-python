@@ -184,23 +184,7 @@ class InvoiceAddLinesParamsLineTaxAmount(TypedDict):
     Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
     """
     taxability_reason: NotRequired[
-        Literal[
-            "customer_exempt",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
-        ]
+        "Literal['customer_exempt', 'not_collecting', 'not_subject_to_tax', 'not_supported', 'portion_product_exempt', 'portion_reduced_rated', 'portion_standard_rated', 'product_exempt', 'product_exempt_holiday', 'proportionally_rated', 'reduced_rated', 'reverse_charge', 'standard_rated', 'taxable_basis_reduced', 'zero_rated']|str"
     ]
     """
     The reasoning behind this tax, for example, if the product is tax exempt.
@@ -233,7 +217,7 @@ class InvoiceAddLinesParamsLineTaxAmountTaxRateData(TypedDict):
     The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
     """
     jurisdiction_level: NotRequired[
-        Literal["city", "country", "county", "district", "multiple", "state"]
+        "Literal['city', 'country', 'county', 'district', 'multiple', 'state']|str"
     ]
     """
     The level of the jurisdiction that imposes this tax rate.
@@ -247,22 +231,7 @@ class InvoiceAddLinesParamsLineTaxAmountTaxRateData(TypedDict):
     [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
     """
     tax_type: NotRequired[
-        Literal[
-            "amusement_tax",
-            "communications_tax",
-            "gst",
-            "hst",
-            "igst",
-            "jct",
-            "lease_tax",
-            "pst",
-            "qst",
-            "retail_delivery_fee",
-            "rst",
-            "sales_tax",
-            "service_tax",
-            "vat",
-        ]
+        "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'mass_transit_parking_tax', 'parking_tax', 'pst', 'qst', 'retail_delivery_fee', 'rst', 'sales_tax', 'service_tax', 'vat']|str"
     ]
     """
     The high-level tax type, such as `vat` or `sales_tax`.

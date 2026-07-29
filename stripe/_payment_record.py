@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
+from stripe._list_object import ListObject
+from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
     from stripe._payment_method import PaymentMethod
+    from stripe.params._payment_record_list_params import (
+        PaymentRecordListParams,
+    )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -36,7 +40,7 @@ if TYPE_CHECKING:
     )
 
 
-class PaymentRecord(APIResource["PaymentRecord"]):
+class PaymentRecord(ListableAPIResource["PaymentRecord"]):
     """
     A Payment Record is a resource that allows you to represent payments that occur on- or off-Stripe.
     For example, you can create a Payment Record to model a payment made on a different payment processor,
@@ -266,7 +270,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+                    Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
                     """
                     country: Optional[str]
                     """
@@ -457,19 +461,28 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         class Card(StripeObject):
             class Checks(StripeObject):
                 address_line1_check: Optional[
-                    Literal["fail", "pass", "unavailable", "unchecked"]
+                    Union[
+                        Literal["fail", "pass", "unavailable", "unchecked"],
+                        str,
+                    ]
                 ]
                 """
                 If you provide a value for `address.line1`, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 address_postal_code_check: Optional[
-                    Literal["fail", "pass", "unavailable", "unchecked"]
+                    Union[
+                        Literal["fail", "pass", "unavailable", "unchecked"],
+                        str,
+                    ]
                 ]
                 """
                 If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[
-                    Literal["fail", "pass", "unavailable", "unchecked"]
+                    Union[
+                        Literal["fail", "pass", "unavailable", "unchecked"],
+                        str,
+                    ]
                 ]
                 """
                 If you provide a CVC, the check results is one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -485,7 +498,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                     """
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card. One of `month`.
                     """
-                    type: Literal["bonus", "fixed_count", "revolving"]
+                    type: Union[
+                        Literal["bonus", "fixed_count", "revolving"], str
+                    ]
                     """
                     Type of installment plan, one of `fixed_count`, `revolving`, or `bonus`.
                     """
@@ -504,7 +519,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
             class ThreeDSecure(StripeObject):
                 authentication_flow: Optional[
-                    Literal["challenge", "frictionless"]
+                    Union[Literal["challenge", "frictionless"], str]
                 ]
                 """
                 For authenticated transactions: Indicates how the issuing bank authenticated the customer.
@@ -528,33 +543,42 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on the outcome of Stripe's internal risk assessment.
                 """
                 result: Optional[
-                    Literal[
-                        "attempt_acknowledged",
-                        "authenticated",
-                        "exempted",
-                        "failed",
-                        "not_supported",
-                        "processing_error",
+                    Union[
+                        Literal[
+                            "attempt_acknowledged",
+                            "authenticated",
+                            "data_share_only",
+                            "exempted",
+                            "failed",
+                            "not_supported",
+                            "processing_error",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Indicates the outcome of 3D Secure authentication.
                 """
                 result_reason: Optional[
-                    Literal[
-                        "abandoned",
-                        "bypassed",
-                        "canceled",
-                        "card_not_enrolled",
-                        "network_not_supported",
-                        "protocol_error",
-                        "rejected",
+                    Union[
+                        Literal[
+                            "abandoned",
+                            "bypassed",
+                            "canceled",
+                            "card_not_enrolled",
+                            "network_not_supported",
+                            "protocol_error",
+                            "rejected",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Additional information about why 3D Secure succeeded or failed, based on the `result`.
                 """
-                version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
+                version: Optional[
+                    Union[Literal["1.0.2", "2.1.0", "2.2.0"], str]
+                ]
                 """
                 The version of 3D Secure that was used.
                 """
@@ -589,19 +613,22 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             The authorization code of the payment.
             """
             brand: Optional[
-                Literal[
-                    "amex",
-                    "cartes_bancaires",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "interac",
-                    "jcb",
-                    "link",
-                    "mastercard",
-                    "unionpay",
-                    "unknown",
-                    "visa",
+                Union[
+                    Literal[
+                        "amex",
+                        "cartes_bancaires",
+                        "diners",
+                        "discover",
+                        "eftpos_au",
+                        "interac",
+                        "jcb",
+                        "link",
+                        "mastercard",
+                        "unionpay",
+                        "unknown",
+                        "visa",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -637,7 +664,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
             *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
             """
-            funding: Optional[Literal["credit", "debit", "prepaid", "unknown"]]
+            funding: Optional[
+                Union[Literal["credit", "debit", "prepaid", "unknown"], str]
+            ]
             """
             Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
             """
@@ -662,19 +691,22 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             True if this payment was marked as MOTO and out of scope for SCA.
             """
             network: Optional[
-                Literal[
-                    "amex",
-                    "cartes_bancaires",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "interac",
-                    "jcb",
-                    "link",
-                    "mastercard",
-                    "unionpay",
-                    "unknown",
-                    "visa",
+                Union[
+                    Literal[
+                        "amex",
+                        "cartes_bancaires",
+                        "diners",
+                        "discover",
+                        "eftpos_au",
+                        "interac",
+                        "jcb",
+                        "link",
+                        "mastercard",
+                        "unionpay",
+                        "unknown",
+                        "visa",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -725,7 +757,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
             class Receipt(StripeObject):
                 account_type: Optional[
-                    Literal["checking", "credit", "prepaid", "unknown"]
+                    Union[
+                        Literal["checking", "credit", "prepaid", "unknown"],
+                        str,
+                    ]
                 ]
                 """
                 The type of account being debited or credited
@@ -764,8 +799,11 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 """
 
             class Wallet(StripeObject):
-                type: Literal[
-                    "apple_pay", "google_pay", "samsung_pay", "unknown"
+                type: Union[
+                    Literal[
+                        "apple_pay", "google_pay", "samsung_pay", "unknown"
+                    ],
+                    str,
                 ]
                 """
                 The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
@@ -866,12 +904,15 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
-                Literal[
-                    "contact_emv",
-                    "contactless_emv",
-                    "contactless_magstripe_mode",
-                    "magnetic_stripe_fallback",
-                    "magnetic_stripe_track2",
+                Union[
+                    Literal[
+                        "contact_emv",
+                        "contactless_emv",
+                        "contactless_magstripe_mode",
+                        "magnetic_stripe_fallback",
+                        "magnetic_stripe_track2",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -912,16 +953,27 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             The wallet address of the customer.
             """
             network: Optional[
-                Literal[
-                    "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                Union[
+                    Literal[
+                        "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                    ],
+                    str,
                 ]
             ]
             """
             The blockchain network that the transaction was sent on.
             """
             token_currency: Optional[
-                Literal[
-                    "phantom_cash", "usdc", "usdg", "usdp", "usdsui", "usdt"
+                Union[
+                    Literal[
+                        "phantom_cash",
+                        "usdc",
+                        "usdg",
+                        "usdp",
+                        "usdsui",
+                        "usdt",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1000,14 +1052,17 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 "bank_muamalat",
                 "bank_of_china",
                 "bank_rakyat",
+                "bnp_paribas",
                 "bsn",
                 "cimb",
+                "citibank",
                 "deutsche_bank",
                 "hong_leong_bank",
                 "hsbc",
                 "kfh",
                 "maybank2e",
                 "maybank2u",
+                "mbsb_bank",
                 "ocbc",
                 "pb_enterprise",
                 "public_bank",
@@ -1016,7 +1071,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 "uob",
             ]
             """
-            The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+            The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
             """
             transaction_id: Optional[str]
             """
@@ -1127,7 +1182,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         class InteracPresent(StripeObject):
             class Receipt(StripeObject):
                 account_type: Optional[
-                    Literal["checking", "savings", "unknown"]
+                    Union[Literal["checking", "savings", "unknown"], str]
                 ]
                 """
                 The type of account being debited or credited
@@ -1236,12 +1291,15 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
-                Literal[
-                    "contact_emv",
-                    "contactless_emv",
-                    "contactless_magstripe_mode",
-                    "magnetic_stripe_fallback",
-                    "magnetic_stripe_track2",
+                Union[
+                    Literal[
+                        "contact_emv",
+                        "contactless_emv",
+                        "contactless_magstripe_mode",
+                        "magnetic_stripe_fallback",
+                        "magnetic_stripe_track2",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1306,7 +1364,12 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         class Konbini(StripeObject):
             class Store(StripeObject):
                 chain: Optional[
-                    Literal["familymart", "lawson", "ministop", "seicomart"]
+                    Union[
+                        Literal[
+                            "familymart", "lawson", "ministop", "seicomart"
+                        ],
+                        str,
+                    ]
                 ]
                 """
                 The name of the convenience store chain where the payment was completed.
@@ -1320,29 +1383,32 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
         class KrCard(StripeObject):
             brand: Optional[
-                Literal[
-                    "bc",
-                    "citi",
-                    "hana",
-                    "hyundai",
-                    "jeju",
-                    "jeonbuk",
-                    "kakaobank",
-                    "kbank",
-                    "kdbbank",
-                    "kookmin",
-                    "kwangju",
-                    "lotte",
-                    "mg",
-                    "nh",
-                    "post",
-                    "samsung",
-                    "savingsbank",
-                    "shinhan",
-                    "shinhyup",
-                    "suhyup",
-                    "tossbank",
-                    "woori",
+                Union[
+                    Literal[
+                        "bc",
+                        "citi",
+                        "hana",
+                        "hyundai",
+                        "jeju",
+                        "jeonbuk",
+                        "kakaobank",
+                        "kbank",
+                        "kdbbank",
+                        "kookmin",
+                        "kwangju",
+                        "lotte",
+                        "mg",
+                        "nh",
+                        "post",
+                        "samsung",
+                        "savingsbank",
+                        "shinhan",
+                        "shinhyup",
+                        "suhyup",
+                        "tossbank",
+                        "woori",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1528,13 +1594,18 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         class Paypal(StripeObject):
             class SellerProtection(StripeObject):
                 dispute_categories: Optional[
-                    List[Literal["fraudulent", "product_not_received"]]
+                    List[
+                        Union[
+                            Literal["fraudulent", "product_not_received"], str
+                        ]
+                    ]
                 ]
                 """
                 An array of conditions that are covered for the transaction, if applicable.
                 """
-                status: Literal[
-                    "eligible", "not_eligible", "partially_eligible"
+                status: Union[
+                    Literal["eligible", "not_eligible", "partially_eligible"],
+                    str,
                 ]
                 """
                 Indicates whether the transaction is eligible for PayPal's seller protection.
@@ -1786,11 +1857,13 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
 
         class UsBankAccount(StripeObject):
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             The type of entity that holds the account. This can be either 'individual' or 'company'.
             """
-            account_type: Optional[Literal["checking", "savings"]]
+            account_type: Optional[Union[Literal["checking", "savings"], str]]
             """
             The type of the bank account. This can be either 'checking' or 'savings'.
             """
@@ -2097,7 +2170,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     """
     Customer information for this payment.
     """
-    customer_presence: Optional[Literal["off_session", "on_session"]]
+    customer_presence: Optional[
+        Union[Literal["off_session", "on_session"], str]
+    ]
     """
     Indicates whether the customer was present in your checkout flow during this payment.
     """
@@ -2133,7 +2208,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     """
     Processor information associated with this payment.
     """
-    reported_by: Literal["self", "stripe"]
+    reported_by: Union[Literal["self", "stripe"], str]
     """
     Indicates who reported the payment.
     """
@@ -2141,6 +2216,46 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     """
     Shipping information for this payment.
     """
+
+    @classmethod
+    def list(
+        cls, **params: Unpack["PaymentRecordListParams"]
+    ) -> ListObject["PaymentRecord"]:
+        """
+        List all the Payment Records for a given merchant.
+        """
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["PaymentRecordListParams"]
+    ) -> ListObject["PaymentRecord"]:
+        """
+        List all the Payment Records for a given merchant.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
 
     @classmethod
     def report_payment(

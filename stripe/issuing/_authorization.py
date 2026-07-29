@@ -8,7 +8,7 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -160,10 +160,13 @@ class Authorization(
         Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
         """
         purchase_type: Optional[
-            Literal[
-                "fuel_and_non_fuel_purchase",
-                "fuel_purchase",
-                "non_fuel_purchase",
+            Union[
+                Literal[
+                    "fuel_and_non_fuel_purchase",
+                    "fuel_purchase",
+                    "non_fuel_purchase",
+                ],
+                str,
             ]
         ]
         """
@@ -174,7 +177,12 @@ class Authorization(
         More information about the total amount. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
         """
         service_type: Optional[
-            Literal["full_service", "non_fuel_transaction", "self_service"]
+            Union[
+                Literal[
+                    "full_service", "non_fuel_transaction", "self_service"
+                ],
+                str,
+            ]
         ]
         """
         The type of fuel service.
@@ -189,14 +197,17 @@ class Authorization(
         """
         The method by which the fraud challenge was delivered to the cardholder.
         """
-        status: Literal[
-            "expired", "pending", "rejected", "undeliverable", "verified"
+        status: Union[
+            Literal[
+                "expired", "pending", "rejected", "undeliverable", "verified"
+            ],
+            str,
         ]
         """
         The status of the fraud challenge.
         """
         undeliverable_reason: Optional[
-            Literal["no_phone_number", "unsupported_phone_number"]
+            Union[Literal["no_phone_number", "unsupported_phone_number"], str]
         ]
         """
         If the challenge is not deliverable, the reason why.
@@ -212,27 +223,33 @@ class Authorization(
         The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
         """
         type: Optional[
-            Literal[
-                "diesel",
-                "other",
-                "unleaded_plus",
-                "unleaded_regular",
-                "unleaded_super",
+            Union[
+                Literal[
+                    "diesel",
+                    "other",
+                    "unleaded_plus",
+                    "unleaded_regular",
+                    "unleaded_super",
+                ],
+                str,
             ]
         ]
         """
         The type of fuel that was purchased.
         """
         unit: Optional[
-            Literal[
-                "charging_minute",
-                "imperial_gallon",
-                "kilogram",
-                "kilowatt_hour",
-                "liter",
-                "other",
-                "pound",
-                "us_gallon",
+            Union[
+                Literal[
+                    "charging_minute",
+                    "imperial_gallon",
+                    "kilogram",
+                    "kilowatt_hour",
+                    "liter",
+                    "other",
+                    "pound",
+                    "us_gallon",
+                ],
+                str,
             ]
         ]
         """
@@ -395,27 +412,31 @@ class Authorization(
         """
         The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         """
-        reason: Literal[
-            "account_disabled",
-            "card_active",
-            "card_canceled",
-            "card_expired",
-            "card_inactive",
-            "cardholder_blocked",
-            "cardholder_inactive",
-            "cardholder_verification_required",
-            "insecure_authorization_method",
-            "insufficient_funds",
-            "network_fallback",
-            "not_allowed",
-            "pin_blocked",
-            "spending_controls",
-            "suspected_fraud",
-            "verification_failed",
-            "webhook_approved",
-            "webhook_declined",
-            "webhook_error",
-            "webhook_timeout",
+        reason: Union[
+            Literal[
+                "account_disabled",
+                "card_active",
+                "card_canceled",
+                "card_expired",
+                "card_inactive",
+                "cardholder_blocked",
+                "cardholder_inactive",
+                "cardholder_verification_required",
+                "insecure_authorization_method",
+                "insufficient_funds",
+                "network_fallback",
+                "not_allowed",
+                "pin_blocked",
+                "spending_controls",
+                "stripe_internal_error",
+                "suspected_fraud",
+                "verification_failed",
+                "webhook_approved",
+                "webhook_declined",
+                "webhook_error",
+                "webhook_timeout",
+            ],
+            str,
         ]
         """
         When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome.
@@ -446,30 +467,45 @@ class Authorization(
 
     class VerificationData(StripeObject):
         class AuthenticationExemption(StripeObject):
-            claimed_by: Literal["acquirer", "issuer"]
+            claimed_by: Union[Literal["acquirer", "issuer"], str]
             """
             The entity that requested the exemption, either the acquiring merchant or the Issuing user.
             """
-            type: Literal[
-                "low_value_transaction", "transaction_risk_analysis", "unknown"
+            type: Union[
+                Literal[
+                    "low_value_transaction",
+                    "transaction_risk_analysis",
+                    "unknown",
+                ],
+                str,
             ]
             """
             The specific exemption claimed for this authorization.
             """
 
         class ThreeDSecure(StripeObject):
-            result: Literal[
-                "attempt_acknowledged", "authenticated", "failed", "required"
+            result: Union[
+                Literal[
+                    "attempt_acknowledged",
+                    "authenticated",
+                    "failed",
+                    "required",
+                ],
+                str,
             ]
             """
             The outcome of the 3D Secure authentication request.
             """
 
-        address_line1_check: Literal["match", "mismatch", "not_provided"]
+        address_line1_check: Union[
+            Literal["match", "mismatch", "not_provided"], str
+        ]
         """
         Whether the cardholder provided an address first line and if it matched the cardholder's `billing.address.line1`.
         """
-        address_postal_code_check: Literal["match", "mismatch", "not_provided"]
+        address_postal_code_check: Union[
+            Literal["match", "mismatch", "not_provided"], str
+        ]
         """
         Whether the cardholder provided a postal code and if it matched the cardholder's `billing.address.postal_code`.
         """
@@ -477,11 +513,11 @@ class Authorization(
         """
         The exemption applied to this authorization.
         """
-        cvc_check: Literal["match", "mismatch", "not_provided"]
+        cvc_check: Union[Literal["match", "mismatch", "not_provided"], str]
         """
         Whether the cardholder provided a CVC and if it matched Stripe's record.
         """
-        expiry_check: Literal["match", "mismatch", "not_provided"]
+        expiry_check: Union[Literal["match", "mismatch", "not_provided"], str]
         """
         Whether the cardholder provided an expiry date and if it matched Stripe's record.
         """
@@ -510,8 +546,8 @@ class Authorization(
     """
     Whether the authorization has been approved.
     """
-    authorization_method: Literal[
-        "chip", "contactless", "keyed_in", "online", "swipe"
+    authorization_method: Union[
+        Literal["chip", "contactless", "keyed_in", "online", "swipe"], str
     ]
     """
     How the card details were provided.
@@ -524,7 +560,7 @@ class Authorization(
     """
     You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
     """
-    card_presence: Optional[Literal["not_present", "present"]]
+    card_presence: Optional[Union[Literal["not_present", "present"], str]]
     """
     Whether the card was present at the point of sale for the authorization.
     """
@@ -589,7 +625,7 @@ class Authorization(
     """
     History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
     """
-    status: Literal["closed", "expired", "pending", "reversed"]
+    status: Union[Literal["closed", "expired", "pending", "reversed"], str]
     """
     The current status of the authorization in its lifecycle.
     """

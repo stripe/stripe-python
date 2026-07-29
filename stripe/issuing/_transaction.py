@@ -8,7 +8,7 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -152,7 +152,7 @@ class Transaction(
                 class Fuel(StripeObject):
                     gross_amount_decimal: Optional[Decimal]
                     """
-                    Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+                    Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
                     """
                     _field_encodings = {
                         "gross_amount_decimal": "decimal_string",
@@ -442,11 +442,13 @@ class Transaction(
     """
     [Treasury](https://docs.stripe.com/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
     """
-    type: Literal["capture", "refund"]
+    type: Union[Literal["capture", "refund"], str]
     """
     The nature of the transaction.
     """
-    wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
+    wallet: Optional[
+        Union[Literal["apple_pay", "google_pay", "samsung_pay"], str]
+    ]
     """
     The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
     """

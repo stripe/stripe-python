@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -104,7 +104,7 @@ class Order(
     Time at which the order was canceled. Measured in seconds since the Unix epoch.
     """
     cancellation_reason: Optional[
-        Literal["expired", "product_unavailable", "requested"]
+        Union[Literal["expired", "product_unavailable", "requested"], str]
     ]
     """
     Reason for the cancellation of this order.
@@ -169,8 +169,11 @@ class Order(
     """
     Time at which the order's product was substituted for a different product. Measured in seconds since the Unix epoch.
     """
-    status: Literal[
-        "awaiting_funds", "canceled", "confirmed", "delivered", "open"
+    status: Union[
+        Literal[
+            "awaiting_funds", "canceled", "confirmed", "delivered", "open"
+        ],
+        str,
     ]
     """
     The current status of this order.
