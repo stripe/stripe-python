@@ -212,7 +212,7 @@ class PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
     TypedDict,
 ):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.
@@ -257,7 +257,7 @@ class PaymentIntentCaptureParamsAmountDetailsSurcharge(TypedDict):
     Portion of the amount that corresponds to a surcharge.
     """
     enforce_validation: NotRequired[
-        "Literal['']|Literal['automatic', 'disabled', 'enabled']"
+        "Literal['']|Literal['automatic', 'disabled', 'enabled']|str"
     ]
     """
     Indicate whether to enforce validations on the surcharge amount.
@@ -408,12 +408,15 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRental(TypedDict):
     """
     extra_charges: NotRequired[
         List[
-            Literal[
-                "extra_mileage",
-                "gas",
-                "late_return",
-                "one_way_service",
-                "parking_violation",
+            Union[
+                Literal[
+                    "extra_mileage",
+                    "gas",
+                    "late_return",
+                    "one_way_service",
+                    "parking_violation",
+                ],
+                str,
             ]
         ]
     ]
@@ -442,7 +445,7 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRental(TypedDict):
     """
     Rental rate.
     """
-    rate_interval: NotRequired[Literal["day", "month", "week"]]
+    rate_interval: NotRequired["Literal['day', 'month', 'week']|str"]
     """
     The frequency at which the rate amount is applied. One of `day`, `week` or `month`
     """
@@ -482,7 +485,7 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalAffiliate(TypedDict):
 
 
 class PaymentIntentCaptureParamsPaymentDetailsCarRentalDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -516,7 +519,7 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDistance(TypedDict):
     """
     Distance traveled.
     """
-    unit: NotRequired[Literal["kilometers", "miles"]]
+    unit: NotRequired["Literal['kilometers', 'miles']|str"]
     """
     Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
     """
@@ -684,7 +687,7 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDistance(
     """
     Distance traveled.
     """
-    unit: Literal["kilometers", "miles"]
+    unit: Union[Literal["kilometers", "miles"], str]
     """
     Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
     """
@@ -789,13 +792,16 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumInsurance(
     """
     Name of the insurance company.
     """
-    insurance_type: Literal[
-        "liability_supplement",
-        "loss_damage_waiver",
-        "other",
-        "partial_damage_waiver",
-        "personal_accident",
-        "personal_effects",
+    insurance_type: Union[
+        Literal[
+            "liability_supplement",
+            "loss_damage_waiver",
+            "other",
+            "partial_damage_waiver",
+            "personal_accident",
+            "personal_effects",
+        ],
+        str,
     ]
     """
     Type of insurance coverage.
@@ -876,7 +882,7 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotal(TypedDict):
     Rate per unit for the rental.
     """
     rate_unit: NotRequired[
-        Literal["days", "kilometers", "miles", "months", "weeks"]
+        "Literal['days', 'kilometers', 'miles', 'months', 'weeks']|str"
     ]
     """
     Unit of measurement for the rate.
@@ -913,17 +919,20 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge(
     """
     Amount of the extra charge in cents.
     """
-    type: Literal[
-        "extra_mileage",
-        "gas",
-        "gps",
-        "late_charge",
-        "one_way_drop_off",
-        "other",
-        "parking",
-        "phone",
-        "regular_mileage",
-        "towing",
+    type: Union[
+        Literal[
+            "extra_mileage",
+            "gas",
+            "gps",
+            "late_charge",
+            "one_way_drop_off",
+            "other",
+            "parking",
+            "phone",
+            "regular_mileage",
+            "towing",
+        ],
+        str,
     ]
     """
     Type of extra charge.
@@ -937,9 +946,9 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax(
     """
     Indicates if the transaction is tax exempt.
     """
-    taxes: NotRequired[
+    tax_items: NotRequired[
         List[
-            "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax"
+            "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem"
         ]
     ]
     """
@@ -947,7 +956,7 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax(
     """
 
 
-class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax(
+class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem(
     TypedDict,
 ):
     amount: NotRequired[int]
@@ -978,48 +987,13 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumVehicle(TypedDict):
     Odometer reading at the time of rental.
     """
     type: NotRequired[
-        Literal[
-            "cargo_van",
-            "compact",
-            "economy",
-            "exotic",
-            "exotic_suv",
-            "fifteen_passenger_van",
-            "four_wheel_drive",
-            "full_size",
-            "intermediate",
-            "large_suv",
-            "large_truck",
-            "luxury",
-            "medium_suv",
-            "midsize",
-            "mini",
-            "minivan",
-            "miscellaneous",
-            "moped",
-            "moving_van",
-            "premium",
-            "regular",
-            "small_medium_truck",
-            "small_suv",
-            "special",
-            "standard",
-            "stretch",
-            "subcompact",
-            "taxi",
-            "twelve_foot_truck",
-            "twelve_passenger_van",
-            "twenty_foot_truck",
-            "twenty_four_foot_truck",
-            "twenty_six_foot_truck",
-            "unique",
-        ]
+        "Literal['cargo_van', 'compact', 'economy', 'exotic', 'exotic_suv', 'fifteen_passenger_van', 'four_wheel_drive', 'full_size', 'intermediate', 'large_suv', 'large_truck', 'luxury', 'medium_suv', 'midsize', 'mini', 'minivan', 'miscellaneous', 'moped', 'moving_van', 'premium', 'regular', 'small_medium_truck', 'small_suv', 'special', 'standard', 'stretch', 'subcompact', 'taxi', 'twelve_foot_truck', 'twelve_passenger_van', 'twenty_foot_truck', 'twenty_four_foot_truck', 'twenty_six_foot_truck', 'unique']|str"
     ]
     """
     Type of the rental vehicle.
     """
     vehicle_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Class of the rental vehicle.
@@ -1110,7 +1084,7 @@ class PaymentIntentCaptureParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
 
 
 class PaymentIntentCaptureParamsPaymentDetailsEventDetailsDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -1188,7 +1162,7 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightAffiliate(TypedDict):
 
 
 class PaymentIntentCaptureParamsPaymentDetailsFlightDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -1254,7 +1228,7 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightSegment(TypedDict):
     The flight number associated with the segment
     """
     service_class: NotRequired[
-        Literal["business", "economy", "first", "premium_economy"]
+        "Literal['business', 'economy', 'first', 'premium_economy']|str"
     ]
     """
     The fare class for the segment.
@@ -1307,9 +1281,7 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightDatum(TypedDict):
     Total cost breakdown.
     """
     transaction_type: NotRequired[
-        Literal[
-            "exchange_ticket", "miscellaneous", "refund", "ticket_purchase"
-        ]
+        "Literal['exchange_ticket', 'miscellaneous', 'refund', 'ticket_purchase']|str"
     ]
     """
     Type of flight transaction.
@@ -1344,8 +1316,11 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightDatumInsurance(TypedDict):
     """
     Insurance company name.
     """
-    insurance_type: Literal[
-        "baggage", "bankruptcy", "cancelation", "emergency", "medical"
+    insurance_type: Union[
+        Literal[
+            "baggage", "bankruptcy", "cancelation", "emergency", "medical"
+        ],
+        str,
     ]
     """
     Type of insurance.
@@ -1412,8 +1387,8 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightDatumSegment(TypedDict):
     """
     Refundable ticket indicator.
     """
-    service_class: Literal[
-        "business", "economy", "first_class", "premium_economy"
+    service_class: Union[
+        Literal["business", "economy", "first_class", "premium_economy"], str
     ]
     """
     Class of service.
@@ -1476,13 +1451,7 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotal(TypedDict):
     Total flight amount.
     """
     credit_reason: NotRequired[
-        Literal[
-            "other",
-            "partial_ticket_refund",
-            "passenger_transport_ancillary_cancellation",
-            "ticket_and_ancillary_cancellation",
-            "ticket_cancellation",
-        ]
+        "Literal['other', 'partial_ticket_refund', 'passenger_transport_ancillary_cancellation', 'ticket_and_ancillary_cancellation', 'ticket_cancellation']|str"
     ]
     """
     Reason for credit.
@@ -1530,7 +1499,7 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge(
     Amount of additional charges.
     """
     type: NotRequired[
-        Literal["additional_fees", "ancillary_service_charges", "exchange_fee"]
+        "Literal['additional_fees', 'ancillary_service_charges', 'exchange_fee']|str"
     ]
     """
     Type of additional charges.
@@ -1538,16 +1507,18 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge(
 
 
 class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTax(TypedDict):
-    taxes: NotRequired[
-        List["PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Array of tax details.
     """
 
 
-class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTax(
-    TypedDict
+class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem(
+    TypedDict,
 ):
     amount: NotRequired[int]
     """
@@ -1584,7 +1555,7 @@ class PaymentIntentCaptureParamsPaymentDetailsLodging(TypedDict):
     """
     The booking number associated with the lodging reservation.
     """
-    category: NotRequired[Literal["hotel", "vacation_rental"]]
+    category: NotRequired["Literal['hotel', 'vacation_rental']|str"]
     """
     The lodging category
     """
@@ -1612,13 +1583,16 @@ class PaymentIntentCaptureParamsPaymentDetailsLodging(TypedDict):
     """
     extra_charges: NotRequired[
         List[
-            Literal[
-                "gift_shop",
-                "laundry",
-                "mini_bar",
-                "other",
-                "restaurant",
-                "telephone",
+            Union[
+                Literal[
+                    "gift_shop",
+                    "laundry",
+                    "mini_bar",
+                    "other",
+                    "restaurant",
+                    "telephone",
+                ],
+                str,
             ]
         ]
     ]
@@ -1704,7 +1678,7 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingAffiliate(TypedDict):
 
 
 class PaymentIntentCaptureParamsPaymentDetailsLodgingDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -1813,16 +1787,7 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumAccommodation(
     TypedDict,
 ):
     accommodation_type: NotRequired[
-        Literal[
-            "apartment",
-            "cabana",
-            "house",
-            "penthouse",
-            "room",
-            "standard",
-            "suite",
-            "villa",
-        ]
+        "Literal['apartment', 'cabana', 'house', 'penthouse', 'room', 'standard', 'suite', 'villa']|str"
     ]
     """
     Type of accommodation.
@@ -1887,7 +1852,7 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumHost(TypedDict):
     Reference number for the host.
     """
     host_type: NotRequired[
-        Literal["hostel", "hotel", "owner", "rental_agency"]
+        "Literal['hostel', 'hotel', 'owner', 'rental_agency']|str"
     ]
     """
     Type of host.
@@ -1952,8 +1917,8 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumInsurance(TypedDict):
     """
     Name of the insurance company.
     """
-    insurance_type: Literal[
-        "bankruptcy", "cancelation", "emergency", "medical"
+    insurance_type: Union[
+        Literal["bankruptcy", "cancelation", "emergency", "medical"], str
     ]
     """
     Type of insurance coverage.
@@ -2020,9 +1985,7 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge(
     Amount of the extra charge in cents.
     """
     type: NotRequired[
-        Literal[
-            "gift_shop", "laundry", "mini_bar", "other", "phone", "restaurant"
-        ]
+        "Literal['gift_shop', 'laundry', 'mini_bar', 'other', 'phone', 'restaurant']|str"
     ]
     """
     Type of extra charge.
@@ -2034,15 +1997,17 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTax(TypedDict):
     """
     Indicates whether the transaction is tax exempt.
     """
-    taxes: NotRequired[
-        List["PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Tax details.
     """
 
 
-class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax(
+class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem(
     TypedDict,
 ):
     amount: NotRequired[int]
@@ -2104,7 +2069,7 @@ class PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval(
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
     """
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """

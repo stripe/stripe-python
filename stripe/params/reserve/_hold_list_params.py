@@ -26,7 +26,7 @@ class HoldListParams(RequestOptions):
     """
     A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     """
-    reason: NotRequired[Literal["charge", "standalone"]]
+    reason: NotRequired["Literal['charge', 'standalone']|str"]
     reserve_plan: NotRequired[str]
     """
     Only return ReserveHolds associated with the ReservePlan specified by this ReservePlan ID.

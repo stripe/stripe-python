@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -33,12 +33,14 @@ class CreditUnderwritingRecordCreateFromApplicationParamsApplication(
     TypedDict
 ):
     application_method: NotRequired[
-        Literal["in_person", "mail", "online", "phone"]
+        "Literal['in_person', 'mail', 'online', 'phone']|str"
     ]
     """
     The channel through which the applicant has submitted their application. Defaults to `online`.
     """
-    purpose: Literal["credit_limit_increase", "credit_line_opening"]
+    purpose: Union[
+        Literal["credit_limit_increase", "credit_line_opening"], str
+    ]
     """
     Scope of demand made by the applicant.
     """

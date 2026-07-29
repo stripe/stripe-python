@@ -8,7 +8,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import Any, ClassVar, List, Optional, cast, overload
+from typing import Any, ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -81,7 +81,7 @@ class Quote(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Union[Literal["account", "self"], str]
             """
             Type of the account referenced.
             """
@@ -99,7 +99,9 @@ class Quote(
         The tax provider powering automatic tax.
         """
         status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
+            Union[
+                Literal["complete", "failed", "requires_location_inputs"], str
+            ]
         ]
         """
         The status of the most recent automated tax calculation for this quote.
@@ -117,7 +119,9 @@ class Quote(
                 """
                 Information derived from the `failure_code` or a freeform message that explains the error as a human-readable English string. For example, "margin ID is not a valid ID".
                 """
-                reason: Literal["automation_failure", "internal_error"]
+                reason: Union[
+                    Literal["automation_failure", "internal_error"], str
+                ]
                 """
                 The reason the reestimation failed.
                 """
@@ -126,7 +130,7 @@ class Quote(
             """
             When `status` is `failed`, provides details about the quote reestimation failure.
             """
-            status: Literal["failed", "in_progress", "succeeded"]
+            status: Union[Literal["failed", "in_progress", "succeeded"], str]
             """
             Latest status of the reestimation.
             """
@@ -160,22 +164,25 @@ class Quote(
                         Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
+                            Union[
+                                Literal[
+                                    "customer_exempt",
+                                    "not_collecting",
+                                    "not_subject_to_tax",
+                                    "not_supported",
+                                    "portion_product_exempt",
+                                    "portion_reduced_rated",
+                                    "portion_standard_rated",
+                                    "product_exempt",
+                                    "product_exempt_holiday",
+                                    "proportionally_rated",
+                                    "reduced_rated",
+                                    "reverse_charge",
+                                    "standard_rated",
+                                    "taxable_basis_reduced",
+                                    "zero_rated",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -258,22 +265,25 @@ class Quote(
                         Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
+                            Union[
+                                Literal[
+                                    "customer_exempt",
+                                    "not_collecting",
+                                    "not_subject_to_tax",
+                                    "not_supported",
+                                    "portion_product_exempt",
+                                    "portion_reduced_rated",
+                                    "portion_standard_rated",
+                                    "product_exempt",
+                                    "product_exempt_holiday",
+                                    "proportionally_rated",
+                                    "reduced_rated",
+                                    "reverse_charge",
+                                    "standard_rated",
+                                    "taxable_basis_reduced",
+                                    "zero_rated",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -354,32 +364,57 @@ class Quote(
         """
 
     class InvoiceSettings(StripeObject):
+        class CustomField(StripeObject):
+            name: str
+            """
+            The name of the custom field.
+            """
+            value: str
+            """
+            The value of the custom field.
+            """
+
         class Issuer(StripeObject):
             account: Optional[ExpandableField["Account"]]
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Union[Literal["account", "self"], str]
             """
             Type of the account referenced.
             """
 
+        custom_fields: Optional[List[CustomField]]
+        """
+        A list of up to 4 custom fields to be displayed on the invoice.
+        """
         days_until_due: Optional[int]
         """
         Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
         """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        footer: Optional[str]
+        """
+        Footer to be displayed on the invoice.
+        """
         issuer: Issuer
-        _inner_class_types = {"issuer": Issuer}
+        _inner_class_types = {"custom_fields": CustomField, "issuer": Issuer}
 
     class StatusDetails(StripeObject):
         class Canceled(StripeObject):
             reason: Optional[
-                Literal[
-                    "canceled",
-                    "quote_accepted",
-                    "quote_expired",
-                    "quote_superseded",
-                    "subscription_canceled",
+                Union[
+                    Literal[
+                        "canceled",
+                        "quote_accepted",
+                        "quote_expired",
+                        "quote_superseded",
+                        "subscription_canceled",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -529,12 +564,15 @@ class Quote(
                 """
                 A precise Unix timestamp.
                 """
-                type: Literal[
-                    "line_starts_at",
-                    "now",
-                    "pause_collection_start",
-                    "quote_acceptance_date",
-                    "timestamp",
+                type: Union[
+                    Literal[
+                        "line_starts_at",
+                        "now",
+                        "pause_collection_start",
+                        "quote_acceptance_date",
+                        "timestamp",
+                    ],
+                    str,
                 ]
                 """
                 The type of method to specify the `bill_from` time.
@@ -543,7 +581,9 @@ class Quote(
 
             class BillUntil(StripeObject):
                 class Duration(StripeObject):
-                    interval: Literal["day", "month", "week", "year"]
+                    interval: Union[
+                        Literal["day", "month", "week", "year"], str
+                    ]
                     """
                     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                     """
@@ -574,12 +614,15 @@ class Quote(
                 """
                 A precise Unix timestamp.
                 """
-                type: Literal[
-                    "duration",
-                    "line_ends_at",
-                    "schedule_end",
-                    "timestamp",
-                    "upcoming_invoice",
+                type: Union[
+                    Literal[
+                        "duration",
+                        "line_ends_at",
+                        "schedule_end",
+                        "timestamp",
+                        "upcoming_invoice",
+                    ],
+                    str,
                 ]
                 """
                 The type of method to specify the `bill_until` time.
@@ -610,7 +653,7 @@ class Quote(
                 """
 
             flexible: Optional[Flexible]
-            type: Literal["classic", "flexible"]
+            type: Union[Literal["classic", "flexible"], str]
             """
             Controls how prorations and invoices for subscriptions are calculated and orchestrated.
             """
@@ -645,7 +688,7 @@ class Quote(
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
         """
-        end_behavior: Optional[Literal["cancel", "release"]]
+        end_behavior: Optional[Union[Literal["cancel", "release"], str]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
@@ -687,7 +730,7 @@ class Quote(
             """
             The ID of the schedule the line applies to.
             """
-            type: Literal["new_reference", "subscription_schedule"]
+            type: Union[Literal["new_reference", "subscription_schedule"], str]
             """
             Describes whether the quote line is affecting a new schedule or an existing schedule.
             """
@@ -712,12 +755,15 @@ class Quote(
                 """
                 A precise Unix timestamp.
                 """
-                type: Literal[
-                    "line_starts_at",
-                    "now",
-                    "pause_collection_start",
-                    "quote_acceptance_date",
-                    "timestamp",
+                type: Union[
+                    Literal[
+                        "line_starts_at",
+                        "now",
+                        "pause_collection_start",
+                        "quote_acceptance_date",
+                        "timestamp",
+                    ],
+                    str,
                 ]
                 """
                 The type of method to specify the `bill_from` time.
@@ -726,7 +772,9 @@ class Quote(
 
             class BillUntil(StripeObject):
                 class Duration(StripeObject):
-                    interval: Literal["day", "month", "week", "year"]
+                    interval: Union[
+                        Literal["day", "month", "week", "year"], str
+                    ]
                     """
                     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                     """
@@ -757,12 +805,15 @@ class Quote(
                 """
                 A precise Unix timestamp.
                 """
-                type: Literal[
-                    "duration",
-                    "line_ends_at",
-                    "schedule_end",
-                    "timestamp",
-                    "upcoming_invoice",
+                type: Union[
+                    Literal[
+                        "duration",
+                        "line_ends_at",
+                        "schedule_end",
+                        "timestamp",
+                        "upcoming_invoice",
+                    ],
+                    str,
                 ]
                 """
                 The type of method to specify the `bill_until` time.
@@ -804,7 +855,7 @@ class Quote(
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
-        end_behavior: Optional[Literal["cancel", "release"]]
+        end_behavior: Optional[Union[Literal["cancel", "release"], str]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
@@ -829,7 +880,7 @@ class Quote(
             """
             The ID of the schedule the line applies to.
             """
-            type: Literal["new_reference", "subscription_schedule"]
+            type: Union[Literal["new_reference", "subscription_schedule"], str]
             """
             Describes whether the quote line is affecting a new schedule or an existing schedule.
             """
@@ -868,22 +919,25 @@ class Quote(
                 Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
-                    Literal[
-                        "customer_exempt",
-                        "not_collecting",
-                        "not_subject_to_tax",
-                        "not_supported",
-                        "portion_product_exempt",
-                        "portion_reduced_rated",
-                        "portion_standard_rated",
-                        "product_exempt",
-                        "product_exempt_holiday",
-                        "proportionally_rated",
-                        "reduced_rated",
-                        "reverse_charge",
-                        "standard_rated",
-                        "taxable_basis_reduced",
-                        "zero_rated",
+                    Union[
+                        Literal[
+                            "customer_exempt",
+                            "not_collecting",
+                            "not_subject_to_tax",
+                            "not_supported",
+                            "portion_product_exempt",
+                            "portion_reduced_rated",
+                            "portion_standard_rated",
+                            "product_exempt",
+                            "product_exempt_holiday",
+                            "proportionally_rated",
+                            "reduced_rated",
+                            "reverse_charge",
+                            "standard_rated",
+                            "taxable_basis_reduced",
+                            "zero_rated",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -1044,8 +1098,9 @@ class Quote(
     """
     The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     """
-    status: Literal[
-        "accepted", "accepting", "canceled", "draft", "open", "stale"
+    status: Union[
+        Literal["accepted", "accepting", "canceled", "draft", "open", "stale"],
+        str,
     ]
     """
     The status of the quote.

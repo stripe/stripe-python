@@ -8,13 +8,15 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
+    from stripe._customer import Customer
     from stripe._payment_intent import PaymentIntent
+    from stripe._payment_method import PaymentMethod
     from stripe._reversal import Reversal
     from stripe.params._refund_cancel_params import RefundCancelParams
     from stripe.params._refund_create_params import RefundCreateParams
@@ -95,7 +97,7 @@ class Refund(
             """
             Type of the reference number assigned to the refund.
             """
-            type: Literal["pending", "refund", "reversal"]
+            type: Union[Literal["pending", "refund", "reversal"], str]
             """
             The type of refund. This can be `refund`, `reversal`, or `pending`.
             """
@@ -408,6 +410,14 @@ class Refund(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    customer: Optional[ExpandableField["Customer"]]
+    """
+    ID of the customer of this refund.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account of this refund.
+    """
     description: Optional[str]
     """
     An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
@@ -444,19 +454,28 @@ class Refund(
     """
     ID of the PaymentIntent that's refunded.
     """
+    payment_method: Optional[ExpandableField["PaymentMethod"]]
+    """
+    ID of the payment method associated with this refund.
+    """
     pending_reason: Optional[
-        Literal["charge_pending", "insufficient_funds", "processing"]
+        Union[
+            Literal["charge_pending", "insufficient_funds", "processing"], str
+        ]
     ]
     """
     Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
     """
     presentment_details: Optional[PresentmentDetails]
     reason: Optional[
-        Literal[
-            "duplicate",
-            "expired_uncaptured_charge",
-            "fraudulent",
-            "requested_by_customer",
+        Union[
+            Literal[
+                "duplicate",
+                "expired_uncaptured_charge",
+                "fraudulent",
+                "requested_by_customer",
+            ],
+            str,
         ]
     ]
     """

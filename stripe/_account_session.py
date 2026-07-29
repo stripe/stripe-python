@@ -153,6 +153,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether sending refunds is enabled. This is `true` by default.
                 """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+                """
 
             enabled: bool
             """
@@ -326,6 +330,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether sending refunds is enabled. This is `true` by default.
                 """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+                """
 
             enabled: bool
             """
@@ -347,6 +355,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 refund_management: bool
                 """
                 Whether sending refunds is enabled. This is `true` by default.
+                """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
                 """
 
             enabled: bool
@@ -373,6 +385,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 refund_management: bool
                 """
                 Whether sending refunds is enabled. This is `true` by default.
+                """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
                 """
 
             enabled: bool

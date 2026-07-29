@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -26,12 +26,15 @@ class RedactionJobValidationError(StripeObject):
         Erroring object type
         """
 
-    code: Literal[
-        "invalid_cascading_source",
-        "invalid_file_purpose",
-        "invalid_state",
-        "locked_by_other_job",
-        "too_many_objects",
+    code: Union[
+        Literal[
+            "invalid_cascading_source",
+            "invalid_file_purpose",
+            "invalid_state",
+            "locked_by_other_job",
+            "too_many_objects",
+        ],
+        str,
     ]
     """
     A code indicating the reason for the error.

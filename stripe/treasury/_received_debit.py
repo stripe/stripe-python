@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -103,12 +103,15 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Set when `type` is `issuing_card`. This is an [Issuing Card](https://api.stripe.com#issuing_cards) ID.
         """
-        type: Literal[
-            "balance",
-            "financial_account",
-            "issuing_card",
-            "stripe",
-            "us_bank_account",
+        type: Union[
+            Literal[
+                "balance",
+                "financial_account",
+                "issuing_card",
+                "stripe",
+                "us_bank_account",
+            ],
+            str,
         ]
         """
         Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
@@ -173,12 +176,15 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         Time before which a ReceivedDebit can be reversed.
         """
         restricted_reason: Optional[
-            Literal[
-                "already_reversed",
-                "deadline_passed",
-                "network_restricted",
-                "other",
-                "source_flow_restricted",
+            Union[
+                Literal[
+                    "already_reversed",
+                    "deadline_passed",
+                    "network_restricted",
+                    "other",
+                    "source_flow_restricted",
+                ],
+                str,
             ]
         ]
         """
@@ -202,12 +208,15 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     failure_code: Optional[
-        Literal[
-            "account_closed",
-            "account_frozen",
-            "insufficient_funds",
-            "international_transaction",
-            "other",
+        Union[
+            Literal[
+                "account_closed",
+                "account_frozen",
+                "insufficient_funds",
+                "international_transaction",
+                "other",
+            ],
+            str,
         ]
     ]
     """
@@ -231,7 +240,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Literal["ach", "card", "stripe"]
+    network: Union[Literal["ach", "card", "stripe"], str]
     """
     The network used for the ReceivedDebit.
     """
@@ -247,7 +256,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     Details describing when a ReceivedDebit might be reversed.
     """
-    status: Literal["failed", "succeeded"]
+    status: Union[Literal["failed", "succeeded"], str]
     """
     Status of the ReceivedDebit. ReceivedDebits are created with a status of either `succeeded` (approved) or `failed` (declined). The failure reason can be found under the `failure_code`.
     """

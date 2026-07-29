@@ -77,7 +77,7 @@ class FinancialAccountFeaturesUpdateParamsFinancialAddresses(TypedDict):
 
 
 class FinancialAccountFeaturesUpdateParamsFinancialAddressesAba(TypedDict):
-    bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+    bank: NotRequired["Literal['evolve', 'fifth_third', 'goldman_sachs']|str"]
     """
     Requested bank partner
     """

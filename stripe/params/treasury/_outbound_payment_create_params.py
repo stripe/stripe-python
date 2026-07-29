@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -80,7 +80,7 @@ class OutboundPaymentCreateParamsDestinationPaymentMethodData(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    type: Literal["financial_account", "us_bank_account"]
+    type: Union[Literal["financial_account", "us_bank_account"], str]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
     """
@@ -147,7 +147,7 @@ class OutboundPaymentCreateParamsDestinationPaymentMethodDataBillingDetailsAddre
 class OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccount(
     TypedDict,
 ):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Account holder type: individual or company.
     """
@@ -155,7 +155,7 @@ class OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccount(
     """
     Account number of the bank account.
     """
-    account_type: NotRequired[Literal["checking", "savings"]]
+    account_type: NotRequired["Literal['checking', 'savings']|str"]
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
@@ -181,7 +181,7 @@ class OutboundPaymentCreateParamsDestinationPaymentMethodOptions(TypedDict):
 class OutboundPaymentCreateParamsDestinationPaymentMethodOptionsUsBankAccount(
     TypedDict,
 ):
-    network: NotRequired[Literal["ach", "us_domestic_wire"]]
+    network: NotRequired["Literal['ach', 'us_domestic_wire']|str"]
     """
     Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
     """

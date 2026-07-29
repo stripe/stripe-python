@@ -5,7 +5,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -92,20 +92,23 @@ class AccountNotice(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    reason: Literal[
-        "issuing.account_closed_for_inactivity",
-        "issuing.account_closed_for_not_providing_business_model_clarification",
-        "issuing.account_closed_for_not_providing_url_clarification",
-        "issuing.account_closed_for_not_providing_use_case_clarification",
-        "issuing.account_closed_for_terms_of_service_violation",
-        "issuing.application_rejected_for_failure_to_verify",
-        "issuing.credit_application_rejected",
-        "issuing.credit_increase_application_rejected",
-        "issuing.credit_limit_decreased",
-        "issuing.credit_line_closed",
-        "issuing.dispute_lost",
-        "issuing.dispute_submitted",
-        "issuing.dispute_won",
+    reason: Union[
+        Literal[
+            "issuing.account_closed_for_inactivity",
+            "issuing.account_closed_for_not_providing_business_model_clarification",
+            "issuing.account_closed_for_not_providing_url_clarification",
+            "issuing.account_closed_for_not_providing_use_case_clarification",
+            "issuing.account_closed_for_terms_of_service_violation",
+            "issuing.application_rejected_for_failure_to_verify",
+            "issuing.credit_application_rejected",
+            "issuing.credit_increase_application_rejected",
+            "issuing.credit_limit_decreased",
+            "issuing.credit_line_closed",
+            "issuing.dispute_lost",
+            "issuing.dispute_submitted",
+            "issuing.dispute_won",
+        ],
+        str,
     ]
     """
     Reason the notice is being sent. The reason determines what copy the notice must contain. See the [regulated customer notices](https://docs.stripe.com/issuing/compliance-us/issuing-regulated-customer-notices) guide. All reasons might not apply to your integration, and Stripe might add new reasons in the future, so we recommend an internal warning when you receive an unknown reason.

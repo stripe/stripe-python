@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -63,35 +63,41 @@ class TransactionEntry(StripeObject):
             """
             If applicable, the ID of the ReceivedDebit that created this Transaction.
             """
-            type: Literal[
-                "adjustment",
-                "currency_conversion",
-                "fee_transaction",
-                "inbound_transfer",
-                "outbound_payment",
-                "outbound_transfer",
-                "received_credit",
-                "received_debit",
+            type: Union[
+                Literal[
+                    "adjustment",
+                    "currency_conversion",
+                    "fee_transaction",
+                    "inbound_transfer",
+                    "outbound_payment",
+                    "outbound_transfer",
+                    "received_credit",
+                    "received_debit",
+                ],
+                str,
             ]
             """
             Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
             """
 
-        category: Literal[
-            "adjustment",
-            "currency_conversion",
-            "inbound_transfer",
-            "inbound_transfer_reversal",
-            "outbound_payment",
-            "outbound_payment_reversal",
-            "outbound_transfer",
-            "outbound_transfer_reversal",
-            "received_credit",
-            "received_credit_reversal",
-            "received_debit",
-            "received_debit_reversal",
-            "stripe_fee",
-            "stripe_fee_tax",
+        category: Union[
+            Literal[
+                "adjustment",
+                "currency_conversion",
+                "inbound_transfer",
+                "inbound_transfer_reversal",
+                "outbound_payment",
+                "outbound_payment_reversal",
+                "outbound_transfer",
+                "outbound_transfer_reversal",
+                "received_credit",
+                "received_credit_reversal",
+                "received_debit",
+                "received_debit_reversal",
+                "stripe_fee",
+                "stripe_fee_tax",
+            ],
+            str,
         ]
         """
         Closed Enum for now, and will be turned into an Open Enum soon. A descriptive category used to classify the Transaction.

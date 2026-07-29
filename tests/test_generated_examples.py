@@ -46664,7 +46664,7 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/money_management/outbound_setup_intents",
+            "/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
             rbody='{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
             rcode=400,
         )
@@ -46674,12 +46674,14 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.money_management.outbound_setup_intents.create()
+            client.v2.core.vault.us_bank_accounts.confirm_microdeposits(
+                "id_123"
+            )
         except _error.ControlledByAlternateResourceError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/money_management/outbound_setup_intents",
+            path="/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",

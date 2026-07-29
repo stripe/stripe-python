@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -53,7 +53,7 @@ class SubscriptionCreateParams(RequestOptions):
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
     """
     cancel_at: NotRequired[
-        "int|Literal['max_billed_until', 'max_period_end', 'min_period_end']"
+        "int|Literal['max_billed_until', 'max_period_end', 'min_period_end']|str"
     ]
     """
     A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -158,7 +158,7 @@ class SubscriptionCreateParams(RequestOptions):
     If specified, the invoicing for the given billing cycle iterations will be processed now.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
@@ -254,7 +254,7 @@ class SubscriptionCreateParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -263,7 +263,7 @@ class SubscriptionCreateParamsAddInvoiceItemDiscountDiscountEnd(TypedDict):
 class SubscriptionCreateParamsAddInvoiceItemDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -289,7 +289,7 @@ class SubscriptionCreateParamsAddInvoiceItemPeriodEnd(TypedDict):
     """
     A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
     """
-    type: Literal["min_item_period_end", "timestamp"]
+    type: Union[Literal["min_item_period_end", "timestamp"], str]
     """
     Select how to calculate the end of the invoice item period.
     """
@@ -300,7 +300,7 @@ class SubscriptionCreateParamsAddInvoiceItemPeriodStart(TypedDict):
     """
     A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
     """
-    type: Literal["max_item_period_start", "now", "timestamp"]
+    type: Union[Literal["max_item_period_start", "now", "timestamp"], str]
     """
     Select how to calculate the start of the invoice item period.
     """
@@ -345,7 +345,7 @@ class SubscriptionCreateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -379,7 +379,7 @@ class SubscriptionCreateParamsBillingMode(TypedDict):
     """
     Configure behavior for flexible billing mode.
     """
-    type: Literal["classic", "flexible"]
+    type: Union[Literal["classic", "flexible"], str]
     """
     Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
     """
@@ -431,7 +431,7 @@ class SubscriptionCreateParamsBillingScheduleBillUntil(TypedDict):
     """
     The end date of the billing schedule.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """
@@ -489,14 +489,14 @@ class SubscriptionCreateParamsDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class SubscriptionCreateParamsDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -547,7 +547,7 @@ class SubscriptionCreateParamsInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -650,14 +650,14 @@ class SubscriptionCreateParamsItemDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class SubscriptionCreateParamsItemDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -710,7 +710,7 @@ class SubscriptionCreateParamsItemTrial(TypedDict):
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
@@ -724,12 +724,14 @@ class SubscriptionCreateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
     """
-    save_default_payment_method: NotRequired[Literal["off", "on_subscription"]]
+    save_default_payment_method: NotRequired[
+        "Literal['off', 'on_subscription']|str"
+    ]
     """
     Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off` if unspecified.
     """
@@ -820,7 +822,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
     Additional fields for Mandate creation
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Verification method for the intent
@@ -830,7 +832,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
     TypedDict,
 ):
-    transaction_type: NotRequired[Literal["business", "personal"]]
+    transaction_type: NotRequired["Literal['business', 'personal']|str"]
     """
     Transaction type of the mandate.
     """
@@ -839,7 +841,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandat
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact(
     TypedDict,
 ):
-    preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
+    preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
     """
@@ -895,7 +897,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard(
     Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
     """
     request_three_d_secure: NotRequired[
-        Literal["any", "automatic", "challenge"]
+        "Literal['any', 'automatic', 'challenge']|str"
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -909,7 +911,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOpti
     """
     Amount to be charged for future payments, specified in the presentment currency.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -989,19 +991,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOpt
     The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
     """
     purpose: NotRequired[
-        Literal[
-            "dependant_support",
-            "government",
-            "loan",
-            "mortgage",
-            "other",
-            "pension",
-            "personal",
-            "retail",
-            "salary",
-            "tax",
-            "utility",
-        ]
+        "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']|str"
     ]
     """
     The purpose for which payments are made. Has a default value based on your merchant category code.
@@ -1030,7 +1020,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
     """
     Amount to be charged for future payments. If not provided, defaults to 40000.
     """
-    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    amount_includes_iof: NotRequired["Literal['always', 'never']|str"]
     """
     Determines if the amount includes the IOF tax. Defaults to `never`.
     """
@@ -1039,7 +1029,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
     Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
     """
     payment_schedule: NotRequired[
-        Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        "Literal['halfyearly', 'monthly', 'quarterly', 'weekly', 'yearly']|str"
     ]
     """
     Schedule at which the future payments will be charged. Defaults to the subscription servicing interval.
@@ -1070,7 +1060,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptio
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -1094,7 +1084,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
     Additional fields for Financial Connections Session creation
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Verification method for the intent
@@ -1120,8 +1110,14 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFi
     """
     prefetch: NotRequired[
         List[
-            Literal[
-                "balances", "inferred_balances", "ownership", "transactions"
+            Union[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ],
+                str,
             ]
         ]
     ]
@@ -1133,7 +1129,9 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFi
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
     TypedDict,
 ):
-    account_subcategories: NotRequired[List[Literal["checking", "savings"]]]
+    account_subcategories: NotRequired[
+        List[Union[Literal["checking", "savings"], str]]
+    ]
     """
     The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
     """
@@ -1159,7 +1157,7 @@ class SubscriptionCreateParamsPrebilling(TypedDict):
     """
     This is used to determine the number of billing cycles to prebill.
     """
-    update_behavior: NotRequired[Literal["prebill", "reset"]]
+    update_behavior: NotRequired["Literal['prebill', 'reset']|str"]
     """
     Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
     """
@@ -1188,7 +1186,9 @@ class SubscriptionCreateParamsTrialSettingsEndBehavior(TypedDict):
     """
     Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
     """
-    missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+    missing_payment_method: Union[
+        Literal["cancel", "create_invoice", "pause"], str
+    ]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
     """

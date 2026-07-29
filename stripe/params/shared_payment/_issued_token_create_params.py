@@ -35,6 +35,10 @@ class IssuedTokenCreateParams(RequestOptions):
     """
     Limits on how this SharedPaymentToken can be used.
     """
+    use_stripe_sdk: NotRequired[bool]
+    """
+    Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+    """
 
 
 class IssuedTokenCreateParamsSellerDetails(TypedDict):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -30,11 +30,17 @@ class CardholderUpdateParams(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    name: NotRequired[str]
+    """
+    The cardholder's name. This will be printed on cards issued to them.
+    """
     phone_number: NotRequired[str]
     """
     The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure) for more details.
     """
-    preferred_locales: NotRequired[List[Literal["de", "en", "es", "fr", "it"]]]
+    preferred_locales: NotRequired[
+        List[Union[Literal["de", "en", "es", "fr", "it"], str]]
+    ]
     """
     The cardholder's preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
      This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
@@ -43,7 +49,7 @@ class CardholderUpdateParams(TypedDict):
     """
     Rules that control spending across this cardholder's cards. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
     """
-    status: NotRequired[Literal["active", "inactive"]]
+    status: NotRequired["Literal['active', 'inactive']|str"]
     """
     Specifies whether to permit authorizations on this cardholder's cards.
     """
@@ -1124,8 +1130,16 @@ class CardholderUpdateParamsSpendingControlsSpendingLimit(TypedDict):
     """
     Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
     """
-    interval: Literal[
-        "all_time", "daily", "monthly", "per_authorization", "weekly", "yearly"
+    interval: Union[
+        Literal[
+            "all_time",
+            "daily",
+            "monthly",
+            "per_authorization",
+            "weekly",
+            "yearly",
+        ],
+        str,
     ]
     """
     Interval (or event) to which the amount applies.

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -32,19 +32,22 @@ class CustomerCreateFundingInstructionsParamsBankTransfer(TypedDict):
     Configuration for eu_bank_transfer funding type.
     """
     requested_address_types: NotRequired[
-        List[Literal["iban", "sort_code", "spei", "zengin"]]
+        List[Union[Literal["iban", "sort_code", "spei", "zengin"], str]]
     ]
     """
     List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
 
     Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
     """
-    type: Literal[
-        "eu_bank_transfer",
-        "gb_bank_transfer",
-        "jp_bank_transfer",
-        "mx_bank_transfer",
-        "us_bank_transfer",
+    type: Union[
+        Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ],
+        str,
     ]
     """
     The type of the `bank_transfer`

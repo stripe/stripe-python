@@ -6,7 +6,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentMethodUpdateParams(TypedDict):
-    allow_redisplay: NotRequired[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: NotRequired[
+        "Literal['always', 'limited', 'unspecified']|str"
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
     """
@@ -107,7 +109,7 @@ class PaymentMethodUpdateParamsCard(TypedDict):
 
 class PaymentMethodUpdateParamsCardNetworks(TypedDict):
     preferred: NotRequired[
-        "Literal['']|Literal['cartes_bancaires', 'mastercard', 'visa']"
+        "Literal['']|Literal['cartes_bancaires', 'mastercard', 'visa']|str"
     ]
     """
     The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
@@ -130,11 +132,11 @@ class PaymentMethodUpdateParamsPayto(TypedDict):
 
 
 class PaymentMethodUpdateParamsUsBankAccount(TypedDict):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Bank account holder type.
     """
-    account_type: NotRequired[Literal["checking", "savings"]]
+    account_type: NotRequired["Literal['checking', 'savings']|str"]
     """
     Bank account type.
     """

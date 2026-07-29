@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -42,7 +43,7 @@ class BillSettingUpdateParamsCalculation(TypedDict):
 
 
 class BillSettingUpdateParamsCalculationTax(TypedDict):
-    type: Literal["automatic", "manual"]
+    type: Union[Literal["automatic", "manual"], str]
     """
     Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
     """

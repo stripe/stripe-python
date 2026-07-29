@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -35,7 +35,7 @@ class Workflow(StripeObject):
         """
         The Workflow can be launched through a direct call, using either the Dashboard or the Stripe API.
         """
-        type: Literal["event_trigger", "manual"]
+        type: Union[Literal["event_trigger", "manual"], str]
         """
         Which type of trigger this is.
         """
@@ -57,7 +57,7 @@ class Workflow(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    status: Literal["active", "archived", "draft", "inactive"]
+    status: Union[Literal["active", "archived", "draft", "inactive"], str]
     """
     Whether this Workflow is active, inactive, or in some other state. Only active Workflows may be invoked.
     """

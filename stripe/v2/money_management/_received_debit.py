@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -42,19 +42,23 @@ class ReceivedDebit(StripeObject):
         """
         The statement descriptor set by the originator of the debit.
         """
-        us_bank_account: UsBankAccount
+        us_bank_account: Optional[UsBankAccount]
         """
-        The payment method used to originate the debit.
+        Object containing details of the US Bank Account that originated the debit.
+        Present when the debit was originated via ACH.
         """
         _inner_class_types = {"us_bank_account": UsBankAccount}
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
-            reason: Literal[
-                "capability_inactive",
-                "financial_address_inactive",
-                "insufficient_funds",
-                "stripe_rejected",
+            reason: Union[
+                Literal[
+                    "capability_inactive",
+                    "financial_address_inactive",
+                    "insufficient_funds",
+                    "stripe_rejected",
+                ],
+                str,
             ]
             """
             Open Enum. The reason for the failure of the ReceivedDebit.
@@ -121,7 +125,9 @@ class ReceivedDebit(StripeObject):
     """
     A link to the Stripe-hosted receipt for this ReceivedDebit.
     """
-    status: Literal["canceled", "failed", "pending", "returned", "succeeded"]
+    status: Union[
+        Literal["canceled", "failed", "pending", "returned", "succeeded"], str
+    ]
     """
     Open Enum. The status of the ReceivedDebit.
     """
@@ -133,7 +139,7 @@ class ReceivedDebit(StripeObject):
     """
     The time at which the ReceivedDebit transitioned to a particular status.
     """
-    type: Literal["bank_transfer", "external_debit"]
+    type: Union[Literal["bank_transfer", "external_debit"], str]
     """
     Open Enum. The type of the ReceivedDebit.
     """

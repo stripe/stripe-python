@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -105,11 +105,13 @@ class OutboundPayment(
             """
 
         class UsBankAccount(StripeObject):
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             Account holder type: individual or company.
             """
-            account_type: Optional[Literal["checking", "savings"]]
+            account_type: Optional[Union[Literal["checking", "savings"], str]]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
@@ -129,7 +131,7 @@ class OutboundPayment(
             """
             ID of the mandate used to make this payment.
             """
-            network: Literal["ach", "us_domestic_wire"]
+            network: Union[Literal["ach", "us_domestic_wire"], str]
             """
             The network rails used. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
             """
@@ -140,7 +142,7 @@ class OutboundPayment(
 
         billing_details: BillingDetails
         financial_account: Optional[FinancialAccount]
-        type: Literal["financial_account", "us_bank_account"]
+        type: Union[Literal["financial_account", "us_bank_account"], str]
         """
         The type of the payment method used in the OutboundPayment.
         """
@@ -162,17 +164,20 @@ class OutboundPayment(
         """
 
     class ReturnedDetails(StripeObject):
-        code: Literal[
-            "account_closed",
-            "account_frozen",
-            "bank_account_restricted",
-            "bank_ownership_changed",
-            "declined",
-            "incorrect_account_holder_name",
-            "invalid_account_number",
-            "invalid_currency",
-            "no_account",
-            "other",
+        code: Union[
+            Literal[
+                "account_closed",
+                "account_frozen",
+                "bank_account_restricted",
+                "bank_ownership_changed",
+                "declined",
+                "incorrect_account_holder_name",
+                "invalid_account_number",
+                "invalid_currency",
+                "no_account",
+                "other",
+            ],
+            str,
         ]
         """
         Reason for the return.
@@ -222,7 +227,7 @@ class OutboundPayment(
             """
 
         ach: Optional[Ach]
-        type: Literal["ach", "us_domestic_wire"]
+        type: Union[Literal["ach", "us_domestic_wire"], str]
         """
         The US bank account network used to send funds.
         """
@@ -307,7 +312,9 @@ class OutboundPayment(
     """
     The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer).
     """
-    status: Literal["canceled", "failed", "posted", "processing", "returned"]
+    status: Union[
+        Literal["canceled", "failed", "posted", "processing", "returned"], str
+    ]
     """
     Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`. An OutboundPayment is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundPayment fails to arrive at its destination, its status will change to `returned`.
     """

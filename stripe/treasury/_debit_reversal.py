@@ -5,7 +5,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -81,7 +81,7 @@ class DebitReversal(
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    network: Literal["ach", "card"]
+    network: Union[Literal["ach", "card"], str]
     """
     The rails used to reverse the funds.
     """
@@ -93,7 +93,7 @@ class DebitReversal(
     """
     The ReceivedDebit being reversed.
     """
-    status: Literal["failed", "processing", "succeeded"]
+    status: Union[Literal["failed", "processing", "succeeded"], str]
     """
     Status of the DebitReversal
     """

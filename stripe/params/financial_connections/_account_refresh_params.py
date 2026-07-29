@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -10,7 +10,12 @@ class AccountRefreshParams(TypedDict):
     Specifies which fields in the response should be expanded.
     """
     features: List[
-        Literal["balance", "inferred_balances", "ownership", "transactions"]
+        Union[
+            Literal[
+                "balance", "inferred_balances", "ownership", "transactions"
+            ],
+            str,
+        ]
     ]
     """
     The list of account features that you would like to refresh.

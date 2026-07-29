@@ -207,6 +207,8 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsUsLocalAmusementTax as RegistrationCreateParamsCountryOptionsUsLocalAmusementTax,
         RegistrationCreateParamsCountryOptionsUsLocalLeaseTax as RegistrationCreateParamsCountryOptionsUsLocalLeaseTax,
         RegistrationCreateParamsCountryOptionsUsLuxuryTax as RegistrationCreateParamsCountryOptionsUsLuxuryTax,
+        RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax as RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax,
+        RegistrationCreateParamsCountryOptionsUsParkingTax as RegistrationCreateParamsCountryOptionsUsParkingTax,
         RegistrationCreateParamsCountryOptionsUsResortTax as RegistrationCreateParamsCountryOptionsUsResortTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTax as RegistrationCreateParamsCountryOptionsUsStateSalesTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection as RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection,
@@ -970,6 +972,14 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsUsLuxuryTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsParkingTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),

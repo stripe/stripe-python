@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict
+from typing import Dict, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -43,7 +43,7 @@ class CadenceCreateParamsBillingCycle(TypedDict):
     """
     Specific configuration for determining billing dates when type=month.
     """
-    type: Literal["day", "month", "week", "year"]
+    type: Union[Literal["day", "month", "week", "year"], str]
     """
     The frequency at which a cadence bills.
     """

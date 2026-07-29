@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -81,7 +81,7 @@ class Event(ListableAPIResource["Event"]):
 
         automation_action: Optional[AutomationAction]
         request: Optional[Request]
-        type: Literal["automation_action", "request"]
+        type: Union[Literal["automation_action", "request"], str]
         """
         The type of the reason for the event.
         """
@@ -241,12 +241,17 @@ class Event(ListableAPIResource["Event"]):
         "financial_connections.account.created",
         "financial_connections.account.deactivated",
         "financial_connections.account.disconnected",
+        "financial_connections.account.expected_deactivation_date_updated",
         "financial_connections.account.reactivated",
         "financial_connections.account.refreshed_balance",
         "financial_connections.account.refreshed_inferred_balances",
         "financial_connections.account.refreshed_ownership",
         "financial_connections.account.refreshed_transactions",
+        "financial_connections.account.supported_payment_method_types_updated",
         "financial_connections.account.upcoming_account_number_expiry",
+        "financial_connections.account.upcoming_deactivation",
+        "financial_connections.authorization.expected_deactivation_date_updated",
+        "financial_connections.authorization.upcoming_deactivation",
         "financial_connections.session.updated",
         "fx_quote.expired",
         "identity.verification_session.canceled",

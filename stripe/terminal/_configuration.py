@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -521,8 +521,11 @@ class Configuration(
         enterprise_eap_peap: Optional[EnterpriseEapPeap]
         enterprise_eap_tls: Optional[EnterpriseEapTls]
         personal_psk: Optional[PersonalPsk]
-        type: Literal[
-            "enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"
+        type: Union[
+            Literal[
+                "enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"
+            ],
+            str,
         ]
         """
         Security type of the WiFi network. The hash with the corresponding name contains the credentials for this security type.

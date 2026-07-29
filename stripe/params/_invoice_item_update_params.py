@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -103,14 +103,14 @@ class InvoiceItemUpdateParamsDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class InvoiceItemUpdateParamsDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """

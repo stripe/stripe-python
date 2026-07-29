@@ -37,7 +37,7 @@ class OutboundTransferCreateParams(_OutboundTransferCreateParamsBase):
 
 
 class OutboundTransferCreateParamsDeliveryOptions(TypedDict):
-    bank_account: NotRequired[Literal["automatic", "local", "wire"]]
+    bank_account: NotRequired["Literal['automatic', 'local', 'wire']|str"]
     """
     Open Enum. Method for bank account.
     """

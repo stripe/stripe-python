@@ -11,6 +11,13 @@ if TYPE_CHECKING:
         TrialOfferCreateParamsEndBehavior as TrialOfferCreateParamsEndBehavior,
         TrialOfferCreateParamsEndBehaviorTransition as TrialOfferCreateParamsEndBehaviorTransition,
     )
+    from stripe.params.product_catalog._trial_offer_list_params import (
+        TrialOfferListParams as TrialOfferListParams,
+        TrialOfferListParamsCreated as TrialOfferListParamsCreated,
+    )
+    from stripe.params.product_catalog._trial_offer_retrieve_params import (
+        TrialOfferRetrieveParams as TrialOfferRetrieveParams,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -32,6 +39,18 @@ _import_map = {
     ),
     "TrialOfferCreateParamsEndBehaviorTransition": (
         "stripe.params.product_catalog._trial_offer_create_params",
+        False,
+    ),
+    "TrialOfferListParams": (
+        "stripe.params.product_catalog._trial_offer_list_params",
+        False,
+    ),
+    "TrialOfferListParamsCreated": (
+        "stripe.params.product_catalog._trial_offer_list_params",
+        False,
+    ),
+    "TrialOfferRetrieveParams": (
+        "stripe.params.product_catalog._trial_offer_retrieve_params",
         False,
     ),
 }

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.v2._amount import AmountParam
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -9,7 +10,7 @@ class FinancialAddressCreditParams(TypedDict):
     """
     Object containing the amount value and currency to credit.
     """
-    network: Literal["ach", "chaps", "fps", "rtp", "wire"]
+    network: Union[Literal["ach", "chaps", "fps", "rtp", "wire"], str]
     """
     Open Enum. The network to use in simulating the funds flow. This will be the reflected in the resulting ReceivedCredit.
     """

@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -91,7 +91,9 @@ class FinancialAccount(
         """
         ABA Records contain U.S. bank account details per the ABA format.
         """
-        supported_networks: Optional[List[Literal["ach", "us_domestic_wire"]]]
+        supported_networks: Optional[
+            List[Union[Literal["ach", "us_domestic_wire"], str]]
+        ]
         """
         The list of networks that the address supports
         """
@@ -102,11 +104,15 @@ class FinancialAccount(
         _inner_class_types = {"aba": Aba}
 
     class PlatformRestrictions(StripeObject):
-        inbound_flows: Optional[Literal["restricted", "unrestricted"]]
+        inbound_flows: Optional[
+            Union[Literal["restricted", "unrestricted"], str]
+        ]
         """
         Restricts all inbound money movement.
         """
-        outbound_flows: Optional[Literal["restricted", "unrestricted"]]
+        outbound_flows: Optional[
+            Union[Literal["restricted", "unrestricted"], str]
+        ]
         """
         Restricts all outbound money movement.
         """
@@ -114,7 +120,10 @@ class FinancialAccount(
     class StatusDetails(StripeObject):
         class Closed(StripeObject):
             reasons: List[
-                Literal["account_rejected", "closed_by_platform", "other"]
+                Union[
+                    Literal["account_rejected", "closed_by_platform", "other"],
+                    str,
+                ]
             ]
             """
             The array that contains reasons for a FinancialAccount closure.
@@ -128,18 +137,21 @@ class FinancialAccount(
 
     active_features: Optional[
         List[
-            Literal[
-                "card_issuing",
-                "deposit_insurance",
-                "financial_addresses.aba",
-                "financial_addresses.aba.forwarding",
-                "inbound_transfers.ach",
-                "intra_stripe_flows",
-                "outbound_payments.ach",
-                "outbound_payments.us_domestic_wire",
-                "outbound_transfers.ach",
-                "outbound_transfers.us_domestic_wire",
-                "remote_deposit_capture",
+            Union[
+                Literal[
+                    "card_issuing",
+                    "deposit_insurance",
+                    "financial_addresses.aba",
+                    "financial_addresses.aba.forwarding",
+                    "inbound_transfers.ach",
+                    "intra_stripe_flows",
+                    "outbound_payments.ach",
+                    "outbound_payments.us_domestic_wire",
+                    "outbound_transfers.ach",
+                    "outbound_transfers.us_domestic_wire",
+                    "remote_deposit_capture",
+                ],
+                str,
             ]
         ]
     ]
@@ -194,18 +206,21 @@ class FinancialAccount(
     """
     pending_features: Optional[
         List[
-            Literal[
-                "card_issuing",
-                "deposit_insurance",
-                "financial_addresses.aba",
-                "financial_addresses.aba.forwarding",
-                "inbound_transfers.ach",
-                "intra_stripe_flows",
-                "outbound_payments.ach",
-                "outbound_payments.us_domestic_wire",
-                "outbound_transfers.ach",
-                "outbound_transfers.us_domestic_wire",
-                "remote_deposit_capture",
+            Union[
+                Literal[
+                    "card_issuing",
+                    "deposit_insurance",
+                    "financial_addresses.aba",
+                    "financial_addresses.aba.forwarding",
+                    "inbound_transfers.ach",
+                    "intra_stripe_flows",
+                    "outbound_payments.ach",
+                    "outbound_payments.us_domestic_wire",
+                    "outbound_transfers.ach",
+                    "outbound_transfers.us_domestic_wire",
+                    "remote_deposit_capture",
+                ],
+                str,
             ]
         ]
     ]
@@ -218,25 +233,28 @@ class FinancialAccount(
     """
     restricted_features: Optional[
         List[
-            Literal[
-                "card_issuing",
-                "deposit_insurance",
-                "financial_addresses.aba",
-                "financial_addresses.aba.forwarding",
-                "inbound_transfers.ach",
-                "intra_stripe_flows",
-                "outbound_payments.ach",
-                "outbound_payments.us_domestic_wire",
-                "outbound_transfers.ach",
-                "outbound_transfers.us_domestic_wire",
-                "remote_deposit_capture",
+            Union[
+                Literal[
+                    "card_issuing",
+                    "deposit_insurance",
+                    "financial_addresses.aba",
+                    "financial_addresses.aba.forwarding",
+                    "inbound_transfers.ach",
+                    "intra_stripe_flows",
+                    "outbound_payments.ach",
+                    "outbound_payments.us_domestic_wire",
+                    "outbound_transfers.ach",
+                    "outbound_transfers.us_domestic_wire",
+                    "remote_deposit_capture",
+                ],
+                str,
             ]
         ]
     ]
     """
     The array of paths to restricted Features in the Features hash.
     """
-    status: Literal["closed", "open"]
+    status: Union[Literal["closed", "open"], str]
     """
     Status of this FinancialAccount.
     """

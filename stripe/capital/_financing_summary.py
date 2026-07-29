@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -107,7 +107,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     """
     The object type: financing_summary
     """
-    status: Optional[Literal["accepted", "delivered", "none"]]
+    status: Optional[Union[Literal["accepted", "delivered", "none"], str]]
     """
     The financing status of the connected account.
     """
