@@ -5,7 +5,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -278,7 +278,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         errors: List[Error]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: List[str]
         """
@@ -488,7 +488,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         errors: List[Error]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: List[str]
         """
@@ -508,14 +508,17 @@ class Person(UpdateableAPIResource["Person"]):
         class EthnicityDetails(StripeObject):
             ethnicity: Optional[
                 List[
-                    Literal[
-                        "cuban",
-                        "hispanic_or_latino",
-                        "mexican",
-                        "not_hispanic_or_latino",
-                        "other_hispanic_or_latino",
-                        "prefer_not_to_answer",
-                        "puerto_rican",
+                    Union[
+                        Literal[
+                            "cuban",
+                            "hispanic_or_latino",
+                            "mexican",
+                            "not_hispanic_or_latino",
+                            "other_hispanic_or_latino",
+                            "prefer_not_to_answer",
+                            "puerto_rican",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -530,31 +533,34 @@ class Person(UpdateableAPIResource["Person"]):
         class RaceDetails(StripeObject):
             race: Optional[
                 List[
-                    Literal[
-                        "african_american",
-                        "american_indian_or_alaska_native",
-                        "asian",
-                        "asian_indian",
-                        "black_or_african_american",
-                        "chinese",
-                        "ethiopian",
-                        "filipino",
-                        "guamanian_or_chamorro",
-                        "haitian",
-                        "jamaican",
-                        "japanese",
-                        "korean",
-                        "native_hawaiian",
-                        "native_hawaiian_or_other_pacific_islander",
-                        "nigerian",
-                        "other_asian",
-                        "other_black_or_african_american",
-                        "other_pacific_islander",
-                        "prefer_not_to_answer",
-                        "samoan",
-                        "somali",
-                        "vietnamese",
-                        "white",
+                    Union[
+                        Literal[
+                            "african_american",
+                            "american_indian_or_alaska_native",
+                            "asian",
+                            "asian_indian",
+                            "black_or_african_american",
+                            "chinese",
+                            "ethiopian",
+                            "filipino",
+                            "guamanian_or_chamorro",
+                            "haitian",
+                            "jamaican",
+                            "japanese",
+                            "korean",
+                            "native_hawaiian",
+                            "native_hawaiian_or_other_pacific_islander",
+                            "nigerian",
+                            "other_asian",
+                            "other_black_or_african_american",
+                            "other_pacific_islander",
+                            "prefer_not_to_answer",
+                            "samoan",
+                            "somali",
+                            "vietnamese",
+                            "white",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -737,7 +743,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
     The person's phone number.
     """
-    political_exposure: Optional[Literal["existing", "none"]]
+    political_exposure: Optional[Union[Literal["existing", "none"], str]]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """

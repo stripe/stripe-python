@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -50,7 +50,7 @@ class InvoiceCreatePreviewParams(RequestOptions):
     """
     The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://docs.stripe.com/billing/invoices/connect) documentation for details.
     """
-    preview_mode: NotRequired[Literal["next", "recurring"]]
+    preview_mode: NotRequired["Literal['next', 'recurring']|str"]
     """
     Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
     """
@@ -90,7 +90,7 @@ class InvoiceCreatePreviewParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -256,6 +256,7 @@ class InvoiceCreatePreviewParamsCustomerDetailsTaxId(TypedDict):
         "hk_br",
         "hr_oib",
         "hu_tin",
+        "ic_nif",
         "id_npwp",
         "il_vat",
         "in_gst",
@@ -321,7 +322,7 @@ class InvoiceCreatePreviewParamsCustomerDetailsTaxId(TypedDict):
         "zw_tin",
     ]
     """
-    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
     """
     value: str
     """
@@ -359,14 +360,14 @@ class InvoiceCreatePreviewParamsDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class InvoiceCreatePreviewParamsDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -483,7 +484,7 @@ class InvoiceCreatePreviewParamsInvoiceItemDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -492,7 +493,7 @@ class InvoiceCreatePreviewParamsInvoiceItemDiscountDiscountEnd(TypedDict):
 class InvoiceCreatePreviewParamsInvoiceItemDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -541,7 +542,7 @@ class InvoiceCreatePreviewParamsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -581,7 +582,7 @@ class InvoiceCreatePreviewParamsScheduleDetails(TypedDict):
     Provide any time periods to bill in advance.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
@@ -601,7 +602,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendment(TypedDict):
     """
     Details to identify the earliest timestamp where the proposed change should take effect.
     """
-    billing_cycle_anchor: NotRequired[Literal["amendment_start", "automatic"]]
+    billing_cycle_anchor: NotRequired[
+        "Literal['amendment_start', 'automatic']|str"
+    ]
     """
     For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
     """
@@ -628,7 +631,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendment(TypedDict):
     Instructions for how to modify phase metadata
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
@@ -639,7 +642,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendment(TypedDict):
     """
     Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
     """
-    set_schedule_end: NotRequired[Literal["amendment_end", "amendment_start"]]
+    set_schedule_end: NotRequired[
+        "Literal['amendment_end', 'amendment_start']|str"
+    ]
     """
     Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
     """
@@ -670,14 +675,17 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentEnd(
     """
     A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
     """
-    type: Literal[
-        "discount_end",
-        "duration",
-        "schedule_end",
-        "timestamp",
-        "trial_end",
-        "trial_start",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "discount_end",
+            "duration",
+            "schedule_end",
+            "timestamp",
+            "trial_end",
+            "trial_start",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     Select one of three ways to pass the `amendment_end`.
@@ -696,7 +704,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentEndDiscountEnd(
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -725,15 +733,18 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStart(
     """
     A precise Unix timestamp for the amendment to start.
     """
-    type: Literal[
-        "amendment_end",
-        "discount_end",
-        "now",
-        "schedule_end",
-        "timestamp",
-        "trial_end",
-        "trial_start",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "amendment_end",
+            "discount_end",
+            "now",
+            "schedule_end",
+            "timestamp",
+            "trial_end",
+            "trial_start",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     Select one of three ways to pass the `amendment_start`.
@@ -779,7 +790,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountAction(
     """
     Details of the discount to replace the existing discounts with.
     """
-    type: Literal["add", "remove", "set"]
+    type: Union[Literal["add", "remove", "set"], str]
     """
     Determines the type of discount action.
     """
@@ -874,7 +885,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemAction(TypedDict):
     """
     Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
     """
-    type: Literal["add", "remove", "set"]
+    type: Union[Literal["add", "remove", "set"], str]
     """
     Determines the type of item action.
     """
@@ -955,7 +966,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDis
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -964,7 +975,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDis
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -981,7 +992,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddTrial(
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
@@ -1071,7 +1082,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDis
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -1080,7 +1091,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDis
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1097,7 +1108,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetTrial(
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
@@ -1118,7 +1129,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentMetadataAction(
     """
     Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
     """
-    type: Literal["add", "remove", "set"]
+    type: Union[Literal["add", "remove", "set"], str]
     """
     Select one of three ways to update phase-level `metadata` on subscription schedules.
     """
@@ -1133,7 +1144,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentSetPauseCollection(
     """
     Details of the pause_collection behavior to apply to the amendment.
     """
-    type: Literal["remove", "set"]
+    type: Union[Literal["remove", "set"], str]
     """
     Determines the type of the pause_collection amendment.
     """
@@ -1142,7 +1153,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentSetPauseCollection(
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentSetPauseCollectionSet(
     TypedDict,
 ):
-    behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+    behavior: Union[
+        Literal["keep_as_draft", "mark_uncollectible", "void"], str
+    ]
     """
     The payment collection behavior for this subscription while paused.
     """
@@ -1162,7 +1175,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentTrialSettings(
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentTrialSettingsEndBehavior(
     TypedDict,
 ):
-    prorate_up_front: NotRequired[Literal["defer", "include"]]
+    prorate_up_front: NotRequired["Literal['defer', 'include']|str"]
     """
     Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
     """
@@ -1175,7 +1188,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
     """
     Configure behavior for flexible billing mode.
     """
-    type: Literal["classic", "flexible"]
+    type: Union[Literal["classic", "flexible"], str]
     """
     Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
     """
@@ -1278,14 +1291,14 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
     """
     start_date: NotRequired["int|Literal['now']"]
     """
-    The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
+    The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase. Prefer to specify `now` over an explicit timestamp when appropriate to avoid unexpected behavior due to request delays or clock skew resulting in the phase being slightly backdated or postdated.
     """
     transfer_data: NotRequired[
         "InvoiceCreatePreviewParamsScheduleDetailsPhaseTransferData"
@@ -1297,13 +1310,13 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     """
     If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
     """
-    trial_continuation: NotRequired[Literal["continue", "none"]]
+    trial_continuation: NotRequired["Literal['continue', 'none']|str"]
     """
     Specify trial behavior when crossing phase boundaries
     """
     trial_end: NotRequired["int|Literal['now']"]
     """
-    Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+    Sets the phase to trialing from the start date to this date. Must be within the phase. When previewing an update, if combined with `trial=true`, it must match the phase end date.
     """
     trial_settings: NotRequired[
         "InvoiceCreatePreviewParamsScheduleDetailsPhaseTrialSettings"
@@ -1392,7 +1405,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscou
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -1401,7 +1414,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscou
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1433,7 +1446,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd(
     """
     A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
     """
-    type: Literal["min_item_period_end", "phase_end", "timestamp"]
+    type: Union[Literal["min_item_period_end", "phase_end", "timestamp"], str]
     """
     Select how to calculate the end of the invoice item period.
     """
@@ -1446,7 +1459,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart(
     """
     A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
     """
-    type: Literal["max_item_period_start", "phase_start", "timestamp"]
+    type: Union[
+        Literal["max_item_period_start", "phase_start", "timestamp"], str
+    ]
     """
     Select how to calculate the start of the invoice item period.
     """
@@ -1497,7 +1512,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAutomaticTaxLiability(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -1550,7 +1565,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEnd(
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -1559,7 +1574,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEnd(
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1604,7 +1619,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseInvoiceSettingsIssuer(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -1704,7 +1719,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEnd(
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -1713,7 +1728,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEnd(
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1770,14 +1785,16 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemTrial(TypedDict):
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhasePauseCollection(TypedDict):
-    behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+    behavior: Union[
+        Literal["keep_as_draft", "mark_uncollectible", "void"], str
+    ]
     """
     The payment collection behavior for this subscription while paused.
     """
@@ -1806,7 +1823,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseTrialSettings(TypedDict):
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseTrialSettingsEndBehavior(
     TypedDict,
 ):
-    prorate_up_front: NotRequired[Literal["defer", "include"]]
+    prorate_up_front: NotRequired["Literal['defer', 'include']|str"]
     """
     Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
     """
@@ -1842,7 +1859,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPrebillingBillUntil(TypedDict):
     """
     End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
     """
-    type: Literal["amendment_end", "duration", "schedule_end", "timestamp"]
+    type: Union[
+        Literal["amendment_end", "duration", "schedule_end", "timestamp"], str
+    ]
     """
     Select one of several ways to pass the `bill_until` value.
     """
@@ -1860,7 +1879,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPrebillingBillUntilAmendmentEnd(
 class InvoiceCreatePreviewParamsScheduleDetailsPrebillingBillUntilDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1888,7 +1907,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     Sets the billing schedules for the subscription.
     """
     cancel_at: NotRequired[
-        "Literal['']|int|Literal['max_billed_until', 'max_period_end', 'min_period_end']"
+        "Literal['']|int|Literal['max_billed_until', 'max_period_end', 'min_period_end']|str"
     ]
     """
     A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -1911,6 +1930,12 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     """
     A list of up to 20 subscription items, each with an attached price.
     """
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
     pause: NotRequired["InvoiceCreatePreviewParamsSubscriptionDetailsPause"]
     """
     Previews the invoice that would be generated when pausing the subscription. Passing an empty hash won't preview pausing and instead returns the next invoice.
@@ -1926,7 +1951,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     The pre-billing to apply to the subscription as a preview.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -1956,7 +1981,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
     """
     Configure behavior for flexible billing mode.
     """
-    type: Literal["classic", "flexible"]
+    type: Union[Literal["classic", "flexible"], str]
     """
     Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
     """
@@ -2018,7 +2043,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil(
     """
     The end date of the billing schedule.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """
@@ -2152,7 +2177,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd(
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -2161,7 +2186,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd(
 class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -2220,7 +2245,9 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsPause(TypedDict):
     """
     Controls what to bill for when pausing the subscription.
     """
-    invoicing_behavior: NotRequired[Literal["invoice", "pending_invoice_item"]]
+    invoicing_behavior: NotRequired[
+        "Literal['invoice', 'pending_invoice_item']|str"
+    ]
     """
     Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
     """

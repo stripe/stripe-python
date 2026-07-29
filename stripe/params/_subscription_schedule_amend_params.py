@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -22,7 +22,7 @@ class SubscriptionScheduleAmendParams(RequestOptions):
     Provide any time periods to bill in advance.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     In cases where the amendment changes the currently active phase,
@@ -47,7 +47,9 @@ class SubscriptionScheduleAmendParamsAmendment(TypedDict):
     """
     Details to identify the earliest timestamp where the proposed change should take effect.
     """
-    billing_cycle_anchor: NotRequired[Literal["amendment_start", "automatic"]]
+    billing_cycle_anchor: NotRequired[
+        "Literal['amendment_start', 'automatic']|str"
+    ]
     """
     For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
     """
@@ -70,7 +72,7 @@ class SubscriptionScheduleAmendParamsAmendment(TypedDict):
     Instructions for how to modify phase metadata
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
@@ -81,7 +83,9 @@ class SubscriptionScheduleAmendParamsAmendment(TypedDict):
     """
     Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
     """
-    set_schedule_end: NotRequired[Literal["amendment_end", "amendment_start"]]
+    set_schedule_end: NotRequired[
+        "Literal['amendment_end', 'amendment_start']|str"
+    ]
     """
     Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
     """
@@ -110,14 +114,17 @@ class SubscriptionScheduleAmendParamsAmendmentAmendmentEnd(TypedDict):
     """
     A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
     """
-    type: Literal[
-        "discount_end",
-        "duration",
-        "schedule_end",
-        "timestamp",
-        "trial_end",
-        "trial_start",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "discount_end",
+            "duration",
+            "schedule_end",
+            "timestamp",
+            "trial_end",
+            "trial_start",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     Select one of three ways to pass the `amendment_end`.
@@ -134,7 +141,7 @@ class SubscriptionScheduleAmendParamsAmendmentAmendmentEndDiscountEnd(
 
 
 class SubscriptionScheduleAmendParamsAmendmentAmendmentEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -161,15 +168,18 @@ class SubscriptionScheduleAmendParamsAmendmentAmendmentStart(TypedDict):
     """
     A precise Unix timestamp for the amendment to start.
     """
-    type: Literal[
-        "amendment_end",
-        "discount_end",
-        "now",
-        "schedule_end",
-        "timestamp",
-        "trial_end",
-        "trial_start",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "amendment_end",
+            "discount_end",
+            "now",
+            "schedule_end",
+            "timestamp",
+            "trial_end",
+            "trial_start",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     Select one of three ways to pass the `amendment_start`.
@@ -213,7 +223,7 @@ class SubscriptionScheduleAmendParamsAmendmentDiscountAction(TypedDict):
     """
     Details of the discount to replace the existing discounts with.
     """
-    type: Literal["add", "remove", "set"]
+    type: Union[Literal["add", "remove", "set"], str]
     """
     Determines the type of discount action.
     """
@@ -298,7 +308,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemAction(TypedDict):
     """
     Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
     """
-    type: Literal["add", "remove", "set"]
+    type: Union[Literal["add", "remove", "set"], str]
     """
     Determines the type of item action.
     """
@@ -373,7 +383,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEnd(
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -382,7 +392,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEnd(
 class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -397,7 +407,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionAddTrial(TypedDict):
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
@@ -479,7 +489,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEnd(
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -488,7 +498,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEnd(
 class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -503,7 +513,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionSetTrial(TypedDict):
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
@@ -522,7 +532,7 @@ class SubscriptionScheduleAmendParamsAmendmentMetadataAction(TypedDict):
     """
     Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
     """
-    type: Literal["add", "remove", "set"]
+    type: Union[Literal["add", "remove", "set"], str]
     """
     Select one of three ways to update phase-level `metadata` on subscription schedules.
     """
@@ -535,14 +545,16 @@ class SubscriptionScheduleAmendParamsAmendmentSetPauseCollection(TypedDict):
     """
     Details of the pause_collection behavior to apply to the amendment.
     """
-    type: Literal["remove", "set"]
+    type: Union[Literal["remove", "set"], str]
     """
     Determines the type of the pause_collection amendment.
     """
 
 
 class SubscriptionScheduleAmendParamsAmendmentSetPauseCollectionSet(TypedDict):
-    behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+    behavior: Union[
+        Literal["keep_as_draft", "mark_uncollectible", "void"], str
+    ]
     """
     The payment collection behavior for this subscription while paused.
     """
@@ -560,7 +572,7 @@ class SubscriptionScheduleAmendParamsAmendmentTrialSettings(TypedDict):
 class SubscriptionScheduleAmendParamsAmendmentTrialSettingsEndBehavior(
     TypedDict,
 ):
-    prorate_up_front: NotRequired[Literal["defer", "include"]]
+    prorate_up_front: NotRequired["Literal['defer', 'include']|str"]
     """
     Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
     """
@@ -581,7 +593,7 @@ class SubscriptionScheduleAmendParamsPrebilling(TypedDict):
     """
     When the prebilling invoice should be created. The default value is `now`.
     """
-    update_behavior: NotRequired[Literal["prebill", "reset"]]
+    update_behavior: NotRequired["Literal['prebill', 'reset']|str"]
     """
     Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
     """
@@ -598,7 +610,7 @@ class SubscriptionScheduleAmendParamsPrebillingBillFrom(TypedDict):
     """
     Start the prebilled period at a precise integer timestamp, starting from the Unix epoch.
     """
-    type: Literal["amendment_start", "now", "timestamp"]
+    type: Union[Literal["amendment_start", "now", "timestamp"], str]
     """
     Select one of several ways to pass the `bill_from` value.
     """
@@ -630,7 +642,9 @@ class SubscriptionScheduleAmendParamsPrebillingBillUntil(TypedDict):
     """
     End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
     """
-    type: Literal["amendment_end", "duration", "schedule_end", "timestamp"]
+    type: Union[
+        Literal["amendment_end", "duration", "schedule_end", "timestamp"], str
+    ]
     """
     Select one of several ways to pass the `bill_until` value.
     """
@@ -646,7 +660,7 @@ class SubscriptionScheduleAmendParamsPrebillingBillUntilAmendmentEnd(
 
 
 class SubscriptionScheduleAmendParamsPrebillingBillUntilDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -657,7 +671,7 @@ class SubscriptionScheduleAmendParamsPrebillingBillUntilDuration(TypedDict):
 
 
 class SubscriptionScheduleAmendParamsScheduleSettings(TypedDict):
-    end_behavior: NotRequired[Literal["cancel", "release"]]
+    end_behavior: NotRequired["Literal['cancel', 'release']|str"]
     """
     Behavior of the subscription schedule and underlying subscription when it ends.
     """

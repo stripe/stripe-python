@@ -14,7 +14,9 @@ class SubscriptionPauseParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    invoicing_behavior: NotRequired[Literal["invoice", "pending_invoice_item"]]
+    invoicing_behavior: NotRequired[
+        "Literal['invoice', 'pending_invoice_item']|str"
+    ]
     """
     Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
     """

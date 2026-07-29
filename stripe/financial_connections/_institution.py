@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -85,7 +85,7 @@ class Institution(ListableAPIResource["Institution"]):
     """
     A list of routing numbers which are known to correspond to this institution. Due to the many to many relationship between institutions and routing numbers, this list may not be comprehensive and routing numbers may also be shared between institutions.
     """
-    status: Literal["active", "degraded", "inactive"]
+    status: Union[Literal["active", "degraded", "inactive"], str]
     """
     The status of this institution in the Financial Connections authentication flow.
     """

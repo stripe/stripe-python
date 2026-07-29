@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -17,31 +17,39 @@ class FinancialAccountFeatures(StripeObject):
 
     class CardIssuing(StripeObject):
         class StatusDetail(StripeObject):
-            code: Literal[
-                "activating",
-                "capability_not_requested",
-                "financial_account_closed",
-                "rejected_other",
-                "rejected_unsupported_business",
-                "requirements_past_due",
-                "requirements_pending_verification",
-                "restricted_by_platform",
-                "restricted_other",
+            code: Union[
+                Literal[
+                    "activating",
+                    "capability_not_requested",
+                    "financial_account_closed",
+                    "rejected_other",
+                    "rejected_unsupported_business",
+                    "requirements_past_due",
+                    "requirements_pending_verification",
+                    "restricted_by_platform",
+                    "restricted_other",
+                ],
+                str,
             ]
             """
             Represents the reason why the status is `pending` or `restricted`.
             """
             resolution: Optional[
-                Literal[
-                    "contact_stripe",
-                    "provide_information",
-                    "remove_restriction",
+                Union[
+                    Literal[
+                        "contact_stripe",
+                        "provide_information",
+                        "remove_restriction",
+                    ],
+                    str,
                 ]
             ]
             """
             Represents what the user should do, if anything, to activate the Feature.
             """
-            restriction: Optional[Literal["inbound_flows", "outbound_flows"]]
+            restriction: Optional[
+                Union[Literal["inbound_flows", "outbound_flows"], str]
+            ]
             """
             The `platform_restrictions` that are restricting this Feature.
             """
@@ -50,7 +58,7 @@ class FinancialAccountFeatures(StripeObject):
         """
         Whether the FinancialAccount should have the Feature.
         """
-        status: Literal["active", "pending", "restricted"]
+        status: Union[Literal["active", "pending", "restricted"], str]
         """
         Whether the Feature is operational.
         """
@@ -62,31 +70,39 @@ class FinancialAccountFeatures(StripeObject):
 
     class DepositInsurance(StripeObject):
         class StatusDetail(StripeObject):
-            code: Literal[
-                "activating",
-                "capability_not_requested",
-                "financial_account_closed",
-                "rejected_other",
-                "rejected_unsupported_business",
-                "requirements_past_due",
-                "requirements_pending_verification",
-                "restricted_by_platform",
-                "restricted_other",
+            code: Union[
+                Literal[
+                    "activating",
+                    "capability_not_requested",
+                    "financial_account_closed",
+                    "rejected_other",
+                    "rejected_unsupported_business",
+                    "requirements_past_due",
+                    "requirements_pending_verification",
+                    "restricted_by_platform",
+                    "restricted_other",
+                ],
+                str,
             ]
             """
             Represents the reason why the status is `pending` or `restricted`.
             """
             resolution: Optional[
-                Literal[
-                    "contact_stripe",
-                    "provide_information",
-                    "remove_restriction",
+                Union[
+                    Literal[
+                        "contact_stripe",
+                        "provide_information",
+                        "remove_restriction",
+                    ],
+                    str,
                 ]
             ]
             """
             Represents what the user should do, if anything, to activate the Feature.
             """
-            restriction: Optional[Literal["inbound_flows", "outbound_flows"]]
+            restriction: Optional[
+                Union[Literal["inbound_flows", "outbound_flows"], str]
+            ]
             """
             The `platform_restrictions` that are restricting this Feature.
             """
@@ -95,7 +111,7 @@ class FinancialAccountFeatures(StripeObject):
         """
         Whether the FinancialAccount should have the Feature.
         """
-        status: Literal["active", "pending", "restricted"]
+        status: Union[Literal["active", "pending", "restricted"], str]
         """
         Whether the Feature is operational.
         """
@@ -108,38 +124,46 @@ class FinancialAccountFeatures(StripeObject):
     class FinancialAddresses(StripeObject):
         class Aba(StripeObject):
             class StatusDetail(StripeObject):
-                code: Literal[
-                    "activating",
-                    "capability_not_requested",
-                    "financial_account_closed",
-                    "rejected_other",
-                    "rejected_unsupported_business",
-                    "requirements_past_due",
-                    "requirements_pending_verification",
-                    "restricted_by_platform",
-                    "restricted_other",
+                code: Union[
+                    Literal[
+                        "activating",
+                        "capability_not_requested",
+                        "financial_account_closed",
+                        "rejected_other",
+                        "rejected_unsupported_business",
+                        "requirements_past_due",
+                        "requirements_pending_verification",
+                        "restricted_by_platform",
+                        "restricted_other",
+                    ],
+                    str,
                 ]
                 """
                 Represents the reason why the status is `pending` or `restricted`.
                 """
                 resolution: Optional[
-                    Literal[
-                        "contact_stripe",
-                        "provide_information",
-                        "remove_restriction",
+                    Union[
+                        Literal[
+                            "contact_stripe",
+                            "provide_information",
+                            "remove_restriction",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Represents what the user should do, if anything, to activate the Feature.
                 """
                 restriction: Optional[
-                    Literal["inbound_flows", "outbound_flows"]
+                    Union[Literal["inbound_flows", "outbound_flows"], str]
                 ]
                 """
                 The `platform_restrictions` that are restricting this Feature.
                 """
 
-            bank: Optional[Literal["evolve", "fifth_third", "goldman_sachs"]]
+            bank: Optional[
+                Union[Literal["evolve", "fifth_third", "goldman_sachs"], str]
+            ]
             """
             Requested bank partner for this Financial Account
             """
@@ -147,7 +171,7 @@ class FinancialAccountFeatures(StripeObject):
             """
             Whether the FinancialAccount should have the Feature.
             """
-            status: Literal["active", "pending", "restricted"]
+            status: Union[Literal["active", "pending", "restricted"], str]
             """
             Whether the Feature is operational.
             """
@@ -166,32 +190,38 @@ class FinancialAccountFeatures(StripeObject):
     class InboundTransfers(StripeObject):
         class Ach(StripeObject):
             class StatusDetail(StripeObject):
-                code: Literal[
-                    "activating",
-                    "capability_not_requested",
-                    "financial_account_closed",
-                    "rejected_other",
-                    "rejected_unsupported_business",
-                    "requirements_past_due",
-                    "requirements_pending_verification",
-                    "restricted_by_platform",
-                    "restricted_other",
+                code: Union[
+                    Literal[
+                        "activating",
+                        "capability_not_requested",
+                        "financial_account_closed",
+                        "rejected_other",
+                        "rejected_unsupported_business",
+                        "requirements_past_due",
+                        "requirements_pending_verification",
+                        "restricted_by_platform",
+                        "restricted_other",
+                    ],
+                    str,
                 ]
                 """
                 Represents the reason why the status is `pending` or `restricted`.
                 """
                 resolution: Optional[
-                    Literal[
-                        "contact_stripe",
-                        "provide_information",
-                        "remove_restriction",
+                    Union[
+                        Literal[
+                            "contact_stripe",
+                            "provide_information",
+                            "remove_restriction",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Represents what the user should do, if anything, to activate the Feature.
                 """
                 restriction: Optional[
-                    Literal["inbound_flows", "outbound_flows"]
+                    Union[Literal["inbound_flows", "outbound_flows"], str]
                 ]
                 """
                 The `platform_restrictions` that are restricting this Feature.
@@ -201,7 +231,7 @@ class FinancialAccountFeatures(StripeObject):
             """
             Whether the FinancialAccount should have the Feature.
             """
-            status: Literal["active", "pending", "restricted"]
+            status: Union[Literal["active", "pending", "restricted"], str]
             """
             Whether the Feature is operational.
             """
@@ -219,31 +249,39 @@ class FinancialAccountFeatures(StripeObject):
 
     class IntraStripeFlows(StripeObject):
         class StatusDetail(StripeObject):
-            code: Literal[
-                "activating",
-                "capability_not_requested",
-                "financial_account_closed",
-                "rejected_other",
-                "rejected_unsupported_business",
-                "requirements_past_due",
-                "requirements_pending_verification",
-                "restricted_by_platform",
-                "restricted_other",
+            code: Union[
+                Literal[
+                    "activating",
+                    "capability_not_requested",
+                    "financial_account_closed",
+                    "rejected_other",
+                    "rejected_unsupported_business",
+                    "requirements_past_due",
+                    "requirements_pending_verification",
+                    "restricted_by_platform",
+                    "restricted_other",
+                ],
+                str,
             ]
             """
             Represents the reason why the status is `pending` or `restricted`.
             """
             resolution: Optional[
-                Literal[
-                    "contact_stripe",
-                    "provide_information",
-                    "remove_restriction",
+                Union[
+                    Literal[
+                        "contact_stripe",
+                        "provide_information",
+                        "remove_restriction",
+                    ],
+                    str,
                 ]
             ]
             """
             Represents what the user should do, if anything, to activate the Feature.
             """
-            restriction: Optional[Literal["inbound_flows", "outbound_flows"]]
+            restriction: Optional[
+                Union[Literal["inbound_flows", "outbound_flows"], str]
+            ]
             """
             The `platform_restrictions` that are restricting this Feature.
             """
@@ -252,7 +290,7 @@ class FinancialAccountFeatures(StripeObject):
         """
         Whether the FinancialAccount should have the Feature.
         """
-        status: Literal["active", "pending", "restricted"]
+        status: Union[Literal["active", "pending", "restricted"], str]
         """
         Whether the Feature is operational.
         """
@@ -265,32 +303,38 @@ class FinancialAccountFeatures(StripeObject):
     class OutboundPayments(StripeObject):
         class Ach(StripeObject):
             class StatusDetail(StripeObject):
-                code: Literal[
-                    "activating",
-                    "capability_not_requested",
-                    "financial_account_closed",
-                    "rejected_other",
-                    "rejected_unsupported_business",
-                    "requirements_past_due",
-                    "requirements_pending_verification",
-                    "restricted_by_platform",
-                    "restricted_other",
+                code: Union[
+                    Literal[
+                        "activating",
+                        "capability_not_requested",
+                        "financial_account_closed",
+                        "rejected_other",
+                        "rejected_unsupported_business",
+                        "requirements_past_due",
+                        "requirements_pending_verification",
+                        "restricted_by_platform",
+                        "restricted_other",
+                    ],
+                    str,
                 ]
                 """
                 Represents the reason why the status is `pending` or `restricted`.
                 """
                 resolution: Optional[
-                    Literal[
-                        "contact_stripe",
-                        "provide_information",
-                        "remove_restriction",
+                    Union[
+                        Literal[
+                            "contact_stripe",
+                            "provide_information",
+                            "remove_restriction",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Represents what the user should do, if anything, to activate the Feature.
                 """
                 restriction: Optional[
-                    Literal["inbound_flows", "outbound_flows"]
+                    Union[Literal["inbound_flows", "outbound_flows"], str]
                 ]
                 """
                 The `platform_restrictions` that are restricting this Feature.
@@ -300,7 +344,7 @@ class FinancialAccountFeatures(StripeObject):
             """
             Whether the FinancialAccount should have the Feature.
             """
-            status: Literal["active", "pending", "restricted"]
+            status: Union[Literal["active", "pending", "restricted"], str]
             """
             Whether the Feature is operational.
             """
@@ -312,32 +356,38 @@ class FinancialAccountFeatures(StripeObject):
 
         class UsDomesticWire(StripeObject):
             class StatusDetail(StripeObject):
-                code: Literal[
-                    "activating",
-                    "capability_not_requested",
-                    "financial_account_closed",
-                    "rejected_other",
-                    "rejected_unsupported_business",
-                    "requirements_past_due",
-                    "requirements_pending_verification",
-                    "restricted_by_platform",
-                    "restricted_other",
+                code: Union[
+                    Literal[
+                        "activating",
+                        "capability_not_requested",
+                        "financial_account_closed",
+                        "rejected_other",
+                        "rejected_unsupported_business",
+                        "requirements_past_due",
+                        "requirements_pending_verification",
+                        "restricted_by_platform",
+                        "restricted_other",
+                    ],
+                    str,
                 ]
                 """
                 Represents the reason why the status is `pending` or `restricted`.
                 """
                 resolution: Optional[
-                    Literal[
-                        "contact_stripe",
-                        "provide_information",
-                        "remove_restriction",
+                    Union[
+                        Literal[
+                            "contact_stripe",
+                            "provide_information",
+                            "remove_restriction",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Represents what the user should do, if anything, to activate the Feature.
                 """
                 restriction: Optional[
-                    Literal["inbound_flows", "outbound_flows"]
+                    Union[Literal["inbound_flows", "outbound_flows"], str]
                 ]
                 """
                 The `platform_restrictions` that are restricting this Feature.
@@ -347,7 +397,7 @@ class FinancialAccountFeatures(StripeObject):
             """
             Whether the FinancialAccount should have the Feature.
             """
-            status: Literal["active", "pending", "restricted"]
+            status: Union[Literal["active", "pending", "restricted"], str]
             """
             Whether the Feature is operational.
             """
@@ -370,32 +420,38 @@ class FinancialAccountFeatures(StripeObject):
     class OutboundTransfers(StripeObject):
         class Ach(StripeObject):
             class StatusDetail(StripeObject):
-                code: Literal[
-                    "activating",
-                    "capability_not_requested",
-                    "financial_account_closed",
-                    "rejected_other",
-                    "rejected_unsupported_business",
-                    "requirements_past_due",
-                    "requirements_pending_verification",
-                    "restricted_by_platform",
-                    "restricted_other",
+                code: Union[
+                    Literal[
+                        "activating",
+                        "capability_not_requested",
+                        "financial_account_closed",
+                        "rejected_other",
+                        "rejected_unsupported_business",
+                        "requirements_past_due",
+                        "requirements_pending_verification",
+                        "restricted_by_platform",
+                        "restricted_other",
+                    ],
+                    str,
                 ]
                 """
                 Represents the reason why the status is `pending` or `restricted`.
                 """
                 resolution: Optional[
-                    Literal[
-                        "contact_stripe",
-                        "provide_information",
-                        "remove_restriction",
+                    Union[
+                        Literal[
+                            "contact_stripe",
+                            "provide_information",
+                            "remove_restriction",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Represents what the user should do, if anything, to activate the Feature.
                 """
                 restriction: Optional[
-                    Literal["inbound_flows", "outbound_flows"]
+                    Union[Literal["inbound_flows", "outbound_flows"], str]
                 ]
                 """
                 The `platform_restrictions` that are restricting this Feature.
@@ -405,7 +461,7 @@ class FinancialAccountFeatures(StripeObject):
             """
             Whether the FinancialAccount should have the Feature.
             """
-            status: Literal["active", "pending", "restricted"]
+            status: Union[Literal["active", "pending", "restricted"], str]
             """
             Whether the Feature is operational.
             """
@@ -417,32 +473,38 @@ class FinancialAccountFeatures(StripeObject):
 
         class UsDomesticWire(StripeObject):
             class StatusDetail(StripeObject):
-                code: Literal[
-                    "activating",
-                    "capability_not_requested",
-                    "financial_account_closed",
-                    "rejected_other",
-                    "rejected_unsupported_business",
-                    "requirements_past_due",
-                    "requirements_pending_verification",
-                    "restricted_by_platform",
-                    "restricted_other",
+                code: Union[
+                    Literal[
+                        "activating",
+                        "capability_not_requested",
+                        "financial_account_closed",
+                        "rejected_other",
+                        "rejected_unsupported_business",
+                        "requirements_past_due",
+                        "requirements_pending_verification",
+                        "restricted_by_platform",
+                        "restricted_other",
+                    ],
+                    str,
                 ]
                 """
                 Represents the reason why the status is `pending` or `restricted`.
                 """
                 resolution: Optional[
-                    Literal[
-                        "contact_stripe",
-                        "provide_information",
-                        "remove_restriction",
+                    Union[
+                        Literal[
+                            "contact_stripe",
+                            "provide_information",
+                            "remove_restriction",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Represents what the user should do, if anything, to activate the Feature.
                 """
                 restriction: Optional[
-                    Literal["inbound_flows", "outbound_flows"]
+                    Union[Literal["inbound_flows", "outbound_flows"], str]
                 ]
                 """
                 The `platform_restrictions` that are restricting this Feature.
@@ -452,7 +514,7 @@ class FinancialAccountFeatures(StripeObject):
             """
             Whether the FinancialAccount should have the Feature.
             """
-            status: Literal["active", "pending", "restricted"]
+            status: Union[Literal["active", "pending", "restricted"], str]
             """
             Whether the Feature is operational.
             """

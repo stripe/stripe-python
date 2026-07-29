@@ -6,7 +6,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -40,7 +40,7 @@ class ValueListItem(
     )
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """

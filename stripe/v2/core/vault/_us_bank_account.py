@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -19,7 +19,7 @@ class UsBankAccount(StripeObject):
         """
         The ID of the alternative resource being referenced.
         """
-        type: Literal["external_account", "payment_method"]
+        type: Union[Literal["external_account", "payment_method"], str]
         """
         The type of the alternative reference (e.g., external_account for V1 external accounts).
         """

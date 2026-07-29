@@ -7,27 +7,7 @@ from typing_extensions import Literal, NotRequired
 
 class ReaderListParams(RequestOptions):
     device_type: NotRequired[
-        Literal[
-            "bbpos_chipper2x",
-            "bbpos_wisepad3",
-            "bbpos_wisepos_e",
-            "mobile_phone_reader",
-            "simulated_stripe_s700",
-            "simulated_stripe_s710",
-            "simulated_verifone_m425",
-            "simulated_verifone_p630",
-            "simulated_verifone_ux700",
-            "simulated_verifone_v660p",
-            "simulated_wisepos_e",
-            "stripe_m2",
-            "stripe_s700",
-            "stripe_s710",
-            "verifone_P400",
-            "verifone_m425",
-            "verifone_p630",
-            "verifone_ux700",
-            "verifone_v660p",
-        ]
+        "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'mobile_phone_reader', 'simulated_stripe_s700', 'simulated_stripe_s710', 'simulated_verifone_m425', 'simulated_verifone_p630', 'simulated_verifone_ux700', 'simulated_verifone_v660p', 'simulated_wisepos_e', 'stripe_m2', 'stripe_s700', 'stripe_s710', 'verifone_P400', 'verifone_m425', 'verifone_p630', 'verifone_ux700', 'verifone_v660p']|str"
     ]
     """
     Filters readers by device type
@@ -56,7 +36,7 @@ class ReaderListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    status: NotRequired[Literal["offline", "online"]]
+    status: NotRequired["Literal['offline', 'online']|str"]
     """
     A status filter to filter readers to only offline or online readers
     """

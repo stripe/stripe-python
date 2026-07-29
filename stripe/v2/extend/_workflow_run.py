@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -88,7 +88,7 @@ class WorkflowRun(StripeObject):
         """
         The Workflow Run was launched through a direct call, using either the Dashboard or the Stripe API.
         """
-        type: Literal["event_trigger", "manual"]
+        type: Union[Literal["event_trigger", "manual"], str]
         """
         Which type of trigger this is.
         """
@@ -110,7 +110,7 @@ class WorkflowRun(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    status: Literal["failed", "started", "succeeded"]
+    status: Union[Literal["failed", "started", "succeeded"], str]
     """
     The current Workflow Run execution status.
     """

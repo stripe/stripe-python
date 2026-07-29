@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -33,7 +33,7 @@ class TrialOfferCreateParamsDuration(TypedDict):
     """
     The relative duration of the trial period computed as the number of recurring price intervals.
     """
-    type: Literal["relative", "timestamp"]
+    type: Union[Literal["relative", "timestamp"], str]
     """
     Specifies how the trial offer duration is determined.
     """

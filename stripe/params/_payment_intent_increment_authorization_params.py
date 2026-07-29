@@ -220,7 +220,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     TypedDict,
 ):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.
@@ -271,7 +271,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsSurcharge(
     Portion of the amount that corresponds to a surcharge.
     """
     enforce_validation: NotRequired[
-        "Literal['']|Literal['automatic', 'disabled', 'enabled']"
+        "Literal['']|Literal['automatic', 'disabled', 'enabled']|str"
     ]
     """
     Indicate whether to enforce validations on the surcharge amount.
@@ -336,7 +336,7 @@ class PaymentIntentIncrementAuthorizationParamsPaymentMethodOptionsCard(
     TypedDict,
 ):
     request_partial_authorization: NotRequired[
-        Literal["if_available", "never"]
+        "Literal['if_available', 'never']|str"
     ]
     """
     Request partial authorization on this PaymentIntent.

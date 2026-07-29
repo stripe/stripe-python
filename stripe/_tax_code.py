@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,7 +19,9 @@ class TaxCode(ListableAPIResource["TaxCode"]):
     OBJECT_NAME: ClassVar[Literal["tax_code"]] = "tax_code"
 
     class Requirements(StripeObject):
-        performance_location: Optional[Literal["optional", "required"]]
+        performance_location: Optional[
+            Union[Literal["optional", "required"], str]
+        ]
         """
         Describes whether a performance location is required for a successful tax calculation with a tax code.
         """

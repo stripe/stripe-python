@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -32,7 +32,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     OBJECT_NAME: ClassVar[Literal["apps.secret"]] = "apps.secret"
 
     class Scope(StripeObject):
-        type: Literal["account", "user"]
+        type: Union[Literal["account", "user"], str]
         """
         The secret scope type.
         """

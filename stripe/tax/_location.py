@@ -60,6 +60,10 @@ class Location(
     """
     Unique identifier for the object.
     """
+    livemode: bool
+    """
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
     object: Literal["tax.location"]
     """
     String representing the object's type. Objects of the same type share the same value.

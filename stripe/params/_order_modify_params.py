@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -311,28 +311,31 @@ class OrderModifyParamsPaymentSettings(TypedDict):
     """
     payment_method_types: NotRequired[
         List[
-            Literal[
-                "acss_debit",
-                "afterpay_clearpay",
-                "alipay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "card",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "giropay",
-                "grabpay",
-                "ideal",
-                "klarna",
-                "link",
-                "oxxo",
-                "p24",
-                "paypal",
-                "sepa_debit",
-                "sofort",
-                "wechat_pay",
+            Union[
+                Literal[
+                    "acss_debit",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "card",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "klarna",
+                    "link",
+                    "oxxo",
+                    "p24",
+                    "paypal",
+                    "sepa_debit",
+                    "sofort",
+                    "wechat_pay",
+                ],
+                str,
             ]
         ]
     ]
@@ -460,7 +463,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
     Additional fields for Mandate creation
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -478,7 +481,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Bank account verification method. The default value is `automatic`.
@@ -498,11 +501,13 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOption
     """
     Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
     """
-    payment_schedule: NotRequired[Literal["combined", "interval", "sporadic"]]
+    payment_schedule: NotRequired[
+        "Literal['combined', 'interval', 'sporadic']|str"
+    ]
     """
     Payment schedule for the mandate.
     """
-    transaction_type: NotRequired[Literal["business", "personal"]]
+    transaction_type: NotRequired["Literal['business', 'personal']|str"]
     """
     Transaction type of the mandate.
     """
@@ -512,7 +517,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay(
     TypedDict,
 ):
     capture_method: NotRequired[
-        Literal["automatic", "automatic_async", "manual"]
+        "Literal['automatic', 'automatic_async', 'manual']|str"
     ]
     """
     Controls when the funds are captured from the customer's account.
@@ -539,7 +544,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay(
 
 class OrderModifyParamsPaymentSettingsPaymentMethodOptionsAlipay(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -557,12 +562,12 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsAlipay(TypedDict):
 class OrderModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(
     TypedDict
 ):
-    preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
+    preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -579,13 +584,13 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(
 
 class OrderModifyParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
     capture_method: NotRequired[
-        Literal["automatic", "automatic_async", "manual"]
+        "Literal['automatic', 'automatic_async', 'manual']|str"
     ]
     """
     Controls when the funds will be captured from the customer's account.
     """
     setup_future_usage: NotRequired[
-        Literal["none", "off_session", "on_session"]
+        "Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with the payment method.
@@ -636,8 +641,17 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTra
     """
     requested_address_types: NotRequired[
         List[
-            Literal[
-                "aba", "iban", "sepa", "sort_code", "spei", "swift", "zengin"
+            Union[
+                Literal[
+                    "aba",
+                    "iban",
+                    "sepa",
+                    "sort_code",
+                    "spei",
+                    "swift",
+                    "zengin",
+                ],
+                str,
             ]
         ]
     ]
@@ -646,12 +660,15 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTra
 
     Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
     """
-    type: Literal[
-        "eu_bank_transfer",
-        "gb_bank_transfer",
-        "jp_bank_transfer",
-        "mx_bank_transfer",
-        "us_bank_transfer",
+    type: Union[
+        Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ],
+        str,
     ]
     """
     The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
@@ -669,7 +686,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTra
 
 class OrderModifyParamsPaymentSettingsPaymentMethodOptionsIdeal(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -700,60 +717,13 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
     On-demand details if setting up or charging an on-demand payment.
     """
     preferred_locale: NotRequired[
-        Literal[
-            "cs-CZ",
-            "da-DK",
-            "de-AT",
-            "de-CH",
-            "de-DE",
-            "el-GR",
-            "en-AT",
-            "en-AU",
-            "en-BE",
-            "en-CA",
-            "en-CH",
-            "en-CZ",
-            "en-DE",
-            "en-DK",
-            "en-ES",
-            "en-FI",
-            "en-FR",
-            "en-GB",
-            "en-GR",
-            "en-IE",
-            "en-IT",
-            "en-NL",
-            "en-NO",
-            "en-NZ",
-            "en-PL",
-            "en-PT",
-            "en-RO",
-            "en-SE",
-            "en-US",
-            "es-ES",
-            "es-US",
-            "fi-FI",
-            "fr-BE",
-            "fr-CA",
-            "fr-CH",
-            "fr-FR",
-            "it-CH",
-            "it-IT",
-            "nb-NO",
-            "nl-BE",
-            "nl-NL",
-            "pl-PL",
-            "pt-PT",
-            "ro-RO",
-            "sv-FI",
-            "sv-SE",
-        ]
+        "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-RO', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'ro-RO', 'sv-FI', 'sv-SE']|str"
     ]
     """
     Preferred language of the Klarna authorization page that the customer is redirected to
     """
     setup_future_usage: NotRequired[
-        Literal["none", "off_session", "on_session"]
+        "Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -795,7 +765,9 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaOnDemand(
     """
     The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
     """
-    purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+    purchase_interval: NotRequired[
+        "Literal['day', 'month', 'week', 'year']|str"
+    ]
     """
     Interval at which the customer is making purchases
     """
@@ -808,7 +780,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaOnDemand(
 class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSubscription(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Unit of time between subscription charges.
     """
@@ -946,7 +918,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -1057,7 +1029,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -1111,16 +1083,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Name of the event.
     """
     event_type: NotRequired[
-        Literal[
-            "concert",
-            "conference",
-            "digital_education",
-            "expo",
-            "festival",
-            "in_person_education",
-            "sport",
-            "tour",
-        ]
+        "Literal['concert', 'conference', 'digital_education', 'expo', 'festival', 'in_person_education', 'sport', 'tour']|str"
     ]
     """
     Type of the event.
@@ -1184,7 +1147,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -1243,7 +1206,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -1354,7 +1317,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -1390,7 +1353,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance
@@ -1427,42 +1390,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     The number of transactions the sub-seller completed in the last 12 months.
     """
     product_category: NotRequired[
-        Literal[
-            "accessories",
-            "appliances",
-            "apps_and_games",
-            "arts_crafts_and_sewing",
-            "automotive",
-            "baby",
-            "baby_clothing",
-            "bags_and_purses",
-            "beauty",
-            "books",
-            "cds_and_vinyl",
-            "cell_phones_and_accessories",
-            "collectibles_and_fine_arts",
-            "digital_music",
-            "electronics",
-            "grocery_and_gourmet_food",
-            "handmade",
-            "health_and_personal_care",
-            "home_and_kitchen",
-            "industrial_and_scientific",
-            "luggage_and_travel_gear",
-            "magazine_subscriptions",
-            "men_clothing",
-            "musical_instruments",
-            "office_products",
-            "patio_lawn_and_garden",
-            "pet_supplies",
-            "shoes",
-            "software",
-            "sports_and_outdoors",
-            "tools_and_home_improvement",
-            "toys_and_games",
-            "video_games",
-            "women_clothing",
-        ]
+        "Literal['accessories', 'appliances', 'apps_and_games', 'arts_crafts_and_sewing', 'automotive', 'baby', 'baby_clothing', 'bags_and_purses', 'beauty', 'books', 'cds_and_vinyl', 'cell_phones_and_accessories', 'collectibles_and_fine_arts', 'digital_music', 'electronics', 'grocery_and_gourmet_food', 'handmade', 'health_and_personal_care', 'home_and_kitchen', 'industrial_and_scientific', 'luggage_and_travel_gear', 'magazine_subscriptions', 'men_clothing', 'musical_instruments', 'office_products', 'patio_lawn_and_garden', 'pet_supplies', 'shoes', 'software', 'sports_and_outdoors', 'tools_and_home_improvement', 'toys_and_games', 'video_games', 'women_clothing']|str"
     ]
     """
     The category of the product.
@@ -1472,7 +1400,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     The date when the seller's account with the marketplace was last logged in.
     """
     seller_rating: NotRequired[
-        Literal["high", "low", "medium", "very_high", "very_low"]
+        "Literal['high', 'low', 'medium', 'very_high', 'very_low']|str"
     ]
     """
     The current rating of the marketplace seller. If the marketplace uses numeric ranking, map these to the enum values.
@@ -1572,7 +1500,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -1683,7 +1611,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -1755,7 +1683,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -1866,7 +1794,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -1914,13 +1842,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPur
     The name or reference to identify the voucher.
     """
     voucher_type: NotRequired[
-        Literal[
-            "digital_product",
-            "discount",
-            "gift_card",
-            "physical_product",
-            "services",
-        ]
+        "Literal['digital_product', 'discount', 'gift_card', 'physical_product', 'services']|str"
     ]
     """
     The type of this voucher.
@@ -1941,7 +1863,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsLink(TypedDict):
     [Deprecated] This is a legacy parameter that no longer has any function.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2008,29 +1930,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsPaypal(TypedDict):
     The line items purchased by the customer.
     """
     preferred_locale: NotRequired[
-        Literal[
-            "cs-CZ",
-            "da-DK",
-            "de-AT",
-            "de-DE",
-            "de-LU",
-            "el-GR",
-            "en-GB",
-            "en-US",
-            "es-ES",
-            "fi-FI",
-            "fr-BE",
-            "fr-FR",
-            "fr-LU",
-            "hu-HU",
-            "it-IT",
-            "nl-BE",
-            "nl-NL",
-            "pl-PL",
-            "pt-PT",
-            "sk-SK",
-            "sv-SE",
-        ]
+        "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']|str"
     ]
     """
     [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
@@ -2048,7 +1948,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsPaypal(TypedDict):
     The risk correlation ID for an on-session payment using a saved PayPal payment method.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2071,7 +1971,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsPaypalLineItem(
     TypedDict,
 ):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.
@@ -2115,7 +2015,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsPaypalLineItemTax(
     """
     The tax for a single unit of the line item in minor units. Cannot be a negative number.
     """
-    behavior: Literal["exclusive", "inclusive"]
+    behavior: Union[Literal["exclusive", "inclusive"], str]
     """
     The tax behavior for the line item.
     """
@@ -2129,7 +2029,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
     Additional fields for Mandate creation
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2159,13 +2059,13 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOption
 
 class OrderModifyParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
     preferred_language: NotRequired[
-        "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
+        "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']|str"
     ]
     """
     Language shown to the payer on redirect.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2185,7 +2085,7 @@ class OrderModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
     """
-    client: NotRequired[Literal["android", "ios", "web"]]
+    client: NotRequired["Literal['android', 'ios', 'web']|str"]
     """
     The client type that the end customer will pay from
     """
@@ -2280,7 +2180,7 @@ class OrderModifyParamsShippingCostShippingRateDataDeliveryEstimate(TypedDict):
 class OrderModifyParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -2293,7 +2193,7 @@ class OrderModifyParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
 class OrderModifyParamsShippingCostShippingRateDataDeliveryEstimateMinimum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -2441,6 +2341,7 @@ class OrderModifyParamsTaxDetailsTaxId(TypedDict):
         "hk_br",
         "hr_oib",
         "hu_tin",
+        "ic_nif",
         "id_npwp",
         "il_vat",
         "in_gst",
@@ -2506,7 +2407,7 @@ class OrderModifyParamsTaxDetailsTaxId(TypedDict):
         "zw_tin",
     ]
     """
-    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
     """
     value: str
     """

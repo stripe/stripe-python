@@ -7,6 +7,114 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentIntentCreateParams(RequestOptions):
+    allowed_payment_method_types: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boku_promptpay",
+                    "boleto",
+                    "capchase_pay",
+                    "card",
+                    "cashapp",
+                    "check_scan",
+                    "click_to_pay",
+                    "crypto",
+                    "customer_balance",
+                    "demo_pay",
+                    "duitnow",
+                    "dummy_auth_push",
+                    "dummy_passthrough_card",
+                    "edenred",
+                    "eps",
+                    "fpx",
+                    "gcash",
+                    "getbalance",
+                    "gift_card",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "id_bank_transfer",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "knet",
+                    "konbini",
+                    "kr_card",
+                    "kr_market",
+                    "kriya",
+                    "link",
+                    "mb_way",
+                    "mobilepay",
+                    "momo",
+                    "mondu",
+                    "multibanco",
+                    "naver_pay",
+                    "netbanking",
+                    "ng_bank",
+                    "ng_bank_transfer",
+                    "ng_card",
+                    "ng_market",
+                    "ng_ussd",
+                    "ng_wallet",
+                    "nz_bank_account",
+                    "octopus",
+                    "oxxo",
+                    "p24",
+                    "paper_check",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "sequra",
+                    "shop_pay",
+                    "shopeepay",
+                    "sofort",
+                    "south_korea_market",
+                    "stripe_balance",
+                    "sunbit",
+                    "swish",
+                    "tamara",
+                    "test_pay",
+                    "truemoney",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "us_cash_voucher",
+                    "vipps",
+                    "wechat_pay",
+                    "wero",
+                    "zip",
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    """
     amount: int
     """
     Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
@@ -26,7 +134,7 @@ class PaymentIntentCreateParams(RequestOptions):
     When you enable this parameter, this PaymentIntent accepts payment methods that you enable in the Dashboard and that are compatible with this PaymentIntent's other parameters.
     """
     capture_method: NotRequired[
-        Literal["automatic", "automatic_async", "manual"]
+        "Literal['automatic', 'automatic_async', 'manual']|str"
     ]
     """
     Controls when the funds will be captured from the customer's account.
@@ -35,7 +143,7 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     Set to `true` to attempt to [confirm this PaymentIntent](https://docs.stripe.com/api/payment_intents/confirm) immediately. This parameter defaults to `false`. When creating and confirming a PaymentIntent at the same time, you can also provide the parameters available in the [Confirm API](https://docs.stripe.com/api/payment_intents/confirm).
     """
-    confirmation_method: NotRequired[Literal["automatic", "manual"]]
+    confirmation_method: NotRequired["Literal['automatic', 'manual']|str"]
     """
     Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
     """
@@ -75,67 +183,70 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     excluded_payment_method_types: NotRequired[
         List[
-            Literal[
-                "acss_debit",
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "amazon_pay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "bizum",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "crypto",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "giropay",
-                "gopay",
-                "grabpay",
-                "id_bank_transfer",
-                "ideal",
-                "kakao_pay",
-                "klarna",
-                "konbini",
-                "kr_card",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "naver_pay",
-                "nz_bank_account",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "payco",
-                "paynow",
-                "paypal",
-                "paypay",
-                "payto",
-                "pix",
-                "promptpay",
-                "qris",
-                "rechnung",
-                "revolut_pay",
-                "samsung_pay",
-                "satispay",
-                "scalapay",
-                "sepa_debit",
-                "shopeepay",
-                "sofort",
-                "stripe_balance",
-                "sunbit",
-                "swish",
-                "twint",
-                "upi",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "id_bank_transfer",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "stripe_balance",
+                    "sunbit",
+                    "swish",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
             ]
         ]
     ]
@@ -222,11 +333,11 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-confirm).
     """
-    secret_key_confirmation: NotRequired[Literal["optional", "required"]]
+    secret_key_confirmation: NotRequired["Literal['optional', 'required']|str"]
     """
     Indicates whether confirmation for this PaymentIntent using a secret key is `required` or `optional`.
     """
-    setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
+    setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -417,7 +528,7 @@ class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
     TypedDict,
 ):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.
@@ -462,7 +573,7 @@ class PaymentIntentCreateParamsAmountDetailsSurcharge(TypedDict):
     Portion of the amount that corresponds to a surcharge.
     """
     enforce_validation: NotRequired[
-        "Literal['']|Literal['automatic', 'disabled', 'enabled']"
+        "Literal['']|Literal['automatic', 'disabled', 'enabled']|str"
     ]
     """
     Indicate whether to enforce validations on the surcharge amount.
@@ -479,7 +590,7 @@ class PaymentIntentCreateParamsAmountDetailsTax(TypedDict):
 
 
 class PaymentIntentCreateParamsAutomaticPaymentMethods(TypedDict):
-    allow_redirects: NotRequired[Literal["always", "never"]]
+    allow_redirects: NotRequired["Literal['always', 'never']|str"]
     """
     Controls whether this PaymentIntent will accept redirect-based payment methods.
 
@@ -671,12 +782,15 @@ class PaymentIntentCreateParamsPaymentDetailsCarRental(TypedDict):
     """
     extra_charges: NotRequired[
         List[
-            Literal[
-                "extra_mileage",
-                "gas",
-                "late_return",
-                "one_way_service",
-                "parking_violation",
+            Union[
+                Literal[
+                    "extra_mileage",
+                    "gas",
+                    "late_return",
+                    "one_way_service",
+                    "parking_violation",
+                ],
+                str,
             ]
         ]
     ]
@@ -705,7 +819,7 @@ class PaymentIntentCreateParamsPaymentDetailsCarRental(TypedDict):
     """
     Rental rate.
     """
-    rate_interval: NotRequired[Literal["day", "month", "week"]]
+    rate_interval: NotRequired["Literal['day', 'month', 'week']|str"]
     """
     The frequency at which the rate amount is applied. One of `day`, `week` or `month`
     """
@@ -745,7 +859,7 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalAffiliate(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentDetailsCarRentalDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -779,7 +893,7 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDistance(TypedDict):
     """
     Distance traveled.
     """
-    unit: NotRequired[Literal["kilometers", "miles"]]
+    unit: NotRequired["Literal['kilometers', 'miles']|str"]
     """
     Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
     """
@@ -941,7 +1055,7 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDistance(TypedDict):
     """
     Distance traveled.
     """
-    unit: Literal["kilometers", "miles"]
+    unit: Union[Literal["kilometers", "miles"], str]
     """
     Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
     """
@@ -1046,13 +1160,16 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumInsurance(
     """
     Name of the insurance company.
     """
-    insurance_type: Literal[
-        "liability_supplement",
-        "loss_damage_waiver",
-        "other",
-        "partial_damage_waiver",
-        "personal_accident",
-        "personal_effects",
+    insurance_type: Union[
+        Literal[
+            "liability_supplement",
+            "loss_damage_waiver",
+            "other",
+            "partial_damage_waiver",
+            "personal_accident",
+            "personal_effects",
+        ],
+        str,
     ]
     """
     Type of insurance coverage.
@@ -1133,7 +1250,7 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotal(TypedDict):
     Rate per unit for the rental.
     """
     rate_unit: NotRequired[
-        Literal["days", "kilometers", "miles", "months", "weeks"]
+        "Literal['days', 'kilometers', 'miles', 'months', 'weeks']|str"
     ]
     """
     Unit of measurement for the rate.
@@ -1170,17 +1287,20 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalExtraCharge(
     """
     Amount of the extra charge in cents.
     """
-    type: Literal[
-        "extra_mileage",
-        "gas",
-        "gps",
-        "late_charge",
-        "one_way_drop_off",
-        "other",
-        "parking",
-        "phone",
-        "regular_mileage",
-        "towing",
+    type: Union[
+        Literal[
+            "extra_mileage",
+            "gas",
+            "gps",
+            "late_charge",
+            "one_way_drop_off",
+            "other",
+            "parking",
+            "phone",
+            "regular_mileage",
+            "towing",
+        ],
+        str,
     ]
     """
     Type of extra charge.
@@ -1192,9 +1312,9 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
     """
     Indicates if the transaction is tax exempt.
     """
-    taxes: NotRequired[
+    tax_items: NotRequired[
         List[
-            "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTax"
+            "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem"
         ]
     ]
     """
@@ -1202,7 +1322,7 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
     """
 
 
-class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTax(
+class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem(
     TypedDict,
 ):
     amount: NotRequired[int]
@@ -1233,48 +1353,13 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumVehicle(TypedDict):
     Odometer reading at the time of rental.
     """
     type: NotRequired[
-        Literal[
-            "cargo_van",
-            "compact",
-            "economy",
-            "exotic",
-            "exotic_suv",
-            "fifteen_passenger_van",
-            "four_wheel_drive",
-            "full_size",
-            "intermediate",
-            "large_suv",
-            "large_truck",
-            "luxury",
-            "medium_suv",
-            "midsize",
-            "mini",
-            "minivan",
-            "miscellaneous",
-            "moped",
-            "moving_van",
-            "premium",
-            "regular",
-            "small_medium_truck",
-            "small_suv",
-            "special",
-            "standard",
-            "stretch",
-            "subcompact",
-            "taxi",
-            "twelve_foot_truck",
-            "twelve_passenger_van",
-            "twenty_foot_truck",
-            "twenty_four_foot_truck",
-            "twenty_six_foot_truck",
-            "unique",
-        ]
+        "Literal['cargo_van', 'compact', 'economy', 'exotic', 'exotic_suv', 'fifteen_passenger_van', 'four_wheel_drive', 'full_size', 'intermediate', 'large_suv', 'large_truck', 'luxury', 'medium_suv', 'midsize', 'mini', 'minivan', 'miscellaneous', 'moped', 'moving_van', 'premium', 'regular', 'small_medium_truck', 'small_suv', 'special', 'standard', 'stretch', 'subcompact', 'taxi', 'twelve_foot_truck', 'twelve_passenger_van', 'twenty_foot_truck', 'twenty_four_foot_truck', 'twenty_six_foot_truck', 'unique']|str"
     ]
     """
     Type of the rental vehicle.
     """
     vehicle_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Class of the rental vehicle.
@@ -1365,7 +1450,7 @@ class PaymentIntentCreateParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentDetailsEventDetailsDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -1443,7 +1528,7 @@ class PaymentIntentCreateParamsPaymentDetailsFlightAffiliate(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentDetailsFlightDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -1509,7 +1594,7 @@ class PaymentIntentCreateParamsPaymentDetailsFlightSegment(TypedDict):
     The flight number associated with the segment
     """
     service_class: NotRequired[
-        Literal["business", "economy", "first", "premium_economy"]
+        "Literal['business', 'economy', 'first', 'premium_economy']|str"
     ]
     """
     The fare class for the segment.
@@ -1560,9 +1645,7 @@ class PaymentIntentCreateParamsPaymentDetailsFlightDatum(TypedDict):
     Total cost breakdown.
     """
     transaction_type: NotRequired[
-        Literal[
-            "exchange_ticket", "miscellaneous", "refund", "ticket_purchase"
-        ]
+        "Literal['exchange_ticket', 'miscellaneous', 'refund', 'ticket_purchase']|str"
     ]
     """
     Type of flight transaction.
@@ -1597,8 +1680,11 @@ class PaymentIntentCreateParamsPaymentDetailsFlightDatumInsurance(TypedDict):
     """
     Insurance company name.
     """
-    insurance_type: Literal[
-        "baggage", "bankruptcy", "cancelation", "emergency", "medical"
+    insurance_type: Union[
+        Literal[
+            "baggage", "bankruptcy", "cancelation", "emergency", "medical"
+        ],
+        str,
     ]
     """
     Type of insurance.
@@ -1663,8 +1749,8 @@ class PaymentIntentCreateParamsPaymentDetailsFlightDatumSegment(TypedDict):
     """
     Refundable ticket indicator.
     """
-    service_class: Literal[
-        "business", "economy", "first_class", "premium_economy"
+    service_class: Union[
+        Literal["business", "economy", "first_class", "premium_economy"], str
     ]
     """
     Class of service.
@@ -1727,13 +1813,7 @@ class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotal(TypedDict):
     Total flight amount.
     """
     credit_reason: NotRequired[
-        Literal[
-            "other",
-            "partial_ticket_refund",
-            "passenger_transport_ancillary_cancellation",
-            "ticket_and_ancillary_cancellation",
-            "ticket_cancellation",
-        ]
+        "Literal['other', 'partial_ticket_refund', 'passenger_transport_ancillary_cancellation', 'ticket_and_ancillary_cancellation', 'ticket_cancellation']|str"
     ]
     """
     Reason for credit.
@@ -1781,7 +1861,7 @@ class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalExtraCharge(
     Amount of additional charges.
     """
     type: NotRequired[
-        Literal["additional_fees", "ancillary_service_charges", "exchange_fee"]
+        "Literal['additional_fees', 'ancillary_service_charges', 'exchange_fee']|str"
     ]
     """
     Type of additional charges.
@@ -1789,15 +1869,19 @@ class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalExtraCharge(
 
 
 class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTax(TypedDict):
-    taxes: NotRequired[
-        List["PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Array of tax details.
     """
 
 
-class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTax(TypedDict):
+class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTaxItem(
+    TypedDict,
+):
     amount: NotRequired[int]
     """
     Tax amount.
@@ -1833,7 +1917,7 @@ class PaymentIntentCreateParamsPaymentDetailsLodging(TypedDict):
     """
     The booking number associated with the lodging reservation.
     """
-    category: NotRequired[Literal["hotel", "vacation_rental"]]
+    category: NotRequired["Literal['hotel', 'vacation_rental']|str"]
     """
     The lodging category
     """
@@ -1861,13 +1945,16 @@ class PaymentIntentCreateParamsPaymentDetailsLodging(TypedDict):
     """
     extra_charges: NotRequired[
         List[
-            Literal[
-                "gift_shop",
-                "laundry",
-                "mini_bar",
-                "other",
-                "restaurant",
-                "telephone",
+            Union[
+                Literal[
+                    "gift_shop",
+                    "laundry",
+                    "mini_bar",
+                    "other",
+                    "restaurant",
+                    "telephone",
+                ],
+                str,
             ]
         ]
     ]
@@ -1953,7 +2040,7 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingAffiliate(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentDetailsLodgingDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -2062,16 +2149,7 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingDatumAccommodation(
     TypedDict,
 ):
     accommodation_type: NotRequired[
-        Literal[
-            "apartment",
-            "cabana",
-            "house",
-            "penthouse",
-            "room",
-            "standard",
-            "suite",
-            "villa",
-        ]
+        "Literal['apartment', 'cabana', 'house', 'penthouse', 'room', 'standard', 'suite', 'villa']|str"
     ]
     """
     Type of accommodation.
@@ -2136,7 +2214,7 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingDatumHost(TypedDict):
     Reference number for the host.
     """
     host_type: NotRequired[
-        Literal["hostel", "hotel", "owner", "rental_agency"]
+        "Literal['hostel', 'hotel', 'owner', 'rental_agency']|str"
     ]
     """
     Type of host.
@@ -2201,8 +2279,8 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingDatumInsurance(TypedDict):
     """
     Name of the insurance company.
     """
-    insurance_type: Literal[
-        "bankruptcy", "cancelation", "emergency", "medical"
+    insurance_type: Union[
+        Literal["bankruptcy", "cancelation", "emergency", "medical"], str
     ]
     """
     Type of insurance coverage.
@@ -2269,9 +2347,7 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalExtraCharge(
     Amount of the extra charge in cents.
     """
     type: NotRequired[
-        Literal[
-            "gift_shop", "laundry", "mini_bar", "other", "phone", "restaurant"
-        ]
+        "Literal['gift_shop', 'laundry', 'mini_bar', 'other', 'phone', 'restaurant']|str"
     ]
     """
     Type of extra charge.
@@ -2283,16 +2359,18 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTax(TypedDict):
     """
     Indicates whether the transaction is tax exempt.
     """
-    taxes: NotRequired[
-        List["PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Tax details.
     """
 
 
-class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax(
-    TypedDict
+class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem(
+    TypedDict,
 ):
     amount: NotRequired[int]
     """
@@ -2353,7 +2431,7 @@ class PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval(
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
     """
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -2380,7 +2458,9 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
     """
-    allow_redisplay: NotRequired[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: NotRequired[
+        "Literal['always', 'limited', 'unspecified']|str"
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
     """
@@ -2654,67 +2734,70 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
-    type: Literal[
-        "acss_debit",
-        "affirm",
-        "afterpay_clearpay",
-        "alipay",
-        "alma",
-        "amazon_pay",
-        "au_becs_debit",
-        "bacs_debit",
-        "bancontact",
-        "billie",
-        "bizum",
-        "blik",
-        "boleto",
-        "cashapp",
-        "crypto",
-        "customer_balance",
-        "eps",
-        "fpx",
-        "giropay",
-        "gopay",
-        "grabpay",
-        "id_bank_transfer",
-        "ideal",
-        "kakao_pay",
-        "klarna",
-        "konbini",
-        "kr_card",
-        "link",
-        "mb_way",
-        "mobilepay",
-        "multibanco",
-        "naver_pay",
-        "nz_bank_account",
-        "oxxo",
-        "p24",
-        "pay_by_bank",
-        "payco",
-        "paynow",
-        "paypal",
-        "paypay",
-        "payto",
-        "pix",
-        "promptpay",
-        "qris",
-        "rechnung",
-        "revolut_pay",
-        "samsung_pay",
-        "satispay",
-        "scalapay",
-        "sepa_debit",
-        "shopeepay",
-        "sofort",
-        "stripe_balance",
-        "sunbit",
-        "swish",
-        "twint",
-        "upi",
-        "us_bank_account",
-        "wechat_pay",
-        "zip",
+    type: Union[
+        Literal[
+            "acss_debit",
+            "affirm",
+            "afterpay_clearpay",
+            "alipay",
+            "alma",
+            "amazon_pay",
+            "au_becs_debit",
+            "bacs_debit",
+            "bancontact",
+            "billie",
+            "bizum",
+            "blik",
+            "boleto",
+            "cashapp",
+            "crypto",
+            "customer_balance",
+            "eps",
+            "fpx",
+            "giropay",
+            "gopay",
+            "grabpay",
+            "id_bank_transfer",
+            "ideal",
+            "kakao_pay",
+            "klarna",
+            "konbini",
+            "kr_card",
+            "link",
+            "mb_way",
+            "mobilepay",
+            "multibanco",
+            "naver_pay",
+            "nz_bank_account",
+            "oxxo",
+            "p24",
+            "pay_by_bank",
+            "payco",
+            "paynow",
+            "paypal",
+            "paypay",
+            "payto",
+            "pix",
+            "promptpay",
+            "qris",
+            "rechnung",
+            "revolut_pay",
+            "samsung_pay",
+            "satispay",
+            "scalapay",
+            "sepa_debit",
+            "shopeepay",
+            "sofort",
+            "stripe_balance",
+            "sunbit",
+            "swish",
+            "twint",
+            "upi",
+            "us_bank_account",
+            "wechat_pay",
+            "zip",
+        ],
+        str,
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -2939,14 +3022,17 @@ class PaymentIntentCreateParamsPaymentMethodDataFpx(TypedDict):
         "bank_muamalat",
         "bank_of_china",
         "bank_rakyat",
+        "bnp_paribas",
         "bsn",
         "cimb",
+        "citibank",
         "deutsche_bank",
         "hong_leong_bank",
         "hsbc",
         "kfh",
         "maybank2e",
         "maybank2u",
+        "mbsb_bank",
         "ocbc",
         "pb_enterprise",
         "public_bank",
@@ -2972,7 +3058,7 @@ class PaymentIntentCreateParamsPaymentMethodDataGrabpay(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
-    bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
     """
     Bank where the account is held.
     """
@@ -3063,7 +3149,7 @@ class PaymentIntentCreateParamsPaymentMethodDataMultibanco(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodDataNaverPay(TypedDict):
-    funding: NotRequired[Literal["card", "points"]]
+    funding: NotRequired["Literal['card', 'points']|str"]
     """
     Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
     """
@@ -3099,34 +3185,7 @@ class PaymentIntentCreateParamsPaymentMethodDataOxxo(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodDataP24(TypedDict):
     bank: NotRequired[
-        Literal[
-            "alior_bank",
-            "bank_millennium",
-            "bank_nowy_bfg_sa",
-            "bank_pekao_sa",
-            "banki_spbdzielcze",
-            "blik",
-            "bnp_paribas",
-            "boz",
-            "citi_handlowy",
-            "credit_agricole",
-            "envelobank",
-            "etransfer_pocztowy24",
-            "getin_bank",
-            "ideabank",
-            "ing",
-            "inteligo",
-            "mbank_mtransfer",
-            "nest_przelew",
-            "noble_pay",
-            "pbac_z_ipko",
-            "plus_bank",
-            "santander_przelew24",
-            "tmobile_usbugi_bankowe",
-            "toyota_bank",
-            "velobank",
-            "volkswagen_bank",
-        ]
+        "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']|str"
     ]
     """
     The customer's bank.
@@ -3237,7 +3296,7 @@ class PaymentIntentCreateParamsPaymentMethodDataShopeepay(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodDataSofort(TypedDict):
-    country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+    country: Union[Literal["AT", "BE", "DE", "ES", "IT", "NL"], str]
     """
     Two-letter ISO code representing the country the bank account is located in.
     """
@@ -3276,7 +3335,7 @@ class PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions(TypedDict):
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -3291,7 +3350,7 @@ class PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Account holder type: individual or company.
     """
@@ -3299,7 +3358,7 @@ class PaymentIntentCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account number of the bank account.
     """
-    account_type: NotRequired[Literal["checking", "savings"]]
+    account_type: NotRequired["Literal['checking', 'savings']|str"]
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
@@ -3710,7 +3769,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
     Additional fields for Mandate creation
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3728,7 +3787,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Bank account verification method. The default value is `automatic`.
@@ -3748,11 +3807,13 @@ class PaymentIntentCreateParamsPaymentMethodOptionsAcssDebitMandateOptions(
     """
     Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
     """
-    payment_schedule: NotRequired[Literal["combined", "interval", "sporadic"]]
+    payment_schedule: NotRequired[
+        "Literal['combined', 'interval', 'sporadic']|str"
+    ]
     """
     Payment schedule for the mandate.
     """
-    transaction_type: NotRequired[Literal["business", "personal"]]
+    transaction_type: NotRequired["Literal['business', 'personal']|str"]
     """
     Transaction type of the mandate.
     """
@@ -3815,7 +3876,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodOptionsAlipay(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3851,7 +3912,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3866,7 +3927,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3893,7 +3954,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
     Additional fields for Mandate creation
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3922,12 +3983,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsBancontact(TypedDict):
-    preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
+    preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3982,7 +4043,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsBoleto(TypedDict):
     The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4051,39 +4112,39 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
     Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
     """
     request_decremental_authorization: NotRequired[
-        Literal["if_available", "never"]
+        "Literal['if_available', 'never']|str"
     ]
     """
     Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
     """
     request_extended_authorization: NotRequired[
-        Literal["if_available", "never"]
+        "Literal['if_available', 'never']|str"
     ]
     """
     Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
     """
     request_incremental_authorization: NotRequired[
-        Literal["if_available", "never"]
+        "Literal['if_available', 'never']|str"
     ]
     """
     Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
     """
-    request_multicapture: NotRequired[Literal["if_available", "never"]]
+    request_multicapture: NotRequired["Literal['if_available', 'never']|str"]
     """
     Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
     """
-    request_overcapture: NotRequired[Literal["if_available", "never"]]
+    request_overcapture: NotRequired["Literal['if_available', 'never']|str"]
     """
     Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
     """
     request_partial_authorization: NotRequired[
-        Literal["if_available", "never"]
+        "Literal['if_available', 'never']|str"
     ]
     """
     Request partial authorization on this PaymentIntent.
     """
     request_three_d_secure: NotRequired[
-        Literal["any", "automatic", "challenge"]
+        "Literal['any', 'automatic', 'challenge']|str"
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -4093,7 +4154,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
     When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4157,7 +4218,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardInstallmentsPlan(
     For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
     One of `month`.
     """
-    type: Literal["bonus", "fixed_count", "revolving"]
+    type: Union[Literal["bonus", "fixed_count", "revolving"], str]
     """
     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
     """
@@ -4249,7 +4310,9 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetailsAddress(
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-    ares_trans_status: NotRequired[Literal["A", "C", "I", "N", "R", "U", "Y"]]
+    ares_trans_status: NotRequired[
+        "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']|str"
+    ]
     """
     The `transStatus` returned from the card Issuer's ACS in the ARes.
     """
@@ -4261,13 +4324,13 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
     is what you should specify here.)
     """
     electronic_commerce_indicator: NotRequired[
-        Literal["01", "02", "05", "06", "07"]
+        "Literal['01', '02', '05', '06', '07']|str"
     ]
     """
     The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
     provider and indicates what degree of authentication was performed.
     """
-    exemption_indicator: NotRequired[Literal["low_risk", "none"]]
+    exemption_indicator: NotRequired["Literal['low_risk', 'none']|str"]
     """
     The exemption requested via 3DS and accepted by the issuer at authentication time.
     """
@@ -4289,7 +4352,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
     For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
     Transaction ID (dsTransID).
     """
-    version: Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]
+    version: Union[Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"], str]
     """
     The version of 3D Secure that was performed.
     """
@@ -4309,7 +4372,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
 class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
     TypedDict,
 ):
-    cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+    cb_avalgo: Union[Literal["0", "1", "2", "3", "4", "A"], str]
     """
     The cryptogram calculation algorithm used by the card Issuer's ACS
     to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
@@ -4357,7 +4420,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting(
     TypedDict,
 ):
-    requested_priority: NotRequired[Literal["domestic", "international"]]
+    requested_priority: NotRequired["Literal['domestic', 'international']|str"]
     """
     Routing requested priority
     """
@@ -4373,7 +4436,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCashapp(TypedDict):
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4439,8 +4502,17 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
     """
     requested_address_types: NotRequired[
         List[
-            Literal[
-                "aba", "iban", "sepa", "sort_code", "spei", "swift", "zengin"
+            Union[
+                Literal[
+                    "aba",
+                    "iban",
+                    "sepa",
+                    "sort_code",
+                    "spei",
+                    "swift",
+                    "zengin",
+                ],
+                str,
             ]
         ]
     ]
@@ -4449,12 +4521,15 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
 
     Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
     """
-    type: Literal[
-        "eu_bank_transfer",
-        "gb_bank_transfer",
-        "jp_bank_transfer",
-        "mx_bank_transfer",
-        "us_bank_transfer",
+    type: Union[
+        Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ],
+        str,
     ]
     """
     The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
@@ -4516,7 +4591,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsGiropay(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsGopay(TypedDict):
-    setup_future_usage: NotRequired[Literal["none", "off_session"]]
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4570,7 +4645,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodOptionsIdeal(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4599,7 +4674,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4628,60 +4703,13 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarna(TypedDict):
     On-demand details if setting up or charging an on-demand payment.
     """
     preferred_locale: NotRequired[
-        Literal[
-            "cs-CZ",
-            "da-DK",
-            "de-AT",
-            "de-CH",
-            "de-DE",
-            "el-GR",
-            "en-AT",
-            "en-AU",
-            "en-BE",
-            "en-CA",
-            "en-CH",
-            "en-CZ",
-            "en-DE",
-            "en-DK",
-            "en-ES",
-            "en-FI",
-            "en-FR",
-            "en-GB",
-            "en-GR",
-            "en-IE",
-            "en-IT",
-            "en-NL",
-            "en-NO",
-            "en-NZ",
-            "en-PL",
-            "en-PT",
-            "en-RO",
-            "en-SE",
-            "en-US",
-            "es-ES",
-            "es-US",
-            "fi-FI",
-            "fr-BE",
-            "fr-CA",
-            "fr-CH",
-            "fr-FR",
-            "it-CH",
-            "it-IT",
-            "nb-NO",
-            "nl-BE",
-            "nl-NL",
-            "pl-PL",
-            "pt-PT",
-            "ro-RO",
-            "sv-FI",
-            "sv-SE",
-        ]
+        "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-RO', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'ro-RO', 'sv-FI', 'sv-SE']|str"
     ]
     """
     Preferred language of the Klarna authorization page that the customer is redirected to
     """
     setup_future_usage: NotRequired[
-        Literal["none", "off_session", "on_session"]
+        "Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4721,7 +4749,9 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
     """
     The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
     """
-    purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+    purchase_interval: NotRequired[
+        "Literal['day', 'month', 'week', 'year']|str"
+    ]
     """
     Interval at which the customer is making purchases
     """
@@ -4734,7 +4764,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
 class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSubscription(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Unit of time between subscription charges.
     """
@@ -4872,7 +4902,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -4983,7 +5013,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -5037,16 +5067,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Name of the event.
     """
     event_type: NotRequired[
-        Literal[
-            "concert",
-            "conference",
-            "digital_education",
-            "expo",
-            "festival",
-            "in_person_education",
-            "sport",
-            "tour",
-        ]
+        "Literal['concert', 'conference', 'digital_education', 'expo', 'festival', 'in_person_education', 'sport', 'tour']|str"
     ]
     """
     Type of the event.
@@ -5110,7 +5131,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -5169,7 +5190,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -5280,7 +5301,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -5316,7 +5337,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance
@@ -5353,42 +5374,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     The number of transactions the sub-seller completed in the last 12 months.
     """
     product_category: NotRequired[
-        Literal[
-            "accessories",
-            "appliances",
-            "apps_and_games",
-            "arts_crafts_and_sewing",
-            "automotive",
-            "baby",
-            "baby_clothing",
-            "bags_and_purses",
-            "beauty",
-            "books",
-            "cds_and_vinyl",
-            "cell_phones_and_accessories",
-            "collectibles_and_fine_arts",
-            "digital_music",
-            "electronics",
-            "grocery_and_gourmet_food",
-            "handmade",
-            "health_and_personal_care",
-            "home_and_kitchen",
-            "industrial_and_scientific",
-            "luggage_and_travel_gear",
-            "magazine_subscriptions",
-            "men_clothing",
-            "musical_instruments",
-            "office_products",
-            "patio_lawn_and_garden",
-            "pet_supplies",
-            "shoes",
-            "software",
-            "sports_and_outdoors",
-            "tools_and_home_improvement",
-            "toys_and_games",
-            "video_games",
-            "women_clothing",
-        ]
+        "Literal['accessories', 'appliances', 'apps_and_games', 'arts_crafts_and_sewing', 'automotive', 'baby', 'baby_clothing', 'bags_and_purses', 'beauty', 'books', 'cds_and_vinyl', 'cell_phones_and_accessories', 'collectibles_and_fine_arts', 'digital_music', 'electronics', 'grocery_and_gourmet_food', 'handmade', 'health_and_personal_care', 'home_and_kitchen', 'industrial_and_scientific', 'luggage_and_travel_gear', 'magazine_subscriptions', 'men_clothing', 'musical_instruments', 'office_products', 'patio_lawn_and_garden', 'pet_supplies', 'shoes', 'software', 'sports_and_outdoors', 'tools_and_home_improvement', 'toys_and_games', 'video_games', 'women_clothing']|str"
     ]
     """
     The category of the product.
@@ -5398,7 +5384,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     The date when the seller's account with the marketplace was last logged in.
     """
     seller_rating: NotRequired[
-        Literal["high", "low", "medium", "very_high", "very_low"]
+        "Literal['high', 'low', 'medium', 'very_high', 'very_low']|str"
     ]
     """
     The current rating of the marketplace seller. If the marketplace uses numeric ranking, map these to the enum values.
@@ -5498,7 +5484,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -5609,7 +5595,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -5681,7 +5667,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Price in cents.
     """
     ticket_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Ticket class.
@@ -5792,7 +5778,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     Name of the company providing the insurance.
     """
     insurance_type: NotRequired[
-        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+        "Literal['baggage', 'bankruptcy', 'cancelation', 'emergency', 'medical']|str"
     ]
     """
     Type of insurance.
@@ -5840,13 +5826,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDa
     The name or reference to identify the voucher.
     """
     voucher_type: NotRequired[
-        Literal[
-            "digital_product",
-            "discount",
-            "gift_card",
-            "physical_product",
-            "services",
-        ]
+        "Literal['digital_product', 'discount', 'gift_card', 'physical_product', 'services']|str"
     ]
     """
     The type of this voucher.
@@ -5894,7 +5874,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsKrCard(TypedDict):
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5921,7 +5901,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsLink(TypedDict):
     [Deprecated] This is a legacy parameter that no longer has any function.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5999,7 +5979,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsNaverPay(TypedDict):
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6014,7 +5994,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsNaverPay(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodOptionsNzBankAccount(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6084,6 +6064,16 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPayco(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsPaynow(TypedDict):
@@ -6113,29 +6103,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaypal(TypedDict):
     The line items purchased by the customer.
     """
     preferred_locale: NotRequired[
-        Literal[
-            "cs-CZ",
-            "da-DK",
-            "de-AT",
-            "de-DE",
-            "de-LU",
-            "el-GR",
-            "en-GB",
-            "en-US",
-            "es-ES",
-            "fi-FI",
-            "fr-BE",
-            "fr-FR",
-            "fr-LU",
-            "hu-HU",
-            "it-IT",
-            "nl-BE",
-            "nl-NL",
-            "pl-PL",
-            "pt-PT",
-            "sk-SK",
-            "sv-SE",
-        ]
+        "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']|str"
     ]
     """
     [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
@@ -6153,7 +6121,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaypal(TypedDict):
     The risk correlation ID for an on-session payment using a saved PayPal payment method.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6174,7 +6142,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaypal(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodOptionsPaypalLineItem(TypedDict):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.
@@ -6218,7 +6186,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaypalLineItemTax(
     """
     The tax for a single unit of the line item in minor units. Cannot be a negative number.
     """
-    behavior: Literal["exclusive", "inclusive"]
+    behavior: Union[Literal["exclusive", "inclusive"], str]
     """
     The tax behavior for the line item.
     """
@@ -6243,7 +6211,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPayto(TypedDict):
     Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6265,7 +6233,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions(
     """
     Amount that will be collected. It is required when `amount_type` is `fixed`.
     """
-    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']"]
+    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']|str"]
     """
     The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
     """
@@ -6274,7 +6242,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions(
     Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
     """
     payment_schedule: NotRequired[
-        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']|str"
     ]
     """
     The periodicity at which payments will be collected. Defaults to `adhoc`.
@@ -6284,7 +6252,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions(
     The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
     """
     purpose: NotRequired[
-        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']|str"
     ]
     """
     The purpose for which payments are made. Has a default value based on your merchant category code.
@@ -6292,7 +6260,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions(
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsPix(TypedDict):
-    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    amount_includes_iof: NotRequired["Literal['always', 'never']|str"]
     """
     Determines if the amount includes the IOF tax. Defaults to `never`.
     """
@@ -6310,7 +6278,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPix(TypedDict):
     """
     Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
     """
-    setup_future_usage: NotRequired[Literal["none", "off_session"]]
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -6329,11 +6297,11 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPixMandateOptions(
     """
     Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
     """
-    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    amount_includes_iof: NotRequired["Literal['always', 'never']|str"]
     """
     Determines if the amount includes the IOF tax. Defaults to `never`.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     Type of amount. Defaults to `maximum`.
     """
@@ -6346,7 +6314,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPixMandateOptions(
     Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
     """
     payment_schedule: NotRequired[
-        Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        "Literal['halfyearly', 'monthly', 'quarterly', 'weekly', 'yearly']|str"
     ]
     """
     Schedule at which the future payments will be charged. Defaults to `monthly`.
@@ -6427,6 +6395,16 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsSatispay(TypedDict):
@@ -6439,7 +6417,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSatispay(TypedDict):
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6471,7 +6449,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
     Additional fields for Mandate creation
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6516,13 +6494,13 @@ class PaymentIntentCreateParamsPaymentMethodOptionsShopeepay(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodOptionsSofort(TypedDict):
     preferred_language: NotRequired[
-        "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
+        "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']|str"
     ]
     """
     Language shown to the payer on redirect.
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6539,7 +6517,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSofort(TypedDict):
 
 class PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session']"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6595,7 +6573,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSwish(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsTwint(TypedDict):
-    setup_future_usage: NotRequired[Literal["none", "off_session"]]
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -6617,7 +6595,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsUpi(TypedDict):
     Configuration options for setting up an eMandate
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
 
 
@@ -6628,7 +6606,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsUpiMandateOptions(
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -6662,7 +6640,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     Additional fields for network related functions
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -6680,13 +6658,13 @@ class PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
     transaction_purpose: NotRequired[
-        "Literal['']|Literal['goods', 'other', 'services', 'unspecified']"
+        "Literal['']|Literal['goods', 'other', 'services', 'unspecified']|str"
     ]
     """
     The purpose of the transaction.
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Bank account verification method. The default value is `automatic`.
@@ -6718,8 +6696,14 @@ class PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnect
     """
     prefetch: NotRequired[
         List[
-            Literal[
-                "balances", "inferred_balances", "ownership", "transactions"
+            Union[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ],
+                str,
             ]
         ]
     ]
@@ -6748,7 +6732,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnect
 class PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
     TypedDict,
 ):
-    mode: Literal["automatic", "custom"]
+    mode: Union[Literal["automatic", "custom"], str]
     """
     Settings for configuring manual entry of account details.
     """
@@ -6777,7 +6761,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
     """
-    client: NotRequired[Literal["android", "ios", "web"]]
+    client: NotRequired["Literal['android', 'ios', 'web']|str"]
     """
     The client type that the end customer will pay from
     """
@@ -6811,6 +6795,10 @@ class PaymentIntentCreateParamsPaymentMethodOptionsZip(TypedDict):
 
 
 class PaymentIntentCreateParamsRadarOptions(TypedDict):
+    referrer: NotRequired["Literal['']|str"]
+    """
+    The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
+    """
     session: NotRequired[str]
     """
     A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.

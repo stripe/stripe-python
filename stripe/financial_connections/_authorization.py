@@ -3,7 +3,7 @@
 from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -34,14 +34,14 @@ class Authorization(APIResource["Authorization"]):
         The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         """
         customer_account: Optional[str]
-        type: Literal["account", "customer"]
+        type: Union[Literal["account", "customer"], str]
         """
         Type of account holder that this account belongs to.
         """
 
     class StatusDetails(StripeObject):
         class Active(StripeObject):
-            action: Literal["none", "relink_required"]
+            action: Union[Literal["none", "relink_required"], str]
             """
             The action (if any) to proactively relink the Authorization.
             """
@@ -51,7 +51,7 @@ class Authorization(APIResource["Authorization"]):
             """
 
         class Inactive(StripeObject):
-            action: Literal["none", "relink_required"]
+            action: Union[Literal["none", "relink_required"], str]
             """
             The action (if any) to relink the inactive Authorization.
             """
@@ -84,7 +84,7 @@ class Authorization(APIResource["Authorization"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["active", "disconnected", "inactive"]
+    status: Union[Literal["active", "disconnected", "inactive"], str]
     """
     The status of the connection to the Authorization.
     """

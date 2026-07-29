@@ -25,7 +25,7 @@ class ProfileListParams(TypedDict):
     with `customer` and `default_payment_method`.
     You can specify up to 10 lookup_keys.
     """
-    status: NotRequired[Literal["active", "inactive"]]
+    status: NotRequired["Literal['active', 'inactive']|str"]
     """
     Filter billing profiles by status. Can be combined
     with all other filters. If not provided, all billing profiles are returned.

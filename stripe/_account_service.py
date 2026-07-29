@@ -27,6 +27,7 @@ if TYPE_CHECKING:
         AccountRetrieveCurrentParams,
     )
     from stripe.params._account_retrieve_params import AccountRetrieveParams
+    from stripe.params._account_unreject_params import AccountUnrejectParams
     from stripe.params._account_update_params import AccountUpdateParams
 
 _subservices = {
@@ -312,7 +313,7 @@ class AccountService(StripeService):
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -336,7 +337,7 @@ class AccountService(StripeService):
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -360,7 +361,7 @@ class AccountService(StripeService):
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -384,13 +385,65 @@ class AccountService(StripeService):
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}/reject".format(
+                    account=sanitize_id(account),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def unreject(
+        self,
+        account: str,
+        params: Optional["AccountUnrejectParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(account),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def unreject_async(
+        self,
+        account: str,
+        params: Optional["AccountUnrejectParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
                     account=sanitize_id(account),
                 ),
                 base_address="api",

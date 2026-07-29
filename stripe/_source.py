@@ -7,7 +7,7 @@ from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -331,7 +331,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -509,7 +509,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     ach_debit: Optional[AchDebit]
     acss_debit: Optional[AcssDebit]
     alipay: Optional[Alipay]
-    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: Optional[
+        Union[Literal["always", "limited", "unspecified"], str]
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """

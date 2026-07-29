@@ -4,7 +4,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -40,14 +40,21 @@ class V2CoreAccountLinkReturnedEvent(Event):
         The ID of the v2 account.
         """
         configurations: List[
-            Literal[
-                "customer", "merchant", "money_manager", "recipient", "storer"
+            Union[
+                Literal[
+                    "customer",
+                    "merchant",
+                    "money_manager",
+                    "recipient",
+                    "storer",
+                ],
+                str,
             ]
         ]
         """
         Configurations on the Account that was onboarded via the account link.
         """
-        use_case: Literal["account_onboarding", "account_update"]
+        use_case: Union[Literal["account_onboarding", "account_update"], str]
         """
         Open Enum. The use case type of the account link that has been completed.
         """

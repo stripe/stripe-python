@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -50,7 +50,7 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
     """
     The ID of the linked dispute.
     """
-    event_type: Literal["filing", "loss", "representment", "win"]
+    event_type: Union[Literal["filing", "loss", "representment", "win"], str]
     """
     The type of event corresponding to this dispute settlement detail, representing the stage in the dispute network lifecycle.
     """
@@ -62,7 +62,7 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Literal["maestro", "mastercard", "visa"]
+    network: Union[Literal["maestro", "mastercard", "visa"], str]
     """
     The card network for this dispute settlement detail. One of ["visa", "mastercard", "maestro"]
     """

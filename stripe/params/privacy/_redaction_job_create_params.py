@@ -14,7 +14,7 @@ class RedactionJobCreateParams(RequestOptions):
     """
     The objects to redact. These root objects and their related ones will be validated for redaction.
     """
-    validation_behavior: NotRequired[Literal["error", "fix"]]
+    validation_behavior: NotRequired["Literal['error', 'fix']|str"]
     """
     Determines the validation behavior of the job. Default is `error`.
     """

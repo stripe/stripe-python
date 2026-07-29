@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -49,18 +49,21 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         """
         linked_payment: Optional[str]
         """
-        The linked payment for the transaction. This field only applies to financing transactions of type `paydown` and reason `automatic_withholding`.
+        The linked payment for the transaction. This field only applies to financing transactions of type `payment` and reason `automatic_withholding`.
         """
         reason: Optional[
-            Literal[
-                "automatic_withholding",
-                "automatic_withholding_refund",
-                "collection",
-                "collection_failure",
-                "financing_cancellation",
-                "refill",
-                "requested_by_user",
-                "user_initiated",
+            Union[
+                Literal[
+                    "automatic_withholding",
+                    "automatic_withholding_refund",
+                    "collection",
+                    "collection_failure",
+                    "financing_cancellation",
+                    "refill",
+                    "requested_by_user",
+                    "user_initiated",
+                ],
+                str,
             ]
         ]
         """
@@ -115,7 +118,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
     """
     The object type: financing_transaction
     """
-    type: Literal["payment", "payout", "reversal"]
+    type: Union[Literal["payment", "payout", "reversal"], str]
     """
     The type of the financing transaction.
     """

@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -28,13 +28,27 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     )
 
     class NextAction(StripeObject):
+        class RedirectToUrl(StripeObject):
+            return_url: str
+            """
+            If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
+            """
+            url: str
+            """
+            The URL you must redirect your customer to in order to authenticate the payment.
+            """
+
         class UseStripeSdk(StripeObject):
             value: str
             """
             A base64-encoded string used by Stripe.js and the iOS and Android client SDKs to handle the next action. Its content is subject to change.
             """
 
-        type: Literal["use_stripe_sdk"]
+        redirect_to_url: Optional[RedirectToUrl]
+        """
+        Contains details for handling the next action by redirecting the customer. Present when `next_action.type` is `redirect_to_url`.
+        """
+        type: Union[Literal["redirect_to_url", "use_stripe_sdk"], str]
         """
         Specifies the type of next action required. Determines which child attribute contains action details.
         """
@@ -42,7 +56,10 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
         """
         Contains details for handling the next action using Stripe.js, iOS, or Android SDKs. Present when `next_action.type` is `use_stripe_sdk`.
         """
-        _inner_class_types = {"use_stripe_sdk": UseStripeSdk}
+        _inner_class_types = {
+            "redirect_to_url": RedirectToUrl,
+            "use_stripe_sdk": UseStripeSdk,
+        }
 
     class RiskDetails(StripeObject):
         class Insights(StripeObject):
@@ -180,7 +197,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     Time at which this SharedPaymentIssuedToken was deactivated.
     """
     deactivated_reason: Optional[
-        Literal["consumed", "expired", "resolved", "revoked"]
+        Union[Literal["consumed", "expired", "resolved", "revoked"], str]
     ]
     """
     The reason why the SharedPaymentIssuedToken has been deactivated.
@@ -225,7 +242,9 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     """
     Metadata about the SharedPaymentIssuedToken.
     """
-    status: Optional[Literal["active", "deactivated", "requires_action"]]
+    status: Optional[
+        Union[Literal["active", "deactivated", "requires_action"], str]
+    ]
     """
     Status of this SharedPaymentIssuedToken, one of `active`, `requires_action`, or `deactivated`.
     """
@@ -236,6 +255,10 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     usage_limits: Optional[UsageLimits]
     """
     Usage limits of the SharedPaymentIssuedToken.
+    """
+    use_stripe_sdk: Optional[bool]
+    """
+    Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
     """
 
     @classmethod

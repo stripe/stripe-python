@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -16,7 +16,7 @@ class BillSetting(StripeObject):
 
     class Calculation(StripeObject):
         class Tax(StripeObject):
-            type: Literal["automatic", "manual"]
+            type: Union[Literal["automatic", "manual"], str]
             """
             Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
             """

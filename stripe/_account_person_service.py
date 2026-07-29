@@ -35,7 +35,7 @@ class AccountPersonService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the representative. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",
@@ -59,7 +59,7 @@ class AccountPersonService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the representative. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",

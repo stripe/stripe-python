@@ -210,7 +210,7 @@ class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     TypedDict,
 ):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.
@@ -261,7 +261,7 @@ class PaymentIntentDecrementAuthorizationParamsAmountDetailsSurcharge(
     Portion of the amount that corresponds to a surcharge.
     """
     enforce_validation: NotRequired[
-        "Literal['']|Literal['automatic', 'disabled', 'enabled']"
+        "Literal['']|Literal['automatic', 'disabled', 'enabled']|str"
     ]
     """
     Indicate whether to enforce validations on the surcharge amount.

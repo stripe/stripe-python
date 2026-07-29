@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -607,7 +607,10 @@ class ConfigurationUpdateParamsWifi(TypedDict):
     """
     Credentials for a WPA-Personal WiFi network.
     """
-    type: Literal["enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"]
+    type: Union[
+        Literal["enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"],
+        str,
+    ]
     """
     Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
     """

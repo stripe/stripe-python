@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -38,7 +38,12 @@ class EventDestinationCreateParams(TypedDict):
     """
     include: NotRequired[
         List[
-            Literal["webhook_endpoint.signing_secret", "webhook_endpoint.url"]
+            Union[
+                Literal[
+                    "webhook_endpoint.signing_secret", "webhook_endpoint.url"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -56,7 +61,10 @@ class EventDestinationCreateParams(TypedDict):
     """
     If using the snapshot event payload, the API version events are rendered as.
     """
-    type: Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"]
+    type: Union[
+        Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"],
+        str,
+    ]
     """
     Event destination type.
     """

@@ -27,7 +27,7 @@ class TransactionEntryListParams(RequestOptions):
     """
     A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     """
-    order_by: NotRequired[Literal["created", "effective_at"]]
+    order_by: NotRequired["Literal['created', 'effective_at']|str"]
     """
     The results are in reverse chronological order by `created` or `effective_at`. The default is `created`.
     """

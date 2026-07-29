@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -133,7 +133,7 @@ class FinancialAddress(StripeObject):
         """
         The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
         """
-        type: Literal["gb_bank_account", "us_bank_account"]
+        type: Union[Literal["gb_bank_account", "us_bank_account"], str]
         """
         Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
         """

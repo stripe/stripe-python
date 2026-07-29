@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAddressRetrieveParams(TypedDict):
     include: NotRequired[
         List[
-            Literal[
-                "credentials.gb_bank_account.account_number",
-                "credentials.us_bank_account.account_number",
+            Union[
+                Literal[
+                    "credentials.gb_bank_account.account_number",
+                    "credentials.us_bank_account.account_number",
+                ],
+                str,
             ]
         ]
     ]

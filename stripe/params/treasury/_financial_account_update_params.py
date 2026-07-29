@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -109,7 +109,7 @@ class FinancialAccountUpdateParamsFeaturesFinancialAddresses(TypedDict):
 
 
 class FinancialAccountUpdateParamsFeaturesFinancialAddressesAba(TypedDict):
-    bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+    bank: NotRequired["Literal['evolve', 'fifth_third', 'goldman_sachs']|str"]
     """
     Requested bank partner
     """
@@ -209,18 +209,18 @@ class FinancialAccountUpdateParamsForwardingSettings(TypedDict):
     """
     The payment_method or bank account id. This needs to be a verified bank account.
     """
-    type: Literal["financial_account", "payment_method"]
+    type: Union[Literal["financial_account", "payment_method"], str]
     """
     The type of the bank account provided. This can be either "financial_account" or "payment_method"
     """
 
 
 class FinancialAccountUpdateParamsPlatformRestrictions(TypedDict):
-    inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
+    inbound_flows: NotRequired["Literal['restricted', 'unrestricted']|str"]
     """
     Restricts all inbound money movement.
     """
-    outbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
+    outbound_flows: NotRequired["Literal['restricted', 'unrestricted']|str"]
     """
     Restricts all outbound money movement.
     """

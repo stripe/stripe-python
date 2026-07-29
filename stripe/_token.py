@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -39,7 +39,7 @@ class Token(CreateableAPIResource["Token"]):
     OBJECT_NAME: ClassVar[Literal["token"]] = "token"
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """

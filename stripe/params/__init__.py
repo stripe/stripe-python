@@ -139,8 +139,10 @@ if TYPE_CHECKING:
         AccountCreateParamsCompanyAddress as AccountCreateParamsCompanyAddress,
         AccountCreateParamsCompanyAddressKana as AccountCreateParamsCompanyAddressKana,
         AccountCreateParamsCompanyAddressKanji as AccountCreateParamsCompanyAddressKanji,
+        AccountCreateParamsCompanyAdministrativeAddress as AccountCreateParamsCompanyAdministrativeAddress,
         AccountCreateParamsCompanyDirectorshipDeclaration as AccountCreateParamsCompanyDirectorshipDeclaration,
         AccountCreateParamsCompanyOwnershipDeclaration as AccountCreateParamsCompanyOwnershipDeclaration,
+        AccountCreateParamsCompanyPrincipalPlaceOfBusiness as AccountCreateParamsCompanyPrincipalPlaceOfBusiness,
         AccountCreateParamsCompanyRegistrationDate as AccountCreateParamsCompanyRegistrationDate,
         AccountCreateParamsCompanyRepresentativeDeclaration as AccountCreateParamsCompanyRepresentativeDeclaration,
         AccountCreateParamsCompanyVerification as AccountCreateParamsCompanyVerification,
@@ -159,8 +161,6 @@ if TYPE_CHECKING:
         AccountCreateParamsDocumentsCompanyRegistrationVerification as AccountCreateParamsDocumentsCompanyRegistrationVerification,
         AccountCreateParamsDocumentsCompanyTaxIdVerification as AccountCreateParamsDocumentsCompanyTaxIdVerification,
         AccountCreateParamsDocumentsProofOfAddress as AccountCreateParamsDocumentsProofOfAddress,
-        AccountCreateParamsDocumentsProofOfRegistration as AccountCreateParamsDocumentsProofOfRegistration,
-        AccountCreateParamsDocumentsProofOfRegistrationSigner as AccountCreateParamsDocumentsProofOfRegistrationSigner,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountCreateParamsGroups as AccountCreateParamsGroups,
@@ -460,6 +460,9 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsTaxThresholdMonitoring as AccountSessionCreateParamsComponentsTaxThresholdMonitoring,
         AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures as AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures,
     )
+    from stripe.params._account_unreject_params import (
+        AccountUnrejectParams as AccountUnrejectParams,
+    )
     from stripe.params._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
         AccountUpdateParamsBankAccount as AccountUpdateParamsBankAccount,
@@ -553,8 +556,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsCompanyAddress as AccountUpdateParamsCompanyAddress,
         AccountUpdateParamsCompanyAddressKana as AccountUpdateParamsCompanyAddressKana,
         AccountUpdateParamsCompanyAddressKanji as AccountUpdateParamsCompanyAddressKanji,
+        AccountUpdateParamsCompanyAdministrativeAddress as AccountUpdateParamsCompanyAdministrativeAddress,
         AccountUpdateParamsCompanyDirectorshipDeclaration as AccountUpdateParamsCompanyDirectorshipDeclaration,
         AccountUpdateParamsCompanyOwnershipDeclaration as AccountUpdateParamsCompanyOwnershipDeclaration,
+        AccountUpdateParamsCompanyPrincipalPlaceOfBusiness as AccountUpdateParamsCompanyPrincipalPlaceOfBusiness,
         AccountUpdateParamsCompanyRegistrationDate as AccountUpdateParamsCompanyRegistrationDate,
         AccountUpdateParamsCompanyRepresentativeDeclaration as AccountUpdateParamsCompanyRepresentativeDeclaration,
         AccountUpdateParamsCompanyVerification as AccountUpdateParamsCompanyVerification,
@@ -603,6 +608,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible as AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible,
         AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment,
         AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted as AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted,
+        AccountUpdateParamsSettingsSepaDebitPayments as AccountUpdateParamsSettingsSepaDebitPayments,
         AccountUpdateParamsSettingsSmartDisputes as AccountUpdateParamsSettingsSmartDisputes,
         AccountUpdateParamsSettingsSmartDisputesAutoRespond as AccountUpdateParamsSettingsSmartDisputesAutoRespond,
         AccountUpdateParamsSettingsTaxForms as AccountUpdateParamsSettingsTaxForms,
@@ -712,7 +718,7 @@ if TYPE_CHECKING:
         ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalDiscounts as ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge as ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTax as ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTax,
-        ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax as ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         ChargeCaptureParamsPaymentDetailsCarRentalDatumVehicle as ChargeCaptureParamsPaymentDetailsCarRentalDatumVehicle,
         ChargeCaptureParamsPaymentDetailsCarRentalDelivery as ChargeCaptureParamsPaymentDetailsCarRentalDelivery,
         ChargeCaptureParamsPaymentDetailsCarRentalDeliveryRecipient as ChargeCaptureParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -738,7 +744,7 @@ if TYPE_CHECKING:
         ChargeCaptureParamsPaymentDetailsFlightDatumTotalDiscounts as ChargeCaptureParamsPaymentDetailsFlightDatumTotalDiscounts,
         ChargeCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge as ChargeCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge,
         ChargeCaptureParamsPaymentDetailsFlightDatumTotalTax as ChargeCaptureParamsPaymentDetailsFlightDatumTotalTax,
-        ChargeCaptureParamsPaymentDetailsFlightDatumTotalTaxTax as ChargeCaptureParamsPaymentDetailsFlightDatumTotalTaxTax,
+        ChargeCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem as ChargeCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         ChargeCaptureParamsPaymentDetailsFlightDelivery as ChargeCaptureParamsPaymentDetailsFlightDelivery,
         ChargeCaptureParamsPaymentDetailsFlightDeliveryRecipient as ChargeCaptureParamsPaymentDetailsFlightDeliveryRecipient,
         ChargeCaptureParamsPaymentDetailsFlightPassenger as ChargeCaptureParamsPaymentDetailsFlightPassenger,
@@ -757,7 +763,7 @@ if TYPE_CHECKING:
         ChargeCaptureParamsPaymentDetailsLodgingDatumTotalDiscounts as ChargeCaptureParamsPaymentDetailsLodgingDatumTotalDiscounts,
         ChargeCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge as ChargeCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTax as ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTax,
-        ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax as ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         ChargeCaptureParamsPaymentDetailsLodgingDelivery as ChargeCaptureParamsPaymentDetailsLodgingDelivery,
         ChargeCaptureParamsPaymentDetailsLodgingDeliveryRecipient as ChargeCaptureParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeCaptureParamsPaymentDetailsLodgingPassenger as ChargeCaptureParamsPaymentDetailsLodgingPassenger,
@@ -801,7 +807,7 @@ if TYPE_CHECKING:
         ChargeModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts as ChargeModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         ChargeModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge as ChargeModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTax as ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTax,
-        ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax as ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         ChargeModifyParamsPaymentDetailsCarRentalDatumVehicle as ChargeModifyParamsPaymentDetailsCarRentalDatumVehicle,
         ChargeModifyParamsPaymentDetailsCarRentalDelivery as ChargeModifyParamsPaymentDetailsCarRentalDelivery,
         ChargeModifyParamsPaymentDetailsCarRentalDeliveryRecipient as ChargeModifyParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -827,7 +833,7 @@ if TYPE_CHECKING:
         ChargeModifyParamsPaymentDetailsFlightDatumTotalDiscounts as ChargeModifyParamsPaymentDetailsFlightDatumTotalDiscounts,
         ChargeModifyParamsPaymentDetailsFlightDatumTotalExtraCharge as ChargeModifyParamsPaymentDetailsFlightDatumTotalExtraCharge,
         ChargeModifyParamsPaymentDetailsFlightDatumTotalTax as ChargeModifyParamsPaymentDetailsFlightDatumTotalTax,
-        ChargeModifyParamsPaymentDetailsFlightDatumTotalTaxTax as ChargeModifyParamsPaymentDetailsFlightDatumTotalTaxTax,
+        ChargeModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem as ChargeModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         ChargeModifyParamsPaymentDetailsFlightDelivery as ChargeModifyParamsPaymentDetailsFlightDelivery,
         ChargeModifyParamsPaymentDetailsFlightDeliveryRecipient as ChargeModifyParamsPaymentDetailsFlightDeliveryRecipient,
         ChargeModifyParamsPaymentDetailsFlightPassenger as ChargeModifyParamsPaymentDetailsFlightPassenger,
@@ -846,7 +852,7 @@ if TYPE_CHECKING:
         ChargeModifyParamsPaymentDetailsLodgingDatumTotalDiscounts as ChargeModifyParamsPaymentDetailsLodgingDatumTotalDiscounts,
         ChargeModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge as ChargeModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         ChargeModifyParamsPaymentDetailsLodgingDatumTotalTax as ChargeModifyParamsPaymentDetailsLodgingDatumTotalTax,
-        ChargeModifyParamsPaymentDetailsLodgingDatumTotalTaxTax as ChargeModifyParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        ChargeModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as ChargeModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         ChargeModifyParamsPaymentDetailsLodgingDelivery as ChargeModifyParamsPaymentDetailsLodgingDelivery,
         ChargeModifyParamsPaymentDetailsLodgingDeliveryRecipient as ChargeModifyParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeModifyParamsPaymentDetailsLodgingPassenger as ChargeModifyParamsPaymentDetailsLodgingPassenger,
@@ -885,7 +891,7 @@ if TYPE_CHECKING:
         ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalDiscounts as ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalExtraCharge as ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTax as ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTax,
-        ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax as ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         ChargeUpdateParamsPaymentDetailsCarRentalDatumVehicle as ChargeUpdateParamsPaymentDetailsCarRentalDatumVehicle,
         ChargeUpdateParamsPaymentDetailsCarRentalDelivery as ChargeUpdateParamsPaymentDetailsCarRentalDelivery,
         ChargeUpdateParamsPaymentDetailsCarRentalDeliveryRecipient as ChargeUpdateParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -911,7 +917,7 @@ if TYPE_CHECKING:
         ChargeUpdateParamsPaymentDetailsFlightDatumTotalDiscounts as ChargeUpdateParamsPaymentDetailsFlightDatumTotalDiscounts,
         ChargeUpdateParamsPaymentDetailsFlightDatumTotalExtraCharge as ChargeUpdateParamsPaymentDetailsFlightDatumTotalExtraCharge,
         ChargeUpdateParamsPaymentDetailsFlightDatumTotalTax as ChargeUpdateParamsPaymentDetailsFlightDatumTotalTax,
-        ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTax as ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTax,
+        ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem as ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         ChargeUpdateParamsPaymentDetailsFlightDelivery as ChargeUpdateParamsPaymentDetailsFlightDelivery,
         ChargeUpdateParamsPaymentDetailsFlightDeliveryRecipient as ChargeUpdateParamsPaymentDetailsFlightDeliveryRecipient,
         ChargeUpdateParamsPaymentDetailsFlightPassenger as ChargeUpdateParamsPaymentDetailsFlightPassenger,
@@ -930,7 +936,7 @@ if TYPE_CHECKING:
         ChargeUpdateParamsPaymentDetailsLodgingDatumTotalDiscounts as ChargeUpdateParamsPaymentDetailsLodgingDatumTotalDiscounts,
         ChargeUpdateParamsPaymentDetailsLodgingDatumTotalExtraCharge as ChargeUpdateParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTax as ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTax,
-        ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax as ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         ChargeUpdateParamsPaymentDetailsLodgingDelivery as ChargeUpdateParamsPaymentDetailsLodgingDelivery,
         ChargeUpdateParamsPaymentDetailsLodgingDeliveryRecipient as ChargeUpdateParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeUpdateParamsPaymentDetailsLodgingPassenger as ChargeUpdateParamsPaymentDetailsLodgingPassenger,
@@ -2150,7 +2156,7 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax,
-        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumVehicle,
         PaymentIntentCaptureParamsPaymentDetailsCarRentalDelivery as PaymentIntentCaptureParamsPaymentDetailsCarRentalDelivery,
         PaymentIntentCaptureParamsPaymentDetailsCarRentalDeliveryRecipient as PaymentIntentCaptureParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -2176,7 +2182,7 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalDiscounts as PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalDiscounts,
         PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge as PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge,
         PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTax as PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTax,
-        PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTax as PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTax,
+        PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem as PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         PaymentIntentCaptureParamsPaymentDetailsFlightDelivery as PaymentIntentCaptureParamsPaymentDetailsFlightDelivery,
         PaymentIntentCaptureParamsPaymentDetailsFlightDeliveryRecipient as PaymentIntentCaptureParamsPaymentDetailsFlightDeliveryRecipient,
         PaymentIntentCaptureParamsPaymentDetailsFlightPassenger as PaymentIntentCaptureParamsPaymentDetailsFlightPassenger,
@@ -2195,7 +2201,7 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalDiscounts,
         PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTax,
-        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentCaptureParamsPaymentDetailsLodgingDelivery as PaymentIntentCaptureParamsPaymentDetailsLodgingDelivery,
         PaymentIntentCaptureParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentCaptureParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger as PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger,
@@ -2241,7 +2247,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTax,
-        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTax as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumVehicle,
         PaymentIntentConfirmParamsPaymentDetailsCarRentalDelivery as PaymentIntentConfirmParamsPaymentDetailsCarRentalDelivery,
         PaymentIntentConfirmParamsPaymentDetailsCarRentalDeliveryRecipient as PaymentIntentConfirmParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -2267,7 +2273,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalDiscounts as PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalDiscounts,
         PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalExtraCharge as PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalExtraCharge,
         PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTax as PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTax,
-        PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTaxTax as PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTaxTax,
+        PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTaxTaxItem as PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         PaymentIntentConfirmParamsPaymentDetailsFlightDelivery as PaymentIntentConfirmParamsPaymentDetailsFlightDelivery,
         PaymentIntentConfirmParamsPaymentDetailsFlightDeliveryRecipient as PaymentIntentConfirmParamsPaymentDetailsFlightDeliveryRecipient,
         PaymentIntentConfirmParamsPaymentDetailsFlightPassenger as PaymentIntentConfirmParamsPaymentDetailsFlightPassenger,
@@ -2286,7 +2292,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalDiscounts,
         PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTax,
-        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTax as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentConfirmParamsPaymentDetailsLodgingDelivery as PaymentIntentConfirmParamsPaymentDetailsLodgingDelivery,
         PaymentIntentConfirmParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentConfirmParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentConfirmParamsPaymentDetailsLodgingPassenger as PaymentIntentConfirmParamsPaymentDetailsLodgingPassenger,
@@ -2530,7 +2536,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax,
-        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTax as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         PaymentIntentCreateParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumVehicle,
         PaymentIntentCreateParamsPaymentDetailsCarRentalDelivery as PaymentIntentCreateParamsPaymentDetailsCarRentalDelivery,
         PaymentIntentCreateParamsPaymentDetailsCarRentalDeliveryRecipient as PaymentIntentCreateParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -2556,7 +2562,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalDiscounts as PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalDiscounts,
         PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalExtraCharge as PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalExtraCharge,
         PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTax as PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTax,
-        PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTax as PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTax,
+        PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTaxItem as PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         PaymentIntentCreateParamsPaymentDetailsFlightDelivery as PaymentIntentCreateParamsPaymentDetailsFlightDelivery,
         PaymentIntentCreateParamsPaymentDetailsFlightDeliveryRecipient as PaymentIntentCreateParamsPaymentDetailsFlightDeliveryRecipient,
         PaymentIntentCreateParamsPaymentDetailsFlightPassenger as PaymentIntentCreateParamsPaymentDetailsFlightPassenger,
@@ -2575,7 +2581,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalDiscounts,
         PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTax,
-        PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentCreateParamsPaymentDetailsLodgingDelivery as PaymentIntentCreateParamsPaymentDetailsLodgingDelivery,
         PaymentIntentCreateParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentCreateParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentCreateParamsPaymentDetailsLodgingPassenger as PaymentIntentCreateParamsPaymentDetailsLodgingPassenger,
@@ -2866,7 +2872,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax,
-        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         PaymentIntentModifyParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumVehicle,
         PaymentIntentModifyParamsPaymentDetailsCarRentalDelivery as PaymentIntentModifyParamsPaymentDetailsCarRentalDelivery,
         PaymentIntentModifyParamsPaymentDetailsCarRentalDeliveryRecipient as PaymentIntentModifyParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -2892,7 +2898,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalDiscounts as PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalDiscounts,
         PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalExtraCharge as PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalExtraCharge,
         PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTax as PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTax,
-        PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTax as PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTax,
+        PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem as PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         PaymentIntentModifyParamsPaymentDetailsFlightDelivery as PaymentIntentModifyParamsPaymentDetailsFlightDelivery,
         PaymentIntentModifyParamsPaymentDetailsFlightDeliveryRecipient as PaymentIntentModifyParamsPaymentDetailsFlightDeliveryRecipient,
         PaymentIntentModifyParamsPaymentDetailsFlightPassenger as PaymentIntentModifyParamsPaymentDetailsFlightPassenger,
@@ -2911,7 +2917,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalDiscounts,
         PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax,
-        PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTax as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentModifyParamsPaymentDetailsLodgingDelivery as PaymentIntentModifyParamsPaymentDetailsLodgingDelivery,
         PaymentIntentModifyParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentModifyParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentModifyParamsPaymentDetailsLodgingPassenger as PaymentIntentModifyParamsPaymentDetailsLodgingPassenger,
@@ -3164,7 +3170,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalDiscounts,
         PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
         PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTax,
-        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
         PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumVehicle,
         PaymentIntentUpdateParamsPaymentDetailsCarRentalDelivery as PaymentIntentUpdateParamsPaymentDetailsCarRentalDelivery,
         PaymentIntentUpdateParamsPaymentDetailsCarRentalDeliveryRecipient as PaymentIntentUpdateParamsPaymentDetailsCarRentalDeliveryRecipient,
@@ -3190,7 +3196,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalDiscounts as PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalDiscounts,
         PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalExtraCharge as PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalExtraCharge,
         PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTax as PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTax,
-        PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTaxTax as PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTaxTax,
+        PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem as PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem,
         PaymentIntentUpdateParamsPaymentDetailsFlightDelivery as PaymentIntentUpdateParamsPaymentDetailsFlightDelivery,
         PaymentIntentUpdateParamsPaymentDetailsFlightDeliveryRecipient as PaymentIntentUpdateParamsPaymentDetailsFlightDeliveryRecipient,
         PaymentIntentUpdateParamsPaymentDetailsFlightPassenger as PaymentIntentUpdateParamsPaymentDetailsFlightPassenger,
@@ -3209,7 +3215,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalDiscounts,
         PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalExtraCharge,
         PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTax,
-        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentUpdateParamsPaymentDetailsLodgingDelivery as PaymentIntentUpdateParamsPaymentDetailsLodgingDelivery,
         PaymentIntentUpdateParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentUpdateParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentUpdateParamsPaymentDetailsLodgingPassenger as PaymentIntentUpdateParamsPaymentDetailsLodgingPassenger,
@@ -3489,6 +3495,8 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsAfterCompletionRedirect as PaymentLinkModifyParamsAfterCompletionRedirect,
         PaymentLinkModifyParamsAutomaticTax as PaymentLinkModifyParamsAutomaticTax,
         PaymentLinkModifyParamsAutomaticTaxLiability as PaymentLinkModifyParamsAutomaticTaxLiability,
+        PaymentLinkModifyParamsConsentCollection as PaymentLinkModifyParamsConsentCollection,
+        PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement as PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement,
         PaymentLinkModifyParamsCustomField as PaymentLinkModifyParamsCustomField,
         PaymentLinkModifyParamsCustomFieldDropdown as PaymentLinkModifyParamsCustomFieldDropdown,
         PaymentLinkModifyParamsCustomFieldDropdownOption as PaymentLinkModifyParamsCustomFieldDropdownOption,
@@ -3520,6 +3528,7 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsRestrictions as PaymentLinkModifyParamsRestrictions,
         PaymentLinkModifyParamsRestrictionsCompletedSessions as PaymentLinkModifyParamsRestrictionsCompletedSessions,
         PaymentLinkModifyParamsShippingAddressCollection as PaymentLinkModifyParamsShippingAddressCollection,
+        PaymentLinkModifyParamsShippingOption as PaymentLinkModifyParamsShippingOption,
         PaymentLinkModifyParamsSubscriptionData as PaymentLinkModifyParamsSubscriptionData,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettings as PaymentLinkModifyParamsSubscriptionDataInvoiceSettings,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer,
@@ -3537,6 +3546,8 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsAfterCompletionRedirect as PaymentLinkUpdateParamsAfterCompletionRedirect,
         PaymentLinkUpdateParamsAutomaticTax as PaymentLinkUpdateParamsAutomaticTax,
         PaymentLinkUpdateParamsAutomaticTaxLiability as PaymentLinkUpdateParamsAutomaticTaxLiability,
+        PaymentLinkUpdateParamsConsentCollection as PaymentLinkUpdateParamsConsentCollection,
+        PaymentLinkUpdateParamsConsentCollectionPaymentMethodReuseAgreement as PaymentLinkUpdateParamsConsentCollectionPaymentMethodReuseAgreement,
         PaymentLinkUpdateParamsCustomField as PaymentLinkUpdateParamsCustomField,
         PaymentLinkUpdateParamsCustomFieldDropdown as PaymentLinkUpdateParamsCustomFieldDropdown,
         PaymentLinkUpdateParamsCustomFieldDropdownOption as PaymentLinkUpdateParamsCustomFieldDropdownOption,
@@ -3568,6 +3579,7 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsRestrictions as PaymentLinkUpdateParamsRestrictions,
         PaymentLinkUpdateParamsRestrictionsCompletedSessions as PaymentLinkUpdateParamsRestrictionsCompletedSessions,
         PaymentLinkUpdateParamsShippingAddressCollection as PaymentLinkUpdateParamsShippingAddressCollection,
+        PaymentLinkUpdateParamsShippingOption as PaymentLinkUpdateParamsShippingOption,
         PaymentLinkUpdateParamsSubscriptionData as PaymentLinkUpdateParamsSubscriptionData,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer,
@@ -4101,6 +4113,9 @@ if TYPE_CHECKING:
         PaymentMethodUpdateParamsPayto as PaymentMethodUpdateParamsPayto,
         PaymentMethodUpdateParamsUsBankAccount as PaymentMethodUpdateParamsUsBankAccount,
     )
+    from stripe.params._payment_record_list_params import (
+        PaymentRecordListParams as PaymentRecordListParams,
+    )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams as PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -4337,6 +4352,7 @@ if TYPE_CHECKING:
         QuoteCreateParamsDiscountDiscountEndDuration as QuoteCreateParamsDiscountDiscountEndDuration,
         QuoteCreateParamsFromQuote as QuoteCreateParamsFromQuote,
         QuoteCreateParamsInvoiceSettings as QuoteCreateParamsInvoiceSettings,
+        QuoteCreateParamsInvoiceSettingsCustomField as QuoteCreateParamsInvoiceSettingsCustomField,
         QuoteCreateParamsInvoiceSettingsIssuer as QuoteCreateParamsInvoiceSettingsIssuer,
         QuoteCreateParamsLine as QuoteCreateParamsLine,
         QuoteCreateParamsLineAction as QuoteCreateParamsLineAction,
@@ -4437,6 +4453,7 @@ if TYPE_CHECKING:
         QuoteModifyParamsDiscountDiscountEnd as QuoteModifyParamsDiscountDiscountEnd,
         QuoteModifyParamsDiscountDiscountEndDuration as QuoteModifyParamsDiscountDiscountEndDuration,
         QuoteModifyParamsInvoiceSettings as QuoteModifyParamsInvoiceSettings,
+        QuoteModifyParamsInvoiceSettingsCustomField as QuoteModifyParamsInvoiceSettingsCustomField,
         QuoteModifyParamsInvoiceSettingsIssuer as QuoteModifyParamsInvoiceSettingsIssuer,
         QuoteModifyParamsLine as QuoteModifyParamsLine,
         QuoteModifyParamsLineAction as QuoteModifyParamsLineAction,
@@ -4514,6 +4531,7 @@ if TYPE_CHECKING:
         QuoteUpdateParamsDiscountDiscountEnd as QuoteUpdateParamsDiscountDiscountEnd,
         QuoteUpdateParamsDiscountDiscountEndDuration as QuoteUpdateParamsDiscountDiscountEndDuration,
         QuoteUpdateParamsInvoiceSettings as QuoteUpdateParamsInvoiceSettings,
+        QuoteUpdateParamsInvoiceSettingsCustomField as QuoteUpdateParamsInvoiceSettingsCustomField,
         QuoteUpdateParamsInvoiceSettingsIssuer as QuoteUpdateParamsInvoiceSettingsIssuer,
         QuoteUpdateParamsLine as QuoteUpdateParamsLine,
         QuoteUpdateParamsLineAction as QuoteUpdateParamsLineAction,
@@ -5374,6 +5392,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTaxLiability,
         SubscriptionScheduleCreateParamsDefaultSettingsBillingThresholds as SubscriptionScheduleCreateParamsDefaultSettingsBillingThresholds,
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings,
+        SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleCreateParamsDefaultSettingsTransferData as SubscriptionScheduleCreateParamsDefaultSettingsTransferData,
         SubscriptionScheduleCreateParamsPhase as SubscriptionScheduleCreateParamsPhase,
@@ -5393,6 +5412,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsPhaseDiscountDiscountEndDuration as SubscriptionScheduleCreateParamsPhaseDiscountDiscountEndDuration,
         SubscriptionScheduleCreateParamsPhaseDuration as SubscriptionScheduleCreateParamsPhaseDuration,
         SubscriptionScheduleCreateParamsPhaseInvoiceSettings as SubscriptionScheduleCreateParamsPhaseInvoiceSettings,
+        SubscriptionScheduleCreateParamsPhaseInvoiceSettingsCustomField as SubscriptionScheduleCreateParamsPhaseInvoiceSettingsCustomField,
         SubscriptionScheduleCreateParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleCreateParamsPhaseInvoiceSettingsIssuer,
         SubscriptionScheduleCreateParamsPhaseItem as SubscriptionScheduleCreateParamsPhaseItem,
         SubscriptionScheduleCreateParamsPhaseItemBillingThresholds as SubscriptionScheduleCreateParamsPhaseItemBillingThresholds,
@@ -5422,6 +5442,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTaxLiability,
         SubscriptionScheduleModifyParamsDefaultSettingsBillingThresholds as SubscriptionScheduleModifyParamsDefaultSettingsBillingThresholds,
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings,
+        SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleModifyParamsDefaultSettingsTransferData as SubscriptionScheduleModifyParamsDefaultSettingsTransferData,
         SubscriptionScheduleModifyParamsPhase as SubscriptionScheduleModifyParamsPhase,
@@ -5441,6 +5462,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsPhaseDiscountDiscountEndDuration as SubscriptionScheduleModifyParamsPhaseDiscountDiscountEndDuration,
         SubscriptionScheduleModifyParamsPhaseDuration as SubscriptionScheduleModifyParamsPhaseDuration,
         SubscriptionScheduleModifyParamsPhaseInvoiceSettings as SubscriptionScheduleModifyParamsPhaseInvoiceSettings,
+        SubscriptionScheduleModifyParamsPhaseInvoiceSettingsCustomField as SubscriptionScheduleModifyParamsPhaseInvoiceSettingsCustomField,
         SubscriptionScheduleModifyParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleModifyParamsPhaseInvoiceSettingsIssuer,
         SubscriptionScheduleModifyParamsPhaseItem as SubscriptionScheduleModifyParamsPhaseItem,
         SubscriptionScheduleModifyParamsPhaseItemBillingThresholds as SubscriptionScheduleModifyParamsPhaseItemBillingThresholds,
@@ -5469,6 +5491,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTaxLiability,
         SubscriptionScheduleUpdateParamsDefaultSettingsBillingThresholds as SubscriptionScheduleUpdateParamsDefaultSettingsBillingThresholds,
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings,
+        SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleUpdateParamsDefaultSettingsTransferData as SubscriptionScheduleUpdateParamsDefaultSettingsTransferData,
         SubscriptionScheduleUpdateParamsPhase as SubscriptionScheduleUpdateParamsPhase,
@@ -5488,6 +5511,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEndDuration as SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEndDuration,
         SubscriptionScheduleUpdateParamsPhaseDuration as SubscriptionScheduleUpdateParamsPhaseDuration,
         SubscriptionScheduleUpdateParamsPhaseInvoiceSettings as SubscriptionScheduleUpdateParamsPhaseInvoiceSettings,
+        SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsCustomField as SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsCustomField,
         SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsIssuer,
         SubscriptionScheduleUpdateParamsPhaseItem as SubscriptionScheduleUpdateParamsPhaseItem,
         SubscriptionScheduleUpdateParamsPhaseItemBillingThresholds as SubscriptionScheduleUpdateParamsPhaseItemBillingThresholds,
@@ -5612,8 +5636,10 @@ if TYPE_CHECKING:
         TokenCreateParamsAccountCompanyAddress as TokenCreateParamsAccountCompanyAddress,
         TokenCreateParamsAccountCompanyAddressKana as TokenCreateParamsAccountCompanyAddressKana,
         TokenCreateParamsAccountCompanyAddressKanji as TokenCreateParamsAccountCompanyAddressKanji,
+        TokenCreateParamsAccountCompanyAdministrativeAddress as TokenCreateParamsAccountCompanyAdministrativeAddress,
         TokenCreateParamsAccountCompanyDirectorshipDeclaration as TokenCreateParamsAccountCompanyDirectorshipDeclaration,
         TokenCreateParamsAccountCompanyOwnershipDeclaration as TokenCreateParamsAccountCompanyOwnershipDeclaration,
+        TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness as TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness,
         TokenCreateParamsAccountCompanyRegistrationDate as TokenCreateParamsAccountCompanyRegistrationDate,
         TokenCreateParamsAccountCompanyRepresentativeDeclaration as TokenCreateParamsAccountCompanyRepresentativeDeclaration,
         TokenCreateParamsAccountCompanyVerification as TokenCreateParamsAccountCompanyVerification,
@@ -6155,11 +6181,19 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsCompanyAdministrativeAddress": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsCompanyDirectorshipDeclaration": (
         "stripe.params._account_create_params",
         False,
     ),
     "AccountCreateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCompanyPrincipalPlaceOfBusiness": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -6232,14 +6266,6 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsDocumentsProofOfAddress": (
-        "stripe.params._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsDocumentsProofOfRegistration": (
-        "stripe.params._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsDocumentsProofOfRegistrationSigner": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7137,6 +7163,7 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountUnrejectParams": ("stripe.params._account_unreject_params", False),
     "AccountUpdateParams": ("stripe.params._account_update_params", False),
     "AccountUpdateParamsBankAccount": (
         "stripe.params._account_update_params",
@@ -7499,11 +7526,19 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsCompanyAdministrativeAddress": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsCompanyDirectorshipDeclaration": (
         "stripe.params._account_update_params",
         False,
     ),
     "AccountUpdateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCompanyPrincipalPlaceOfBusiness": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -7696,6 +7731,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsSepaDebitPayments": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -7934,7 +7973,7 @@ _import_map = {
         "stripe.params._charge_capture_params",
         False,
     ),
-    "ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._charge_capture_params",
         False,
     ),
@@ -8038,7 +8077,7 @@ _import_map = {
         "stripe.params._charge_capture_params",
         False,
     ),
-    "ChargeCaptureParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "ChargeCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._charge_capture_params",
         False,
     ),
@@ -8114,7 +8153,7 @@ _import_map = {
         "stripe.params._charge_capture_params",
         False,
     ),
-    "ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "ChargeCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._charge_capture_params",
         False,
     ),
@@ -8246,7 +8285,7 @@ _import_map = {
         "stripe.params._charge_modify_params",
         False,
     ),
-    "ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "ChargeModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._charge_modify_params",
         False,
     ),
@@ -8350,7 +8389,7 @@ _import_map = {
         "stripe.params._charge_modify_params",
         False,
     ),
-    "ChargeModifyParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "ChargeModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._charge_modify_params",
         False,
     ),
@@ -8426,7 +8465,7 @@ _import_map = {
         "stripe.params._charge_modify_params",
         False,
     ),
-    "ChargeModifyParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "ChargeModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._charge_modify_params",
         False,
     ),
@@ -8541,7 +8580,7 @@ _import_map = {
         "stripe.params._charge_update_params",
         False,
     ),
-    "ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._charge_update_params",
         False,
     ),
@@ -8645,7 +8684,7 @@ _import_map = {
         "stripe.params._charge_update_params",
         False,
     ),
-    "ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._charge_update_params",
         False,
     ),
@@ -8721,7 +8760,7 @@ _import_map = {
         "stripe.params._charge_update_params",
         False,
     ),
-    "ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._charge_update_params",
         False,
     ),
@@ -12195,7 +12234,7 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
-    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_capture_params",
         False,
     ),
@@ -12299,7 +12338,7 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
-    "PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_capture_params",
         False,
     ),
@@ -12375,7 +12414,7 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
-    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_capture_params",
         False,
     ),
@@ -12551,7 +12590,7 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
-    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -12655,7 +12694,7 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
-    "PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "PaymentIntentConfirmParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -12731,7 +12770,7 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
-    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -13699,7 +13738,7 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
-    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -13803,7 +13842,7 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
-    "PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -13879,7 +13918,7 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
-    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -15003,7 +15042,7 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
-    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -15107,7 +15146,7 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
-    "PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -15183,7 +15222,7 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
-    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -16163,7 +16202,7 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
-    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax": (
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -16267,7 +16306,7 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
-    "PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTaxTax": (
+    "PaymentIntentUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -16343,7 +16382,7 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
-    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax": (
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -17415,6 +17454,14 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsConsentCollection": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
+    "PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsCustomField": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -17539,6 +17586,10 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsShippingOption": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsSubscriptionData": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -17588,6 +17639,14 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsAutomaticTaxLiability": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsConsentCollection": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsConsentCollectionPaymentMethodReuseAgreement": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -17712,6 +17771,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsShippingAddressCollection": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsShippingOption": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -19699,6 +19762,10 @@ _import_map = {
         "stripe.params._payment_method_update_params",
         False,
     ),
+    "PaymentRecordListParams": (
+        "stripe.params._payment_record_list_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptCanceledParams": (
         "stripe.params._payment_record_report_payment_attempt_canceled_params",
         False,
@@ -20125,6 +20192,10 @@ _import_map = {
         "stripe.params._quote_create_params",
         False,
     ),
+    "QuoteCreateParamsInvoiceSettingsCustomField": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
     "QuoteCreateParamsInvoiceSettingsIssuer": (
         "stripe.params._quote_create_params",
         False,
@@ -20394,6 +20465,10 @@ _import_map = {
         "stripe.params._quote_modify_params",
         False,
     ),
+    "QuoteModifyParamsInvoiceSettingsCustomField": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
     "QuoteModifyParamsInvoiceSettingsIssuer": (
         "stripe.params._quote_modify_params",
         False,
@@ -20630,6 +20705,10 @@ _import_map = {
         False,
     ),
     "QuoteUpdateParamsInvoiceSettings": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsInvoiceSettingsCustomField": (
         "stripe.params._quote_update_params",
         False,
     ),
@@ -23604,6 +23683,10 @@ _import_map = {
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
+    "SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
     "SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer": (
         "stripe.params._subscription_schedule_create_params",
         False,
@@ -23677,6 +23760,10 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleCreateParamsPhaseInvoiceSettings": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPhaseInvoiceSettingsCustomField": (
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
@@ -23780,6 +23867,10 @@ _import_map = {
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
+    "SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
     "SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer": (
         "stripe.params._subscription_schedule_modify_params",
         False,
@@ -23853,6 +23944,10 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleModifyParamsPhaseInvoiceSettings": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPhaseInvoiceSettingsCustomField": (
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
@@ -23944,6 +24039,10 @@ _import_map = {
         "stripe.params._subscription_schedule_update_params",
         False,
     ),
+    "SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
     "SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer": (
         "stripe.params._subscription_schedule_update_params",
         False,
@@ -24017,6 +24116,10 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleUpdateParamsPhaseInvoiceSettings": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsCustomField": (
         "stripe.params._subscription_schedule_update_params",
         False,
     ),
@@ -24362,11 +24465,19 @@ _import_map = {
         "stripe.params._token_create_params",
         False,
     ),
+    "TokenCreateParamsAccountCompanyAdministrativeAddress": (
+        "stripe.params._token_create_params",
+        False,
+    ),
     "TokenCreateParamsAccountCompanyDirectorshipDeclaration": (
         "stripe.params._token_create_params",
         False,
     ),
     "TokenCreateParamsAccountCompanyOwnershipDeclaration": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness": (
         "stripe.params._token_create_params",
         False,
     ),

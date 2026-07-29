@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from typing import Any, ClassVar, Dict, Optional, cast
+from typing import Any, ClassVar, Dict, Optional, cast, Union
 
 from typing_extensions import Literal, TYPE_CHECKING
 

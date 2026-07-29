@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -47,7 +47,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             The phone number of the device used for tokenization.
             """
-            type: Optional[Literal["other", "phone", "watch"]]
+            type: Optional[Union[Literal["other", "phone", "watch"], str]]
             """
             The type of device used for tokenization.
             """
@@ -108,7 +108,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
             """
             card_number_source: Optional[
-                Literal["app", "manual", "on_file", "other"]
+                Union[Literal["app", "manual", "on_file", "other"], str]
             ]
             """
             The method used for tokenizing a card.
@@ -128,35 +128,38 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             reason_codes: Optional[
                 List[
-                    Literal[
-                        "account_card_too_new",
-                        "account_recently_changed",
-                        "account_too_new",
-                        "account_too_new_since_launch",
-                        "additional_device",
-                        "data_expired",
-                        "defer_id_v_decision",
-                        "device_recently_lost",
-                        "good_activity_history",
-                        "has_suspended_tokens",
-                        "high_risk",
-                        "inactive_account",
-                        "long_account_tenure",
-                        "low_account_score",
-                        "low_device_score",
-                        "low_phone_number_score",
-                        "network_service_error",
-                        "outside_home_territory",
-                        "provisioning_cardholder_mismatch",
-                        "provisioning_device_and_cardholder_mismatch",
-                        "provisioning_device_mismatch",
-                        "same_device_no_prior_authentication",
-                        "same_device_successful_prior_authentication",
-                        "software_update",
-                        "suspicious_activity",
-                        "too_many_different_cardholders",
-                        "too_many_recent_attempts",
-                        "too_many_recent_tokens",
+                    Union[
+                        Literal[
+                            "account_card_too_new",
+                            "account_recently_changed",
+                            "account_too_new",
+                            "account_too_new_since_launch",
+                            "additional_device",
+                            "data_expired",
+                            "defer_id_v_decision",
+                            "device_recently_lost",
+                            "good_activity_history",
+                            "has_suspended_tokens",
+                            "high_risk",
+                            "inactive_account",
+                            "long_account_tenure",
+                            "low_account_score",
+                            "low_device_score",
+                            "low_phone_number_score",
+                            "network_service_error",
+                            "outside_home_territory",
+                            "provisioning_cardholder_mismatch",
+                            "provisioning_device_and_cardholder_mismatch",
+                            "provisioning_device_mismatch",
+                            "same_device_no_prior_authentication",
+                            "same_device_successful_prior_authentication",
+                            "software_update",
+                            "suspicious_activity",
+                            "too_many_different_cardholders",
+                            "too_many_recent_attempts",
+                            "too_many_recent_tokens",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -164,7 +167,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             The reasons for suggested tokenization given by the card network.
             """
             suggested_decision: Optional[
-                Literal["approve", "decline", "require_auth"]
+                Union[Literal["approve", "decline", "require_auth"], str]
             ]
             """
             The recommendation on responding to the tokenization request.
@@ -177,7 +180,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
         device: Optional[Device]
         mastercard: Optional[Mastercard]
-        type: Literal["mastercard", "visa"]
+        type: Union[Literal["mastercard", "visa"], str]
         """
         The network that the token is associated with. An additional hash is included with a name matching this value, containing tokenization data specific to the card network.
         """
@@ -214,7 +217,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Literal["mastercard", "visa"]
+    network: Union[Literal["mastercard", "visa"], str]
     """
     The token service provider / card network associated with the token.
     """
@@ -227,12 +230,12 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["active", "deleted", "requested", "suspended"]
+    status: Union[Literal["active", "deleted", "requested", "suspended"], str]
     """
     The usage state of the token.
     """
     wallet_provider: Optional[
-        Literal["apple_pay", "google_pay", "samsung_pay"]
+        Union[Literal["apple_pay", "google_pay", "samsung_pay"], str]
     ]
     """
     The digital wallet for this token, if one was used.

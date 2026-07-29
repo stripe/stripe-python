@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -38,7 +38,9 @@ class ShippingRate(
 
     class DeliveryEstimate(StripeObject):
         class Maximum(StripeObject):
-            unit: Literal["business_day", "day", "hour", "month", "week"]
+            unit: Union[
+                Literal["business_day", "day", "hour", "month", "week"], str
+            ]
             """
             A unit of time.
             """
@@ -48,7 +50,9 @@ class ShippingRate(
             """
 
         class Minimum(StripeObject):
-            unit: Literal["business_day", "day", "hour", "month", "week"]
+            unit: Union[
+                Literal["business_day", "day", "hour", "month", "week"], str
+            ]
             """
             A unit of time.
             """

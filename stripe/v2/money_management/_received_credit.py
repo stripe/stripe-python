@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -28,7 +28,7 @@ class ReceivedCredit(StripeObject):
         """
         The ID of the outbound transfer object that originated the ReceivedCredit.
         """
-        payout_v1: Optional[str]
+        payout: Optional[str]
         """
         The ID of the payout object that originated the ReceivedCredit.
         """
@@ -36,8 +36,15 @@ class ReceivedCredit(StripeObject):
         """
         The ID of the v1 transfer object that originated the ReceivedCredit.
         """
-        type: Literal[
-            "outbound_payment", "outbound_transfer", "transfer", "payout_v1"
+        type: Union[
+            Literal[
+                "outbound_payment",
+                "outbound_transfer",
+                "payout",
+                "transfer",
+                "payout_v1",
+            ],
+            str,
         ]
         """
         Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
@@ -57,7 +64,7 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Literal["chaps", "fps"]
+            network: Union[Literal["chaps", "fps"], str]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -105,7 +112,7 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Literal["ach", "rtp", "us_domestic_wire"]
+            network: Union[Literal["ach", "rtp", "us_domestic_wire"], str]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -122,8 +129,9 @@ class ReceivedCredit(StripeObject):
         """
         Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
         """
-        origin_type: Literal[
-            "gb_bank_account", "sepa_bank_account", "us_bank_account"
+        origin_type: Union[
+            Literal["gb_bank_account", "sepa_bank_account", "us_bank_account"],
+            str,
         ]
         """
         Open Enum. Indicates the origin of source from which external funds originated from.
@@ -148,11 +156,14 @@ class ReceivedCredit(StripeObject):
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
-            reason: Literal[
-                "capability_inactive",
-                "currency_unsupported_on_financial_address",
-                "financial_address_inactive",
-                "stripe_rejected",
+            reason: Union[
+                Literal[
+                    "capability_inactive",
+                    "currency_unsupported_on_financial_address",
+                    "financial_address_inactive",
+                    "stripe_rejected",
+                ],
+                str,
             ]
             """
             Open Enum. The `failed` status reason.
@@ -232,7 +243,7 @@ class ReceivedCredit(StripeObject):
     """
     A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
     """
-    status: Literal["failed", "pending", "returned", "succeeded"]
+    status: Union[Literal["failed", "pending", "returned", "succeeded"], str]
     """
     Open Enum. The status of the ReceivedCredit.
     """
@@ -244,7 +255,9 @@ class ReceivedCredit(StripeObject):
     """
     Hash containing timestamps of when the object transitioned to a particular status.
     """
-    type: Literal["balance_transfer", "bank_transfer", "external_credit"]
+    type: Union[
+        Literal["balance_transfer", "bank_transfer", "external_credit"], str
+    ]
     """
     Open Enum. The type of flow that caused the ReceivedCredit.
     """

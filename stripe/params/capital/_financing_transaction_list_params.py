@@ -8,7 +8,7 @@ from typing_extensions import NotRequired
 class FinancingTransactionListParams(RequestOptions):
     charge: NotRequired[str]
     """
-    For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
+    For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
     """
     ending_before: NotRequired[str]
     """
@@ -36,5 +36,5 @@ class FinancingTransactionListParams(RequestOptions):
     """
     treasury_transaction: NotRequired[str]
     """
-    For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
+    For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
     """

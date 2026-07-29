@@ -5,7 +5,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -155,17 +155,20 @@ class Capability(UpdateableAPIResource["Capability"]):
         Fields that need to be resolved to keep the capability enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
         """
         disabled_reason: Optional[
-            Literal[
-                "other",
-                "paused.inactivity",
-                "pending.onboarding",
-                "pending.review",
-                "platform_disabled",
-                "platform_paused",
-                "rejected.inactivity",
-                "rejected.other",
-                "rejected.unsupported_business",
-                "requirements.fields_needed",
+            Union[
+                Literal[
+                    "other",
+                    "paused.inactivity",
+                    "pending.onboarding",
+                    "pending.review",
+                    "platform_disabled",
+                    "platform_paused",
+                    "rejected.inactivity",
+                    "rejected.other",
+                    "rejected.unsupported_business",
+                    "requirements.fields_needed",
+                ],
+                str,
             ]
         ]
         """
@@ -173,7 +176,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         errors: List[Error]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: List[str]
         """
@@ -326,17 +329,20 @@ class Capability(UpdateableAPIResource["Capability"]):
         Fields that need to be resolved to keep the capability enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the capability is disabled.
         """
         disabled_reason: Optional[
-            Literal[
-                "other",
-                "paused.inactivity",
-                "pending.onboarding",
-                "pending.review",
-                "platform_disabled",
-                "platform_paused",
-                "rejected.inactivity",
-                "rejected.other",
-                "rejected.unsupported_business",
-                "requirements.fields_needed",
+            Union[
+                Literal[
+                    "other",
+                    "paused.inactivity",
+                    "pending.onboarding",
+                    "pending.review",
+                    "platform_disabled",
+                    "platform_paused",
+                    "rejected.inactivity",
+                    "rejected.other",
+                    "rejected.unsupported_business",
+                    "requirements.fields_needed",
+                ],
+                str,
             ]
         ]
         """
@@ -344,7 +350,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         errors: List[Error]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: List[str]
         """
@@ -382,7 +388,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     Time at which the capability was requested. Measured in seconds since the Unix epoch.
     """
     requirements: Optional[Requirements]
-    status: Literal["active", "inactive", "pending", "unrequested"]
+    status: Union[Literal["active", "inactive", "pending", "unrequested"], str]
     """
     The status of the capability.
     """
