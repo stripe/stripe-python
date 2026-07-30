@@ -10,7 +10,7 @@ class ReaderReloadGiftCardParams(RequestOptions):
     """
     The amount to add to the gift card balance, in the smallest currency unit.
     """
-    brand: Literal["fiserv_valuelink", "givex", "svs"]
+    brand: Literal["svs"]
     """
     The brand of the gift card.
     """

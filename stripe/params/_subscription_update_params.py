@@ -49,7 +49,7 @@ class SubscriptionUpdateParams(TypedDict):
     """
     cancel_at_period_end: NotRequired[bool]
     """
-    Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+    Indicate whether this subscription should cancel at the end of the current period (`current_period_end`).
     """
     cancellation_details: NotRequired[
         "SubscriptionUpdateParamsCancellationDetails"

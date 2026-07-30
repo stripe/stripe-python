@@ -465,6 +465,14 @@ class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager(
 
 
 class AccountTokenCreateParamsIdentityBusinessDetails(TypedDict):
+    additional_addresses: NotRequired[
+        List[
+            "AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress"
+        ]
+    ]
+    """
+    Additional addresses associated with the business.
+    """
     address: NotRequired[
         "AccountTokenCreateParamsIdentityBusinessDetailsAddress"
     ]
@@ -534,6 +542,43 @@ class AccountTokenCreateParamsIdentityBusinessDetails(TypedDict):
     ]
     """
     The category identifying the legal structure of the business.
+    """
+
+
+class AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (e.g., street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (e.g., apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    purpose: Literal["administrative", "principal_place_of_business"]
+    """
+    Purpose of additional address.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+    town: NotRequired[str]
+    """
+    Town or district.
     """
 
 

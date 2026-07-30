@@ -859,6 +859,47 @@ class Authorization(
             "unit_cost_decimal": "decimal_string",
         }
 
+    class Healthcare(StripeObject):
+        clinic_amount: Optional[int]
+        """
+        Clinic and urgent care sub-amount for Visa only. Null if the merchant did not include this amount.
+        """
+        currency: Optional[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        dental_amount: Optional[int]
+        """
+        Dental care sub-amount for Visa only. Null if the merchant did not include this amount.
+        """
+        prescription_amount: Optional[int]
+        """
+        Prescription drug sub-amount. Null if the merchant did not include this amount.
+        """
+        purchase_type: Optional[Literal["medical", "transit_for_healthcare"]]
+        """
+        The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+        """
+        total_qualified_amount: Optional[int]
+        """
+        Total FSA/HSA-eligible amount in the smallest currency unit.
+        """
+        verification_status: Optional[
+            Literal[
+                "iias_merchant_exempt",
+                "iias_merchant_not_certified",
+                "iias_verified",
+                "not_verified",
+            ]
+        ]
+        """
+        IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified.
+        """
+        vision_amount: Optional[int]
+        """
+        Vision/optical sub-amount. Null if the merchant did not include this amount.
+        """
+
     class MerchantData(StripeObject):
         category: str
         """
@@ -1625,6 +1666,10 @@ class Authorization(
     fuel: Optional[Fuel]
     """
     Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
+    """
+    healthcare: Optional[Healthcare]
+    """
+    Details about the IIAS FSA/HSA healthcare amounts on this authorization.
     """
     id: str
     """
@@ -2793,6 +2838,7 @@ class Authorization(
         "fleet": Fleet,
         "fraud_challenges": FraudChallenge,
         "fuel": Fuel,
+        "healthcare": Healthcare,
         "merchant_data": MerchantData,
         "network_data": NetworkData,
         "pending_request": PendingRequest,

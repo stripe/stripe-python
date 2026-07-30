@@ -1096,9 +1096,9 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax(
     """
     Indicates if the transaction is tax exempt.
     """
-    taxes: NotRequired[
+    tax_items: NotRequired[
         List[
-            "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax"
+            "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem"
         ]
     ]
     """
@@ -1106,7 +1106,7 @@ class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax(
     """
 
 
-class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTax(
+class PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem(
     TypedDict,
 ):
     amount: NotRequired[int]
@@ -1759,16 +1759,18 @@ class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge(
 
 
 class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTax(TypedDict):
-    taxes: NotRequired[
-        List["PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Array of tax details.
     """
 
 
-class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTax(
-    TypedDict
+class PaymentIntentCaptureParamsPaymentDetailsFlightDatumTotalTaxTaxItem(
+    TypedDict,
 ):
     amount: NotRequired[int]
     """
@@ -2247,15 +2249,17 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTax(TypedDict):
     """
     Indicates whether the transaction is tax exempt.
     """
-    taxes: NotRequired[
-        List["PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Tax details.
     """
 
 
-class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax(
+class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem(
     TypedDict,
 ):
     amount: NotRequired[int]

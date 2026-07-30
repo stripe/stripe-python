@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.v2._amount import AmountParam
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -9,7 +10,7 @@ class FinancialAddressDebitParams(TypedDict):
     """
     Object containing the amount value and currency to debit.
     """
-    network: Literal["ach"]
+    network: Union[Literal["ach", "bacs"], str]
     """
     The network to use in simulating the funds flow. This will be reflected in the resulting ReceivedDebit.
     """

@@ -1248,6 +1248,9 @@ class AccountCreateParamsCompany(TypedDict):
     """
     The Kanji variation of the company's primary address (Japan only).
     """
+    administrative_address: NotRequired[
+        "AccountCreateParamsCompanyAdministrativeAddress"
+    ]
     directors_provided: NotRequired[bool]
     """
     Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
@@ -1302,6 +1305,9 @@ class AccountCreateParamsCompany(TypedDict):
     """
     The company's phone number (used for verification).
     """
+    principal_place_of_business: NotRequired[
+        "AccountCreateParamsCompanyPrincipalPlaceOfBusiness"
+    ]
     registration_date: NotRequired[
         "Literal['']|AccountCreateParamsCompanyRegistrationDate"
     ]
@@ -1433,6 +1439,33 @@ class AccountCreateParamsCompanyAddressKanji(TypedDict):
     """
 
 
+class AccountCreateParamsCompanyAdministrativeAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
 class AccountCreateParamsCompanyDirectorshipDeclaration(TypedDict):
     date: NotRequired[int]
     """
@@ -1460,6 +1493,33 @@ class AccountCreateParamsCompanyOwnershipDeclaration(TypedDict):
     user_agent: NotRequired[str]
     """
     The user agent of the browser from which the beneficial owner attestation was made.
+    """
+
+
+class AccountCreateParamsCompanyPrincipalPlaceOfBusiness(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1622,12 +1682,6 @@ class AccountCreateParamsDocuments(TypedDict):
     """
     One or more documents that demonstrate proof of address.
     """
-    proof_of_registration: NotRequired[
-        "AccountCreateParamsDocumentsProofOfRegistration"
-    ]
-    """
-    One or more documents showing the company's proof of registration with the national business registry.
-    """
     proof_of_ultimate_beneficial_ownership: NotRequired[
         "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership"
     ]
@@ -1682,26 +1736,6 @@ class AccountCreateParamsDocumentsProofOfAddress(TypedDict):
     files: NotRequired[List[str]]
     """
     One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
-    """
-
-
-class AccountCreateParamsDocumentsProofOfRegistration(TypedDict):
-    files: NotRequired[List[str]]
-    """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
-    """
-    signer: NotRequired[
-        "AccountCreateParamsDocumentsProofOfRegistrationSigner"
-    ]
-    """
-    Information regarding the person signing the document if applicable.
-    """
-
-
-class AccountCreateParamsDocumentsProofOfRegistrationSigner(TypedDict):
-    person: NotRequired[str]
-    """
-    The token of the person signing the document, if applicable.
     """
 
 

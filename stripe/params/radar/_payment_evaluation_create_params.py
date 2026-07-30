@@ -170,7 +170,7 @@ class PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetails(
         "PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsCard"
     ]
     """
-    Masked PAN card details to use as an alternative to a payment_method token.
+    Masked/raw PAN card details to use as an alternative to a payment_method token.
     """
     payment_method: str
     """
@@ -233,6 +233,10 @@ class PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDeta
 class PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsCard(
     TypedDict,
 ):
+    cvc: NotRequired[str]
+    """
+    The CVC of the card.
+    """
     exp_month: int
     """
     Two-digit number representing the card's expiration month.
@@ -241,13 +245,17 @@ class PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsCard(
     """
     Four-digit number representing the card's expiration year.
     """
-    first6: str
+    first6: NotRequired[str]
     """
     First six digits of the card number.
     """
-    last4: str
+    last4: NotRequired[str]
     """
     Last four digits of the card number.
+    """
+    number: NotRequired[str]
+    """
+    The card number, as a string without any separators.
     """
 
 

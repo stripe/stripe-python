@@ -979,6 +979,12 @@ class AccountCreateParamsConfigurationMerchant(TypedDict):
     """
     Card payments settings.
     """
+    gross_settlement: NotRequired[
+        "AccountCreateParamsConfigurationMerchantGrossSettlement"
+    ]
+    """
+    Settings for gross settlement.
+    """
     konbini_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantKonbiniPayments"
     ]
@@ -2814,6 +2820,17 @@ class AccountCreateParamsConfigurationMerchantCardPaymentsDeclineOn(TypedDict):
     cvc_failure: NotRequired[bool]
     """
     Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantGrossSettlement(TypedDict):
+    payment_method: NotRequired[str]
+    """
+    The ID of the payment method to use for gross settlement payouts.
+    """
+    payment_method_collection: NotRequired[Literal["always", "never"]]
+    """
+    Whether to collect a payment method for gross settlement.
     """
 
 
@@ -6492,6 +6509,12 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager(
 
 
 class AccountCreateParamsIdentityBusinessDetails(TypedDict):
+    additional_addresses: NotRequired[
+        List["AccountCreateParamsIdentityBusinessDetailsAdditionalAddress"]
+    ]
+    """
+    Additional addresses associated with the business.
+    """
     address: NotRequired["AccountCreateParamsIdentityBusinessDetailsAddress"]
     """
     The business registration address of the business entity.
@@ -6559,6 +6582,41 @@ class AccountCreateParamsIdentityBusinessDetails(TypedDict):
     ]
     """
     The category identifying the legal structure of the business.
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsAdditionalAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (e.g., street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (e.g., apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    purpose: Literal["administrative", "principal_place_of_business"]
+    """
+    Purpose of additional address.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+    town: NotRequired[str]
+    """
+    Town or district.
     """
 
 

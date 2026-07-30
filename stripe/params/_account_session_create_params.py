@@ -514,6 +514,10 @@ class AccountSessionCreateParamsComponentsDisputesListFeatures(TypedDict):
     """
     Whether sending refunds is enabled. This is `true` by default.
     """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+    """
 
 
 class AccountSessionCreateParamsComponentsDocuments(TypedDict):
@@ -762,6 +766,10 @@ class AccountSessionCreateParamsComponentsPaymentDetailsFeatures(TypedDict):
     """
     Whether sending refunds is enabled. This is `true` by default.
     """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+    """
 
 
 class AccountSessionCreateParamsComponentsPaymentDisputes(TypedDict):
@@ -789,6 +797,10 @@ class AccountSessionCreateParamsComponentsPaymentDisputesFeatures(TypedDict):
     refund_management: NotRequired[bool]
     """
     Whether sending refunds is enabled. This is `true` by default.
+    """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
     """
 
 
@@ -840,6 +852,10 @@ class AccountSessionCreateParamsComponentsPaymentsFeatures(TypedDict):
     refund_management: NotRequired[bool]
     """
     Whether sending refunds is enabled. This is `true` by default.
+    """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
     """
 
 

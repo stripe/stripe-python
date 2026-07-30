@@ -54,6 +54,7 @@ if TYPE_CHECKING:
         CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope as CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope,
         CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeBillableItem as CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeBillableItem,
         CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice as CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice,
+        CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeRateCard as CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeRateCard,
     )
     from stripe.params.billing._credit_balance_transaction_list_params import (
         CreditBalanceTransactionListParams as CreditBalanceTransactionListParams,
@@ -70,6 +71,7 @@ if TYPE_CHECKING:
         CreditGrantCreateParamsApplicabilityConfigScope as CreditGrantCreateParamsApplicabilityConfigScope,
         CreditGrantCreateParamsApplicabilityConfigScopeBillableItem as CreditGrantCreateParamsApplicabilityConfigScopeBillableItem,
         CreditGrantCreateParamsApplicabilityConfigScopePrice as CreditGrantCreateParamsApplicabilityConfigScopePrice,
+        CreditGrantCreateParamsApplicabilityConfigScopeRateCard as CreditGrantCreateParamsApplicabilityConfigScopeRateCard,
     )
     from stripe.params.billing._credit_grant_expire_params import (
         CreditGrantExpireParams as CreditGrantExpireParams,
@@ -252,6 +254,10 @@ _import_map = {
         "stripe.params.billing._credit_balance_summary_retrieve_params",
         False,
     ),
+    "CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeRateCard": (
+        "stripe.params.billing._credit_balance_summary_retrieve_params",
+        False,
+    ),
     "CreditBalanceTransactionListParams": (
         "stripe.params.billing._credit_balance_transaction_list_params",
         False,
@@ -289,6 +295,10 @@ _import_map = {
         False,
     ),
     "CreditGrantCreateParamsApplicabilityConfigScopePrice": (
+        "stripe.params.billing._credit_grant_create_params",
+        False,
+    ),
+    "CreditGrantCreateParamsApplicabilityConfigScopeRateCard": (
         "stripe.params.billing._credit_grant_create_params",
         False,
     ),

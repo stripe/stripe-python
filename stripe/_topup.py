@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import UntypedStripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Optional, cast, overload
@@ -12,6 +12,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
+    from stripe._payment_method import PaymentMethod
     from stripe._source import Source
     from stripe.params._topup_cancel_params import TopupCancelParams
     from stripe.params._topup_create_params import TopupCreateParams
@@ -34,6 +35,20 @@ class Topup(
     """
 
     OBJECT_NAME: ClassVar[Literal["topup"]] = "topup"
+
+    class PaymentMethodOptions(StripeObject):
+        class UsBankAccount(StripeObject):
+            network: Literal["ach"]
+            """
+            The US bank transfer network used for this top-up. The default is `ach`.
+            """
+
+        us_bank_account: Optional[UsBankAccount]
+        """
+        If this top-up is to be used with a `us_bank_account` payment method, this sub-hash contains configuration for it.
+        """
+        _inner_class_types = {"us_bank_account": UsBankAccount}
+
     amount: int
     """
     Amount transferred.
@@ -70,6 +85,10 @@ class Topup(
     """
     Unique identifier for the object.
     """
+    initiated_by: Optional[Literal["stripe", "user"]]
+    """
+    Indicates whether the top-up was initiated by Stripe or by the user.
+    """
     livemode: bool
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -81,6 +100,14 @@ class Topup(
     object: Literal["topup"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    payment_method: Optional[ExpandableField["PaymentMethod"]]
+    """
+    The ID of a PaymentMethod representing the payment method used for the top-up. A PaymentMethod of type `us_bank_account` can be used.
+    """
+    payment_method_options: Optional[PaymentMethodOptions]
+    """
+    Payment-method-specific configuration for this top-up.
     """
     source: Optional["Source"]
     """
@@ -322,3 +349,5 @@ class Topup(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"payment_method_options": PaymentMethodOptions}

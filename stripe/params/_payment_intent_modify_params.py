@@ -1362,9 +1362,9 @@ class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
     """
     Indicates if the transaction is tax exempt.
     """
-    taxes: NotRequired[
+    tax_items: NotRequired[
         List[
-            "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax"
+            "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem"
         ]
     ]
     """
@@ -1372,7 +1372,7 @@ class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
     """
 
 
-class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax(
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem(
     TypedDict,
 ):
     amount: NotRequired[int]
@@ -2021,15 +2021,19 @@ class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalExtraCharge(
 
 
 class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTax(TypedDict):
-    taxes: NotRequired[
-        List["PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Array of tax details.
     """
 
 
-class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTax(TypedDict):
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTaxItem(
+    TypedDict,
+):
     amount: NotRequired[int]
     """
     Tax amount.
@@ -2507,16 +2511,18 @@ class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax(TypedDict):
     """
     Indicates whether the transaction is tax exempt.
     """
-    taxes: NotRequired[
-        List["PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Tax details.
     """
 
 
-class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTax(
-    TypedDict
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem(
+    TypedDict,
 ):
     amount: NotRequired[int]
     """
@@ -3379,14 +3385,17 @@ class PaymentIntentModifyParamsPaymentMethodDataFpx(TypedDict):
         "bank_muamalat",
         "bank_of_china",
         "bank_rakyat",
+        "bnp_paribas",
         "bsn",
         "cimb",
+        "citibank",
         "deutsche_bank",
         "hong_leong_bank",
         "hsbc",
         "kfh",
         "maybank2e",
         "maybank2u",
+        "mbsb_bank",
         "ocbc",
         "pb_enterprise",
         "public_bank",
@@ -6667,6 +6676,16 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPayco(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsPaynow(TypedDict):
@@ -6999,6 +7018,16 @@ class PaymentIntentModifyParamsPaymentMethodOptionsSamsungPay(TypedDict):
     If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
 
 

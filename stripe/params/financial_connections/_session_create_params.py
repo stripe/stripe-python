@@ -113,6 +113,12 @@ class SessionCreateParamsFilters(TypedDict):
     """
     Stripe ID of the institution with which the customer should be directed to log in.
     """
+    require_payment_method_support: NotRequired[
+        Literal["all", "at_least_one", "none"]
+    ]
+    """
+    Whether the session should require payment method support and successful account number retrieval before completion.
+    """
 
 
 class SessionCreateParamsHosted(TypedDict):
@@ -130,7 +136,7 @@ class SessionCreateParamsLimits(TypedDict):
 
 
 class SessionCreateParamsManualEntry(TypedDict):
-    mode: NotRequired[Literal["automatic", "custom"]]
+    mode: NotRequired["Literal['automatic', 'custom', 'disabled']|str"]
     """
     How manual entry should be handled.
     """

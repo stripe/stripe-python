@@ -222,6 +222,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesZipPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesZipPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCardPayments as AccountCreateParamsConfigurationMerchantCardPayments,
         AccountCreateParamsConfigurationMerchantCardPaymentsDeclineOn as AccountCreateParamsConfigurationMerchantCardPaymentsDeclineOn,
+        AccountCreateParamsConfigurationMerchantGrossSettlement as AccountCreateParamsConfigurationMerchantGrossSettlement,
         AccountCreateParamsConfigurationMerchantKonbiniPayments as AccountCreateParamsConfigurationMerchantKonbiniPayments,
         AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport,
         AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
@@ -461,6 +462,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
         AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
+        AccountCreateParamsIdentityBusinessDetailsAdditionalAddress as AccountCreateParamsIdentityBusinessDetailsAdditionalAddress,
         AccountCreateParamsIdentityBusinessDetailsAddress as AccountCreateParamsIdentityBusinessDetailsAddress,
         AccountCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountCreateParamsIdentityBusinessDetailsAnnualRevenue,
         AccountCreateParamsIdentityBusinessDetailsDocuments as AccountCreateParamsIdentityBusinessDetailsDocuments,
@@ -568,6 +570,7 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
         AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountTokenCreateParamsIdentityBusinessDetails as AccountTokenCreateParamsIdentityBusinessDetails,
+        AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress as AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress,
         AccountTokenCreateParamsIdentityBusinessDetailsAddress as AccountTokenCreateParamsIdentityBusinessDetailsAddress,
         AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue,
         AccountTokenCreateParamsIdentityBusinessDetailsDocuments as AccountTokenCreateParamsIdentityBusinessDetailsDocuments,
@@ -828,6 +831,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesZipPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesZipPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCardPayments as AccountUpdateParamsConfigurationMerchantCardPayments,
         AccountUpdateParamsConfigurationMerchantCardPaymentsDeclineOn as AccountUpdateParamsConfigurationMerchantCardPaymentsDeclineOn,
+        AccountUpdateParamsConfigurationMerchantGrossSettlement as AccountUpdateParamsConfigurationMerchantGrossSettlement,
         AccountUpdateParamsConfigurationMerchantKonbiniPayments as AccountUpdateParamsConfigurationMerchantKonbiniPayments,
         AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport,
         AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
@@ -1067,6 +1071,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
+        AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress as AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress,
         AccountUpdateParamsIdentityBusinessDetailsAddress as AccountUpdateParamsIdentityBusinessDetailsAddress,
         AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue as AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue,
         AccountUpdateParamsIdentityBusinessDetailsDocuments as AccountUpdateParamsIdentityBusinessDetailsDocuments,
@@ -2051,6 +2056,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantGrossSettlement": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantKonbiniPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -3007,6 +3016,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsIdentityBusinessDetailsAdditionalAddress": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIdentityBusinessDetailsAddress": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -3389,6 +3402,10 @@ _import_map = {
         False,
     ),
     "AccountTokenCreateParamsIdentityBusinessDetails": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress": (
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
@@ -4416,6 +4433,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantGrossSettlement": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantKonbiniPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -5369,6 +5390,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityBusinessDetails": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

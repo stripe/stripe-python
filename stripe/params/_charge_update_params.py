@@ -673,15 +673,15 @@ class ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
     """
     Indicates if the transaction is tax exempt.
     """
-    taxes: NotRequired[
-        List["ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List["ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem"]
     ]
     """
     Array of tax details.
     """
 
 
-class ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTax(TypedDict):
+class ChargeUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem(TypedDict):
     amount: NotRequired[int]
     """
     Tax amount.
@@ -1300,15 +1300,15 @@ class ChargeUpdateParamsPaymentDetailsFlightDatumTotalExtraCharge(TypedDict):
 
 
 class ChargeUpdateParamsPaymentDetailsFlightDatumTotalTax(TypedDict):
-    taxes: NotRequired[
-        List["ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List["ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem"]
     ]
     """
     Array of tax details.
     """
 
 
-class ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTax(TypedDict):
+class ChargeUpdateParamsPaymentDetailsFlightDatumTotalTaxTaxItem(TypedDict):
     amount: NotRequired[int]
     """
     Tax amount.
@@ -1764,15 +1764,15 @@ class ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTax(TypedDict):
     """
     Indicates whether the transaction is tax exempt.
     """
-    taxes: NotRequired[
-        List["ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List["ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem"]
     ]
     """
     Tax details.
     """
 
 
-class ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTax(TypedDict):
+class ChargeUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem(TypedDict):
     amount: NotRequired[int]
     """
     Tax amount in cents.

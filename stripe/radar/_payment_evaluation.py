@@ -420,15 +420,40 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
                 """
                 _inner_class_types = {"address": Address}
 
+            class Card(StripeObject):
+                exp_month: int
+                """
+                Two-digit number representing the card's expiration month.
+                """
+                exp_year: int
+                """
+                Four-digit number representing the card's expiration year.
+                """
+                first6: Optional[str]
+                """
+                First six digits of the card number.
+                """
+                last4: Optional[str]
+                """
+                Last four digits of the card number.
+                """
+
             billing_details: Optional[BillingDetails]
             """
             Billing information associated with the payment evaluation.
+            """
+            card: Optional[Card]
+            """
+            Card details associated with the payment evaluation.
             """
             payment_method: ExpandableField["PaymentMethod"]
             """
             The payment method used in this payment evaluation.
             """
-            _inner_class_types = {"billing_details": BillingDetails}
+            _inner_class_types = {
+                "billing_details": BillingDetails,
+                "card": Card,
+            }
 
         class ShippingDetails(StripeObject):
             class Address(StripeObject):

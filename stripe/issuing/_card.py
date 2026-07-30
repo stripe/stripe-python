@@ -72,6 +72,16 @@ class Card(
         cancel_after: CancelAfter
         _inner_class_types = {"cancel_after": CancelAfter}
 
+    class ProductGraduationState(StripeObject):
+        state: Literal["failed", "pending", "succeeded"]
+        """
+        Status of the product graduation request. `pending` while awaiting card network confirmation, `succeeded` once confirmed, `failed` if rejected.
+        """
+        target_product_code: Optional[str]
+        """
+        The product code the card graduation is targeting.
+        """
+
     class Redaction(StripeObject):
         status: Union[Literal["processing", "redacted", "validated"], str]
         """
@@ -1338,6 +1348,14 @@ class Card(
     """
     The personalization design object belonging to this card.
     """
+    product_code: Optional[str]
+    """
+    The product code the card is currently enrolled under. `product_graduation_state` reflects any in-flight product graduation and whether the card network has confirmed it.
+    """
+    product_graduation_state: Optional[ProductGraduationState]
+    """
+    State of the product graduation request on this card. Only present when a product graduation has been requested.
+    """
     program: Optional[str]
     """
     The program that this card belongs to — will not be nil.
@@ -2060,6 +2078,7 @@ class Card(
     _inner_class_types = {
         "latest_fraud_warning": LatestFraudWarning,
         "lifecycle_controls": LifecycleControls,
+        "product_graduation_state": ProductGraduationState,
         "redaction": Redaction,
         "shipping": Shipping,
         "spending_controls": SpendingControls,

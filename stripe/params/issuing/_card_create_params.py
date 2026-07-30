@@ -47,6 +47,10 @@ class CardCreateParams(RequestOptions):
     """
     The desired PIN for this card.
     """
+    product_code: NotRequired[str]
+    """
+    The product code to request via product graduation.
+    """
     replacement_for: NotRequired[str]
     """
     The card this is meant to be a replacement for (if any).
@@ -110,6 +114,10 @@ class CardCreateParamsShipping(TypedDict):
     ]
     """
     Address validation settings.
+    """
+    business_name: NotRequired[str]
+    """
+    The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace. Allowed characters: `A-Z`, `a-z`, `0-9`, ` `, `.`, `-`. All other characters are stripped or ASCII-normalized when printed.
     """
     customs: NotRequired["CardCreateParamsShippingCustoms"]
     """

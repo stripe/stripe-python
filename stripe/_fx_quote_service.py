@@ -21,7 +21,7 @@ class FxQuoteService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FxQuote]":
         """
-        Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
+        Returns a list of active FX quotes. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
         """
         return cast(
             "ListObject[FxQuote]",
@@ -40,7 +40,7 @@ class FxQuoteService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FxQuote]":
         """
-        Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
+        Returns a list of active FX quotes. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
         """
         return cast(
             "ListObject[FxQuote]",

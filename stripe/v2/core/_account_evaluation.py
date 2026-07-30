@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -71,7 +71,16 @@ class AccountEvaluation(StripeObject):
     """
     Timestamp at which the evaluation was created.
     """
-    evaluations_triggered: List[Literal["fraudulent_website"]]
+    evaluations_triggered: List[
+        Union[
+            Literal[
+                "fraudulent_website",
+                "user_account_sharing",
+                "user_multi_accounting",
+            ],
+            str,
+        ]
+    ]
     """
     List of signals that were triggered for evaluation.
     """

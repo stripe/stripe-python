@@ -1866,6 +1866,18 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
     Options for the luxury tax registration.
     """
+    mass_transit_parking_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax"
+    ]
+    """
+    Options for the mass transit parking tax registration.
+    """
+    parking_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsParkingTax"
+    ]
+    """
+    Options for the parking tax registration.
+    """
     resort_tax: NotRequired[
         "RegistrationCreateParamsCountryOptionsUsResortTax"
     ]
@@ -1971,6 +1983,20 @@ class RegistrationCreateParamsCountryOptionsUsLuxuryTax(TypedDict):
     jurisdiction: str
     """
     A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=luxury_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsParkingTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types).
     """
 
 

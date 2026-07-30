@@ -27,6 +27,10 @@ class PaymentLinkModifyParams(RequestOptions):
     """
     Configuration for collecting the customer's billing address. Defaults to `auto`.
     """
+    consent_collection: NotRequired["PaymentLinkModifyParamsConsentCollection"]
+    """
+    Configure fields to gather active consent from customers.
+    """
     custom_fields: NotRequired[
         "Literal['']|List[PaymentLinkModifyParamsCustomField]"
     ]
@@ -123,6 +127,12 @@ class PaymentLinkModifyParams(RequestOptions):
     """
     Configuration for collecting the customer's shipping address.
     """
+    shipping_options: NotRequired[
+        "Literal['']|List[PaymentLinkModifyParamsShippingOption]"
+    ]
+    """
+    The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
+    """
     submit_type: NotRequired[
         "Literal['auto', 'book', 'donate', 'pay', 'subscribe']|str"
     ]
@@ -191,6 +201,36 @@ class PaymentLinkModifyParamsAutomaticTaxLiability(TypedDict):
     type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
+    """
+
+
+class PaymentLinkModifyParamsConsentCollection(TypedDict):
+    payment_method_reuse_agreement: NotRequired[
+        "PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement"
+    ]
+    """
+    Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
+    """
+    promotions: NotRequired["Literal['auto', 'none']|str"]
+    """
+    If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
+    Session will determine whether to display an option to opt into promotional communication
+    from the merchant depending on the customer's locale. Only available to US merchants and US customers.
+    """
+    terms_of_service: NotRequired["Literal['none', 'required']|str"]
+    """
+    If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
+    There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
+    """
+
+
+class PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement(
+    TypedDict,
+):
+    position: Union[Literal["auto", "hidden"], str]
+    """
+    Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
+    defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
     """
 
 
@@ -538,6 +578,22 @@ class PaymentLinkModifyParamsPaymentIntentData(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['off_session', 'on_session']|str"
+    ]
+    """
+    Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+
+    When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
+
+    When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
+
+    If a Customer has been provided or Checkout creates a new Customer,Checkout will attach the payment method to the Customer.
+
+    If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
+
+    When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
+    """
     statement_descriptor: NotRequired["Literal['']|str"]
     """
     Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -851,6 +907,13 @@ class PaymentLinkModifyParamsShippingAddressCollection(TypedDict):
     """
     An array of two-letter ISO country codes representing which countries Checkout should provide as options for
     shipping locations.
+    """
+
+
+class PaymentLinkModifyParamsShippingOption(TypedDict):
+    shipping_rate: NotRequired[str]
+    """
+    The ID of the Shipping Rate to use for this shipping option.
     """
 
 

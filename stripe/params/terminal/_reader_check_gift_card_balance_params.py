@@ -6,7 +6,7 @@ from typing_extensions import Literal, NotRequired
 
 
 class ReaderCheckGiftCardBalanceParams(RequestOptions):
-    brand: Literal["fiserv_valuelink", "givex", "svs"]
+    brand: Literal["svs"]
     """
     The brand of the gift card.
     """

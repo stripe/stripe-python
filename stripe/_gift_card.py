@@ -27,7 +27,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["gift_card"]] = "gift_card"
-    brand: Literal["fiserv_valuelink", "givex", "svs"]
+    brand: Literal["svs"]
     """
     The brand of the gift card.
     """

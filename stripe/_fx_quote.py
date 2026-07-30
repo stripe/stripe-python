@@ -19,7 +19,7 @@ class FxQuote(
     """
     The FX Quotes API provides three functions:
     - View Stripe's current exchange rate for any given currency pair.
-    - Extend quoted rates for a 1-hour period or a 24-hour period, minimizing uncertainty from FX fluctuations.
+    - Extend quoted rates for up to a 24-hour period, minimizing uncertainty from FX fluctuations.
     - Preview the FX fees Stripe will charge on your FX transaction, allowing you to anticipate specific settlement amounts before payment costs.
 
     [View the docs](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api)
@@ -106,7 +106,7 @@ class FxQuote(
     """
     lock_duration: Union[Literal["day", "five_minutes", "hour", "none"], str]
     """
-    The duration the exchange rate quote remains valid from creation time. Allowed values are none, hour, and day. Note that for the test mode API available in alpha, you can request an extended quote, but it won't be usable for any transactions.
+    The duration that the quote is locked for, from creation time. The quote will be usable for the duration specified.
     """
     lock_expires_at: Optional[int]
     """
@@ -169,7 +169,7 @@ class FxQuote(
         cls, **params: Unpack["FxQuoteListParams"]
     ) -> ListObject["FxQuote"]:
         """
-        Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
+        Returns a list of active FX quotes. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
         """
         result = cls._static_request(
             "get",
@@ -189,7 +189,7 @@ class FxQuote(
         cls, **params: Unpack["FxQuoteListParams"]
     ) -> ListObject["FxQuote"]:
         """
-        Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
+        Returns a list of active FX quotes. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
         """
         result = await cls._static_request_async(
             "get",

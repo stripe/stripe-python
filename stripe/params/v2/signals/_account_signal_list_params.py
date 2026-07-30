@@ -18,8 +18,11 @@ class AccountSignalListParams(TypedDict):
         Union[
             Literal[
                 "fraudulent_merchant",
+                "fraudulent_website",
                 "merchant_delinquency",
                 "payment_delinquency_exposure",
+                "user_account_sharing",
+                "user_multi_accounting",
             ],
             str,
         ]

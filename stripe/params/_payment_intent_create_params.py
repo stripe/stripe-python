@@ -1518,9 +1518,9 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
     """
     Indicates if the transaction is tax exempt.
     """
-    taxes: NotRequired[
+    tax_items: NotRequired[
         List[
-            "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTax"
+            "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem"
         ]
     ]
     """
@@ -1528,7 +1528,7 @@ class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
     """
 
 
-class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTax(
+class PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem(
     TypedDict,
 ):
     amount: NotRequired[int]
@@ -2177,15 +2177,19 @@ class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalExtraCharge(
 
 
 class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTax(TypedDict):
-    taxes: NotRequired[
-        List["PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Array of tax details.
     """
 
 
-class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTax(TypedDict):
+class PaymentIntentCreateParamsPaymentDetailsFlightDatumTotalTaxTaxItem(
+    TypedDict,
+):
     amount: NotRequired[int]
     """
     Tax amount.
@@ -2663,16 +2667,18 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTax(TypedDict):
     """
     Indicates whether the transaction is tax exempt.
     """
-    taxes: NotRequired[
-        List["PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax"]
+    tax_items: NotRequired[
+        List[
+            "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem"
+        ]
     ]
     """
     Tax details.
     """
 
 
-class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax(
-    TypedDict
+class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem(
+    TypedDict,
 ):
     amount: NotRequired[int]
     """
@@ -3535,14 +3541,17 @@ class PaymentIntentCreateParamsPaymentMethodDataFpx(TypedDict):
         "bank_muamalat",
         "bank_of_china",
         "bank_rakyat",
+        "bnp_paribas",
         "bsn",
         "cimb",
+        "citibank",
         "deutsche_bank",
         "hong_leong_bank",
         "hsbc",
         "kfh",
         "maybank2e",
         "maybank2u",
+        "mbsb_bank",
         "ocbc",
         "pb_enterprise",
         "public_bank",
@@ -6823,6 +6832,16 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPayco(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsPaynow(TypedDict):
@@ -7155,6 +7174,16 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
     If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
 
 
@@ -7638,6 +7667,10 @@ class PaymentIntentCreateParamsPaymentsOrchestration(TypedDict):
 
 
 class PaymentIntentCreateParamsRadarOptions(TypedDict):
+    referrer: NotRequired["Literal['']|str"]
+    """
+    The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
+    """
     session: NotRequired[str]
     """
     A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.

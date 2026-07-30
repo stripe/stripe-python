@@ -15,9 +15,17 @@ class Intent(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.billing.intent"]] = "v2.billing.intent"
 
     class AmountDetails(StripeObject):
+        amount_due: str
+        """
+        The outstanding amount after discount, tax, and customer balance application.
+        """
         currency: str
         """
         Three-letter ISO currency code, in lowercase. Must be a supported currency.
+        """
+        customer_balance_applied: str
+        """
+        The customer's account balance applied to the amount.
         """
         discount: str
         """
