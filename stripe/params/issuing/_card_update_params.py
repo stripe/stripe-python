@@ -25,6 +25,10 @@ class CardUpdateParams(TypedDict):
     """
     The desired new PIN for this card.
     """
+    product_code: NotRequired[str]
+    """
+    The product code to request via product graduation.
+    """
     shipping: NotRequired["CardUpdateParamsShipping"]
     """
     Updated shipping information for the card.
@@ -56,6 +60,10 @@ class CardUpdateParamsShipping(TypedDict):
     ]
     """
     Address validation settings.
+    """
+    business_name: NotRequired[str]
+    """
+    The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace. Allowed characters: `A-Z`, `a-z`, `0-9`, ` `, `.`, `-`. All other characters are stripped or ASCII-normalized when printed.
     """
     customs: NotRequired["CardUpdateParamsShippingCustoms"]
     """

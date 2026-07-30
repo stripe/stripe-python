@@ -73,6 +73,7 @@ if TYPE_CHECKING:
     from stripe.params._account_retrieve_signal_params import (
         AccountRetrieveSignalParams,
     )
+    from stripe.params._account_unreject_params import AccountUnrejectParams
 
 
 @nested_resource_class_methods("capability")
@@ -1337,7 +1338,7 @@ class Account(
         """
         currently_due: Optional[List[str]]
         """
-        Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
         """
         disabled_reason: Optional[
             Literal[
@@ -2283,6 +2284,146 @@ class Account(
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}/reject".format(
+                    account=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_unreject(
+        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def unreject(
+        account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @overload
+    def unreject(self, **params: Unpack["AccountUnrejectParams"]) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @class_method_variant("_cls_unreject")
+    def unreject(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_unreject_async(
+        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def unreject_async(
+        account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @overload
+    async def unreject_async(
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @class_method_variant("_cls_unreject_async")
+    async def unreject_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
                     account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,

@@ -288,22 +288,7 @@ class InvoiceUpdateLinesParamsLineTaxAmountTaxRateData(TypedDict):
     [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
     """
     tax_type: NotRequired[
-        Literal[
-            "amusement_tax",
-            "communications_tax",
-            "gst",
-            "hst",
-            "igst",
-            "jct",
-            "lease_tax",
-            "pst",
-            "qst",
-            "retail_delivery_fee",
-            "rst",
-            "sales_tax",
-            "service_tax",
-            "vat",
-        ]
+        "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'mass_transit_parking_tax', 'parking_tax', 'pst', 'qst', 'retail_delivery_fee', 'rst', 'sales_tax', 'service_tax', 'vat']|str"
     ]
     """
     The high-level tax type, such as `vat` or `sales_tax`.

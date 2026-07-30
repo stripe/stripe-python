@@ -262,6 +262,10 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     """
     Usage limits of the SharedPaymentIssuedToken.
     """
+    use_stripe_sdk: Optional[bool]
+    """
+    Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+    """
 
     @classmethod
     def create(

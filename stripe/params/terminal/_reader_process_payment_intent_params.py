@@ -33,7 +33,7 @@ class ReaderProcessPaymentIntentParamsProcessConfig(TypedDict):
     """
     Enables cancel button on transaction screens.
     """
-    gift_card_brand: NotRequired[Literal["fiserv_valuelink", "givex", "svs"]]
+    gift_card_brand: NotRequired[Literal["svs"]]
     """
     The gift card brand to use in the transaction.
     """

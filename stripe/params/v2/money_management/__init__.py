@@ -200,6 +200,15 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._received_debit_list_params import (
         ReceivedDebitListParams as ReceivedDebitListParams,
     )
+    from stripe.params.v2.money_management._received_debit_mandate_cancel_params import (
+        ReceivedDebitMandateCancelParams as ReceivedDebitMandateCancelParams,
+    )
+    from stripe.params.v2.money_management._received_debit_mandate_list_params import (
+        ReceivedDebitMandateListParams as ReceivedDebitMandateListParams,
+    )
+    from stripe.params.v2.money_management._received_debit_mandate_retrieve_params import (
+        ReceivedDebitMandateRetrieveParams as ReceivedDebitMandateRetrieveParams,
+    )
     from stripe.params.v2.money_management._received_debit_retrieve_params import (
         ReceivedDebitRetrieveParams as ReceivedDebitRetrieveParams,
     )
@@ -622,6 +631,18 @@ _import_map = {
     ),
     "ReceivedDebitListParams": (
         "stripe.params.v2.money_management._received_debit_list_params",
+        False,
+    ),
+    "ReceivedDebitMandateCancelParams": (
+        "stripe.params.v2.money_management._received_debit_mandate_cancel_params",
+        False,
+    ),
+    "ReceivedDebitMandateListParams": (
+        "stripe.params.v2.money_management._received_debit_mandate_list_params",
+        False,
+    ),
+    "ReceivedDebitMandateRetrieveParams": (
+        "stripe.params.v2.money_management._received_debit_mandate_retrieve_params",
         False,
     ),
     "ReceivedDebitRetrieveParams": (

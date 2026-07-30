@@ -362,6 +362,10 @@ class OutboundPayment(StripeObject):
     """
     The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
     """
+    payout_intent: Optional[str]
+    """
+    The PayoutIntent ID that triggered this OutboundPayment.
+    """
     purpose: Optional[Literal["payroll"]]
     """
     The purpose of the OutboundPayment.

@@ -6,11 +6,15 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe._payment_record import PaymentRecord
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe.params._payment_record_create_params import (
         PaymentRecordCreateParams,
+    )
+    from stripe.params._payment_record_list_params import (
+        PaymentRecordListParams,
     )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
@@ -42,6 +46,44 @@ if TYPE_CHECKING:
 
 
 class PaymentRecordService(StripeService):
+    def list(
+        self,
+        params: Optional["PaymentRecordListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentRecord]":
+        """
+        List all the Payment Records for a given merchant.
+        """
+        return cast(
+            "ListObject[PaymentRecord]",
+            self._request(
+                "get",
+                "/v1/payment_records",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["PaymentRecordListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentRecord]":
+        """
+        List all the Payment Records for a given merchant.
+        """
+        return cast(
+            "ListObject[PaymentRecord]",
+            await self._request_async(
+                "get",
+                "/v1/payment_records",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,

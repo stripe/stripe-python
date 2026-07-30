@@ -30,6 +30,10 @@ class CardholderUpdateParams(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    name: NotRequired[str]
+    """
+    The cardholder's name. This will be printed on cards issued to them.
+    """
     phone_number: NotRequired[str]
     """
     The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure) for more details.

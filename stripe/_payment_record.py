@@ -2,6 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
+from stripe._list_object import ListObject
+from stripe._listable_api_resource import ListableAPIResource
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
@@ -23,6 +25,9 @@ if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
     from stripe.params._payment_record_create_params import (
         PaymentRecordCreateParams,
+    )
+    from stripe.params._payment_record_list_params import (
+        PaymentRecordListParams,
     )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
@@ -55,6 +60,7 @@ if TYPE_CHECKING:
 
 class PaymentRecord(
     CreateableAPIResource["PaymentRecord"],
+    ListableAPIResource["PaymentRecord"],
     SearchableAPIResource["PaymentRecord"],
 ):
     """
@@ -2543,6 +2549,46 @@ class PaymentRecord(
                 params=params,
             ),
         )
+
+    @classmethod
+    def list(
+        cls, **params: Unpack["PaymentRecordListParams"]
+    ) -> ListObject["PaymentRecord"]:
+        """
+        List all the Payment Records for a given merchant.
+        """
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["PaymentRecordListParams"]
+    ) -> ListObject["PaymentRecord"]:
+        """
+        List all the Payment Records for a given merchant.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
 
     @classmethod
     def report_payment(

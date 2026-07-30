@@ -100,6 +100,10 @@ class OnrampSession(
             """
             A Sui address
             """
+            tempo: Optional[str]
+            """
+            A Tempo address
+            """
             worldchain: Optional[str]
             """
             A worldchain address
@@ -153,6 +157,7 @@ class OnrampSession(
                     "solana",
                     "stellar",
                     "sui",
+                    "tempo",
                     "worldchain",
                 ],
                 str,
@@ -174,6 +179,7 @@ class OnrampSession(
                         "solana",
                         "stellar",
                         "sui",
+                        "tempo",
                         "worldchain",
                     ],
                     str,

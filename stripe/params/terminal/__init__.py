@@ -223,6 +223,7 @@ if TYPE_CHECKING:
         ReaderPresentPaymentMethodParams as ReaderPresentPaymentMethodParams,
         ReaderPresentPaymentMethodParamsCard as ReaderPresentPaymentMethodParamsCard,
         ReaderPresentPaymentMethodParamsCardPresent as ReaderPresentPaymentMethodParamsCardPresent,
+        ReaderPresentPaymentMethodParamsGiftCard as ReaderPresentPaymentMethodParamsGiftCard,
         ReaderPresentPaymentMethodParamsInteracPresent as ReaderPresentPaymentMethodParamsInteracPresent,
     )
     from stripe.params.terminal._reader_process_payment_intent_params import (
@@ -919,6 +920,10 @@ _import_map = {
         False,
     ),
     "ReaderPresentPaymentMethodParamsCardPresent": (
+        "stripe.params.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParamsGiftCard": (
         "stripe.params.terminal._reader_present_payment_method_params",
         False,
     ),

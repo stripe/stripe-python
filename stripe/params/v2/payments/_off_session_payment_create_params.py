@@ -90,6 +90,10 @@ class OffSessionPaymentCreateParams(TypedDict):
     [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
     to form the complete statement descriptor that appears on the customer's statement.
     """
+    target_date: NotRequired[str]
+    """
+    Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.
+    """
     test_clock: NotRequired[str]
     """
     Test clock that can be used to advance the retry attempts in a sandbox.

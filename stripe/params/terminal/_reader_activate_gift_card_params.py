@@ -10,7 +10,7 @@ class ReaderActivateGiftCardParams(RequestOptions):
     """
     The initial balance to set on the gift card.
     """
-    brand: Literal["fiserv_valuelink", "givex", "svs"]
+    brand: Literal["svs"]
     """
     The brand of the gift card.
     """

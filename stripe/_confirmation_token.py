@@ -1016,7 +1016,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
 
         class GiftCard(StripeObject):
-            brand: Literal["fiserv_valuelink", "givex", "svs"]
+            brand: Literal["svs"]
             """
             The brand of the gift card.
             """

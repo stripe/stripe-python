@@ -25,6 +25,8 @@ class DepositAddress(
 ):
     """
     A crypto deposit address is a blockchain address that can be used by a merchant for deposit mode crypto payments.
+
+    Related guide: [Machine payments](https://docs.stripe.com/payments/machine)
     """
 
     OBJECT_NAME: ClassVar[Literal["crypto.deposit_address"]] = (
@@ -42,23 +44,41 @@ class DepositAddress(
         """
 
     address: str
+    """
+    The on-chain address where funds can be received.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     customer: Optional[str]
+    """
+    If set, this deposit address is scoped to a [Customer](https://docs.stripe.com/api/customers/object) and can only receive funds from that customer. Otherwise, this deposit address can receive funds from any customer.
+    """
     id: str
     """
     Unique identifier for the object.
     """
     livemode: bool
+    """
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
     metadata: UntypedStripeObject[str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     network: Literal["base", "solana", "tempo"]
+    """
+    The blockchain network where this address can accept funds.
+    """
     object: Literal["crypto.deposit_address"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
     supported_tokens: List[SupportedToken]
+    """
+    The tokens that can be sent to this deposit address on its network.
+    """
 
     @classmethod
     def create(

@@ -21,13 +21,19 @@ class ReaderPresentPaymentMethodParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
+    gift_card: NotRequired["ReaderPresentPaymentMethodParamsGiftCard"]
+    """
+    Simulated data for the gift_card payment method.
+    """
     interac_present: NotRequired[
         "ReaderPresentPaymentMethodParamsInteracPresent"
     ]
     """
     Simulated data for the interac_present payment method.
     """
-    type: NotRequired["Literal['card', 'card_present', 'interac_present']|str"]
+    type: NotRequired[
+        "Literal['card', 'card_present', 'gift_card', 'interac_present']|str"
+    ]
     """
     Simulated payment type.
     """
@@ -56,6 +62,17 @@ class ReaderPresentPaymentMethodParamsCardPresent(TypedDict):
     number: NotRequired[str]
     """
     The card number, as a string without any separators.
+    """
+
+
+class ReaderPresentPaymentMethodParamsGiftCard(TypedDict):
+    brand: Literal["svs"]
+    """
+    The brand of the gift card.
+    """
+    track_2: str
+    """
+    Simulated track 2 data for the gift card payment method.
     """
 
 

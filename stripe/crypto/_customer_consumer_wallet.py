@@ -33,6 +33,7 @@ class CustomerConsumerWallet(StripeObject):
             "solana",
             "stellar",
             "sui",
+            "tempo",
             "worldchain",
         ],
         str,

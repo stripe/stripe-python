@@ -135,6 +135,12 @@ class CreditGrant(
                 Unique identifier for the object.
                 """
 
+            class RateCard(StripeObject):
+                id: Optional[str]
+                """
+                Unique identifier for the object.
+                """
+
             billable_items: Optional[List[BillableItem]]
             """
             The billable items that credit grants can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
@@ -147,9 +153,14 @@ class CreditGrant(
             """
             The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
             """
+            rate_cards: Optional[List[RateCard]]
+            """
+            The rate cards that credit grants can apply to. The credit grant applies to any metered item billed under one of these rate cards. Cannot be used in combination with `price_type`, `prices`, or `billable_items`.
+            """
             _inner_class_types = {
                 "billable_items": BillableItem,
                 "prices": Price,
+                "rate_cards": RateCard,
             }
 
         scope: Scope

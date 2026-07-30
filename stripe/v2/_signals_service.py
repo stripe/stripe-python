@@ -5,9 +5,23 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.signals._account_activity_service import (
+        AccountActivityService,
+    )
+    from stripe.v2.signals._account_evaluation_service import (
+        AccountEvaluationService,
+    )
     from stripe.v2.signals._account_signal_service import AccountSignalService
 
 _subservices = {
+    "account_activity": [
+        "stripe.v2.signals._account_activity_service",
+        "AccountActivityService",
+    ],
+    "account_evaluations": [
+        "stripe.v2.signals._account_evaluation_service",
+        "AccountEvaluationService",
+    ],
     "account_signals": [
         "stripe.v2.signals._account_signal_service",
         "AccountSignalService",
@@ -16,6 +30,8 @@ _subservices = {
 
 
 class SignalsService(StripeService):
+    account_activity: "AccountActivityService"
+    account_evaluations: "AccountEvaluationService"
     account_signals: "AccountSignalService"
 
     def __init__(self, requestor):

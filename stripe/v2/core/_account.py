@@ -4883,6 +4883,16 @@ class Account(StripeObject):
                 """
                 _inner_class_types = {"decline_on": DeclineOn}
 
+            class GrossSettlement(StripeObject):
+                payment_method: Optional[str]
+                """
+                The ID of the payment method to use for gross settlement payouts.
+                """
+                payment_method_collection: Optional[Literal["always", "never"]]
+                """
+                Whether to collect a payment method for gross settlement.
+                """
+
             class KonbiniPayments(StripeObject):
                 class Support(StripeObject):
                     class Hours(StripeObject):
@@ -5048,6 +5058,10 @@ class Account(StripeObject):
             """
             Card payments settings.
             """
+            gross_settlement: Optional[GrossSettlement]
+            """
+            Settings for gross settlement.
+            """
             konbini_payments: Optional[KonbiniPayments]
             """
             Settings specific to Konbini payments on the account.
@@ -5081,6 +5095,7 @@ class Account(StripeObject):
                 "branding": Branding,
                 "capabilities": Capabilities,
                 "card_payments": CardPayments,
+                "gross_settlement": GrossSettlement,
                 "konbini_payments": KonbiniPayments,
                 "script_statement_descriptor": ScriptStatementDescriptor,
                 "sepa_debit_payments": SepaDebitPayments,
@@ -10929,6 +10944,42 @@ class Account(StripeObject):
             }
 
         class BusinessDetails(StripeObject):
+            class AdditionalAddress(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                purpose: Literal[
+                    "administrative", "principal_place_of_business"
+                ]
+                """
+                Purpose of additional address.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+                town: Optional[str]
+                """
+                Town or district.
+                """
+
             class Address(StripeObject):
                 city: Optional[str]
                 """
@@ -11432,6 +11483,10 @@ class Account(StripeObject):
                 """
                 _inner_class_types = {"kana": Kana, "kanji": Kanji}
 
+            additional_addresses: Optional[List[AdditionalAddress]]
+            """
+            Additional addresses associated with the business.
+            """
             address: Optional[Address]
             """
             The company's primary address.
@@ -11518,6 +11573,7 @@ class Account(StripeObject):
             The category identifying the legal structure of the business.
             """
             _inner_class_types = {
+                "additional_addresses": AdditionalAddress,
                 "address": Address,
                 "annual_revenue": AnnualRevenue,
                 "documents": Documents,

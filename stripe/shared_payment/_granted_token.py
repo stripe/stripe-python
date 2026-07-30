@@ -413,9 +413,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         card: Optional[Card]
         klarna: Optional[Klarna]
         link: Optional[Link]
-        type: Union[
-            Literal["affirm", "card", "klarna", "link", "shop_pay"], str
-        ]
+        type: Union[Literal["affirm", "card", "klarna", "link"], str]
         """
         The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
         """

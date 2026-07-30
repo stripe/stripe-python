@@ -60,6 +60,14 @@ class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope(TypedDict):
     """
     A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`. Limit 20 prices.
     """
+    rate_cards: NotRequired[
+        List[
+            "CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeRateCard"
+        ]
+    ]
+    """
+    A list of rate cards that the credit grant can apply to. The credit grant applies to any metered item billed under one of these rate cards. Cannot be used in combination with `price_type`, `prices`, or `billable_items`.
+    """
 
 
 class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeBillableItem(
@@ -77,4 +85,13 @@ class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice(
     id: str
     """
     The price ID this credit grant should apply to.
+    """
+
+
+class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeRateCard(
+    TypedDict,
+):
+    id: str
+    """
+    The rate card ID this credit grant should apply to.
     """

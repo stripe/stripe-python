@@ -117,6 +117,10 @@ class ActivityLog(StripeObject):
             """
             Roles the user had before the change.
             """
+            source: Union[Literal["dashboard", "scim", "sso"], str]
+            """
+            Source of the role change.
+            """
             user_email: str
             """
             Email address of the user whose roles were changed.

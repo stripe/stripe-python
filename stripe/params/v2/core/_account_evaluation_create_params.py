@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -13,7 +13,16 @@ class AccountEvaluationCreateParams(TypedDict):
     """
     Account data for entity-less evaluation. Exactly one of account or account_data must be provided.
     """
-    signals: List[Literal["fraudulent_website"]]
+    signals: List[
+        Union[
+            Literal[
+                "fraudulent_website",
+                "user_account_sharing",
+                "user_multi_accounting",
+            ],
+            str,
+        ]
+    ]
     """
     List of signals to evaluate.
     """

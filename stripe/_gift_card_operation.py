@@ -225,6 +225,7 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
                 "stolen_card",
                 "suspected_fraud",
                 "timeout",
+                "try_again_later",
             ],
             str,
         ]

@@ -14,7 +14,9 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
+    from stripe._customer import Customer
     from stripe._payment_intent import PaymentIntent
+    from stripe._payment_method import PaymentMethod
     from stripe._reversal import Reversal
     from stripe.params._refund_cancel_params import RefundCancelParams
     from stripe.params._refund_create_params import RefundCreateParams
@@ -408,6 +410,14 @@ class Refund(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    customer: Optional[ExpandableField["Customer"]]
+    """
+    ID of the customer of this refund.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account of this refund.
+    """
     description: Optional[str]
     """
     An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
@@ -443,6 +453,10 @@ class Refund(
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     """
     ID of the PaymentIntent that's refunded.
+    """
+    payment_method: Optional[ExpandableField["PaymentMethod"]]
+    """
+    ID of the payment method associated with this refund.
     """
     pending_reason: Optional[
         Union[

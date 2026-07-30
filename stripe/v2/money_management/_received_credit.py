@@ -28,7 +28,7 @@ class ReceivedCredit(StripeObject):
         """
         The ID of the outbound transfer object that originated the ReceivedCredit.
         """
-        payout_v1: Optional[str]
+        payout: Optional[str]
         """
         The ID of the payout object that originated the ReceivedCredit.
         """
@@ -40,6 +40,7 @@ class ReceivedCredit(StripeObject):
             Literal[
                 "outbound_payment",
                 "outbound_transfer",
+                "payout",
                 "transfer",
                 "payout_v1",
             ],

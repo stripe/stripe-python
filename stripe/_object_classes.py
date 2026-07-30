@@ -729,6 +729,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._received_debit",
         "ReceivedDebit",
     ),
+    "v2.money_management.received_debit_mandate": (
+        "stripe.v2.money_management._received_debit_mandate",
+        "ReceivedDebitMandate",
+    ),
     "v2.money_management.recipient_verification": (
         "stripe.v2.money_management._recipient_verification",
         "RecipientVerification",
@@ -765,6 +769,15 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.reporting.report_run": (
         "stripe.v2.reporting._report_run",
         "ReportRun",
+    ),
+    "v2.risk.inquiry": ("stripe.v2.risk._inquiry", "Inquiry"),
+    "v2.signals.account_activity": (
+        "stripe.v2.signals._account_activity",
+        "AccountActivity",
+    ),
+    "v2.signals.account_evaluation": (
+        "stripe.v2.signals._account_evaluation",
+        "AccountEvaluation",
     ),
     "v2.signals.account_signal": (
         "stripe.v2.signals._account_signal",
