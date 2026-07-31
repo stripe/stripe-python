@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -42,7 +42,7 @@ class MeterEventAdjustment(CreateableAPIResource["MeterEventAdjustment"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["complete", "pending"]
+    status: Union[Literal["complete", "pending"], str]
     """
     The meter event adjustment's status.
     """

@@ -73,15 +73,19 @@ jobs:
           path: dist/
 
   test:
-    runs-on: "ubuntu-24.04"
+    name: Test (${{ matrix.python_version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - "ubuntu-24.04"
         python_version:
           # The last ~5 versions, once we're on schedule
           # https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy
+          # https://endoflife.date/python
           - "3.9"
           - "3.10"
           - "3.11"
@@ -91,7 +95,10 @@ jobs:
           - "pypy-3.9"
           - "pypy-3.10"
           - "pypy-3.11"
-    name: Test (${{ matrix.python_version }})
+        include:
+          - os: windows-latest
+            # use any modern-ish version
+            python_version: "3.14"
     steps:
       - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
@@ -103,6 +110,9 @@ jobs:
 
       - name: "run tests"
         run: just test
+        env:
+          # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
+          STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
 
   publish:
     name: Publish
@@ -111,34 +121,20 @@ jobs:
       startsWith(github.ref, 'refs/tags/v')
     needs: [build, test, lint]
     runs-on: "ubuntu-24.04"
+    environment: publish
     permissions:
       contents: read
+      id-token: write
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
-      - name: Set up Python 3
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Install tools
-        run: just install-build-deps
-
       - name: Publish packages to PyPI
-        # could probably move this into a just recipe too?
-        run: |
-          set -ex
-          source .venv/bin/activate
-
-          python -m twine upload --verbose dist/*
-        env:
-          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
       - uses: stripe/openapi/actions/notify-release@master
         if: always()
         with:

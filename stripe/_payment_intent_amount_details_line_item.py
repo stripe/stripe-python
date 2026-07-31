@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -25,7 +25,9 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
 
         class Paypal(StripeObject):
             category: Optional[
-                Literal["digital_goods", "donation", "physical_goods"]
+                Union[
+                    Literal["digital_goods", "donation", "physical_goods"], str
+                ]
             ]
             """
             Type of the line item.

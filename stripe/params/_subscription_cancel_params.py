@@ -32,7 +32,7 @@ class SubscriptionCancelParamsCancellationDetails(TypedDict):
     Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
     """
     feedback: NotRequired[
-        "Literal['']|Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']"
+        "Literal['']|Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']|str"
     ]
     """
     The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.

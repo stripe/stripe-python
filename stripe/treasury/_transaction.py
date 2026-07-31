@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -94,16 +94,19 @@ class Transaction(ListableAPIResource["Transaction"]):
         """
         ReceivedDebits represent funds pulled from a [FinancialAccount](https://api.stripe.com#financial_accounts). These are not initiated from the FinancialAccount.
         """
-        type: Literal[
-            "credit_reversal",
-            "debit_reversal",
-            "inbound_transfer",
-            "issuing_authorization",
-            "other",
-            "outbound_payment",
-            "outbound_transfer",
-            "received_credit",
-            "received_debit",
+        type: Union[
+            Literal[
+                "credit_reversal",
+                "debit_reversal",
+                "inbound_transfer",
+                "issuing_authorization",
+                "other",
+                "outbound_payment",
+                "outbound_transfer",
+                "received_credit",
+                "received_debit",
+            ],
+            str,
         ]
         """
         Type of the flow that created the Transaction. Set to the same value as `flow_type`.
@@ -155,16 +158,19 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     Details of the flow that created the Transaction.
     """
-    flow_type: Literal[
-        "credit_reversal",
-        "debit_reversal",
-        "inbound_transfer",
-        "issuing_authorization",
-        "other",
-        "outbound_payment",
-        "outbound_transfer",
-        "received_credit",
-        "received_debit",
+    flow_type: Union[
+        Literal[
+            "credit_reversal",
+            "debit_reversal",
+            "inbound_transfer",
+            "issuing_authorization",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "received_credit",
+            "received_debit",
+        ],
+        str,
     ]
     """
     Type of the flow that created the Transaction.
@@ -181,7 +187,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["open", "posted", "void"]
+    status: Union[Literal["open", "posted", "void"], str]
     """
     Status of the Transaction.
     """

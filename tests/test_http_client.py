@@ -599,7 +599,10 @@ class ClientTestBase:
 
 class RequestsVerify(object):
     def __eq__(self, other):
-        return other and other.endswith("stripe/data/ca-certificates.crt")
+        if not other:
+            return False
+        normalized = other.replace("\\", "/")
+        return normalized.endswith("stripe/data/ca-certificates.crt")
 
 
 class TestRequestsClient(ClientTestBase):

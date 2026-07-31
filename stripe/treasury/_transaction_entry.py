@@ -4,7 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -95,16 +95,19 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         """
         ReceivedDebits represent funds pulled from a [FinancialAccount](https://api.stripe.com#financial_accounts). These are not initiated from the FinancialAccount.
         """
-        type: Literal[
-            "credit_reversal",
-            "debit_reversal",
-            "inbound_transfer",
-            "issuing_authorization",
-            "other",
-            "outbound_payment",
-            "outbound_transfer",
-            "received_credit",
-            "received_debit",
+        type: Union[
+            Literal[
+                "credit_reversal",
+                "debit_reversal",
+                "inbound_transfer",
+                "issuing_authorization",
+                "other",
+                "outbound_payment",
+                "outbound_transfer",
+                "received_credit",
+                "received_debit",
+            ],
+            str,
         ]
         """
         Type of the flow that created the Transaction. Set to the same value as `flow_type`.
@@ -138,16 +141,19 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     """
     Details of the flow associated with the TransactionEntry.
     """
-    flow_type: Literal[
-        "credit_reversal",
-        "debit_reversal",
-        "inbound_transfer",
-        "issuing_authorization",
-        "other",
-        "outbound_payment",
-        "outbound_transfer",
-        "received_credit",
-        "received_debit",
+    flow_type: Union[
+        Literal[
+            "credit_reversal",
+            "debit_reversal",
+            "inbound_transfer",
+            "issuing_authorization",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "received_credit",
+            "received_debit",
+        ],
+        str,
     ]
     """
     Type of the flow associated with the TransactionEntry.
@@ -168,27 +174,30 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     """
     The Transaction associated with this object.
     """
-    type: Literal[
-        "credit_reversal",
-        "credit_reversal_posting",
-        "debit_reversal",
-        "inbound_transfer",
-        "inbound_transfer_return",
-        "issuing_authorization_hold",
-        "issuing_authorization_release",
-        "other",
-        "outbound_payment",
-        "outbound_payment_cancellation",
-        "outbound_payment_failure",
-        "outbound_payment_posting",
-        "outbound_payment_return",
-        "outbound_transfer",
-        "outbound_transfer_cancellation",
-        "outbound_transfer_failure",
-        "outbound_transfer_posting",
-        "outbound_transfer_return",
-        "received_credit",
-        "received_debit",
+    type: Union[
+        Literal[
+            "credit_reversal",
+            "credit_reversal_posting",
+            "debit_reversal",
+            "inbound_transfer",
+            "inbound_transfer_return",
+            "issuing_authorization_hold",
+            "issuing_authorization_release",
+            "other",
+            "outbound_payment",
+            "outbound_payment_cancellation",
+            "outbound_payment_failure",
+            "outbound_payment_posting",
+            "outbound_payment_return",
+            "outbound_transfer",
+            "outbound_transfer_cancellation",
+            "outbound_transfer_failure",
+            "outbound_transfer_posting",
+            "outbound_transfer_return",
+            "received_credit",
+            "received_debit",
+        ],
+        str,
     ]
     """
     The specific money movement that generated the TransactionEntry.

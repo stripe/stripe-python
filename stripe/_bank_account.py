@@ -155,7 +155,7 @@ class BankAccount(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         past_due: Optional[List[str]]
         """
@@ -286,7 +286,7 @@ class BankAccount(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         past_due: Optional[List[str]]
         """

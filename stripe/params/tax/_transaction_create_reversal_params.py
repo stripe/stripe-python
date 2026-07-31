@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -23,7 +23,7 @@ class TransactionCreateReversalParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    mode: Literal["full", "partial"]
+    mode: Union[Literal["full", "partial"], str]
     """
     If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.
     """

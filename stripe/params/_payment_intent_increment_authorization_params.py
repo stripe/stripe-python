@@ -208,7 +208,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     TypedDict,
 ):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.

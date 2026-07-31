@@ -27,7 +27,7 @@ class ReaderPresentPaymentMethodParams(TypedDict):
     """
     Simulated data for the interac_present payment method.
     """
-    type: NotRequired[Literal["card", "card_present", "interac_present"]]
+    type: NotRequired["Literal['card', 'card_present', 'interac_present']|str"]
     """
     Simulated payment type.
     """

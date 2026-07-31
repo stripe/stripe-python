@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -63,10 +63,14 @@ class AccountPersonCreateParams(TypedDict):
     id_number: NotRequired[str]
     """
     The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+
+    Changing this value for the account's representative requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     id_number_secondary: NotRequired[str]
     """
     The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+
+    Changing this value for the account's representative requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     last_name: NotRequired[str]
     """
@@ -102,7 +106,7 @@ class AccountPersonCreateParams(TypedDict):
     """
     The person's phone number.
     """
-    political_exposure: NotRequired[Literal["existing", "none"]]
+    political_exposure: NotRequired["Literal['existing', 'none']|str"]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """
@@ -119,6 +123,8 @@ class AccountPersonCreateParams(TypedDict):
     ssn_last_4: NotRequired[str]
     """
     The last four digits of the person's Social Security number (U.S. only).
+
+    Changing this value for the account's representative requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     us_cfpb_data: NotRequired["AccountPersonCreateParamsUsCfpbData"]
     """
@@ -378,14 +384,17 @@ class AccountPersonCreateParamsUsCfpbData(TypedDict):
 class AccountPersonCreateParamsUsCfpbDataEthnicityDetails(TypedDict):
     ethnicity: NotRequired[
         List[
-            Literal[
-                "cuban",
-                "hispanic_or_latino",
-                "mexican",
-                "not_hispanic_or_latino",
-                "other_hispanic_or_latino",
-                "prefer_not_to_answer",
-                "puerto_rican",
+            Union[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ],
+                str,
             ]
         ]
     ]
@@ -401,31 +410,34 @@ class AccountPersonCreateParamsUsCfpbDataEthnicityDetails(TypedDict):
 class AccountPersonCreateParamsUsCfpbDataRaceDetails(TypedDict):
     race: NotRequired[
         List[
-            Literal[
-                "african_american",
-                "american_indian_or_alaska_native",
-                "asian",
-                "asian_indian",
-                "black_or_african_american",
-                "chinese",
-                "ethiopian",
-                "filipino",
-                "guamanian_or_chamorro",
-                "haitian",
-                "jamaican",
-                "japanese",
-                "korean",
-                "native_hawaiian",
-                "native_hawaiian_or_other_pacific_islander",
-                "nigerian",
-                "other_asian",
-                "other_black_or_african_american",
-                "other_pacific_islander",
-                "prefer_not_to_answer",
-                "samoan",
-                "somali",
-                "vietnamese",
-                "white",
+            Union[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ],
+                str,
             ]
         ]
     ]

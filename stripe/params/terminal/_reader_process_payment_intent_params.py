@@ -23,7 +23,9 @@ class ReaderProcessPaymentIntentParams(RequestOptions):
 
 
 class ReaderProcessPaymentIntentParamsProcessConfig(TypedDict):
-    allow_redisplay: NotRequired[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: NotRequired[
+        "Literal['always', 'limited', 'unspecified']|str"
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
     """

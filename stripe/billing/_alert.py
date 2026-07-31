@@ -6,7 +6,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -75,7 +75,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Optional[Literal["active", "archived", "inactive"]]
+    status: Optional[Union[Literal["active", "archived", "inactive"], str]]
     """
     Status of the alert. This can be active, inactive or archived.
     """
