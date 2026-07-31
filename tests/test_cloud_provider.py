@@ -3,6 +3,8 @@ import json
 import pytest
 
 import stripe
+from stripe._webhook import Webhook
+from stripe.v2.core._event import EventNotification
 
 
 @pytest.fixture
@@ -118,9 +120,9 @@ def eventgrid_notification_payload():
     )
 
 
-class TestConstructEventFromCloudProvider:
+class TestConstructEventWithoutVerification:
     def test_eventbridge(self, client, eventbridge_payload):
-        result = client.construct_event_from_cloud_provider(
+        result = client.construct_event_without_verification(
             eventbridge_payload
         )
         assert isinstance(result, stripe.Event)
@@ -128,16 +130,12 @@ class TestConstructEventFromCloudProvider:
         assert result.type == "customer.created"
 
     def test_eventgrid(self, client, eventgrid_payload):
-        result = client.construct_event_from_cloud_provider(eventgrid_payload)
+        result = client.construct_event_without_verification(eventgrid_payload)
         assert isinstance(result, stripe.Event)
         assert result.id == "evt_test_456"
         assert result.type == "customer.created"
 
-    def test_invalid_json(self, client):
-        with pytest.raises(json.JSONDecodeError):
-            client.construct_event_from_cloud_provider("not valid json")
-
-    def test_raw_event_suggests_construct_event(self, client):
+    def test_raw_event_passthrough(self, client):
         raw_event = json.dumps(
             {
                 "id": "evt_test_123",
@@ -145,39 +143,96 @@ class TestConstructEventFromCloudProvider:
                 "type": "customer.created",
             }
         )
-        with pytest.raises(ValueError, match="construct_event"):
-            client.construct_event_from_cloud_provider(raw_event)
+        result = client.construct_event_without_verification(raw_event)
+        assert isinstance(result, stripe.Event)
+        assert result.id == "evt_test_123"
+        assert result.type == "customer.created"
+
+    def test_invalid_json(self, client):
+        with pytest.raises(json.JSONDecodeError):
+            client.construct_event_without_verification("not valid json")
+
+    def test_thin_event_suggests_parse_event_notification_without_verification(
+        self, client, eventbridge_notification_payload
+    ):
+        with pytest.raises(ValueError, match="parse_event_notification"):
+            client.construct_event_without_verification(
+                eventbridge_notification_payload
+            )
 
     def test_unrecognized_format(self, client):
         with pytest.raises(
             ValueError, match="Unrecognized cloud event format"
         ):
-            client.construct_event_from_cloud_provider(
+            client.construct_event_without_verification(
                 json.dumps({"foo": "bar"})
             )
 
+    def test_webhook_static_method_eventbridge(self, eventbridge_payload):
+        result = Webhook.construct_event_without_verification(
+            eventbridge_payload
+        )
+        assert isinstance(result, stripe.Event)
+        assert result.id == "evt_test_123"
+        assert result.type == "customer.created"
 
-class TestParseEventNotificationFromCloudProvider:
+
+class TestParseEventNotificationWithoutVerification:
     def test_eventbridge(self, client, eventbridge_notification_payload):
-        result = client.parse_event_notification_from_cloud_provider(
+        result = client.parse_event_notification_without_verification(
             eventbridge_notification_payload
         )
         assert result.id == "evt_test_789"
         assert result.type == "v2.core.event_destination.ping"
 
     def test_eventgrid(self, client, eventgrid_notification_payload):
-        result = client.parse_event_notification_from_cloud_provider(
+        result = client.parse_event_notification_without_verification(
             eventgrid_notification_payload
         )
         assert result.id == "evt_test_790"
         assert result.type == "v2.core.event_destination.ping"
 
-    def test_v1_event_suggests_construct_event_from_cloud_provider(
+    def test_v1_event_suggests_construct_event_without_verification(
         self, client, eventbridge_payload
     ):
-        with pytest.raises(
-            ValueError, match="construct_event_from_cloud_provider"
-        ):
-            client.parse_event_notification_from_cloud_provider(
+        with pytest.raises(ValueError, match="construct_event"):
+            client.parse_event_notification_without_verification(
                 eventbridge_payload
             )
+
+    def test_invalid_json(self, client):
+        with pytest.raises(json.JSONDecodeError):
+            client.parse_event_notification_without_verification(
+                "not valid json"
+            )
+
+    def test_unrecognized_format(self, client):
+        with pytest.raises(
+            ValueError, match="Unrecognized cloud event format"
+        ):
+            client.parse_event_notification_without_verification(
+                json.dumps({"foo": "bar"})
+            )
+
+    def test_raw_event_notification_passthrough(self, client):
+        raw_notification = json.dumps(
+            {
+                "id": "evt_234",
+                "object": "v2.core.event",
+                "type": "v2.core.event_destination.ping",
+                "created": "2022-02-15T00:27:45.330Z",
+                "livemode": True,
+                "context": "acct_123",
+                "related_object": {
+                    "id": "ed_123",
+                    "type": "v2.core.event_destination",
+                    "url": "/v2/core/event_destinations/ed_123",
+                },
+            }
+        )
+        result = client.parse_event_notification_without_verification(
+            raw_notification
+        )
+        assert isinstance(result, EventNotification)
+        assert result.id == "evt_234"
+        assert result.type == "v2.core.event_destination.ping"

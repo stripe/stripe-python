@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import json
-
 from stripe import (
     DEFAULT_API_BASE,
     DEFAULT_CONNECT_API_BASE,
@@ -25,8 +23,7 @@ from stripe._util import _convert_to_stripe_object, get_api_mode
 from stripe._webhook import (
     Webhook,
     WebhookSignature,
-    build_v1_event,
-    extract_from_cloud_provider_envelope,
+    maybe_extract_from_cloud_provider_envelope,
 )
 from stripe._event import Event
 from stripe.v2.core._event import EventNotification
@@ -217,6 +214,31 @@ class StripeClient(object):
         self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
+    def construct_event(
+        self,
+        payload: Union[bytes, str],
+        sig_header: str,
+        secret: str,
+        tolerance: int = Webhook.DEFAULT_TOLERANCE,
+    ) -> Event:
+        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `construct_event_without_verification`."""
+        return Webhook.construct_event(
+            payload,
+            sig_header,
+            secret,
+            tolerance,
+            api_requestor=self._requestor,
+        )
+
+    def construct_event_without_verification(
+        self,
+        payload: Union[bytes, str],
+    ) -> Event:
+        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook without first verifying its authenticity. Should be used after calling `Webhook.verify_header(...)` or with input from a trusted source (such as [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify & construct in a single call, use `Webhook.construct_event(...)` instead."""
+        return Webhook.construct_event_without_verification(
+            payload, api_requestor=self._requestor
+        )
+
     def parse_event_notification(
         self,
         raw: Union[bytes, str, bytearray],
@@ -224,11 +246,7 @@ class StripeClient(object):
         secret: str,
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
     ) -> "ALL_EVENT_NOTIFICATIONS":
-        """
-        This should be your main method for interacting with Thin Event Notifications. It's the V2 equivalent of `construct_event()`, but with better typing support.
-
-        It returns a union representing all known `EventNotification` classes. They have a `type` property that can be used for narrowing, which will get you very specific type support. If parsing an event the SDK isn't familiar with, it'll instead return `UnknownEventNotification`. That's not reflected in the return type of the function (because it messes up type narrowing) but is otherwise intended.
-        """
+        """Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `parse_event_notification_without_verification`."""
         payload = (
             cast(Union[bytes, bytearray], raw).decode("utf-8")
             if hasattr(raw, "decode")
@@ -242,44 +260,17 @@ class StripeClient(object):
             EventNotification.from_json(payload, self),
         )
 
-    def construct_event(
-        self,
-        payload: Union[bytes, str],
-        sig_header: str,
-        secret: str,
-        tolerance: int = Webhook.DEFAULT_TOLERANCE,
-    ) -> Event:
-        return Webhook.construct_event(
-            payload,
-            sig_header,
-            secret,
-            tolerance,
-            api_requestor=self._requestor,
-        )
-
-    def construct_event_from_cloud_provider(
-        self,
-        payload: Union[bytes, str],
-    ) -> Event:
-        """Constructs an Event from an [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload."""
-        inner = extract_from_cloud_provider_envelope(payload)
-        return build_v1_event(inner, self._requestor)
-
-    def parse_event_notification_from_cloud_provider(
+    def parse_event_notification_without_verification(
         self,
         payload: Union[bytes, str],
     ) -> "ALL_EVENT_NOTIFICATIONS":
-        """Parses a Thin Event Notification from an [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload."""
-        inner = extract_from_cloud_provider_envelope(payload)
-
-        if inner.get("object") == "event":
-            raise ValueError(
-                "It looks like this cloud event contains a v1 Event. Use construct_event_from_cloud_provider instead."
-            )
+        """Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from an incoming webhook without first verifying its authenticity. Should be used after calling `Webhook.verify_header(...)` or with input from a trusted source (such as [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify & parse in a single call, use `parse_event_notification(...)` instead."""
 
         return cast(
             "ALL_EVENT_NOTIFICATIONS",
-            EventNotification.from_json(json.dumps(inner), self),
+            EventNotification.from_json(
+                maybe_extract_from_cloud_provider_envelope(payload), self
+            ),
         )
 
     def raw_request(self, method_: str, url_: str, **params):

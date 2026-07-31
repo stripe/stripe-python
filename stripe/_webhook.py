@@ -26,11 +26,12 @@ def build_v1_event(values: Dict[str, Any], requestor: _APIRequestor) -> Event:
     )
 
 
-def extract_from_cloud_provider_envelope(
+def maybe_extract_from_cloud_provider_envelope(
     payload: Union[bytes, str],
 ):
     """
-    Internal helper to extract the inner type from a cloud provider envelope (regardless of what's in there)
+    Internal helper to extract the inner type from a cloud provider envelope (regardless of what's in there).
+    If the payload is already a raw Stripe event (object is 'event' or 'v2.core.event'), returns the parsed dict as-is.
     """
     if isinstance(payload, bytes):
         payload = payload.decode("utf-8")
@@ -41,21 +42,18 @@ def extract_from_cloud_provider_envelope(
     if "detail" in data:
         # AWS
         # https://docs.stripe.com/event-destinations/eventbridge#event-structure
-        inner = data["detail"]
+        return data["detail"]
     elif "specversion" in data:
         # Azure
         # https://docs.stripe.com/event-destinations/eventgrid#event-structure
-        inner = data["data"]
-    elif isinstance(data.get("id"), str) and data["id"].startswith("evt_"):
-        raise ValueError(
-            "It looks like you passed a Stripe Event directly. Use construct_event instead to parse a webhook payload with signature verification."
-        )
-    else:
-        raise ValueError(
-            "Unrecognized cloud event format. The payload must be an AWS EventBridge or Azure Event Grid event envelope."
-        )
+        return data["data"]
+    elif data.get("object") in ("event", "v2.core.event"):
+        # Raw Stripe event passed directly: pass through as-is
+        return data
 
-    return inner
+    raise ValueError(
+        "Unrecognized cloud event format. The payload must be an AWS EventBridge or Azure Event Grid event envelope."
+    )
 
 
 class Webhook(object):
@@ -63,25 +61,37 @@ class Webhook(object):
 
     @staticmethod
     def construct_event(
-        payload,
-        sig_header,
-        secret,
-        tolerance=DEFAULT_TOLERANCE,
-        api_key=None,
+        payload: Union[bytes, str],
+        sig_header: str,
+        secret: str,
+        tolerance: int = DEFAULT_TOLERANCE,
+        api_key: Optional[str] = None,
         api_requestor: Optional[_APIRequestor] = None,
     ):
-        if hasattr(payload, "decode"):
+        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `construct_event_without_verification`."""
+        if isinstance(payload, (bytes, bytearray)):
             payload = payload.decode("utf-8")
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
-        data = json.loads(payload, object_pairs_hook=OrderedDict)
         return build_v1_event(
-            data,
+            json.loads(payload, object_pairs_hook=OrderedDict),
             api_requestor
             or _APIRequestor._global_with_options(
                 api_key=api_key or stripe.api_key
             ),
+        )
+
+    @staticmethod
+    def construct_event_without_verification(
+        payload: Union[bytes, str],
+        api_requestor: Optional[_APIRequestor] = None,
+    ):
+        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook without first verifying its authenticity. Should be used after calling `WebhookSignature.verify_header(...)` or with input from a trusted source (such as [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify & construct in a single call, use `Webhook.construct_event(...)` instead."""
+        return build_v1_event(
+            maybe_extract_from_cloud_provider_envelope(payload),
+            api_requestor
+            or _APIRequestor._global_with_options(api_key=stripe.api_key),
         )
 
 
@@ -89,7 +99,7 @@ class WebhookSignature(object):
     EXPECTED_SCHEME = "v1"
 
     @staticmethod
-    def _compute_signature(payload, secret):
+    def _compute_signature(payload: str, secret: str) -> str:
         mac = hmac.new(
             secret.encode("utf-8"),
             msg=payload.encode("utf-8"),
@@ -98,14 +108,33 @@ class WebhookSignature(object):
         return mac.hexdigest()
 
     @staticmethod
-    def _get_timestamp_and_signatures(header, scheme):
+    def _get_timestamp_and_signatures(header: str, scheme: str):
         list_items = [i.split("=", 2) for i in header.split(",")]
         timestamp = int([i[1] for i in list_items if i[0] == "t"][0])
         signatures = [i[1] for i in list_items if i[0] == scheme]
         return timestamp, signatures
 
     @classmethod
-    def verify_header(cls, payload, header, secret, tolerance=None):
+    def generate_signature_header(
+        cls, payload: str, secret: str, timestamp=None
+    ):
+        """Compute the `Stripe-Signature` header for a given webhook body & secret. Useful for signing payloads in unit tests."""
+        if timestamp is None:
+            timestamp = int(time.time())
+        scheme = cls.EXPECTED_SCHEME
+        signed_payload = "%d.%s" % (timestamp, payload)
+        signature = cls._compute_signature(signed_payload, secret)
+        return "t=%d,%s=%s" % (timestamp, scheme, signature)
+
+    @classmethod
+    def verify_header(
+        cls,
+        payload: Union[bytes, str],
+        header: str,
+        secret: str,
+        tolerance=None,
+    ):
+        """Verifies the authenticity (and recency) of a webhook, throwing a `SignatureVerificationError` if there's a mismatch. Useful for quickly validating incoming webhooks before storing them for later processing (at which time you can use the `*_without_verification` methods for parsing)."""
         try:
             timestamp, signatures = cls._get_timestamp_and_signatures(
                 header, cls.EXPECTED_SCHEME

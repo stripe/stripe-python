@@ -167,13 +167,17 @@ class EventNotification:
         self._client = client
 
     @staticmethod
-    def from_json(payload: str, client: "StripeClient") -> "EventNotification":
+    def from_json(
+        payload: str | Dict[str, Any], client: "StripeClient"
+    ) -> "EventNotification":
         """
         Helper for constructing an Event Notification. Doesn't perform signature validation, so you
         should use StripeClient.parse_event_notification() instead for initial handling.
         This is useful in unit tests and working with EventNotifications that you've already validated the authenticity of.
         """
-        parsed_body = json.loads(payload)
+        parsed_body = (
+            json.loads(payload) if isinstance(payload, str) else payload
+        )
         if parsed_body.get("object") == "event":
             raise ValueError(
                 "You passed a webhook payload to StripeClient.parse_event_notification, which expects a thin event notification. Use StripeClient.construct_event instead."
