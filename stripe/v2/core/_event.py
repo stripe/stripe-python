@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from typing import Any, ClassVar, Dict, Optional, cast
+from typing import Any, ClassVar, Dict, Optional, Union, cast
 
 from typing_extensions import Literal, TYPE_CHECKING
 
@@ -168,7 +168,7 @@ class EventNotification:
 
     @staticmethod
     def from_json(
-        payload: str | Dict[str, Any], client: "StripeClient"
+        payload: Union[str, Dict[str, Any]], client: "StripeClient"
     ) -> "EventNotification":
         """
         Helper for constructing an Event Notification. Doesn't perform signature validation, so you
