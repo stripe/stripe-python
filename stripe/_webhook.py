@@ -122,9 +122,9 @@ class WebhookSignature(object):
         if timestamp is None:
             timestamp = int(time.time())
         scheme = cls.EXPECTED_SCHEME
-        signed_payload = "%d.%s" % (timestamp, payload)
+        signed_payload = f"{timestamp}.{payload}"
         signature = cls._compute_signature(signed_payload, secret)
-        return "t=%d,%s=%s" % (timestamp, scheme, signature)
+        return f"t={timestamp},{scheme}={signature}"
 
     @classmethod
     def verify_header(
