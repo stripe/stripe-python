@@ -100,6 +100,7 @@ This release changes the pinned API version to 2026-07-29.dahlia.
   * Add support for `additional_addresses` on `V2.Core.Account.Identity.BusinessDetail`, `v2.core.AccountCreateParamsIdentityBusinessDetail`, `v2.core.AccountModifyParamsIdentityBusinessDetail`, and `v2.core.AccountTokenCreateParamsIdentityBusinessDetail`
   * Add support for snapshot events `financial_connections.account.expected_deactivation_date_updated`, `financial_connections.account.supported_payment_method_types_updated`, and `financial_connections.account.upcoming_deactivation` with resource `financial_connections.Account`
   * Add support for snapshot events `financial_connections.authorization.expected_deactivation_date_updated` and `financial_connections.authorization.upcoming_deactivation` with resource `financial_connections.Authorization`
+  * Enum type annotations for non-exhaustive ("open") enums are now typed as `Union[Literal[...], str]` instead of plain `Literal[...]`. Many Stripe enums are open, meaning new values may appear in new versions of the API. This change ensures these fields have the correct type for both the values known at SDK release time and other values that may be added later. Refer to the [API Reference](https://docs.stripe.com) for the latest set of allowed values.
 * [#1853](https://github.com/stripe/stripe-python/pull/1853) Fix intermittent Windows test flake in async httpx integration tests
 * [#1849](https://github.com/stripe/stripe-python/pull/1849) Use ip address directly instead of localhost to speed up windows tests
 
