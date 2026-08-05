@@ -345,6 +345,10 @@ class SessionModifyParamsShippingOption(TypedDict):
     """
     Parameters to be passed to Shipping Rate creation for this shipping option.
     """
+    tax_rates: NotRequired["Literal['']|List[str]"]
+    """
+    The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
+    """
 
 
 class SessionModifyParamsShippingOptionShippingRateData(TypedDict):

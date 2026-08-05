@@ -200,6 +200,10 @@ class OffSessionPayment(StripeObject):
     """
     The “presentment amount” to be collected from the customer.
     """
+    application: Optional[str]
+    """
+    The application associated with this OffSessionPayment.
+    """
     application_fee_amount_requested: Optional[Amount]
     """
     The amount of the application fee requested to be applied to the payment.

@@ -15,6 +15,10 @@ class PaymentAttemptRecordReportGuaranteedParams(RequestOptions):
     """
     When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
     """
+    is_anomalous: NotRequired[bool]
+    """
+    Set to `true` to enable writing an anomalous guaranteed payment to an outdated PaymentAttemptRecord. This parameter defaults to `false`.
+    """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
     ]

@@ -43948,54 +43948,6 @@ class TestGeneratedExamples(object):
             {
                 "contract_number": "contract_number",
                 "currency": "usd",
-                "pricing_lines": [
-                    {
-                        "ends_at": {
-                            "timestamp": "1970-01-01T15:18:46.294Z",
-                            "type": "timestamp",
-                        },
-                        "lookup_key": "lookup_key",
-                        "metadata": {"key": "metadata"},
-                        "pricing": {
-                            "price_details": {
-                                "price": "price",
-                                "pricing_overrides": [
-                                    {
-                                        "ends_at": {
-                                            "timestamp": "1970-01-01T15:18:46.294Z",
-                                            "type": "timestamp",
-                                        },
-                                        "lookup_key": "lookup_key",
-                                        "metadata": {"key": "metadata"},
-                                        "overwrite_price": {
-                                            "unit_amount": "unit_amount",
-                                        },
-                                        "priority": 1165461084,
-                                        "starts_at": {
-                                            "timestamp": "1970-01-01T15:18:46.294Z",
-                                            "type": "timestamp",
-                                        },
-                                        "type": "overwrite_price",
-                                    },
-                                ],
-                                "quantity_changes": [
-                                    {
-                                        "effective_at": {
-                                            "timestamp": "1970-01-01T15:18:46.294Z",
-                                            "type": "timestamp",
-                                        },
-                                        "set": Decimal("75841.33333333333"),
-                                    },
-                                ],
-                            },
-                            "type": "price",
-                        },
-                        "starts_at": {
-                            "timestamp": "1970-01-01T15:18:46.294Z",
-                            "type": "timestamp",
-                        },
-                    },
-                ],
             }
         )
         http_client_mock.assert_requested(
@@ -44003,7 +43955,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/contracts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"contract_number":"contract_number","currency":"usd","pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"lookup_key":"lookup_key","metadata":{"key":"metadata"},"pricing":{"price_details":{"price":"price","pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"lookup_key":"lookup_key","metadata":{"key":"metadata"},"overwrite_price":{"unit_amount":"unit_amount"},"priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"type":"overwrite_price"}],"quantity_changes":[{"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"set":"75841.33333333333"}]},"type":"price"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"}}]}',
+            post_data='{"contract_number":"contract_number","currency":"usd"}',
             is_json=True,
         )
 

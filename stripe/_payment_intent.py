@@ -3896,6 +3896,34 @@ class PaymentIntent(
             }
 
         class CardPresent(StripeObject):
+            class AadeData(StripeObject):
+                mark_data: Optional[str]
+                """
+                The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+                """
+                mode: Literal["autonomous", "standard"]
+                """
+                The e-invoicing mode under which the mark was generated.
+                """
+                provider_id: Optional[int]
+                """
+                The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+                """
+                signed_mark: Optional[str]
+                """
+                The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
+                """
+                unbound_pos: Optional[
+                    Literal[
+                        "interconnection_loss",
+                        "lock",
+                        "replacement_cash_system",
+                    ]
+                ]
+                """
+                The reason for entering autonomous mode. Required when `mode` is `autonomous`.
+                """
+
             class CaptureDelay(StripeObject):
                 days: Optional[int]
                 """
@@ -3918,6 +3946,7 @@ class PaymentIntent(
                 Requested routing priority
                 """
 
+            aade_data: Optional[AadeData]
             capture_by: Optional[
                 Literal["auth_expiry", "end_of_day", "target_delay"]
             ]
@@ -3955,6 +3984,7 @@ class PaymentIntent(
             """
             routing: Optional[Routing]
             _inner_class_types = {
+                "aade_data": AadeData,
                 "capture_delay": CaptureDelay,
                 "routing": Routing,
             }
@@ -4835,6 +4865,12 @@ class PaymentIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Sequra(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class Shopeepay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -5189,6 +5225,7 @@ class PaymentIntent(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
@@ -5255,6 +5292,7 @@ class PaymentIntent(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
@@ -5655,6 +5693,7 @@ class PaymentIntent(
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",

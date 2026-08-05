@@ -154,7 +154,7 @@ class Coupon(
     """
     type: Optional[Union[Literal["amount_off", "percent_off", "script"], str]]
     """
-    One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
+    The type of coupon logic used to calculate the discount.
     """
     valid: bool
     """

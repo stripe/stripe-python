@@ -12,3 +12,7 @@ class StatementListParams(TypedDict):
     """
     The field by which to sort results. Defaults to "created".
     """
+    status: NotRequired[Literal["active", "restated"]]
+    """
+    Filter results by status. If omitted, statements of all statuses are returned.
+    """

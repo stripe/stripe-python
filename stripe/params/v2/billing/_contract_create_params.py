@@ -41,7 +41,7 @@ class ContractCreateParams(TypedDict):
     """
     Set of key-value pairs that you can attach to an object.
     """
-    pricing_lines: List["ContractCreateParamsPricingLine"]
+    pricing_lines: NotRequired[List["ContractCreateParamsPricingLine"]]
     """
     A list of pricing lines to create with the contract.
     """

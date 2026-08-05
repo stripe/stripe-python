@@ -893,7 +893,7 @@ class Authorization(
             ]
         ]
         """
-        IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified.
+        IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified. Defaults to not_verified when the network does not provide IIAS status.
         """
         vision_amount: Optional[int]
         """
