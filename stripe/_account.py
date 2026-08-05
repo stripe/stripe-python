@@ -505,6 +505,10 @@ class Account(
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
         """
+        sequra_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Sequra capability of the account, or whether the account can directly process Sequra payments.
+        """
         shopeepay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.

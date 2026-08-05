@@ -117,7 +117,9 @@ class Session(
         """
         Indicates whether automatic surcharge is enabled for the session.
         """
-        provider: Optional[Literal["interpayments", "proserv", "yeeld"]]
+        provider: Optional[
+            Literal["daikin", "interpayments", "proserv", "yeeld"]
+        ]
         """
         The surcharge provider used for this session.
         """
@@ -1553,6 +1555,12 @@ class Session(
                 """
                 The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
                 """
+                funding_types_blocked: Optional[
+                    List[Literal["credit", "debit", "prepaid"]]
+                ]
+                """
+                Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+                """
 
             capture_method: Optional[Literal["manual"]]
             """
@@ -2201,6 +2209,12 @@ class Session(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Sequra(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class Sofort(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -2433,6 +2447,7 @@ class Session(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         sofort: Optional[Sofort]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
@@ -2481,6 +2496,7 @@ class Session(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "sofort": Sofort,
             "sunbit": Sunbit,
             "swish": Swish,
@@ -2898,6 +2914,10 @@ class Session(
         shipping_rate: ExpandableField["ShippingRate"]
         """
         The shipping rate.
+        """
+        tax_rates: Optional[List[str]]
+        """
+        The tax rates applied to this shipping option.
         """
 
     class SurchargeCost(StripeObject):

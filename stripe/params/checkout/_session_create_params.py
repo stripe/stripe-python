@@ -665,7 +665,7 @@ class SessionCreateParamsCustomField(TypedDict):
 class SessionCreateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
     """
     options: List["SessionCreateParamsCustomFieldDropdownOption"]
     """
@@ -1028,11 +1028,11 @@ class SessionCreateParamsItemSubscriptionBillingModeFlexible(TypedDict):
 class SessionCreateParamsItemSubscriptionItem(TypedDict):
     price: NotRequired[str]
     """
-    The ID of the price for this subscription item.
+    The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
     """
     price_data: NotRequired["SessionCreateParamsItemSubscriptionItemPriceData"]
     """
-    Data used to generate a new Price object inline.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
     """
     quantity: NotRequired[int]
     """
@@ -3282,6 +3282,10 @@ class SessionCreateParamsShippingOption(TypedDict):
     ]
     """
     Parameters to be passed to Shipping Rate creation for this shipping option.
+    """
+    tax_rates: NotRequired[List[str]]
+    """
+    The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
     """
 
 

@@ -12,6 +12,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._application import Application
+    from stripe.billing._feedback_options import FeedbackOptions
     from stripe.params.billing_portal._configuration_create_params import (
         ConfigurationCreateParams,
     )
@@ -97,6 +98,12 @@ class Configuration(
                 enabled: bool
                 """
                 Whether the feature is enabled.
+                """
+                feedback_options: Optional[
+                    List[ExpandableField["FeedbackOptions"]]
+                ]
+                """
+                The IDs of custom feedback options configured for this cancellation reason.
                 """
                 options: List[
                     Union[

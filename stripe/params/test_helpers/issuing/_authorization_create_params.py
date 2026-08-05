@@ -46,6 +46,10 @@ class AuthorizationCreateParams(TypedDict):
     """
     Information about fuel that was purchased with this transaction.
     """
+    healthcare: NotRequired["AuthorizationCreateParamsHealthcare"]
+    """
+    Healthcare-specific information for IIAS-eligible authorizations.
+    """
     is_amount_controllable: NotRequired[bool]
     """
     If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
@@ -226,6 +230,46 @@ class AuthorizationCreateParamsFuel(TypedDict):
     unit_cost_decimal: NotRequired[Decimal]
     """
     The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+    """
+
+
+class AuthorizationCreateParamsHealthcare(TypedDict):
+    clinic_amount: NotRequired[int]
+    """
+    Clinic and urgent care sub-amount for Visa only.
+    """
+    currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    dental_amount: NotRequired[int]
+    """
+    Dental care sub-amount for Visa only.
+    """
+    prescription_amount: NotRequired[int]
+    """
+    Prescription drug sub-amount. Null if the merchant did not send this amount.
+    """
+    purchase_type: NotRequired[Literal["medical", "transit_for_healthcare"]]
+    """
+    The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+    """
+    total_qualified_amount: int
+    """
+    Total FSA/HSA-eligible amount in the smallest currency unit.
+    """
+    verification_status: Literal[
+        "iias_merchant_exempt",
+        "iias_merchant_not_certified",
+        "iias_verified",
+        "not_verified",
+    ]
+    """
+    IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+    """
+    vision_amount: NotRequired[int]
+    """
+    Vision/optical sub-amount. Null if the merchant did not send this amount.
     """
 
 

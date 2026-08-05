@@ -17,6 +17,7 @@ if TYPE_CHECKING:
         AuthorizationCaptureParamsPurchaseDetailsFlight as AuthorizationCaptureParamsPurchaseDetailsFlight,
         AuthorizationCaptureParamsPurchaseDetailsFlightSegment as AuthorizationCaptureParamsPurchaseDetailsFlightSegment,
         AuthorizationCaptureParamsPurchaseDetailsFuel as AuthorizationCaptureParamsPurchaseDetailsFuel,
+        AuthorizationCaptureParamsPurchaseDetailsHealthcare as AuthorizationCaptureParamsPurchaseDetailsHealthcare,
         AuthorizationCaptureParamsPurchaseDetailsLodging as AuthorizationCaptureParamsPurchaseDetailsLodging,
         AuthorizationCaptureParamsPurchaseDetailsReceipt as AuthorizationCaptureParamsPurchaseDetailsReceipt,
     )
@@ -30,6 +31,7 @@ if TYPE_CHECKING:
         AuthorizationCreateParamsFleetReportedBreakdownNonFuel as AuthorizationCreateParamsFleetReportedBreakdownNonFuel,
         AuthorizationCreateParamsFleetReportedBreakdownTax as AuthorizationCreateParamsFleetReportedBreakdownTax,
         AuthorizationCreateParamsFuel as AuthorizationCreateParamsFuel,
+        AuthorizationCreateParamsHealthcare as AuthorizationCreateParamsHealthcare,
         AuthorizationCreateParamsMerchantData as AuthorizationCreateParamsMerchantData,
         AuthorizationCreateParamsNetworkData as AuthorizationCreateParamsNetworkData,
         AuthorizationCreateParamsRiskAssessment as AuthorizationCreateParamsRiskAssessment,
@@ -119,6 +121,7 @@ if TYPE_CHECKING:
         TransactionCreateForceCaptureParamsPurchaseDetailsFlight as TransactionCreateForceCaptureParamsPurchaseDetailsFlight,
         TransactionCreateForceCaptureParamsPurchaseDetailsFlightSegment as TransactionCreateForceCaptureParamsPurchaseDetailsFlightSegment,
         TransactionCreateForceCaptureParamsPurchaseDetailsFuel as TransactionCreateForceCaptureParamsPurchaseDetailsFuel,
+        TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare as TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare,
         TransactionCreateForceCaptureParamsPurchaseDetailsLodging as TransactionCreateForceCaptureParamsPurchaseDetailsLodging,
         TransactionCreateForceCaptureParamsPurchaseDetailsReceipt as TransactionCreateForceCaptureParamsPurchaseDetailsReceipt,
     )
@@ -135,6 +138,7 @@ if TYPE_CHECKING:
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlight as TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlight,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlightSegment as TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlightSegment,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel as TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel,
+        TransactionCreateUnlinkedRefundParamsPurchaseDetailsHealthcare as TransactionCreateUnlinkedRefundParamsPurchaseDetailsHealthcare,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsLodging as TransactionCreateUnlinkedRefundParamsPurchaseDetailsLodging,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsReceipt as TransactionCreateUnlinkedRefundParamsPurchaseDetailsReceipt,
     )
@@ -192,6 +196,10 @@ _import_map = {
         "stripe.params.test_helpers.issuing._authorization_capture_params",
         False,
     ),
+    "AuthorizationCaptureParamsPurchaseDetailsHealthcare": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
     "AuthorizationCaptureParamsPurchaseDetailsLodging": (
         "stripe.params.test_helpers.issuing._authorization_capture_params",
         False,
@@ -233,6 +241,10 @@ _import_map = {
         False,
     ),
     "AuthorizationCreateParamsFuel": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsHealthcare": (
         "stripe.params.test_helpers.issuing._authorization_create_params",
         False,
     ),
@@ -440,6 +452,10 @@ _import_map = {
         "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
         False,
     ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
     "TransactionCreateForceCaptureParamsPurchaseDetailsLodging": (
         "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
         False,
@@ -493,6 +509,10 @@ _import_map = {
         False,
     ),
     "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsHealthcare": (
         "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
         False,
     ),

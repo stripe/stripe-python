@@ -431,6 +431,10 @@ class PaymentMethod(
                     """
                     A collection of fields required to be displayed on receipts. Only required for EMV transactions.
                     """
+                    retrieval_reference_number: Optional[str]
+                    """
+                    The retrieval reference number assigned to this transaction.
+                    """
                     wallet: Optional[Wallet]
                     _inner_class_types = {
                         "multicapture": Multicapture,
@@ -1790,6 +1794,7 @@ class PaymentMethod(
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",

@@ -268,7 +268,7 @@ class PaymentLinkModifyParamsCustomField(TypedDict):
 class PaymentLinkModifyParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
     """
     options: List["PaymentLinkModifyParamsCustomFieldDropdownOption"]
     """

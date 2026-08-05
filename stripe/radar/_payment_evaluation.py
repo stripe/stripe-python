@@ -429,11 +429,11 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
                 """
                 Four-digit number representing the card's expiration year.
                 """
-                first6: Optional[str]
+                first6: str
                 """
                 First six digits of the card number.
                 """
-                last4: Optional[str]
+                last4: str
                 """
                 Last four digits of the card number.
                 """

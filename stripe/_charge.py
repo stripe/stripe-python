@@ -1221,6 +1221,10 @@ class Charge(
             """
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             """
+            retrieval_reference_number: Optional[str]
+            """
+            The retrieval reference number assigned to this transaction.
+            """
             wallet: Optional[Wallet]
             _inner_class_types = {
                 "multicapture": Multicapture,
@@ -1805,6 +1809,10 @@ class Charge(
             Two-letter ISO code representing the funding source country beneath the Link payment.
             You could use this attribute to get a sense of international fees.
             """
+            pricing_group: Optional[str]
+            """
+            The pricing bundle applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if bundle lookup failed at confirmation time.
+            """
 
         class MbWay(StripeObject):
             pass
@@ -2254,6 +2262,12 @@ class Charge(
             Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
             """
 
+        class Sequra(StripeObject):
+            transaction_id: Optional[str]
+            """
+            The Sequra transaction ID associated with this payment.
+            """
+
         class Shopeepay(StripeObject):
             pass
 
@@ -2467,6 +2481,7 @@ class Charge(
         scalapay: Optional[Scalapay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
@@ -2544,6 +2559,7 @@ class Charge(
             "scalapay": Scalapay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,
