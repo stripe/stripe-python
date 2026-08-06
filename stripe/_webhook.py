@@ -52,7 +52,7 @@ def maybe_extract_from_cloud_provider_envelope(
         return data
 
     raise ValueError(
-        "Unrecognized cloud event format. The payload must be an AWS EventBridge or Azure Event Grid event envelope."
+        "Unrecognized event format. The payload must be an AWS EventBridge/Azure Event Grid event envelope or a Stripe webhook (thin event notification or snapshot)."
     )
 
 

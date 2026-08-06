@@ -161,9 +161,7 @@ class TestConstructEventWithoutVerification:
             )
 
     def test_unrecognized_format(self, client):
-        with pytest.raises(
-            ValueError, match="Unrecognized cloud event format"
-        ):
+        with pytest.raises(ValueError, match="Unrecognized event format"):
             client.construct_event_without_verification(
                 json.dumps({"foo": "bar"})
             )
@@ -177,9 +175,7 @@ class TestConstructEventWithoutVerification:
                 "id": "test-missing-data",
             }
         )
-        with pytest.raises(
-            ValueError, match="Unrecognized cloud event format"
-        ):
+        with pytest.raises(ValueError, match="Unrecognized event format"):
             client.construct_event_without_verification(payload)
 
     def test_webhook_static_method_eventbridge(self, eventbridge_payload):
@@ -221,9 +217,7 @@ class TestParseEventNotificationWithoutVerification:
             )
 
     def test_unrecognized_format(self, client):
-        with pytest.raises(
-            ValueError, match="Unrecognized cloud event format"
-        ):
+        with pytest.raises(ValueError, match="Unrecognized event format"):
             client.parse_event_notification_without_verification(
                 json.dumps({"foo": "bar"})
             )
@@ -237,9 +231,7 @@ class TestParseEventNotificationWithoutVerification:
                 "id": "test-missing-data",
             }
         )
-        with pytest.raises(
-            ValueError, match="Unrecognized cloud event format"
-        ):
+        with pytest.raises(ValueError, match="Unrecognized event format"):
             client.parse_event_notification_without_verification(payload)
 
     def test_unexpected_object_type_in_event_notification(self, client):
