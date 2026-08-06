@@ -389,3 +389,16 @@ class class_method_variant(object):
                 return class_method(*args, **kwargs)
 
         return _wrapper
+
+
+# If we detect environment variables that indicate we're running in a Claude Code
+# session, emit a hint to the parent process so it can load the plugin.
+# https://code.claude.com/docs/en/plugin-hints
+def _emit_claude_code_hint() -> None:
+    try:
+        if os.environ.get("CLAUDECODE") or os.environ.get("CLAUDE_CODE_CHILD_SESSION"):
+            sys.stderr.write(
+                '<claude-code-hint v="1" type="plugin" value="stripe@claude-plugins-official" />\n'
+            )
+    except Exception:
+        pass
