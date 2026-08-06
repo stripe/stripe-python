@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -28,7 +28,7 @@ class Release(StripeObject):
         """
         The ID of the refund.
         """
-        type: Literal["dispute", "refund"]
+        type: Union[Literal["dispute", "refund"], str]
         """
         The type of source transaction.
         """
@@ -41,7 +41,7 @@ class Release(StripeObject):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    created_by: Literal["application", "stripe"]
+    created_by: Union[Literal["application", "stripe"], str]
     """
     Indicates which party created this ReserveRelease.
     """
@@ -65,11 +65,14 @@ class Release(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    reason: Literal[
-        "bulk_hold_expiry",
-        "hold_released_early",
-        "hold_reversed",
-        "plan_disabled",
+    reason: Union[
+        Literal[
+            "bulk_hold_expiry",
+            "hold_released_early",
+            "hold_reversed",
+            "plan_disabled",
+        ],
+        str,
     ]
     """
     The reason for the ReserveRelease, indicating why the funds were released.

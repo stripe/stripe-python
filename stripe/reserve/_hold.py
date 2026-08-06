@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -49,7 +49,7 @@ class Hold(StripeObject):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    created_by: Literal["application", "stripe"]
+    created_by: Union[Literal["application", "stripe"], str]
     """
     Indicates which party created this ReserveHold.
     """
@@ -77,7 +77,7 @@ class Hold(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    reason: Literal["charge", "standalone"]
+    reason: Union[Literal["charge", "standalone"], str]
     """
     The reason for the ReserveHold.
     """
@@ -94,7 +94,7 @@ class Hold(StripeObject):
     """
     The Charge which funded this ReserveHold (e.g., ch_123)
     """
-    source_type: Literal["bank_account", "card", "fpx"]
+    source_type: Union[Literal["bank_account", "card", "fpx"], str]
     """
     Which source balance type this ReserveHold reserves funds from. One of `bank_account`, `card`, or `fpx`.
     """

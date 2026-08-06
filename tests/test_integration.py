@@ -26,7 +26,23 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 MOCK_HOST = os.environ.get("STRIPE_MOCK_HOST", "localhost")
 
 
+class RequestSnapshot:
+    """Snapshot of request attributes, captured at handle time.
+
+    With HTTP/1.1 keep-alive, multiple requests reuse the same handler
+    instance whose attributes get overwritten on each request.
+    """
+
+    def __init__(self, handler: BaseHTTPRequestHandler):
+        self.command = handler.command
+        self.path = handler.path
+        self.headers = handler.headers
+
+
 class MyTestHandler(BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+    timeout = 30
+
     num_requests = 0
 
     requests = defaultdict(Queue)
@@ -34,10 +50,10 @@ class MyTestHandler(BaseHTTPRequestHandler):
     @classmethod
     def _add_request(cls, req):
         q = cls.requests[id(cls)]
-        q.put(req)
+        q.put(RequestSnapshot(req))
 
     @classmethod
-    def get_requests(cls, n) -> List[BaseHTTPRequestHandler]:
+    def get_requests(cls, n) -> List[RequestSnapshot]:
         reqs = []
         for _ in range(n):
             reqs.append(cls.requests[id(cls)].get(False))
@@ -52,6 +68,12 @@ class MyTestHandler(BaseHTTPRequestHandler):
         return self._do_request()
 
     def _do_request(self):
+        # Drain the request body so it doesn't pollute the next request
+        # on the keep-alive connection.
+        content_length = int(self.headers.get("Content-Length", 0))
+        if content_length:
+            self.rfile.read(content_length)
+
         n = self.__class__.num_requests
         self.__class__.num_requests += 1
         self._add_request(self)

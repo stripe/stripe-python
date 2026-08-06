@@ -22,7 +22,7 @@ class MeterListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    status: NotRequired[Literal["active", "inactive"]]
+    status: NotRequired["Literal['active', 'inactive']|str"]
     """
     Filter results to only include meters with the given status.
     """

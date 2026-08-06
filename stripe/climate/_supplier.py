@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -66,11 +66,14 @@ class Supplier(ListableAPIResource["Supplier"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    removal_pathway: Literal[
-        "biomass_carbon_removal_and_storage",
-        "direct_air_capture",
-        "enhanced_weathering",
-        "marine_carbon_removal",
+    removal_pathway: Union[
+        Literal[
+            "biomass_carbon_removal_and_storage",
+            "direct_air_capture",
+            "enhanced_weathering",
+            "marine_carbon_removal",
+        ],
+        str,
     ]
     """
     The scientific pathway used for carbon removal.

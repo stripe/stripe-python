@@ -19,7 +19,7 @@ class CreditNotePreviewLinesListParams(TypedDict):
     """
     The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
     """
-    email_type: NotRequired[Literal["credit_note", "none"]]
+    email_type: NotRequired["Literal['credit_note', 'none']|str"]
     """
     Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
     """
@@ -56,9 +56,7 @@ class CreditNotePreviewLinesListParams(TypedDict):
     The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
     """
     reason: NotRequired[
-        Literal[
-            "duplicate", "fraudulent", "order_change", "product_unsatisfactory"
-        ]
+        "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|str"
     ]
     """
     Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
@@ -156,7 +154,7 @@ class CreditNotePreviewLinesListParamsRefund(TypedDict):
     """
     ID of an existing refund to link this credit note to. Required when `type` is `refund`.
     """
-    type: NotRequired[Literal["payment_record_refund", "refund"]]
+    type: NotRequired["Literal['payment_record_refund', 'refund']|str"]
     """
     Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
     """

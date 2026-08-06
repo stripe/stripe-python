@@ -192,11 +192,11 @@ class FinancialAccountCreateParamsFeaturesOutboundTransfersUsDomesticWire(
 
 
 class FinancialAccountCreateParamsPlatformRestrictions(TypedDict):
-    inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
+    inbound_flows: NotRequired["Literal['restricted', 'unrestricted']|str"]
     """
     Restricts all inbound money movement.
     """
-    outbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
+    outbound_flows: NotRequired["Literal['restricted', 'unrestricted']|str"]
     """
     Restricts all outbound money movement.
     """

@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -51,20 +51,23 @@ class InboundTransfer(
     )
 
     class FailureDetails(StripeObject):
-        code: Literal[
-            "account_closed",
-            "account_frozen",
-            "bank_account_restricted",
-            "bank_ownership_changed",
-            "debit_not_authorized",
-            "incorrect_account_holder_address",
-            "incorrect_account_holder_name",
-            "incorrect_account_holder_tax_id",
-            "insufficient_funds",
-            "invalid_account_number",
-            "invalid_currency",
-            "no_account",
-            "other",
+        code: Union[
+            Literal[
+                "account_closed",
+                "account_frozen",
+                "bank_account_restricted",
+                "bank_ownership_changed",
+                "debit_not_authorized",
+                "incorrect_account_holder_address",
+                "incorrect_account_holder_name",
+                "incorrect_account_holder_tax_id",
+                "insufficient_funds",
+                "invalid_account_number",
+                "invalid_currency",
+                "no_account",
+                "other",
+            ],
+            str,
         ]
         """
         Reason for the failure.
@@ -116,11 +119,13 @@ class InboundTransfer(
             _inner_class_types = {"address": Address}
 
         class UsBankAccount(StripeObject):
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             Account holder type: individual or company.
             """
-            account_type: Optional[Literal["checking", "savings"]]
+            account_type: Optional[Union[Literal["checking", "savings"], str]]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
@@ -239,7 +244,9 @@ class InboundTransfer(
     """
     Statement descriptor shown when funds are debited from the source. Not all payment networks support `statement_descriptor`.
     """
-    status: Literal["canceled", "failed", "processing", "succeeded"]
+    status: Union[
+        Literal["canceled", "failed", "processing", "succeeded"], str
+    ]
     """
     Status of the InboundTransfer: `processing`, `succeeded`, `failed`, and `canceled`. An InboundTransfer is `processing` if it is created and pending. The status changes to `succeeded` once the funds have been "confirmed" and a `transaction` is created and posted. The status changes to `failed` if the transfer fails.
     """

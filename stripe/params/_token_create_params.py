@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -43,7 +43,7 @@ class TokenCreateParams(RequestOptions):
 
 class TokenCreateParamsAccount(TypedDict):
     business_type: NotRequired[
-        Literal["company", "government_entity", "individual", "non_profit"]
+        "Literal['company', 'government_entity', 'individual', 'non_profit']|str"
     ]
     """
     The business type.
@@ -75,6 +75,9 @@ class TokenCreateParamsAccountCompany(TypedDict):
     """
     The Kanji variation of the company's primary address (Japan only).
     """
+    administrative_address: NotRequired[
+        "TokenCreateParamsAccountCompanyAdministrativeAddress"
+    ]
     directors_provided: NotRequired[bool]
     """
     Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
@@ -124,7 +127,7 @@ class TokenCreateParamsAccountCompany(TypedDict):
     Whether the user described by the data in the token has been shown the Ownership Declaration and indicated that it is correct.
     """
     ownership_exemption_reason: NotRequired[
-        "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']|str"
     ]
     """
     This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
@@ -133,6 +136,9 @@ class TokenCreateParamsAccountCompany(TypedDict):
     """
     The company's phone number (used for verification).
     """
+    principal_place_of_business: NotRequired[
+        "TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness"
+    ]
     registration_date: NotRequired[
         "Literal['']|TokenCreateParamsAccountCompanyRegistrationDate"
     ]
@@ -150,7 +156,7 @@ class TokenCreateParamsAccountCompany(TypedDict):
     This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
     """
     structure: NotRequired[
-        "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
+        "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']|str"
     ]
     """
     The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -158,6 +164,8 @@ class TokenCreateParamsAccountCompany(TypedDict):
     tax_id: NotRequired[str]
     """
     The business ID number of the company, as appropriate for the company's country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+
+    Changing this value requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     tax_id_registrar: NotRequired[str]
     """
@@ -262,6 +270,33 @@ class TokenCreateParamsAccountCompanyAddressKanji(TypedDict):
     """
 
 
+class TokenCreateParamsAccountCompanyAdministrativeAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
 class TokenCreateParamsAccountCompanyDirectorshipDeclaration(TypedDict):
     date: NotRequired[int]
     """
@@ -289,6 +324,33 @@ class TokenCreateParamsAccountCompanyOwnershipDeclaration(TypedDict):
     user_agent: NotRequired[str]
     """
     The user agent of the browser from which the beneficial owner attestation was made.
+    """
+
+
+class TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -419,7 +481,7 @@ class TokenCreateParamsAccountIndividual(TypedDict):
     """
     The individual's phone number.
     """
-    political_exposure: NotRequired[Literal["existing", "none"]]
+    political_exposure: NotRequired["Literal['existing', 'none']|str"]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """
@@ -727,7 +789,9 @@ class TokenCreateParamsCard(TypedDict):
 
 
 class TokenCreateParamsCardNetworks(TypedDict):
-    preferred: NotRequired[Literal["cartes_bancaires", "mastercard", "visa"]]
+    preferred: NotRequired[
+        "Literal['cartes_bancaires', 'mastercard', 'visa']|str"
+    ]
     """
     The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
     """
@@ -794,10 +858,14 @@ class TokenCreateParamsPerson(TypedDict):
     id_number: NotRequired[str]
     """
     The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+
+    Changing this value for the account's representative requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     id_number_secondary: NotRequired[str]
     """
     The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+
+    Changing this value for the account's representative requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     last_name: NotRequired[str]
     """
@@ -829,7 +897,7 @@ class TokenCreateParamsPerson(TypedDict):
     """
     The person's phone number.
     """
-    political_exposure: NotRequired[Literal["existing", "none"]]
+    political_exposure: NotRequired["Literal['existing', 'none']|str"]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """
@@ -844,6 +912,8 @@ class TokenCreateParamsPerson(TypedDict):
     ssn_last_4: NotRequired[str]
     """
     The last four digits of the person's Social Security number (U.S. only).
+
+    Changing this value for the account's representative requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     us_cfpb_data: NotRequired["TokenCreateParamsPersonUsCfpbData"]
     """
@@ -1103,14 +1173,17 @@ class TokenCreateParamsPersonUsCfpbData(TypedDict):
 class TokenCreateParamsPersonUsCfpbDataEthnicityDetails(TypedDict):
     ethnicity: NotRequired[
         List[
-            Literal[
-                "cuban",
-                "hispanic_or_latino",
-                "mexican",
-                "not_hispanic_or_latino",
-                "other_hispanic_or_latino",
-                "prefer_not_to_answer",
-                "puerto_rican",
+            Union[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ],
+                str,
             ]
         ]
     ]
@@ -1126,31 +1199,34 @@ class TokenCreateParamsPersonUsCfpbDataEthnicityDetails(TypedDict):
 class TokenCreateParamsPersonUsCfpbDataRaceDetails(TypedDict):
     race: NotRequired[
         List[
-            Literal[
-                "african_american",
-                "american_indian_or_alaska_native",
-                "asian",
-                "asian_indian",
-                "black_or_african_american",
-                "chinese",
-                "ethiopian",
-                "filipino",
-                "guamanian_or_chamorro",
-                "haitian",
-                "jamaican",
-                "japanese",
-                "korean",
-                "native_hawaiian",
-                "native_hawaiian_or_other_pacific_islander",
-                "nigerian",
-                "other_asian",
-                "other_black_or_african_american",
-                "other_pacific_islander",
-                "prefer_not_to_answer",
-                "samoan",
-                "somali",
-                "vietnamese",
-                "white",
+            Union[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ],
+                str,
             ]
         ]
     ]

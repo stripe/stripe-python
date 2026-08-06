@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import json
-from typing import Any, ClassVar, Dict, Optional, Union, cast
+from typing import Any, ClassVar, Dict, Optional, cast, Union
+# v2-event-imports: The beginning of the section generated from our OpenAPI spec
+# v2-event-imports: The end of the section generated from our OpenAPI spec
 
 from typing_extensions import Literal, TYPE_CHECKING
 

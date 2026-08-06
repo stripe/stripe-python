@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -57,7 +57,7 @@ class Account(ListableAPIResource["Account"]):
         The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         """
         customer_account: Optional[str]
-        type: Literal["account", "customer"]
+        type: Union[Literal["account", "customer"], str]
         """
         Type of account holder that this account belongs to.
         """
@@ -67,11 +67,13 @@ class Account(ListableAPIResource["Account"]):
         """
         When the account number is expected to expire, if applicable.
         """
-        identifier_type: Literal["account_number", "tokenized_account_number"]
+        identifier_type: Union[
+            Literal["account_number", "tokenized_account_number"], str
+        ]
         """
         The type of account number associated with the account.
         """
-        status: Literal["deactivated", "transactable"]
+        status: Union[Literal["deactivated", "transactable"], str]
         """
         Whether the account number is currently active and usable for transactions.
         """
@@ -115,7 +117,7 @@ class Account(ListableAPIResource["Account"]):
 
         Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
         """
-        type: Literal["cash", "credit"]
+        type: Union[Literal["cash", "credit"], str]
         """
         The `type` of the balance. An additional hash is included on the balance with a name matching this value.
         """
@@ -130,7 +132,7 @@ class Account(ListableAPIResource["Account"]):
         """
         Time at which the next balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         """
-        status: Literal["failed", "pending", "succeeded"]
+        status: Union[Literal["failed", "pending", "succeeded"], str]
         """
         The status of the last refresh attempt.
         """
@@ -144,19 +146,22 @@ class Account(ListableAPIResource["Account"]):
         """
         Time at which the next ownership refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         """
-        status: Literal["failed", "pending", "succeeded"]
+        status: Union[Literal["failed", "pending", "succeeded"], str]
         """
         The status of the last refresh attempt.
         """
 
     class StatusDetails(StripeObject):
         class Active(StripeObject):
-            action: Literal["none", "relink_required"]
+            action: Union[Literal["none", "relink_required"], str]
             """
             The action (if any) to proactively relink the Account.
             """
-            cause: Literal[
-                "access_expired", "institution_requirement", "unspecified"
+            cause: Union[
+                Literal[
+                    "access_expired", "institution_requirement", "unspecified"
+                ],
+                str,
             ]
             """
             The underlying cause of the Account becoming inactive.
@@ -182,7 +187,7 @@ class Account(ListableAPIResource["Account"]):
         """
         Time at which the next transaction refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         """
-        status: Literal["failed", "pending", "succeeded"]
+        status: Union[Literal["failed", "pending", "succeeded"], str]
         """
         The status of the last refresh attempt.
         """
@@ -203,7 +208,7 @@ class Account(ListableAPIResource["Account"]):
     """
     The state of the most recent attempt to refresh the account balance.
     """
-    category: Literal["cash", "credit", "investment", "other"]
+    category: Union[Literal["cash", "credit", "investment", "other"], str]
     """
     The type of the account. Account category is further divided in `subcategory`.
     """
@@ -245,24 +250,32 @@ class Account(ListableAPIResource["Account"]):
     """
     permissions: Optional[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
     The list of permissions granted by this account.
     """
-    status: Literal["active", "disconnected", "inactive"]
+    status: Union[Literal["active", "disconnected", "inactive"], str]
     """
     The status of the link to the account.
     """
     status_details: Optional[StatusDetails]
-    subcategory: Literal[
-        "checking",
-        "credit_card",
-        "line_of_credit",
-        "mortgage",
-        "other",
-        "savings",
+    subcategory: Union[
+        Literal[
+            "checking",
+            "credit_card",
+            "line_of_credit",
+            "mortgage",
+            "other",
+            "savings",
+        ],
+        str,
     ]
     """
     If `category` is `cash`, one of:
@@ -284,7 +297,9 @@ class Account(ListableAPIResource["Account"]):
     """
     The list of data refresh subscriptions requested on this account.
     """
-    supported_payment_method_types: List[Literal["link", "us_bank_account"]]
+    supported_payment_method_types: List[
+        Union[Literal["link", "us_bank_account"], str]
+    ]
     """
     The [PaymentMethod type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
     """

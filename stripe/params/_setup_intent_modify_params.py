@@ -2,11 +2,17 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SetupIntentModifyParams(RequestOptions):
+    allowed_payment_method_types: NotRequired[
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boku_promptpay', 'boleto', 'capchase_pay', 'card', 'cashapp', 'check_scan', 'click_to_pay', 'crypto', 'customer_balance', 'demo_pay', 'duitnow', 'dummy_auth_push', 'dummy_passthrough_card', 'edenred', 'eps', 'fpx', 'gcash', 'getbalance', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'knet', 'konbini', 'kr_card', 'kr_market', 'kriya', 'link', 'mb_way', 'mobilepay', 'momo', 'mondu', 'multibanco', 'naver_pay', 'netbanking', 'ng_bank', 'ng_bank_transfer', 'ng_card', 'ng_market', 'ng_ussd', 'ng_wallet', 'nz_bank_account', 'octopus', 'oxxo', 'p24', 'paper_check', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shop_pay', 'shopeepay', 'sofort', 'south_korea_market', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'test_pay', 'truemoney', 'twint', 'upi', 'us_bank_account', 'us_cash_voucher', 'vipps', 'wechat_pay', 'wero', 'zip'], str]]"
+    ]
+    """
+    The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    """
     attach_to_self: NotRequired[bool]
     """
     If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
@@ -30,7 +36,7 @@ class SetupIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -39,7 +45,9 @@ class SetupIntentModifyParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    flow_directions: NotRequired[List[Literal["inbound", "outbound"]]]
+    flow_directions: NotRequired[
+        List[Union[Literal["inbound", "outbound"], str]]
+    ]
     """
     Indicates the directions of money movement for which this payment method is intended to be used.
 
@@ -99,7 +107,9 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
     """
-    allow_redisplay: NotRequired[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: NotRequired[
+        "Literal['always', 'limited', 'unspecified']|str"
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
     """
@@ -327,60 +337,63 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
-    type: Literal[
-        "acss_debit",
-        "affirm",
-        "afterpay_clearpay",
-        "alipay",
-        "alma",
-        "amazon_pay",
-        "au_becs_debit",
-        "bacs_debit",
-        "bancontact",
-        "billie",
-        "bizum",
-        "blik",
-        "boleto",
-        "cashapp",
-        "crypto",
-        "customer_balance",
-        "eps",
-        "fpx",
-        "giropay",
-        "grabpay",
-        "ideal",
-        "kakao_pay",
-        "klarna",
-        "konbini",
-        "kr_card",
-        "link",
-        "mb_way",
-        "mobilepay",
-        "multibanco",
-        "naver_pay",
-        "nz_bank_account",
-        "oxxo",
-        "p24",
-        "pay_by_bank",
-        "payco",
-        "paynow",
-        "paypal",
-        "payto",
-        "pix",
-        "promptpay",
-        "revolut_pay",
-        "samsung_pay",
-        "satispay",
-        "scalapay",
-        "sepa_debit",
-        "sofort",
-        "sunbit",
-        "swish",
-        "twint",
-        "upi",
-        "us_bank_account",
-        "wechat_pay",
-        "zip",
+    type: Union[
+        Literal[
+            "acss_debit",
+            "affirm",
+            "afterpay_clearpay",
+            "alipay",
+            "alma",
+            "amazon_pay",
+            "au_becs_debit",
+            "bacs_debit",
+            "bancontact",
+            "billie",
+            "bizum",
+            "blik",
+            "boleto",
+            "cashapp",
+            "crypto",
+            "customer_balance",
+            "eps",
+            "fpx",
+            "giropay",
+            "grabpay",
+            "ideal",
+            "kakao_pay",
+            "klarna",
+            "konbini",
+            "kr_card",
+            "link",
+            "mb_way",
+            "mobilepay",
+            "multibanco",
+            "naver_pay",
+            "nz_bank_account",
+            "oxxo",
+            "p24",
+            "pay_by_bank",
+            "payco",
+            "paynow",
+            "paypal",
+            "payto",
+            "pix",
+            "promptpay",
+            "revolut_pay",
+            "samsung_pay",
+            "satispay",
+            "scalapay",
+            "sepa_debit",
+            "sofort",
+            "sunbit",
+            "swish",
+            "twint",
+            "upi",
+            "us_bank_account",
+            "wechat_pay",
+            "zip",
+        ],
+        str,
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -603,14 +616,17 @@ class SetupIntentModifyParamsPaymentMethodDataFpx(TypedDict):
         "bank_muamalat",
         "bank_of_china",
         "bank_rakyat",
+        "bnp_paribas",
         "bsn",
         "cimb",
+        "citibank",
         "deutsche_bank",
         "hong_leong_bank",
         "hsbc",
         "kfh",
         "maybank2e",
         "maybank2u",
+        "mbsb_bank",
         "ocbc",
         "pb_enterprise",
         "public_bank",
@@ -716,7 +732,7 @@ class SetupIntentModifyParamsPaymentMethodDataMultibanco(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodDataNaverPay(TypedDict):
-    funding: NotRequired[Literal["card", "points"]]
+    funding: NotRequired["Literal['card', 'points']|str"]
     """
     Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
     """
@@ -752,34 +768,7 @@ class SetupIntentModifyParamsPaymentMethodDataOxxo(TypedDict):
 
 class SetupIntentModifyParamsPaymentMethodDataP24(TypedDict):
     bank: NotRequired[
-        Literal[
-            "alior_bank",
-            "bank_millennium",
-            "bank_nowy_bfg_sa",
-            "bank_pekao_sa",
-            "banki_spbdzielcze",
-            "blik",
-            "bnp_paribas",
-            "boz",
-            "citi_handlowy",
-            "credit_agricole",
-            "envelobank",
-            "etransfer_pocztowy24",
-            "getin_bank",
-            "ideabank",
-            "ing",
-            "inteligo",
-            "mbank_mtransfer",
-            "nest_przelew",
-            "noble_pay",
-            "pbac_z_ipko",
-            "plus_bank",
-            "santander_przelew24",
-            "tmobile_usbugi_bankowe",
-            "toyota_bank",
-            "velobank",
-            "volkswagen_bank",
-        ]
+        "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']|str"
     ]
     """
     The customer's bank.
@@ -856,7 +845,7 @@ class SetupIntentModifyParamsPaymentMethodDataSepaDebit(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodDataSofort(TypedDict):
-    country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+    country: Union[Literal["AT", "BE", "DE", "ES", "IT", "NL"], str]
     """
     Two-letter ISO code representing the country the bank account is located in.
     """
@@ -888,7 +877,7 @@ class SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions(TypedDict):
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -903,7 +892,7 @@ class SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Account holder type: individual or company.
     """
@@ -911,7 +900,7 @@ class SetupIntentModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account number of the bank account.
     """
-    account_type: NotRequired[Literal["checking", "savings"]]
+    account_type: NotRequired["Literal['checking', 'savings']|str"]
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
@@ -1005,7 +994,7 @@ class SetupIntentModifyParamsPaymentMethodOptions(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
-    currency: NotRequired[Literal["cad", "usd"]]
+    currency: NotRequired["Literal['cad', 'usd']|str"]
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
@@ -1016,7 +1005,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
     Additional fields for Mandate creation
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Bank account verification method. The default value is `automatic`.
@@ -1032,7 +1021,9 @@ class SetupIntentModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(
     The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
     or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
     """
-    default_for: NotRequired[List[Literal["invoice", "subscription"]]]
+    default_for: NotRequired[
+        List[Union[Literal["invoice", "subscription"], str]]
+    ]
     """
     List of Stripe products where this mandate can be selected automatically.
     """
@@ -1040,11 +1031,13 @@ class SetupIntentModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(
     """
     Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
     """
-    payment_schedule: NotRequired[Literal["combined", "interval", "sporadic"]]
+    payment_schedule: NotRequired[
+        "Literal['combined', 'interval', 'sporadic']|str"
+    ]
     """
     Payment schedule for the mandate.
     """
-    transaction_type: NotRequired[Literal["business", "personal"]]
+    transaction_type: NotRequired["Literal['business', 'personal']|str"]
     """
     Transaction type of the mandate.
     """
@@ -1110,7 +1103,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
     """
     request_three_d_secure: NotRequired[
-        Literal["any", "automatic", "challenge"]
+        "Literal['any', 'automatic', 'challenge']|str"
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -1168,7 +1161,9 @@ class SetupIntentModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
-    ares_trans_status: NotRequired[Literal["A", "C", "I", "N", "R", "U", "Y"]]
+    ares_trans_status: NotRequired[
+        "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']|str"
+    ]
     """
     The `transStatus` returned from the card Issuer's ACS in the ARes.
     """
@@ -1180,7 +1175,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
     is what you should specify here.)
     """
     electronic_commerce_indicator: NotRequired[
-        Literal["01", "02", "05", "06", "07"]
+        "Literal['01', '02', '05', '06', '07']|str"
     ]
     """
     The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
@@ -1204,7 +1199,9 @@ class SetupIntentModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
     For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
     Transaction ID (dsTransID).
     """
-    version: NotRequired[Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]]
+    version: NotRequired[
+        "Literal['1.0.2', '2.1.0', '2.2.0', '2.3.0', '2.3.1']|str"
+    ]
     """
     The version of 3D Secure that was performed.
     """
@@ -1224,7 +1221,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
 class SetupIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
     TypedDict,
 ):
-    cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+    cb_avalgo: Union[Literal["0", "1", "2", "3", "4", "A"], str]
     """
     The cryptogram calculation algorithm used by the card Issuer's ACS
     to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
@@ -1260,54 +1257,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsKlarna(TypedDict):
     On-demand details if setting up a payment method for on-demand payments.
     """
     preferred_locale: NotRequired[
-        Literal[
-            "cs-CZ",
-            "da-DK",
-            "de-AT",
-            "de-CH",
-            "de-DE",
-            "el-GR",
-            "en-AT",
-            "en-AU",
-            "en-BE",
-            "en-CA",
-            "en-CH",
-            "en-CZ",
-            "en-DE",
-            "en-DK",
-            "en-ES",
-            "en-FI",
-            "en-FR",
-            "en-GB",
-            "en-GR",
-            "en-IE",
-            "en-IT",
-            "en-NL",
-            "en-NO",
-            "en-NZ",
-            "en-PL",
-            "en-PT",
-            "en-RO",
-            "en-SE",
-            "en-US",
-            "es-ES",
-            "es-US",
-            "fi-FI",
-            "fr-BE",
-            "fr-CA",
-            "fr-CH",
-            "fr-FR",
-            "it-CH",
-            "it-IT",
-            "nb-NO",
-            "nl-BE",
-            "nl-NL",
-            "pl-PL",
-            "pt-PT",
-            "ro-RO",
-            "sv-FI",
-            "sv-SE",
-        ]
+        "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-RO', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'ro-RO', 'sv-FI', 'sv-SE']|str"
     ]
     """
     Preferred language of the Klarna authorization page that the customer is redirected to
@@ -1333,7 +1283,9 @@ class SetupIntentModifyParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
     """
     The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
     """
-    purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+    purchase_interval: NotRequired[
+        "Literal['day', 'month', 'week', 'year']|str"
+    ]
     """
     Interval at which the customer is making purchases
     """
@@ -1344,7 +1296,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Unit of time between subscription charges.
     """
@@ -1409,7 +1361,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
     """
     Amount that will be collected. It is required when `amount_type` is `fixed`.
     """
-    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']"]
+    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']|str"]
     """
     The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
     """
@@ -1418,7 +1370,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
     Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
     """
     payment_schedule: NotRequired[
-        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']|str"
     ]
     """
     The periodicity at which payments will be collected. Defaults to `adhoc`.
@@ -1428,7 +1380,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
     The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
     """
     purpose: NotRequired[
-        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']|str"
     ]
     """
     The purpose for which payments are made. Has a default value based on your merchant category code.
@@ -1453,11 +1405,11 @@ class SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
     """
     Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
     """
-    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    amount_includes_iof: NotRequired["Literal['always', 'never']|str"]
     """
     Determines if the amount includes the IOF tax. Defaults to `never`.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     Type of amount. Defaults to `maximum`.
     """
@@ -1470,7 +1422,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
     Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
     """
     payment_schedule: NotRequired[
-        Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        "Literal['halfyearly', 'monthly', 'quarterly', 'weekly', 'yearly']|str"
     ]
     """
     Schedule at which the future payments will be charged. Defaults to `monthly`.
@@ -1511,7 +1463,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsUpi(TypedDict):
     Configuration options for setting up an eMandate
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']"
+        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
 
 
@@ -1520,7 +1472,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions(TypedDict):
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -1554,7 +1506,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     Additional fields for network related functions
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Bank account verification method. The default value is `automatic`.
@@ -1579,7 +1531,7 @@ class SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectio
     The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
     """
     prefetch: NotRequired[
-        List[Literal["balances", "ownership", "transactions"]]
+        List[Union[Literal["balances", "ownership", "transactions"], str]]
     ]
     """
     List of data features that you would like to retrieve upon account creation.

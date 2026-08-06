@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -38,8 +38,9 @@ class ReaderCollectInputsParamsInput(TypedDict):
     """
     List of toggles to be displayed and customization for the toggles
     """
-    type: Literal[
-        "email", "numeric", "phone", "selection", "signature", "text"
+    type: Union[
+        Literal["email", "numeric", "phone", "selection", "signature", "text"],
+        str,
     ]
     """
     The type of input to collect
@@ -77,7 +78,7 @@ class ReaderCollectInputsParamsInputSelectionChoice(TypedDict):
     """
     The unique identifier for this choice
     """
-    style: NotRequired[Literal["primary", "secondary"]]
+    style: NotRequired["Literal['primary', 'secondary']|str"]
     """
     The style of the button which will be shown for this choice. Can be `primary` or `secondary`.
     """
@@ -88,7 +89,7 @@ class ReaderCollectInputsParamsInputSelectionChoice(TypedDict):
 
 
 class ReaderCollectInputsParamsInputToggle(TypedDict):
-    default_value: NotRequired[Literal["disabled", "enabled"]]
+    default_value: NotRequired["Literal['disabled', 'enabled']|str"]
     """
     The default value of the toggle. Can be `enabled` or `disabled`.
     """

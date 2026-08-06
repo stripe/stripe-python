@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -25,7 +25,7 @@ class VerificationSessionModifyParams(RequestOptions):
     """
     Details provided about the user being verified. These details may be shown to the user.
     """
-    type: NotRequired[Literal["document", "id_number"]]
+    type: NotRequired["Literal['document', 'id_number']|str"]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """
@@ -42,7 +42,7 @@ class VerificationSessionModifyParamsOptions(TypedDict):
 
 class VerificationSessionModifyParamsOptionsDocument(TypedDict):
     allowed_types: NotRequired[
-        List[Literal["driving_license", "id_card", "passport"]]
+        List[Union[Literal["driving_license", "id_card", "passport"], str]]
     ]
     """
     Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
