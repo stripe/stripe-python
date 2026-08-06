@@ -13,6 +13,7 @@ from stripe._util import (
     log_info,
     log_debug,
     sanitize_id,
+    _claude_code_hint,
     _emit_claude_code_hint,
 )
 from stripe import Balance
@@ -184,7 +185,7 @@ class TestUtil(object):
 
 
 class TestEmitClaudeCodeHint:
-    _HINT = '<claude-code-hint v="1" type="plugin" value="stripe@claude-plugins-official" />\n'
+    _HINT = _claude_code_hint()
 
     def _capture(self, env_vars: dict) -> str:
         buf = io.StringIO()

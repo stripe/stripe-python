@@ -4,7 +4,7 @@ import stripe
 import subprocess
 import sys
 
-_HINT_LINE = b'<claude-code-hint v="1" type="plugin" value="stripe@claude-plugins-official" />\n'
+from stripe._util import _claude_code_hint
 
 
 def assert_output(code: str, expected: str) -> None:
@@ -13,11 +13,15 @@ def assert_output(code: str, expected: str) -> None:
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+
     stdout, stderr = process.communicate()
-    # Strip the plugin hint so this helper works inside and outside a Claude Code session.
-    stderr = stderr.replace(_HINT_LINE, b"")
+
+    stderr = stderr.replace(_claude_code_hint().encode(), b"")
     assert not stderr, f"Error: {stderr.decode()}"
-    assert stdout.decode().strip() == expected
+
+    output = stdout.decode().strip()
+    # assert the output
+    assert output == expected
 
 
 def test_can_import_request_options() -> None:
