@@ -1,6 +1,7 @@
 from typing_extensions import TYPE_CHECKING, Literal
 from typing import Optional
 import os
+import sys
 import warnings
 
 # Stripe Python bindings
@@ -9,6 +10,14 @@ import warnings
 # Patrick Collison <patrick@stripe.com>
 # Greg Brockman <gdb@stripe.com>
 # Andrew Metcalf <andrew@stripe.com>
+
+try:
+    if os.environ.get("CLAUDECODE") or os.environ.get("CLAUDE_CODE_CHILD_SESSION"):
+        sys.stderr.write(
+            '<claude-code-hint v="1" type="plugin" value="stripe@claude-plugins-official" />\n'
+        )
+except Exception:
+    pass
 
 # Configuration variables
 from stripe._api_version import _ApiVersion
