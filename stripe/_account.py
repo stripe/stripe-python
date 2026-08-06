@@ -507,7 +507,7 @@ class Account(
         """
         sequra_payments: Optional[Literal["active", "inactive", "pending"]]
         """
-        The status of the Sequra capability of the account, or whether the account can directly process Sequra payments.
+        The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
         """
         shopeepay_payments: Optional[Literal["active", "inactive", "pending"]]
         """

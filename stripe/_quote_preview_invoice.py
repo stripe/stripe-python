@@ -1168,6 +1168,7 @@ class QuotePreviewInvoice(StripeObject):
                         "payco",
                         "paynow",
                         "paypal",
+                        "paypay",
                         "payto",
                         "pix",
                         "promptpay",

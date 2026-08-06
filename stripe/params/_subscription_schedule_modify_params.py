@@ -292,7 +292,9 @@ class SubscriptionScheduleModifyParamsPauseSchedule(TypedDict):
     """
     Configuration for when and how the subscription pauses.
     """
-    resume: NotRequired["SubscriptionScheduleModifyParamsPauseScheduleResume"]
+    resume: NotRequired[
+        "Literal['']|SubscriptionScheduleModifyParamsPauseScheduleResume"
+    ]
     """
     Configuration for when and how the subscription resumes.
     """
@@ -432,7 +434,7 @@ class SubscriptionScheduleModifyParamsPauseScheduleResumeSettings(TypedDict):
         Literal["resume_on_payment_attempt", "resume_on_payment_success"]
     ]
     """
-    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
+    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
     """
     proration_behavior: NotRequired[
         "Literal['always_invoice', 'create_prorations', 'none']|str"

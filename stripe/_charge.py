@@ -1809,9 +1809,13 @@ class Charge(
             Two-letter ISO code representing the funding source country beneath the Link payment.
             You could use this attribute to get a sense of international fees.
             """
+            funding_source_group: Optional[str]
+            """
+            The funding source group applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if group lookup failed at confirmation time.
+            """
             pricing_group: Optional[str]
             """
-            The pricing bundle applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if bundle lookup failed at confirmation time.
+            Deprecated: use funding_source_group instead.
             """
 
         class MbWay(StripeObject):
@@ -2265,7 +2269,7 @@ class Charge(
         class Sequra(StripeObject):
             transaction_id: Optional[str]
             """
-            The Sequra transaction ID associated with this payment.
+            The SeQura transaction ID associated with this payment.
             """
 
         class Shopeepay(StripeObject):

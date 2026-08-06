@@ -2002,7 +2002,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         class Sequra(StripeObject):
             transaction_id: Optional[str]
             """
-            The Sequra transaction ID associated with this payment.
+            The SeQura transaction ID associated with this payment.
             """
 
         class Shopeepay(StripeObject):

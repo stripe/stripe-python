@@ -17,7 +17,7 @@ class OnrampSessionListParams(RequestOptions):
     The destination cryptocurrency to filter by.
     """
     destination_network: NotRequired[
-        "Literal['avalanche', 'base', 'bitcoin', 'ethereum', 'optimism', 'polygon', 'solana', 'stellar', 'sui', 'tempo', 'worldchain']|str"
+        "Literal['avalanche', 'base', 'bitcoin', 'celo', 'ethereum', 'optimism', 'polygon', 'solana', 'stellar', 'sui', 'tempo', 'worldchain']|str"
     ]
     """
     The destination blockchain network to filter by.

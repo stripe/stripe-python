@@ -72,6 +72,10 @@ class OnrampSession(
             """
             A bitcoin address
             """
+            celo: Optional[str]
+            """
+            A Celo address
+            """
             destination_tags: Optional[DestinationTags]
             """
             The end customer's crypto wallet destination tag (for each network) to use for this transaction.
@@ -151,6 +155,7 @@ class OnrampSession(
                     "avalanche",
                     "base",
                     "bitcoin",
+                    "celo",
                     "ethereum",
                     "optimism",
                     "polygon",
@@ -173,6 +178,7 @@ class OnrampSession(
                         "avalanche",
                         "base",
                         "bitcoin",
+                        "celo",
                         "ethereum",
                         "optimism",
                         "polygon",
