@@ -168,6 +168,20 @@ class TestConstructEventWithoutVerification:
                 json.dumps({"foo": "bar"})
             )
 
+    def test_azure_envelope_missing_data_field(self, client):
+        payload = json.dumps(
+            {
+                "specversion": "1.0",
+                "type": "customer.created",
+                "source": "/providers/stripe/ed_test_123",
+                "id": "test-missing-data",
+            }
+        )
+        with pytest.raises(
+            ValueError, match="Unrecognized cloud event format"
+        ):
+            client.construct_event_without_verification(payload)
+
     def test_webhook_static_method_eventbridge(self, eventbridge_payload):
         result = Webhook.construct_event_without_verification(
             eventbridge_payload
@@ -213,6 +227,43 @@ class TestParseEventNotificationWithoutVerification:
             client.parse_event_notification_without_verification(
                 json.dumps({"foo": "bar"})
             )
+
+    def test_azure_envelope_missing_data_field(self, client):
+        payload = json.dumps(
+            {
+                "specversion": "1.0",
+                "type": "v2.core.event_destination.ping",
+                "source": "/providers/stripe/ed_test_123",
+                "id": "test-missing-data",
+            }
+        )
+        with pytest.raises(
+            ValueError, match="Unrecognized cloud event format"
+        ):
+            client.parse_event_notification_without_verification(payload)
+
+    def test_unexpected_object_type_in_event_notification(self, client):
+        # Wrap in an EventBridge envelope so envelope extraction succeeds,
+        # letting the object-type guard inside from_json fire.
+        payload = json.dumps(
+            {
+                "version": "0",
+                "id": "17e8dff5-d6cd-3770-ace9-aeac02b6ac3f",
+                "detail-type": "customer.created",
+                "source": "aws.partner/stripe.com/ed_123",
+                "account": "506417113029",
+                "time": "2024-03-07T18:27:56Z",
+                "region": "us-west-2",
+                "resources": [],
+                "detail": {
+                    "object": "customer",
+                    "type": "customer.created",
+                    "id": "cus_123",
+                },
+            }
+        )
+        with pytest.raises(ValueError, match="Unexpected object type"):
+            client.parse_event_notification_without_verification(payload)
 
     def test_raw_event_notification_passthrough(self, client):
         raw_notification = json.dumps(

@@ -39,14 +39,14 @@ def maybe_extract_from_cloud_provider_envelope(
     data = json.loads(payload, object_pairs_hook=OrderedDict)
 
     # could add as many checks as we want here, but we'll start simple
-    if "detail" in data:
+    if detail := data.get("detail"):
         # AWS
         # https://docs.stripe.com/event-destinations/eventbridge#event-structure
-        return data["detail"]
-    elif "specversion" in data:
+        return detail
+    elif "specversion" in data and (data_ := data.get("data")):
         # Azure
         # https://docs.stripe.com/event-destinations/eventgrid#event-structure
-        return data["data"]
+        return data_
     elif data.get("object") in ("event", "v2.core.event"):
         # Raw Stripe event passed directly: pass through as-is
         return data

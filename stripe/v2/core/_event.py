@@ -175,7 +175,7 @@ class EventNotification:
         """
         Helper for constructing an Event Notification. Doesn't perform signature validation, so you
         should use StripeClient.parse_event_notification() instead for initial handling.
-        This is useful in unit tests and working with EventNotifications that you've already validated the authenticity of.
+        This is useful in unit tests and working with EventNotifications whose authenticity you've already validated.
         """
         parsed_body = (
             json.loads(payload) if isinstance(payload, str) else payload
@@ -183,6 +183,13 @@ class EventNotification:
         if parsed_body.get("object") == "event":
             raise ValueError(
                 "You passed a webhook payload to StripeClient.parse_event_notification, which expects a thin event notification. Use StripeClient.construct_event instead."
+            )
+        if (
+            parsed_body.get("object") is not None
+            and parsed_body.get("object") != "v2.core.event"
+        ):
+            raise ValueError(
+                f"Unexpected object type '{parsed_body.get('object')}'. Expected 'v2.core.event' for an event notification."
             )
 
         # circular import busting
