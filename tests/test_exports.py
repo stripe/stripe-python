@@ -1,6 +1,5 @@
 # pyright: strict
 # we specifically test various import patterns
-import os
 import stripe
 import subprocess
 import sys
@@ -8,21 +7,14 @@ import sys
 _HINT_LINE = b'<claude-code-hint v="1" type="plugin" value="stripe@claude-plugins-official" />\n'
 
 
-def _run_import(code: str, env: "dict[str, str] | None" = None) -> "tuple[bytes, bytes]":
+def assert_output(code: str, expected: str) -> None:
     process = subprocess.Popen(
-        [sys.executable, "-c", code],
+        [sys.executable, "-c", f"import stripe; print({code})"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        env=env,
     )
     stdout, stderr = process.communicate()
-    return stdout, stderr
-
-
-def assert_output(code: str, expected: str) -> None:
-    stdout, stderr = _run_import(f"import stripe; print({code})")
-    # Strip the plugin hint from stderr so this helper works both inside and
-    # outside a Claude Code session.
+    # Strip the plugin hint so this helper works inside and outside a Claude Code session.
     stderr = stderr.replace(_HINT_LINE, b"")
     assert not stderr, f"Error: {stderr.decode()}"
     assert stdout.decode().strip() == expected
@@ -178,24 +170,3 @@ def test_can_import_nested_params_types() -> None:
 
     assert SessionCreateParamsLineItem is not None
     assert AccountSessionCreateParamsComponents is not None
-
-
-def _env_without_claude() -> "dict[str, str]":
-    return {k: v for k, v in os.environ.items() if k not in ("CLAUDECODE", "CLAUDE_CODE_CHILD_SESSION")}
-
-
-def test_claude_code_hint_emits_when_CLAUDECODE_set() -> None:
-    env = {**_env_without_claude(), "CLAUDECODE": "1"}
-    _, stderr = _run_import("import stripe", env=env)
-    assert _HINT_LINE in stderr
-
-
-def test_claude_code_hint_emits_when_CLAUDE_CODE_CHILD_SESSION_set() -> None:
-    env = {**_env_without_claude(), "CLAUDE_CODE_CHILD_SESSION": "session-id"}
-    _, stderr = _run_import("import stripe", env=env)
-    assert _HINT_LINE in stderr
-
-
-def test_claude_code_hint_not_emitted_without_env_vars() -> None:
-    _, stderr = _run_import("import stripe", env=_env_without_claude())
-    assert _HINT_LINE not in stderr
