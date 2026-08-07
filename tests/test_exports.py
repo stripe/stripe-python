@@ -4,7 +4,7 @@ import stripe
 import subprocess
 import sys
 
-from stripe._util import _claude_code_hint
+from stripe._util import claude_code_hint_line
 
 
 def assert_output(code: str, expected: str) -> None:
@@ -16,7 +16,7 @@ def assert_output(code: str, expected: str) -> None:
 
     stdout, stderr = process.communicate()
 
-    stderr = stderr.replace(_claude_code_hint().encode(), b"")
+    stderr = stderr.replace(claude_code_hint_line().encode(), b"")
     assert not stderr, f"Error: {stderr.decode()}"
 
     output = stdout.decode().strip()
