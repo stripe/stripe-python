@@ -208,7 +208,10 @@ class TestEmitClaudeCodeHint:
         assert self._capture({"CLAUDECODE": "1"}) == self._HINT
 
     def test_emits_when_CLAUDE_CODE_CHILD_SESSION_set(self):
-        assert self._capture({"CLAUDE_CODE_CHILD_SESSION": "session-id"}) == self._HINT
+        assert (
+            self._capture({"CLAUDE_CODE_CHILD_SESSION": "session-id"})
+            == self._HINT
+        )
 
     def test_no_emit_without_env_vars(self):
         assert self._capture({}) == ""

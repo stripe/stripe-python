@@ -400,7 +400,9 @@ def _claude_code_hint() -> str:
 
 def _emit_claude_code_hint() -> None:
     try:
-        if os.environ.get("CLAUDECODE") or os.environ.get("CLAUDE_CODE_CHILD_SESSION"):
+        if os.environ.get("CLAUDECODE") or os.environ.get(
+            "CLAUDE_CODE_CHILD_SESSION"
+        ):
             sys.stderr.write(_claude_code_hint())
     except Exception:
         pass
