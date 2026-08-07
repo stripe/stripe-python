@@ -143,6 +143,10 @@ class EventNotification:
     """
     Livemode indicates if the event is from a production(true) or test(false) account.
     """
+    object: str
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     context: Optional[StripeContext] = None
     """
     [Optional] Authentication context needed to fetch the event or related object.
@@ -156,6 +160,7 @@ class EventNotification:
         self, parsed_body: Dict[str, Any], client: "StripeClient"
     ) -> None:
         self.id = parsed_body["id"]
+        self.object = parsed_body["object"]
         self.type = parsed_body["type"]
         self.created = parsed_body["created"]
         self.livemode = bool(parsed_body.get("livemode"))
