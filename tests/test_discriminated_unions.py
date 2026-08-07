@@ -1,5 +1,10 @@
 """
-Tests for discriminated union type shapes.
+Tests for discriminated union runtime behavior.
+
+Validates that the generated TypedDict param shapes and StripeObject responses
+work correctly at runtime (dict construction, field access, round-trip).
+Static type narrowing (Literal discriminators, Union resolution) is verified
+separately by pyright/mypy — this file exercises runtime semantics only.
 
 Covers both sides of the API boundary:
 - Request side: TypedDict params with Literal discriminator fields
@@ -287,7 +292,8 @@ class TestDiscriminatedUnionSerializationRoundTrip:
 
     def test_rgb_params_round_trip_via_dict(self):
         params: RgbColorParams = {"model": "rgb", "r": 200, "g": 100, "b": 50}
-        # Simulating what the SDK does when encoding params for an API request.
+        # TypedDicts are plain dicts at runtime; verify the discriminator and
+        # variant fields survive a shallow copy (the minimum for serialization).
         serialized = dict(params)
         assert serialized["model"] == "rgb"
         assert serialized["r"] == 200
