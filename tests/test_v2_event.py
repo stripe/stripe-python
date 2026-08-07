@@ -102,6 +102,7 @@ class TestV2Event(object):
             notif, V1BillingMeterErrorReportTriggeredEventNotification
         )
         assert notif.id == "evt_234"
+        assert notif.object == "v2.core.event"
 
         assert notif.related_object
         assert notif.related_object.id == "mtr_123"
