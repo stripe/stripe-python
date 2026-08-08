@@ -15,10 +15,11 @@ Two structural patterns are tested:
 - Inline union: the discriminator lives at the parent object level (e.g. shape.type)
 """
 
-from typing import Union
+from typing import Optional, Union
 
 from typing_extensions import Literal, NotRequired, TypedDict
 
+from stripe._encode import _api_encode
 from stripe._stripe_object import StripeObject
 
 
@@ -45,24 +46,26 @@ ColorParams = Union[RgbColorParams, HsvColorParams]
 
 
 # ---------------------------------------------------------------------------
-# Inline discriminated union — discriminator at parent level
+# Inline discriminated union — flattened onto parent TypedDict
 # ---------------------------------------------------------------------------
 
 
-class CircleShapeParams(TypedDict):
-    type: Literal["circle"]
-    radius: float
-    label: NotRequired[str]
+class CardData(TypedDict):
+    number: str
+    exp_month: NotRequired[int]
 
 
-class RectangleShapeParams(TypedDict):
-    type: Literal["rectangle"]
-    width: float
-    height: float
-    label: NotRequired[str]
+class BankData(TypedDict):
+    routing_number: str
+    account_number: NotRequired[str]
 
 
-ShapeParams = Union[CircleShapeParams, RectangleShapeParams]
+# Inline union: discriminator + per-variant nullable payload fields on one parent TypedDict
+class PaymentParams(TypedDict):
+    amount: int
+    type: NotRequired[str]
+    card: NotRequired[CardData]
+    bank: NotRequired[BankData]
 
 
 # ---------------------------------------------------------------------------
@@ -71,61 +74,46 @@ ShapeParams = Union[CircleShapeParams, RectangleShapeParams]
 
 
 class TestStandaloneUnionRequestSide:
-    """TypedDict params with a dedicated discriminator field."""
+    """Standalone DU params encode through _api_encode with bracket notation."""
 
-    def test_rgb_variant_required_fields(self):
-        params: RgbColorParams = {"model": "rgb", "r": 255}
-        assert params["model"] == "rgb"
-        assert params["r"] == 255
-
-    def test_rgb_variant_all_fields(self):
+    def test_rgb_variant_encodes_discriminator(self):
         params: RgbColorParams = {"model": "rgb", "r": 255, "g": 128, "b": 0}
-        assert params["model"] == "rgb"
-        assert params["r"] == 255
-        assert params["g"] == 128
-        assert params["b"] == 0
+        encoded = dict(_api_encode({"color": params}))
+        assert encoded["color[model]"] == "rgb"
 
-    def test_hsv_variant_required_fields(self):
-        params: HsvColorParams = {"model": "hsv", "h": 180}
-        assert params["model"] == "hsv"
-        assert params["h"] == 180
+    def test_rgb_variant_encodes_payload_fields(self):
+        params: RgbColorParams = {"model": "rgb", "r": 255, "g": 128, "b": 0}
+        encoded = dict(_api_encode({"color": params}))
+        assert encoded["color[r]"] == 255
+        assert encoded["color[g]"] == 128
+        assert encoded["color[b]"] == 0
 
-    def test_hsv_variant_all_fields(self):
-        params: HsvColorParams = {
-            "model": "hsv",
-            "h": 180,
-            "s": 100,
-            "v": 50,
-        }
-        assert params["model"] == "hsv"
-        assert params["h"] == 180
-        assert params["s"] == 100
-        assert params["v"] == 50
+    def test_hsv_variant_encodes_discriminator(self):
+        params: HsvColorParams = {"model": "hsv", "h": 180, "s": 100, "v": 50}
+        encoded = dict(_api_encode({"color": params}))
+        assert encoded["color[model]"] == "hsv"
 
-    def test_union_type_rgb_is_dict(self):
+    def test_hsv_variant_encodes_payload_fields(self):
+        params: HsvColorParams = {"model": "hsv", "h": 180, "s": 100, "v": 50}
+        encoded = dict(_api_encode({"color": params}))
+        assert encoded["color[h]"] == 180
+        assert encoded["color[s]"] == 100
+        assert encoded["color[v]"] == 50
+
+    def test_optional_fields_omitted_when_absent(self):
+        """None values are skipped by _api_encode."""
+        params: RgbColorParams = {"model": "rgb", "r": 255}
+        encoded = dict(_api_encode({"color": params}))
+        assert encoded["color[model]"] == "rgb"
+        assert encoded["color[r]"] == 255
+        assert "color[g]" not in encoded
+        assert "color[b]" not in encoded
+
+    def test_union_type_rgb_encodes_correctly(self):
         params: ColorParams = {"model": "rgb", "r": 255, "g": 0, "b": 0}
-        assert isinstance(params, dict)
-
-    def test_union_type_hsv_is_dict(self):
-        params: ColorParams = {"model": "hsv", "h": 0, "s": 100, "v": 100}
-        assert isinstance(params, dict)
-
-    def test_discriminator_is_serialized(self):
-        """The discriminator field must appear in the dict sent to the API."""
-        params: RgbColorParams = {"model": "rgb", "r": 128}
-        assert "model" in params
-        assert params["model"] == "rgb"
-
-    def test_optional_fields_absent_by_default(self):
-        """When optional fields are omitted they are not present in the dict."""
-        params: RgbColorParams = {"model": "rgb", "r": 64}
-        assert "g" not in params
-        assert "b" not in params
-
-    def test_optional_fields_present_when_set(self):
-        params: HsvColorParams = {"model": "hsv", "h": 90, "s": 50}
-        assert "s" in params
-        assert "v" not in params
+        encoded = dict(_api_encode({"color": params}))
+        assert encoded["color[model]"] == "rgb"
+        assert encoded["color[r]"] == 255
 
 
 # ---------------------------------------------------------------------------
@@ -134,60 +122,42 @@ class TestStandaloneUnionRequestSide:
 
 
 class TestInlineUnionRequestSide:
-    """Discriminator lives directly on the parent object."""
+    """Inline DU params encode with discriminator at top level and nested variant payloads."""
 
-    def test_circle_variant(self):
-        params: CircleShapeParams = {"type": "circle", "radius": 5.0}
-        assert params["type"] == "circle"
-        assert params["radius"] == 5.0
+    def test_card_variant_encodes_discriminator_at_top_level(self):
+        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242424242424242"}}
+        encoded = dict(_api_encode(params))
+        assert encoded["type"] == "card"
 
-    def test_rectangle_variant(self):
-        params: RectangleShapeParams = {
-            "type": "rectangle",
-            "width": 10.0,
-            "height": 20.0,
-        }
-        assert params["type"] == "rectangle"
-        assert params["width"] == 10.0
-        assert params["height"] == 20.0
+    def test_card_variant_encodes_nested_payload(self):
+        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242424242424242", "exp_month": 12}}
+        encoded = dict(_api_encode(params))
+        assert encoded["card[number]"] == "4242424242424242"
+        assert encoded["card[exp_month]"] == 12
 
-    def test_circle_discriminator_is_serialized(self):
-        params: CircleShapeParams = {"type": "circle", "radius": 3.0}
-        assert "type" in params
-        assert params["type"] == "circle"
+    def test_card_variant_encodes_base_fields(self):
+        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242"}}
+        encoded = dict(_api_encode(params))
+        assert encoded["amount"] == 1000
 
-    def test_rectangle_discriminator_is_serialized(self):
-        params: RectangleShapeParams = {
-            "type": "rectangle",
-            "width": 4.0,
-            "height": 8.0,
-        }
-        assert "type" in params
-        assert params["type"] == "rectangle"
+    def test_bank_variant_encodes_correctly(self):
+        params: PaymentParams = {"amount": 500, "type": "bank", "bank": {"routing_number": "110000000", "account_number": "000123456789"}}
+        encoded = dict(_api_encode(params))
+        assert encoded["type"] == "bank"
+        assert encoded["bank[routing_number]"] == "110000000"
+        assert encoded["bank[account_number]"] == "000123456789"
 
-    def test_circle_optional_label_absent(self):
-        params: CircleShapeParams = {"type": "circle", "radius": 1.0}
-        assert "label" not in params
+    def test_non_selected_variant_not_encoded(self):
+        """When card is selected, bank keys do not appear in encoded output."""
+        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242"}}
+        encoded = dict(_api_encode(params))
+        assert "bank[routing_number]" not in encoded
+        assert "bank[account_number]" not in encoded
 
-    def test_circle_optional_label_present(self):
-        params: CircleShapeParams = {
-            "type": "circle",
-            "radius": 1.0,
-            "label": "small",
-        }
-        assert params["label"] == "small"
-
-    def test_union_assignment_circle(self):
-        params: ShapeParams = {"type": "circle", "radius": 7.5}
-        assert params["type"] == "circle"
-
-    def test_union_assignment_rectangle(self):
-        params: ShapeParams = {
-            "type": "rectangle",
-            "width": 2.0,
-            "height": 4.0,
-        }
-        assert params["type"] == "rectangle"
+    def test_optional_nested_fields_omitted(self):
+        params: PaymentParams = {"amount": 100, "type": "card", "card": {"number": "4242"}}
+        encoded = dict(_api_encode(params))
+        assert "card[exp_month]" not in encoded
 
 
 # ---------------------------------------------------------------------------
@@ -246,40 +216,42 @@ class TestStandaloneUnionResponseDeserialization:
 
 
 class TestInlineUnionResponseDeserialization:
-    """JSON with the discriminator at the parent level deserializes correctly."""
+    """JSON with the discriminator at the parent level and variant data nested."""
 
-    def test_circle_discriminator_accessible(self):
-        json_data = {"type": "circle", "radius": 5.0}
+    def test_card_discriminator_accessible(self):
+        json_data = {"type": "card", "card": {"number": "4242424242424242", "exp_month": 12}, "amount": 1000}
         obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.type == "circle"
+        assert obj.type == "card"
 
-    def test_circle_payload_fields_accessible(self):
-        json_data = {"type": "circle", "radius": 5.0}
+    def test_card_payload_is_stripe_object(self):
+        json_data = {"type": "card", "card": {"number": "4242424242424242", "exp_month": 12}, "amount": 1000}
         obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.radius == 5.0
+        assert obj.card.number == "4242424242424242"
+        assert obj.card.exp_month == 12
 
-    def test_rectangle_discriminator_accessible(self):
-        json_data = {"type": "rectangle", "width": 10.0, "height": 20.0}
+    def test_bank_discriminator_accessible(self):
+        json_data = {"type": "bank", "bank": {"routing_number": "110000000", "account_number": "000123456789"}, "amount": 500}
         obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.type == "rectangle"
+        assert obj.type == "bank"
 
-    def test_rectangle_payload_fields_accessible(self):
-        json_data = {"type": "rectangle", "width": 10.0, "height": 20.0}
+    def test_bank_payload_is_stripe_object(self):
+        json_data = {"type": "bank", "bank": {"routing_number": "110000000", "account_number": "000123456789"}, "amount": 500}
         obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.width == 10.0
-        assert obj.height == 20.0
+        assert obj.bank.routing_number == "110000000"
+        assert obj.bank.account_number == "000123456789"
+
+    def test_non_selected_variant_absent(self):
+        json_data = {"type": "card", "card": {"number": "4242"}, "amount": 100}
+        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
+        assert obj.type == "card"
+        assert not hasattr(obj, "bank") or obj.get("bank") is None
 
     def test_inline_discriminator_in_dict_output(self):
-        json_data = {"type": "circle", "radius": 3.0}
+        json_data = {"type": "card", "card": {"number": "4242"}, "amount": 100}
         obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
         d = obj.to_dict()
-        assert d["type"] == "circle"
-        assert d["radius"] == 3.0
-
-    def test_optional_label_present_in_response(self):
-        json_data = {"type": "circle", "radius": 1.0, "label": "tiny"}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.label == "tiny"
+        assert d["type"] == "card"
+        assert d["card"]["number"] == "4242"
 
 
 # ---------------------------------------------------------------------------
@@ -288,55 +260,36 @@ class TestInlineUnionResponseDeserialization:
 
 
 class TestDiscriminatedUnionSerializationRoundTrip:
-    """Dict construction (params → dict) includes the discriminator on output."""
+    """Full pipeline: params encode via _api_encode, responses deserialize via construct_from."""
 
-    def test_rgb_params_round_trip_via_dict(self):
+    def test_standalone_params_encode_round_trip(self):
         params: RgbColorParams = {"model": "rgb", "r": 200, "g": 100, "b": 50}
-        # TypedDicts are plain dicts at runtime; verify the discriminator and
-        # variant fields survive a shallow copy (the minimum for serialization).
-        serialized = dict(params)
-        assert serialized["model"] == "rgb"
-        assert serialized["r"] == 200
-        assert serialized["g"] == 100
-        assert serialized["b"] == 50
+        encoded = dict(_api_encode({"color": params}))
+        assert encoded["color[model]"] == "rgb"
+        assert encoded["color[r]"] == 200
+        assert encoded["color[g]"] == 100
+        assert encoded["color[b]"] == 50
 
-    def test_hsv_params_round_trip_via_dict(self):
-        params: HsvColorParams = {"model": "hsv", "h": 60, "s": 80, "v": 70}
-        serialized = dict(params)
-        assert serialized["model"] == "hsv"
-        assert serialized["h"] == 60
+    def test_inline_params_encode_round_trip(self):
+        params: PaymentParams = {"amount": 100, "type": "card", "card": {"number": "4242"}}
+        encoded = dict(_api_encode(params))
+        assert encoded["type"] == "card"
+        assert encoded["card[number]"] == "4242"
+        assert encoded["amount"] == 100
 
-    def test_circle_params_round_trip_via_dict(self):
-        params: CircleShapeParams = {"type": "circle", "radius": 2.5}
-        serialized = dict(params)
-        assert serialized["type"] == "circle"
-        assert serialized["radius"] == 2.5
-
-    def test_rectangle_params_round_trip_via_dict(self):
-        params: RectangleShapeParams = {
-            "type": "rectangle",
-            "width": 4.0,
-            "height": 8.0,
-        }
-        serialized = dict(params)
-        assert serialized["type"] == "rectangle"
-        assert serialized["width"] == 4.0
-        assert serialized["height"] == 8.0
-
-    def test_response_to_dict_preserves_discriminator(self):
-        """
-        Round-trip: deserialize JSON into StripeObject, convert back to dict.
-        The discriminator must survive both directions.
-        """
+    def test_standalone_response_round_trip(self):
+        """Deserialize and re-serialize preserves discriminator."""
         original = {"model": "rgb", "r": 255, "g": 0, "b": 0}
         obj = StripeObject.construct_from(original, key="sk_test_xxx")
         result = obj.to_dict()
         assert result["model"] == "rgb"
         assert result == original
 
-    def test_inline_response_to_dict_preserves_discriminator(self):
-        original = {"type": "rectangle", "width": 3.0, "height": 6.0}
+    def test_inline_response_round_trip(self):
+        """Deserialize inline DU response and re-serialize preserves structure."""
+        original = {"type": "card", "card": {"number": "4242"}, "amount": 100}
         obj = StripeObject.construct_from(original, key="sk_test_xxx")
         result = obj.to_dict()
-        assert result["type"] == "rectangle"
-        assert result == original
+        assert result["type"] == "card"
+        assert result["card"] == {"number": "4242"}
+        assert result["amount"] == 100
