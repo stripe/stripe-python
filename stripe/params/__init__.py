@@ -463,9 +463,6 @@ if TYPE_CHECKING:
     from stripe.params._account_unreject_params import (
         AccountUnrejectParams as AccountUnrejectParams,
     )
-    from stripe.params._account_unreject_params import (
-        AccountUnrejectParams as AccountUnrejectParams,
-    )
     from stripe.params._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
         AccountUpdateParamsBankAccount as AccountUpdateParamsBankAccount,

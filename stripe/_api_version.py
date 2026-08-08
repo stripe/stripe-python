@@ -2,3 +2,4 @@
 # File generated from our OpenAPI spec
 class _ApiVersion:
     CURRENT = "2026-07-29.preview"
+    CURRENT_MAJOR = ""
