@@ -156,6 +156,7 @@ class TestStripeContextIntegration:
         mock_client = Mock()
         parsed_body = {
             "id": "evt_123",
+            "object": "v2.core.event",
             "type": "test.event",
             "created": "2023-01-01T00:00:00Z",
             "livemode": False,
@@ -171,6 +172,7 @@ class TestStripeContextIntegration:
         mock_client = Mock()
         parsed_body = {
             "id": "evt_123",
+            "object": "v2.core.event",
             "type": "test.event",
             "created": "2023-01-01T00:00:00Z",
             "livemode": False,
@@ -184,6 +186,7 @@ class TestStripeContextIntegration:
         mock_client = Mock()
         parsed_body = {
             "id": "evt_123",
+            "object": "v2.core.event",
             "type": "test.event",
             "created": "2023-01-01T00:00:00Z",
             "livemode": False,
