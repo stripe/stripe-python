@@ -139,6 +139,10 @@ def add_beta_version(
     api_version = f"{api_version}; {beta_name}={beta_version}"
 
 
+from stripe._util import _emit_claude_code_hint
+
+_emit_claude_code_hint()
+
 # The beginning of the section generated from our OpenAPI spec
 from importlib import import_module
 

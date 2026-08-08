@@ -3,10 +3,8 @@
 # -*- coding: utf-8 -*-
 
 import json
-from typing import Any, ClassVar, Dict, Optional, cast
-
+from typing import Any, ClassVar, Dict, Optional, cast, Union
 # v2-event-imports: The beginning of the section generated from our OpenAPI spec
-from typing import Union
 # v2-event-imports: The end of the section generated from our OpenAPI spec
 
 from typing_extensions import Literal, TYPE_CHECKING
@@ -204,6 +202,10 @@ class EventNotification:
     """
     Livemode indicates if the event is from a production(true) or test(false) account.
     """
+    object: str
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     context: Optional[StripeContext] = None
     """
     [Optional] Authentication context needed to fetch the event or related object.
@@ -217,6 +219,7 @@ class EventNotification:
         self, parsed_body: Dict[str, Any], client: "StripeClient"
     ) -> None:
         self.id = parsed_body["id"]
+        self.object = parsed_body["object"]
         self.type = parsed_body["type"]
         self.created = parsed_body["created"]
         self.livemode = bool(parsed_body.get("livemode"))
@@ -230,16 +233,27 @@ class EventNotification:
         self._client = client
 
     @staticmethod
-    def from_json(payload: str, client: "StripeClient") -> "EventNotification":
+    def from_json(
+        payload: Union[str, Dict[str, Any]], client: "StripeClient"
+    ) -> "EventNotification":
         """
         Helper for constructing an Event Notification. Doesn't perform signature validation, so you
         should use StripeClient.parse_event_notification() instead for initial handling.
-        This is useful in unit tests and working with EventNotifications that you've already validated the authenticity of.
+        This is useful in unit tests and working with EventNotifications whose authenticity you've already validated.
         """
-        parsed_body = json.loads(payload)
+        parsed_body = (
+            json.loads(payload) if isinstance(payload, str) else payload
+        )
         if parsed_body.get("object") == "event":
             raise ValueError(
                 "You passed a webhook payload to StripeClient.parse_event_notification, which expects a thin event notification. Use StripeClient.construct_event instead."
+            )
+        if (
+            parsed_body.get("object") is not None
+            and parsed_body.get("object") != "v2.core.event"
+        ):
+            raise ValueError(
+                f"Unexpected object type '{parsed_body.get('object')}'. Expected 'v2.core.event' for an event notification."
             )
 
         # circular import busting
