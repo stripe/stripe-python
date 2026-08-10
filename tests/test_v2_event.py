@@ -18,7 +18,8 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
 )
 from stripe.v2.core._event import UnknownEventNotification
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
-from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
+from stripe._webhook import WebhookSignature
+from tests.test_webhook import DUMMY_WEBHOOK_SECRET
 
 EventParser = Callable[[str], ALL_EVENT_NOTIFICATIONS]
 
@@ -85,7 +86,11 @@ class TestV2Event(object):
 
         def _parse_event_notif(payload: str):
             return stripe_client.parse_event_notification(
-                payload, generate_header(payload=payload), DUMMY_WEBHOOK_SECRET
+                payload,
+                WebhookSignature.generate_signature_header(
+                    payload, DUMMY_WEBHOOK_SECRET
+                ),
+                DUMMY_WEBHOOK_SECRET,
             )
 
         return _parse_event_notif
@@ -99,6 +104,7 @@ class TestV2Event(object):
             notif, V1BillingMeterErrorReportTriggeredEventNotification
         )
         assert notif.id == "evt_234"
+        assert notif.object == "v2.core.event"
 
         assert notif.related_object
         assert notif.related_object.id == "mtr_123"
@@ -234,7 +240,9 @@ class TestV2Event(object):
 
         event_notif = stripe_client.parse_event_notification(
             v2_payload_no_data,
-            generate_header(payload=v2_payload_no_data),
+            WebhookSignature.generate_signature_header(
+                v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+            ),
             DUMMY_WEBHOOK_SECRET,
         )
         assert event_notif.type == "v1.billing.meter.error_report_triggered"
