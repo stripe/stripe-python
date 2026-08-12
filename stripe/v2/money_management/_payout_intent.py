@@ -15,15 +15,88 @@ class PayoutIntent(StripeObject):
         "v2.money_management.payout_intent"
     )
 
+    class EstimatedFee(StripeObject):
+        class TaxAmount(StripeObject):
+            currency: str
+            """
+            Currency code.
+            """
+            value_decimal: str
+            """
+            Tax amount value represented as a decimal string in major units.
+            """
+
+        amount: Amount
+        """
+        The fee amount.
+        """
+        tax_amount: Optional[TaxAmount]
+        """
+        Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
+        """
+        type: Union[
+            Literal[
+                "cross_border_fee",
+                "foreign_exchange_fee",
+                "instant_card_payout_fee",
+                "next_day_payout_fee",
+                "real_time_payout_fee",
+                "stablecoin_payout_fee",
+                "stablecoin_routing_fee",
+                "standard_payout_fee",
+                "wire_payout_fee",
+            ],
+            str,
+        ]
+        """
+        Open Enum. The type of fee.
+        """
+        _inner_class_types = {"tax_amount": TaxAmount}
+
     class From(StripeObject):
         currency: str
         """
         The currency of the financial account.
         """
+        debited: Optional[Amount]
+        """
+        Estimated amount to be debited from the financial account.
+        """
         financial_account: str
         """
         The FinancialAccount that funds are pulled from.
         """
+
+    class FxQuote(StripeObject):
+        class Rates(StripeObject):
+            exchange_rate: str
+            """
+            The exchange rate going from_currency -> to_currency, represented as a decimal string
+            (e.g., "1.1520") to preserve the full precision of the rate.
+            """
+
+        lock_duration: Union[Literal["five_minutes", "none"], str]
+        """
+        Open Enum. Duration of the FX rate lock.
+        """
+        lock_expires_at: Optional[str]
+        """
+        Timestamp when the rate lock expires. Null when rate locking is not supported.
+        """
+        lock_status: Union[Literal["active", "expired", "none"], str]
+        """
+        Open Enum. Lock status of the FX rate.
+        """
+        rates: UntypedStripeObject[Rates]
+        """
+        Key: source currency. Value: exchange rate from source currency to to_currency.
+        """
+        to_currency: str
+        """
+        The destination currency.
+        """
+        _inner_class_types = {"rates": Rates}
+        _inner_class_dicts = ["rates"]
 
     class LatestPayout(StripeObject):
         outbound_payment: Optional[str]
@@ -40,6 +113,14 @@ class PayoutIntent(StripeObject):
         """
 
     class NextAction(StripeObject):
+        class Confirm(StripeObject):
+            reason: Union[
+                Literal["automatically_required", "manually_requested"], str
+            ]
+            """
+            Open Enum. The reason the PayoutIntent requires confirmation.
+            """
+
         class HandleFailure(StripeObject):
             failure_reason: Union[
                 Literal[
@@ -75,15 +156,22 @@ class PayoutIntent(StripeObject):
             Open Enum. The reason for the failure.
             """
 
+        confirm: Optional[Confirm]
+        """
+        Details about a confirmation required. Populated when type is confirm.
+        """
         handle_failure: Optional[HandleFailure]
         """
         Details about a failure that requires user action. Populated when type is handle_failure.
         """
-        type: Literal["handle_failure"]
+        type: Union[Literal["confirm", "handle_failure"], str]
         """
         Open Enum. The type of next action required.
         """
-        _inner_class_types = {"handle_failure": HandleFailure}
+        _inner_class_types = {
+            "confirm": Confirm,
+            "handle_failure": HandleFailure,
+        }
 
     class RecipientNotification(StripeObject):
         setting: Literal["configured", "none"]
@@ -176,6 +264,10 @@ class PayoutIntent(StripeObject):
             """
             _inner_class_types = {"bank_account": BankAccount}
 
+        credited: Optional[Amount]
+        """
+        Estimated amount to be credited to the recipient in the destination currency.
+        """
         currency: Optional[str]
         """
         The currency to send to the recipient.
@@ -198,6 +290,10 @@ class PayoutIntent(StripeObject):
     """
     The monetary amount to be sent.
     """
+    confirmation_method: Union[Literal["automatic", "manual"], str]
+    """
+    Controls whether the intent requires explicit confirmation before transitioning to pending.
+    """
     created: str
     """
     Time at which the PayoutIntent was created.
@@ -207,9 +303,17 @@ class PayoutIntent(StripeObject):
     """
     An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
     """
+    estimated_fees: Optional[List[EstimatedFee]]
+    """
+    Estimated fees and taxes.
+    """
     from_: From
     """
     The FinancialAccount that funds are pulled from.
+    """
+    fx_quote: Optional[FxQuote]
+    """
+    FX rate information for fee transparency.
     """
     id: str
     """
@@ -265,7 +369,9 @@ class PayoutIntent(StripeObject):
     To which payout method the payout is sent.
     """
     _inner_class_types = {
+        "estimated_fees": EstimatedFee,
         "from": From,
+        "fx_quote": FxQuote,
         "latest_payout": LatestPayout,
         "next_action": NextAction,
         "recipient_notification": RecipientNotification,

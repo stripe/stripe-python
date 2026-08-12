@@ -45,14 +45,38 @@ if TYPE_CHECKING:
     from stripe.events._v1_balance_available_event import (
         V1BalanceAvailableEventNotification,
     )
+    from stripe.events._v1_balance_settings_updated_event import (
+        V1BalanceSettingsUpdatedEventNotification,
+    )
     from stripe.events._v1_billing_alert_triggered_event import (
         V1BillingAlertTriggeredEventNotification,
+    )
+    from stripe.events._v1_billing_credit_balance_transaction_created_event import (
+        V1BillingCreditBalanceTransactionCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_credit_grant_created_event import (
+        V1BillingCreditGrantCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_credit_grant_updated_event import (
+        V1BillingCreditGrantUpdatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_created_event import (
+        V1BillingMeterCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_deactivated_event import (
+        V1BillingMeterDeactivatedEventNotification,
     )
     from stripe.events._v1_billing_meter_error_report_triggered_event import (
         V1BillingMeterErrorReportTriggeredEventNotification,
     )
     from stripe.events._v1_billing_meter_no_meter_found_event import (
         V1BillingMeterNoMeterFoundEventNotification,
+    )
+    from stripe.events._v1_billing_meter_reactivated_event import (
+        V1BillingMeterReactivatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_updated_event import (
+        V1BillingMeterUpdatedEventNotification,
     )
     from stripe.events._v1_billing_portal_configuration_created_event import (
         V1BillingPortalConfigurationCreatedEventNotification,
@@ -210,6 +234,9 @@ if TYPE_CHECKING:
     from stripe.events._v1_file_created_event import (
         V1FileCreatedEventNotification,
     )
+    from stripe.events._v1_financial_connections_account_account_numbers_updated_event import (
+        V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
+    )
     from stripe.events._v1_financial_connections_account_created_event import (
         V1FinancialConnectionsAccountCreatedEventNotification,
     )
@@ -218,6 +245,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v1_financial_connections_account_disconnected_event import (
         V1FinancialConnectionsAccountDisconnectedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event import (
+        V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
     )
     from stripe.events._v1_financial_connections_account_reactivated_event import (
         V1FinancialConnectionsAccountReactivatedEventNotification,
@@ -230,6 +260,15 @@ if TYPE_CHECKING:
     )
     from stripe.events._v1_financial_connections_account_refreshed_transactions_event import (
         V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event import (
+        V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event import (
+        V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_upcoming_deactivation_event import (
+        V1FinancialConnectionsAccountUpcomingDeactivationEventNotification,
     )
     from stripe.events._v1_identity_verification_session_canceled_event import (
         V1IdentityVerificationSessionCanceledEventNotification,
@@ -281,6 +320,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v1_invoice_payment_action_required_event import (
         V1InvoicePaymentActionRequiredEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_attempt_required_event import (
+        V1InvoicePaymentAttemptRequiredEventNotification,
     )
     from stripe.events._v1_invoice_payment_failed_event import (
         V1InvoicePaymentFailedEventNotification,
@@ -1532,6 +1574,19 @@ class StripeEventNotificationHandler:
         )
         return func
 
+    def on_v1_balance_settings_updated(
+        self,
+        func: "Callable[[V1BalanceSettingsUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BalanceSettingsUpdatedEvent` (`v1.balance_settings.updated`) event notification.
+        """
+        self._register(
+            "v1.balance_settings.updated",
+            func,
+        )
+        return func
+
     def on_v1_billing_alert_triggered(
         self,
         func: "Callable[[V1BillingAlertTriggeredEventNotification, StripeClient], None]",
@@ -1541,6 +1596,71 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v1.billing.alert.triggered",
+            func,
+        )
+        return func
+
+    def on_v1_billing_credit_balance_transaction_created(
+        self,
+        func: "Callable[[V1BillingCreditBalanceTransactionCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BillingCreditBalanceTransactionCreatedEvent` (`v1.billing.credit_balance_transaction.created`) event notification.
+        """
+        self._register(
+            "v1.billing.credit_balance_transaction.created",
+            func,
+        )
+        return func
+
+    def on_v1_billing_credit_grant_created(
+        self,
+        func: "Callable[[V1BillingCreditGrantCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BillingCreditGrantCreatedEvent` (`v1.billing.credit_grant.created`) event notification.
+        """
+        self._register(
+            "v1.billing.credit_grant.created",
+            func,
+        )
+        return func
+
+    def on_v1_billing_credit_grant_updated(
+        self,
+        func: "Callable[[V1BillingCreditGrantUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BillingCreditGrantUpdatedEvent` (`v1.billing.credit_grant.updated`) event notification.
+        """
+        self._register(
+            "v1.billing.credit_grant.updated",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_created(
+        self,
+        func: "Callable[[V1BillingMeterCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterCreatedEvent` (`v1.billing.meter.created`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.created",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_deactivated(
+        self,
+        func: "Callable[[V1BillingMeterDeactivatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterDeactivatedEvent` (`v1.billing.meter.deactivated`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.deactivated",
             func,
         )
         return func
@@ -1567,6 +1687,32 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v1.billing.meter.no_meter_found",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_reactivated(
+        self,
+        func: "Callable[[V1BillingMeterReactivatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterReactivatedEvent` (`v1.billing.meter.reactivated`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.reactivated",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_updated(
+        self,
+        func: "Callable[[V1BillingMeterUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterUpdatedEvent` (`v1.billing.meter.updated`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.updated",
             func,
         )
         return func
@@ -2247,6 +2393,19 @@ class StripeEventNotificationHandler:
         )
         return func
 
+    def on_v1_financial_connections_account_account_numbers_updated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountAccountNumbersUpdatedEvent` (`v1.financial_connections.account.account_numbers_updated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.account_numbers_updated",
+            func,
+        )
+        return func
+
     def on_v1_financial_connections_account_created(
         self,
         func: "Callable[[V1FinancialConnectionsAccountCreatedEventNotification, StripeClient], None]",
@@ -2282,6 +2441,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v1.financial_connections.account.disconnected",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_expected_deactivation_date_updated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent` (`v1.financial_connections.account.expected_deactivation_date_updated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.expected_deactivation_date_updated",
             func,
         )
         return func
@@ -2334,6 +2506,45 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v1.financial_connections.account.refreshed_transactions",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_supported_payment_method_types_updated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent` (`v1.financial_connections.account.supported_payment_method_types_updated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.supported_payment_method_types_updated",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_upcoming_account_number_expiry(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent` (`v1.financial_connections.account.upcoming_account_number_expiry`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.upcoming_account_number_expiry",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_upcoming_deactivation(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountUpcomingDeactivationEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountUpcomingDeactivationEvent` (`v1.financial_connections.account.upcoming_deactivation`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.upcoming_deactivation",
             func,
         )
         return func
@@ -2555,6 +2766,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v1.invoice.payment_action_required",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_payment_attempt_required(
+        self,
+        func: "Callable[[V1InvoicePaymentAttemptRequiredEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V1InvoicePaymentAttemptRequiredEvent` (`v1.invoice.payment_attempt_required`) event notification.
+        """
+        self._register(
+            "v1.invoice.payment_attempt_required",
             func,
         )
         return func

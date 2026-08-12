@@ -16,6 +16,10 @@ class PayoutIntentCreateParams(_PayoutIntentCreateParamsBase):
     """
     The monetary amount to be sent.
     """
+    confirmation_method: NotRequired["Literal['automatic', 'manual']|str"]
+    """
+    Controls whether the intent requires explicit confirmation before transitioning to pending. Defaults to automatic.
+    """
     description: NotRequired[str]
     """
     An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.

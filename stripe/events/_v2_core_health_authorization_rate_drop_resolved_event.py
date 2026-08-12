@@ -42,11 +42,15 @@ class V2CoreHealthAuthorizationRateDropResolvedEvent(Event):
     class V2CoreHealthAuthorizationRateDropResolvedEventData(StripeObject):
         class Impact(StripeObject):
             class Dimension(StripeObject):
+                acquirer: Optional[str]
+                """
+                The acquirer dimension.
+                """
                 issuer: Optional[str]
                 """
                 The issuer dimension.
                 """
-                type: Literal["issuer"]
+                type: Union[Literal["acquirer", "issuer"], str]
                 """
                 The type of the dimension.
                 """

@@ -987,6 +987,44 @@ class Authorization(
             The amount of cash requested by the cardholder.
             """
 
+        class HoldAmount(StripeObject):
+            currency: str
+            """
+            Three-letter ISO currency code.
+            """
+            value: int
+            """
+            The amount in the smallest currency unit.
+            """
+
+        class HoldAmountDetails(StripeObject):
+            class Network(StripeObject):
+                currency: str
+                """
+                Three-letter ISO currency code.
+                """
+                value: int
+                """
+                The amount in the smallest currency unit.
+                """
+
+            class Reserve(StripeObject):
+                currency: str
+                """
+                Three-letter ISO currency code.
+                """
+                value: int
+                """
+                The amount in the smallest currency unit.
+                """
+
+            network: Network
+            reserve: Optional[Reserve]
+            """
+            The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
+            """
+            _inner_class_types = {"network": Network, "reserve": Reserve}
+
         amount: int
         """
         The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://docs.stripe.com/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -998,6 +1036,14 @@ class Authorization(
         currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        hold_amount: Optional[HoldAmount]
+        """
+        The total amount to be held for this authorization request.
+        """
+        hold_amount_details: Optional[HoldAmountDetails]
+        """
+        Breakdown of the amounts contributing to hold_amount.
         """
         is_amount_controllable: bool
         """
@@ -1015,7 +1061,11 @@ class Authorization(
         """
         The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         """
-        _inner_class_types = {"amount_details": AmountDetails}
+        _inner_class_types = {
+            "amount_details": AmountDetails,
+            "hold_amount": HoldAmount,
+            "hold_amount_details": HoldAmountDetails,
+        }
 
     class Redaction(StripeObject):
         status: Union[Literal["processing", "redacted", "validated"], str]
@@ -1033,6 +1083,44 @@ class Authorization(
             """
             The amount of cash requested by the cardholder.
             """
+
+        class HoldAmount(StripeObject):
+            currency: str
+            """
+            Three-letter ISO currency code.
+            """
+            value: int
+            """
+            The amount in the smallest currency unit.
+            """
+
+        class HoldAmountDetails(StripeObject):
+            class Network(StripeObject):
+                currency: str
+                """
+                Three-letter ISO currency code.
+                """
+                value: int
+                """
+                The amount in the smallest currency unit.
+                """
+
+            class Reserve(StripeObject):
+                currency: str
+                """
+                Three-letter ISO currency code.
+                """
+                value: int
+                """
+                The amount in the smallest currency unit.
+                """
+
+            network: Network
+            reserve: Optional[Reserve]
+            """
+            The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
+            """
+            _inner_class_types = {"network": Network, "reserve": Reserve}
 
         class NetworkData(StripeObject):
             class TraceId(StripeObject):
@@ -1078,6 +1166,14 @@ class Authorization(
         currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        hold_amount: Optional[HoldAmount]
+        """
+        The total amount that was held for this authorization request.
+        """
+        hold_amount_details: Optional[HoldAmountDetails]
+        """
+        Breakdown of the amounts contributing to hold_amount.
         """
         merchant_amount: int
         """
@@ -1134,6 +1230,8 @@ class Authorization(
         """
         _inner_class_types = {
             "amount_details": AmountDetails,
+            "hold_amount": HoldAmount,
+            "hold_amount_details": HoldAmountDetails,
             "network_data": NetworkData,
         }
 

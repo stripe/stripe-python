@@ -210,6 +210,20 @@ class QuotePreviewInvoice(StripeObject):
         State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         """
 
+    class CustomerBalance(StripeObject):
+        applied_balance: int
+        """
+        The total amount of customer balance applied to this invoice (automatically + manually).
+        """
+        automatically_applied_balance: int
+        """
+        The amount of customer balance automatically applied during invoice finalization.
+        """
+        manually_applied_balance: int
+        """
+        The total amount of customer balance manually applied after finalization.
+        """
+
     class CustomerShipping(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -835,6 +849,9 @@ class QuotePreviewInvoice(StripeObject):
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
 
+            class Billie(StripeObject):
+                pass
+
             class Bizum(StripeObject):
                 pass
 
@@ -1046,6 +1063,10 @@ class QuotePreviewInvoice(StripeObject):
             """
             If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
             """
+            billie: Optional[Billie]
+            """
+            If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
+            """
             bizum: Optional[Bizum]
             """
             If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice's PaymentIntent.
@@ -1101,6 +1122,7 @@ class QuotePreviewInvoice(StripeObject):
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "billie": Billie,
                 "bizum": Bizum,
                 "blik": Blik,
                 "card": Card,
@@ -1137,6 +1159,7 @@ class QuotePreviewInvoice(StripeObject):
                         "au_becs_debit",
                         "bacs_debit",
                         "bancontact",
+                        "billie",
                         "bizum",
                         "blik",
                         "boleto",
@@ -1168,6 +1191,7 @@ class QuotePreviewInvoice(StripeObject):
                         "payco",
                         "paynow",
                         "paypal",
+                        "paypay",
                         "payto",
                         "pix",
                         "promptpay",
@@ -1182,6 +1206,7 @@ class QuotePreviewInvoice(StripeObject):
                         "twint",
                         "upi",
                         "us_bank_account",
+                        "vipps",
                         "wechat_pay",
                     ],
                     str,
@@ -1578,6 +1603,10 @@ class QuotePreviewInvoice(StripeObject):
     """
     The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     """
+    customer_balance: Optional[CustomerBalance]
+    """
+    The customer balance amounts applied to this invoice.
+    """
     customer_email: Optional[str]
     """
     The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
@@ -1796,6 +1825,7 @@ class QuotePreviewInvoice(StripeObject):
         "confirmation_secret": ConfirmationSecret,
         "custom_fields": CustomField,
         "customer_address": CustomerAddress,
+        "customer_balance": CustomerBalance,
         "customer_shipping": CustomerShipping,
         "customer_tax_ids": CustomerTaxId,
         "from_invoice": FromInvoice,

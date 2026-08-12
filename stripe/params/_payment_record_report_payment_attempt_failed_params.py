@@ -16,10 +16,10 @@ class PaymentRecordReportPaymentAttemptFailedParams(RequestOptions):
     When the reported payment failed. Measured in seconds since the Unix epoch.
     """
     failure_code: NotRequired[
-        "Literal['payment_method_customer_decline', 'payment_method_provider_unknown_outcome']|str"
+        "Literal['authentication_failure', 'expired_payment_method', 'incorrect_cvc', 'incorrect_number', 'incorrect_postal_code', 'insufficient_funds', 'payment_method_customer_decline', 'payment_method_provider_unknown_outcome', 'payment_method_restricted', 'processing_error']|str"
     ]
     """
-    The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+    The failure code for this payment attempt. Must be one of `payment_method_customer_decline`, `payment_method_provider_unknown_outcome`, `authentication_failure`, `expired_payment_method`, `incorrect_cvc`, `incorrect_number`, `incorrect_postal_code`, `insufficient_funds`, `processing_error`, or `payment_method_restricted`.
     """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
@@ -68,6 +68,10 @@ class PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCard(
     ]
     """
     Verification checks performed on the card.
+    """
+    network_decline_code: NotRequired[str]
+    """
+    Decline code from the card network for the failed payment.
     """
 
 

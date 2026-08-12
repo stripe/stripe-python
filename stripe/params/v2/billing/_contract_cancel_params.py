@@ -16,7 +16,10 @@ class ContractCancelParams(TypedDict):
         List[
             Union[
                 Literal[
-                    "billing_settings", "pricing_lines", "pricing_overrides"
+                    "billing_settings",
+                    "one_time_fees",
+                    "pricing_lines",
+                    "pricing_overrides",
                 ],
                 str,
             ]

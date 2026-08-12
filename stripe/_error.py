@@ -242,6 +242,10 @@ class FxQuoteExpiredError(StripeError):
     pass
 
 
+class FxQuoteNeedsRefreshError(StripeError):
+    pass
+
+
 class InsufficientFundsError(StripeError):
     pass
 

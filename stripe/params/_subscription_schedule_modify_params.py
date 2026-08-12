@@ -46,7 +46,7 @@ class SubscriptionScheduleModifyParams(RequestOptions):
         "Literal['']|List[SubscriptionScheduleModifyParamsPauseSchedule]"
     ]
     """
-    Sets the pause schedules for the subscription schedule. Include a `key` to update an existing entry or omit it to add a new one. Pass `""` to clear all entries or `[]` to leave them unchanged.
+    Configures the subscription's pause behavior and, optionally, its resume behavior. Only one entry is supported. Include a key to update an existing entry. Omit to leave an existing pause schedule unchanged, or pass "" to clear it.
     """
     phases: NotRequired[List["SubscriptionScheduleModifyParamsPhase"]]
     """
@@ -292,7 +292,9 @@ class SubscriptionScheduleModifyParamsPauseSchedule(TypedDict):
     """
     Configuration for when and how the subscription pauses.
     """
-    resume: NotRequired["SubscriptionScheduleModifyParamsPauseScheduleResume"]
+    resume: NotRequired[
+        "Literal['']|SubscriptionScheduleModifyParamsPauseScheduleResume"
+    ]
     """
     Configuration for when and how the subscription resumes.
     """
@@ -432,7 +434,7 @@ class SubscriptionScheduleModifyParamsPauseScheduleResumeSettings(TypedDict):
         Literal["resume_on_payment_attempt", "resume_on_payment_success"]
     ]
     """
-    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
+    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
     """
     proration_behavior: NotRequired[
         "Literal['always_invoice', 'create_prorations', 'none']|str"

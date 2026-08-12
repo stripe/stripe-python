@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, Union
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -24,6 +24,72 @@ class Transaction(ListableAPIResource["Transaction"]):
         "financial_connections.transaction"
     )
 
+    class Classification(StripeObject):
+        class MoneyMovement(StripeObject):
+            confidence_level: Optional[
+                Literal["high", "low", "medium", "very_high"]
+            ]
+            """
+            Stripe's confidence in this classification.
+            """
+            detailed_label: Optional[str]
+            """
+            The detailed category label for this transaction.
+            """
+            primary_label: Optional[str]
+            """
+            The primary category label for this transaction.
+            """
+
+        class PersonalFinance(StripeObject):
+            confidence_level: Optional[
+                Literal["high", "low", "medium", "very_high"]
+            ]
+            """
+            Stripe's confidence in this classification.
+            """
+            detailed_label: Optional[str]
+            """
+            The detailed category label for this transaction.
+            """
+            primary_label: Optional[str]
+            """
+            The primary category label for this transaction.
+            """
+
+        money_movement: Optional[MoneyMovement]
+        """
+        Money movement classification labels for this transaction.
+        """
+        personal_finance: Optional[PersonalFinance]
+        """
+        Personal finance classification labels for this transaction.
+        """
+        type: str
+        """
+        The taxonomy type for this classification entry.
+        """
+        _inner_class_types = {
+            "money_movement": MoneyMovement,
+            "personal_finance": PersonalFinance,
+        }
+
+    class Enrichments(StripeObject):
+        class Merchant(StripeObject):
+            confidence_level: Optional[
+                Literal["high", "low", "medium", "very_high"]
+            ]
+            """
+            Stripe's confidence in the enriched merchant name.
+            """
+            name: Optional[str]
+            """
+            The normalized merchant name for this transaction.
+            """
+
+        merchant: Merchant
+        _inner_class_types = {"merchant": Merchant}
+
     class StatusTransitions(StripeObject):
         posted_at: Optional[int]
         """
@@ -42,6 +108,10 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     The amount of this transaction, in cents (or local equivalent).
     """
+    classifications: Optional[List[Classification]]
+    """
+    Classification labels for this transaction, one entry per subscribed use case.
+    """
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -49,6 +119,10 @@ class Transaction(ListableAPIResource["Transaction"]):
     description: str
     """
     The description of this transaction.
+    """
+    enrichments: Optional[Enrichments]
+    """
+    Enriched merchant information for this transaction.
     """
     id: str
     """
@@ -142,4 +216,8 @@ class Transaction(ListableAPIResource["Transaction"]):
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"status_transitions": StatusTransitions}
+    _inner_class_types = {
+        "classifications": Classification,
+        "enrichments": Enrichments,
+        "status_transitions": StatusTransitions,
+    }

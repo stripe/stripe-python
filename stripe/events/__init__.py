@@ -59,9 +59,33 @@ if TYPE_CHECKING:
         V1BalanceAvailableEvent as V1BalanceAvailableEvent,
         V1BalanceAvailableEventNotification as V1BalanceAvailableEventNotification,
     )
+    from stripe.events._v1_balance_settings_updated_event import (
+        V1BalanceSettingsUpdatedEvent as V1BalanceSettingsUpdatedEvent,
+        V1BalanceSettingsUpdatedEventNotification as V1BalanceSettingsUpdatedEventNotification,
+    )
     from stripe.events._v1_billing_alert_triggered_event import (
         V1BillingAlertTriggeredEvent as V1BillingAlertTriggeredEvent,
         V1BillingAlertTriggeredEventNotification as V1BillingAlertTriggeredEventNotification,
+    )
+    from stripe.events._v1_billing_credit_balance_transaction_created_event import (
+        V1BillingCreditBalanceTransactionCreatedEvent as V1BillingCreditBalanceTransactionCreatedEvent,
+        V1BillingCreditBalanceTransactionCreatedEventNotification as V1BillingCreditBalanceTransactionCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_credit_grant_created_event import (
+        V1BillingCreditGrantCreatedEvent as V1BillingCreditGrantCreatedEvent,
+        V1BillingCreditGrantCreatedEventNotification as V1BillingCreditGrantCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_credit_grant_updated_event import (
+        V1BillingCreditGrantUpdatedEvent as V1BillingCreditGrantUpdatedEvent,
+        V1BillingCreditGrantUpdatedEventNotification as V1BillingCreditGrantUpdatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_created_event import (
+        V1BillingMeterCreatedEvent as V1BillingMeterCreatedEvent,
+        V1BillingMeterCreatedEventNotification as V1BillingMeterCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_deactivated_event import (
+        V1BillingMeterDeactivatedEvent as V1BillingMeterDeactivatedEvent,
+        V1BillingMeterDeactivatedEventNotification as V1BillingMeterDeactivatedEventNotification,
     )
     from stripe.events._v1_billing_meter_error_report_triggered_event import (
         V1BillingMeterErrorReportTriggeredEvent as V1BillingMeterErrorReportTriggeredEvent,
@@ -70,6 +94,14 @@ if TYPE_CHECKING:
     from stripe.events._v1_billing_meter_no_meter_found_event import (
         V1BillingMeterNoMeterFoundEvent as V1BillingMeterNoMeterFoundEvent,
         V1BillingMeterNoMeterFoundEventNotification as V1BillingMeterNoMeterFoundEventNotification,
+    )
+    from stripe.events._v1_billing_meter_reactivated_event import (
+        V1BillingMeterReactivatedEvent as V1BillingMeterReactivatedEvent,
+        V1BillingMeterReactivatedEventNotification as V1BillingMeterReactivatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_updated_event import (
+        V1BillingMeterUpdatedEvent as V1BillingMeterUpdatedEvent,
+        V1BillingMeterUpdatedEventNotification as V1BillingMeterUpdatedEventNotification,
     )
     from stripe.events._v1_billing_portal_configuration_created_event import (
         V1BillingPortalConfigurationCreatedEvent as V1BillingPortalConfigurationCreatedEvent,
@@ -279,6 +311,10 @@ if TYPE_CHECKING:
         V1FileCreatedEvent as V1FileCreatedEvent,
         V1FileCreatedEventNotification as V1FileCreatedEventNotification,
     )
+    from stripe.events._v1_financial_connections_account_account_numbers_updated_event import (
+        V1FinancialConnectionsAccountAccountNumbersUpdatedEvent as V1FinancialConnectionsAccountAccountNumbersUpdatedEvent,
+        V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification as V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
+    )
     from stripe.events._v1_financial_connections_account_created_event import (
         V1FinancialConnectionsAccountCreatedEvent as V1FinancialConnectionsAccountCreatedEvent,
         V1FinancialConnectionsAccountCreatedEventNotification as V1FinancialConnectionsAccountCreatedEventNotification,
@@ -290,6 +326,10 @@ if TYPE_CHECKING:
     from stripe.events._v1_financial_connections_account_disconnected_event import (
         V1FinancialConnectionsAccountDisconnectedEvent as V1FinancialConnectionsAccountDisconnectedEvent,
         V1FinancialConnectionsAccountDisconnectedEventNotification as V1FinancialConnectionsAccountDisconnectedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event import (
+        V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent as V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent,
+        V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification as V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
     )
     from stripe.events._v1_financial_connections_account_reactivated_event import (
         V1FinancialConnectionsAccountReactivatedEvent as V1FinancialConnectionsAccountReactivatedEvent,
@@ -306,6 +346,18 @@ if TYPE_CHECKING:
     from stripe.events._v1_financial_connections_account_refreshed_transactions_event import (
         V1FinancialConnectionsAccountRefreshedTransactionsEvent as V1FinancialConnectionsAccountRefreshedTransactionsEvent,
         V1FinancialConnectionsAccountRefreshedTransactionsEventNotification as V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event import (
+        V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent as V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent,
+        V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification as V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event import (
+        V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent as V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent,
+        V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification as V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_upcoming_deactivation_event import (
+        V1FinancialConnectionsAccountUpcomingDeactivationEvent as V1FinancialConnectionsAccountUpcomingDeactivationEvent,
+        V1FinancialConnectionsAccountUpcomingDeactivationEventNotification as V1FinancialConnectionsAccountUpcomingDeactivationEventNotification,
     )
     from stripe.events._v1_identity_verification_session_canceled_event import (
         V1IdentityVerificationSessionCanceledEvent as V1IdentityVerificationSessionCanceledEvent,
@@ -366,6 +418,10 @@ if TYPE_CHECKING:
     from stripe.events._v1_invoice_payment_action_required_event import (
         V1InvoicePaymentActionRequiredEvent as V1InvoicePaymentActionRequiredEvent,
         V1InvoicePaymentActionRequiredEventNotification as V1InvoicePaymentActionRequiredEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_attempt_required_event import (
+        V1InvoicePaymentAttemptRequiredEvent as V1InvoicePaymentAttemptRequiredEvent,
+        V1InvoicePaymentAttemptRequiredEventNotification as V1InvoicePaymentAttemptRequiredEventNotification,
     )
     from stripe.events._v1_invoice_payment_failed_event import (
         V1InvoicePaymentFailedEvent as V1InvoicePaymentFailedEvent,
@@ -1815,12 +1871,60 @@ _import_map = {
         "stripe.events._v1_balance_available_event",
         False,
     ),
+    "V1BalanceSettingsUpdatedEvent": (
+        "stripe.events._v1_balance_settings_updated_event",
+        False,
+    ),
+    "V1BalanceSettingsUpdatedEventNotification": (
+        "stripe.events._v1_balance_settings_updated_event",
+        False,
+    ),
     "V1BillingAlertTriggeredEvent": (
         "stripe.events._v1_billing_alert_triggered_event",
         False,
     ),
     "V1BillingAlertTriggeredEventNotification": (
         "stripe.events._v1_billing_alert_triggered_event",
+        False,
+    ),
+    "V1BillingCreditBalanceTransactionCreatedEvent": (
+        "stripe.events._v1_billing_credit_balance_transaction_created_event",
+        False,
+    ),
+    "V1BillingCreditBalanceTransactionCreatedEventNotification": (
+        "stripe.events._v1_billing_credit_balance_transaction_created_event",
+        False,
+    ),
+    "V1BillingCreditGrantCreatedEvent": (
+        "stripe.events._v1_billing_credit_grant_created_event",
+        False,
+    ),
+    "V1BillingCreditGrantCreatedEventNotification": (
+        "stripe.events._v1_billing_credit_grant_created_event",
+        False,
+    ),
+    "V1BillingCreditGrantUpdatedEvent": (
+        "stripe.events._v1_billing_credit_grant_updated_event",
+        False,
+    ),
+    "V1BillingCreditGrantUpdatedEventNotification": (
+        "stripe.events._v1_billing_credit_grant_updated_event",
+        False,
+    ),
+    "V1BillingMeterCreatedEvent": (
+        "stripe.events._v1_billing_meter_created_event",
+        False,
+    ),
+    "V1BillingMeterCreatedEventNotification": (
+        "stripe.events._v1_billing_meter_created_event",
+        False,
+    ),
+    "V1BillingMeterDeactivatedEvent": (
+        "stripe.events._v1_billing_meter_deactivated_event",
+        False,
+    ),
+    "V1BillingMeterDeactivatedEventNotification": (
+        "stripe.events._v1_billing_meter_deactivated_event",
         False,
     ),
     "V1BillingMeterErrorReportTriggeredEvent": (
@@ -1837,6 +1941,22 @@ _import_map = {
     ),
     "V1BillingMeterNoMeterFoundEventNotification": (
         "stripe.events._v1_billing_meter_no_meter_found_event",
+        False,
+    ),
+    "V1BillingMeterReactivatedEvent": (
+        "stripe.events._v1_billing_meter_reactivated_event",
+        False,
+    ),
+    "V1BillingMeterReactivatedEventNotification": (
+        "stripe.events._v1_billing_meter_reactivated_event",
+        False,
+    ),
+    "V1BillingMeterUpdatedEvent": (
+        "stripe.events._v1_billing_meter_updated_event",
+        False,
+    ),
+    "V1BillingMeterUpdatedEventNotification": (
+        "stripe.events._v1_billing_meter_updated_event",
         False,
     ),
     "V1BillingPortalConfigurationCreatedEvent": (
@@ -2231,6 +2351,14 @@ _import_map = {
         "stripe.events._v1_file_created_event",
         False,
     ),
+    "V1FinancialConnectionsAccountAccountNumbersUpdatedEvent": (
+        "stripe.events._v1_financial_connections_account_account_numbers_updated_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification": (
+        "stripe.events._v1_financial_connections_account_account_numbers_updated_event",
+        False,
+    ),
     "V1FinancialConnectionsAccountCreatedEvent": (
         "stripe.events._v1_financial_connections_account_created_event",
         False,
@@ -2253,6 +2381,14 @@ _import_map = {
     ),
     "V1FinancialConnectionsAccountDisconnectedEventNotification": (
         "stripe.events._v1_financial_connections_account_disconnected_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent": (
+        "stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification": (
+        "stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event",
         False,
     ),
     "V1FinancialConnectionsAccountReactivatedEvent": (
@@ -2285,6 +2421,30 @@ _import_map = {
     ),
     "V1FinancialConnectionsAccountRefreshedTransactionsEventNotification": (
         "stripe.events._v1_financial_connections_account_refreshed_transactions_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent": (
+        "stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification": (
+        "stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent": (
+        "stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification": (
+        "stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountUpcomingDeactivationEvent": (
+        "stripe.events._v1_financial_connections_account_upcoming_deactivation_event",
+        False,
+    ),
+    "V1FinancialConnectionsAccountUpcomingDeactivationEventNotification": (
+        "stripe.events._v1_financial_connections_account_upcoming_deactivation_event",
         False,
     ),
     "V1IdentityVerificationSessionCanceledEvent": (
@@ -2402,6 +2562,14 @@ _import_map = {
     ),
     "V1InvoicePaymentActionRequiredEventNotification": (
         "stripe.events._v1_invoice_payment_action_required_event",
+        False,
+    ),
+    "V1InvoicePaymentAttemptRequiredEvent": (
+        "stripe.events._v1_invoice_payment_attempt_required_event",
+        False,
+    ),
+    "V1InvoicePaymentAttemptRequiredEventNotification": (
+        "stripe.events._v1_invoice_payment_attempt_required_event",
         False,
     ),
     "V1InvoicePaymentFailedEvent": (

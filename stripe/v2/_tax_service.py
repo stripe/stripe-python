@@ -6,17 +6,20 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.v2.tax._manual_rule_service import ManualRuleService
+    from stripe.v2.tax._operation_service import OperationService
 
 _subservices = {
     "manual_rules": [
         "stripe.v2.tax._manual_rule_service",
         "ManualRuleService",
     ],
+    "operations": ["stripe.v2.tax._operation_service", "OperationService"],
 }
 
 
 class TaxService(StripeService):
     manual_rules: "ManualRuleService"
+    operations: "OperationService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

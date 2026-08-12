@@ -68,6 +68,10 @@ class Session(CreateableAPIResource["Session"]):
         """
         List of countries from which to filter accounts.
         """
+        country: Optional[str]
+        """
+        Country from which to filter accounts.
+        """
         institution: Optional[str]
         """
         Stripe ID of the institution with which the customer should be directed to log in.

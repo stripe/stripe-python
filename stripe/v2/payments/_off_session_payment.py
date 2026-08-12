@@ -198,7 +198,7 @@ class OffSessionPayment(StripeObject):
     """
     amount_requested: Amount
     """
-    The “presentment amount” to be collected from the customer.
+    The "presentment amount" to be collected from the customer.
     """
     application: Optional[str]
     """

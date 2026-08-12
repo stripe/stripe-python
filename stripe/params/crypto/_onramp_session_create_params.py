@@ -48,7 +48,7 @@ class OnrampSessionCreateParams(RequestOptions):
     * When set, if `destination_currencies` is also set, the value of `destination_currency` must be present in that array. To lock a `destination_currency`, specify that value as the single value for `destination_currencies`. Users can select a different cryptocurrency in the onramp UI subject to `destination_currencies` if set.
     """
     destination_network: NotRequired[
-        "Literal['avalanche', 'base', 'bitcoin', 'ethereum', 'optimism', 'polygon', 'solana', 'stellar', 'sui', 'tempo', 'worldchain']|str"
+        "Literal['avalanche', 'base', 'bitcoin', 'celo', 'ethereum', 'optimism', 'polygon', 'solana', 'stellar', 'sui', 'tempo', 'worldchain']|str"
     ]
     """
     The default destination crypto network.
@@ -63,6 +63,7 @@ class OnrampSessionCreateParams(RequestOptions):
                     "avalanche",
                     "base",
                     "bitcoin",
+                    "celo",
                     "ethereum",
                     "optimism",
                     "polygon",
