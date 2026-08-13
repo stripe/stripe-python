@@ -371,6 +371,9 @@ class Subscription(
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
 
+            class Billie(StripeObject):
+                pass
+
             class Bizum(StripeObject):
                 class MandateOptions(StripeObject):
                     amount: Optional[int]
@@ -657,6 +660,10 @@ class Subscription(
             """
             This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
             """
+            billie: Optional[Billie]
+            """
+            This sub-hash contains details about the Billie payment method options to pass to invoices created by the subscription.
+            """
             bizum: Optional[Bizum]
             """
             This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
@@ -712,6 +719,7 @@ class Subscription(
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "billie": Billie,
                 "bizum": Bizum,
                 "blik": Blik,
                 "card": Card,
@@ -744,6 +752,7 @@ class Subscription(
                         "au_becs_debit",
                         "bacs_debit",
                         "bancontact",
+                        "billie",
                         "bizum",
                         "blik",
                         "boleto",
@@ -775,6 +784,7 @@ class Subscription(
                         "payco",
                         "paynow",
                         "paypal",
+                        "paypay",
                         "payto",
                         "pix",
                         "promptpay",
@@ -789,6 +799,7 @@ class Subscription(
                         "twint",
                         "upi",
                         "us_bank_account",
+                        "vipps",
                         "wechat_pay",
                     ],
                     str,

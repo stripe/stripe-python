@@ -147,6 +147,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._payout_intent_cancel_params import (
         PayoutIntentCancelParams as PayoutIntentCancelParams,
     )
+    from stripe.params.v2.money_management._payout_intent_confirm_params import (
+        PayoutIntentConfirmParams as PayoutIntentConfirmParams,
+    )
     from stripe.params.v2.money_management._payout_intent_create_params import (
         PayoutIntentCreateParams as PayoutIntentCreateParams,
         PayoutIntentCreateParamsFrom as PayoutIntentCreateParamsFrom,
@@ -157,6 +160,9 @@ if TYPE_CHECKING:
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount,
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
+    )
+    from stripe.params.v2.money_management._payout_intent_fx_quote_params import (
+        PayoutIntentFxQuoteParams as PayoutIntentFxQuoteParams,
     )
     from stripe.params.v2.money_management._payout_intent_list_params import (
         PayoutIntentListParams as PayoutIntentListParams,
@@ -517,6 +523,10 @@ _import_map = {
         "stripe.params.v2.money_management._payout_intent_cancel_params",
         False,
     ),
+    "PayoutIntentConfirmParams": (
+        "stripe.params.v2.money_management._payout_intent_confirm_params",
+        False,
+    ),
     "PayoutIntentCreateParams": (
         "stripe.params.v2.money_management._payout_intent_create_params",
         False,
@@ -551,6 +561,10 @@ _import_map = {
     ),
     "PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
         "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentFxQuoteParams": (
+        "stripe.params.v2.money_management._payout_intent_fx_quote_params",
         False,
     ),
     "PayoutIntentListParams": (

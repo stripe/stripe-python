@@ -788,6 +788,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "AccountSignal",
     ),
     "v2.tax.manual_rule": ("stripe.v2.tax._manual_rule", "ManualRule"),
+    "v2.tax.operations_resolve_address_result": (
+        "stripe.v2.tax._operations_resolve_address_result",
+        "OperationsResolveAddressResult",
+    ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }
 

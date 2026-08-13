@@ -146,6 +146,25 @@ class Account(ListableAPIResource["Account"]):
         The status of the last refresh attempt.
         """
 
+    class ClassificationState(StripeObject):
+        status: Optional[Union[Literal["completed", "pending"], str]]
+        """
+        The taxonomy classification status for this account. One of 'pending' or 'completed'.
+        """
+
+    class EnrichmentState(StripeObject):
+        class Merchant(StripeObject):
+            status: Optional[Union[Literal["completed", "pending"], str]]
+            """
+            The merchant enrichment status for this account. One of 'pending' or 'completed'.
+            """
+
+        merchant: Optional[Merchant]
+        """
+        The enrichment status for merchant name normalization.
+        """
+        _inner_class_types = {"merchant": Merchant}
+
     class InferredBalancesRefresh(StripeObject):
         last_attempted_at: int
         """
@@ -260,6 +279,10 @@ class Account(ListableAPIResource["Account"]):
     """
     The type of the account. Account category is further divided in `subcategory`.
     """
+    classification_state: Optional[UntypedStripeObject[ClassificationState]]
+    """
+    Per-taxonomy processing state for this account. One entry per subscribed taxonomy.
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -267,6 +290,10 @@ class Account(ListableAPIResource["Account"]):
     display_name: Optional[str]
     """
     A human-readable name that has been assigned to this account, either by the account holder or by the institution.
+    """
+    enrichment_state: Optional[EnrichmentState]
+    """
+    The state of merchant name enrichment for this account.
     """
     id: str
     """
@@ -1025,6 +1052,8 @@ class Account(ListableAPIResource["Account"]):
         "account_numbers": AccountNumber,
         "balance": Balance,
         "balance_refresh": BalanceRefresh,
+        "classification_state": ClassificationState,
+        "enrichment_state": EnrichmentState,
         "inferred_balances_refresh": InferredBalancesRefresh,
         "ownership_refresh": OwnershipRefresh,
         "status_details": StatusDetails,

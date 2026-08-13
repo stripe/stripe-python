@@ -1,5 +1,21 @@
 # Changelog
 
+## 15.5.0 - 2026-08-10
+* [#1874](https://github.com/stripe/stripe-python/pull/1874) Add async iteration to v2 list auto-pagination
+  - Adds `async for` support to v2 `ListObject.auto_paging_iter()`.
+* [#1869](https://github.com/stripe/stripe-python/pull/1869) Surface `object` property on `EventNotification`
+* [#1867](https://github.com/stripe/stripe-python/pull/1867) Emit Claude Code plugin hint at module load time
+  - Emits new Claude Code plugin hint when `CLAUDECODE` or `CLAUDE_CODE_CHILD_SESSION` environment variables are detected.
+* [#1855](https://github.com/stripe/stripe-python/pull/1855) add/adjust event parsing helpers
+  
+  - Added methods that return their respective `Event`/`EventNotification` class instances without verifying authenticity. Use them when you've previously verified an event (e.g. you verified, put the event in a queue, and are now processing). Supports events from [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) and [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) natively.
+    - `Webhook.construct_event_without_verification(payload)`
+    - `StripeClient.construct_event_without_verification(payload)`
+    - `StripeClient.parse_event_notification_without_verification(payload)`
+  - Added `WebhookSignature.generate_signature_header(payload, secret, timestamp=None)`, which computes a full `Stripe-Signature` header for the given payload. Useful for unit tests!
+  
+* [#1863](https://github.com/stripe/stripe-python/pull/1863) Add `stripe.major_api_version` constant
+
 ## 15.5.0a2 - 2026-08-05
 * [#1859](https://github.com/stripe/stripe-python/pull/1859) Update generated code for private-preview
   * Add support for new resource `billing.FeedbackOptions`

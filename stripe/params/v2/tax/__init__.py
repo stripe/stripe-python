@@ -27,6 +27,10 @@ if TYPE_CHECKING:
         ManualRuleUpdateParamsScheduledTaxRate as ManualRuleUpdateParamsScheduledTaxRate,
         ManualRuleUpdateParamsScheduledTaxRateRate as ManualRuleUpdateParamsScheduledTaxRateRate,
     )
+    from stripe.params.v2.tax._operation_resolve_address_params import (
+        OperationResolveAddressParams as OperationResolveAddressParams,
+        OperationResolveAddressParamsAddress as OperationResolveAddressParamsAddress,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -80,6 +84,14 @@ _import_map = {
     ),
     "ManualRuleUpdateParamsScheduledTaxRateRate": (
         "stripe.params.v2.tax._manual_rule_update_params",
+        False,
+    ),
+    "OperationResolveAddressParams": (
+        "stripe.params.v2.tax._operation_resolve_address_params",
+        False,
+    ),
+    "OperationResolveAddressParamsAddress": (
+        "stripe.params.v2.tax._operation_resolve_address_params",
         False,
     ),
 }

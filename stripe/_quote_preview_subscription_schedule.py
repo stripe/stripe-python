@@ -331,6 +331,24 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 _inner_class_types = {"bill_for": BillFor}
 
+            class Status(StripeObject):
+                class Error(StripeObject):
+                    code: Optional[str]
+                    """
+                    A machine-readable error code.
+                    """
+                    message: str
+                    """
+                    A description of the error.
+                    """
+
+                error: Optional[Error]
+                type: Union[Literal["error", "scheduled", "succeeded"], str]
+                """
+                The lifecycle state of the pause operation.
+                """
+                _inner_class_types = {"error": Error}
+
             pause_at: int
             """
             Time at which the subscription pauses.
@@ -339,7 +357,8 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             """
             Settings controlling billing behavior during the pause.
             """
-            _inner_class_types = {"settings": Settings}
+            status: Status
+            _inner_class_types = {"settings": Settings, "status": Status}
 
         class Resume(StripeObject):
             class Settings(StripeObject):
@@ -360,12 +379,40 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 Determines how to handle prorations resulting from the billing_cycle_anchor change on resume.
                 """
 
+            class Status(StripeObject):
+                class Error(StripeObject):
+                    code: Optional[str]
+                    """
+                    A machine-readable error code.
+                    """
+                    message: str
+                    """
+                    A description of the error.
+                    """
+
+                error: Optional[Error]
+                type: Union[
+                    Literal[
+                        "error",
+                        "pending",
+                        "requires_action",
+                        "scheduled",
+                        "succeeded",
+                    ],
+                    str,
+                ]
+                """
+                The lifecycle state of the resume operation.
+                """
+                _inner_class_types = {"error": Error}
+
             resume_at: int
             """
             Time at which the subscription resumes.
             """
             settings: Settings
-            _inner_class_types = {"settings": Settings}
+            status: Status
+            _inner_class_types = {"settings": Settings, "status": Status}
 
         key: str
         """

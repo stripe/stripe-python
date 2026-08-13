@@ -1177,6 +1177,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_balance_transaction_create_params import (
         CustomerBalanceTransactionCreateParams as CustomerBalanceTransactionCreateParams,
+        CustomerBalanceTransactionCreateParamsAppliedToInvoice as CustomerBalanceTransactionCreateParamsAppliedToInvoice,
     )
     from stripe.params._customer_balance_transaction_list_params import (
         CustomerBalanceTransactionListParams as CustomerBalanceTransactionListParams,
@@ -1203,6 +1204,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_create_balance_transaction_params import (
         CustomerCreateBalanceTransactionParams as CustomerCreateBalanceTransactionParams,
+        CustomerCreateBalanceTransactionParamsAppliedToInvoice as CustomerCreateBalanceTransactionParamsAppliedToInvoice,
     )
     from stripe.params._customer_create_funding_instructions_params import (
         CustomerCreateFundingInstructionsParams as CustomerCreateFundingInstructionsParams,
@@ -10176,6 +10178,10 @@ _import_map = {
         "stripe.params._customer_balance_transaction_create_params",
         False,
     ),
+    "CustomerBalanceTransactionCreateParamsAppliedToInvoice": (
+        "stripe.params._customer_balance_transaction_create_params",
+        False,
+    ),
     "CustomerBalanceTransactionListParams": (
         "stripe.params._customer_balance_transaction_list_params",
         False,
@@ -10213,6 +10219,10 @@ _import_map = {
         False,
     ),
     "CustomerCreateBalanceTransactionParams": (
+        "stripe.params._customer_create_balance_transaction_params",
+        False,
+    ),
+    "CustomerCreateBalanceTransactionParamsAppliedToInvoice": (
         "stripe.params._customer_create_balance_transaction_params",
         False,
     ),

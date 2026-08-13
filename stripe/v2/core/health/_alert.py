@@ -112,13 +112,17 @@ class Alert(StripeObject):
 
     class AuthorizationRateDrop(StripeObject):
         class Dimension(StripeObject):
+            acquirer: Optional[str]
+            """
+            Populated when type is acquirer.
+            """
             issuer: Optional[str]
             """
             Populated when type is issuer.
             """
-            type: Literal["issuer"]
+            type: Union[Literal["acquirer", "issuer"], str]
             """
-            The type of the dimension. Determines which field in dimension_details is populated.
+            The type of the dimension. Determines which field is populated.
             """
 
         charge_type: Union[Literal["money_moving", "validation"], str]

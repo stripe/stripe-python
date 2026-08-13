@@ -9,7 +9,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class OffSessionPaymentCreateParams(TypedDict):
     amount: AmountParam
     """
-    The “presentment amount” to be collected from the customer.
+    The "presentment amount" to be collected from the customer.
     """
     amount_details: NotRequired["OffSessionPaymentCreateParamsAmountDetails"]
     """

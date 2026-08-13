@@ -32,6 +32,12 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             Whether the buy button is enabled.
             """
 
+        class CustomerPortal(StripeObject):
+            enabled: bool
+            """
+            Whether the customer portal is enabled.
+            """
+
         class CustomerSheet(StripeObject):
             class Features(StripeObject):
                 payment_method_allow_redisplay_filters: Optional[
@@ -204,6 +210,10 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         This hash contains whether the buy button is enabled.
         """
+        customer_portal: CustomerPortal
+        """
+        This hash contains whether the customer portal is enabled.
+        """
         customer_sheet: CustomerSheet
         """
         This hash contains whether the customer sheet is enabled and the features it supports.
@@ -226,6 +236,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         _inner_class_types = {
             "buy_button": BuyButton,
+            "customer_portal": CustomerPortal,
             "customer_sheet": CustomerSheet,
             "mobile_payment_element": MobilePaymentElement,
             "payment_element": PaymentElement,

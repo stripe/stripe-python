@@ -10,8 +10,14 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._payout_intent_cancel_params import (
         PayoutIntentCancelParams,
     )
+    from stripe.params.v2.money_management._payout_intent_confirm_params import (
+        PayoutIntentConfirmParams,
+    )
     from stripe.params.v2.money_management._payout_intent_create_params import (
         PayoutIntentCreateParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_fx_quote_params import (
+        PayoutIntentFxQuoteParams,
     )
     from stripe.params.v2.money_management._payout_intent_list_params import (
         PayoutIntentListParams,
@@ -198,7 +204,7 @@ class PayoutIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
         """
-        Cancels a PayoutIntent. Only pending PayoutIntents or processing PayoutIntents with cancelable OutboundPayment/Transfer can be canceled.
+        Cancels a PayoutIntent. Only pending PayoutIntents, processing PayoutIntents with cancelable OutboundPayment/Transfer, or requires_action PayoutIntents can be canceled.
         """
         return cast(
             "PayoutIntent",
@@ -220,13 +226,101 @@ class PayoutIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
         """
-        Cancels a PayoutIntent. Only pending PayoutIntents or processing PayoutIntents with cancelable OutboundPayment/Transfer can be canceled.
+        Cancels a PayoutIntent. Only pending PayoutIntents, processing PayoutIntents with cancelable OutboundPayment/Transfer, or requires_action PayoutIntents can be canceled.
         """
         return cast(
             "PayoutIntent",
             await self._request_async(
                 "post",
                 "/v2/money_management/payout_intents/{id}/cancel".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def confirm(
+        self,
+        id: str,
+        params: Optional["PayoutIntentConfirmParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutIntent":
+        """
+        Confirms a PayoutIntent that is in the requires_action state, transitioning it to pending.
+        """
+        return cast(
+            "PayoutIntent",
+            self._request(
+                "post",
+                "/v2/money_management/payout_intents/{id}/confirm".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def confirm_async(
+        self,
+        id: str,
+        params: Optional["PayoutIntentConfirmParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutIntent":
+        """
+        Confirms a PayoutIntent that is in the requires_action state, transitioning it to pending.
+        """
+        return cast(
+            "PayoutIntent",
+            await self._request_async(
+                "post",
+                "/v2/money_management/payout_intents/{id}/confirm".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def fx_quote(
+        self,
+        id: str,
+        params: Optional["PayoutIntentFxQuoteParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutIntent":
+        """
+        Refreshes FX quote for a PayoutIntent.
+        """
+        return cast(
+            "PayoutIntent",
+            self._request(
+                "post",
+                "/v2/money_management/payout_intents/{id}/fx_quote".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def fx_quote_async(
+        self,
+        id: str,
+        params: Optional["PayoutIntentFxQuoteParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutIntent":
+        """
+        Refreshes FX quote for a PayoutIntent.
+        """
+        return cast(
+            "PayoutIntent",
+            await self._request_async(
+                "post",
+                "/v2/money_management/payout_intents/{id}/fx_quote".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

@@ -48748,6 +48748,50 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_money_management_payout_intent_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/payout_intents/id_123/confirm",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.payout_intents.confirm("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/payout_intents/id_123/confirm",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_payout_intent_post_5_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/payout_intents/id_123/fx_quote",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.payout_intents.fx_quote("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/payout_intents/id_123/fx_quote",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_money_management_payout_method_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -50167,6 +50211,38 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_tax_operation_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/tax/operations/resolve_address",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.operations.resolve_address(
+            {
+                "address": {
+                    "city": "city",
+                    "country": "country",
+                    "line1": "line1",
+                    "postal_code": "postal_code",
+                    "state": "state",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/tax/operations/resolve_address",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"address":{"city":"city","country":"country","line1":"line1","postal_code":"postal_code","state":"state"}}',
+            is_json=True,
+        )
+
     def test_v2_test_helpers_financial_address_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -50509,6 +50585,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"from":{},"to":{}}',
+            is_json=True,
+        )
+
+    def test_fx_quote_needs_refresh_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/payout_intents/id_123/confirm",
+            rbody='{"error":{"type":"fx_quote_needs_refresh","code":"payout_intent_fx_quote_expired"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.payout_intents.confirm("id_123")
+        except _error.FxQuoteNeedsRefreshError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/payout_intents/id_123/confirm",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
             is_json=True,
         )
 

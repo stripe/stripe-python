@@ -27,6 +27,7 @@ class CustomerConsumerWallet(StripeObject):
             "avalanche",
             "base",
             "bitcoin",
+            "celo",
             "ethereum",
             "optimism",
             "polygon",
