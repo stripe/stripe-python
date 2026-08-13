@@ -261,7 +261,7 @@ be aware that the data you see at runtime may not match the types.
 ### Open and Closed Enums
 
 Many of Stripe API enums are open, meaning Stripe may add new values even on older API versions.
-To reflect this, open enum fields are typed as Union[Literal[...], str] rather than a plain Literal[...].
+To reflect this, open enum fields are typed as `Union[Literal[...], str]` rather than a plain `Literal[...]`.
 This ensures the field has the correct type for both values known at SDK release time and other values that may be added later.
 
 A small number of enums are closed, meaning Stripe guarantees no new values will be added without an API version change.
