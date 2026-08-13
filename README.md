@@ -258,6 +258,17 @@ sends by default. If you are overriding `stripe.api_version` / `stripe_version` 
 [webhook endpoint](https://stripe.com/docs/webhooks#api-versions) tied to an older version,
 be aware that the data you see at runtime may not match the types.
 
+### Open and Closed Enums
+
+Many of Stripe API enums are open, meaning Stripe may add new values even on older API versions.
+To reflect this, open enum fields are typed as Union[Literal[...], str] rather than a plain Literal[...].
+This ensures the field has the correct type for both values known at SDK release time and other values that may be added later.
+
+A small number of enums are closed, meaning Stripe guarantees no new values will be added without an API version change.
+
+Refer to the [API Reference](https://docs.stripe.com) for the latest set of allowed values.
+
+
 ### Public Preview SDKs
 
 Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `bX` suffix like `12.2.0b2`.
