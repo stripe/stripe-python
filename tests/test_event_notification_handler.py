@@ -5,9 +5,10 @@ import pytest
 from typing import Optional
 from unittest.mock import Mock
 
-from stripe import StripeClient
+from stripe import SignatureVerificationError, StripeClient
 from stripe._event_notification_handler import (
     StripeEventNotificationHandler,
+    StripeEventNotificationHandlerWithoutVerification,
     UnhandledNotificationDetails,
 )
 from stripe._stripe_context import StripeContext
@@ -202,6 +203,21 @@ class TestEventNotificationHandler:
 
         sig_header = generate_header(payload=v1_billing_meter_payload)
         event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new event handlers after .handle\\(\\) has been called",
+        ):
+            event_handler.on_v2_core_account_created(Mock())
+
+    def test_failed_parse_still_prevents_registration(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Attempting to handle an event locks registration even if the parse fails"""
+        with pytest.raises(SignatureVerificationError):
+            event_handler.handle(v1_billing_meter_payload, "t=1,v1=not-a-sig")
 
         with pytest.raises(
             RuntimeError,
@@ -599,7 +615,7 @@ class TestEventNotificationHandlerWithoutVerification:
     @pytest.fixture(scope="function")
     def handler_without_verification(
         self, stripe_client: StripeClient, fallback_callback: Mock
-    ):
+    ) -> StripeEventNotificationHandlerWithoutVerification:
         return StripeEventNotificationHandler.without_verification(
             client=stripe_client,
             fallback_callback=fallback_callback,
@@ -727,15 +743,39 @@ class TestEventNotificationHandlerWithoutVerification:
     def test_static_factory(
         self, stripe_client: StripeClient, fallback_callback: Mock
     ) -> None:
-        from stripe._event_notification_handler import (
-            _StripeEventNotificationHandlerWithoutVerification,
-        )
-
         handler = StripeEventNotificationHandler.without_verification(
             stripe_client, fallback_callback
         )
         assert isinstance(
-            handler, _StripeEventNotificationHandlerWithoutVerification
+            handler, StripeEventNotificationHandlerWithoutVerification
+        )
+
+    def test_failed_parse_still_prevents_registration(
+        self,
+        handler_without_verification: StripeEventNotificationHandlerWithoutVerification,
+    ) -> None:
+        """Attempting to handle an event locks registration even if the parse fails"""
+        with pytest.raises(ValueError):
+            handler_without_verification.handle("not json")
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new event handlers after .handle\\(\\) has been called",
+        ):
+            handler_without_verification.on_v2_core_account_created(Mock())
+
+    def test_handlers_are_siblings_not_subclasses(self) -> None:
+        """
+        Neither handler is substitutable for the other, so neither should be a
+        subclass of the other. Each defines its own `handle` over a shared base.
+        """
+        assert not issubclass(
+            StripeEventNotificationHandler,
+            StripeEventNotificationHandlerWithoutVerification,
+        )
+        assert not issubclass(
+            StripeEventNotificationHandlerWithoutVerification,
+            StripeEventNotificationHandler,
         )
 
     def test_client_factory(

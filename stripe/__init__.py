@@ -359,6 +359,7 @@ if TYPE_CHECKING:
     from stripe._event import Event as Event
     from stripe._event_notification_handler import (
         StripeEventNotificationHandler as StripeEventNotificationHandler,
+        StripeEventNotificationHandlerWithoutVerification as StripeEventNotificationHandlerWithoutVerification,
         UnhandledNotificationDetails as UnhandledNotificationDetails,
     )
     from stripe._event_service import EventService as EventService
@@ -810,6 +811,10 @@ _import_map = {
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
     "StripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "StripeEventNotificationHandlerWithoutVerification": (
         "stripe._event_notification_handler",
         False,
     ),

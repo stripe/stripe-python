@@ -11,7 +11,7 @@ from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
 from stripe._event_notification_handler import (
     StripeEventNotificationHandler,
-    _StripeEventNotificationHandlerWithoutVerification,
+    StripeEventNotificationHandlerWithoutVerification,
     FallbackCallback,
 )
 from stripe._request_options import extract_options_from_dict
@@ -382,7 +382,7 @@ class StripeClient(object):
 
     def notification_handler_without_verification(
         self, fallback_callback: FallbackCallback
-    ) -> _StripeEventNotificationHandlerWithoutVerification:
+    ) -> StripeEventNotificationHandlerWithoutVerification:
         """
         A variant of StripeEventNotificationHandler that parses events without
         verifying webhook signatures. Intended for pre-authenticated channels
