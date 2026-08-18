@@ -1,3 +1,6 @@
+## 15.5.1 - 2026-08-18
+* [#1879](https://github.com/stripe/stripe-python/pull/1879) better document `StripeObject`'s `to_dict` behavior
+
 ## 15.5.0 - 2026-08-10
 * [#1874](https://github.com/stripe/stripe-python/pull/1874) Add async iteration to v2 list auto-pagination
   - Adds `async for` support to v2 `ListObject.auto_paging_iter()`.
