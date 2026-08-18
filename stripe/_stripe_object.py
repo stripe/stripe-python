@@ -96,17 +96,9 @@ class StripeObject:
     """
     The base class for every response returned by the Stripe API.
 
-    A `StripeObject` is **not** a `dict` and does not implement
-    `collections.abc.Mapping`, even though `str()` on one prints JSON. It
-    deliberately keeps a small surface so that API fields never collide with
-    `dict` method names (for example, `Subscription.items` is the API's `items`
-    field, not `dict.items`).
+    A `StripeObject` is **not** a `dict` even though `str()` on one prints JSON. It deliberately keeps a small surface so that API fields never collide with `dict` method names (for example, `Subscription.items` is the API's `items` field, not `dict.items`).
 
-    Not supported: `.get()`, `.keys()`, `.values()`, `.items()`, iteration,
-    `len()`, `dict(obj)`, and `{**obj}`. Call `to_dict()` first when you need
-    any of those.
-
-    See [the readme](https://github.com/stripe/stripe-python#working-with-api-resources) for more information.
+    If you want to do dict operations, on a StripeObject, call `.to_dict()` first. See [the readme](https://github.com/stripe/stripe-python#working-with-api-resources) for more information.
     """
 
     # Names we know people reach for out of dict habit. Used to give a pointed
@@ -205,8 +197,7 @@ class StripeObject:
                 # that hasattr() and getattr(obj, "get", None) keep working.
                 if k in self._DICT_METHOD_NAMES:
                     raise AttributeError(
-                        f"'{k}' is a dict method, but a {type(self).__name__} is not a dict. "
-                        f"Use getattr(obj, 'key', None) or obj.to_dict().get('key')"
+                        f"'{k}' is a dict method, but a {type(self).__name__} is not a dict. Use .to_dict() to convert it. Docs: https://github.com/stripe/stripe-python#working-with-api-resources"
                     ) from err
                 raise AttributeError(*err.args) from err
 
@@ -285,7 +276,7 @@ class StripeObject:
 
         def __iter__(self) -> NoReturn:
             raise TypeError(
-                f"{type(self).__name__} is not iterable or a mapping; call .to_dict() for a plain dict"
+                f"{type(self).__name__} is not iterable or a mapping; call .to_dict() for a plain dict. Docs: https://github.com/stripe/stripe-python#working-with-api-resources"
             )
 
     def __eq__(self, other: object) -> bool:
