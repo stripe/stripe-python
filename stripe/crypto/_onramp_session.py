@@ -128,6 +128,7 @@ class OnrampSession(
                         "matic",
                         "sol",
                         "usdc",
+                        "usdt",
                         "wld",
                         "xlm",
                     ],
@@ -141,7 +142,15 @@ class OnrampSession(
         destination_currency: Optional[
             Union[
                 Literal[
-                    "avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"
+                    "avax",
+                    "btc",
+                    "eth",
+                    "matic",
+                    "sol",
+                    "usdc",
+                    "usdt",
+                    "wld",
+                    "xlm",
                 ],
                 str,
             ]

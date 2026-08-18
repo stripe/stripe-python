@@ -100,6 +100,12 @@ class Session(CreateableAPIResource["Session"]):
             """
             _inner_class_types = {"retention": Retention}
 
+        class SubscriptionPause(StripeObject):
+            subscription: str
+            """
+            The ID of the subscription to be paused.
+            """
+
         class SubscriptionUpdate(StripeObject):
             subscription: str
             """
@@ -154,6 +160,10 @@ class Session(CreateableAPIResource["Session"]):
         """
         Configuration when `flow.type=subscription_cancel`.
         """
+        subscription_pause: Optional[SubscriptionPause]
+        """
+        Configuration when `flow.type=subscription_pause`.
+        """
         subscription_update: Optional[SubscriptionUpdate]
         """
         Configuration when `flow.type=subscription_update`.
@@ -167,6 +177,7 @@ class Session(CreateableAPIResource["Session"]):
                 "customer_update",
                 "payment_method_update",
                 "subscription_cancel",
+                "subscription_pause",
                 "subscription_update",
                 "subscription_update_confirm",
             ],
@@ -179,6 +190,7 @@ class Session(CreateableAPIResource["Session"]):
             "after_completion": AfterCompletion,
             "customer_update": CustomerUpdate,
             "subscription_cancel": SubscriptionCancel,
+            "subscription_pause": SubscriptionPause,
             "subscription_update": SubscriptionUpdate,
             "subscription_update_confirm": SubscriptionUpdateConfirm,
         }

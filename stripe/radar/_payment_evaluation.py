@@ -536,13 +536,16 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             The time when this signal was evaluated.
             """
-            risk_level: Literal[
-                "elevated",
-                "highest",
-                "low",
-                "normal",
-                "not_assessed",
-                "unknown",
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
             ]
             """
             Risk level of this signal, based on the score.

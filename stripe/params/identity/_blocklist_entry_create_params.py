@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired
 
 
@@ -10,7 +10,7 @@ class BlocklistEntryCreateParams(RequestOptions):
     """
     When true, the created BlocklistEntry will be used to retroactively unverify matching verifications.
     """
-    entry_type: Literal["document", "selfie"]
+    entry_type: Union[Literal["document", "selfie"], str]
     """
     The type of blocklist entry to be created.
     """

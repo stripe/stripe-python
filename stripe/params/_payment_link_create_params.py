@@ -254,7 +254,7 @@ class PaymentLinkCreateParamsAfterCompletionRedirect(TypedDict):
 
 class PaymentLinkCreateParamsAutomaticSurcharge(TypedDict):
     calculation_basis: NotRequired[
-        Literal["total_after_tax", "total_before_tax"]
+        "Literal['total_after_tax', 'total_before_tax']|str"
     ]
     """
     Determines which amount serves as the basis for calculating the surcharge.
@@ -263,7 +263,9 @@ class PaymentLinkCreateParamsAutomaticSurcharge(TypedDict):
     """
     Set to `true` to calculate surcharge automatically using the customer's card details and location.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the surcharge is considered inclusive or exclusive of taxes.
     """
@@ -548,7 +550,7 @@ class PaymentLinkCreateParamsInvoiceCreationInvoiceDataRenderingOptions(
     TypedDict,
 ):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -614,7 +616,9 @@ class PaymentLinkCreateParamsLineItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -673,7 +677,7 @@ class PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
 
 
 class PaymentLinkCreateParamsLineItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """

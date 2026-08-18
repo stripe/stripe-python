@@ -5,13 +5,13 @@ from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
-class FeedbackOptions(StripeObject):
+class FeedbackOption(StripeObject):
     """
     A resource for the feedback options model (for custom cancellation reasons)
     """
 
-    OBJECT_NAME: ClassVar[Literal["billing.feedback_options"]] = (
-        "billing.feedback_options"
+    OBJECT_NAME: ClassVar[Literal["billing.feedback_option"]] = (
+        "billing.feedback_option"
     )
 
     class StatusTransitions(StripeObject):
@@ -32,7 +32,7 @@ class FeedbackOptions(StripeObject):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    object: Literal["billing.feedback_options"]
+    object: Literal["billing.feedback_option"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """

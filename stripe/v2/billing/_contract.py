@@ -146,6 +146,10 @@ class Contract(StripeObject):
                             """
                             The user-provided lookup key for this override.
                             """
+                            metadata: Optional[UntypedStripeObject[str]]
+                            """
+                            Set of key-value pairs.
+                            """
                             overwrite_price: Optional[OverwritePrice]
                             """
                             Details for an overwrite_price override.
@@ -293,6 +297,10 @@ class Contract(StripeObject):
             lookup_key: Optional[str]
             """
             The user-provided lookup key for the pricing override.
+            """
+            metadata: Optional[UntypedStripeObject[str]]
+            """
+            Set of key-value pairs.
             """
             multiply_pricing: Optional[MultiplyPricing]
             """

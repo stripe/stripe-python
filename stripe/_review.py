@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -117,7 +117,7 @@ class Review(ListableAPIResource["Review"]):
     """
     If `true`, the review needs action.
     """
-    opened_reason: Literal["manual", "rule"]
+    opened_reason: Union[Literal["manual", "rule"], str]
     """
     The reason the review was opened. One of `rule` or `manual`.
     """

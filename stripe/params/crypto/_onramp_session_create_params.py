@@ -26,7 +26,15 @@ class OnrampSessionCreateParams(RequestOptions):
         List[
             Union[
                 Literal[
-                    "avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"
+                    "avax",
+                    "btc",
+                    "eth",
+                    "matic",
+                    "sol",
+                    "usdc",
+                    "usdt",
+                    "wld",
+                    "xlm",
                 ],
                 str,
             ]
@@ -39,7 +47,7 @@ class OnrampSessionCreateParams(RequestOptions):
     * When set, it must be a non-empty array where all values in the array are valid cryptocurrencies. You can use it to lock users to a specific cryptocurrency by passing a single value array. Users **cannot** override this parameter.
     """
     destination_currency: NotRequired[
-        "Literal['avax', 'btc', 'eth', 'matic', 'sol', 'usdc', 'wld', 'xlm']|str"
+        "Literal['avax', 'btc', 'eth', 'matic', 'sol', 'usdc', 'usdt', 'wld', 'xlm']|str"
     ]
     """
     The default destination cryptocurrency.

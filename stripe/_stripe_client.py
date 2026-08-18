@@ -115,6 +115,7 @@ if TYPE_CHECKING:
     from stripe._payment_method_domain_service import (
         PaymentMethodDomainService,
     )
+    from stripe._payment_plan_service import PaymentPlanService
     from stripe._payment_record_service import PaymentRecordService
     from stripe._payout_service import PayoutService
     from stripe._plan_service import PlanService
@@ -1010,6 +1011,17 @@ class StripeClient(object):
     )
     def payment_method_domains(self) -> "PaymentMethodDomainService":
         return self.v1.payment_method_domains
+
+    @property
+    @deprecated(
+        """
+        StripeClient.payment_plans is deprecated, use StripeClient.v1.payment_plans instead.
+          All functionality under it has been copied over to StripeClient.v1.payment_plans.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def payment_plans(self) -> "PaymentPlanService":
+        return self.v1.payment_plans
 
     @property
     @deprecated(

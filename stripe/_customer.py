@@ -425,7 +425,7 @@ class Customer(
     The customer's current subscriptions, if any.
     """
     tax: Optional[Tax]
-    tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
+    tax_exempt: Optional[Union[Literal["exempt", "none", "reverse"], str]]
     """
     Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the following text: **"Reverse charge"**.
     """

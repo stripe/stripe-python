@@ -55,13 +55,16 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         The chronologically current repayment interval for the financing offer.
         """
         disclaimer_variant: Optional[
-            Literal[
-                "celtic_us_loan",
-                "fundbox_au_financing",
-                "youlend_de_financing",
-                "youlend_fr_financing",
-                "youlend_uk_mca",
-                "youlend_us_mca",
+            Union[
+                Literal[
+                    "celtic_us_loan",
+                    "fundbox_au_financing",
+                    "youlend_de_financing",
+                    "youlend_fr_financing",
+                    "youlend_uk_mca",
+                    "youlend_us_mca",
+                ],
+                str,
             ]
         ]
         """

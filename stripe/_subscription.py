@@ -38,7 +38,7 @@ if TYPE_CHECKING:
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
-    from stripe.billing._feedback_options import FeedbackOptions
+    from stripe.billing._feedback_option import FeedbackOption
     from stripe.params._subscription_attach_cadence_params import (
         SubscriptionAttachCadenceParams,
     )
@@ -137,7 +137,9 @@ class Subscription(
 
     class BillingMode(StripeObject):
         class Flexible(StripeObject):
-            proration_discounts: Optional[Literal["included", "itemized"]]
+            proration_discounts: Optional[
+                Union[Literal["included", "itemized"], str]
+            ]
             """
             Controls how invoices and invoice items display proration amounts and discount amounts.
             """
@@ -169,7 +171,7 @@ class Subscription(
 
         class BillUntil(StripeObject):
             class Duration(StripeObject):
-                interval: Literal["day", "month", "week", "year"]
+                interval: Union[Literal["day", "month", "week", "year"], str]
                 """
                 Specifies billing duration. Either `day`, `week`, `month` or `year`.
                 """
@@ -243,7 +245,7 @@ class Subscription(
         """
         The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
         """
-        feedback_option: Optional[ExpandableField["FeedbackOptions"]]
+        feedback_option: Optional[ExpandableField["FeedbackOption"]]
         """
         Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
         """
@@ -334,7 +336,9 @@ class Subscription(
         """
 
     class PauseCollection(StripeObject):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        behavior: Union[
+            Literal["keep_as_draft", "mark_uncollectible", "void"], str
+        ]
         """
         The payment collection behavior for this subscription while paused.
         """
@@ -417,20 +421,23 @@ class Subscription(
 
                 mandate_options: Optional[MandateOptions]
                 network: Optional[
-                    Literal[
-                        "amex",
-                        "cartes_bancaires",
-                        "diners",
-                        "discover",
-                        "eftpos_au",
-                        "girocard",
-                        "interac",
-                        "jcb",
-                        "link",
-                        "mastercard",
-                        "unionpay",
-                        "unknown",
-                        "visa",
+                    Union[
+                        Literal[
+                            "amex",
+                            "cartes_bancaires",
+                            "diners",
+                            "discover",
+                            "eftpos_au",
+                            "girocard",
+                            "interac",
+                            "jcb",
+                            "link",
+                            "mastercard",
+                            "unionpay",
+                            "unknown",
+                            "visa",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -450,7 +457,9 @@ class Subscription(
             class CustomerBalance(StripeObject):
                 class BankTransfer(StripeObject):
                     class EuBankTransfer(StripeObject):
-                        country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                        country: Union[
+                            Literal["BE", "DE", "ES", "FR", "IE", "NL"], str
+                        ]
                         """
                         The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                         """
@@ -646,7 +655,7 @@ class Subscription(
                 The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
                 """
                 client: Optional[
-                    Literal["android", "ios", "mobile_web", "web"]
+                    Union[Literal["android", "ios", "mobile_web", "web"], str]
                 ]
                 """
                 The client type that the end customer will pay from.
@@ -818,7 +827,7 @@ class Subscription(
         _inner_class_types = {"payment_method_options": PaymentMethodOptions}
 
     class PendingInvoiceItemInterval(StripeObject):
-        interval: Literal["day", "month", "week", "year"]
+        interval: Union[Literal["day", "month", "week", "year"], str]
         """
         Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
         """
@@ -831,6 +840,10 @@ class Subscription(
         billing_cycle_anchor: Optional[int]
         """
         If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
+        """
+        cancel_at_period_end: Optional[bool]
+        """
+        Indicates whether this subscription should cancel at the end of the current period if the update is applied.
         """
         discount: Optional["Discount"]
         """
@@ -936,7 +949,9 @@ class Subscription(
 
     class TrialSettings(StripeObject):
         class EndBehavior(StripeObject):
-            billing_cycle_anchor: Optional[Literal["now", "unchanged"]]
+            billing_cycle_anchor: Optional[
+                Union[Literal["now", "unchanged"], str]
+            ]
             """
             Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
             """
@@ -1002,7 +1017,9 @@ class Subscription(
     """
     Details about why this subscription was cancelled
     """
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
     """

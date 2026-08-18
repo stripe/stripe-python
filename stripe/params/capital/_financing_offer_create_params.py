@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired
 
 
@@ -18,24 +18,14 @@ class FinancingOfferCreateParams(RequestOptions):
     """
     Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
     """
-    financing_type: Literal["cash_advance", "fixed_term_loan", "flex_loan"]
+    financing_type: Union[
+        Literal["cash_advance", "fixed_term_loan", "flex_loan"], str
+    ]
     """
     The type of financing offer.
     """
     status: NotRequired[
-        Literal[
-            "accepted",
-            "accepted_other_offer",
-            "canceled",
-            "completed",
-            "delivered",
-            "expired",
-            "fully_repaid",
-            "paid_out",
-            "rejected",
-            "replaced",
-            "undelivered",
-        ]
+        "Literal['accepted', 'accepted_other_offer', 'canceled', 'completed', 'delivered', 'expired', 'fully_repaid', 'paid_out', 'rejected', 'replaced', 'undelivered']|str"
     ]
     """
     The status of the financing offer.

@@ -48378,6 +48378,17 @@ class TestGeneratedExamples(object):
                 "to": {
                     "currency": "usd",
                     "payout_method": "payout_method",
+                    "payout_method_options": {
+                        "bank_account": {
+                            "preferred_network_options": {
+                                "ach": {
+                                    "submission": "next_day",
+                                    "transaction_purpose": "payroll",
+                                },
+                            },
+                            "preferred_networks": ["sepa_credit"],
+                        },
+                    },
                     "recipient": "recipient",
                 },
             }
@@ -48387,7 +48398,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payment_quotes",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["sepa_credit"]}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -49171,6 +49182,28 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/transactions/id_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_transaction_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/transactions/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.transactions.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/transactions/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_money_management_transaction_entry_get_service(

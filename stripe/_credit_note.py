@@ -191,7 +191,7 @@ class CreditNote(
         """
         The amount of the tax, in cents (or local equivalent).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Whether this tax is inclusive or exclusive.
         """
@@ -373,7 +373,7 @@ class CreditNote(
     """
     The aggregate tax information for all line items.
     """
-    type: Literal["mixed", "post_payment", "pre_payment"]
+    type: Union[Literal["mixed", "post_payment", "pre_payment"], str]
     """
     Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
     """

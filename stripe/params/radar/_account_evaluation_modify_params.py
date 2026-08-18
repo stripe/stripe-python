@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -30,11 +30,14 @@ class AccountEvaluationModifyParams(RequestOptions):
     """
     Event payload for registration_succeeded.
     """
-    type: Literal[
-        "login_failed",
-        "login_succeeded",
-        "registration_failed",
-        "registration_succeeded",
+    type: Union[
+        Literal[
+            "login_failed",
+            "login_succeeded",
+            "registration_failed",
+            "registration_succeeded",
+        ],
+        str,
     ]
     """
     The type of event to report.
@@ -42,7 +45,7 @@ class AccountEvaluationModifyParams(RequestOptions):
 
 
 class AccountEvaluationModifyParamsLoginFailed(TypedDict):
-    reason: Literal["other", "suspected_account_sharing"]
+    reason: Union[Literal["other", "suspected_account_sharing"], str]
     """
     The reason why this login failed.
     """
@@ -56,7 +59,7 @@ class AccountEvaluationModifyParamsLoginSucceeded(TypedDict):
 
 
 class AccountEvaluationModifyParamsRegistrationFailed(TypedDict):
-    reason: Literal["other", "suspected_multi_accounting"]
+    reason: Union[Literal["other", "suspected_multi_accounting"], str]
     """
     The reason why this registration failed.
     """

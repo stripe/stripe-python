@@ -775,7 +775,7 @@ class TokenCreateParamsBankAccount(TypedDict):
     """
     The name of the person or business that owns the bank account. This field is required when attaching the bank account to a `Customer` object.
     """
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
     """
@@ -783,7 +783,9 @@ class TokenCreateParamsBankAccount(TypedDict):
     """
     The account number for the bank account, in string form. Must be a checking account.
     """
-    account_type: NotRequired[Literal["checking", "futsu", "savings", "toza"]]
+    account_type: NotRequired[
+        "Literal['checking', 'futsu', 'savings', 'toza']|str"
+    ]
     """
     The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
     """
