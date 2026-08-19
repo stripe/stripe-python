@@ -26,7 +26,7 @@ class SubscriptionModifyParams(RequestOptions):
     """
     The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
     """
-    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
     """
     Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -59,7 +59,7 @@ class SubscriptionModifyParams(RequestOptions):
     Details about why this subscription was cancelled
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
@@ -123,12 +123,7 @@ class SubscriptionModifyParams(RequestOptions):
     If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     """
     payment_behavior: NotRequired[
-        Literal[
-            "allow_incomplete",
-            "default_incomplete",
-            "error_if_incomplete",
-            "pending_if_incomplete",
-        ]
+        "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']|str"
     ]
     """
     Controls how Stripe handles payment when a subscription update requires payment and `collection_method=charge_automatically`.
@@ -307,7 +302,9 @@ class SubscriptionModifyParamsAddInvoiceItemPriceData(TypedDict):
     """
     The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -389,7 +386,7 @@ class SubscriptionModifyParamsBillingScheduleBillUntil(TypedDict):
 
 
 class SubscriptionModifyParamsBillingScheduleBillUntilDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing duration. Either `day`, `week`, `month` or `year`.
     """
@@ -776,7 +773,9 @@ class SubscriptionModifyParamsItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -791,7 +790,7 @@ class SubscriptionModifyParamsItemPriceData(TypedDict):
 
 
 class SubscriptionModifyParamsItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -802,7 +801,9 @@ class SubscriptionModifyParamsItemPriceDataRecurring(TypedDict):
 
 
 class SubscriptionModifyParamsPauseCollection(TypedDict):
-    behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+    behavior: Union[
+        Literal["keep_as_draft", "mark_uncollectible", "void"], str
+    ]
     """
     The payment collection behavior for this subscription while paused.
     """
@@ -1015,21 +1016,7 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard(
     Configuration options for setting up an eMandate for cards issued in India.
     """
     network: NotRequired[
-        Literal[
-            "amex",
-            "cartes_bancaires",
-            "diners",
-            "discover",
-            "eftpos_au",
-            "girocard",
-            "interac",
-            "jcb",
-            "link",
-            "mastercard",
-            "unionpay",
-            "unknown",
-            "visa",
-        ]
+        "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'girocard', 'interac', 'jcb', 'link', 'mastercard', 'unionpay', 'unknown', 'visa']|str"
     ]
     """
     Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
@@ -1246,7 +1233,12 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFi
     """
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -1292,14 +1284,14 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay(
     """
     The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
     """
-    client: NotRequired[Literal["android", "ios", "mobile_web", "web"]]
+    client: NotRequired["Literal['android', 'ios', 'mobile_web', 'web']|str"]
     """
     The client type that the end customer will pay from.
     """
 
 
 class SubscriptionModifyParamsPendingInvoiceItemInterval(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -1339,7 +1331,7 @@ class SubscriptionModifyParamsTrialSettings(TypedDict):
 
 
 class SubscriptionModifyParamsTrialSettingsEndBehavior(TypedDict):
-    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
     """
     Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
     """

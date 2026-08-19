@@ -39,6 +39,10 @@ class RequestedSessionConfirmParams(RequestOptions):
     """
     Risk details/signals associated with the requested session
     """
+    shared_payment_issued_token: NotRequired[str]
+    """
+    A SharedPaymentIssuedToken (`spt_...`) previously issued to this buyer. Mutually exclusive with `payment_method` and `payment_method_data`.
+    """
     use_stripe_sdk: NotRequired[bool]
     """
     Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.

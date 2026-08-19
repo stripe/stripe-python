@@ -998,6 +998,55 @@ class Authorization(
             """
 
         class HoldAmountDetails(StripeObject):
+            class EstimatedFee(StripeObject):
+                currency: str
+                """
+                Three-letter ISO currency code.
+                """
+                value: int
+                """
+                The amount in the smallest currency unit.
+                """
+
+            class EstimatedFeeDetail(StripeObject):
+                class Amount(StripeObject):
+                    currency: str
+                    """
+                    Three-letter ISO currency code.
+                    """
+                    value: int
+                    """
+                    The amount in the smallest currency unit.
+                    """
+
+                class ChargedBy(StripeObject):
+                    class Application(StripeObject):
+                        feature_name: str
+                        """
+                        Human-readable product name.
+                        """
+
+                    application: Optional[Application]
+                    """
+                    Details for a fee charged by a Connect application.
+                    """
+                    type: str
+                    """
+                    The type of entity that charged this fee.
+                    """
+                    _inner_class_types = {"application": Application}
+
+                amount: Amount
+                charged_by: ChargedBy
+                type: str
+                """
+                The category of this fee.
+                """
+                _inner_class_types = {
+                    "amount": Amount,
+                    "charged_by": ChargedBy,
+                }
+
             class Network(StripeObject):
                 currency: str
                 """
@@ -1018,12 +1067,25 @@ class Authorization(
                 The amount in the smallest currency unit.
                 """
 
+            estimated_fee: Optional[EstimatedFee]
+            """
+            Advisory estimate of total fees for this authorization request.
+            """
+            estimated_fee_details: Optional[List[EstimatedFeeDetail]]
+            """
+            Per-fee-type breakdown of the estimated fees for this authorization request.
+            """
             network: Network
             reserve: Optional[Reserve]
             """
             The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
             """
-            _inner_class_types = {"network": Network, "reserve": Reserve}
+            _inner_class_types = {
+                "estimated_fee": EstimatedFee,
+                "estimated_fee_details": EstimatedFeeDetail,
+                "network": Network,
+                "reserve": Reserve,
+            }
 
         amount: int
         """
@@ -1095,6 +1157,55 @@ class Authorization(
             """
 
         class HoldAmountDetails(StripeObject):
+            class EstimatedFee(StripeObject):
+                currency: str
+                """
+                Three-letter ISO currency code.
+                """
+                value: int
+                """
+                The amount in the smallest currency unit.
+                """
+
+            class EstimatedFeeDetail(StripeObject):
+                class Amount(StripeObject):
+                    currency: str
+                    """
+                    Three-letter ISO currency code.
+                    """
+                    value: int
+                    """
+                    The amount in the smallest currency unit.
+                    """
+
+                class ChargedBy(StripeObject):
+                    class Application(StripeObject):
+                        feature_name: str
+                        """
+                        Human-readable product name.
+                        """
+
+                    application: Optional[Application]
+                    """
+                    Details for a fee charged by a Connect application.
+                    """
+                    type: str
+                    """
+                    The type of entity that charged this fee.
+                    """
+                    _inner_class_types = {"application": Application}
+
+                amount: Amount
+                charged_by: ChargedBy
+                type: str
+                """
+                The category of this fee.
+                """
+                _inner_class_types = {
+                    "amount": Amount,
+                    "charged_by": ChargedBy,
+                }
+
             class Network(StripeObject):
                 currency: str
                 """
@@ -1115,12 +1226,25 @@ class Authorization(
                 The amount in the smallest currency unit.
                 """
 
+            estimated_fee: Optional[EstimatedFee]
+            """
+            Advisory estimate of total fees for this authorization request.
+            """
+            estimated_fee_details: Optional[List[EstimatedFeeDetail]]
+            """
+            Per-fee-type breakdown of the estimated fees for this authorization request.
+            """
             network: Network
             reserve: Optional[Reserve]
             """
             The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
             """
-            _inner_class_types = {"network": Network, "reserve": Reserve}
+            _inner_class_types = {
+                "estimated_fee": EstimatedFee,
+                "estimated_fee_details": EstimatedFeeDetail,
+                "network": Network,
+                "reserve": Reserve,
+            }
 
         class NetworkData(StripeObject):
             class TraceId(StripeObject):

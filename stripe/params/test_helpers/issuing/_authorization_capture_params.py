@@ -78,9 +78,7 @@ class AuthorizationCaptureParamsPurchaseDetailsFleet(TypedDict):
     Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
     """
     purchase_type: NotRequired[
-        Literal[
-            "fuel_and_non_fuel_purchase", "fuel_purchase", "non_fuel_purchase"
-        ]
+        "Literal['fuel_and_non_fuel_purchase', 'fuel_purchase', 'non_fuel_purchase']|str"
     ]
     """
     The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`.
@@ -92,7 +90,7 @@ class AuthorizationCaptureParamsPurchaseDetailsFleet(TypedDict):
     More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
     """
     service_type: NotRequired[
-        Literal["full_service", "non_fuel_transaction", "self_service"]
+        "Literal['full_service', 'non_fuel_transaction', 'self_service']|str"
     ]
     """
     The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`.
@@ -240,28 +238,13 @@ class AuthorizationCaptureParamsPurchaseDetailsFuel(TypedDict):
     The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
     """
     type: NotRequired[
-        Literal[
-            "diesel",
-            "other",
-            "unleaded_plus",
-            "unleaded_regular",
-            "unleaded_super",
-        ]
+        "Literal['diesel', 'other', 'unleaded_plus', 'unleaded_regular', 'unleaded_super']|str"
     ]
     """
     The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
     """
     unit: NotRequired[
-        Literal[
-            "charging_minute",
-            "imperial_gallon",
-            "kilogram",
-            "kilowatt_hour",
-            "liter",
-            "other",
-            "pound",
-            "us_gallon",
-        ]
+        "Literal['charging_minute', 'imperial_gallon', 'kilogram', 'kilowatt_hour', 'liter', 'other', 'pound', 'us_gallon']|str"
     ]
     """
     The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.

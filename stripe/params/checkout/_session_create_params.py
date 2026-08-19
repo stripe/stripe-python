@@ -489,7 +489,7 @@ class SessionCreateParamsAfterExpirationRecovery(TypedDict):
 
 class SessionCreateParamsAutomaticSurcharge(TypedDict):
     calculation_basis: NotRequired[
-        Literal["total_after_tax", "total_before_tax"]
+        "Literal['total_after_tax', 'total_before_tax']|str"
     ]
     """
     Determines which amount serves as the basis for calculating the surcharge.
@@ -498,7 +498,9 @@ class SessionCreateParamsAutomaticSurcharge(TypedDict):
     """
     Set to `true` to calculate surcharge automatically using the customer's card details and location.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the surcharge is considered inclusive or exclusive of taxes.
     """
@@ -911,7 +913,7 @@ class SessionCreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
 
 class SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -1019,7 +1021,7 @@ class SessionCreateParamsItemSubscriptionBillingMode(TypedDict):
 
 
 class SessionCreateParamsItemSubscriptionBillingModeFlexible(TypedDict):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """
@@ -1061,7 +1063,9 @@ class SessionCreateParamsItemSubscriptionItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -1122,7 +1126,7 @@ class SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails(
 
 
 class SessionCreateParamsItemSubscriptionItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -1133,7 +1137,7 @@ class SessionCreateParamsItemSubscriptionItemPriceDataRecurring(TypedDict):
 
 
 class SessionCreateParamsItemSubscriptionPendingInvoiceItemInterval(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -1222,7 +1226,9 @@ class SessionCreateParamsLineItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -1281,7 +1287,7 @@ class SessionCreateParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
 
 
 class SessionCreateParamsLineItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -2884,7 +2890,12 @@ class SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
 ):
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -2913,7 +2924,7 @@ class SessionCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The app ID registered with WeChat Pay. Only required when client is ios or android.
     """
-    client: Literal["android", "ios", "web"]
+    client: Union[Literal["android", "ios", "web"], str]
     """
     The client type that the end customer will pay from
     """
@@ -3310,7 +3321,9 @@ class SessionCreateParamsShippingOptionShippingRateData(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """
@@ -3391,7 +3404,9 @@ class SessionCreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOption
     """
     A non-negative integer in cents representing how much to charge.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """
@@ -3511,7 +3526,7 @@ class SessionCreateParamsSubscriptionDataBillingMode(TypedDict):
 
 
 class SessionCreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """
@@ -3538,7 +3553,7 @@ class SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
 
 
 class SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
     """

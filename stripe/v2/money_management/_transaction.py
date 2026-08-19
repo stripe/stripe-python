@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
 from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
@@ -320,6 +320,11 @@ class Transaction(StripeObject):
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    metadata: Optional[UntypedStripeObject[str]]
+    """
+    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information
+    about the object in a structured format.
     """
     object: Literal["v2.money_management.transaction"]
     """

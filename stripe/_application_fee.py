@@ -138,7 +138,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     """
     A list of refunds that have been applied to the fee.
     """
-    settlement_type: Optional[Literal["gross_settled", "net_settled"]]
+    settlement_type: Optional[
+        Union[Literal["gross_settled", "net_settled"], str]
+    ]
     """
     Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
     """

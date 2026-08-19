@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -110,7 +111,20 @@ class IntentService(StripeService):
                 "post",
                 "/v2/billing/intents",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "actions": {
+                            "apply": {
+                                "invoice_discount_rule": {
+                                    "percent_off": {
+                                        "percent_off": "decimal_string",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -129,7 +143,20 @@ class IntentService(StripeService):
                 "post",
                 "/v2/billing/intents",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "actions": {
+                            "apply": {
+                                "invoice_discount_rule": {
+                                    "percent_off": {
+                                        "percent_off": "decimal_string",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )

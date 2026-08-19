@@ -1900,23 +1900,26 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
     Options for the tourism tax registration.
     """
-    type: Literal[
-        "admissions_tax",
-        "attendance_tax",
-        "entertainment_tax",
-        "gross_receipts_tax",
-        "home_rule_tax",
-        "hospitality_tax",
-        "local_amusement_tax",
-        "local_lease_tax",
-        "luxury_tax",
-        "mass_transit_parking_tax",
-        "parking_tax",
-        "resort_tax",
-        "state_communications_tax",
-        "state_retail_delivery_fee",
-        "state_sales_tax",
-        "tourism_tax",
+    type: Union[
+        Literal[
+            "admissions_tax",
+            "attendance_tax",
+            "entertainment_tax",
+            "gross_receipts_tax",
+            "home_rule_tax",
+            "hospitality_tax",
+            "local_amusement_tax",
+            "local_lease_tax",
+            "luxury_tax",
+            "mass_transit_parking_tax",
+            "parking_tax",
+            "resort_tax",
+            "state_communications_tax",
+            "state_retail_delivery_fee",
+            "state_sales_tax",
+            "tourism_tax",
+        ],
+        str,
     ]
     """
     Type of registration to be created in the US.

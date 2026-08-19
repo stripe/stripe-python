@@ -13,7 +13,7 @@ class CustomerEvaluationUpdateParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
-    status: NotRequired[Literal["allowed", "blocked", "restricted"]]
+    status: NotRequired["Literal['allowed', 'blocked', 'restricted']|str"]
     """
     The outcome status of the evaluation: allowed, restricted, or blocked.
     """

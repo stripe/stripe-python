@@ -101,7 +101,7 @@ class CouponCreateParamsScript(TypedDict):
 
 
 class CouponCreateParamsServicePeriod(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
     """

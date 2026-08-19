@@ -513,6 +513,10 @@ if TYPE_CHECKING:
     from stripe._payment_method_service import (
         PaymentMethodService as PaymentMethodService,
     )
+    from stripe._payment_plan import PaymentPlan as PaymentPlan
+    from stripe._payment_plan_service import (
+        PaymentPlanService as PaymentPlanService,
+    )
     from stripe._payment_record import PaymentRecord as PaymentRecord
     from stripe._payment_record_service import (
         PaymentRecordService as PaymentRecordService,
@@ -985,6 +989,8 @@ _import_map = {
         False,
     ),
     "PaymentMethodService": ("stripe._payment_method_service", False),
+    "PaymentPlan": ("stripe._payment_plan", False),
+    "PaymentPlanService": ("stripe._payment_plan_service", False),
     "PaymentRecord": ("stripe._payment_record", False),
     "PaymentRecordService": ("stripe._payment_record_service", False),
     "Payout": ("stripe._payout", False),

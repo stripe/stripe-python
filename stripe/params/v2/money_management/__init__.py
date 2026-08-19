@@ -98,6 +98,10 @@ if TYPE_CHECKING:
         OutboundPaymentQuoteCreateParamsDeliveryOptions as OutboundPaymentQuoteCreateParamsDeliveryOptions,
         OutboundPaymentQuoteCreateParamsFrom as OutboundPaymentQuoteCreateParamsFrom,
         OutboundPaymentQuoteCreateParamsTo as OutboundPaymentQuoteCreateParamsTo,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptions as OutboundPaymentQuoteCreateParamsToPayoutMethodOptions,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount as OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
     )
     from stripe.params.v2.money_management._outbound_payment_quote_retrieve_params import (
         OutboundPaymentQuoteRetrieveParams as OutboundPaymentQuoteRetrieveParams,
@@ -238,6 +242,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._transaction_retrieve_params import (
         TransactionRetrieveParams as TransactionRetrieveParams,
+    )
+    from stripe.params.v2.money_management._transaction_update_params import (
+        TransactionUpdateParams as TransactionUpdateParams,
     )
 
 # name -> (import_target, is_submodule)
@@ -424,6 +431,22 @@ _import_map = {
         False,
     ),
     "OutboundPaymentQuoteCreateParamsTo": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptions": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
         "stripe.params.v2.money_management._outbound_payment_quote_create_params",
         False,
     ),
@@ -689,6 +712,10 @@ _import_map = {
     ),
     "TransactionRetrieveParams": (
         "stripe.params.v2.money_management._transaction_retrieve_params",
+        False,
+    ),
+    "TransactionUpdateParams": (
+        "stripe.params.v2.money_management._transaction_update_params",
         False,
     ),
 }

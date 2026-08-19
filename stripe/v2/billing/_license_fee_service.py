@@ -109,7 +109,10 @@ class LicenseFeeService(StripeService):
                 base_address="api",
                 params=_coerce_v2_params(
                     params,
-                    {"transform_quantity": {"divide_by": "int64_string"}},
+                    {
+                        "tiers": {"up_to_decimal": "decimal_string"},
+                        "transform_quantity": {"divide_by": "int64_string"},
+                    },
                 ),
                 options=options,
             ),
@@ -131,7 +134,10 @@ class LicenseFeeService(StripeService):
                 base_address="api",
                 params=_coerce_v2_params(
                     params,
-                    {"transform_quantity": {"divide_by": "int64_string"}},
+                    {
+                        "tiers": {"up_to_decimal": "decimal_string"},
+                        "transform_quantity": {"divide_by": "int64_string"},
+                    },
                 ),
                 options=options,
             ),
@@ -194,7 +200,10 @@ class LicenseFeeService(StripeService):
                 base_address="api",
                 params=_coerce_v2_params(
                     params,
-                    {"transform_quantity": {"divide_by": "int64_string"}},
+                    {
+                        "tiers": {"up_to_decimal": "decimal_string"},
+                        "transform_quantity": {"divide_by": "int64_string"},
+                    },
                 ),
                 options=options,
             ),
@@ -217,7 +226,10 @@ class LicenseFeeService(StripeService):
                 base_address="api",
                 params=_coerce_v2_params(
                     params,
-                    {"transform_quantity": {"divide_by": "int64_string"}},
+                    {
+                        "tiers": {"up_to_decimal": "decimal_string"},
+                        "transform_quantity": {"divide_by": "int64_string"},
+                    },
                 ),
                 options=options,
             ),

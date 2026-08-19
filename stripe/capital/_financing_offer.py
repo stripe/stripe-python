@@ -115,13 +115,16 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     Time at which the offer was created. Given in seconds since unix epoch.
     """
     disclaimer_variant: Optional[
-        Literal[
-            "celtic_us_loan",
-            "fundbox_au_financing",
-            "youlend_de_financing",
-            "youlend_fr_financing",
-            "youlend_uk_mca",
-            "youlend_us_mca",
+        Union[
+            Literal[
+                "celtic_us_loan",
+                "fundbox_au_financing",
+                "youlend_de_financing",
+                "youlend_fr_financing",
+                "youlend_uk_mca",
+                "youlend_us_mca",
+            ],
+            str,
         ]
     ]
     """
@@ -187,7 +190,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
     The current status of the offer.
     """
-    type: Optional[Literal["cash_advance", "fixed_term_loan", "flex_loan"]]
+    type: Optional[
+        Union[Literal["cash_advance", "fixed_term_loan", "flex_loan"], str]
+    ]
     """
     See [financing_type](https://docs.stripe.com/api/capital/connect_financing_object#financing_offer_object-financing_type).
     """

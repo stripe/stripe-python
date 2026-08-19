@@ -208,6 +208,7 @@ if TYPE_CHECKING:
         AccountCreateParamsSettingsTaxForms as AccountCreateParamsSettingsTaxForms,
         AccountCreateParamsSettingsTreasury as AccountCreateParamsSettingsTreasury,
         AccountCreateParamsSettingsTreasuryTosAcceptance as AccountCreateParamsSettingsTreasuryTosAcceptance,
+        AccountCreateParamsSettingsWechatPayPayments as AccountCreateParamsSettingsWechatPayPayments,
         AccountCreateParamsTosAcceptance as AccountCreateParamsTosAcceptance,
     )
     from stripe.params._account_create_person_params import (
@@ -653,6 +654,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsTaxForms as AccountUpdateParamsSettingsTaxForms,
         AccountUpdateParamsSettingsTreasury as AccountUpdateParamsSettingsTreasury,
         AccountUpdateParamsSettingsTreasuryTosAcceptance as AccountUpdateParamsSettingsTreasuryTosAcceptance,
+        AccountUpdateParamsSettingsWechatPayPayments as AccountUpdateParamsSettingsWechatPayPayments,
         AccountUpdateParamsTosAcceptance as AccountUpdateParamsTosAcceptance,
     )
     from stripe.params._apple_pay_domain_create_params import (
@@ -1548,6 +1550,7 @@ if TYPE_CHECKING:
         InvoiceCreateParamsDiscountDiscountEndDuration as InvoiceCreateParamsDiscountDiscountEndDuration,
         InvoiceCreateParamsFromInvoice as InvoiceCreateParamsFromInvoice,
         InvoiceCreateParamsIssuer as InvoiceCreateParamsIssuer,
+        InvoiceCreateParamsManagedPayments as InvoiceCreateParamsManagedPayments,
         InvoiceCreateParamsPaymentSettings as InvoiceCreateParamsPaymentSettings,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptions,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
@@ -1739,6 +1742,7 @@ if TYPE_CHECKING:
         InvoiceItemCreateParamsDiscount as InvoiceItemCreateParamsDiscount,
         InvoiceItemCreateParamsDiscountDiscountEnd as InvoiceItemCreateParamsDiscountDiscountEnd,
         InvoiceItemCreateParamsDiscountDiscountEndDuration as InvoiceItemCreateParamsDiscountDiscountEndDuration,
+        InvoiceItemCreateParamsManagedPayments as InvoiceItemCreateParamsManagedPayments,
         InvoiceItemCreateParamsPeriod as InvoiceItemCreateParamsPeriod,
         InvoiceItemCreateParamsPriceData as InvoiceItemCreateParamsPriceData,
         InvoiceItemCreateParamsPricing as InvoiceItemCreateParamsPricing,
@@ -4523,6 +4527,41 @@ if TYPE_CHECKING:
         PaymentMethodUpdateParamsPayto as PaymentMethodUpdateParamsPayto,
         PaymentMethodUpdateParamsUsBankAccount as PaymentMethodUpdateParamsUsBankAccount,
     )
+    from stripe.params._payment_plan_create_params import (
+        PaymentPlanCreateParams as PaymentPlanCreateParams,
+        PaymentPlanCreateParamsCollectsOn as PaymentPlanCreateParamsCollectsOn,
+        PaymentPlanCreateParamsCollectsOnInvoiceDetails as PaymentPlanCreateParamsCollectsOnInvoiceDetails,
+        PaymentPlanCreateParamsSchedule as PaymentPlanCreateParamsSchedule,
+        PaymentPlanCreateParamsScheduleAmountsDue as PaymentPlanCreateParamsScheduleAmountsDue,
+        PaymentPlanCreateParamsScheduleAmountsDueAmount as PaymentPlanCreateParamsScheduleAmountsDueAmount,
+        PaymentPlanCreateParamsScheduleAmountsDueAmountDueDate as PaymentPlanCreateParamsScheduleAmountsDueAmountDueDate,
+        PaymentPlanCreateParamsScheduleAmountsDueAmountDueDateRelative as PaymentPlanCreateParamsScheduleAmountsDueAmountDueDateRelative,
+        PaymentPlanCreateParamsScheduleAmountsDueAmountFixedAmount as PaymentPlanCreateParamsScheduleAmountsDueAmountFixedAmount,
+    )
+    from stripe.params._payment_plan_list_params import (
+        PaymentPlanListParams as PaymentPlanListParams,
+    )
+    from stripe.params._payment_plan_modify_params import (
+        PaymentPlanModifyParams as PaymentPlanModifyParams,
+        PaymentPlanModifyParamsSchedule as PaymentPlanModifyParamsSchedule,
+        PaymentPlanModifyParamsScheduleAmountsDue as PaymentPlanModifyParamsScheduleAmountsDue,
+        PaymentPlanModifyParamsScheduleAmountsDueAmount as PaymentPlanModifyParamsScheduleAmountsDueAmount,
+        PaymentPlanModifyParamsScheduleAmountsDueAmountDueDate as PaymentPlanModifyParamsScheduleAmountsDueAmountDueDate,
+        PaymentPlanModifyParamsScheduleAmountsDueAmountDueDateRelative as PaymentPlanModifyParamsScheduleAmountsDueAmountDueDateRelative,
+        PaymentPlanModifyParamsScheduleAmountsDueAmountFixedAmount as PaymentPlanModifyParamsScheduleAmountsDueAmountFixedAmount,
+    )
+    from stripe.params._payment_plan_retrieve_params import (
+        PaymentPlanRetrieveParams as PaymentPlanRetrieveParams,
+    )
+    from stripe.params._payment_plan_update_params import (
+        PaymentPlanUpdateParams as PaymentPlanUpdateParams,
+        PaymentPlanUpdateParamsSchedule as PaymentPlanUpdateParamsSchedule,
+        PaymentPlanUpdateParamsScheduleAmountsDue as PaymentPlanUpdateParamsScheduleAmountsDue,
+        PaymentPlanUpdateParamsScheduleAmountsDueAmount as PaymentPlanUpdateParamsScheduleAmountsDueAmount,
+        PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDate as PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDate,
+        PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDateRelative as PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDateRelative,
+        PaymentPlanUpdateParamsScheduleAmountsDueAmountFixedAmount as PaymentPlanUpdateParamsScheduleAmountsDueAmountFixedAmount,
+    )
     from stripe.params._payment_record_create_params import (
         PaymentRecordCreateParams as PaymentRecordCreateParams,
         PaymentRecordCreateParamsAmount as PaymentRecordCreateParamsAmount,
@@ -7138,6 +7177,10 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsSettingsWechatPayPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsTosAcceptance": (
         "stripe.params._account_create_params",
         False,
@@ -8576,6 +8619,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsSettingsTreasuryTosAcceptance": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsWechatPayPayments": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -10874,6 +10921,10 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
+    "InvoiceCreateParamsManagedPayments": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
     "InvoiceCreateParamsPaymentSettings": (
         "stripe.params._invoice_create_params",
         False,
@@ -11592,6 +11643,10 @@ _import_map = {
         False,
     ),
     "InvoiceItemCreateParamsDiscountDiscountEndDuration": (
+        "stripe.params._invoice_item_create_params",
+        False,
+    ),
+    "InvoiceItemCreateParamsManagedPayments": (
         "stripe.params._invoice_item_create_params",
         False,
     ),
@@ -21811,6 +21866,106 @@ _import_map = {
     ),
     "PaymentMethodUpdateParamsUsBankAccount": (
         "stripe.params._payment_method_update_params",
+        False,
+    ),
+    "PaymentPlanCreateParams": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsCollectsOn": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsCollectsOnInvoiceDetails": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsSchedule": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsScheduleAmountsDue": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsScheduleAmountsDueAmount": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsScheduleAmountsDueAmountDueDate": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsScheduleAmountsDueAmountDueDateRelative": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanCreateParamsScheduleAmountsDueAmountFixedAmount": (
+        "stripe.params._payment_plan_create_params",
+        False,
+    ),
+    "PaymentPlanListParams": (
+        "stripe.params._payment_plan_list_params",
+        False,
+    ),
+    "PaymentPlanModifyParams": (
+        "stripe.params._payment_plan_modify_params",
+        False,
+    ),
+    "PaymentPlanModifyParamsSchedule": (
+        "stripe.params._payment_plan_modify_params",
+        False,
+    ),
+    "PaymentPlanModifyParamsScheduleAmountsDue": (
+        "stripe.params._payment_plan_modify_params",
+        False,
+    ),
+    "PaymentPlanModifyParamsScheduleAmountsDueAmount": (
+        "stripe.params._payment_plan_modify_params",
+        False,
+    ),
+    "PaymentPlanModifyParamsScheduleAmountsDueAmountDueDate": (
+        "stripe.params._payment_plan_modify_params",
+        False,
+    ),
+    "PaymentPlanModifyParamsScheduleAmountsDueAmountDueDateRelative": (
+        "stripe.params._payment_plan_modify_params",
+        False,
+    ),
+    "PaymentPlanModifyParamsScheduleAmountsDueAmountFixedAmount": (
+        "stripe.params._payment_plan_modify_params",
+        False,
+    ),
+    "PaymentPlanRetrieveParams": (
+        "stripe.params._payment_plan_retrieve_params",
+        False,
+    ),
+    "PaymentPlanUpdateParams": (
+        "stripe.params._payment_plan_update_params",
+        False,
+    ),
+    "PaymentPlanUpdateParamsSchedule": (
+        "stripe.params._payment_plan_update_params",
+        False,
+    ),
+    "PaymentPlanUpdateParamsScheduleAmountsDue": (
+        "stripe.params._payment_plan_update_params",
+        False,
+    ),
+    "PaymentPlanUpdateParamsScheduleAmountsDueAmount": (
+        "stripe.params._payment_plan_update_params",
+        False,
+    ),
+    "PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDate": (
+        "stripe.params._payment_plan_update_params",
+        False,
+    ),
+    "PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDateRelative": (
+        "stripe.params._payment_plan_update_params",
+        False,
+    ),
+    "PaymentPlanUpdateParamsScheduleAmountsDueAmountFixedAmount": (
+        "stripe.params._payment_plan_update_params",
         False,
     ),
     "PaymentRecordCreateParams": (

@@ -247,6 +247,7 @@ class RateCardService(StripeService):
                     params,
                     {
                         "rates_to_create": {
+                            "tiers": {"up_to_decimal": "decimal_string"},
                             "transform_quantity": {
                                 "divide_by": "int64_string"
                             },
@@ -278,6 +279,7 @@ class RateCardService(StripeService):
                     params,
                     {
                         "rates_to_create": {
+                            "tiers": {"up_to_decimal": "decimal_string"},
                             "transform_quantity": {
                                 "divide_by": "int64_string"
                             },

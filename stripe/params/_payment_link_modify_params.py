@@ -459,7 +459,7 @@ class PaymentLinkModifyParamsInvoiceCreationInvoiceDataRenderingOptions(
     TypedDict,
 ):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.

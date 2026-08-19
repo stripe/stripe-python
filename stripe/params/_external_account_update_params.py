@@ -11,12 +11,14 @@ class ExternalAccountUpdateParams(TypedDict):
     The name of the person or business that owns the bank account.
     """
     account_holder_type: NotRequired[
-        "Literal['']|Literal['company', 'individual']"
+        "Literal['']|Literal['company', 'individual']|str"
     ]
     """
     The type of entity that holds the account. This can be either `individual` or `company`.
     """
-    account_type: NotRequired[Literal["checking", "futsu", "savings", "toza"]]
+    account_type: NotRequired[
+        "Literal['checking', 'futsu', 'savings', 'toza']|str"
+    ]
     """
     The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
     """

@@ -5,7 +5,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class AlertNotificationListParams(TypedDict):
-    action: NotRequired[Literal["recovered", "triggered"]]
+    action: NotRequired["Literal['recovered', 'triggered']|str"]
     """
     Filter results to only include triggered or recovered notifications.
     """

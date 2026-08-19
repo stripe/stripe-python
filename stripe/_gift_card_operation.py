@@ -269,18 +269,21 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
     """
     Details about a gift card reload void operation.
     """
-    status: Literal["failed", "succeeded"]
+    status: Union[Literal["failed", "succeeded"], str]
     """
     The status of the operation.
     """
-    type: Literal[
-        "activation",
-        "activation_void",
-        "balance_check",
-        "cashout",
-        "cashout_void",
-        "reload",
-        "reload_void",
+    type: Union[
+        Literal[
+            "activation",
+            "activation_void",
+            "balance_check",
+            "cashout",
+            "cashout_void",
+            "reload",
+            "reload_void",
+        ],
+        str,
     ]
     """
     The type of operation performed.

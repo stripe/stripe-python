@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -20,7 +20,7 @@ class AccountEvaluationCreateParams(RequestOptions):
     """
     Event payload for registration_initiated.
     """
-    type: Literal["login_initiated", "registration_initiated"]
+    type: Union[Literal["login_initiated", "registration_initiated"], str]
     """
     The type of evaluation requested.
     """

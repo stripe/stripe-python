@@ -73,6 +73,7 @@ if TYPE_CHECKING:
         PaymentMethodDomainService,
     )
     from stripe._payment_method_service import PaymentMethodService
+    from stripe._payment_plan_service import PaymentPlanService
     from stripe._payment_record_service import PaymentRecordService
     from stripe._payout_service import PayoutService
     from stripe._plan_service import PlanService
@@ -237,6 +238,7 @@ _subservices = {
         "stripe._payment_method_domain_service",
         "PaymentMethodDomainService",
     ],
+    "payment_plans": ["stripe._payment_plan_service", "PaymentPlanService"],
     "payment_records": [
         "stripe._payment_record_service",
         "PaymentRecordService",
@@ -353,6 +355,7 @@ class V1Services(StripeService):
     payment_methods: "PaymentMethodService"
     payment_method_configurations: "PaymentMethodConfigurationService"
     payment_method_domains: "PaymentMethodDomainService"
+    payment_plans: "PaymentPlanService"
     payment_records: "PaymentRecordService"
     payouts: "PayoutService"
     plans: "PlanService"
