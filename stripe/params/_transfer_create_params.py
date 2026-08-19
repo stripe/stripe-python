@@ -40,7 +40,7 @@ class TransferCreateParams(RequestOptions):
     """
     You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-availability) for details.
     """
-    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+    source_type: NotRequired["Literal['bank_account', 'card', 'fpx']|str"]
     """
     The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
     """

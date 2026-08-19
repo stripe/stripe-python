@@ -69,9 +69,9 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CreditBalanceTransaction",
     ),
     "billing.credit_grant": ("stripe.billing._credit_grant", "CreditGrant"),
-    "billing.feedback_options": (
-        "stripe.billing._feedback_options",
-        "FeedbackOptions",
+    "billing.feedback_option": (
+        "stripe.billing._feedback_option",
+        "FeedbackOption",
     ),
     "billing.meter": ("stripe.billing._meter", "Meter"),
     "billing.meter_event": ("stripe.billing._meter_event", "MeterEvent"),
@@ -302,6 +302,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._payment_method_domain",
         "PaymentMethodDomain",
     ),
+    "payment_plan": ("stripe._payment_plan", "PaymentPlan"),
     "payment_record": ("stripe._payment_record", "PaymentRecord"),
     "payout": ("stripe._payout", "Payout"),
     "person": ("stripe._person", "Person"),

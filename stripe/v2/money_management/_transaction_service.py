@@ -13,6 +13,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
+    from stripe.params.v2.money_management._transaction_update_params import (
+        TransactionUpdateParams,
+    )
     from stripe.v2._list_object import ListObject
     from stripe.v2.money_management._transaction import Transaction
 
@@ -91,6 +94,50 @@ class TransactionService(StripeService):
             "Transaction",
             await self._request_async(
                 "get",
+                "/v2/money_management/transactions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        params: Optional["TransactionUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Updates the description of an existing Transaction.
+        """
+        return cast(
+            "Transaction",
+            self._request(
+                "post",
+                "/v2/money_management/transactions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: Optional["TransactionUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Updates the description of an existing Transaction.
+        """
+        return cast(
+            "Transaction",
+            await self._request_async(
+                "post",
                 "/v2/money_management/transactions/{id}".format(
                     id=sanitize_id(id),
                 ),

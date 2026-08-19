@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -42,7 +42,7 @@ class OnrampSessionCheckoutParamsMandateDataCustomerAcceptance(TypedDict):
     """
     If this is a Mandate accepted online, this hash contains details about the online acceptance.
     """
-    type: Literal["offline", "online"]
+    type: Union[Literal["offline", "online"], str]
     """
     The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
     """

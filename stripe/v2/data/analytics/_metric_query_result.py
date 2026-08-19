@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class MetricQueryResult(StripeObject):
     """
-    The result of a metric query.
+    The result of a metric query. For the full list of supported metrics, see [Supported metrics](https://docs.stripe.com/data/analytics/supported-metrics).
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.data.analytics.metric_query_result"]] = (

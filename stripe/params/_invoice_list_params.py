@@ -11,7 +11,7 @@ class InvoiceListParams(RequestOptions):
     Only return invoices for the cadence specified by this billing cadence ID.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`.

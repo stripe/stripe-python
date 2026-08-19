@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -35,7 +36,10 @@ class PersonTokenService(StripeService):
                     account_id=sanitize_id(account_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )
@@ -58,7 +62,10 @@ class PersonTokenService(StripeService):
                     account_id=sanitize_id(account_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )

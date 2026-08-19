@@ -11,7 +11,7 @@ class OnrampSessionListParams(RequestOptions):
     Only return onramp sessions that were created during the given date interval.
     """
     destination_currency: NotRequired[
-        "Literal['avax', 'btc', 'eth', 'matic', 'sol', 'usdc', 'wld', 'xlm']|str"
+        "Literal['avax', 'btc', 'eth', 'matic', 'sol', 'usdc', 'usdt', 'wld', 'xlm']|str"
     ]
     """
     The destination cryptocurrency to filter by.

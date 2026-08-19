@@ -30,7 +30,7 @@ class BlocklistEntryListParams(RequestOptions):
     """
     Only return blocklist entries with the specified status.
     """
-    type: NotRequired[Literal["document", "selfie"]]
+    type: NotRequired["Literal['document', 'selfie']|str"]
     """
     Only return blocklist entries of the specified type.
     """

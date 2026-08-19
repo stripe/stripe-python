@@ -28,7 +28,7 @@ class SubscriptionMigrateParamsBillingMode(TypedDict):
 
 
 class SubscriptionMigrateParamsBillingModeFlexible(TypedDict):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """

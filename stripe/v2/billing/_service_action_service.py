@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -34,7 +35,25 @@ class ServiceActionService(StripeService):
                 "post",
                 "/v2/billing/service_actions",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "credit_grant": {
+                            "amount": {
+                                "custom_pricing_unit": {
+                                    "value": "decimal_string",
+                                },
+                            },
+                        },
+                        "credit_grant_per_tenant": {
+                            "amount": {
+                                "custom_pricing_unit": {
+                                    "value": "decimal_string",
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -53,7 +72,25 @@ class ServiceActionService(StripeService):
                 "post",
                 "/v2/billing/service_actions",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "credit_grant": {
+                            "amount": {
+                                "custom_pricing_unit": {
+                                    "value": "decimal_string",
+                                },
+                            },
+                        },
+                        "credit_grant_per_tenant": {
+                            "amount": {
+                                "custom_pricing_unit": {
+                                    "value": "decimal_string",
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )

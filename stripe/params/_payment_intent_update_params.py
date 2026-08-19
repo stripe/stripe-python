@@ -3335,36 +3335,7 @@ class PaymentIntentUpdateParamsPaymentMethodDataCustomerBalance(TypedDict):
 
 class PaymentIntentUpdateParamsPaymentMethodDataEps(TypedDict):
     bank: NotRequired[
-        Literal[
-            "arzte_und_apotheker_bank",
-            "austrian_anadi_bank_ag",
-            "bank_austria",
-            "bankhaus_carl_spangler",
-            "bankhaus_schelhammer_und_schattera_ag",
-            "bawag_psk_ag",
-            "bks_bank_ag",
-            "brull_kallmus_bank_ag",
-            "btv_vier_lander_bank",
-            "capital_bank_grawe_gruppe_ag",
-            "deutsche_bank_ag",
-            "dolomitenbank",
-            "easybank_ag",
-            "erste_bank_und_sparkassen",
-            "hypo_alpeadriabank_international_ag",
-            "hypo_bank_burgenland_aktiengesellschaft",
-            "hypo_noe_lb_fur_niederosterreich_u_wien",
-            "hypo_oberosterreich_salzburg_steiermark",
-            "hypo_tirol_bank_ag",
-            "hypo_vorarlberg_bank_ag",
-            "marchfelder_bank",
-            "oberbank_ag",
-            "raiffeisen_bankengruppe_osterreich",
-            "schoellerbank_ag",
-            "sparda_bank_wien",
-            "volksbank_gruppe",
-            "volkskreditbank_ag",
-            "vr_bank_braunau",
-        ]
+        "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|str"
     ]
     """
     The customer's bank.
@@ -3372,36 +3343,39 @@ class PaymentIntentUpdateParamsPaymentMethodDataEps(TypedDict):
 
 
 class PaymentIntentUpdateParamsPaymentMethodDataFpx(TypedDict):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Account holder type for FPX transaction
     """
-    bank: Literal[
-        "affin_bank",
-        "agrobank",
-        "alliance_bank",
-        "ambank",
-        "bank_islam",
-        "bank_muamalat",
-        "bank_of_china",
-        "bank_rakyat",
-        "bnp_paribas",
-        "bsn",
-        "cimb",
-        "citibank",
-        "deutsche_bank",
-        "hong_leong_bank",
-        "hsbc",
-        "kfh",
-        "maybank2e",
-        "maybank2u",
-        "mbsb_bank",
-        "ocbc",
-        "pb_enterprise",
-        "public_bank",
-        "rhb",
-        "standard_chartered",
-        "uob",
+    bank: Union[
+        Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bnp_paribas",
+            "bsn",
+            "cimb",
+            "citibank",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "mbsb_bank",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ],
+        str,
     ]
     """
     The customer's bank.
@@ -3436,28 +3410,7 @@ class PaymentIntentUpdateParamsPaymentMethodDataIdBankTransfer(TypedDict):
 
 class PaymentIntentUpdateParamsPaymentMethodDataIdeal(TypedDict):
     bank: NotRequired[
-        Literal[
-            "abn_amro",
-            "adyen",
-            "asn_bank",
-            "bunq",
-            "buut",
-            "finom",
-            "handelsbanken",
-            "ing",
-            "knab",
-            "mollie",
-            "moneyou",
-            "n26",
-            "nn",
-            "rabobank",
-            "regiobank",
-            "revolut",
-            "sns_bank",
-            "triodos_bank",
-            "van_lanschot",
-            "yoursafe",
-        ]
+        "Literal['abn_amro', 'adyen', 'asn_bank', 'bunq', 'buut', 'finom', 'handelsbanken', 'ing', 'knab', 'mollie', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|str"
     ]
     """
     The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -4450,7 +4403,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsBoleto(TypedDict):
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCard(TypedDict):
     capture_by: NotRequired[
-        Literal["auth_expiry", "end_of_day", "target_delay"]
+        "Literal['auth_expiry', 'end_of_day', 'target_delay']|str"
     ]
     """
     Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
@@ -4500,21 +4453,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCard(TypedDict):
     parameter can only be provided during confirmation.
     """
     network: NotRequired[
-        Literal[
-            "amex",
-            "cartes_bancaires",
-            "diners",
-            "discover",
-            "eftpos_au",
-            "girocard",
-            "interac",
-            "jcb",
-            "link",
-            "mastercard",
-            "unionpay",
-            "unknown",
-            "visa",
-        ]
+        "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'girocard', 'interac', 'jcb', 'link', 'mastercard', 'unionpay', 'unknown', 'visa']|str"
     ]
     """
     Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
@@ -4656,7 +4595,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions(
     """
     Amount to be charged for future payments, specified in the presentment currency.
     """
-    amount_type: Literal["fixed", "maximum"]
+    amount_type: Union[Literal["fixed", "maximum"], str]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -4668,7 +4607,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions(
     """
     End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
     """
-    interval: Literal["day", "month", "sporadic", "week", "year"]
+    interval: Union[Literal["day", "month", "sporadic", "week", "year"], str]
     """
     Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
     """
@@ -4852,7 +4791,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent(TypedDict):
     capture_by: NotRequired[
-        Literal["auth_expiry", "end_of_day", "target_delay"]
+        "Literal['auth_expiry', 'end_of_day', 'target_delay']|str"
     ]
     """
     Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
@@ -7327,7 +7266,12 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnect
     """
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -7358,7 +7302,9 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnect
 class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
     TypedDict,
 ):
-    account_subcategories: NotRequired[List[Literal["checking", "savings"]]]
+    account_subcategories: NotRequired[
+        List[Union[Literal["checking", "savings"], str]]
+    ]
     """
     The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
     """
@@ -7389,7 +7335,9 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountMandateOptions(
 class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountNetworks(
     TypedDict,
 ):
-    requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
+    requested: NotRequired[
+        List[Union[Literal["ach", "us_domestic_wire"], str]]
+    ]
     """
     Triggers validations to run across the selected networks
     """

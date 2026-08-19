@@ -383,6 +383,10 @@ class ContractCreateParamsPricingOverride(TypedDict):
     """
     A user-provided lookup key to reference this pricing override.
     """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of key-value pairs.
+    """
     multiply_pricing: NotRequired[
         "ContractCreateParamsPricingOverrideMultiplyPricing"
     ]

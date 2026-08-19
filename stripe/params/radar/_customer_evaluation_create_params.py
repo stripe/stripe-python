@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -10,7 +10,7 @@ class CustomerEvaluationCreateParams(RequestOptions):
     """
     Array of context entries for the evaluation.
     """
-    event_type: Literal["login", "registration"]
+    event_type: Union[Literal["login", "registration"], str]
     """
     The type of evaluation event.
     """
@@ -33,7 +33,7 @@ class CustomerEvaluationCreateParamsEvaluationContext(TypedDict):
     """
     Customer details context.
     """
-    type: Literal["client_details", "customer_details"]
+    type: Union[Literal["client_details", "customer_details"], str]
     """
     The type of context entry.
     """

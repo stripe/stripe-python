@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -85,7 +85,7 @@ class Topup(
     """
     Unique identifier for the object.
     """
-    initiated_by: Optional[Literal["stripe", "user"]]
+    initiated_by: Optional[Union[Literal["stripe", "user"], str]]
     """
     Indicates whether the top-up was initiated by Stripe or by the user.
     """
@@ -117,7 +117,9 @@ class Topup(
     """
     Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter.
     """
-    status: Literal["canceled", "failed", "pending", "reversed", "succeeded"]
+    status: Union[
+        Literal["canceled", "failed", "pending", "reversed", "succeeded"], str
+    ]
     """
     The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`.
     """

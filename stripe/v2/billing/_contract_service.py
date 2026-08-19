@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -118,7 +119,20 @@ class ContractService(StripeService):
                 "post",
                 "/v2/billing/contracts",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "pricing_lines": {
+                            "pricing": {
+                                "price_details": {
+                                    "quantity_changes": {
+                                        "set": "decimal_string",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -137,7 +151,20 @@ class ContractService(StripeService):
                 "post",
                 "/v2/billing/contracts",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "pricing_lines": {
+                            "pricing": {
+                                "price_details": {
+                                    "quantity_changes": {
+                                        "set": "decimal_string",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -237,7 +264,31 @@ class ContractService(StripeService):
                 "post",
                 "/v2/billing/contracts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "pricing_line_actions": {
+                            "add": {
+                                "pricing": {
+                                    "price_details": {
+                                        "quantity_changes": {
+                                            "set": "decimal_string",
+                                        },
+                                    },
+                                },
+                            },
+                            "update": {
+                                "pricing": {
+                                    "price_details": {
+                                        "quantity_changes": {
+                                            "set": "decimal_string",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -257,7 +308,31 @@ class ContractService(StripeService):
                 "post",
                 "/v2/billing/contracts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "pricing_line_actions": {
+                            "add": {
+                                "pricing": {
+                                    "price_details": {
+                                        "quantity_changes": {
+                                            "set": "decimal_string",
+                                        },
+                                    },
+                                },
+                            },
+                            "update": {
+                                "pricing": {
+                                    "price_details": {
+                                        "quantity_changes": {
+                                            "set": "decimal_string",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )

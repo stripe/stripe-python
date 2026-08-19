@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -22,6 +22,12 @@ class ContractUpdateParams(TypedDict):
     ]
     """
     Additional fields to include in the response.
+    """
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
+    """
+    Set of key-value pairs.
     """
     pricing_line_actions: NotRequired[
         List["ContractUpdateParamsPricingLineAction"]
@@ -254,6 +260,12 @@ class ContractUpdateParamsPricingLineActionUpdate(TypedDict):
     """
     The id of the pricing line.
     """
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
+    """
+    Metadata mutations to apply to the pricing line.
+    """
     pricing: NotRequired["ContractUpdateParamsPricingLineActionUpdatePricing"]
     """
     Updated pricing configuration.
@@ -434,9 +446,11 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
     """
     Updated lookup key.
     """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
     """
-    Metadata for the pricing override.
+    Metadata mutations to apply to the pricing override.
     """
     starts_at: NotRequired[
         "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateStartsAt"
@@ -536,6 +550,10 @@ class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
     lookup_key: NotRequired[str]
     """
     A lookup key for the pricing override.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Metadata for the pricing override.
     """
     multiply_pricing: NotRequired[
         "ContractUpdateParamsPricingOverrideActionAddMultiplyPricing"
@@ -639,6 +657,12 @@ class ContractUpdateParamsPricingOverrideActionUpdate(TypedDict):
     id: str
     """
     The ID of the pricing override.
+    """
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
+    """
+    Metadata mutations to apply to the pricing override.
     """
     starts_at: NotRequired[
         "ContractUpdateParamsPricingOverrideActionUpdateStartsAt"

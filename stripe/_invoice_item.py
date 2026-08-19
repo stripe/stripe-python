@@ -54,6 +54,12 @@ class InvoiceItem(
 
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
 
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        """
+
     class Parent(StripeObject):
         class PricingPlanSubscriptionDetails(StripeObject):
             pricing_plan_subscription: str
@@ -246,7 +252,7 @@ class InvoiceItem(
             When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
             """
             invoice_line_item_details: Optional[InvoiceLineItemDetails]
-            type: Literal["invoice_item", "invoice_line_items"]
+            type: Union[Literal["invoice_item", "invoice_line_items"], str]
             """
             Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
             """
@@ -313,7 +319,9 @@ class InvoiceItem(
     """
     The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """
-    frozen_fields: Optional[List[Literal["discounts", "pricing", "quantity"]]]
+    frozen_fields: Optional[
+        List[Union[Literal["discounts", "pricing", "quantity"], str]]
+    ]
     """
     Array of field names that can't be modified. Attempting to update a frozen field returns an error.
     """
@@ -329,6 +337,7 @@ class InvoiceItem(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
+    managed_payments: Optional[ManagedPayments]
     margins: Optional[List[ExpandableField["Margin"]]]
     """
     The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
@@ -603,6 +612,7 @@ class InvoiceItem(
         return instance
 
     _inner_class_types = {
+        "managed_payments": ManagedPayments,
         "parent": Parent,
         "period": Period,
         "pricing": Pricing,

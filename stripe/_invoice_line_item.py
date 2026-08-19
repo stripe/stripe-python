@@ -380,7 +380,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The amount of the tax, in cents (or local equivalent).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Whether this tax is inclusive or exclusive.
         """

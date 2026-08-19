@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -42,14 +42,14 @@ class SubscriptionPauseParamsBillFor(TypedDict):
 
 
 class SubscriptionPauseParamsBillForOutstandingUsageThrough(TypedDict):
-    type: Literal["none", "now"]
+    type: Union[Literal["none", "now"], str]
     """
     When to bill metered usage in the current period.
     """
 
 
 class SubscriptionPauseParamsBillForUnusedTimeFrom(TypedDict):
-    type: Literal["item_current_period_start", "none", "now"]
+    type: Union[Literal["item_current_period_start", "none", "now"], str]
     """
     When to credit for unused time.
     """
