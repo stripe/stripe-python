@@ -11,6 +11,7 @@ from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
 from stripe._event_notification_handler import (
     StripeEventNotificationHandler,
+    StripeEventNotificationHandlerWithoutVerification,
     FallbackCallback,
 )
 from stripe._request_options import extract_options_from_dict
@@ -389,6 +390,19 @@ class StripeClient(object):
         """
         return StripeEventNotificationHandler(
             self, webhook_secret, fallback_callback
+        )
+
+    def notification_handler_without_verification(
+        self, fallback_callback: FallbackCallback
+    ) -> StripeEventNotificationHandlerWithoutVerification:
+        """
+        A variant of StripeEventNotificationHandler that parses events without
+        verifying webhook signatures. Intended for pre-authenticated channels
+        like AWS EventBridge, Azure Event Grid, or your own queue system that
+        verifies payloads before storage.
+        """
+        return StripeEventNotificationHandler.without_verification(
+            self, fallback_callback
         )
 
     # deprecated v1 services: The beginning of the section generated from our OpenAPI spec

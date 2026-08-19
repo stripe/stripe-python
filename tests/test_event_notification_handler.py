@@ -5,9 +5,10 @@ import pytest
 from typing import Optional
 from unittest.mock import Mock
 
-from stripe import StripeClient
+from stripe import SignatureVerificationError, StripeClient
 from stripe._event_notification_handler import (
     StripeEventNotificationHandler,
+    StripeEventNotificationHandlerWithoutVerification,
     UnhandledNotificationDetails,
 )
 from stripe._stripe_context import StripeContext
@@ -202,6 +203,21 @@ class TestEventNotificationHandler:
 
         sig_header = generate_header(payload=v1_billing_meter_payload)
         event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new event handlers after .handle\\(\\) has been called",
+        ):
+            event_handler.on_v2_core_account_created(Mock())
+
+    def test_failed_parse_still_prevents_registration(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Attempting to handle an event locks registration even if the parse fails"""
+        with pytest.raises(SignatureVerificationError):
+            event_handler.handle(v1_billing_meter_payload, "t=1,v1=not-a-sig")
 
         with pytest.raises(
             RuntimeError,
@@ -555,3 +571,259 @@ class TestEventNotificationHandler:
             return 4
 
         assert rand_int(None, None) == 4  # type: ignore
+
+    def test_rejects_empty_webhook_secret(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> None:
+        """Test that the constructor rejects an empty webhook secret"""
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            StripeEventNotificationHandler(
+                client=stripe_client,
+                webhook_secret="",
+                fallback_callback=fallback_callback,
+            )
+
+    def test_rejects_none_webhook_secret(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> None:
+        """Test that the constructor rejects a None webhook secret"""
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            StripeEventNotificationHandler(
+                client=stripe_client,
+                webhook_secret=None,  # type: ignore
+                fallback_callback=fallback_callback,
+            )
+
+
+class TestEventNotificationHandlerWithoutVerification:
+    @pytest.fixture(scope="function")
+    def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
+        return StripeClient(
+            api_key="sk_test_1234",
+            stripe_context=StripeContext.parse("original_context_123"),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+    @pytest.fixture(scope="function")
+    def fallback_callback(self) -> Mock:
+        return Mock()
+
+    @pytest.fixture(scope="function")
+    def handler_without_verification(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> StripeEventNotificationHandlerWithoutVerification:
+        return StripeEventNotificationHandler.without_verification(
+            client=stripe_client,
+            fallback_callback=fallback_callback,
+        )
+
+    @pytest.fixture(scope="function")
+    def v1_billing_meter_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.billing.meter.error_report_triggered",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_456",
+                "related_object": {
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
+                },
+            }
+        )
+
+    @pytest.fixture(scope="function")
+    def unknown_event_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_unknown",
+                "object": "v2.core.event",
+                "type": "llama.created",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_unknown",
+                "related_object": {
+                    "id": "llama_123",
+                    "type": "llama",
+                    "url": "/v1/llamas/llama_123",
+                },
+            }
+        )
+
+    def test_routes_event_to_registered_handler(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        handler.assert_called_once()
+        call_args = handler.call_args[0]
+        assert isinstance(
+            call_args[0], V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        fallback_callback.assert_not_called()
+
+    def test_handle_takes_single_argument(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+
+        # No signature needed - just the payload
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        handler.assert_called_once()
+
+    def test_fallback_receives_unregistered_events(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        fallback_callback.assert_called_once()
+        info = fallback_callback.call_args[0][2]
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is True
+
+    def test_unknown_event_has_is_known_event_type_false(
+        self,
+        handler_without_verification,
+        unknown_event_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        handler_without_verification.handle(unknown_event_payload)
+
+        fallback_callback.assert_called_once()
+        info = fallback_callback.call_args[0][2]
+        assert info.is_known_event_type is False
+
+    def test_context_propagation(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        received_context = None
+
+        def handler(event, client):
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        assert str(received_context) == "event_context_456"
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    def test_static_factory(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> None:
+        handler = StripeEventNotificationHandler.without_verification(
+            stripe_client, fallback_callback
+        )
+        assert isinstance(
+            handler, StripeEventNotificationHandlerWithoutVerification
+        )
+
+    def test_failed_parse_still_prevents_registration(
+        self,
+        handler_without_verification: StripeEventNotificationHandlerWithoutVerification,
+    ) -> None:
+        """Attempting to handle an event locks registration even if the parse fails"""
+        with pytest.raises(ValueError):
+            handler_without_verification.handle("not json")
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new event handlers after .handle\\(\\) has been called",
+        ):
+            handler_without_verification.on_v2_core_account_created(Mock())
+
+    def test_handlers_are_siblings_not_subclasses(self) -> None:
+        """
+        Neither handler is substitutable for the other, so neither should be a
+        subclass of the other. Each defines its own `handle` over a shared base.
+        """
+        assert not issubclass(
+            StripeEventNotificationHandler,
+            StripeEventNotificationHandlerWithoutVerification,
+        )
+        assert not issubclass(
+            StripeEventNotificationHandlerWithoutVerification,
+            StripeEventNotificationHandler,
+        )
+
+    def test_client_factory(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> None:
+        handler = stripe_client.notification_handler_without_verification(
+            fallback_callback
+        )
+        assert handler is not None
+        assert hasattr(handler, "handle")
+
+    def test_handles_cloud_provider_envelope(
+        self,
+        handler_without_verification,
+    ) -> None:
+        """Test that events wrapped in cloud provider envelopes are parsed correctly"""
+        inner_payload = {
+            "id": "evt_123",
+            "object": "v2.core.event",
+            "type": "v1.billing.meter.error_report_triggered",
+            "livemode": False,
+            "created": "2022-02-15T00:27:45.330Z",
+            "context": "event_context_456",
+            "related_object": {
+                "id": "mtr_123",
+                "type": "billing.meter",
+                "url": "/v1/billing/meters/mtr_123",
+            },
+        }
+        # AWS EventBridge envelope
+        eventbridge_payload = json.dumps(
+            {
+                "version": "0",
+                "id": "abc-123",
+                "source": "aws.partner/stripe.com/ed_xxx",
+                "detail-type": "event",
+                "detail": inner_payload,
+            }
+        )
+
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+        handler_without_verification.handle(eventbridge_payload)
+
+        handler.assert_called_once()
+        call_args = handler.call_args[0]
+        assert isinstance(
+            call_args[0], V1BillingMeterErrorReportTriggeredEventNotification
+        )

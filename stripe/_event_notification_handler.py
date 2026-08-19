@@ -1363,28 +1363,23 @@ This function is called when no other callback is registered for a given event n
 """
 
 
-class StripeEventNotificationHandler:
+class _BaseEventNotificationHandler:
+    """
+    Shared internal registration and dispatch machinery for the two user-facing event handlers.
+    """
+
     def __init__(
         self,
         client: "StripeClient",
-        webhook_secret: str,
         fallback_callback: FallbackCallback,
     ) -> None:
         self._registered_handlers = {}
         self._client = client
-        self._webhook_secret = webhook_secret
         self.fallback_callback = fallback_callback
         # once this is true, adding additional handlers results in an error
         self._has_handled_events = False
 
-    def handle(self, webhook_body: str, sig_header: str):
-        # isn't thread-safe, but we expect these to get registered synchronously at startup
-        self._has_handled_events = True
-
-        event_notif = self._client.parse_event_notification(
-            webhook_body, sig_header, self._webhook_secret
-        )
-
+    def _dispatch(self, event_notif: "EventNotification"):
         # Create a new client with the event's context.
         # This is thread-safe since we're not modifying the original client.
         # The new client reuses the HTTP client to avoid TLS handshake overhead.
@@ -7165,3 +7160,62 @@ class StripeEventNotificationHandler:
         return func
 
     # event-notification-registration-methods: The end of the section generated from our OpenAPI spec
+
+
+class StripeEventNotificationHandler(_BaseEventNotificationHandler):
+    """
+    An on-rails experience for handling Stripe event notifications. Define callbacks for individual event types and an instance of this class will be responsible for verifying and routing the event.
+    """
+
+    def __init__(
+        self,
+        client: "StripeClient",
+        webhook_secret: str,
+        fallback_callback: FallbackCallback,
+    ) -> None:
+        super().__init__(client, fallback_callback)
+        if not webhook_secret:
+            raise ValueError("webhook_secret must be a non-empty string")
+        self._webhook_secret = webhook_secret
+
+    def handle(self, webhook_body: str, sig_header: str):
+        # set before parsing, so that even a failed parse locks out registration.
+        # modification isn't thread-safe, but we expect callbacks to get registered synchronously at startup
+        # making a race condition here unlikely
+        self._has_handled_events = True
+
+        event_notif = self._client.parse_event_notification(
+            webhook_body, sig_header, self._webhook_secret
+        )
+
+        self._dispatch(event_notif)
+
+    @staticmethod
+    def without_verification(
+        client: "StripeClient",
+        fallback_callback: FallbackCallback,
+    ) -> "StripeEventNotificationHandlerWithoutVerification":
+        return StripeEventNotificationHandlerWithoutVerification(
+            client, fallback_callback
+        )
+
+
+class StripeEventNotificationHandlerWithoutVerification(
+    _BaseEventNotificationHandler
+):
+    """
+    A variant of StripeEventNotificationHandler that parses events without verifying webhook signatures. Intended for pre-authenticated channels like AWS EventBridge, Azure Event Grid, or your own pre-authenticated queuing system.
+
+    Prefer `StripeEventNotificationHandler.without_verification()` or `client.notification_handler_without_verification()` instead of constructing it directly.
+    """
+
+    def handle(self, webhook_body: str):
+        self._has_handled_events = True
+
+        event_notif = (
+            self._client.parse_event_notification_without_verification(
+                webhook_body
+            )
+        )
+
+        self._dispatch(event_notif)

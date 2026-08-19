@@ -34,9 +34,17 @@ def fallback_callback(
 client = StripeClient(api_key)
 handler = client.notification_handler(webhook_secret, fallback_callback)
 
+# Handles events delivered through a channel that has already authenticated them, such as
+# AWS EventBridge or Azure Event Grid. Those payloads carry no Stripe-Signature header.
+unverified_handler = client.notification_handler_without_verification(
+    fallback_callback
+)
 
-# can be anywhere in your codebase
+
+# can be anywhere in your codebase; registering on both handlers means either
+# endpoint below will route this event type
 @handler.on_v1_billing_meter_error_report_triggered
+@unverified_handler.on_v1_billing_meter_error_report_triggered
 def handle_meter_error(
     notif: V1BillingMeterErrorReportTriggeredEventNotification,
     client: StripeClient,
@@ -52,6 +60,16 @@ def webhook():
 
     try:
         handler.handle(webhook_body, sig_header)
+        return jsonify(success=True), 200
+    except Exception as e:
+        return jsonify(error=str(e)), 500
+
+
+@app.route("/webhook-from-cloud-provider", methods=["POST"])
+def webhook_from_cloud_provider():
+    # no signature header to pass along; the channel already authenticated this event
+    try:
+        unverified_handler.handle(request.data)
         return jsonify(success=True), 200
     except Exception as e:
         return jsonify(error=str(e)), 500
