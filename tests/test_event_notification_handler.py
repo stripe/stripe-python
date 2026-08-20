@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# File copied from our code generator; changes here will be overwritten.
 import json
 import pytest
 from typing import Optional

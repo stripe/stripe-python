@@ -69,6 +69,41 @@ customer = client.v1.customers.retrieve("cus_123456789")
 print(customer.email)
 ```
 
+### Working with API resources
+
+Every API resource is a subclass of `StripeObject`. It is **not** a `dict`, even though printing one shows a dict-like representation. Having our own class means property names (like `subscription.items`) never collide with builtin methods.
+
+You can access properties in a variety of ways:
+
+```python
+customer = client.v1.customers.retrieve("cus_123456789")
+
+customer.email                      # attribute access
+customer["email"]                   # subscript access
+"email" in customer                 # membership
+getattr(customer, "discount", None) # tolerate a field that may be absent
+```
+
+Though `StripeObject` is not a `dict`, there are helper methods to let you do operations you'd commonly do with a `dict`. Say you have the following (example) object:
+
+```py
+obj = Customer(id='cus_123', subscription=Subscription(id='sub_456', amount=Decimal('7.89'))
+```
+
+Here's how to accomplish each of these use cases:
+
+| Use Case                                                                             | Method                         | Result                                                                                  |
+| ------------------------------------------------------------------------------------ | ------------------------------ | --------------------------------------------------------------------------------------- |
+| Recursively iterate over a `StripeObject` where are values are native Python classes | `obj.to_dict()`                | `{"id": "cus_123", "subscription": {"id": "sub_456", 'amount': Decimal('7.89')}}`       |
+| Iterate over the top-level of a `StripeObject`                                       | `obj.to_dict(recursive=False)` | `{"id": "cus_123", "subscription": Subscription(id="sub_456", amount=Decimal("7.89"))}` |
+| Get a plain `dict` where all values (in the entire tree) are JSON-serializable       | `obj.to_dict(for_json=True)`   | `{"id": "cus_123", "subscription": {"id": "sub_456", "amount": "7.89"}}`                |
+| Dump the object to a json string                                                     | `str(obj)`                     | `'{"id": "cus_123", "subscription": {"id": "sub_456", "amount": "7.89"}}'`              |
+
+In each case, `.to_dict()` **returns a copy** of the original object, so changes to the dict are not reflected in `obj`.
+
+> [!NOTE]
+> See the [original migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15#stripeobject-no-longer-inherits-from-dict), [RFC](https://github.com/stripe/stripe-python/issues/1454), and [PR](https://github.com/stripe/stripe-python/pull/1762) for more information.
+
 ### StripeClient vs legacy pattern
 
 We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](<https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)>) to move from the legacy pattern.

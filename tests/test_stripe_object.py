@@ -723,6 +723,74 @@ class TestStripeObject(object):
         )
         assert isinstance(obj.items, stripe.ListObject)
 
+    @pytest.fixture
+    def session(self):
+        return stripe.checkout.Session.construct_from(
+            {
+                "id": "cs_1",
+                "object": "checkout.session",
+                "metadata": {"a": "1"},
+            },
+            "key",
+        )
+
+    def test_dict_conversion_raises_type_error(self, session):
+        with pytest.raises(TypeError) as e:
+            dict(session.metadata)
+        assert "not iterable or a mapping" in str(e.value)
+        assert "to_dict()" in str(e.value)
+
+    def test_list_conversion_raises_type_error(self, session):
+        with pytest.raises(TypeError, match="not iterable or a mapping"):
+            list(session.metadata)
+
+    def test_iteration_raises_type_error(self, session):
+        with pytest.raises(TypeError, match="not iterable or a mapping"):
+            for _ in session.metadata:
+                pass
+
+    def test_iteration_error_names_the_subclass(self, session):
+        with pytest.raises(TypeError, match="^Session is not iterable"):
+            iter(session)
+
+    @pytest.mark.parametrize(
+        "name", ["get", "keys", "values", "items", "pop", "setdefault"]
+    )
+    def test_dict_methods_get_a_helpful_attribute_error(self, session, name):
+        with pytest.raises(AttributeError) as e:
+            getattr(session.metadata, name)
+        assert f"'{name}' is a dict method" in str(e.value)
+        assert "to_dict()" in str(e.value)
+
+    def test_dict_method_hint_remains_an_attribute_error(self, session):
+        """
+        hasattr() and getattr() with a default must keep working, which they
+        only do for AttributeError (not TypeError).
+        """
+        assert not hasattr(session.metadata, "get")
+        assert getattr(session.metadata, "get", None) is None
+
+    def test_field_named_like_dict_method_still_wins(self):
+        obj = StripeObject.construct_from(
+            {"get": "a", "keys": "b", "values": "c", "pop": "d"}, "key"
+        )
+        assert obj.get == "a"
+        assert obj.keys == "b"
+        assert obj.values == "c"
+        assert obj.pop == "d"
+
+    def test_list_object_is_still_iterable(self):
+        obj = StripeObject.construct_from(
+            {
+                "id": "sub_123",
+                "object": "subscription",
+                "items": {"object": "list", "data": [{"id": "si_123"}]},
+            },
+            "key",
+        )
+        assert [item.id for item in obj.items] == ["si_123"]
+        assert len(obj.items) == 1
+
     def test_to_dict(self):
         obj = StripeObject.construct_from(
             {"id": "foo", "name": "bar"},
