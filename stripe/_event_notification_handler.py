@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from typing_extensions import TYPE_CHECKING
 
-from typing import TypeVar, Callable, List
+from typing import TypeVar, Callable, List, Optional
 
 # Import at runtime for isinstance check and type annotations
 from stripe.v2.core._event import EventNotification, UnknownEventNotification
@@ -110,6 +110,8 @@ FallbackCallback = Callable[
 This function is called when no other callback is registered for a given event notification type.
 """
 
+PreHandleCallback = Callable[[EventNotification, "StripeClient"], bool]
+
 
 class _BaseEventNotificationHandler:
     """
@@ -126,6 +128,28 @@ class _BaseEventNotificationHandler:
         self.fallback_callback = fallback_callback
         # once this is true, adding additional handlers results in an error
         self._has_handled_events = False
+        self._pre_handle_callback: Optional[PreHandleCallback] = None
+
+    def _assert_can_register(self) -> None:
+        """
+        Callbacks are expected to be registered once at startup, so registering
+        anything after handling has begun indicates a bug.
+        """
+        if self._has_handled_events:
+            raise RuntimeError(
+                "Cannot register new callbacks after an event has been handled. This is indicative of a bug."
+            )
+
+    def pre_handle(self, func: PreHandleCallback) -> PreHandleCallback:
+        """
+        This function is called after `.handle()` has parsed the event notification but before any other callback has been called. Returning `True` allows handling to continue as normal; returning `False` stops handling immediately, so neither the registered handler nor the fallback callback will be called.
+        """
+        self._assert_can_register()
+        if self._pre_handle_callback:
+            raise ValueError("A pre_handle callback is already registered")
+
+        self._pre_handle_callback = func
+        return func
 
     def _dispatch(self, event_notif: "EventNotification"):
         # Create a new client with the event's context.
@@ -134,6 +158,11 @@ class _BaseEventNotificationHandler:
         client_with_event_context = self._client.with_stripe_context(
             event_notif.context
         )
+
+        if self._pre_handle_callback and not self._pre_handle_callback(
+            event_notif, client_with_event_context
+        ):
+            return
 
         if event_notif.type in self._registered_handlers:
             self._registered_handlers[event_notif.type](
@@ -155,13 +184,10 @@ class _BaseEventNotificationHandler:
         event_type: str,
         func: "Callable[[EventNotificationChild, StripeClient], None]",
     ) -> None:
-        if self._has_handled_events:
-            raise RuntimeError(
-                "Cannot register new event handlers after .handle() has been called. This is indicative of a bug."
-            )
+        self._assert_can_register()
         if event_type in self._registered_handlers:
             raise ValueError(
-                f'Handler for event type "{event_type}" already registered.'
+                f'Callback for event type "{event_type}" is already registered'
             )
 
         self._registered_handlers[event_type] = func
