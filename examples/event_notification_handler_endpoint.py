@@ -49,9 +49,9 @@ unverified_handler = client.notification_handler_without_verification(
 @unverified_handler.pre_handle
 def deduplicate_events(notif: EventNotification, client: StripeClient) -> bool:
     """
-    Runs before any registered handler or fallback callback. Returning False
+    Runs before any registered callback. Returning False
     here skips handling entirely for this delivery, which is useful for
-    deduplicating retried webhooks.
+    deduplicating webhooks.
     """
     if notif.id in processed_event_ids:
         print(f"Already processed {notif.id}, skipping.")

@@ -142,7 +142,9 @@ class _BaseEventNotificationHandler:
 
     def pre_handle(self, func: PreHandleCallback) -> PreHandleCallback:
         """
-        This function is called after `.handle()` has parsed the event notification but before any other callback has been called. Returning `True` allows handling to continue as normal; returning `False` stops handling immediately, so neither the registered handler nor the fallback callback will be called.
+        Registers a function that will be run before any event-specific callbacks. A useful place to store event-agnostic logic, such as logging or checking for [duplicate event deliveries](https://docs.stripe.com/webhooks#handle-duplicate-events).
+
+        Returning `True` causes handling to continue as normal; returning `False` returns from `.handle()` immediately, so neither the registered callback nor the fallback callback are called.
         """
         self._assert_can_register()
         if self._pre_handle_callback:
