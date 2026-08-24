@@ -204,7 +204,7 @@ class TestEventNotificationHandler:
 
         with pytest.raises(
             RuntimeError,
-            match="Cannot register new event handlers after .handle\\(\\) has been called",
+            match="Cannot register new callbacks after an event has been handled",
         ):
             event_handler.on_v2_core_account_created(Mock())
 
@@ -219,7 +219,7 @@ class TestEventNotificationHandler:
 
         with pytest.raises(
             RuntimeError,
-            match="Cannot register new event handlers after .handle\\(\\) has been called",
+            match="Cannot register new callbacks after an event has been handled",
         ):
             event_handler.on_v2_core_account_created(Mock())
 
@@ -234,7 +234,7 @@ class TestEventNotificationHandler:
 
         with pytest.raises(
             ValueError,
-            match='Handler for event type "v1.billing.meter.error_report_triggered" already registered',
+            match='Callback for event type "v1.billing.meter.error_report_triggered" is already registered',
         ):
             event_handler.on_v1_billing_meter_error_report_triggered(handler2)
 
@@ -596,6 +596,165 @@ class TestEventNotificationHandler:
                 fallback_callback=fallback_callback,
             )
 
+    def test_no_pre_handle_hook_registered_handler_still_runs(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Regression: with no pre_handle hook registered, behavior is unchanged"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_called_once()
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_returning_true_runs_before_handler(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """A pre_handle hook that returns True runs first, then the handler runs"""
+        call_order: list[str] = []
+
+        @event_handler.pre_handle
+        def pre_handle(event, client) -> bool:
+            call_order.append("pre_handle")
+            return True
+
+        @event_handler.on_v1_billing_meter_error_report_triggered
+        def handler(event, client) -> None:
+            call_order.append("handler")
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert call_order == ["pre_handle", "handler"]
+
+    def test_pre_handle_returning_false_skips_registered_handler(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook that returns False prevents the registered handler from running"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+        event_handler.pre_handle(lambda event, client: False)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_not_called()
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_returning_false_skips_fallback_for_unregistered_event(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook that returns False also prevents the fallback callback
+        from running for an unregistered (or unknown) event type"""
+        event_handler.pre_handle(lambda event, client: False)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_receives_context_scoped_client(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        """The client passed to pre_handle has the event's context, and the
+        handler's own client is left unmutated"""
+        received_context: Optional[StripeContext | str] = None
+
+        @event_handler.pre_handle
+        def pre_handle(event, client) -> bool:
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+            return True
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert str(received_context) == "event_context_456"
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    def test_pre_handle_raising_propagates_and_prevents_callbacks(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """An exception raised from pre_handle propagates out of handle() and
+        no callback runs"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        def pre_handle(event, client) -> bool:
+            raise RuntimeError("pre_handle blew up!")
+
+        event_handler.pre_handle(pre_handle)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        with pytest.raises(RuntimeError, match="pre_handle blew up!"):
+            event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_not_called()
+        fallback_callback.assert_not_called()
+
+    def test_cannot_register_pre_handle_after_handling(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Registering pre_handle after .handle() has been called raises RuntimeError"""
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new callbacks after an event has been handled",
+        ):
+            event_handler.pre_handle(lambda event, client: True)
+
+    def test_cannot_register_duplicate_pre_handle(
+        self, event_handler: StripeEventNotificationHandler
+    ) -> None:
+        """Registering a second pre_handle hook raises ValueError"""
+        event_handler.pre_handle(lambda event, client: True)
+
+        with pytest.raises(
+            ValueError, match="A pre_handle callback is already registered"
+        ):
+            event_handler.pre_handle(lambda event, client: True)
+
+    def test_pre_handle_works_as_a_decorator(
+        self, event_handler: StripeEventNotificationHandler
+    ):
+        @event_handler.pre_handle  # type: ignore
+        def rand_int(notif, client):
+            """cool docstring"""
+            return 4
+
+        assert rand_int(None, None) == 4  # type: ignore
+
 
 class TestEventNotificationHandlerWithoutVerification:
     @pytest.fixture(scope="function")
@@ -758,7 +917,7 @@ class TestEventNotificationHandlerWithoutVerification:
 
         with pytest.raises(
             RuntimeError,
-            match="Cannot register new event handlers after .handle\\(\\) has been called",
+            match="Cannot register new callbacks after an event has been handled",
         ):
             handler_without_verification.on_v2_core_account_created(Mock())
 
@@ -825,3 +984,36 @@ class TestEventNotificationHandlerWithoutVerification:
         assert isinstance(
             call_args[0], V1BillingMeterErrorReportTriggeredEventNotification
         )
+
+    def test_pre_handle_gates_registered_handler(
+        self,
+        handler_without_verification: StripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook returning False also gates the without-verification
+        handler, preventing the registered handler from running"""
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+        handler_without_verification.pre_handle(lambda event, client: False)
+
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        handler.assert_not_called()
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_gates_fallback(
+        self,
+        handler_without_verification: StripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook returning False also prevents the fallback
+        callback from running on the without-verification handler"""
+        handler_without_verification.pre_handle(lambda event, client: False)
+
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        fallback_callback.assert_not_called()

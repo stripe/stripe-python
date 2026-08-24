@@ -5,6 +5,7 @@ In this example, we:
     - write a fallback callback to handle unrecognized event notifications
     - create a StripeClient called client
     - Initialize an EventNotificationHandler with the client, webhook secret, and fallback callback
+    - register a pre_handle hook that deduplicates events by id before any callback runs
     - register a specific handler for the "v1.billing.meter.error_report_triggered" event notification type
     - use handler.handle() to process the received notification webhook body
 """
@@ -19,6 +20,11 @@ from stripe.events import V1BillingMeterErrorReportTriggeredEventNotification
 app = Flask(__name__)
 api_key = os.environ.get("STRIPE_API_KEY", "")
 webhook_secret = os.environ.get("WEBHOOK_SECRET", "")
+
+# Webhooks can be delivered more than once, so we track ids we've already
+# processed. In production, back this with something durable and shared
+# across processes (e.g. Redis or a database table) instead of an in-memory set.
+processed_event_ids: set[str] = set()
 
 
 def fallback_callback(
@@ -37,6 +43,22 @@ handler = client.notification_handler(webhook_secret, fallback_callback)
 unverified_handler = client.notification_handler_without_verification(
     fallback_callback
 )
+
+
+@handler.pre_handle
+@unverified_handler.pre_handle
+def deduplicate_events(notif: EventNotification, client: StripeClient) -> bool:
+    """
+    Runs before any registered callback. Returning False
+    here skips handling entirely for this delivery, which is useful for
+    deduplicating webhooks.
+    """
+    if notif.id in processed_event_ids:
+        print(f"Already processed {notif.id}, skipping.")
+        return False
+
+    processed_event_ids.add(notif.id)
+    return True
 
 
 # can be anywhere in your codebase; registering on both handlers means either
