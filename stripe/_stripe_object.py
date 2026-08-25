@@ -367,7 +367,9 @@ class StripeObject:
         for k, v in values.items():
             # Apply field encoding coercion (e.g. int64_string: str → int)
             v = self._coerce_field_value(k, v)
-            inner_class = self._get_inner_class_type(k)
+            inner_class = self._get_union_variant_class(
+                k, v
+            ) or self._get_inner_class_type(k)
             is_dict = self._get_inner_class_is_beneath_dict(k)
             if is_dict:
                 obj = {
@@ -636,10 +638,40 @@ class StripeObject:
     _inner_class_dicts: ClassVar[List[str]] = []
     _field_encodings: ClassVar[Dict[str, str]] = {}
 
+    # Maps a discriminated-union field to (discriminator, {value: class}). Generated
+    # subclasses override this; every other object keeps the empty default so the
+    # lookup in _update_attributes stays cheap.
+    _inner_class_union_variant_types: ClassVar[
+        Dict[str, Tuple[str, Dict[str, Type["StripeObject"]]]]
+    ] = {}
+
     def _get_inner_class_type(
         self, field_name: str
     ) -> Optional[Type["StripeObject"]]:
         return self._inner_class_types.get(field_name)
+
+    def _get_union_variant_class(
+        self, field_name: str, value: Any
+    ) -> Optional[Type["StripeObject"]]:
+        """
+        Returns the variant class that a discriminated union field's value should
+        become, based on the discriminator carried in the value itself.
+
+        Returns None rather than raising when the discriminator is absent, is not a
+        string, or names a variant this version of the SDK does not know about. The
+        caller then converts without a class, so a variant the API adds after this
+        release still deserializes instead of blowing up.
+        """
+        union = self._inner_class_union_variant_types.get(field_name)
+        if union is None or not isinstance(value, dict):
+            return None
+
+        discriminator, variants = union
+        discriminator_value = cast(Dict[str, Any], value).get(discriminator)
+        if not isinstance(discriminator_value, str):
+            return None
+
+        return variants.get(discriminator_value)
 
     def _get_inner_class_is_beneath_dict(self, field_name: str):
         return field_name in self._inner_class_dicts

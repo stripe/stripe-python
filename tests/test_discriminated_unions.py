@@ -1,295 +1,309 @@
 """
 Tests for discriminated union runtime behavior.
 
-Validates that the generated TypedDict param shapes and StripeObject responses
-work correctly at runtime (dict construction, field access, round-trip).
-Static type narrowing (Literal discriminators, Union resolution) is verified
-separately by pyright/mypy — this file exercises runtime semantics only.
+A discriminated union field arrives as a plain JSON object, and the SDK has to
+pick the variant class out of the discriminator carried inside that object. The
+fixtures below mirror what codegen emits for the fake spec's `test.llama`
+resource, including the part that makes dispatch *observable*: the two color
+variants declare different `_field_encodings`, so identical wire bytes hydrate
+differently based only on the discriminator. Without dispatch the value becomes
+a bare StripeObject carrying no encodings, and every coercion assertion here
+fails.
 
-Covers both sides of the API boundary:
-- Request side: TypedDict params with Literal discriminator fields
-- Response side: StripeObject deserialization from JSON with a discriminator
-
-Two structural patterns are tested:
-- Standalone union: the discriminated union is its own type (e.g. ColorParams)
-- Inline union: the discriminator lives at the parent object level (e.g. shape.type)
+Static type narrowing (Literal discriminators, Union resolution) is checked by
+pyright, not here.
 """
 
-from typing import Optional, Union
+from decimal import Decimal
+from typing import Any, Dict, Optional, Union
 
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import Literal
 
-from stripe._encode import _api_encode
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_object import StripeObject
 
 
 # ---------------------------------------------------------------------------
-# Standalone discriminated union — TypedDict variants
+# Fixtures — shaped the way codegen emits them
 # ---------------------------------------------------------------------------
 
 
-class RgbColorParams(TypedDict):
+class RgbColor(StripeObject):
+    luminance: Optional[int]
     model: Literal["rgb"]
-    r: int
-    g: NotRequired[int]
-    b: NotRequired[int]
+    _field_encodings = {"luminance": "int64_string"}
 
 
-class HsvColorParams(TypedDict):
+class HsvColor(StripeObject):
     model: Literal["hsv"]
-    h: int
-    s: NotRequired[int]
-    v: NotRequired[int]
+    saturation_precision: Optional[Decimal]
+    _field_encodings = {"saturation_precision": "decimal_string"}
 
 
-ColorParams = Union[RgbColorParams, HsvColorParams]
+class HslColor(StripeObject):
+    model: Literal["hsl"]
 
 
-# ---------------------------------------------------------------------------
-# Inline discriminated union — flattened onto parent TypedDict
-# ---------------------------------------------------------------------------
+class MagicLlama(StripeObject):
+    mana_cost: Optional[int]
+    _field_encodings = {"mana_cost": "int64_string"}
 
 
-class CardData(TypedDict):
-    number: str
-    exp_month: NotRequired[int]
+class Llama(StripeObject):
+    """
+    Carries both union shapes the generator produces: a standalone `color`
+    union whose variants are separate classes, and an inline `magic_llama`
+    union whose discriminator lives on the parent and whose payload is a
+    plain inner class.
+    """
+
+    color: Union[RgbColor, HsvColor, HslColor]
+    magic_llama: Optional[MagicLlama]
+    name: str
+    type: Literal["earth_llama", "magic_llama"]
+    _inner_class_types = {"magic_llama": MagicLlama}
+    _inner_class_union_variant_types = {
+        "color": (
+            "model",
+            {"rgb": RgbColor, "hsv": HsvColor, "hsl": HslColor},
+        ),
+    }
 
 
-class BankData(TypedDict):
-    routing_number: str
-    account_number: NotRequired[str]
+def _llama(**values: Any) -> Llama:
+    return Llama.construct_from(
+        {"name": "kuzco", **values}, key="sk_test", api_mode="V2"
+    )
 
 
-# Inline union: discriminator + per-variant nullable payload fields on one parent TypedDict
-class PaymentParams(TypedDict):
-    amount: int
-    type: NotRequired[str]
-    card: NotRequired[CardData]
-    bank: NotRequired[BankData]
-
-
-# ---------------------------------------------------------------------------
-# Request-side: standalone discriminated union
-# ---------------------------------------------------------------------------
-
-
-class TestStandaloneUnionRequestSide:
-    """Standalone DU params encode through _api_encode with bracket notation."""
-
-    def test_rgb_variant_encodes_discriminator(self):
-        params: RgbColorParams = {"model": "rgb", "r": 255, "g": 128, "b": 0}
-        encoded = dict(_api_encode({"color": params}))
-        assert encoded["color[model]"] == "rgb"
-
-    def test_rgb_variant_encodes_payload_fields(self):
-        params: RgbColorParams = {"model": "rgb", "r": 255, "g": 128, "b": 0}
-        encoded = dict(_api_encode({"color": params}))
-        assert encoded["color[r]"] == 255
-        assert encoded["color[g]"] == 128
-        assert encoded["color[b]"] == 0
-
-    def test_hsv_variant_encodes_discriminator(self):
-        params: HsvColorParams = {"model": "hsv", "h": 180, "s": 100, "v": 50}
-        encoded = dict(_api_encode({"color": params}))
-        assert encoded["color[model]"] == "hsv"
-
-    def test_hsv_variant_encodes_payload_fields(self):
-        params: HsvColorParams = {"model": "hsv", "h": 180, "s": 100, "v": 50}
-        encoded = dict(_api_encode({"color": params}))
-        assert encoded["color[h]"] == 180
-        assert encoded["color[s]"] == 100
-        assert encoded["color[v]"] == 50
-
-    def test_optional_fields_omitted_when_absent(self):
-        """None values are skipped by _api_encode."""
-        params: RgbColorParams = {"model": "rgb", "r": 255}
-        encoded = dict(_api_encode({"color": params}))
-        assert encoded["color[model]"] == "rgb"
-        assert encoded["color[r]"] == 255
-        assert "color[g]" not in encoded
-        assert "color[b]" not in encoded
-
-    def test_union_type_rgb_encodes_correctly(self):
-        params: ColorParams = {"model": "rgb", "r": 255, "g": 0, "b": 0}
-        encoded = dict(_api_encode({"color": params}))
-        assert encoded["color[model]"] == "rgb"
-        assert encoded["color[r]"] == 255
+# Copied from the generated `LlamaService.create` call site. The generator
+# flattens every variant's fields into one map keyed by field name, so this
+# single schema covers both `luminance` (rgb) and `saturation_precision` (hsv).
+_COLOR_REQUEST_SCHEMA: Dict[str, Any] = {
+    "color": {
+        "luminance": "int64_string",
+        "saturation_precision": "decimal_string",
+    },
+}
 
 
 # ---------------------------------------------------------------------------
-# Request-side: inline discriminated union (discriminator at parent level)
+# Response side — variant dispatch
 # ---------------------------------------------------------------------------
 
 
-class TestInlineUnionRequestSide:
-    """Inline DU params encode with discriminator at top level and nested variant payloads."""
+class TestVariantDispatch:
+    """The discriminator selects the variant class, not the base."""
 
-    def test_card_variant_encodes_discriminator_at_top_level(self):
-        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242424242424242"}}
-        encoded = dict(_api_encode(params))
-        assert encoded["type"] == "card"
+    def test_dispatches_to_the_rgb_variant(self):
+        llama = _llama(color={"model": "rgb", "luminance": "1500"})
+        assert isinstance(llama.color, RgbColor)
 
-    def test_card_variant_encodes_nested_payload(self):
-        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242424242424242", "exp_month": 12}}
-        encoded = dict(_api_encode(params))
-        assert encoded["card[number]"] == "4242424242424242"
-        assert encoded["card[exp_month]"] == 12
+    def test_dispatches_to_the_hsv_variant(self):
+        llama = _llama(color={"model": "hsv", "saturation_precision": "0.125"})
+        assert isinstance(llama.color, HsvColor)
 
-    def test_card_variant_encodes_base_fields(self):
-        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242"}}
-        encoded = dict(_api_encode(params))
-        assert encoded["amount"] == 1000
+    def test_dispatches_to_a_variant_with_no_payload_fields(self):
+        llama = _llama(color={"model": "hsl"})
+        assert isinstance(llama.color, HslColor)
+        assert llama.color.model == "hsl"
 
-    def test_bank_variant_encodes_correctly(self):
-        params: PaymentParams = {"amount": 500, "type": "bank", "bank": {"routing_number": "110000000", "account_number": "000123456789"}}
-        encoded = dict(_api_encode(params))
-        assert encoded["type"] == "bank"
-        assert encoded["bank[routing_number]"] == "110000000"
-        assert encoded["bank[account_number]"] == "000123456789"
+    def test_the_variants_int64_encoding_applies(self):
+        llama = _llama(color={"model": "rgb", "luminance": "1500"})
+        assert llama.color.luminance == 1500
+        assert isinstance(llama.color.luminance, int)
 
-    def test_non_selected_variant_not_encoded(self):
-        """When card is selected, bank keys do not appear in encoded output."""
-        params: PaymentParams = {"amount": 1000, "type": "card", "card": {"number": "4242"}}
-        encoded = dict(_api_encode(params))
-        assert "bank[routing_number]" not in encoded
-        assert "bank[account_number]" not in encoded
+    def test_the_variants_decimal_encoding_applies(self):
+        llama = _llama(color={"model": "hsv", "saturation_precision": "0.125"})
+        assert llama.color.saturation_precision == Decimal("0.125")
+        assert isinstance(llama.color.saturation_precision, Decimal)
 
-    def test_optional_nested_fields_omitted(self):
-        params: PaymentParams = {"amount": 100, "type": "card", "card": {"number": "4242"}}
-        encoded = dict(_api_encode(params))
-        assert "card[exp_month]" not in encoded
+    def test_only_the_discriminator_decides_which_field_coerces(self):
+        """
+        The sharpest statement of what dispatch buys: two payloads differing
+        in nothing but the discriminator coerce different fields, because each
+        variant class knows only its own encodings.
+        """
+        payload = {"luminance": "1500", "saturation_precision": "0.125"}
 
+        as_rgb = _llama(color={"model": "rgb", **payload}).color
+        assert as_rgb.luminance == 1500
+        assert as_rgb.saturation_precision == "0.125"
 
-# ---------------------------------------------------------------------------
-# Response-side: StripeObject deserialization
-# ---------------------------------------------------------------------------
+        as_hsv = _llama(color={"model": "hsv", **payload}).color
+        assert as_hsv.luminance == "1500"
+        assert as_hsv.saturation_precision == Decimal("0.125")
 
-
-class TestStandaloneUnionResponseDeserialization:
-    """JSON payloads with a discriminator field deserialize via StripeObject."""
-
-    def test_rgb_response_discriminator_accessible(self):
-        json_data = {"model": "rgb", "r": 255, "g": 128, "b": 0}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.model == "rgb"
-
-    def test_rgb_response_payload_fields_accessible(self):
-        json_data = {"model": "rgb", "r": 255, "g": 128, "b": 0}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.r == 255
-        assert obj.g == 128
-        assert obj.b == 0
-
-    def test_hsv_response_discriminator_accessible(self):
-        json_data = {"model": "hsv", "h": 180, "s": 75, "v": 90}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.model == "hsv"
-
-    def test_hsv_response_payload_fields_accessible(self):
-        json_data = {"model": "hsv", "h": 180, "s": 75, "v": 90}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.h == 180
-        assert obj.s == 75
-        assert obj.v == 90
-
-    def test_response_discriminator_in_dict_output(self):
-        """to_dict() must include the discriminator field."""
-        json_data = {"model": "rgb", "r": 64, "g": 64, "b": 64}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        d = obj.to_dict()
-        assert "model" in d
-        assert d["model"] == "rgb"
-
-    def test_response_bracket_access(self):
-        """Discriminator and payload fields are accessible via bracket notation."""
-        json_data = {"model": "rgb", "r": 10}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj["model"] == "rgb"
-        assert obj["r"] == 10
-
-    def test_rgb_minimal_response(self):
-        """Only the discriminator and one required field is sufficient."""
-        json_data = {"model": "rgb", "r": 255}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.model == "rgb"
-        assert obj.r == 255
-
-
-class TestInlineUnionResponseDeserialization:
-    """JSON with the discriminator at the parent level and variant data nested."""
-
-    def test_card_discriminator_accessible(self):
-        json_data = {"type": "card", "card": {"number": "4242424242424242", "exp_month": 12}, "amount": 1000}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.type == "card"
-
-    def test_card_payload_is_stripe_object(self):
-        json_data = {"type": "card", "card": {"number": "4242424242424242", "exp_month": 12}, "amount": 1000}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.card.number == "4242424242424242"
-        assert obj.card.exp_month == 12
-
-    def test_bank_discriminator_accessible(self):
-        json_data = {"type": "bank", "bank": {"routing_number": "110000000", "account_number": "000123456789"}, "amount": 500}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.type == "bank"
-
-    def test_bank_payload_is_stripe_object(self):
-        json_data = {"type": "bank", "bank": {"routing_number": "110000000", "account_number": "000123456789"}, "amount": 500}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.bank.routing_number == "110000000"
-        assert obj.bank.account_number == "000123456789"
-
-    def test_non_selected_variant_absent(self):
-        json_data = {"type": "card", "card": {"number": "4242"}, "amount": 100}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        assert obj.type == "card"
-        assert not hasattr(obj, "bank") or obj.get("bank") is None
-
-    def test_inline_discriminator_in_dict_output(self):
-        json_data = {"type": "card", "card": {"number": "4242"}, "amount": 100}
-        obj = StripeObject.construct_from(json_data, key="sk_test_xxx")
-        d = obj.to_dict()
-        assert d["type"] == "card"
-        assert d["card"]["number"] == "4242"
+    def test_the_discriminator_itself_is_readable_on_the_variant(self):
+        llama = _llama(color={"model": "rgb", "luminance": "1"})
+        assert llama.color.model == "rgb"
+        assert llama.color["model"] == "rgb"
 
 
 # ---------------------------------------------------------------------------
-# Serialization round-trip
+# Response side — fallback
 # ---------------------------------------------------------------------------
 
 
-class TestDiscriminatedUnionSerializationRoundTrip:
-    """Full pipeline: params encode via _api_encode, responses deserialize via construct_from."""
+class TestUnknownVariantFallback:
+    """
+    A variant the API adds after this release must still deserialize. The
+    fallback is a plain StripeObject: readable, but with no encodings, since
+    the SDK has no idea what the new variant's fields mean.
+    """
 
-    def test_standalone_params_encode_round_trip(self):
-        params: RgbColorParams = {"model": "rgb", "r": 200, "g": 100, "b": 50}
-        encoded = dict(_api_encode({"color": params}))
-        assert encoded["color[model]"] == "rgb"
-        assert encoded["color[r]"] == 200
-        assert encoded["color[g]"] == 100
-        assert encoded["color[b]"] == 50
+    def test_an_unknown_discriminator_falls_back(self):
+        llama = _llama(color={"model": "cmyk", "cyan": "1"})
+        assert type(llama.color) is StripeObject
+        assert llama.color.model == "cmyk"
+        assert llama.color.cyan == "1"
 
-    def test_inline_params_encode_round_trip(self):
-        params: PaymentParams = {"amount": 100, "type": "card", "card": {"number": "4242"}}
-        encoded = dict(_api_encode(params))
-        assert encoded["type"] == "card"
-        assert encoded["card[number]"] == "4242"
-        assert encoded["amount"] == 100
+    def test_an_absent_discriminator_falls_back(self):
+        llama = _llama(color={"luminance": "1500"})
+        assert type(llama.color) is StripeObject
+        assert llama.color.luminance == "1500"
 
-    def test_standalone_response_round_trip(self):
-        """Deserialize and re-serialize preserves discriminator."""
-        original = {"model": "rgb", "r": 255, "g": 0, "b": 0}
-        obj = StripeObject.construct_from(original, key="sk_test_xxx")
-        result = obj.to_dict()
-        assert result["model"] == "rgb"
-        assert result == original
+    def test_a_non_string_discriminator_falls_back(self):
+        llama = _llama(color={"model": 7})
+        assert type(llama.color) is StripeObject
 
-    def test_inline_response_round_trip(self):
-        """Deserialize inline DU response and re-serialize preserves structure."""
-        original = {"type": "card", "card": {"number": "4242"}, "amount": 100}
-        obj = StripeObject.construct_from(original, key="sk_test_xxx")
-        result = obj.to_dict()
-        assert result["type"] == "card"
-        assert result["card"] == {"number": "4242"}
-        assert result["amount"] == 100
+    def test_a_null_union_value_stays_none(self):
+        assert _llama(color=None).color is None
+
+    def test_a_non_object_union_value_passes_through(self):
+        """
+        Not a shape the API produces, but the lookup must not raise on it —
+        the union field is read before anything has validated its type.
+        """
+        assert _llama(color="rgb").color == "rgb"
+
+
+# ---------------------------------------------------------------------------
+# Response side — inline unions are unaffected
+# ---------------------------------------------------------------------------
+
+
+class TestInlineUnionsUseInnerClassTypes:
+    """
+    Inline union variants are namespaced by field name, so they need no
+    discriminator lookup and keep going through `_inner_class_types`. These
+    pin that the union lookup did not displace it.
+    """
+
+    def test_the_inline_variant_gets_its_inner_class(self):
+        llama = _llama(type="magic_llama", magic_llama={"mana_cost": "42"})
+        assert isinstance(llama.magic_llama, MagicLlama)
+
+    def test_the_inline_variants_encoding_applies(self):
+        llama = _llama(type="magic_llama", magic_llama={"mana_cost": "42"})
+        assert llama.magic_llama.mana_cost == 42
+        assert isinstance(llama.magic_llama.mana_cost, int)
+
+    def test_the_non_selected_variant_is_not_fabricated(self):
+        llama = _llama(type="earth_llama")
+        assert llama.type == "earth_llama"
+        # `__getattr__` raises for a key absent from `_data`, so this is a
+        # real statement that nothing was materialized for the other variant.
+        assert not hasattr(llama, "magic_llama")
+
+
+# ---------------------------------------------------------------------------
+# Response side — serialization back out
+# ---------------------------------------------------------------------------
+
+
+class TestUnionValueSerialization:
+    def test_to_dict_recurses_into_the_variant(self):
+        llama = _llama(color={"model": "rgb", "luminance": "1500"})
+        assert llama.to_dict()["color"] == {
+            "model": "rgb",
+            "luminance": 1500,
+        }
+
+    def test_to_dict_for_json_restringifies_the_decimal(self):
+        """
+        The variant hydrates `saturation_precision` to a Decimal, which is not
+        JSON-serializable, so `for_json` has to put the string back.
+        """
+        llama = _llama(color={"model": "hsv", "saturation_precision": "0.125"})
+
+        plain = llama.to_dict()["color"]["saturation_precision"]
+        assert isinstance(plain, Decimal)
+
+        for_json = llama.to_dict(for_json=True)["color"]
+        assert for_json["saturation_precision"] == "0.125"
+        assert isinstance(for_json["saturation_precision"], str)
+
+    def test_to_dict_preserves_an_unknown_variant_verbatim(self):
+        llama = _llama(color={"model": "cmyk", "cyan": "1"})
+        assert llama.to_dict()["color"] == {"model": "cmyk", "cyan": "1"}
+
+
+# ---------------------------------------------------------------------------
+# Request side
+# ---------------------------------------------------------------------------
+
+
+class TestUnionRequestCoercion:
+    """
+    Outbound coercion runs off the method-level schema, which is keyed by
+    field name only — there is no discriminator in it.
+    """
+
+    def test_the_rgb_variants_int64_field_is_stringified(self):
+        result = _coerce_v2_params(
+            {"color": {"model": "rgb", "luminance": 1500}},
+            _COLOR_REQUEST_SCHEMA,
+        )
+        assert result == {"color": {"model": "rgb", "luminance": "1500"}}
+
+    def test_the_hsv_variants_decimal_field_is_stringified(self):
+        result = _coerce_v2_params(
+            {
+                "color": {
+                    "model": "hsv",
+                    "saturation_precision": Decimal("0.125"),
+                }
+            },
+            _COLOR_REQUEST_SCHEMA,
+        )
+        assert result == {
+            "color": {"model": "hsv", "saturation_precision": "0.125"}
+        }
+
+    def test_a_payload_free_variant_passes_through_untouched(self):
+        result = _coerce_v2_params(
+            {"color": {"model": "hsl"}}, _COLOR_REQUEST_SCHEMA
+        )
+        assert result == {"color": {"model": "hsl"}}
+
+    def test_coercion_is_by_field_name_not_by_variant(self):
+        """
+        Pins the generator's flattening decision: every variant's fields land
+        in one map, so a field is coerced whenever it appears, whatever the
+        discriminator says. Safe while variants do not share a field name with
+        conflicting encodings.
+        """
+        result = _coerce_v2_params(
+            {
+                "color": {
+                    "model": "rgb",
+                    "saturation_precision": Decimal("0.5"),
+                }
+            },
+            _COLOR_REQUEST_SCHEMA,
+        )
+        assert result == {
+            "color": {"model": "rgb", "saturation_precision": "0.5"}
+        }
+
+    def test_unknown_variant_fields_pass_through(self):
+        result = _coerce_v2_params(
+            {"color": {"model": "cmyk", "cyan": 1}},
+            _COLOR_REQUEST_SCHEMA,
+        )
+        assert result == {"color": {"model": "cmyk", "cyan": 1}}
+
+    def test_a_null_union_is_not_coerced(self):
+        result = _coerce_v2_params({"color": None}, _COLOR_REQUEST_SCHEMA)
+        assert result == {"color": None}
