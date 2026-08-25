@@ -617,9 +617,10 @@ class StripeEventNotificationHandler(_SyncEventNotificationHandler):
     def __init__(
         self,
         client: "StripeClient",
-        webhook_secret: str,
+        webhook_secret: Optional[str],
         fallback_callback: FallbackCallback,
     ) -> None:
+        """`webhook_secret` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `ValueError` if a secret is not provided."""
         super().__init__(client, fallback_callback)
         if not webhook_secret:
             raise ValueError("webhook_secret must be a non-empty string")
@@ -684,9 +685,10 @@ class AsyncStripeEventNotificationHandler(_AsyncEventNotificationHandler):
     def __init__(
         self,
         client: "StripeClient",
-        webhook_secret: str,
+        webhook_secret: Optional[str],
         fallback_callback: AsyncFallbackCallback,
     ) -> None:
+        """`webhook_secret` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `ValueError` if a secret is not provided."""
         super().__init__(client, fallback_callback)
         if not webhook_secret:
             raise ValueError("webhook_secret must be a non-empty string")

@@ -76,7 +76,9 @@ def handle_meter_error(
 @app.route("/webhook", methods=["POST"])
 def webhook():
     try:
-        handler.handle(request.data, request.headers.get("Stripe-Signature"))
+        webhook_body = request.data
+        sig_header = request.headers.get("Stripe-Signature")
+        handler.handle(webhook_body, sig_header)
         return jsonify(success=True), 200
     except Exception as e:
         return jsonify(error=str(e)), 500

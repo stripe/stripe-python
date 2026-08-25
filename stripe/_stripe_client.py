@@ -227,12 +227,12 @@ class StripeClient(object):
         self,
         payload: WebhookPayload,
         sig_header: Optional[str],
-        secret: str,
+        secret: Optional[str],
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
     ) -> Event:
         """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `construct_event_without_verification`.
 
-        `sig_header` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if a signature is not provided."""
+        `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
         return Webhook.construct_event(
             payload,
             sig_header,
@@ -254,12 +254,12 @@ class StripeClient(object):
         self,
         raw: WebhookPayload,
         sig_header: Optional[str],
-        secret: str,
+        secret: Optional[str],
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
     ) -> "ALL_EVENT_NOTIFICATIONS":
         """Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `parse_event_notification_without_verification`.
 
-        `sig_header` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if a signature is not provided."""
+        `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
         WebhookSignature.verify_header(raw, sig_header, secret, tolerance)
 
         return cast(
@@ -363,10 +363,14 @@ class StripeClient(object):
         )
 
     def notification_handler(
-        self, webhook_secret: str, fallback_callback: FallbackCallback
+        self,
+        webhook_secret: Optional[str],
+        fallback_callback: FallbackCallback,
     ) -> StripeEventNotificationHandler:
         """
         Returns an StripeEventNotificationHandler instance tied to this client.
+
+        `webhook_secret` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `ValueError` if a secret is not provided.
         """
         return StripeEventNotificationHandler(
             self, webhook_secret, fallback_callback
@@ -386,11 +390,15 @@ class StripeClient(object):
         )
 
     def async_notification_handler(
-        self, webhook_secret: str, fallback_callback: AsyncFallbackCallback
+        self,
+        webhook_secret: Optional[str],
+        fallback_callback: AsyncFallbackCallback,
     ) -> AsyncStripeEventNotificationHandler:
         """
         Returns an AsyncStripeEventNotificationHandler instance tied to this client.
         Register `async def` callbacks on it and run them using `await handler.handle_async()`.
+
+        `webhook_secret` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `ValueError` if a secret is not provided.
         """
         return AsyncStripeEventNotificationHandler(
             self, webhook_secret, fallback_callback

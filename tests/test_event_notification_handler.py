@@ -607,30 +607,35 @@ class TestEventNotificationHandler:
 
         assert rand_int(None, None) == 4  # type: ignore
 
-    def test_rejects_empty_webhook_secret(
-        self, stripe_client: StripeClient, fallback_callback: Mock
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: Mock,
+        webhook_secret: Optional[str],
     ) -> None:
-        """Test that the constructor rejects an empty webhook secret"""
+        """`webhook_secret` is typed as optional for web framework ergonomics, but a missing one is still an error"""
         with pytest.raises(
             ValueError, match="webhook_secret must be a non-empty string"
         ):
             StripeEventNotificationHandler(
                 client=stripe_client,
-                webhook_secret="",
+                webhook_secret=webhook_secret,
                 fallback_callback=fallback_callback,
             )
 
-    def test_rejects_none_webhook_secret(
-        self, stripe_client: StripeClient, fallback_callback: Mock
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_client_factory_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: Mock,
+        webhook_secret: Optional[str],
     ) -> None:
-        """Test that the constructor rejects a None webhook secret"""
         with pytest.raises(
             ValueError, match="webhook_secret must be a non-empty string"
         ):
-            StripeEventNotificationHandler(
-                client=stripe_client,
-                webhook_secret=None,  # type: ignore
-                fallback_callback=fallback_callback,
+            stripe_client.notification_handler(
+                webhook_secret, fallback_callback
             )
 
     def test_no_pre_handle_hook_registered_handler_still_runs(
@@ -1333,16 +1338,34 @@ class TestAsyncEventNotificationHandler:
                 AsyncMock()
             )
 
-    def test_rejects_empty_webhook_secret(
-        self, stripe_client: StripeClient, fallback_callback: AsyncMock
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: AsyncMock,
+        webhook_secret: Optional[str],
     ) -> None:
         with pytest.raises(
             ValueError, match="webhook_secret must be a non-empty string"
         ):
             AsyncStripeEventNotificationHandler(
                 client=stripe_client,
-                webhook_secret="",
+                webhook_secret=webhook_secret,
                 fallback_callback=fallback_callback,
+            )
+
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_client_factory_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: AsyncMock,
+        webhook_secret: Optional[str],
+    ) -> None:
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            stripe_client.async_notification_handler(
+                webhook_secret, fallback_callback
             )
 
     @pytest.mark.anyio

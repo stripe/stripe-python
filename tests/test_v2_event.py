@@ -1,5 +1,5 @@
 import json
-from typing import Any, Callable, Dict, Union
+from typing import Any, Callable, Dict, Optional, Union
 from typing_extensions import assert_type
 
 import pytest
@@ -218,6 +218,26 @@ class TestV2Event(object):
         with pytest.raises(SignatureVerificationError):
             stripe_client.parse_event_notification(
                 v2_payload_no_data, "bad header", DUMMY_WEBHOOK_SECRET
+            )
+
+    @pytest.mark.parametrize("secret", [None, ""])
+    def test_rejects_missing_secret(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        secret: Optional[str],
+    ):
+        """`secret` is typed as optional for web framework ergonomics, but a missing one is still an error"""
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_client.parse_event_notification(
+                v2_payload_no_data,
+                WebhookSignature.generate_signature_header(
+                    v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+                ),
+                secret,
             )
 
     def test_v2_events_data_type(self, http_client_mock, v2_payload_with_data):

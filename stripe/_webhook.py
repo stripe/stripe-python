@@ -67,7 +67,7 @@ class Webhook(object):
     def construct_event(
         payload: WebhookPayload,
         sig_header: Optional[str],
-        secret: str,
+        secret: Optional[str],
         tolerance: int = DEFAULT_TOLERANCE,
         api_key: Optional[str] = None,
         api_requestor: Optional[_APIRequestor] = None,
@@ -133,10 +133,12 @@ class WebhookSignature(object):
         cls,
         payload: WebhookPayload,
         header: Optional[str],
-        secret: str,
+        secret: Optional[str],
         tolerance=None,
     ):
-        """Verifies the authenticity (and recency) of a webhook, throwing a `SignatureVerificationError` if there's a mismatch. Useful for quickly validating incoming webhooks before storing them for later processing (at which time you can use the `*_without_verification` methods for parsing)."""
+        """Verifies the authenticity (and recency) of a webhook, throwing a `SignatureVerificationError` if there's a mismatch. Useful for quickly validating incoming webhooks before storing them for later processing (at which time you can use the `*_without_verification` methods for parsing).
+
+        `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
         # the signature is computed over the string form of the body, so binary
         # input has to be decoded before it's interpolated below
         if isinstance(payload, (bytes, bytearray)):
@@ -145,6 +147,12 @@ class WebhookSignature(object):
         if not header:
             raise SignatureVerificationError(
                 "No Stripe-Signature header value was provided. Read it from the incoming request's headers and pass it in; if this webhook has already been verified (or came from a trusted source), use one of the `*_without_verification` methods instead.",
+                header,
+                payload,
+            )
+        if not secret:
+            raise SignatureVerificationError(
+                "No webhook secret value was provided. It should start with `whsec_`",
                 header,
                 payload,
             )

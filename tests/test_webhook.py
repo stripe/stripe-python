@@ -99,6 +99,16 @@ class TestWebhook(object):
         )
         assert isinstance(event, stripe.Event)
 
+    @pytest.mark.parametrize("secret", [None, ""])
+    def test_raise_on_missing_secret(self, secret):
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe.Webhook.construct_event(
+                DUMMY_WEBHOOK_PAYLOAD, generate_header(), secret
+            )
+
     def test_raise_on_v2_payload(self):
         header = generate_header(payload=DUMMY_V2_WEBHOOK_PAYLOAD)
         with pytest.raises(ValueError) as e:
@@ -117,6 +127,16 @@ class TestWebhookSignature(object):
         ):
             stripe.WebhookSignature.verify_header(
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+            )
+
+    @pytest.mark.parametrize("secret", [None, ""])
+    def test_raise_on_missing_secret(self, secret):
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe.WebhookSignature.verify_header(
+                DUMMY_WEBHOOK_PAYLOAD, generate_header(), secret
             )
 
     @pytest.mark.parametrize(
