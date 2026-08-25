@@ -32,12 +32,11 @@ client = StripeClient(api_key)
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    webhook_body = request.data
-    sig_header = request.headers.get("Stripe-Signature")
-
     try:
         event_notif = client.parse_event_notification(
-            webhook_body, sig_header, webhook_secret
+            request.data,
+            request.headers.get("Stripe-Signature"),
+            webhook_secret,
         )
 
         # type checkers will narrow the type based on the `type` property

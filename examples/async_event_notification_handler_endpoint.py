@@ -95,8 +95,7 @@ async def webhook(request: Request):
 async def webhook_from_cloud_provider(request: Request):
     # no signature header to pass along; the channel already authenticated this event
     try:
-        body = await request.body()
-        await unverified_handler.handle_async(body.decode())
+        await unverified_handler.handle_async(await request.body())
         return Response(status_code=200)
     except Exception as e:
         return Response(content=str(e), status_code=500)
