@@ -47,7 +47,7 @@ class Settlement(StripeObject):
     """
     The total net amount required to settle with the network.
     """
-    network: Literal["maestro", "mastercard", "visa"]
+    network: Union[Literal["maestro", "mastercard", "visa"], str]
     """
     The card network for this settlement report. One of ["visa", "maestro", "mastercard"]
     """

@@ -94,7 +94,7 @@ class AccountCreateParams(RequestOptions):
     """
     Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
     """
-    type: NotRequired[Literal["custom", "express", "standard"]]
+    type: NotRequired["Literal['custom', 'express', 'standard']|str"]
     """
     The `type` parameter is deprecated. Use [`controller`](https://docs.stripe.com/api/accounts/create#create_account-controller) instead to configure dashboard access, fee payer, loss liability, and requirement collection.
     """
@@ -1745,7 +1745,7 @@ class AccountCreateParamsBankAccount(TypedDict):
     """
     The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
     """
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
     """
@@ -2327,7 +2327,9 @@ class AccountCreateParamsSettingsPayoutsSchedule(TypedDict):
     """
     The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
     """
-    interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
+    interval: NotRequired[
+        "Literal['daily', 'manual', 'monthly', 'weekly']|str"
+    ]
     """
     How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
     """
@@ -2340,15 +2342,7 @@ class AccountCreateParamsSettingsPayoutsSchedule(TypedDict):
     The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
     """
     weekly_anchor: NotRequired[
-        Literal[
-            "friday",
-            "monday",
-            "saturday",
-            "sunday",
-            "thursday",
-            "tuesday",
-            "wednesday",
-        ]
+        "Literal['friday', 'monday', 'saturday', 'sunday', 'thursday', 'tuesday', 'wednesday']|str"
     ]
     """
     The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.

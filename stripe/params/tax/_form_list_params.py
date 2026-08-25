@@ -43,7 +43,7 @@ class FormListParamsPayee(TypedDict):
     """
     The external reference to the payee whose forms will be retrieved.
     """
-    type: NotRequired[Literal["account", "external_reference"]]
+    type: NotRequired["Literal['account', 'external_reference']|str"]
     """
     Specifies the payee type. Either `account` or `external_reference`.
     """

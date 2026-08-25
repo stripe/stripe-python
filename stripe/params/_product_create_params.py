@@ -69,7 +69,7 @@ class ProductCreateParams(RequestOptions):
     """
     Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
     """
-    type: NotRequired[Literal["good", "service"]]
+    type: NotRequired["Literal['good', 'service']|str"]
     """
     The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
     """
@@ -108,7 +108,9 @@ class ProductCreateParamsDefaultPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -129,7 +131,9 @@ class ProductCreateParamsDefaultPriceDataCurrencyOptions(TypedDict):
     """
     When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -213,7 +217,7 @@ class ProductCreateParamsDefaultPriceDataCustomUnitAmount(TypedDict):
 
 
 class ProductCreateParamsDefaultPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """

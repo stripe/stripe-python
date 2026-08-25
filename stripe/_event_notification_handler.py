@@ -591,7 +591,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_account_including_configuration_money_manager_capability_status_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent` (`v2.core.account[configuration.money_manager].capability_status_updated`) event notification.
@@ -604,7 +604,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_account_including_configuration_money_manager_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEvent` (`v2.core.account[configuration.money_manager].updated`) event notification.
@@ -760,7 +760,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_batch_failed(
         self,
-        func: "Callable[[V2CoreBatchJobBatchFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobBatchFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobBatchFailedEvent` (`v2.core.batch_job.batch_failed`) event notification.
@@ -773,7 +773,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_canceled(
         self,
-        func: "Callable[[V2CoreBatchJobCanceledEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobCanceledEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobCanceledEvent` (`v2.core.batch_job.canceled`) event notification.
@@ -786,7 +786,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_completed(
         self,
-        func: "Callable[[V2CoreBatchJobCompletedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobCompletedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobCompletedEvent` (`v2.core.batch_job.completed`) event notification.
@@ -799,7 +799,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_created(
         self,
-        func: "Callable[[V2CoreBatchJobCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobCreatedEvent` (`v2.core.batch_job.created`) event notification.
@@ -812,7 +812,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_ready_for_upload(
         self,
-        func: "Callable[[V2CoreBatchJobReadyForUploadEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobReadyForUploadEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobReadyForUploadEvent` (`v2.core.batch_job.ready_for_upload`) event notification.
@@ -825,7 +825,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_timeout(
         self,
-        func: "Callable[[V2CoreBatchJobTimeoutEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobTimeoutEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobTimeoutEvent` (`v2.core.batch_job.timeout`) event notification.
@@ -838,7 +838,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_updated(
         self,
-        func: "Callable[[V2CoreBatchJobUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobUpdatedEvent` (`v2.core.batch_job.updated`) event notification.
@@ -851,7 +851,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_upload_timeout(
         self,
-        func: "Callable[[V2CoreBatchJobUploadTimeoutEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobUploadTimeoutEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobUploadTimeoutEvent` (`v2.core.batch_job.upload_timeout`) event notification.
@@ -864,7 +864,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_validating(
         self,
-        func: "Callable[[V2CoreBatchJobValidatingEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobValidatingEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobValidatingEvent` (`v2.core.batch_job.validating`) event notification.
@@ -877,7 +877,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_batch_job_validation_failed(
         self,
-        func: "Callable[[V2CoreBatchJobValidationFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreBatchJobValidationFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreBatchJobValidationFailedEvent` (`v2.core.batch_job.validation_failed`) event notification.
@@ -903,7 +903,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_core_health_event_generation_failure_resolved(
         self,
-        func: "Callable[[V2CoreHealthEventGenerationFailureResolvedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreHealthEventGenerationFailureResolvedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreHealthEventGenerationFailureResolvedEvent` (`v2.core.health.event_generation_failure.resolved`) event notification.
@@ -916,7 +916,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_data_reporting_query_run_created(
         self,
-        func: "Callable[[V2DataReportingQueryRunCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2DataReportingQueryRunCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2DataReportingQueryRunCreatedEvent` (`v2.data.reporting.query_run.created`) event notification.
@@ -929,7 +929,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_data_reporting_query_run_failed(
         self,
-        func: "Callable[[V2DataReportingQueryRunFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2DataReportingQueryRunFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2DataReportingQueryRunFailedEvent` (`v2.data.reporting.query_run.failed`) event notification.
@@ -942,7 +942,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_data_reporting_query_run_succeeded(
         self,
-        func: "Callable[[V2DataReportingQueryRunSucceededEventNotification, StripeClient], None]",
+        func: "Callable[[V2DataReportingQueryRunSucceededEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2DataReportingQueryRunSucceededEvent` (`v2.data.reporting.query_run.succeeded`) event notification.
@@ -955,7 +955,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_data_reporting_query_run_updated(
         self,
-        func: "Callable[[V2DataReportingQueryRunUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2DataReportingQueryRunUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2DataReportingQueryRunUpdatedEvent` (`v2.data.reporting.query_run.updated`) event notification.
@@ -968,7 +968,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_extend_workflow_run_failed(
         self,
-        func: "Callable[[V2ExtendWorkflowRunFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2ExtendWorkflowRunFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2ExtendWorkflowRunFailedEvent` (`v2.extend.workflow_run.failed`) event notification.
@@ -981,7 +981,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_extend_workflow_run_started(
         self,
-        func: "Callable[[V2ExtendWorkflowRunStartedEventNotification, StripeClient], None]",
+        func: "Callable[[V2ExtendWorkflowRunStartedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2ExtendWorkflowRunStartedEvent` (`v2.extend.workflow_run.started`) event notification.
@@ -994,7 +994,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_extend_workflow_run_succeeded(
         self,
-        func: "Callable[[V2ExtendWorkflowRunSucceededEventNotification, StripeClient], None]",
+        func: "Callable[[V2ExtendWorkflowRunSucceededEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2ExtendWorkflowRunSucceededEvent` (`v2.extend.workflow_run.succeeded`) event notification.
@@ -1007,7 +1007,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_adjustment_created(
         self,
-        func: "Callable[[V2MoneyManagementAdjustmentCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementAdjustmentCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementAdjustmentCreatedEvent` (`v2.money_management.adjustment.created`) event notification.
@@ -1020,7 +1020,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_financial_account_created(
         self,
-        func: "Callable[[V2MoneyManagementFinancialAccountCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementFinancialAccountCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementFinancialAccountCreatedEvent` (`v2.money_management.financial_account.created`) event notification.
@@ -1033,7 +1033,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_financial_account_updated(
         self,
-        func: "Callable[[V2MoneyManagementFinancialAccountUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementFinancialAccountUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementFinancialAccountUpdatedEvent` (`v2.money_management.financial_account.updated`) event notification.
@@ -1046,7 +1046,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_financial_address_activated(
         self,
-        func: "Callable[[V2MoneyManagementFinancialAddressActivatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementFinancialAddressActivatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementFinancialAddressActivatedEvent` (`v2.money_management.financial_address.activated`) event notification.
@@ -1059,7 +1059,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_financial_address_failed(
         self,
-        func: "Callable[[V2MoneyManagementFinancialAddressFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementFinancialAddressFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementFinancialAddressFailedEvent` (`v2.money_management.financial_address.failed`) event notification.
@@ -1072,7 +1072,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_inbound_transfer_available(
         self,
-        func: "Callable[[V2MoneyManagementInboundTransferAvailableEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementInboundTransferAvailableEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementInboundTransferAvailableEvent` (`v2.money_management.inbound_transfer.available`) event notification.
@@ -1085,7 +1085,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_inbound_transfer_bank_debit_failed(
         self,
-        func: "Callable[[V2MoneyManagementInboundTransferBankDebitFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementInboundTransferBankDebitFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementInboundTransferBankDebitFailedEvent` (`v2.money_management.inbound_transfer.bank_debit_failed`) event notification.
@@ -1098,7 +1098,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_inbound_transfer_bank_debit_processing(
         self,
-        func: "Callable[[V2MoneyManagementInboundTransferBankDebitProcessingEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementInboundTransferBankDebitProcessingEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementInboundTransferBankDebitProcessingEvent` (`v2.money_management.inbound_transfer.bank_debit_processing`) event notification.
@@ -1111,7 +1111,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_inbound_transfer_bank_debit_queued(
         self,
-        func: "Callable[[V2MoneyManagementInboundTransferBankDebitQueuedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementInboundTransferBankDebitQueuedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementInboundTransferBankDebitQueuedEvent` (`v2.money_management.inbound_transfer.bank_debit_queued`) event notification.
@@ -1124,7 +1124,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_inbound_transfer_bank_debit_returned(
         self,
-        func: "Callable[[V2MoneyManagementInboundTransferBankDebitReturnedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementInboundTransferBankDebitReturnedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementInboundTransferBankDebitReturnedEvent` (`v2.money_management.inbound_transfer.bank_debit_returned`) event notification.
@@ -1137,7 +1137,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_inbound_transfer_bank_debit_succeeded(
         self,
-        func: "Callable[[V2MoneyManagementInboundTransferBankDebitSucceededEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementInboundTransferBankDebitSucceededEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementInboundTransferBankDebitSucceededEvent` (`v2.money_management.inbound_transfer.bank_debit_succeeded`) event notification.
@@ -1150,7 +1150,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_payment_canceled(
         self,
-        func: "Callable[[V2MoneyManagementOutboundPaymentCanceledEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundPaymentCanceledEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundPaymentCanceledEvent` (`v2.money_management.outbound_payment.canceled`) event notification.
@@ -1163,7 +1163,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_payment_created(
         self,
-        func: "Callable[[V2MoneyManagementOutboundPaymentCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundPaymentCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundPaymentCreatedEvent` (`v2.money_management.outbound_payment.created`) event notification.
@@ -1176,7 +1176,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_payment_failed(
         self,
-        func: "Callable[[V2MoneyManagementOutboundPaymentFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundPaymentFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundPaymentFailedEvent` (`v2.money_management.outbound_payment.failed`) event notification.
@@ -1189,7 +1189,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_payment_posted(
         self,
-        func: "Callable[[V2MoneyManagementOutboundPaymentPostedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundPaymentPostedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundPaymentPostedEvent` (`v2.money_management.outbound_payment.posted`) event notification.
@@ -1202,7 +1202,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_payment_returned(
         self,
-        func: "Callable[[V2MoneyManagementOutboundPaymentReturnedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundPaymentReturnedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundPaymentReturnedEvent` (`v2.money_management.outbound_payment.returned`) event notification.
@@ -1215,7 +1215,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_payment_under_review(
         self,
-        func: "Callable[[V2MoneyManagementOutboundPaymentUnderReviewEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundPaymentUnderReviewEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundPaymentUnderReviewEvent` (`v2.money_management.outbound_payment.under_review`) event notification.
@@ -1228,7 +1228,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_payment_updated(
         self,
-        func: "Callable[[V2MoneyManagementOutboundPaymentUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundPaymentUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundPaymentUpdatedEvent` (`v2.money_management.outbound_payment.updated`) event notification.
@@ -1241,7 +1241,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_transfer_canceled(
         self,
-        func: "Callable[[V2MoneyManagementOutboundTransferCanceledEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundTransferCanceledEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundTransferCanceledEvent` (`v2.money_management.outbound_transfer.canceled`) event notification.
@@ -1254,7 +1254,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_transfer_created(
         self,
-        func: "Callable[[V2MoneyManagementOutboundTransferCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundTransferCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundTransferCreatedEvent` (`v2.money_management.outbound_transfer.created`) event notification.
@@ -1267,7 +1267,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_transfer_failed(
         self,
-        func: "Callable[[V2MoneyManagementOutboundTransferFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundTransferFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundTransferFailedEvent` (`v2.money_management.outbound_transfer.failed`) event notification.
@@ -1280,7 +1280,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_transfer_posted(
         self,
-        func: "Callable[[V2MoneyManagementOutboundTransferPostedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundTransferPostedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundTransferPostedEvent` (`v2.money_management.outbound_transfer.posted`) event notification.
@@ -1293,7 +1293,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_transfer_returned(
         self,
-        func: "Callable[[V2MoneyManagementOutboundTransferReturnedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundTransferReturnedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundTransferReturnedEvent` (`v2.money_management.outbound_transfer.returned`) event notification.
@@ -1306,7 +1306,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_transfer_under_review(
         self,
-        func: "Callable[[V2MoneyManagementOutboundTransferUnderReviewEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundTransferUnderReviewEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundTransferUnderReviewEvent` (`v2.money_management.outbound_transfer.under_review`) event notification.
@@ -1319,7 +1319,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_outbound_transfer_updated(
         self,
-        func: "Callable[[V2MoneyManagementOutboundTransferUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementOutboundTransferUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementOutboundTransferUpdatedEvent` (`v2.money_management.outbound_transfer.updated`) event notification.
@@ -1332,7 +1332,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_payout_method_created(
         self,
-        func: "Callable[[V2MoneyManagementPayoutMethodCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementPayoutMethodCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementPayoutMethodCreatedEvent` (`v2.money_management.payout_method.created`) event notification.
@@ -1345,7 +1345,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_payout_method_updated(
         self,
-        func: "Callable[[V2MoneyManagementPayoutMethodUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementPayoutMethodUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementPayoutMethodUpdatedEvent` (`v2.money_management.payout_method.updated`) event notification.
@@ -1358,7 +1358,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_credit_available(
         self,
-        func: "Callable[[V2MoneyManagementReceivedCreditAvailableEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedCreditAvailableEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedCreditAvailableEvent` (`v2.money_management.received_credit.available`) event notification.
@@ -1371,7 +1371,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_credit_failed(
         self,
-        func: "Callable[[V2MoneyManagementReceivedCreditFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedCreditFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedCreditFailedEvent` (`v2.money_management.received_credit.failed`) event notification.
@@ -1384,7 +1384,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_credit_returned(
         self,
-        func: "Callable[[V2MoneyManagementReceivedCreditReturnedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedCreditReturnedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedCreditReturnedEvent` (`v2.money_management.received_credit.returned`) event notification.
@@ -1397,7 +1397,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_credit_succeeded(
         self,
-        func: "Callable[[V2MoneyManagementReceivedCreditSucceededEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedCreditSucceededEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedCreditSucceededEvent` (`v2.money_management.received_credit.succeeded`) event notification.
@@ -1410,7 +1410,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_debit_canceled(
         self,
-        func: "Callable[[V2MoneyManagementReceivedDebitCanceledEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedDebitCanceledEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedDebitCanceledEvent` (`v2.money_management.received_debit.canceled`) event notification.
@@ -1423,7 +1423,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_debit_failed(
         self,
-        func: "Callable[[V2MoneyManagementReceivedDebitFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedDebitFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedDebitFailedEvent` (`v2.money_management.received_debit.failed`) event notification.
@@ -1436,7 +1436,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_debit_pending(
         self,
-        func: "Callable[[V2MoneyManagementReceivedDebitPendingEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedDebitPendingEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedDebitPendingEvent` (`v2.money_management.received_debit.pending`) event notification.
@@ -1449,7 +1449,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_debit_succeeded(
         self,
-        func: "Callable[[V2MoneyManagementReceivedDebitSucceededEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedDebitSucceededEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedDebitSucceededEvent` (`v2.money_management.received_debit.succeeded`) event notification.
@@ -1462,7 +1462,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_received_debit_updated(
         self,
-        func: "Callable[[V2MoneyManagementReceivedDebitUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementReceivedDebitUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementReceivedDebitUpdatedEvent` (`v2.money_management.received_debit.updated`) event notification.
@@ -1475,7 +1475,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_transaction_created(
         self,
-        func: "Callable[[V2MoneyManagementTransactionCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementTransactionCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementTransactionCreatedEvent` (`v2.money_management.transaction.created`) event notification.
@@ -1488,7 +1488,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_money_management_transaction_updated(
         self,
-        func: "Callable[[V2MoneyManagementTransactionUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2MoneyManagementTransactionUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2MoneyManagementTransactionUpdatedEvent` (`v2.money_management.transaction.updated`) event notification.
@@ -1501,7 +1501,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_orchestrated_commerce_agreement_confirmed(
         self,
-        func: "Callable[[V2OrchestratedCommerceAgreementConfirmedEventNotification, StripeClient], None]",
+        func: "Callable[[V2OrchestratedCommerceAgreementConfirmedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2OrchestratedCommerceAgreementConfirmedEvent` (`v2.orchestrated_commerce.agreement.confirmed`) event notification.
@@ -1514,7 +1514,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_orchestrated_commerce_agreement_created(
         self,
-        func: "Callable[[V2OrchestratedCommerceAgreementCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2OrchestratedCommerceAgreementCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2OrchestratedCommerceAgreementCreatedEvent` (`v2.orchestrated_commerce.agreement.created`) event notification.
@@ -1527,7 +1527,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_orchestrated_commerce_agreement_partially_confirmed(
         self,
-        func: "Callable[[V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification, StripeClient], None]",
+        func: "Callable[[V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2OrchestratedCommerceAgreementPartiallyConfirmedEvent` (`v2.orchestrated_commerce.agreement.partially_confirmed`) event notification.
@@ -1540,7 +1540,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
     def on_v2_orchestrated_commerce_agreement_terminated(
         self,
-        func: "Callable[[V2OrchestratedCommerceAgreementTerminatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2OrchestratedCommerceAgreementTerminatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2OrchestratedCommerceAgreementTerminatedEvent` (`v2.orchestrated_commerce.agreement.terminated`) event notification.

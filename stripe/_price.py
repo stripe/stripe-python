@@ -93,7 +93,7 @@ class Price(
         When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
         """
         tax_behavior: Optional[
-            Literal["exclusive", "inclusive", "unspecified"]
+            Union[Literal["exclusive", "inclusive", "unspecified"], str]
         ]
         """
         Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -206,7 +206,7 @@ class Price(
     """
     Whether the price can be used for new purchases.
     """
-    billing_scheme: Literal["per_unit", "tiered"]
+    billing_scheme: Union[Literal["per_unit", "tiered"], str]
     """
     Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `unit_amount` or `unit_amount_decimal`) will be charged per unit in `quantity` (for prices with `usage_type=licensed`), or per unit of total usage (for prices with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
     """
@@ -266,7 +266,9 @@ class Price(
     """
     The recurring components of a price such as `interval` and `usage_type`.
     """
-    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: Optional[
+        Union[Literal["exclusive", "inclusive", "unspecified"], str]
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -274,7 +276,7 @@ class Price(
     """
     Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
     """
-    tiers_mode: Optional[Literal["graduated", "volume"]]
+    tiers_mode: Optional[Union[Literal["graduated", "volume"], str]]
     """
     Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
     """
@@ -282,7 +284,7 @@ class Price(
     """
     Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`.
     """
-    type: Literal["one_time", "recurring"]
+    type: Union[Literal["one_time", "recurring"], str]
     """
     One of `one_time` or `recurring` depending on whether the price is for a one-time purchase or a recurring (subscription) purchase.
     """

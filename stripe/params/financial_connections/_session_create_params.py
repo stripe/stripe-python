@@ -31,7 +31,10 @@ class SessionCreateParams(RequestOptions):
     Customize manual entry behavior
     """
     permissions: List[
-        Literal["balances", "ownership", "payment_method", "transactions"]
+        Union[
+            Literal["balances", "ownership", "payment_method", "transactions"],
+            str,
+        ]
     ]
     """
     List of data features that you would like to request access to.
@@ -122,7 +125,7 @@ class SessionCreateParamsFilters(TypedDict):
 
 
 class SessionCreateParamsHosted(TypedDict):
-    delivery_method: NotRequired[Literal["email", "url"]]
+    delivery_method: NotRequired["Literal['email', 'url']|str"]
     """
     How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
     """

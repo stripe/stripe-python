@@ -55,7 +55,7 @@ class ExternalAccountCreateParamsBankAccount(TypedDict):
     """
     The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
     """
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
     """

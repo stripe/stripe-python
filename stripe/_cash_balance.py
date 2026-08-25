@@ -3,7 +3,7 @@
 from stripe._customer import Customer
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import sanitize_id
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -15,7 +15,7 @@ class CashBalance(StripeObject):
     OBJECT_NAME: ClassVar[Literal["cash_balance"]] = "cash_balance"
 
     class Settings(StripeObject):
-        reconciliation_mode: Literal["automatic", "manual"]
+        reconciliation_mode: Union[Literal["automatic", "manual"], str]
         """
         The configuration for how funds that land in the customer cash balance are reconciled.
         """

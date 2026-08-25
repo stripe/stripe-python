@@ -18,7 +18,7 @@ class CustomerModifyCashBalanceParams(RequestOptions):
 
 class CustomerModifyCashBalanceParamsSettings(TypedDict):
     reconciliation_mode: NotRequired[
-        Literal["automatic", "manual", "merchant_default"]
+        "Literal['automatic', 'manual', 'merchant_default']|str"
     ]
     """
     Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://docs.stripe.com/payments/customer-balance/reconciliation).

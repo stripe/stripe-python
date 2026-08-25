@@ -9,7 +9,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -125,7 +125,7 @@ class InvoiceItem(
             When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
             """
             invoice_line_item_details: Optional[InvoiceLineItemDetails]
-            type: Literal["invoice_item", "invoice_line_items"]
+            type: Union[Literal["invoice_item", "invoice_line_items"], str]
             """
             Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
             """
