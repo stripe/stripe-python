@@ -1,10 +1,13 @@
+import anyio
 import json
 import pytest
 from typing import Optional
-from unittest.mock import Mock
+from unittest.mock import AsyncMock, Mock
 
 from stripe import SignatureVerificationError, StripeClient
 from stripe._event_notification_handler import (
+    AsyncStripeEventNotificationHandler,
+    AsyncStripeEventNotificationHandlerWithoutVerification,
     StripeEventNotificationHandler,
     StripeEventNotificationHandlerWithoutVerification,
     UnhandledNotificationDetails,
@@ -1016,4 +1019,374 @@ class TestEventNotificationHandlerWithoutVerification:
 
         handler_without_verification.handle(v1_billing_meter_payload)
 
+        fallback_callback.assert_not_called()
+
+
+class TestAsyncEventNotificationHandler:
+    @pytest.fixture(scope="function")
+    def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
+        return StripeClient(
+            api_key="sk_test_1234",
+            stripe_context=StripeContext.parse("original_context_123"),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+    @pytest.fixture(scope="function")
+    def fallback_callback(self) -> AsyncMock:
+        return AsyncMock()
+
+    @pytest.fixture(scope="function")
+    def event_handler(
+        self, stripe_client: StripeClient, fallback_callback: AsyncMock
+    ) -> AsyncStripeEventNotificationHandler:
+        return AsyncStripeEventNotificationHandler(
+            client=stripe_client,
+            webhook_secret=DUMMY_WEBHOOK_SECRET,
+            fallback_callback=fallback_callback,
+        )
+
+    @pytest.fixture(scope="function")
+    def v1_billing_meter_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.billing.meter.error_report_triggered",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_456",
+                "related_object": {
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
+                },
+            }
+        )
+
+    @pytest.fixture(scope="function")
+    def unknown_event_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_unknown",
+                "object": "v2.core.event",
+                "type": "llama.created",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_unknown",
+                "related_object": {
+                    "id": "llama_123",
+                    "type": "llama",
+                    "url": "/v1/llamas/llama_123",
+                },
+            }
+        )
+
+    @pytest.mark.anyio
+    async def test_routes_event_to_registered_async_callback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        """An `async def` callback is actually awaited, not discarded"""
+        received: Optional[EventNotification] = None
+
+        async def callback(
+            notif: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            nonlocal received
+            received = notif
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert isinstance(
+            received, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert received.id == "evt_123"
+        fallback_callback.assert_not_called()
+
+    @pytest.mark.anyio
+    async def test_handle_async_awaits_callback_across_a_yield(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """A callback that yields to the event loop still completes before handle_async returns"""
+        finished = False
+
+        async def callback(notif, client) -> None:
+            nonlocal finished
+            await anyio.sleep(0)
+            finished = True
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert finished
+
+    @pytest.mark.anyio
+    async def test_async_pre_handle_runs_before_callback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        order = []
+
+        async def hook(notif, client) -> bool:
+            await anyio.sleep(0)
+            order.append("pre_handle")
+            return True
+
+        async def callback(notif, client) -> None:
+            order.append("callback")
+
+        event_handler.pre_handle(hook)
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert order == ["pre_handle", "callback"]
+
+    @pytest.mark.anyio
+    async def test_async_pre_handle_returning_false_stops_callback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        callback = AsyncMock()
+
+        async def hook(notif, client) -> bool:
+            await anyio.sleep(0)
+            return False
+
+        event_handler.pre_handle(hook)
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        callback.assert_not_called()
+
+    @pytest.mark.anyio
+    async def test_async_pre_handle_returning_false_stops_fallback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        unknown_event_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        """Returning False gates the fallback too, not just registered callbacks"""
+
+        async def hook(notif, client) -> bool:
+            return False
+
+        event_handler.pre_handle(hook)
+
+        sig_header = generate_header(payload=unknown_event_payload)
+        await event_handler.handle_async(unknown_event_payload, sig_header)
+
+        fallback_callback.assert_not_called()
+
+    @pytest.mark.anyio
+    async def test_fallback_is_awaited_for_unknown_event(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        unknown_event_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        sig_header = generate_header(payload=unknown_event_payload)
+        await event_handler.handle_async(unknown_event_payload, sig_header)
+
+        fallback_callback.assert_awaited_once()
+        notif, _client, details = fallback_callback.call_args[0]
+        assert isinstance(notif, UnknownEventNotification)
+        assert isinstance(details, UnhandledNotificationDetails)
+        assert details.is_known_event_type is False
+
+    @pytest.mark.anyio
+    async def test_callback_receives_event_scoped_client(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        stripe_client: StripeClient,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        received_context = None
+
+        async def callback(notif, client: StripeClient) -> None:
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert str(received_context) == "event_context_456"
+        # the handler's own client is untouched
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    @pytest.mark.anyio
+    async def test_raising_callback_propagates(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        async def callback(notif, client) -> None:
+            raise RuntimeError("boom")
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        with pytest.raises(RuntimeError, match="boom"):
+            await event_handler.handle_async(
+                v1_billing_meter_payload, sig_header
+            )
+
+    @pytest.mark.anyio
+    async def test_cannot_register_after_handling(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new callbacks after an event has been handled",
+        ):
+            event_handler.on_v2_core_account_created(AsyncMock())
+
+    def test_cannot_register_duplicate_callback(
+        self, event_handler: AsyncStripeEventNotificationHandler
+    ) -> None:
+        event_handler.on_v1_billing_meter_error_report_triggered(AsyncMock())
+
+        with pytest.raises(
+            ValueError,
+            match='Callback for event type "v1.billing.meter.error_report_triggered" is already registered',
+        ):
+            event_handler.on_v1_billing_meter_error_report_triggered(
+                AsyncMock()
+            )
+
+    def test_rejects_empty_webhook_secret(
+        self, stripe_client: StripeClient, fallback_callback: AsyncMock
+    ) -> None:
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            AsyncStripeEventNotificationHandler(
+                client=stripe_client,
+                webhook_secret="",
+                fallback_callback=fallback_callback,
+            )
+
+    @pytest.mark.anyio
+    async def test_validates_webhook_signature(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        with pytest.raises(SignatureVerificationError):
+            await event_handler.handle_async(
+                v1_billing_meter_payload, "t=1,v1=not-a-sig"
+            )
+
+
+class TestAsyncEventNotificationHandlerWithoutVerification:
+    @pytest.fixture(scope="function")
+    def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
+        return StripeClient(
+            api_key="sk_test_1234",
+            stripe_context=StripeContext.parse("original_context_123"),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+    @pytest.fixture(scope="function")
+    def fallback_callback(self) -> AsyncMock:
+        return AsyncMock()
+
+    @pytest.fixture(scope="function")
+    def handler(
+        self, stripe_client: StripeClient, fallback_callback: AsyncMock
+    ) -> AsyncStripeEventNotificationHandlerWithoutVerification:
+        return AsyncStripeEventNotificationHandler.without_verification(
+            client=stripe_client,
+            fallback_callback=fallback_callback,
+        )
+
+    @pytest.fixture(scope="function")
+    def v1_billing_meter_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.billing.meter.error_report_triggered",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_456",
+                "related_object": {
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
+                },
+            }
+        )
+
+    def test_is_not_a_subclass_of_the_verifying_handler(self) -> None:
+        """The two are siblings, so neither exposes the other's handle signature"""
+        assert not issubclass(
+            AsyncStripeEventNotificationHandlerWithoutVerification,
+            AsyncStripeEventNotificationHandler,
+        )
+
+    @pytest.mark.anyio
+    async def test_handles_without_a_signature(
+        self,
+        handler: AsyncStripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        received = None
+
+        async def callback(notif, client) -> None:
+            nonlocal received
+            await anyio.sleep(0)
+            received = notif
+
+        handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        await handler.handle_async(v1_billing_meter_payload)
+
+        assert isinstance(
+            received, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+
+    @pytest.mark.anyio
+    async def test_pre_handle_gates_handling(
+        self,
+        handler: AsyncStripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        callback = AsyncMock()
+
+        async def hook(notif, client) -> bool:
+            return False
+
+        handler.pre_handle(hook)
+        handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        await handler.handle_async(v1_billing_meter_payload)
+
+        callback.assert_not_called()
         fallback_callback.assert_not_called()
