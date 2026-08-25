@@ -109,6 +109,27 @@ class TestWebhook(object):
 
 
 class TestWebhookSignature(object):
+    @pytest.mark.parametrize("header", [None, ""])
+    def test_raise_on_missing_header(self, header):
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No Stripe-Signature header value was provided",
+        ):
+            stripe.WebhookSignature.verify_header(
+                DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+            )
+
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    def test_verifies_binary_payload(self, encode):
+        header = generate_header()
+        assert stripe.WebhookSignature.verify_header(
+            encode(DUMMY_WEBHOOK_PAYLOAD), header, DUMMY_WEBHOOK_SECRET
+        )
+
     def test_raise_on_malformed_header(self):
         header = "i'm not even a real signature header"
         with pytest.raises(

@@ -1,5 +1,5 @@
 import json
-from typing import Callable
+from typing import Any, Callable, Dict, Union
 from typing_extensions import assert_type
 
 import pytest
@@ -14,12 +14,17 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterErrorReportTriggeredEvent,
 )
-from stripe.v2.core._event import UnknownEventNotification
+from stripe.v2.core._event import EventNotification, UnknownEventNotification
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
-from stripe._webhook import WebhookSignature
+from stripe._webhook import WebhookPayload, WebhookSignature
 from tests.test_webhook import DUMMY_WEBHOOK_SECRET
 
 EventParser = Callable[[str], ALL_EVENT_NOTIFICATIONS]
+
+BINARY_ENCODERS = [
+    lambda p: p.encode("utf-8"),
+    lambda p: bytearray(p, "utf-8"),
+]
 
 
 class TestV2Event(object):
@@ -124,6 +129,52 @@ class TestV2Event(object):
         # this isn't for constructing events, it's for parsing thin ones
         assert not hasattr(notif, "data")
         assert notif.reason is None
+
+    @pytest.mark.parametrize(
+        "encode", BINARY_ENCODERS, ids=["bytes", "bytearray"]
+    )
+    def test_parses_binary_event_notif(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        encode: Callable[[str], WebhookPayload],
+    ):
+        """The body can arrive as bytes or a bytearray, which is how many frameworks expose it"""
+        notif = stripe_client.parse_event_notification(
+            encode(v2_payload_no_data),
+            WebhookSignature.generate_signature_header(
+                v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+            ),
+            DUMMY_WEBHOOK_SECRET,
+        )
+
+        assert isinstance(
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert notif.id == "evt_234"
+
+    @pytest.mark.parametrize(
+        "to_payload",
+        [lambda p: p, *BINARY_ENCODERS, json.loads],
+        ids=["str", "bytes", "bytearray", "dict"],
+    )
+    def test_from_json_accepts_every_payload_shape(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        to_payload: Callable[[str], Union[WebhookPayload, Dict[str, Any]]],
+    ):
+        """`from_json` is public (for pre-verified payloads & tests), so it takes the same shapes the parse methods do"""
+        notif = EventNotification.from_json(
+            to_payload(v2_payload_no_data), stripe_client
+        )
+
+        assert isinstance(
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert notif.id == "evt_234"
+        assert notif.related_object
+        assert notif.related_object.id == "mtr_123"
 
     def test_parses_unknown_event_notif(self, parse_event_notif: EventParser):
         event = parse_event_notif(

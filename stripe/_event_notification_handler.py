@@ -33,6 +33,7 @@ from typing import (
 
 # Import at runtime for isinstance check and type annotations
 from stripe.v2.core._event import EventNotification, UnknownEventNotification
+from stripe._webhook import WebhookPayload
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
@@ -624,7 +625,12 @@ class StripeEventNotificationHandler(_SyncEventNotificationHandler):
             raise ValueError("webhook_secret must be a non-empty string")
         self._webhook_secret = webhook_secret
 
-    def handle(self, webhook_body: str, sig_header: str):
+    def handle(self, webhook_body: WebhookPayload, sig_header: Optional[str]):
+        """
+        Process an incoming webhook, routing it to the correct registered callback (or your fallback).
+
+        `sig_header` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if a signature is not provided.
+        """
         # set before parsing, so that even a failed parse locks out registration.
         # modification isn't thread-safe, but we expect callbacks to get registered synchronously at startup
         # making a race condition here unlikely
@@ -655,7 +661,10 @@ class StripeEventNotificationHandlerWithoutVerification(
     Prefer `StripeEventNotificationHandler.without_verification()` or `client.notification_handler_without_verification()` instead of constructing it directly.
     """
 
-    def handle(self, webhook_body: str):
+    def handle(self, webhook_body: WebhookPayload):
+        """
+        Process an incoming webhook, routing it to the correct registered callback (or your fallback) without signature verification.
+        """
         self._has_handled_events = True
 
         event_notif = (
@@ -683,7 +692,14 @@ class AsyncStripeEventNotificationHandler(_AsyncEventNotificationHandler):
             raise ValueError("webhook_secret must be a non-empty string")
         self._webhook_secret = webhook_secret
 
-    async def handle_async(self, webhook_body: str, sig_header: str):
+    async def handle_async(
+        self, webhook_body: WebhookPayload, sig_header: Optional[str]
+    ):
+        """
+        Process an incoming webhook, routing it to the correct registered callback (or your fallback).
+
+        `sig_header` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if a signature is not provided.
+        """
         self._has_handled_events = True
 
         event_notif = self._client.parse_event_notification(
@@ -711,7 +727,10 @@ class AsyncStripeEventNotificationHandlerWithoutVerification(
     Prefer `AsyncStripeEventNotificationHandler.without_verification()` or `client.async_notification_handler_without_verification()` instead of constructing it directly.
     """
 
-    async def handle_async(self, webhook_body: str):
+    async def handle_async(self, webhook_body: WebhookPayload):
+        """
+        Process an incoming webhook, routing it to the correct registered callback (or your fallback) without signature verification.
+        """
         self._has_handled_events = True
 
         event_notif = (

@@ -527,6 +527,40 @@ class TestEventNotificationHandler:
         with pytest.raises(SignatureVerificationError):
             event_handler.handle(v1_billing_meter_payload, "invalid_signature")
 
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    def test_handles_binary_webhook_body(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        """The body can arrive as bytes or a bytearray, which is how many frameworks expose it"""
+        callback = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(encode(v1_billing_meter_payload), sig_header)
+
+        callback.assert_called_once()
+
+    @pytest.mark.parametrize("sig_header", [None, ""])
+    def test_rejects_missing_sig_header(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        sig_header: Optional[str],
+    ) -> None:
+        """A missing header (a common integration mistake) gets its own error message"""
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No Stripe-Signature header value was provided",
+        ):
+            event_handler.handle(v1_billing_meter_payload, sig_header)
+
     def test_registered_event_types_empty(
         self, event_handler: StripeEventNotificationHandler
     ) -> None:
@@ -849,6 +883,26 @@ class TestEventNotificationHandlerWithoutVerification:
 
         # No signature needed - just the payload
         handler_without_verification.handle(v1_billing_meter_payload)
+
+        handler.assert_called_once()
+
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    def test_handles_binary_webhook_body(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+
+        handler_without_verification.handle(encode(v1_billing_meter_payload))
 
         handler.assert_called_once()
 
@@ -1302,6 +1356,44 @@ class TestAsyncEventNotificationHandler:
                 v1_billing_meter_payload, "t=1,v1=not-a-sig"
             )
 
+    @pytest.mark.anyio
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    async def test_handles_binary_webhook_body(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        callback = AsyncMock()
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(
+            encode(v1_billing_meter_payload), sig_header
+        )
+
+        callback.assert_called_once()
+
+    @pytest.mark.anyio
+    @pytest.mark.parametrize("sig_header", [None, ""])
+    async def test_rejects_missing_sig_header(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        sig_header: Optional[str],
+    ) -> None:
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No Stripe-Signature header value was provided",
+        ):
+            await event_handler.handle_async(
+                v1_billing_meter_payload, sig_header
+            )
+
 
 class TestAsyncEventNotificationHandlerWithoutVerification:
     @pytest.fixture(scope="function")
@@ -1370,6 +1462,25 @@ class TestAsyncEventNotificationHandlerWithoutVerification:
         assert isinstance(
             received, V1BillingMeterErrorReportTriggeredEventNotification
         )
+
+    @pytest.mark.anyio
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    async def test_handles_binary_webhook_body(
+        self,
+        handler: AsyncStripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        callback = AsyncMock()
+        handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        await handler.handle_async(encode(v1_billing_meter_payload))
+
+        callback.assert_called_once()
 
     @pytest.mark.anyio
     async def test_pre_handle_gates_handling(
