@@ -10,6 +10,9 @@ from stripe import (
 from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
 from stripe._event_notification_handler import (
+    AsyncFallbackCallback,
+    AsyncStripeEventNotificationHandler,
+    AsyncStripeEventNotificationHandlerWithoutVerification,
     StripeEventNotificationHandler,
     StripeEventNotificationHandlerWithoutVerification,
     FallbackCallback,
@@ -380,6 +383,30 @@ class StripeClient(object):
         verifies payloads before storage.
         """
         return StripeEventNotificationHandler.without_verification(
+            self, fallback_callback
+        )
+
+    def async_notification_handler(
+        self, webhook_secret: str, fallback_callback: AsyncFallbackCallback
+    ) -> AsyncStripeEventNotificationHandler:
+        """
+        Returns an AsyncStripeEventNotificationHandler instance tied to this client.
+        Register `async def` callbacks on it and run them using `await handler.handle_async()`.
+        """
+        return AsyncStripeEventNotificationHandler(
+            self, webhook_secret, fallback_callback
+        )
+
+    def async_notification_handler_without_verification(
+        self, fallback_callback: AsyncFallbackCallback
+    ) -> AsyncStripeEventNotificationHandlerWithoutVerification:
+        """
+        A variant of AsyncStripeEventNotificationHandler that parses events without
+        verifying webhook signatures. Intended for pre-authenticated channels
+        like AWS EventBridge, Azure Event Grid, or your own queue system that
+        verifies payloads before storage.
+        """
+        return AsyncStripeEventNotificationHandler.without_verification(
             self, fallback_callback
         )
 

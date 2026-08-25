@@ -1,8 +1,35 @@
-# -*- coding: utf-8 -*-
-from dataclasses import dataclass
-from typing_extensions import TYPE_CHECKING
+"""
+We use a combination of generics and inheritance to construct 4 handler classes with perfect type information while reusing as much code as we can.
+Each handler has the methods/signatures that will actually work:
 
-from typing import TypeVar, Callable, List, Optional
+|       | verified                            | unverified                                             |
+| ----- | ----------------------------------- | ------------------------------------------------------ |
+| sync  | StripeEventNotificationHandler      | StripeEventNotificationHandlerWithoutVerification      |
+| async | AsyncStripeEventNotificationHandler | AsyncStripeEventNotificationHandlerWithoutVerification |
+
+A pair of generic variables gives us the following class hierarchy (names edited for brevity):
+
+- _BaseHandler(Generic[CallbackReturn, PreHandleReturn])
+    - _SyncHandler(_BaseHandler[None, bool])
+        - StripeHandler(_SyncHandler)
+        - StripeHandlerWithoutVerification(_SyncHandler)
+    - _AsyncHandler(_BaseHandler[None, bool])
+        - AsyncStripeHandler(_AsyncHandler)
+        - AsyncStripeHandlerWithoutVerification(_AsyncHandler)
+
+Each defines `handle` and `register` methods corresponding to the types it expects
+"""
+
+from dataclasses import dataclass
+from typing_extensions import TYPE_CHECKING, Awaitable
+
+from typing import (
+    Callable,
+    Generic,
+    List,
+    Optional,
+    TypeVar,
+)
 
 # Import at runtime for isinstance check and type annotations
 from stripe.v2.core._event import EventNotification, UnknownEventNotification
@@ -103,32 +130,61 @@ class UnhandledNotificationDetails:
     """
 
 
-FallbackCallback = Callable[
-    [EventNotification, "StripeClient", UnhandledNotificationDetails], None
+# The handler base class is generic over what its callbacks return, which lets us reuse base classes for both the sync and async handlers.
+CallbackReturn = TypeVar("CallbackReturn")
+PreHandleReturn = TypeVar("PreHandleReturn")
+
+_FallbackCallback = Callable[
+    [EventNotification, "StripeClient", UnhandledNotificationDetails],
+    CallbackReturn,
 ]
+
+_PreHandleCallback = Callable[
+    [EventNotification, "StripeClient"], PreHandleReturn
+]
+
+FallbackCallback = _FallbackCallback[None]
 """
-This function is called when no other callback is registered for a given event notification type.
+Called when no other callback is registered for a given event notification type.
 """
 
-PreHandleCallback = Callable[[EventNotification, "StripeClient"], bool]
+AsyncFallbackCallback = _FallbackCallback[Awaitable[None]]
+"""
+This async function is called when no other callback is registered for a given event notification type.
+"""
+
+PreHandleCallback = _PreHandleCallback[bool]
+"""
+Called before any of your callbacks are run. Useful for filtering.
+"""
+
+AsyncPreHandleCallback = _PreHandleCallback[Awaitable[bool]]
+"""
+This async function is called before any of your callbacks are run. Useful for filtering.
+"""
 
 
-class _BaseEventNotificationHandler:
+class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
     """
-    Shared internal registration and dispatch machinery for the two user-facing event handlers.
+    Shared internal registration machinery for the user-facing event handlers.
+
+    Holds everything that doesn't depend on whether callbacks are awaited; the
+    sync and async subclasses below add only the dispatch loop itself.
     """
 
     def __init__(
         self,
         client: "StripeClient",
-        fallback_callback: FallbackCallback,
+        fallback_callback: _FallbackCallback[CallbackReturn],
     ) -> None:
         self._registered_handlers = {}
         self._client = client
         self.fallback_callback = fallback_callback
         # once this is true, adding additional handlers results in an error
         self._has_handled_events = False
-        self._pre_handle_callback: Optional[PreHandleCallback] = None
+        self._pre_handle_callback: Optional[
+            _PreHandleCallback[PreHandleReturn]
+        ] = None
 
     def _assert_can_register(self) -> None:
         """
@@ -140,7 +196,9 @@ class _BaseEventNotificationHandler:
                 "Cannot register new callbacks after an event has been handled. This is indicative of a bug."
             )
 
-    def pre_handle(self, func: PreHandleCallback) -> PreHandleCallback:
+    def pre_handle(
+        self, func: _PreHandleCallback[PreHandleReturn]
+    ) -> _PreHandleCallback[PreHandleReturn]:
         """
         Registers a function that will be run before any event-specific callbacks. A useful place to store event-agnostic logic, such as logging or checking for [duplicate event deliveries](https://docs.stripe.com/webhooks#handle-duplicate-events).
 
@@ -153,38 +211,25 @@ class _BaseEventNotificationHandler:
         self._pre_handle_callback = func
         return func
 
-    def _dispatch(self, event_notif: "EventNotification"):
-        # Create a new client with the event's context.
-        # This is thread-safe since we're not modifying the original client.
-        # The new client reuses the HTTP client to avoid TLS handshake overhead.
-        client_with_event_context = self._client.with_stripe_context(
-            event_notif.context
+    def _callback_for(self, event_notif: "EventNotification"):
+        """
+        Returns the callback registered for this event's type, if any.
+        """
+        return self._registered_handlers.get(event_notif.type)
+
+    def _unhandled_details(
+        self, event_notif: "EventNotification"
+    ) -> UnhandledNotificationDetails:
+        return UnhandledNotificationDetails(
+            is_known_event_type=not isinstance(
+                event_notif, UnknownEventNotification
+            )
         )
-
-        if self._pre_handle_callback and not self._pre_handle_callback(
-            event_notif, client_with_event_context
-        ):
-            return
-
-        if event_notif.type in self._registered_handlers:
-            self._registered_handlers[event_notif.type](
-                event_notif, client_with_event_context
-            )
-        else:
-            self.fallback_callback(
-                event_notif,
-                client_with_event_context,
-                UnhandledNotificationDetails(
-                    is_known_event_type=not isinstance(
-                        event_notif, UnknownEventNotification
-                    )
-                ),
-            )
 
     def _register(
         self,
         event_type: str,
-        func: "Callable[[EventNotificationChild, StripeClient], None]",
+        func: "Callable[[EventNotificationChild, StripeClient], CallbackReturn]",
     ) -> None:
         self._assert_can_register()
         if event_type in self._registered_handlers:
@@ -204,7 +249,7 @@ class _BaseEventNotificationHandler:
     # event-notification-registration-methods: The beginning of the section generated from our OpenAPI spec
     def on_v1_billing_meter_error_report_triggered(
         self,
-        func: "Callable[[V1BillingMeterErrorReportTriggeredEventNotification, StripeClient], None]",
+        func: "Callable[[V1BillingMeterErrorReportTriggeredEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V1BillingMeterErrorReportTriggeredEvent` (`v1.billing.meter.error_report_triggered`) event notification.
@@ -217,7 +262,7 @@ class _BaseEventNotificationHandler:
 
     def on_v1_billing_meter_no_meter_found(
         self,
-        func: "Callable[[V1BillingMeterNoMeterFoundEventNotification, StripeClient], None]",
+        func: "Callable[[V1BillingMeterNoMeterFoundEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V1BillingMeterNoMeterFoundEvent` (`v1.billing.meter.no_meter_found`) event notification.
@@ -230,7 +275,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_commerce_product_catalog_imports_failed(
         self,
-        func: "Callable[[V2CommerceProductCatalogImportsFailedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CommerceProductCatalogImportsFailedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CommerceProductCatalogImportsFailedEvent` (`v2.commerce.product_catalog.imports.failed`) event notification.
@@ -243,7 +288,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_commerce_product_catalog_imports_processing(
         self,
-        func: "Callable[[V2CommerceProductCatalogImportsProcessingEventNotification, StripeClient], None]",
+        func: "Callable[[V2CommerceProductCatalogImportsProcessingEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CommerceProductCatalogImportsProcessingEvent` (`v2.commerce.product_catalog.imports.processing`) event notification.
@@ -256,7 +301,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_commerce_product_catalog_imports_succeeded(
         self,
-        func: "Callable[[V2CommerceProductCatalogImportsSucceededEventNotification, StripeClient], None]",
+        func: "Callable[[V2CommerceProductCatalogImportsSucceededEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CommerceProductCatalogImportsSucceededEvent` (`v2.commerce.product_catalog.imports.succeeded`) event notification.
@@ -269,7 +314,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_commerce_product_catalog_imports_succeeded_with_errors(
         self,
-        func: "Callable[[V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification, StripeClient], None]",
+        func: "Callable[[V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CommerceProductCatalogImportsSucceededWithErrorsEvent` (`v2.commerce.product_catalog.imports.succeeded_with_errors`) event notification.
@@ -282,7 +327,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_closed(
         self,
-        func: "Callable[[V2CoreAccountClosedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountClosedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountClosedEvent` (`v2.core.account.closed`) event notification.
@@ -295,7 +340,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_created(
         self,
-        func: "Callable[[V2CoreAccountCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountCreatedEvent` (`v2.core.account.created`) event notification.
@@ -308,7 +353,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_configuration_customer_capability_status_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent` (`v2.core.account[configuration.customer].capability_status_updated`) event notification.
@@ -321,7 +366,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_configuration_customer_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent` (`v2.core.account[configuration.customer].updated`) event notification.
@@ -334,7 +379,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_configuration_merchant_capability_status_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent` (`v2.core.account[configuration.merchant].capability_status_updated`) event notification.
@@ -347,7 +392,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_configuration_merchant_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent` (`v2.core.account[configuration.merchant].updated`) event notification.
@@ -360,7 +405,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_configuration_recipient_capability_status_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent` (`v2.core.account[configuration.recipient].capability_status_updated`) event notification.
@@ -373,7 +418,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_configuration_recipient_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent` (`v2.core.account[configuration.recipient].updated`) event notification.
@@ -386,7 +431,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_defaults_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingDefaultsUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingDefaultsUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingDefaultsUpdatedEvent` (`v2.core.account[defaults].updated`) event notification.
@@ -399,7 +444,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_future_requirements_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingFutureRequirementsUpdatedEvent` (`v2.core.account[future_requirements].updated`) event notification.
@@ -412,7 +457,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_identity_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingIdentityUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingIdentityUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingIdentityUpdatedEvent` (`v2.core.account[identity].updated`) event notification.
@@ -425,7 +470,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_including_requirements_updated(
         self,
-        func: "Callable[[V2CoreAccountIncludingRequirementsUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountIncludingRequirementsUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountIncludingRequirementsUpdatedEvent` (`v2.core.account[requirements].updated`) event notification.
@@ -438,7 +483,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_link_returned(
         self,
-        func: "Callable[[V2CoreAccountLinkReturnedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountLinkReturnedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountLinkReturnedEvent` (`v2.core.account_link.returned`) event notification.
@@ -451,7 +496,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_person_created(
         self,
-        func: "Callable[[V2CoreAccountPersonCreatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountPersonCreatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountPersonCreatedEvent` (`v2.core.account_person.created`) event notification.
@@ -464,7 +509,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_person_deleted(
         self,
-        func: "Callable[[V2CoreAccountPersonDeletedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountPersonDeletedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountPersonDeletedEvent` (`v2.core.account_person.deleted`) event notification.
@@ -477,7 +522,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_person_updated(
         self,
-        func: "Callable[[V2CoreAccountPersonUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountPersonUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountPersonUpdatedEvent` (`v2.core.account_person.updated`) event notification.
@@ -490,7 +535,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_account_updated(
         self,
-        func: "Callable[[V2CoreAccountUpdatedEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreAccountUpdatedEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreAccountUpdatedEvent` (`v2.core.account.updated`) event notification.
@@ -503,7 +548,7 @@ class _BaseEventNotificationHandler:
 
     def on_v2_core_event_destination_ping(
         self,
-        func: "Callable[[V2CoreEventDestinationPingEventNotification, StripeClient], None]",
+        func: "Callable[[V2CoreEventDestinationPingEventNotification, StripeClient], CallbackReturn]",
     ):
         """
         Registers a callback for the `V2CoreEventDestinationPingEvent` (`v2.core.event_destination.ping`) event notification.
@@ -517,7 +562,54 @@ class _BaseEventNotificationHandler:
     # event-notification-registration-methods: The end of the section generated from our OpenAPI spec
 
 
-class StripeEventNotificationHandler(_BaseEventNotificationHandler):
+class _SyncEventNotificationHandler(_BaseEventNotificationHandler[None, bool]):
+    """
+    Adds synchronous dispatch. Shared by the verifying and non-verifying sync
+    handlers, which differ only in how they parse the incoming payload.
+    """
+
+    def _dispatch(self, event_notif: "EventNotification") -> None:
+        client = self._client.with_stripe_context(event_notif.context)
+
+        if self._pre_handle_callback and not self._pre_handle_callback(
+            event_notif, client
+        ):
+            return
+
+        if callback := self._callback_for(event_notif):
+            callback(event_notif, client)
+        else:
+            self.fallback_callback(
+                event_notif, client, self._unhandled_details(event_notif)
+            )
+
+
+class _AsyncEventNotificationHandler(
+    _BaseEventNotificationHandler[Awaitable[None], Awaitable[bool]]
+):
+    """
+    Adds asynchronous dispatch. Only the callbacks are awaited: verifying a
+    signature and parsing the payload are pure CPU work, so they stay
+    synchronous even here.
+    """
+
+    async def _dispatch_async(self, event_notif: "EventNotification") -> None:
+        client = self._client.with_stripe_context(event_notif.context)
+
+        if self._pre_handle_callback and not await self._pre_handle_callback(
+            event_notif, client
+        ):
+            return
+
+        if callback := self._callback_for(event_notif):
+            await callback(event_notif, client)
+        else:
+            await self.fallback_callback(
+                event_notif, client, self._unhandled_details(event_notif)
+            )
+
+
+class StripeEventNotificationHandler(_SyncEventNotificationHandler):
     """
     An on-rails experience for handling Stripe event notifications. Define callbacks for individual event types and an instance of this class will be responsible for verifying and routing the event.
     """
@@ -556,7 +648,7 @@ class StripeEventNotificationHandler(_BaseEventNotificationHandler):
 
 
 class StripeEventNotificationHandlerWithoutVerification(
-    _BaseEventNotificationHandler
+    _SyncEventNotificationHandler
 ):
     """
     A variant of StripeEventNotificationHandler that parses events without verifying webhook signatures. Intended for pre-authenticated channels like AWS EventBridge, Azure Event Grid, or your own pre-authenticated queuing system.
@@ -574,3 +666,59 @@ class StripeEventNotificationHandlerWithoutVerification(
         )
 
         self._dispatch(event_notif)
+
+
+class AsyncStripeEventNotificationHandler(_AsyncEventNotificationHandler):
+    """
+    The async equivalent of `StripeEventNotificationHandler`, for use from async web frameworks. Register `async def` callbacks and await `.handle_async()`.
+    """
+
+    def __init__(
+        self,
+        client: "StripeClient",
+        webhook_secret: str,
+        fallback_callback: AsyncFallbackCallback,
+    ) -> None:
+        super().__init__(client, fallback_callback)
+        if not webhook_secret:
+            raise ValueError("webhook_secret must be a non-empty string")
+        self._webhook_secret = webhook_secret
+
+    async def handle_async(self, webhook_body: str, sig_header: str):
+        self._has_handled_events = True
+
+        event_notif = self._client.parse_event_notification(
+            webhook_body, sig_header, self._webhook_secret
+        )
+
+        await self._dispatch_async(event_notif)
+
+    @staticmethod
+    def without_verification(
+        client: "StripeClient",
+        fallback_callback: AsyncFallbackCallback,
+    ) -> "AsyncStripeEventNotificationHandlerWithoutVerification":
+        return AsyncStripeEventNotificationHandlerWithoutVerification(
+            client, fallback_callback
+        )
+
+
+class AsyncStripeEventNotificationHandlerWithoutVerification(
+    _AsyncEventNotificationHandler
+):
+    """
+    A variant of AsyncStripeEventNotificationHandler that parses events without verifying webhook signatures. Intended for pre-authenticated channels like AWS EventBridge, Azure Event Grid, or your own pre-authenticated queuing system.
+
+    Prefer `AsyncStripeEventNotificationHandler.without_verification()` or `client.async_notification_handler_without_verification()` instead of constructing it directly.
+    """
+
+    async def handle_async(self, webhook_body: str):
+        self._has_handled_events = True
+
+        event_notif = (
+            self._client.parse_event_notification_without_verification(
+                webhook_body
+            )
+        )
+
+        await self._dispatch_async(event_notif)
