@@ -186,10 +186,9 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
             _PreHandleCallback[PreHandleReturn]
         ] = None
 
-    def _assert_can_register(self) -> None:
+    def _assert_hasnt_handled(self) -> None:
         """
-        Callbacks are expected to be registered once at startup, so registering
-        anything after handling has begun indicates a bug.
+        Callbacks are expected to be registered on startup, so registering anything after handling an event indicates a bug.
         """
         if self._has_handled_events:
             raise RuntimeError(
@@ -204,7 +203,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
 
         Returning `True` causes handling to continue as normal; returning `False` returns from `.handle()` immediately, so neither the registered callback nor the fallback callback are called.
         """
-        self._assert_can_register()
+        self._assert_hasnt_handled()
         if self._pre_handle_callback:
             raise ValueError("A pre_handle callback is already registered")
 
@@ -231,7 +230,7 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         event_type: str,
         func: "Callable[[EventNotificationChild, StripeClient], CallbackReturn]",
     ) -> None:
-        self._assert_can_register()
+        self._assert_hasnt_handled()
         if event_type in self._registered_handlers:
             raise ValueError(
                 f'Callback for event type "{event_type}" is already registered'
