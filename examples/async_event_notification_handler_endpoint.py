@@ -1,24 +1,26 @@
-# -*- coding: utf-8 -*-
 """
-event_notification_handler_endpoint.py - receive and process event notifications (AKA thin events) like "v1.billing.meter.error_report_triggered" using EventNotificationHandler.
+async_event_notification_handler_endpoint.py - receive and process event notifications (AKA thin events) like "v1.billing.meter.error_report_triggered" using AsyncEventNotificationHandler.
 
-In this example, we:
-    - write a fallback callback to handle unrecognized event notifications
+The async equivalent of event_notification_handler_endpoint.py. In this example, we:
+    - write an async fallback callback to handle unrecognized event notifications
     - create a StripeClient called client
-    - Initialize an EventNotificationHandler with the client, webhook secret, and fallback callback
+    - Initialize an AsyncStripeEventNotificationHandler with the client, webhook secret, and fallback callback
     - register a pre_handle hook that deduplicates events by id before any callback runs
     - register a specific handler for the "v1.billing.meter.error_report_triggered" event notification type
-    - use handler.handle() to process the received notification webhook body
+    - await handler.handle_async() to process the received notification webhook body
+
+Note that only your callbacks are awaited. Verifying the signature and parsing the
+payload are pure CPU work, so they stay synchronous even here.
 """
 
 import os
-from flask import Flask, request, jsonify
+from fastapi import FastAPI, Request, Response
 
 from stripe import StripeClient, UnhandledNotificationDetails
 from stripe.v2.core import EventNotification
 from stripe.events import V1BillingMeterErrorReportTriggeredEventNotification
 
-app = Flask(__name__)
+app = FastAPI()
 api_key = os.environ.get("STRIPE_API_KEY", "")
 webhook_secret = os.environ.get("WEBHOOK_SECRET", "")
 
@@ -28,7 +30,7 @@ webhook_secret = os.environ.get("WEBHOOK_SECRET", "")
 processed_event_ids: set[str] = set()
 
 
-def fallback_callback(
+async def fallback_callback(
     notif: EventNotification,
     client: StripeClient,
     details: UnhandledNotificationDetails,
@@ -37,18 +39,20 @@ def fallback_callback(
 
 
 client = StripeClient(api_key)
-handler = client.notification_handler(webhook_secret, fallback_callback)
+handler = client.async_notification_handler(webhook_secret, fallback_callback)
 
 # Handles events delivered through a channel that has already authenticated them, such as
 # AWS EventBridge or Azure Event Grid. Those payloads carry no Stripe-Signature header.
-unverified_handler = client.notification_handler_without_verification(
+unverified_handler = client.async_notification_handler_without_verification(
     fallback_callback
 )
 
 
 @handler.pre_handle
 @unverified_handler.pre_handle
-def deduplicate_events(notif: EventNotification, client: StripeClient) -> bool:
+async def deduplicate_events(
+    notif: EventNotification, client: StripeClient
+) -> bool:
     """
     Runs before any registered callback. Returning False
     here skips handling entirely for this delivery, which is useful for
@@ -66,30 +70,33 @@ def deduplicate_events(notif: EventNotification, client: StripeClient) -> bool:
 # endpoint below will route this event type
 @handler.on_v1_billing_meter_error_report_triggered
 @unverified_handler.on_v1_billing_meter_error_report_triggered
-def handle_meter_error(
+async def handle_meter_error(
     notif: V1BillingMeterErrorReportTriggeredEventNotification,
     client: StripeClient,
 ):
-    event = notif.fetch_event()
+    # the async variants of the fetch methods keep the whole callback non-blocking
+    event = await notif.fetch_event_async()
     print(f"Err! No meter found: {event.data.developer_message_summary}")
 
 
-@app.route("/webhook", methods=["POST"])
-def webhook():
+@app.post("/webhook")
+async def webhook(request: Request):
+    webhook_body = await request.body()
+    sig_header = request.headers.get("Stripe-Signature", "")
+
     try:
-        webhook_body = request.data
-        sig_header = request.headers.get("Stripe-Signature")
-        handler.handle(webhook_body, sig_header)
-        return jsonify(success=True), 200
+        await handler.handle_async(webhook_body.decode(), sig_header)
+        return Response(status_code=200)
     except Exception as e:
-        return jsonify(error=str(e)), 500
+        return Response(content=str(e), status_code=500)
 
 
-@app.route("/webhook-from-cloud-provider", methods=["POST"])
-def webhook_from_cloud_provider():
+@app.post("/webhook-from-cloud-provider")
+async def webhook_from_cloud_provider(request: Request):
     # no signature header to pass along; the channel already authenticated this event
     try:
-        unverified_handler.handle(request.data)
-        return jsonify(success=True), 200
+        body = await request.body()
+        await unverified_handler.handle_async(body)
+        return Response(status_code=200)
     except Exception as e:
-        return jsonify(error=str(e)), 500
+        return Response(content=str(e), status_code=500)
