@@ -114,6 +114,27 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_approval_request_approved_event import (
+        V2CoreApprovalRequestApprovedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_canceled_event import (
+        V2CoreApprovalRequestCanceledEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_created_event import (
+        V2CoreApprovalRequestCreatedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_expired_event import (
+        V2CoreApprovalRequestExpiredEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_failed_event import (
+        V2CoreApprovalRequestFailedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_rejected_event import (
+        V2CoreApprovalRequestRejectedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_succeeded_event import (
+        V2CoreApprovalRequestSucceededEventNotification,
+    )
     from stripe.events._v2_core_batch_job_batch_failed_event import (
         V2CoreBatchJobBatchFailedEventNotification,
     )
@@ -296,6 +317,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_orchestrated_commerce_agreement_terminated_event import (
         V2OrchestratedCommerceAgreementTerminatedEventNotification,
+    )
+    from stripe.events._v2_signals_account_evaluation_complete_event import (
+        V2SignalsAccountEvaluationCompleteEventNotification,
     )
     # event-notification-types: The end of the section generated from our OpenAPI spec
 
@@ -754,6 +778,97 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.core.account.updated",
+            func,
+        )
+        return func
+
+    def on_v2_core_approval_request_approved(
+        self,
+        func: "Callable[[V2CoreApprovalRequestApprovedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreApprovalRequestApprovedEvent` (`v2.core.approval_request.approved`) event notification.
+        """
+        self._register(
+            "v2.core.approval_request.approved",
+            func,
+        )
+        return func
+
+    def on_v2_core_approval_request_canceled(
+        self,
+        func: "Callable[[V2CoreApprovalRequestCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreApprovalRequestCanceledEvent` (`v2.core.approval_request.canceled`) event notification.
+        """
+        self._register(
+            "v2.core.approval_request.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_core_approval_request_created(
+        self,
+        func: "Callable[[V2CoreApprovalRequestCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreApprovalRequestCreatedEvent` (`v2.core.approval_request.created`) event notification.
+        """
+        self._register(
+            "v2.core.approval_request.created",
+            func,
+        )
+        return func
+
+    def on_v2_core_approval_request_expired(
+        self,
+        func: "Callable[[V2CoreApprovalRequestExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreApprovalRequestExpiredEvent` (`v2.core.approval_request.expired`) event notification.
+        """
+        self._register(
+            "v2.core.approval_request.expired",
+            func,
+        )
+        return func
+
+    def on_v2_core_approval_request_failed(
+        self,
+        func: "Callable[[V2CoreApprovalRequestFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreApprovalRequestFailedEvent` (`v2.core.approval_request.failed`) event notification.
+        """
+        self._register(
+            "v2.core.approval_request.failed",
+            func,
+        )
+        return func
+
+    def on_v2_core_approval_request_rejected(
+        self,
+        func: "Callable[[V2CoreApprovalRequestRejectedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreApprovalRequestRejectedEvent` (`v2.core.approval_request.rejected`) event notification.
+        """
+        self._register(
+            "v2.core.approval_request.rejected",
+            func,
+        )
+        return func
+
+    def on_v2_core_approval_request_succeeded(
+        self,
+        func: "Callable[[V2CoreApprovalRequestSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreApprovalRequestSucceededEvent` (`v2.core.approval_request.succeeded`) event notification.
+        """
+        self._register(
+            "v2.core.approval_request.succeeded",
             func,
         )
         return func
@@ -1547,6 +1662,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.orchestrated_commerce.agreement.terminated",
+            func,
+        )
+        return func
+
+    def on_v2_signals_account_evaluation_complete(
+        self,
+        func: "Callable[[V2SignalsAccountEvaluationCompleteEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsAccountEvaluationCompleteEvent` (`v2.signals.account_evaluation.complete`) event notification.
+        """
+        self._register(
+            "v2.signals.account_evaluation.complete",
             func,
         )
         return func

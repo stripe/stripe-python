@@ -29,6 +29,12 @@ if TYPE_CHECKING:
     from stripe.billing._credit_grant_service import (
         CreditGrantService as CreditGrantService,
     )
+    from stripe.billing._feedback_option import (
+        FeedbackOption as FeedbackOption,
+    )
+    from stripe.billing._feedback_option_service import (
+        FeedbackOptionService as FeedbackOptionService,
+    )
     from stripe.billing._meter import Meter as Meter
     from stripe.billing._meter_event import MeterEvent as MeterEvent
     from stripe.billing._meter_event_adjustment import (
@@ -70,6 +76,11 @@ _import_map = {
     ),
     "CreditGrant": ("stripe.billing._credit_grant", False),
     "CreditGrantService": ("stripe.billing._credit_grant_service", False),
+    "FeedbackOption": ("stripe.billing._feedback_option", False),
+    "FeedbackOptionService": (
+        "stripe.billing._feedback_option_service",
+        False,
+    ),
     "Meter": ("stripe.billing._meter", False),
     "MeterEvent": ("stripe.billing._meter_event", False),
     "MeterEventAdjustment": ("stripe.billing._meter_event_adjustment", False),

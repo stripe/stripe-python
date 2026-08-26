@@ -456,7 +456,7 @@ class Dispute(
     class SmartDisputes(StripeObject):
         recommended_evidence: Optional[List[List[str]]]
         """
-        Evidence that could be provided to improve the SmartDisputes packet
+        Evidence that could be provided to improve the Smart Disputes packet
         """
         status: Literal[
             "available", "processing", "requires_evidence", "unavailable"

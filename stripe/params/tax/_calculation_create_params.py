@@ -25,7 +25,7 @@ class CalculationCreateParams(RequestOptions):
     """
     line_items: List["CalculationCreateParamsLineItem"]
     """
-    A list of items the customer is purchasing.
+    A list of items the customer is purchasing. You can pass up to 100 line items, or 1,000 if your account has an increased limit.
     """
     ship_from_details: NotRequired["CalculationCreateParamsShipFromDetails"]
     """

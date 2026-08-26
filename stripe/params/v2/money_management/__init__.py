@@ -111,6 +111,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._payout_method_archive_params import (
         PayoutMethodArchiveParams as PayoutMethodArchiveParams,
     )
+    from stripe.params.v2.money_management._payout_method_disable_params import (
+        PayoutMethodDisableParams as PayoutMethodDisableParams,
+    )
     from stripe.params.v2.money_management._payout_method_list_params import (
         PayoutMethodListParams as PayoutMethodListParams,
         PayoutMethodListParamsUsageStatus as PayoutMethodListParamsUsageStatus,
@@ -345,6 +348,10 @@ _import_map = {
     ),
     "PayoutMethodArchiveParams": (
         "stripe.params.v2.money_management._payout_method_archive_params",
+        False,
+    ),
+    "PayoutMethodDisableParams": (
+        "stripe.params.v2.money_management._payout_method_disable_params",
         False,
     ),
     "PayoutMethodListParams": (

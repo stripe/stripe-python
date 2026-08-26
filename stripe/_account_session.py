@@ -368,6 +368,20 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class PaymentMethodSettings(StripeObject):
+            class Features(StripeObject):
+                disable_stripe_user_authentication: bool
+                """
+                Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Payments(StripeObject):
             class Features(StripeObject):
                 capture_payments: bool
@@ -500,6 +514,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payment_disputes: PaymentDisputes
+        payment_method_settings: PaymentMethodSettings
         payments: Payments
         payout_details: PayoutDetails
         payout_reconciliation_report: PayoutReconciliationReport
@@ -525,6 +540,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payment_disputes": PaymentDisputes,
+            "payment_method_settings": PaymentMethodSettings,
             "payments": Payments,
             "payout_details": PayoutDetails,
             "payout_reconciliation_report": PayoutReconciliationReport,

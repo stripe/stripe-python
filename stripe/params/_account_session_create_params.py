@@ -753,14 +753,17 @@ class AccountSessionCreateParamsComponentsPaymentMethodSettings(TypedDict):
         "AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures"
     ]
     """
-    An empty list, because this embedded component has no features.
+    The list of features enabled in the embedded component.
     """
 
 
 class AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures(
     TypedDict,
 ):
-    pass
+    disable_stripe_user_authentication: NotRequired[bool]
+    """
+    Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+    """
 
 
 class AccountSessionCreateParamsComponentsPayments(TypedDict):

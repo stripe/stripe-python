@@ -82,6 +82,27 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_approval_request_approved_event import (
+        V2CoreApprovalRequestApprovedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_canceled_event import (
+        V2CoreApprovalRequestCanceledEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_created_event import (
+        V2CoreApprovalRequestCreatedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_expired_event import (
+        V2CoreApprovalRequestExpiredEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_failed_event import (
+        V2CoreApprovalRequestFailedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_rejected_event import (
+        V2CoreApprovalRequestRejectedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_succeeded_event import (
+        V2CoreApprovalRequestSucceededEventNotification,
+    )
     from stripe.events._v2_core_batch_job_batch_failed_event import (
         V2CoreBatchJobBatchFailedEventNotification,
     )
@@ -265,6 +286,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_orchestrated_commerce_agreement_terminated_event import (
         V2OrchestratedCommerceAgreementTerminatedEventNotification,
     )
+    from stripe.events._v2_signals_account_evaluation_complete_event import (
+        V2SignalsAccountEvaluationCompleteEventNotification,
+    )
 
 
 _V2_EVENT_CLASS_LOOKUP = {
@@ -367,6 +391,34 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.account.updated": (
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEvent",
+    ),
+    "v2.core.approval_request.approved": (
+        "stripe.events._v2_core_approval_request_approved_event",
+        "V2CoreApprovalRequestApprovedEvent",
+    ),
+    "v2.core.approval_request.canceled": (
+        "stripe.events._v2_core_approval_request_canceled_event",
+        "V2CoreApprovalRequestCanceledEvent",
+    ),
+    "v2.core.approval_request.created": (
+        "stripe.events._v2_core_approval_request_created_event",
+        "V2CoreApprovalRequestCreatedEvent",
+    ),
+    "v2.core.approval_request.expired": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        "V2CoreApprovalRequestExpiredEvent",
+    ),
+    "v2.core.approval_request.failed": (
+        "stripe.events._v2_core_approval_request_failed_event",
+        "V2CoreApprovalRequestFailedEvent",
+    ),
+    "v2.core.approval_request.rejected": (
+        "stripe.events._v2_core_approval_request_rejected_event",
+        "V2CoreApprovalRequestRejectedEvent",
+    ),
+    "v2.core.approval_request.succeeded": (
+        "stripe.events._v2_core_approval_request_succeeded_event",
+        "V2CoreApprovalRequestSucceededEvent",
     ),
     "v2.core.batch_job.batch_failed": (
         "stripe.events._v2_core_batch_job_batch_failed_event",
@@ -612,6 +664,10 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
         "V2OrchestratedCommerceAgreementTerminatedEvent",
     ),
+    "v2.signals.account_evaluation.complete": (
+        "stripe.events._v2_signals_account_evaluation_complete_event",
+        "V2SignalsAccountEvaluationCompleteEvent",
+    ),
 }
 
 
@@ -726,6 +782,34 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.core.account.updated": (
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEventNotification",
+    ),
+    "v2.core.approval_request.approved": (
+        "stripe.events._v2_core_approval_request_approved_event",
+        "V2CoreApprovalRequestApprovedEventNotification",
+    ),
+    "v2.core.approval_request.canceled": (
+        "stripe.events._v2_core_approval_request_canceled_event",
+        "V2CoreApprovalRequestCanceledEventNotification",
+    ),
+    "v2.core.approval_request.created": (
+        "stripe.events._v2_core_approval_request_created_event",
+        "V2CoreApprovalRequestCreatedEventNotification",
+    ),
+    "v2.core.approval_request.expired": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        "V2CoreApprovalRequestExpiredEventNotification",
+    ),
+    "v2.core.approval_request.failed": (
+        "stripe.events._v2_core_approval_request_failed_event",
+        "V2CoreApprovalRequestFailedEventNotification",
+    ),
+    "v2.core.approval_request.rejected": (
+        "stripe.events._v2_core_approval_request_rejected_event",
+        "V2CoreApprovalRequestRejectedEventNotification",
+    ),
+    "v2.core.approval_request.succeeded": (
+        "stripe.events._v2_core_approval_request_succeeded_event",
+        "V2CoreApprovalRequestSucceededEventNotification",
     ),
     "v2.core.batch_job.batch_failed": (
         "stripe.events._v2_core_batch_job_batch_failed_event",
@@ -971,6 +1055,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
         "V2OrchestratedCommerceAgreementTerminatedEventNotification",
     ),
+    "v2.signals.account_evaluation.complete": (
+        "stripe.events._v2_signals_account_evaluation_complete_event",
+        "V2SignalsAccountEvaluationCompleteEventNotification",
+    ),
 }
 
 
@@ -1011,6 +1099,13 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountPersonDeletedEventNotification",
     "V2CoreAccountPersonUpdatedEventNotification",
     "V2CoreAccountUpdatedEventNotification",
+    "V2CoreApprovalRequestApprovedEventNotification",
+    "V2CoreApprovalRequestCanceledEventNotification",
+    "V2CoreApprovalRequestCreatedEventNotification",
+    "V2CoreApprovalRequestExpiredEventNotification",
+    "V2CoreApprovalRequestFailedEventNotification",
+    "V2CoreApprovalRequestRejectedEventNotification",
+    "V2CoreApprovalRequestSucceededEventNotification",
     "V2CoreBatchJobBatchFailedEventNotification",
     "V2CoreBatchJobCanceledEventNotification",
     "V2CoreBatchJobCompletedEventNotification",
@@ -1072,4 +1167,5 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2OrchestratedCommerceAgreementCreatedEventNotification",
     "V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification",
     "V2OrchestratedCommerceAgreementTerminatedEventNotification",
+    "V2SignalsAccountEvaluationCompleteEventNotification",
 ]

@@ -31,6 +31,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_token_service import (
         AccountTokenService as AccountTokenService,
     )
+    from stripe.v2.core._approval_request import (
+        ApprovalRequest as ApprovalRequest,
+    )
+    from stripe.v2.core._approval_request_service import (
+        ApprovalRequestService as ApprovalRequestService,
+    )
     from stripe.v2.core._batch_job import BatchJob as BatchJob
     from stripe.v2.core._batch_job_service import (
         BatchJobService as BatchJobService,
@@ -57,6 +63,11 @@ _import_map = {
     "AccountService": ("stripe.v2.core._account_service", False),
     "AccountToken": ("stripe.v2.core._account_token", False),
     "AccountTokenService": ("stripe.v2.core._account_token_service", False),
+    "ApprovalRequest": ("stripe.v2.core._approval_request", False),
+    "ApprovalRequestService": (
+        "stripe.v2.core._approval_request_service",
+        False,
+    ),
     "BatchJob": ("stripe.v2.core._batch_job", False),
     "BatchJobService": ("stripe.v2.core._batch_job_service", False),
     "Event": ("stripe.v2.core._event", False),

@@ -1798,6 +1798,10 @@ class AccountUpdateParamsDefaults(TypedDict):
     """
     The Account's preferred locales (languages), ordered by preference.
     """
+    payout_methods: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+    """
     profile: NotRequired["AccountUpdateParamsDefaultsProfile"]
     """
     Account profile information.
