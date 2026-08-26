@@ -479,6 +479,7 @@ class Invoice(
                     "api_key_expired",
                     "application_fees_not_allowed",
                     "approval_required",
+                    "authentication_failure",
                     "authentication_required",
                     "balance_insufficient",
                     "balance_invalid_parameter",
@@ -491,6 +492,7 @@ class Invoice(
                     "bank_account_verification_failed",
                     "billing_invalid_mandate",
                     "bitcoin_upgrade_required",
+                    "capability_not_active",
                     "capture_charge_authorization_expired",
                     "capture_unauthorized_payment",
                     "card_decline_rate_limit_exceeded",
@@ -515,6 +517,7 @@ class Invoice(
                     "debit_not_authorized",
                     "email_invalid",
                     "expired_card",
+                    "expired_payment_method",
                     "failed_tax_calculation",
                     "financial_account_balance_does_not_support_currency",
                     "financial_account_capability_not_enabled",
@@ -534,6 +537,7 @@ class Invoice(
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
+                    "incorrect_postal_code",
                     "incorrect_zip",
                     "india_recurring_payment_mandate_canceled",
                     "instant_payouts_config_disabled",
@@ -543,6 +547,7 @@ class Invoice(
                     "insufficient_funds",
                     "intent_invalid_state",
                     "intent_verification_method_missing",
+                    "invalid_canceled_subscription_fields",
                     "invalid_card_type",
                     "invalid_characters",
                     "invalid_charge_amount",
@@ -602,6 +607,7 @@ class Invoice(
                     "payment_method_not_available",
                     "payment_method_provider_decline",
                     "payment_method_provider_timeout",
+                    "payment_method_restricted",
                     "payment_method_unactivated",
                     "payment_method_unexpected_state",
                     "payment_method_unsupported_type",
@@ -851,6 +857,9 @@ class Invoice(
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
 
+            class Billie(StripeObject):
+                pass
+
             class Blik(StripeObject):
                 pass
 
@@ -1046,6 +1055,10 @@ class Invoice(
             """
             If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
             """
+            billie: Optional[Billie]
+            """
+            If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
+            """
             blik: Optional[Blik]
             """
             If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice's PaymentIntent.
@@ -1089,6 +1102,7 @@ class Invoice(
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "billie": Billie,
                 "blik": Blik,
                 "card": Card,
                 "customer_balance": CustomerBalance,
@@ -1122,6 +1136,7 @@ class Invoice(
                         "au_becs_debit",
                         "bacs_debit",
                         "bancontact",
+                        "billie",
                         "blik",
                         "boleto",
                         "card",

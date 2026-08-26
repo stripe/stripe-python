@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.billing._feedback_option import FeedbackOption
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -241,6 +242,10 @@ class Subscription(
         """
         The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
         """
+        feedback_option: Optional[ExpandableField["FeedbackOption"]]
+        """
+        Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+        """
         reason: Optional[
             Union[
                 Literal[
@@ -366,6 +371,9 @@ class Subscription(
                 """
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
+
+            class Billie(StripeObject):
+                pass
 
             class Blik(StripeObject):
                 class MandateOptions(StripeObject):
@@ -629,6 +637,10 @@ class Subscription(
             """
             This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
             """
+            billie: Optional[Billie]
+            """
+            This sub-hash contains details about the Billie payment method options to pass to invoices created by the subscription.
+            """
             blik: Optional[Blik]
             """
             This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
@@ -672,6 +684,7 @@ class Subscription(
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "billie": Billie,
                 "blik": Blik,
                 "card": Card,
                 "customer_balance": CustomerBalance,
@@ -701,6 +714,7 @@ class Subscription(
                         "au_becs_debit",
                         "bacs_debit",
                         "bancontact",
+                        "billie",
                         "blik",
                         "boleto",
                         "card",
@@ -1596,7 +1610,7 @@ class Subscription(
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
         To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
 
-        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
 
         Switching prices does not normally change the billing date or generate an immediate charge unless:
 
@@ -1633,7 +1647,7 @@ class Subscription(
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
         To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
 
-        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
 
         Switching prices does not normally change the billing date or generate an immediate charge unless:
 

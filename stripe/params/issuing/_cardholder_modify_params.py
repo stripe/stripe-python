@@ -43,7 +43,7 @@ class CardholderModifyParams(RequestOptions):
         List[Union[Literal["de", "en", "es", "fr", "it"], str]]
     ]
     """
-    The cardholder's preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
+    The cardholder's preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
      This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
     """
     spending_controls: NotRequired["CardholderModifyParamsSpendingControls"]
@@ -125,7 +125,7 @@ class CardholderModifyParamsIndividualCardIssuing(TypedDict):
         "CardholderModifyParamsIndividualCardIssuingUserTermsAcceptance"
     ]
     """
-    Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
+    Information about cardholder acceptance of Celtic [Authorized User Terms](https://docs.stripe.com/issuing/compliance-us#issuing-terms). Required for cards backed by a Celtic program.
     """
 
 

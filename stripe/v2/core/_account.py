@@ -3621,6 +3621,10 @@ class Account(StripeObject):
         """
         The Account's preferred locales (languages), ordered by preference.
         """
+        payout_methods: Optional[UntypedStripeObject[str]]
+        """
+        Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+        """
         profile: Optional[Profile]
         """
         Account profile information.
@@ -5201,7 +5205,7 @@ class Account(StripeObject):
             """
             legal_gender: Optional[Union[Literal["female", "male"], str]]
             """
-            The individual's gender (International regulations require either "male” or "female").
+            The individual's gender (International regulations require either "male" or "female").
             """
             metadata: Optional[UntypedStripeObject[str]]
             """

@@ -98,6 +98,7 @@ class PaymentIntentConfirmParams(RequestOptions):
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -198,10 +199,6 @@ class PaymentIntentConfirmParams(RequestOptions):
     ]
     """
     Payment method-specific configuration for this PaymentIntent.
-    """
-    payment_method_types: NotRequired[List[str]]
-    """
-    The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
     radar_options: NotRequired["PaymentIntentConfirmParamsRadarOptions"]
     """

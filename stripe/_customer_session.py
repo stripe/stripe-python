@@ -26,10 +26,22 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     OBJECT_NAME: ClassVar[Literal["customer_session"]] = "customer_session"
 
     class Components(StripeObject):
+        class ActiveEntitlements(StripeObject):
+            enabled: bool
+            """
+            Whether the active entitlements is enabled.
+            """
+
         class BuyButton(StripeObject):
             enabled: bool
             """
             Whether the buy button is enabled.
+            """
+
+        class CustomerPortal(StripeObject):
+            enabled: bool
+            """
+            Whether the customer portal is enabled.
             """
 
         class CustomerSheet(StripeObject):
@@ -200,9 +212,17 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             """
             _inner_class_types = {"features": Features}
 
+        active_entitlements: ActiveEntitlements
+        """
+        This hash contains whether the active entitlements is enabled.
+        """
         buy_button: BuyButton
         """
         This hash contains whether the buy button is enabled.
+        """
+        customer_portal: CustomerPortal
+        """
+        This hash contains whether the customer portal is enabled.
         """
         customer_sheet: CustomerSheet
         """
@@ -225,7 +245,9 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         This hash contains whether the Tax ID Element is enabled and the features it supports.
         """
         _inner_class_types = {
+            "active_entitlements": ActiveEntitlements,
             "buy_button": BuyButton,
+            "customer_portal": CustomerPortal,
             "customer_sheet": CustomerSheet,
             "mobile_payment_element": MobilePaymentElement,
             "payment_element": PaymentElement,

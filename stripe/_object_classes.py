@@ -59,6 +59,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CreditBalanceTransaction",
     ),
     "billing.credit_grant": ("stripe.billing._credit_grant", "CreditGrant"),
+    "billing.feedback_option": (
+        "stripe.billing._feedback_option",
+        "FeedbackOption",
+    ),
     "billing.meter": ("stripe.billing._meter", "Meter"),
     "billing.meter_event": ("stripe.billing._meter_event", "MeterEvent"),
     "billing.meter_event_adjustment": (
@@ -450,6 +454,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "AccountPersonToken",
     ),
     "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
+    "v2.core.approval_request": (
+        "stripe.v2.core._approval_request",
+        "ApprovalRequest",
+    ),
     "v2.core.batch_job": ("stripe.v2.core._batch_job", "BatchJob"),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
@@ -545,6 +553,18 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.orchestrated_commerce.agreement": (
         "stripe.v2.orchestrated_commerce._agreement",
         "Agreement",
+    ),
+    "v2.signals.account_activity": (
+        "stripe.v2.signals._account_activity",
+        "AccountActivity",
+    ),
+    "v2.signals.account_evaluation": (
+        "stripe.v2.signals._account_evaluation",
+        "AccountEvaluation",
+    ),
+    "v2.signals.account_signal": (
+        "stripe.v2.signals._account_signal",
+        "AccountSignal",
     ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

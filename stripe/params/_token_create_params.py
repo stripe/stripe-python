@@ -78,6 +78,9 @@ class TokenCreateParamsAccountCompany(TypedDict):
     administrative_address: NotRequired[
         "TokenCreateParamsAccountCompanyAdministrativeAddress"
     ]
+    """
+    The location where the business is administered.
+    """
     directors_provided: NotRequired[bool]
     """
     Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
@@ -139,6 +142,9 @@ class TokenCreateParamsAccountCompany(TypedDict):
     principal_place_of_business: NotRequired[
         "TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness"
     ]
+    """
+    The primary location where the business conducts operations.
+    """
     registration_date: NotRequired[
         "Literal['']|TokenCreateParamsAccountCompanyRegistrationDate"
     ]

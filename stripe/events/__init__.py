@@ -115,6 +115,34 @@ if TYPE_CHECKING:
         V2CoreAccountUpdatedEvent as V2CoreAccountUpdatedEvent,
         V2CoreAccountUpdatedEventNotification as V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_approval_request_approved_event import (
+        V2CoreApprovalRequestApprovedEvent as V2CoreApprovalRequestApprovedEvent,
+        V2CoreApprovalRequestApprovedEventNotification as V2CoreApprovalRequestApprovedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_canceled_event import (
+        V2CoreApprovalRequestCanceledEvent as V2CoreApprovalRequestCanceledEvent,
+        V2CoreApprovalRequestCanceledEventNotification as V2CoreApprovalRequestCanceledEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_created_event import (
+        V2CoreApprovalRequestCreatedEvent as V2CoreApprovalRequestCreatedEvent,
+        V2CoreApprovalRequestCreatedEventNotification as V2CoreApprovalRequestCreatedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_expired_event import (
+        V2CoreApprovalRequestExpiredEvent as V2CoreApprovalRequestExpiredEvent,
+        V2CoreApprovalRequestExpiredEventNotification as V2CoreApprovalRequestExpiredEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_failed_event import (
+        V2CoreApprovalRequestFailedEvent as V2CoreApprovalRequestFailedEvent,
+        V2CoreApprovalRequestFailedEventNotification as V2CoreApprovalRequestFailedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_rejected_event import (
+        V2CoreApprovalRequestRejectedEvent as V2CoreApprovalRequestRejectedEvent,
+        V2CoreApprovalRequestRejectedEventNotification as V2CoreApprovalRequestRejectedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_succeeded_event import (
+        V2CoreApprovalRequestSucceededEvent as V2CoreApprovalRequestSucceededEvent,
+        V2CoreApprovalRequestSucceededEventNotification as V2CoreApprovalRequestSucceededEventNotification,
+    )
     from stripe.events._v2_core_batch_job_batch_failed_event import (
         V2CoreBatchJobBatchFailedEvent as V2CoreBatchJobBatchFailedEvent,
         V2CoreBatchJobBatchFailedEventNotification as V2CoreBatchJobBatchFailedEventNotification,
@@ -359,6 +387,10 @@ if TYPE_CHECKING:
         V2OrchestratedCommerceAgreementTerminatedEvent as V2OrchestratedCommerceAgreementTerminatedEvent,
         V2OrchestratedCommerceAgreementTerminatedEventNotification as V2OrchestratedCommerceAgreementTerminatedEventNotification,
     )
+    from stripe.events._v2_signals_account_evaluation_complete_event import (
+        V2SignalsAccountEvaluationCompleteEvent as V2SignalsAccountEvaluationCompleteEvent,
+        V2SignalsAccountEvaluationCompleteEventNotification as V2SignalsAccountEvaluationCompleteEventNotification,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -561,6 +593,62 @@ _import_map = {
     ),
     "V2CoreAccountUpdatedEventNotification": (
         "stripe.events._v2_core_account_updated_event",
+        False,
+    ),
+    "V2CoreApprovalRequestApprovedEvent": (
+        "stripe.events._v2_core_approval_request_approved_event",
+        False,
+    ),
+    "V2CoreApprovalRequestApprovedEventNotification": (
+        "stripe.events._v2_core_approval_request_approved_event",
+        False,
+    ),
+    "V2CoreApprovalRequestCanceledEvent": (
+        "stripe.events._v2_core_approval_request_canceled_event",
+        False,
+    ),
+    "V2CoreApprovalRequestCanceledEventNotification": (
+        "stripe.events._v2_core_approval_request_canceled_event",
+        False,
+    ),
+    "V2CoreApprovalRequestCreatedEvent": (
+        "stripe.events._v2_core_approval_request_created_event",
+        False,
+    ),
+    "V2CoreApprovalRequestCreatedEventNotification": (
+        "stripe.events._v2_core_approval_request_created_event",
+        False,
+    ),
+    "V2CoreApprovalRequestExpiredEvent": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        False,
+    ),
+    "V2CoreApprovalRequestExpiredEventNotification": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        False,
+    ),
+    "V2CoreApprovalRequestFailedEvent": (
+        "stripe.events._v2_core_approval_request_failed_event",
+        False,
+    ),
+    "V2CoreApprovalRequestFailedEventNotification": (
+        "stripe.events._v2_core_approval_request_failed_event",
+        False,
+    ),
+    "V2CoreApprovalRequestRejectedEvent": (
+        "stripe.events._v2_core_approval_request_rejected_event",
+        False,
+    ),
+    "V2CoreApprovalRequestRejectedEventNotification": (
+        "stripe.events._v2_core_approval_request_rejected_event",
+        False,
+    ),
+    "V2CoreApprovalRequestSucceededEvent": (
+        "stripe.events._v2_core_approval_request_succeeded_event",
+        False,
+    ),
+    "V2CoreApprovalRequestSucceededEventNotification": (
+        "stripe.events._v2_core_approval_request_succeeded_event",
         False,
     ),
     "V2CoreBatchJobBatchFailedEvent": (
@@ -1049,6 +1137,14 @@ _import_map = {
     ),
     "V2OrchestratedCommerceAgreementTerminatedEventNotification": (
         "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
+        False,
+    ),
+    "V2SignalsAccountEvaluationCompleteEvent": (
+        "stripe.events._v2_signals_account_evaluation_complete_event",
+        False,
+    ),
+    "V2SignalsAccountEvaluationCompleteEventNotification": (
+        "stripe.events._v2_signals_account_evaluation_complete_event",
         False,
     ),
 }

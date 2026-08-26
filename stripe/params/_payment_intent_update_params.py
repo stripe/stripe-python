@@ -97,6 +97,7 @@ class PaymentIntentUpdateParams(TypedDict):
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -210,10 +211,6 @@ class PaymentIntentUpdateParams(TypedDict):
     ]
     """
     Payment-method-specific configuration for this PaymentIntent.
-    """
-    payment_method_types: NotRequired[List[str]]
-    """
-    The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
     receipt_email: NotRequired["Literal['']|str"]
     """

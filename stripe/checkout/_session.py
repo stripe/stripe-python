@@ -1156,6 +1156,12 @@ class Session(
                 """
                 The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
                 """
+                funding_types_blocked: Optional[
+                    List[Union[Literal["credit", "debit", "prepaid"], str]]
+                ]
+                """
+                Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+                """
 
             capture_method: Optional[Literal["manual"]]
             """
@@ -2113,7 +2119,7 @@ class Session(
 
             Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-            When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+            This parameter is only supported when `ui_mode=elements`.
             """
 
         update: Optional[Update]
@@ -2138,7 +2144,7 @@ class Session(
 
         Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        This parameter is only supported when `ui_mode=elements`.
         """
         _inner_class_types = {"update": Update}
 
@@ -2834,7 +2840,7 @@ class Session(
         Union[Literal["always", "if_required"], str]
     ]
     """
-    Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
+    Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails

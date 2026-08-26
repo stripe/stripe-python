@@ -29,7 +29,7 @@ class SubscriptionUpdateParams(TypedDict):
         "Literal['']|List[SubscriptionUpdateParamsBillingSchedule]"
     ]
     """
-    Sets the billing schedules for the subscription.
+    An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     """
     billing_thresholds: NotRequired[
         "Literal['']|SubscriptionUpdateParamsBillingThresholds"
@@ -344,7 +344,7 @@ class SubscriptionUpdateParamsBillingSchedule(TypedDict):
     """
     bill_until: NotRequired["SubscriptionUpdateParamsBillingScheduleBillUntil"]
     """
-    The end date for the billing schedule.
+    The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
     """
     key: NotRequired[str]
     """
@@ -412,6 +412,10 @@ class SubscriptionUpdateParamsCancellationDetails(TypedDict):
     ]
     """
     The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+    """
+    feedback_option: NotRequired[str]
+    """
+    Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
     """
 
 
@@ -694,7 +698,7 @@ class SubscriptionUpdateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -719,6 +723,12 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     ]
     """
     This sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
+    """
+    billie: NotRequired[
+        "Literal['']|SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie"
+    ]
+    """
+    This sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
     """
     blik: NotRequired[
         "Literal['']|SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik"
@@ -815,6 +825,12 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact(
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
     """
+
+
+class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie(
+    TypedDict,
+):
+    pass
 
 
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik(

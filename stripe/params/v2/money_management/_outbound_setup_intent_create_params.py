@@ -37,7 +37,7 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
     """
     type: Union[Literal["bank_account", "card", "crypto_wallet"], str]
     """
-    Closed Enum. The type of payout method to be created.
+    Open Enum. The type of payout method to be created.
     """
 
 

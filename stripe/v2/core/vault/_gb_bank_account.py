@@ -124,6 +124,10 @@ class GbBankAccount(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    restricted: bool
+    """
+    Whether the GB Bank Account is currently unusable for money movement, despite potentially being correctly set up. Please reach out to Stripe Support for more information.
+    """
     sort_code: Optional[str]
     """
     The Sort Code of the bank account.

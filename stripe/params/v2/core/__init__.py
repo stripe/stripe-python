@@ -430,6 +430,19 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityIndividualScriptNamesKana as AccountUpdateParamsIdentityIndividualScriptNamesKana,
         AccountUpdateParamsIdentityIndividualScriptNamesKanji as AccountUpdateParamsIdentityIndividualScriptNamesKanji,
     )
+    from stripe.params.v2.core._approval_request_cancel_params import (
+        ApprovalRequestCancelParams as ApprovalRequestCancelParams,
+    )
+    from stripe.params.v2.core._approval_request_list_params import (
+        ApprovalRequestListParams as ApprovalRequestListParams,
+        ApprovalRequestListParamsCreated as ApprovalRequestListParamsCreated,
+    )
+    from stripe.params.v2.core._approval_request_retrieve_params import (
+        ApprovalRequestRetrieveParams as ApprovalRequestRetrieveParams,
+    )
+    from stripe.params.v2.core._approval_request_update_params import (
+        ApprovalRequestUpdateParams as ApprovalRequestUpdateParams,
+    )
     from stripe.params.v2.core._batch_job_cancel_params import (
         BatchJobCancelParams as BatchJobCancelParams,
     )
@@ -2112,6 +2125,26 @@ _import_map = {
     ),
     "AccountUpdateParamsIdentityIndividualScriptNamesKanji": (
         "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "ApprovalRequestCancelParams": (
+        "stripe.params.v2.core._approval_request_cancel_params",
+        False,
+    ),
+    "ApprovalRequestListParams": (
+        "stripe.params.v2.core._approval_request_list_params",
+        False,
+    ),
+    "ApprovalRequestListParamsCreated": (
+        "stripe.params.v2.core._approval_request_list_params",
+        False,
+    ),
+    "ApprovalRequestRetrieveParams": (
+        "stripe.params.v2.core._approval_request_retrieve_params",
+        False,
+    ),
+    "ApprovalRequestUpdateParams": (
+        "stripe.params.v2.core._approval_request_update_params",
         False,
     ),
     "BatchJobCancelParams": (
