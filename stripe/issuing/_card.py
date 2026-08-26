@@ -42,6 +42,24 @@ class Card(
 
     OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
 
+    class CryptoWallet(StripeObject):
+        address: Optional[str]
+        """
+        The public address of the wallet.
+        """
+        chain: str
+        """
+        The blockchain network the wallet is on.
+        """
+        currency: str
+        """
+        The cryptocurrency held in the wallet.
+        """
+        type: Optional[Union[Literal["bridge_wallet", "standard"], str]]
+        """
+        The type of wallet (standard or bridge_wallet).
+        """
+
     class LatestFraudWarning(StripeObject):
         started_at: Optional[int]
         """
@@ -1301,6 +1319,7 @@ class Card(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    crypto_wallet: Optional[CryptoWallet]
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK.
@@ -2085,6 +2104,7 @@ class Card(
         return self.TestHelpers(self)
 
     _inner_class_types = {
+        "crypto_wallet": CryptoWallet,
         "latest_fraud_warning": LatestFraudWarning,
         "lifecycle_controls": LifecycleControls,
         "product_graduation_state": ProductGraduationState,

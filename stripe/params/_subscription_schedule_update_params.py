@@ -74,7 +74,7 @@ class SubscriptionScheduleUpdateParamsBillingSchedule(TypedDict):
         "SubscriptionScheduleUpdateParamsBillingScheduleBillUntil"
     ]
     """
-    The end date for the billing schedule.
+    The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
     """
     key: NotRequired[str]
     """

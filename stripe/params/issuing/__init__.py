@@ -85,6 +85,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.issuing._card_create_params import (
         CardCreateParams as CardCreateParams,
+        CardCreateParamsCryptoWallet as CardCreateParamsCryptoWallet,
         CardCreateParamsLifecycleControls as CardCreateParamsLifecycleControls,
         CardCreateParamsLifecycleControlsCancelAfter as CardCreateParamsLifecycleControlsCancelAfter,
         CardCreateParamsPin as CardCreateParamsPin,
@@ -110,6 +111,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.issuing._card_modify_params import (
         CardModifyParams as CardModifyParams,
+        CardModifyParamsCryptoWallet as CardModifyParamsCryptoWallet,
         CardModifyParamsPin as CardModifyParamsPin,
         CardModifyParamsShipping as CardModifyParamsShipping,
         CardModifyParamsShippingAddress as CardModifyParamsShippingAddress,
@@ -132,6 +134,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.issuing._card_update_params import (
         CardUpdateParams as CardUpdateParams,
+        CardUpdateParamsCryptoWallet as CardUpdateParamsCryptoWallet,
         CardUpdateParamsPin as CardUpdateParamsPin,
         CardUpdateParamsShipping as CardUpdateParamsShipping,
         CardUpdateParamsShippingAddress as CardUpdateParamsShippingAddress,
@@ -643,6 +646,10 @@ _import_map = {
         False,
     ),
     "CardCreateParams": ("stripe.params.issuing._card_create_params", False),
+    "CardCreateParamsCryptoWallet": (
+        "stripe.params.issuing._card_create_params",
+        False,
+    ),
     "CardCreateParamsLifecycleControls": (
         "stripe.params.issuing._card_create_params",
         False,
@@ -705,6 +712,10 @@ _import_map = {
         False,
     ),
     "CardModifyParams": ("stripe.params.issuing._card_modify_params", False),
+    "CardModifyParamsCryptoWallet": (
+        "stripe.params.issuing._card_modify_params",
+        False,
+    ),
     "CardModifyParamsPin": (
         "stripe.params.issuing._card_modify_params",
         False,
@@ -750,6 +761,10 @@ _import_map = {
         False,
     ),
     "CardUpdateParams": ("stripe.params.issuing._card_update_params", False),
+    "CardUpdateParamsCryptoWallet": (
+        "stripe.params.issuing._card_update_params",
+        False,
+    ),
     "CardUpdateParamsPin": (
         "stripe.params.issuing._card_update_params",
         False,

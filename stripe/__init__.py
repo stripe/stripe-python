@@ -319,6 +319,12 @@ if TYPE_CHECKING:
     from stripe._customer_session_service import (
         CustomerSessionService as CustomerSessionService,
     )
+    from stripe._customer_tax_exemption import (
+        CustomerTaxExemption as CustomerTaxExemption,
+    )
+    from stripe._customer_tax_exemption_service import (
+        CustomerTaxExemptionService as CustomerTaxExemptionService,
+    )
     from stripe._customer_tax_id_service import (
         CustomerTaxIdService as CustomerTaxIdService,
     )
@@ -375,6 +381,8 @@ if TYPE_CHECKING:
     )
     from stripe._event import Event as Event
     from stripe._event_notification_handler import (
+        AsyncStripeEventNotificationHandler as AsyncStripeEventNotificationHandler,
+        AsyncStripeEventNotificationHandlerWithoutVerification as AsyncStripeEventNotificationHandlerWithoutVerification,
         StripeEventNotificationHandler as StripeEventNotificationHandler,
         StripeEventNotificationHandlerWithoutVerification as StripeEventNotificationHandlerWithoutVerification,
         UnhandledNotificationDetails as UnhandledNotificationDetails,
@@ -830,6 +838,11 @@ _import_map = {
     "CustomerService": ("stripe._customer_service", False),
     "CustomerSession": ("stripe._customer_session", False),
     "CustomerSessionService": ("stripe._customer_session_service", False),
+    "CustomerTaxExemption": ("stripe._customer_tax_exemption", False),
+    "CustomerTaxExemptionService": (
+        "stripe._customer_tax_exemption_service",
+        False,
+    ),
     "CustomerTaxIdService": ("stripe._customer_tax_id_service", False),
     "DelegatedCheckoutService": ("stripe._delegated_checkout_service", False),
     "DeletableAPIResource": ("stripe._deletable_api_resource", False),
@@ -871,6 +884,14 @@ _import_map = {
     "ErrorObject": ("stripe._error_object", False),
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
+    "AsyncStripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "AsyncStripeEventNotificationHandlerWithoutVerification": (
+        "stripe._event_notification_handler",
+        False,
+    ),
     "StripeEventNotificationHandler": (
         "stripe._event_notification_handler",
         False,

@@ -115,6 +115,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration,
+        AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections,
+        AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtectionsPspMigration,
@@ -724,6 +727,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtectionsPspMigration,
@@ -1625,6 +1631,18 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -4002,6 +4020,18 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

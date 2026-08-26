@@ -3599,10 +3599,82 @@ class PaymentIntent(
             """
 
         class Billie(StripeObject):
+            class CompanyDetails(StripeObject):
+                class RegisteredAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code.
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                registered_address: Optional[RegisteredAddress]
+                registered_name: Optional[str]
+                """
+                Company or entity name.
+                """
+                registration_number: Optional[str]
+                """
+                The official registration number for the given registration type.
+                """
+                registration_type: Optional[
+                    Union[
+                        Literal[
+                            "ch_ein",
+                            "de_hrb",
+                            "dk_cvr",
+                            "es_cif",
+                            "fi_tunnus",
+                            "fr_siren",
+                            "fr_siret",
+                            "it_rea",
+                            "nl_kvk",
+                            "no_org_number",
+                            "no_pno",
+                            "se_org_number",
+                            "se_pno",
+                            "uk_crn",
+                        ],
+                        str,
+                    ]
+                ]
+                """
+                Type of registration the company or entity holds in their registered country.
+                """
+                vat: Optional[str]
+                """
+                VAT id number
+                """
+                _inner_class_types = {"registered_address": RegisteredAddress}
+
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
             """
+            company_details: Optional[CompanyDetails]
+            reference: Optional[str]
+            """
+            An identifier or reference that this payment corresponds to.
+            """
+            _inner_class_types = {"company_details": CompanyDetails}
 
         class Bizum(StripeObject):
             pass
@@ -4882,22 +4954,6 @@ class PaymentIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
-        class Sequra(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-            setup_future_usage: Optional[Literal["none"]]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
-            """
-
         class Shopeepay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -5252,7 +5308,6 @@ class PaymentIntent(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
-        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
@@ -5319,7 +5374,6 @@ class PaymentIntent(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
-            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
@@ -5723,7 +5777,6 @@ class PaymentIntent(
                     "satispay",
                     "scalapay",
                     "sepa_debit",
-                    "sequra",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",

@@ -29,6 +29,9 @@ if TYPE_CHECKING:
     from stripe._customer_payment_source_service import (
         CustomerPaymentSourceService,
     )
+    from stripe._customer_tax_exemption_service import (
+        CustomerTaxExemptionService,
+    )
     from stripe._customer_tax_id_service import CustomerTaxIdService
     from stripe._discount import Discount
     from stripe._list_object import ListObject
@@ -69,6 +72,10 @@ _subservices = {
         "stripe._customer_payment_source_service",
         "CustomerPaymentSourceService",
     ],
+    "tax_exemptions": [
+        "stripe._customer_tax_exemption_service",
+        "CustomerTaxExemptionService",
+    ],
     "tax_ids": ["stripe._customer_tax_id_service", "CustomerTaxIdService"],
 }
 
@@ -80,6 +87,7 @@ class CustomerService(StripeService):
     funding_instructions: "CustomerFundingInstructionsService"
     payment_methods: "CustomerPaymentMethodService"
     payment_sources: "CustomerPaymentSourceService"
+    tax_exemptions: "CustomerTaxExemptionService"
     tax_ids: "CustomerTaxIdService"
 
     def __init__(self, requestor):

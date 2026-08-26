@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
@@ -23,11 +22,11 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
     from stripe._payment_method import PaymentMethod
-    from stripe.params._payment_record_create_params import (
-        PaymentRecordCreateParams,
-    )
     from stripe.params._payment_record_list_params import (
         PaymentRecordListParams,
+    )
+    from stripe.params._payment_record_report_dispute_params import (
+        PaymentRecordReportDisputeParams,
     )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
@@ -59,7 +58,6 @@ if TYPE_CHECKING:
 
 
 class PaymentRecord(
-    CreateableAPIResource["PaymentRecord"],
     ListableAPIResource["PaymentRecord"],
     SearchableAPIResource["PaymentRecord"],
 ):
@@ -2037,12 +2035,6 @@ class PaymentRecord(
             Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
             """
 
-        class Sequra(StripeObject):
-            transaction_id: Optional[str]
-            """
-            The SeQura transaction ID associated with this payment.
-            """
-
         class Shopeepay(StripeObject):
             pass
 
@@ -2271,7 +2263,6 @@ class PaymentRecord(
         scalapay: Optional[Scalapay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
-        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
@@ -2351,7 +2342,6 @@ class PaymentRecord(
             "scalapay": Scalapay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
-            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,
@@ -2550,40 +2540,6 @@ class PaymentRecord(
     """
 
     @classmethod
-    def create(
-        cls, **params: Unpack["PaymentRecordCreateParams"]
-    ) -> "PaymentRecord":
-        """
-        Report that the most recent payment attempt on the specified Payment Record
-         was disputed.
-        """
-        return cast(
-            "PaymentRecord",
-            cls._static_request(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def create_async(
-        cls, **params: Unpack["PaymentRecordCreateParams"]
-    ) -> "PaymentRecord":
-        """
-        Report that the most recent payment attempt on the specified Payment Record
-         was disputed.
-        """
-        return cast(
-            "PaymentRecord",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list(
         cls, **params: Unpack["PaymentRecordListParams"]
     ) -> ListObject["PaymentRecord"]:
@@ -2622,6 +2578,124 @@ class PaymentRecord(
             )
 
         return result
+
+    @classmethod
+    def _cls_report_dispute(
+        cls, id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_records/{id}/report_dispute".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_dispute(
+        id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        ...
+
+    @overload
+    def report_dispute(
+        self, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        ...
+
+    @class_method_variant("_cls_report_dispute")
+    def report_dispute(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            self._request(
+                "post",
+                "/v1/payment_records/{id}/report_dispute".format(
+                    id=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_dispute_async(
+        cls, id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_records/{id}/report_dispute".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_dispute_async(
+        id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        ...
+
+    @overload
+    async def report_dispute_async(
+        self, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        ...
+
+    @class_method_variant("_cls_report_dispute_async")
+    async def report_dispute_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentRecordReportDisputeParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_records/{id}/report_dispute".format(
+                    id=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def report_payment(

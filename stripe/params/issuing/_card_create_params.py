@@ -11,6 +11,10 @@ class CardCreateParams(RequestOptions):
     """
     The [Cardholder](https://docs.stripe.com/api#issuing_cardholder_object) object with which the card will be associated.
     """
+    crypto_wallet: NotRequired["CardCreateParamsCryptoWallet"]
+    """
+    The crypto wallet to attach this card to for Bridge integration.
+    """
     currency: str
     """
     The currency for the card.
@@ -80,6 +84,25 @@ class CardCreateParams(RequestOptions):
     type: Union[Literal["physical", "virtual"], str]
     """
     The type of card to issue. Possible values are `physical` or `virtual`.
+    """
+
+
+class CardCreateParamsCryptoWallet(TypedDict):
+    address: NotRequired[str]
+    """
+    The public address of the crypto wallet.
+    """
+    chain: str
+    """
+    The blockchain network the wallet is on.
+    """
+    currency: str
+    """
+    The cryptocurrency held in the wallet.
+    """
+    type: NotRequired["Literal['bridge_wallet', 'standard']|str"]
+    """
+    The type of wallet (standard or bridge_wallet).
     """
 
 

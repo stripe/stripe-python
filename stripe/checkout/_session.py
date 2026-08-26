@@ -137,6 +137,29 @@ class Session(
         """
 
     class AutomaticTax(StripeObject):
+        class EnablementDetails(StripeObject):
+            class IntegrationConfigurationDisabledReason(StripeObject):
+                conflicting_field: str
+                """
+                The parameter that prevented `automatic_tax` from being enabled (e.g. `line_items[][tax_rates]`).
+                """
+
+            integration_configuration_disabled_reason: Optional[
+                IntegrationConfigurationDisabledReason
+            ]
+            """
+            Present when `source=tax_integration_configuration` and `automatic_tax[enabled]=false`.
+            """
+            source: Literal[
+                "explicit", "managed_payments", "tax_integration_configuration"
+            ]
+            """
+            How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+            """
+            _inner_class_types = {
+                "integration_configuration_disabled_reason": IntegrationConfigurationDisabledReason,
+            }
+
         class Liability(StripeObject):
             account: Optional[ExpandableField["Account"]]
             """
@@ -155,6 +178,10 @@ class Session(
         """
         Indicates whether automatic tax is enabled for the session
         """
+        enablement_details: Optional[EnablementDetails]
+        """
+        How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+        """
         liability: Optional[Liability]
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
@@ -171,7 +198,10 @@ class Session(
         """
         The status of the most recent automated tax calculation for this session.
         """
-        _inner_class_types = {"liability": Liability}
+        _inner_class_types = {
+            "enablement_details": EnablementDetails,
+            "liability": Liability,
+        }
 
     class BrandingSettings(StripeObject):
         class Icon(StripeObject):
@@ -2227,12 +2257,6 @@ class Session(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
-        class Sequra(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-
         class Sofort(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -2465,7 +2489,6 @@ class Session(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
-        sequra: Optional[Sequra]
         sofort: Optional[Sofort]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
@@ -2514,7 +2537,6 @@ class Session(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
-            "sequra": Sequra,
             "sofort": Sofort,
             "sunbit": Sunbit,
             "swish": Swish,
@@ -2544,7 +2566,7 @@ class Session(
 
             Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-            When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+            This parameter is only supported when `ui_mode=elements`.
             """
 
         update: Optional[Update]
@@ -2569,7 +2591,7 @@ class Session(
 
         Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        This parameter is only supported when `ui_mode=elements`.
         """
         _inner_class_types = {"update": Update}
 

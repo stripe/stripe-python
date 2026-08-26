@@ -38,6 +38,12 @@ class BankAccount(
 
     class FutureRequirements(StripeObject):
         class Error(StripeObject):
+            class Details(StripeObject):
+                partner_rejection_code: Optional[str]
+                """
+                The rejection code as received from our payment method partner.
+                """
+
             code: Literal[
                 "external_request",
                 "information_missing",
@@ -142,6 +148,7 @@ class BankAccount(
             """
             The code for the type of error.
             """
+            details: Optional[Details]
             reason: str
             """
             An informative message that indicates the error type and provides additional details about the error.
@@ -150,6 +157,7 @@ class BankAccount(
             """
             The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
             """
+            _inner_class_types = {"details": Details}
 
         currently_due: Optional[List[str]]
         """
@@ -171,6 +179,12 @@ class BankAccount(
 
     class Requirements(StripeObject):
         class Error(StripeObject):
+            class Details(StripeObject):
+                partner_rejection_code: Optional[str]
+                """
+                The rejection code as received from our payment method partner.
+                """
+
             code: Literal[
                 "external_request",
                 "information_missing",
@@ -275,6 +289,7 @@ class BankAccount(
             """
             The code for the type of error.
             """
+            details: Optional[Details]
             reason: str
             """
             An informative message that indicates the error type and provides additional details about the error.
@@ -283,6 +298,7 @@ class BankAccount(
             """
             The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
             """
+            _inner_class_types = {"details": Details}
 
         currently_due: Optional[List[str]]
         """

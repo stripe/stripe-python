@@ -6,7 +6,12 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ActivityLogListParams(TypedDict):
     action_groups: NotRequired[
-        List[Union[Literal["api_key", "user_invite", "user_roles"], str]]
+        List[
+            Union[
+                Literal["api_key", "user_access", "user_invite", "user_roles"],
+                str,
+            ]
+        ]
     ]
     """
     Filter results to only include activity logs for the specified action group types.
@@ -19,6 +24,7 @@ class ActivityLogListParams(TypedDict):
                     "api_key_deleted",
                     "api_key_updated",
                     "api_key_viewed",
+                    "user_access_started",
                     "user_invite_accepted",
                     "user_invite_created",
                     "user_invite_deleted",

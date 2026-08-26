@@ -1229,6 +1229,11 @@ if TYPE_CHECKING:
     from stripe.params._customer_create_source_params import (
         CustomerCreateSourceParams as CustomerCreateSourceParams,
     )
+    from stripe.params._customer_create_tax_exemption_params import (
+        CustomerCreateTaxExemptionParams as CustomerCreateTaxExemptionParams,
+        CustomerCreateTaxExemptionParamsCa as CustomerCreateTaxExemptionParamsCa,
+        CustomerCreateTaxExemptionParamsUs as CustomerCreateTaxExemptionParamsUs,
+    )
     from stripe.params._customer_create_tax_id_params import (
         CustomerCreateTaxIdParams as CustomerCreateTaxIdParams,
     )
@@ -1240,6 +1245,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_delete_source_params import (
         CustomerDeleteSourceParams as CustomerDeleteSourceParams,
+    )
+    from stripe.params._customer_delete_tax_exemption_params import (
+        CustomerDeleteTaxExemptionParams as CustomerDeleteTaxExemptionParams,
     )
     from stripe.params._customer_delete_tax_id_params import (
         CustomerDeleteTaxIdParams as CustomerDeleteTaxIdParams,
@@ -1268,6 +1276,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_list_sources_params import (
         CustomerListSourcesParams as CustomerListSourcesParams,
+    )
+    from stripe.params._customer_list_tax_exemptions_params import (
+        CustomerListTaxExemptionsParams as CustomerListTaxExemptionsParams,
     )
     from stripe.params._customer_list_tax_ids_params import (
         CustomerListTaxIdsParams as CustomerListTaxIdsParams,
@@ -1340,6 +1351,9 @@ if TYPE_CHECKING:
     from stripe.params._customer_retrieve_source_params import (
         CustomerRetrieveSourceParams as CustomerRetrieveSourceParams,
     )
+    from stripe.params._customer_retrieve_tax_exemption_params import (
+        CustomerRetrieveTaxExemptionParams as CustomerRetrieveTaxExemptionParams,
+    )
     from stripe.params._customer_retrieve_tax_id_params import (
         CustomerRetrieveTaxIdParams as CustomerRetrieveTaxIdParams,
     )
@@ -1359,6 +1373,20 @@ if TYPE_CHECKING:
         CustomerSessionCreateParamsComponentsPricingTable as CustomerSessionCreateParamsComponentsPricingTable,
         CustomerSessionCreateParamsComponentsTaxIdElement as CustomerSessionCreateParamsComponentsTaxIdElement,
         CustomerSessionCreateParamsComponentsTaxIdElementFeatures as CustomerSessionCreateParamsComponentsTaxIdElementFeatures,
+    )
+    from stripe.params._customer_tax_exemption_create_params import (
+        CustomerTaxExemptionCreateParams as CustomerTaxExemptionCreateParams,
+        CustomerTaxExemptionCreateParamsCa as CustomerTaxExemptionCreateParamsCa,
+        CustomerTaxExemptionCreateParamsUs as CustomerTaxExemptionCreateParamsUs,
+    )
+    from stripe.params._customer_tax_exemption_delete_params import (
+        CustomerTaxExemptionDeleteParams as CustomerTaxExemptionDeleteParams,
+    )
+    from stripe.params._customer_tax_exemption_list_params import (
+        CustomerTaxExemptionListParams as CustomerTaxExemptionListParams,
+    )
+    from stripe.params._customer_tax_exemption_retrieve_params import (
+        CustomerTaxExemptionRetrieveParams as CustomerTaxExemptionRetrieveParams,
     )
     from stripe.params._customer_tax_id_create_params import (
         CustomerTaxIdCreateParams as CustomerTaxIdCreateParams,
@@ -1556,6 +1584,9 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBizum as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBizum,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBlik as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBlik,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard,
@@ -1817,6 +1848,9 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBizum as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBizum,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBlik as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBlik,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard,
@@ -1916,6 +1950,9 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBizum as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBizum,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
@@ -2255,6 +2292,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_attempt_record_report_authorized_params import (
         PaymentAttemptRecordReportAuthorizedParams as PaymentAttemptRecordReportAuthorizedParams,
+        PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetails as PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetails,
+        PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCard as PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCard,
+        PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardChecks as PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardChecks,
         PaymentAttemptRecordReportAuthorizedParamsProcessorDetails as PaymentAttemptRecordReportAuthorizedParamsProcessorDetails,
         PaymentAttemptRecordReportAuthorizedParamsProcessorDetailsCustom as PaymentAttemptRecordReportAuthorizedParamsProcessorDetailsCustom,
     )
@@ -2593,6 +2633,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsBancontact as PaymentIntentConfirmParamsPaymentMethodOptionsBancontact,
         PaymentIntentConfirmParamsPaymentMethodOptionsBillie as PaymentIntentConfirmParamsPaymentMethodOptionsBillie,
+        PaymentIntentConfirmParamsPaymentMethodOptionsBillieCompanyDetails as PaymentIntentConfirmParamsPaymentMethodOptionsBillieCompanyDetails,
+        PaymentIntentConfirmParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as PaymentIntentConfirmParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         PaymentIntentConfirmParamsPaymentMethodOptionsBizum as PaymentIntentConfirmParamsPaymentMethodOptionsBizum,
         PaymentIntentConfirmParamsPaymentMethodOptionsBlik as PaymentIntentConfirmParamsPaymentMethodOptionsBlik,
         PaymentIntentConfirmParamsPaymentMethodOptionsBoleto as PaymentIntentConfirmParamsPaymentMethodOptionsBoleto,
@@ -2605,6 +2647,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
@@ -2921,6 +2964,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsBancontact as PaymentIntentCreateParamsPaymentMethodOptionsBancontact,
         PaymentIntentCreateParamsPaymentMethodOptionsBillie as PaymentIntentCreateParamsPaymentMethodOptionsBillie,
+        PaymentIntentCreateParamsPaymentMethodOptionsBillieCompanyDetails as PaymentIntentCreateParamsPaymentMethodOptionsBillieCompanyDetails,
+        PaymentIntentCreateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as PaymentIntentCreateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         PaymentIntentCreateParamsPaymentMethodOptionsBizum as PaymentIntentCreateParamsPaymentMethodOptionsBizum,
         PaymentIntentCreateParamsPaymentMethodOptionsBlik as PaymentIntentCreateParamsPaymentMethodOptionsBlik,
         PaymentIntentCreateParamsPaymentMethodOptionsBoleto as PaymentIntentCreateParamsPaymentMethodOptionsBoleto,
@@ -2933,6 +2978,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresent as PaymentIntentCreateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
@@ -3303,6 +3349,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsBancontact as PaymentIntentModifyParamsPaymentMethodOptionsBancontact,
         PaymentIntentModifyParamsPaymentMethodOptionsBillie as PaymentIntentModifyParamsPaymentMethodOptionsBillie,
+        PaymentIntentModifyParamsPaymentMethodOptionsBillieCompanyDetails as PaymentIntentModifyParamsPaymentMethodOptionsBillieCompanyDetails,
+        PaymentIntentModifyParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as PaymentIntentModifyParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         PaymentIntentModifyParamsPaymentMethodOptionsBizum as PaymentIntentModifyParamsPaymentMethodOptionsBizum,
         PaymentIntentModifyParamsPaymentMethodOptionsBlik as PaymentIntentModifyParamsPaymentMethodOptionsBlik,
         PaymentIntentModifyParamsPaymentMethodOptionsBoleto as PaymentIntentModifyParamsPaymentMethodOptionsBoleto,
@@ -3315,6 +3363,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresent as PaymentIntentModifyParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
@@ -3649,6 +3698,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebitMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsBancontact as PaymentIntentUpdateParamsPaymentMethodOptionsBancontact,
         PaymentIntentUpdateParamsPaymentMethodOptionsBillie as PaymentIntentUpdateParamsPaymentMethodOptionsBillie,
+        PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetails as PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetails,
+        PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         PaymentIntentUpdateParamsPaymentMethodOptionsBizum as PaymentIntentUpdateParamsPaymentMethodOptionsBizum,
         PaymentIntentUpdateParamsPaymentMethodOptionsBlik as PaymentIntentUpdateParamsPaymentMethodOptionsBlik,
         PaymentIntentUpdateParamsPaymentMethodOptionsBoleto as PaymentIntentUpdateParamsPaymentMethodOptionsBoleto,
@@ -3661,6 +3712,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
@@ -4562,17 +4614,17 @@ if TYPE_CHECKING:
         PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDateRelative as PaymentPlanUpdateParamsScheduleAmountsDueAmountDueDateRelative,
         PaymentPlanUpdateParamsScheduleAmountsDueAmountFixedAmount as PaymentPlanUpdateParamsScheduleAmountsDueAmountFixedAmount,
     )
-    from stripe.params._payment_record_create_params import (
-        PaymentRecordCreateParams as PaymentRecordCreateParams,
-        PaymentRecordCreateParamsAmount as PaymentRecordCreateParamsAmount,
-        PaymentRecordCreateParamsClosed as PaymentRecordCreateParamsClosed,
-        PaymentRecordCreateParamsFunded as PaymentRecordCreateParamsFunded,
-        PaymentRecordCreateParamsFundedAmount as PaymentRecordCreateParamsFundedAmount,
-        PaymentRecordCreateParamsProcessorDetails as PaymentRecordCreateParamsProcessorDetails,
-        PaymentRecordCreateParamsProcessorDetailsCustom as PaymentRecordCreateParamsProcessorDetailsCustom,
-    )
     from stripe.params._payment_record_list_params import (
         PaymentRecordListParams as PaymentRecordListParams,
+    )
+    from stripe.params._payment_record_report_dispute_params import (
+        PaymentRecordReportDisputeParams as PaymentRecordReportDisputeParams,
+        PaymentRecordReportDisputeParamsAmount as PaymentRecordReportDisputeParamsAmount,
+        PaymentRecordReportDisputeParamsClosed as PaymentRecordReportDisputeParamsClosed,
+        PaymentRecordReportDisputeParamsFunded as PaymentRecordReportDisputeParamsFunded,
+        PaymentRecordReportDisputeParamsFundedAmount as PaymentRecordReportDisputeParamsFundedAmount,
+        PaymentRecordReportDisputeParamsProcessorDetails as PaymentRecordReportDisputeParamsProcessorDetails,
+        PaymentRecordReportDisputeParamsProcessorDetailsCustom as PaymentRecordReportDisputeParamsProcessorDetailsCustom,
     )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams as PaymentRecordReportPaymentAttemptCanceledParams,
@@ -5792,6 +5844,9 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlik as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlik,
@@ -5929,6 +5984,9 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBizum as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBizum,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik,
@@ -6280,6 +6338,9 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBizum as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBizum,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik,
@@ -10330,6 +10391,18 @@ _import_map = {
         "stripe.params._customer_create_source_params",
         False,
     ),
+    "CustomerCreateTaxExemptionParams": (
+        "stripe.params._customer_create_tax_exemption_params",
+        False,
+    ),
+    "CustomerCreateTaxExemptionParamsCa": (
+        "stripe.params._customer_create_tax_exemption_params",
+        False,
+    ),
+    "CustomerCreateTaxExemptionParamsUs": (
+        "stripe.params._customer_create_tax_exemption_params",
+        False,
+    ),
     "CustomerCreateTaxIdParams": (
         "stripe.params._customer_create_tax_id_params",
         False,
@@ -10341,6 +10414,10 @@ _import_map = {
     "CustomerDeleteParams": ("stripe.params._customer_delete_params", False),
     "CustomerDeleteSourceParams": (
         "stripe.params._customer_delete_source_params",
+        False,
+    ),
+    "CustomerDeleteTaxExemptionParams": (
+        "stripe.params._customer_delete_tax_exemption_params",
         False,
     ),
     "CustomerDeleteTaxIdParams": (
@@ -10386,6 +10463,10 @@ _import_map = {
     ),
     "CustomerListSourcesParams": (
         "stripe.params._customer_list_sources_params",
+        False,
+    ),
+    "CustomerListTaxExemptionsParams": (
+        "stripe.params._customer_list_tax_exemptions_params",
         False,
     ),
     "CustomerListTaxIdsParams": (
@@ -10517,6 +10598,10 @@ _import_map = {
         "stripe.params._customer_retrieve_source_params",
         False,
     ),
+    "CustomerRetrieveTaxExemptionParams": (
+        "stripe.params._customer_retrieve_tax_exemption_params",
+        False,
+    ),
     "CustomerRetrieveTaxIdParams": (
         "stripe.params._customer_retrieve_tax_id_params",
         False,
@@ -10568,6 +10653,30 @@ _import_map = {
     ),
     "CustomerSessionCreateParamsComponentsTaxIdElementFeatures": (
         "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerTaxExemptionCreateParams": (
+        "stripe.params._customer_tax_exemption_create_params",
+        False,
+    ),
+    "CustomerTaxExemptionCreateParamsCa": (
+        "stripe.params._customer_tax_exemption_create_params",
+        False,
+    ),
+    "CustomerTaxExemptionCreateParamsUs": (
+        "stripe.params._customer_tax_exemption_create_params",
+        False,
+    ),
+    "CustomerTaxExemptionDeleteParams": (
+        "stripe.params._customer_tax_exemption_delete_params",
+        False,
+    ),
+    "CustomerTaxExemptionListParams": (
+        "stripe.params._customer_tax_exemption_list_params",
+        False,
+    ),
+    "CustomerTaxExemptionRetrieveParams": (
+        "stripe.params._customer_tax_exemption_retrieve_params",
         False,
     ),
     "CustomerTaxIdCreateParams": (
@@ -10942,6 +11051,18 @@ _import_map = {
         False,
     ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
         "stripe.params._invoice_create_params",
         False,
     ),
@@ -11846,6 +11967,18 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBizum": (
         "stripe.params._invoice_modify_params",
         False,
@@ -12123,6 +12256,18 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -13277,6 +13422,18 @@ _import_map = {
         False,
     ),
     "PaymentAttemptRecordReportAuthorizedParams": (
+        "stripe.params._payment_attempt_record_report_authorized_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetails": (
+        "stripe.params._payment_attempt_record_report_authorized_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCard": (
+        "stripe.params._payment_attempt_record_report_authorized_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardChecks": (
         "stripe.params._payment_attempt_record_report_authorized_params",
         False,
     ),
@@ -14536,6 +14693,14 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsBizum": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14581,6 +14746,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentAadeData": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15840,6 +16009,14 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsBizum": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -15885,6 +16062,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentAadeData": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -17328,6 +17509,14 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsBizum": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17373,6 +17562,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentAadeData": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -18656,6 +18849,14 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsBizum": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -18701,6 +18902,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentAadeData": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -21968,36 +22173,36 @@ _import_map = {
         "stripe.params._payment_plan_update_params",
         False,
     ),
-    "PaymentRecordCreateParams": (
-        "stripe.params._payment_record_create_params",
-        False,
-    ),
-    "PaymentRecordCreateParamsAmount": (
-        "stripe.params._payment_record_create_params",
-        False,
-    ),
-    "PaymentRecordCreateParamsClosed": (
-        "stripe.params._payment_record_create_params",
-        False,
-    ),
-    "PaymentRecordCreateParamsFunded": (
-        "stripe.params._payment_record_create_params",
-        False,
-    ),
-    "PaymentRecordCreateParamsFundedAmount": (
-        "stripe.params._payment_record_create_params",
-        False,
-    ),
-    "PaymentRecordCreateParamsProcessorDetails": (
-        "stripe.params._payment_record_create_params",
-        False,
-    ),
-    "PaymentRecordCreateParamsProcessorDetailsCustom": (
-        "stripe.params._payment_record_create_params",
-        False,
-    ),
     "PaymentRecordListParams": (
         "stripe.params._payment_record_list_params",
+        False,
+    ),
+    "PaymentRecordReportDisputeParams": (
+        "stripe.params._payment_record_report_dispute_params",
+        False,
+    ),
+    "PaymentRecordReportDisputeParamsAmount": (
+        "stripe.params._payment_record_report_dispute_params",
+        False,
+    ),
+    "PaymentRecordReportDisputeParamsClosed": (
+        "stripe.params._payment_record_report_dispute_params",
+        False,
+    ),
+    "PaymentRecordReportDisputeParamsFunded": (
+        "stripe.params._payment_record_report_dispute_params",
+        False,
+    ),
+    "PaymentRecordReportDisputeParamsFundedAmount": (
+        "stripe.params._payment_record_report_dispute_params",
+        False,
+    ),
+    "PaymentRecordReportDisputeParamsProcessorDetails": (
+        "stripe.params._payment_record_report_dispute_params",
+        False,
+    ),
+    "PaymentRecordReportDisputeParamsProcessorDetailsCustom": (
+        "stripe.params._payment_record_report_dispute_params",
         False,
     ),
     "PaymentRecordReportPaymentAttemptCanceledParams": (
@@ -25797,6 +26002,18 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum": (
         "stripe.params._subscription_create_params",
         False,
@@ -26262,6 +26479,18 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -27562,6 +27791,18 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress": (
         "stripe.params._subscription_update_params",
         False,
     ),

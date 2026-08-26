@@ -182,6 +182,12 @@ class Person(UpdateableAPIResource["Person"]):
             """
 
         class Error(StripeObject):
+            class Details(StripeObject):
+                partner_rejection_code: Optional[str]
+                """
+                The rejection code as received from our payment method partner.
+                """
+
             code: Literal[
                 "external_request",
                 "information_missing",
@@ -286,6 +292,7 @@ class Person(UpdateableAPIResource["Person"]):
             """
             The code for the type of error.
             """
+            details: Optional[Details]
             reason: str
             """
             An informative message that indicates the error type and provides additional details about the error.
@@ -294,6 +301,7 @@ class Person(UpdateableAPIResource["Person"]):
             """
             The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
             """
+            _inner_class_types = {"details": Details}
 
         alternatives: Optional[List[Alternative]]
         """
@@ -393,6 +401,12 @@ class Person(UpdateableAPIResource["Person"]):
             """
 
         class Error(StripeObject):
+            class Details(StripeObject):
+                partner_rejection_code: Optional[str]
+                """
+                The rejection code as received from our payment method partner.
+                """
+
             code: Literal[
                 "external_request",
                 "information_missing",
@@ -497,6 +511,7 @@ class Person(UpdateableAPIResource["Person"]):
             """
             The code for the type of error.
             """
+            details: Optional[Details]
             reason: str
             """
             An informative message that indicates the error type and provides additional details about the error.
@@ -505,6 +520,7 @@ class Person(UpdateableAPIResource["Person"]):
             """
             The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
             """
+            _inner_class_types = {"details": Details}
 
         alternatives: Optional[List[Alternative]]
         """

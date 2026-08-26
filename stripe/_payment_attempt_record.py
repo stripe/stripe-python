@@ -2020,12 +2020,6 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
             """
 
-        class Sequra(StripeObject):
-            transaction_id: Optional[str]
-            """
-            The SeQura transaction ID associated with this payment.
-            """
-
         class Shopeepay(StripeObject):
             pass
 
@@ -2254,7 +2248,6 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         scalapay: Optional[Scalapay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
-        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
@@ -2334,7 +2327,6 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "scalapay": Scalapay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
-            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,

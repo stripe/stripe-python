@@ -48,7 +48,7 @@ class SubscriptionCreateParams(RequestOptions):
         List["SubscriptionCreateParamsBillingSchedule"]
     ]
     """
-    Sets the billing schedules for the subscription.
+    An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     """
     billing_thresholds: NotRequired[
         "Literal['']|SubscriptionCreateParamsBillingThresholds"
@@ -402,7 +402,7 @@ class SubscriptionCreateParamsBillingSchedule(TypedDict):
     """
     bill_until: "SubscriptionCreateParamsBillingScheduleBillUntil"
     """
-    The end date for the billing schedule.
+    The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
     """
     key: NotRequired[str]
     """
@@ -875,6 +875,12 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
     """
+    billie: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie"
+    ]
+    """
+    This sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
+    """
     bizum: NotRequired[
         "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum"
     ]
@@ -987,6 +993,75 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact(
     preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
+    """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie(
+    TypedDict,
+):
+    company_details: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT ID number.
+    """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (for example, street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (for example, apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
     """
 
 

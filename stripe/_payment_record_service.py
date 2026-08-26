@@ -10,11 +10,11 @@ if TYPE_CHECKING:
     from stripe._payment_record import PaymentRecord
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
-    from stripe.params._payment_record_create_params import (
-        PaymentRecordCreateParams,
-    )
     from stripe.params._payment_record_list_params import (
         PaymentRecordListParams,
+    )
+    from stripe.params._payment_record_report_dispute_params import (
+        PaymentRecordReportDisputeParams,
     )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
@@ -168,10 +168,10 @@ class PaymentRecordService(StripeService):
             ),
         )
 
-    def create(
+    def report_dispute(
         self,
         id: str,
-        params: "PaymentRecordCreateParams",
+        params: "PaymentRecordReportDisputeParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """
@@ -191,10 +191,10 @@ class PaymentRecordService(StripeService):
             ),
         )
 
-    async def create_async(
+    async def report_dispute_async(
         self,
         id: str,
-        params: "PaymentRecordCreateParams",
+        params: "PaymentRecordReportDisputeParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """

@@ -419,7 +419,6 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
-            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",

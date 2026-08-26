@@ -98,6 +98,169 @@ class ActivityLog(StripeObject):
             """
             _inner_class_types = {"managed_by": ManagedBy}
 
+        class UserAccess(StripeObject):
+            class Authentication(StripeObject):
+                class PrimaryFactor(StripeObject):
+                    sso_provider: Optional[str]
+                    """
+                    SSO provider for the authentication factor.
+                    """
+                    type: Union[
+                        Literal[
+                            "backup_code",
+                            "email_code",
+                            "oauth",
+                            "passkey",
+                            "password",
+                            "phone_code",
+                            "saml",
+                            "sms",
+                            "totp",
+                            "web_authn",
+                        ],
+                        str,
+                    ]
+                    """
+                    Type of authentication factor.
+                    """
+
+                class SecondaryFactor(StripeObject):
+                    sso_provider: Optional[str]
+                    """
+                    SSO provider for the authentication factor.
+                    """
+                    type: Union[
+                        Literal[
+                            "backup_code",
+                            "email_code",
+                            "oauth",
+                            "passkey",
+                            "password",
+                            "phone_code",
+                            "saml",
+                            "sms",
+                            "totp",
+                            "web_authn",
+                        ],
+                        str,
+                    ]
+                    """
+                    Type of authentication factor.
+                    """
+
+                primary_factor: PrimaryFactor
+                """
+                Primary authentication factor.
+                """
+                secondary_factors: List[SecondaryFactor]
+                """
+                Secondary authentication factors.
+                """
+                _inner_class_types = {
+                    "primary_factor": PrimaryFactor,
+                    "secondary_factors": SecondaryFactor,
+                }
+
+            class DashboardClient(StripeObject):
+                browser: str
+                """
+                Browser used for the user access action.
+                """
+                browser_version: str
+                """
+                Browser version used for the user access action.
+                """
+                device_type: str
+                """
+                Device type used for the user access action.
+                """
+                os: str
+                """
+                Operating system used for the user access action.
+                """
+
+            class Network(StripeObject):
+                city: str
+                """
+                City for the user access action.
+                """
+                country: str
+                """
+                Country for the user access action.
+                """
+                ip_address: str
+                """
+                IP address for the user access action.
+                """
+                region: str
+                """
+                Region for the user access action.
+                """
+
+            class Risk(StripeObject):
+                class Signal(StripeObject):
+                    class NovelDevice(StripeObject):
+                        pass
+
+                    novel_device: Optional[NovelDevice]
+                    """
+                    The user access action used a novel device.
+                    """
+                    type: Literal["novel_device"]
+                    """
+                    Type of risk signal.
+                    """
+                    _inner_class_types = {"novel_device": NovelDevice}
+
+                level: Union[Literal["high", "low", "medium"], str]
+                """
+                Risk level for the user access action.
+                """
+                signals: List[Signal]
+                """
+                Risk signals for the user access action.
+                """
+                _inner_class_types = {"signals": Signal}
+
+            authentication: Authentication
+            """
+            Authentication details for the user access action.
+            """
+            dashboard_client: Optional[DashboardClient]
+            """
+            Dashboard client details for the user access action.
+            """
+            expires_at: str
+            """
+            Timestamp when the user access expires.
+            """
+            network: Network
+            """
+            Network details for the user access action.
+            """
+            risk: Risk
+            """
+            Risk details for the user access action.
+            """
+            roles: List[str]
+            """
+            Roles associated with the user access action.
+            """
+            session_fingerprint: str
+            """
+            Session fingerprint for the user access action.
+            """
+            surface: Union[Literal["dashboard", "express"], str]
+            """
+            Surface where the user access action started.
+            """
+            _inner_class_types = {
+                "authentication": Authentication,
+                "dashboard_client": DashboardClient,
+                "network": Network,
+                "risk": Risk,
+            }
+
         class UserInvite(StripeObject):
             invited_user_email: str
             """
@@ -130,9 +293,15 @@ class ActivityLog(StripeObject):
         """
         Details of an API key action.
         """
-        type: Union[Literal["api_key", "user_invite", "user_roles"], str]
+        type: Union[
+            Literal["api_key", "user_access", "user_invite", "user_roles"], str
+        ]
         """
         The action group type of the activity log entry.
+        """
+        user_access: Optional[UserAccess]
+        """
+        Details of a user access action.
         """
         user_invite: Optional[UserInvite]
         """
@@ -144,6 +313,7 @@ class ActivityLog(StripeObject):
         """
         _inner_class_types = {
             "api_key": ApiKey,
+            "user_access": UserAccess,
             "user_invite": UserInvite,
             "user_roles": UserRoles,
         }
@@ -182,6 +352,7 @@ class ActivityLog(StripeObject):
             "api_key_deleted",
             "api_key_updated",
             "api_key_viewed",
+            "user_access_started",
             "user_invite_accepted",
             "user_invite_created",
             "user_invite_deleted",

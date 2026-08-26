@@ -698,7 +698,10 @@ class Charge(
                     pass
 
                 class Link(StripeObject):
-                    pass
+                    funding_source_group: Optional[str]
+                    """
+                    The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+                    """
 
                 class Masterpass(StripeObject):
                     class BillingAddress(StripeObject):
@@ -1842,7 +1845,7 @@ class Charge(
             """
             funding_source_group: Optional[str]
             """
-            The funding source group applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if group lookup failed at confirmation time.
+            The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
             """
 
         class MbWay(StripeObject):
@@ -2296,12 +2299,6 @@ class Charge(
             Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
             """
 
-        class Sequra(StripeObject):
-            transaction_id: Optional[str]
-            """
-            The SeQura transaction ID associated with this payment.
-            """
-
         class Shopeepay(StripeObject):
             pass
 
@@ -2515,7 +2512,6 @@ class Charge(
         scalapay: Optional[Scalapay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
-        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
@@ -2593,7 +2589,6 @@ class Charge(
             "scalapay": Scalapay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
-            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,

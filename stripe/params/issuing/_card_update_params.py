@@ -10,6 +10,10 @@ class CardUpdateParams(TypedDict):
     """
     Reason why the `status` of this card is `canceled`.
     """
+    crypto_wallet: NotRequired["CardUpdateParamsCryptoWallet"]
+    """
+    Updates the cryptocurrency used to fund this card's existing crypto wallet.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -40,6 +44,13 @@ class CardUpdateParams(TypedDict):
     status: NotRequired["Literal['active', 'canceled', 'inactive']|str"]
     """
     Dictates whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`.
+    """
+
+
+class CardUpdateParamsCryptoWallet(TypedDict):
+    currency: str
+    """
+    Updates the crypto wallet's funding currency for subsequent card movements. This doesn't convert existing balances or change the wallet's address, chain, or type.
     """
 
 

@@ -1930,6 +1930,21 @@ class Authorization(
     """
     The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
     """
+    pos_condition: Optional[
+        Literal[
+            "account_verification",
+            "card_not_present",
+            "card_present",
+            "e_commerce",
+            "key_entered_pos",
+            "other",
+            "pin_entered",
+            "recurring_or_moto",
+        ]
+    ]
+    """
+    The point-of-sale initiation condition. This is null when the card network did not provide one.
+    """
     redaction: Optional[Redaction]
     """
     Redaction status of this authorization. If the authorization is not redacted, this field will be null.

@@ -33,6 +33,7 @@ if TYPE_CHECKING:
         VerificationSessionCreateParamsOptionsDocument as VerificationSessionCreateParamsOptionsDocument,
         VerificationSessionCreateParamsProvidedDetails as VerificationSessionCreateParamsProvidedDetails,
         VerificationSessionCreateParamsRelatedPerson as VerificationSessionCreateParamsRelatedPerson,
+        VerificationSessionCreateParamsUserConsent as VerificationSessionCreateParamsUserConsent,
     )
     from stripe.params.identity._verification_session_list_params import (
         VerificationSessionListParams as VerificationSessionListParams,
@@ -43,6 +44,7 @@ if TYPE_CHECKING:
         VerificationSessionModifyParamsOptions as VerificationSessionModifyParamsOptions,
         VerificationSessionModifyParamsOptionsDocument as VerificationSessionModifyParamsOptionsDocument,
         VerificationSessionModifyParamsProvidedDetails as VerificationSessionModifyParamsProvidedDetails,
+        VerificationSessionModifyParamsUserConsent as VerificationSessionModifyParamsUserConsent,
     )
     from stripe.params.identity._verification_session_redact_params import (
         VerificationSessionRedactParams as VerificationSessionRedactParams,
@@ -55,6 +57,7 @@ if TYPE_CHECKING:
         VerificationSessionUpdateParamsOptions as VerificationSessionUpdateParamsOptions,
         VerificationSessionUpdateParamsOptionsDocument as VerificationSessionUpdateParamsOptionsDocument,
         VerificationSessionUpdateParamsProvidedDetails as VerificationSessionUpdateParamsProvidedDetails,
+        VerificationSessionUpdateParamsUserConsent as VerificationSessionUpdateParamsUserConsent,
     )
 
 # name -> (import_target, is_submodule)
@@ -115,6 +118,10 @@ _import_map = {
         "stripe.params.identity._verification_session_create_params",
         False,
     ),
+    "VerificationSessionCreateParamsUserConsent": (
+        "stripe.params.identity._verification_session_create_params",
+        False,
+    ),
     "VerificationSessionListParams": (
         "stripe.params.identity._verification_session_list_params",
         False,
@@ -139,6 +146,10 @@ _import_map = {
         "stripe.params.identity._verification_session_modify_params",
         False,
     ),
+    "VerificationSessionModifyParamsUserConsent": (
+        "stripe.params.identity._verification_session_modify_params",
+        False,
+    ),
     "VerificationSessionRedactParams": (
         "stripe.params.identity._verification_session_redact_params",
         False,
@@ -160,6 +171,10 @@ _import_map = {
         False,
     ),
     "VerificationSessionUpdateParamsProvidedDetails": (
+        "stripe.params.identity._verification_session_update_params",
+        False,
+    ),
+    "VerificationSessionUpdateParamsUserConsent": (
         "stripe.params.identity._verification_session_update_params",
         False,
     ),

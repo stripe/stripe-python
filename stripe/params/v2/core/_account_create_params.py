@@ -1106,6 +1106,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process BLIK payments.
     """
+    blik_recurring_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments"
+    ]
+    """
+    Allow the merchant to process recurring BLIK payments.
+    """
     boleto_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments"
     ]
@@ -1640,6 +1646,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtection
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool

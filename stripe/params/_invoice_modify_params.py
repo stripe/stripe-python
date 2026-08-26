@@ -273,6 +273,12 @@ class InvoiceModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
     """
+    billie: NotRequired[
+        "Literal['']|InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie"
+    ]
+    """
+    If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
+    """
     bizum: NotRequired[
         "Literal['']|InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBizum"
     ]
@@ -385,6 +391,77 @@ class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(
     preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
+    """
+
+
+class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie(TypedDict):
+    company_details: NotRequired[
+        "Literal['']|InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+    reference: NotRequired[str]
+    """
+    An identifier or reference that this payment corresponds to.
+    """
+
+
+class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT ID number.
+    """
+
+
+class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (for example, street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (for example, apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
     """
 
 
