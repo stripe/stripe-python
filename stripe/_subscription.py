@@ -133,7 +133,9 @@ class Subscription(
 
     class BillingMode(StripeObject):
         class Flexible(StripeObject):
-            proration_discounts: Optional[Literal["included", "itemized"]]
+            proration_discounts: Optional[
+                Union[Literal["included", "itemized"], str]
+            ]
             """
             Controls how invoices and invoice items display proration amounts and discount amounts.
             """
@@ -165,7 +167,7 @@ class Subscription(
 
         class BillUntil(StripeObject):
             class Duration(StripeObject):
-                interval: Literal["day", "month", "week", "year"]
+                interval: Union[Literal["day", "month", "week", "year"], str]
                 """
                 Specifies billing duration. Either `day`, `week`, `month` or `year`.
                 """
@@ -326,7 +328,9 @@ class Subscription(
         """
 
     class PauseCollection(StripeObject):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        behavior: Union[
+            Literal["keep_as_draft", "mark_uncollectible", "void"], str
+        ]
         """
         The payment collection behavior for this subscription while paused.
         """
@@ -392,20 +396,23 @@ class Subscription(
 
                 mandate_options: Optional[MandateOptions]
                 network: Optional[
-                    Literal[
-                        "amex",
-                        "cartes_bancaires",
-                        "diners",
-                        "discover",
-                        "eftpos_au",
-                        "girocard",
-                        "interac",
-                        "jcb",
-                        "link",
-                        "mastercard",
-                        "unionpay",
-                        "unknown",
-                        "visa",
+                    Union[
+                        Literal[
+                            "amex",
+                            "cartes_bancaires",
+                            "diners",
+                            "discover",
+                            "eftpos_au",
+                            "girocard",
+                            "interac",
+                            "jcb",
+                            "link",
+                            "mastercard",
+                            "unionpay",
+                            "unknown",
+                            "visa",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -422,7 +429,9 @@ class Subscription(
             class CustomerBalance(StripeObject):
                 class BankTransfer(StripeObject):
                     class EuBankTransfer(StripeObject):
-                        country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                        country: Union[
+                            Literal["BE", "DE", "ES", "FR", "IE", "NL"], str
+                        ]
                         """
                         The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                         """
@@ -751,7 +760,7 @@ class Subscription(
         _inner_class_types = {"payment_method_options": PaymentMethodOptions}
 
     class PendingInvoiceItemInterval(StripeObject):
-        interval: Literal["day", "month", "week", "year"]
+        interval: Union[Literal["day", "month", "week", "year"], str]
         """
         Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
         """
@@ -869,7 +878,9 @@ class Subscription(
 
     class TrialSettings(StripeObject):
         class EndBehavior(StripeObject):
-            billing_cycle_anchor: Optional[Literal["now", "unchanged"]]
+            billing_cycle_anchor: Optional[
+                Union[Literal["now", "unchanged"], str]
+            ]
             """
             Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
             """
@@ -931,7 +942,9 @@ class Subscription(
     """
     Details about why this subscription was cancelled
     """
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
     """

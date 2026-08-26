@@ -25,7 +25,7 @@ class QuoteCreateParams(RequestOptions):
     Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
@@ -320,7 +320,9 @@ class QuoteCreateParamsLineItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -335,7 +337,7 @@ class QuoteCreateParamsLineItemPriceData(TypedDict):
 
 
 class QuoteCreateParamsLineItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -873,7 +875,7 @@ class QuoteCreateParamsSubscriptionData(TypedDict):
     Describes the period to bill for upon accepting the quote.
     """
     billing_behavior: NotRequired[
-        Literal["prorate_on_next_phase", "prorate_up_front"]
+        "Literal['prorate_on_next_phase', 'prorate_up_front']|str"
     ]
     """
     Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
@@ -915,7 +917,7 @@ class QuoteCreateParamsSubscriptionData(TypedDict):
     If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
@@ -1058,7 +1060,7 @@ class QuoteCreateParamsSubscriptionDataBillingMode(TypedDict):
 
 
 class QuoteCreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """
@@ -1083,7 +1085,7 @@ class QuoteCreateParamsSubscriptionDataOverride(TypedDict):
     Describes the period to bill for upon accepting the quote.
     """
     billing_behavior: NotRequired[
-        Literal["prorate_on_next_phase", "prorate_up_front"]
+        "Literal['prorate_on_next_phase', 'prorate_up_front']|str"
     ]
     """
     Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
@@ -1101,7 +1103,7 @@ class QuoteCreateParamsSubscriptionDataOverride(TypedDict):
     Behavior of the subscription schedule and underlying subscription when it ends.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.

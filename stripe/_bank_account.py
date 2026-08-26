@@ -316,7 +316,9 @@ class BankAccount(
     """
     The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
     """
-    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
+    available_payout_methods: Optional[
+        List[Union[Literal["instant", "standard"], str]]
+    ]
     """
     A set of available payout methods for this bank account. Only values from this set should be passed as the `method` when creating a payout.
     """

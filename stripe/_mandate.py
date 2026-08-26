@@ -40,7 +40,7 @@ class Mandate(ListableAPIResource["Mandate"]):
         """
         offline: Optional[Offline]
         online: Optional[Online]
-        type: Literal["offline", "online"]
+        type: Union[Literal["offline", "online"], str]
         """
         The mandate includes the type of customer acceptance information, such as: `online` or `offline`.
         """
@@ -93,8 +93,8 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             The display name for the account on this mandate.
             """
-            network_status: Literal[
-                "accepted", "pending", "refused", "revoked"
+            network_status: Union[
+                Literal["accepted", "pending", "refused", "revoked"], str
             ]
             """
             The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`.

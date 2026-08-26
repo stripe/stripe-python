@@ -32,7 +32,7 @@ class InvoiceCreateParams(RequestOptions):
     The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
@@ -608,7 +608,12 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinanci
     """
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -649,7 +654,7 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinanci
 
 class InvoiceCreateParamsRendering(TypedDict):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -669,7 +674,7 @@ class InvoiceCreateParamsRendering(TypedDict):
 
 
 class InvoiceCreateParamsRenderingPdf(TypedDict):
-    page_size: NotRequired[Literal["a4", "auto", "letter"]]
+    page_size: NotRequired["Literal['a4', 'auto', 'letter']|str"]
     """
     Page size for invoice PDF. Can be set to `a4`, `letter`, or `auto`.
      If set to `auto`, invoice PDF page size defaults to `a4` for customers with
@@ -711,7 +716,9 @@ class InvoiceCreateParamsShippingCostShippingRateData(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """
@@ -792,7 +799,9 @@ class InvoiceCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions(
     """
     A non-negative integer in cents representing how much to charge.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """

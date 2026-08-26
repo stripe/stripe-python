@@ -93,7 +93,7 @@ class PaymentLink(
 
     class ConsentCollection(StripeObject):
         class PaymentMethodReuseAgreement(StripeObject):
-            position: Literal["auto", "hidden"]
+            position: Union[Literal["auto", "hidden"], str]
             """
             Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's defaults will be used.
 
@@ -104,11 +104,11 @@ class PaymentLink(
         """
         Settings related to the payment method reuse text shown in the Checkout UI.
         """
-        promotions: Optional[Literal["auto", "none"]]
+        promotions: Optional[Union[Literal["auto", "none"], str]]
         """
         If set to `auto`, enables the collection of customer consent for promotional communications.
         """
-        terms_of_service: Optional[Literal["none", "required"]]
+        terms_of_service: Optional[Union[Literal["none", "required"], str]]
         """
         If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service.
         """

@@ -138,7 +138,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class AchDebit(StripeObject):
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             Type of entity that holds the account. This can be either `individual` or `company`.
             """
@@ -360,7 +362,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Last four characters of the IBAN.
             """
-            preferred_language: Optional[Literal["de", "en", "fr", "nl"]]
+            preferred_language: Optional[
+                Union[Literal["de", "en", "fr", "nl"], str]
+            ]
             """
             Preferred language of the Bancontact authorization page that the customer is redirected to. Can be one of `en`, `de`, `fr`, or `nl`
             """
@@ -513,12 +517,16 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 The 3D Secure cryptogram, also known as the "authentication value" (AAV, CAVV or AEVV).
                 """
                 electronic_commerce_indicator: Optional[
-                    Literal["01", "02", "03", "04", "05", "06", "07"]
+                    Union[
+                        Literal["01", "02", "03", "04", "05", "06", "07"], str
+                    ]
                 ]
                 """
                 The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
                 """
-                exemption_indicator: Optional[Literal["low_risk", "none"]]
+                exemption_indicator: Optional[
+                    Union[Literal["low_risk", "none"], str]
+                ]
                 """
                 The exemption requested via 3DS and accepted by the issuer at authentication time.
                 """
@@ -983,35 +991,38 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
         class Eps(StripeObject):
             bank: Optional[
-                Literal[
-                    "arzte_und_apotheker_bank",
-                    "austrian_anadi_bank_ag",
-                    "bank_austria",
-                    "bankhaus_carl_spangler",
-                    "bankhaus_schelhammer_und_schattera_ag",
-                    "bawag_psk_ag",
-                    "bks_bank_ag",
-                    "brull_kallmus_bank_ag",
-                    "btv_vier_lander_bank",
-                    "capital_bank_grawe_gruppe_ag",
-                    "deutsche_bank_ag",
-                    "dolomitenbank",
-                    "easybank_ag",
-                    "erste_bank_und_sparkassen",
-                    "hypo_alpeadriabank_international_ag",
-                    "hypo_bank_burgenland_aktiengesellschaft",
-                    "hypo_noe_lb_fur_niederosterreich_u_wien",
-                    "hypo_oberosterreich_salzburg_steiermark",
-                    "hypo_tirol_bank_ag",
-                    "hypo_vorarlberg_bank_ag",
-                    "marchfelder_bank",
-                    "oberbank_ag",
-                    "raiffeisen_bankengruppe_osterreich",
-                    "schoellerbank_ag",
-                    "sparda_bank_wien",
-                    "volksbank_gruppe",
-                    "volkskreditbank_ag",
-                    "vr_bank_braunau",
+                Union[
+                    Literal[
+                        "arzte_und_apotheker_bank",
+                        "austrian_anadi_bank_ag",
+                        "bank_austria",
+                        "bankhaus_carl_spangler",
+                        "bankhaus_schelhammer_und_schattera_ag",
+                        "bawag_psk_ag",
+                        "bks_bank_ag",
+                        "brull_kallmus_bank_ag",
+                        "btv_vier_lander_bank",
+                        "capital_bank_grawe_gruppe_ag",
+                        "deutsche_bank_ag",
+                        "dolomitenbank",
+                        "easybank_ag",
+                        "erste_bank_und_sparkassen",
+                        "hypo_alpeadriabank_international_ag",
+                        "hypo_bank_burgenland_aktiengesellschaft",
+                        "hypo_noe_lb_fur_niederosterreich_u_wien",
+                        "hypo_oberosterreich_salzburg_steiermark",
+                        "hypo_tirol_bank_ag",
+                        "hypo_vorarlberg_bank_ag",
+                        "marchfelder_bank",
+                        "oberbank_ag",
+                        "raiffeisen_bankengruppe_osterreich",
+                        "schoellerbank_ag",
+                        "sparda_bank_wien",
+                        "volksbank_gruppe",
+                        "volkskreditbank_ag",
+                        "vr_bank_braunau",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1023,36 +1034,41 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Fpx(StripeObject):
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             Account holder type, if provided. Can be one of `individual` or `company`.
             """
-            bank: Literal[
-                "affin_bank",
-                "agrobank",
-                "alliance_bank",
-                "ambank",
-                "bank_islam",
-                "bank_muamalat",
-                "bank_of_china",
-                "bank_rakyat",
-                "bnp_paribas",
-                "bsn",
-                "cimb",
-                "citibank",
-                "deutsche_bank",
-                "hong_leong_bank",
-                "hsbc",
-                "kfh",
-                "maybank2e",
-                "maybank2u",
-                "mbsb_bank",
-                "ocbc",
-                "pb_enterprise",
-                "public_bank",
-                "rhb",
-                "standard_chartered",
-                "uob",
+            bank: Union[
+                Literal[
+                    "affin_bank",
+                    "agrobank",
+                    "alliance_bank",
+                    "ambank",
+                    "bank_islam",
+                    "bank_muamalat",
+                    "bank_of_china",
+                    "bank_rakyat",
+                    "bnp_paribas",
+                    "bsn",
+                    "cimb",
+                    "citibank",
+                    "deutsche_bank",
+                    "hong_leong_bank",
+                    "hsbc",
+                    "kfh",
+                    "maybank2e",
+                    "maybank2u",
+                    "mbsb_bank",
+                    "ocbc",
+                    "pb_enterprise",
+                    "public_bank",
+                    "rhb",
+                    "standard_chartered",
+                    "uob",
+                ],
+                str,
             ]
             """
             The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
@@ -1113,55 +1129,61 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
         class Ideal(StripeObject):
             bank: Optional[
-                Literal[
-                    "abn_amro",
-                    "adyen",
-                    "asn_bank",
-                    "bunq",
-                    "buut",
-                    "finom",
-                    "handelsbanken",
-                    "ing",
-                    "knab",
-                    "mollie",
-                    "moneyou",
-                    "n26",
-                    "nn",
-                    "rabobank",
-                    "regiobank",
-                    "revolut",
-                    "sns_bank",
-                    "triodos_bank",
-                    "van_lanschot",
-                    "yoursafe",
+                Union[
+                    Literal[
+                        "abn_amro",
+                        "adyen",
+                        "asn_bank",
+                        "bunq",
+                        "buut",
+                        "finom",
+                        "handelsbanken",
+                        "ing",
+                        "knab",
+                        "mollie",
+                        "moneyou",
+                        "n26",
+                        "nn",
+                        "rabobank",
+                        "regiobank",
+                        "revolut",
+                        "sns_bank",
+                        "triodos_bank",
+                        "van_lanschot",
+                        "yoursafe",
+                    ],
+                    str,
                 ]
             ]
             """
             The customer's bank. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
-                Literal[
-                    "ABNANL2A",
-                    "ADYBNL2A",
-                    "ASNBNL21",
-                    "BITSNL2A",
-                    "BUNQNL2A",
-                    "BUUTNL2A",
-                    "FNOMNL22",
-                    "FVLBNL22",
-                    "HANDNL2A",
-                    "INGBNL2A",
-                    "KNABNL2H",
-                    "MLLENL2A",
-                    "MOYONL21",
-                    "NNBANL2G",
-                    "NTSBDEB1",
-                    "RABONL2U",
-                    "RBRBNL21",
-                    "REVOIE23",
-                    "REVOLT21",
-                    "SNSBNL2A",
-                    "TRIONL2U",
+                Union[
+                    Literal[
+                        "ABNANL2A",
+                        "ADYBNL2A",
+                        "ASNBNL21",
+                        "BITSNL2A",
+                        "BUNQNL2A",
+                        "BUUTNL2A",
+                        "FNOMNL22",
+                        "FVLBNL22",
+                        "HANDNL2A",
+                        "INGBNL2A",
+                        "KNABNL2H",
+                        "MLLENL2A",
+                        "MOYONL21",
+                        "NNBANL2G",
+                        "NTSBDEB1",
+                        "RABONL2U",
+                        "RBRBNL21",
+                        "REVOIE23",
+                        "REVOLT21",
+                        "SNSBNL2A",
+                        "TRIONL2U",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1532,33 +1554,36 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
         class P24(StripeObject):
             bank: Optional[
-                Literal[
-                    "alior_bank",
-                    "bank_millennium",
-                    "bank_nowy_bfg_sa",
-                    "bank_pekao_sa",
-                    "banki_spbdzielcze",
-                    "blik",
-                    "bnp_paribas",
-                    "boz",
-                    "citi_handlowy",
-                    "credit_agricole",
-                    "envelobank",
-                    "etransfer_pocztowy24",
-                    "getin_bank",
-                    "ideabank",
-                    "ing",
-                    "inteligo",
-                    "mbank_mtransfer",
-                    "nest_przelew",
-                    "noble_pay",
-                    "pbac_z_ipko",
-                    "plus_bank",
-                    "santander_przelew24",
-                    "tmobile_usbugi_bankowe",
-                    "toyota_bank",
-                    "velobank",
-                    "volkswagen_bank",
+                Union[
+                    Literal[
+                        "alior_bank",
+                        "bank_millennium",
+                        "bank_nowy_bfg_sa",
+                        "bank_pekao_sa",
+                        "banki_spbdzielcze",
+                        "blik",
+                        "bnp_paribas",
+                        "boz",
+                        "citi_handlowy",
+                        "credit_agricole",
+                        "envelobank",
+                        "etransfer_pocztowy24",
+                        "getin_bank",
+                        "ideabank",
+                        "ing",
+                        "inteligo",
+                        "mbank_mtransfer",
+                        "nest_przelew",
+                        "noble_pay",
+                        "pbac_z_ipko",
+                        "plus_bank",
+                        "santander_przelew24",
+                        "tmobile_usbugi_bankowe",
+                        "toyota_bank",
+                        "velobank",
+                        "volkswagen_bank",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1917,7 +1942,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             Last four characters of the IBAN.
             """
             preferred_language: Optional[
-                Literal["de", "en", "es", "fr", "it", "nl", "pl"]
+                Union[Literal["de", "en", "es", "fr", "it", "nl", "pl"], str]
             ]
             """
             Preferred language of the SOFORT authorization page that the customer is redirected to. Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`

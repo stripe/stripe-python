@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -146,23 +146,26 @@ class SourceTransaction(StripeObject):
     """
     The status of the transaction, one of `succeeded`, `pending`, or `failed`.
     """
-    type: Literal[
-        "ach_credit_transfer",
-        "ach_debit",
-        "alipay",
-        "bancontact",
-        "card",
-        "card_present",
-        "eps",
-        "giropay",
-        "ideal",
-        "klarna",
-        "multibanco",
-        "p24",
-        "sepa_debit",
-        "sofort",
-        "three_d_secure",
-        "wechat",
+    type: Union[
+        Literal[
+            "ach_credit_transfer",
+            "ach_debit",
+            "alipay",
+            "bancontact",
+            "card",
+            "card_present",
+            "eps",
+            "giropay",
+            "ideal",
+            "klarna",
+            "multibanco",
+            "p24",
+            "sepa_debit",
+            "sofort",
+            "three_d_secure",
+            "wechat",
+        ],
+        str,
     ]
     """
     The type of source this transaction is attached to.

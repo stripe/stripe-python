@@ -80,7 +80,7 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class Hosted(StripeObject):
-        delivery_method: Optional[Literal["email", "url"]]
+        delivery_method: Optional[Union[Literal["email", "url"], str]]
         """
         How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
         """

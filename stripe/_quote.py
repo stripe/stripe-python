@@ -226,7 +226,7 @@ class Quote(
             """
             Total after discounts and taxes are applied.
             """
-            interval: Literal["day", "month", "week", "year"]
+            interval: Union[Literal["day", "month", "week", "year"], str]
             """
             The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
             """
@@ -484,18 +484,21 @@ class Quote(
                 The ID of the subscription schedule that was released.
                 """
                 type: Optional[
-                    Literal[
-                        "accept_failed_validations",
-                        "bill_on_acceptance_invalid",
-                        "line_invalid",
-                        "lines_invalid",
-                        "marked_stale",
-                        "subscription_canceled",
-                        "subscription_changed",
-                        "subscription_expired",
-                        "subscription_schedule_canceled",
-                        "subscription_schedule_changed",
-                        "subscription_schedule_released",
+                    Union[
+                        Literal[
+                            "accept_failed_validations",
+                            "bill_on_acceptance_invalid",
+                            "line_invalid",
+                            "lines_invalid",
+                            "marked_stale",
+                            "subscription_canceled",
+                            "subscription_changed",
+                            "subscription_expired",
+                            "subscription_schedule_canceled",
+                            "subscription_schedule_changed",
+                            "subscription_schedule_released",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -647,7 +650,9 @@ class Quote(
 
         class BillingMode(StripeObject):
             class Flexible(StripeObject):
-                proration_discounts: Optional[Literal["included", "itemized"]]
+                proration_discounts: Optional[
+                    Union[Literal["included", "itemized"], str]
+                ]
                 """
                 Controls how invoices and invoice items display proration amounts and discount amounts.
                 """
@@ -667,7 +672,7 @@ class Quote(
         Describes the period to bill for upon accepting the quote.
         """
         billing_behavior: Optional[
-            Literal["prorate_on_next_phase", "prorate_up_front"]
+            Union[Literal["prorate_on_next_phase", "prorate_up_front"], str]
         ]
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
@@ -705,7 +710,7 @@ class Quote(
         If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
         """
         proration_behavior: Optional[
-            Literal["always_invoice", "create_prorations", "none"]
+            Union[Literal["always_invoice", "create_prorations", "none"], str]
         ]
         """
         Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations) when the quote is accepted.
@@ -842,7 +847,7 @@ class Quote(
         Describes the period to bill for upon accepting the quote.
         """
         billing_behavior: Optional[
-            Literal["prorate_on_next_phase", "prorate_up_front"]
+            Union[Literal["prorate_on_next_phase", "prorate_up_front"], str]
         ]
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
@@ -860,7 +865,7 @@ class Quote(
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
         proration_behavior: Optional[
-            Literal["always_invoice", "create_prorations", "none"]
+            Union[Literal["always_invoice", "create_prorations", "none"], str]
         ]
         """
         Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations) when the quote is accepted.
@@ -1012,7 +1017,9 @@ class Quote(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote.
     """
     automatic_tax: AutomaticTax
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
     """

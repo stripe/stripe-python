@@ -12,6 +12,12 @@ from stripe._util import secure_compare
 from stripe._error import SignatureVerificationError
 from stripe._api_requestor import _APIRequestor
 
+WebhookPayload = Union[str, bytes, bytearray]
+"""
+The raw body of an incoming webhook, as read off the request body.
+Intentionally wide to work nicely with existing types from Django/Flask/FastAPI .
+"""
+
 
 def build_v1_event(values: Dict[str, Any], requestor: _APIRequestor) -> Event:
     """
@@ -26,14 +32,12 @@ def build_v1_event(values: Dict[str, Any], requestor: _APIRequestor) -> Event:
     )
 
 
-def maybe_extract_from_cloud_provider_envelope(
-    payload: Union[bytes, str],
-):
+def maybe_extract_from_cloud_provider_envelope(payload: WebhookPayload):
     """
     Internal helper to extract the inner type from a cloud provider envelope (regardless of what's in there).
     If the payload is already a raw Stripe event (object is 'event' or 'v2.core.event'), returns the parsed dict as-is.
     """
-    if isinstance(payload, bytes):
+    if isinstance(payload, (bytes, bytearray)):
         payload = payload.decode("utf-8")
 
     data = json.loads(payload, object_pairs_hook=OrderedDict)
@@ -61,17 +65,16 @@ class Webhook(object):
 
     @staticmethod
     def construct_event(
-        payload: Union[bytes, str],
-        sig_header: str,
-        secret: str,
+        payload: WebhookPayload,
+        sig_header: Optional[str],
+        secret: Optional[str],
         tolerance: int = DEFAULT_TOLERANCE,
         api_key: Optional[str] = None,
         api_requestor: Optional[_APIRequestor] = None,
     ):
-        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `construct_event_without_verification`."""
-        if isinstance(payload, (bytes, bytearray)):
-            payload = payload.decode("utf-8")
+        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `construct_event_without_verification`.
 
+        `sig_header` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if a signature is not provided."""
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
         return build_v1_event(
@@ -84,8 +87,7 @@ class Webhook(object):
 
     @staticmethod
     def construct_event_without_verification(
-        payload: Union[bytes, str],
-        api_requestor: Optional[_APIRequestor] = None,
+        payload: WebhookPayload, api_requestor: Optional[_APIRequestor] = None
     ):
         """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook without first verifying its authenticity. Should be used after calling `WebhookSignature.verify_header(...)` or with input from a trusted source (such as [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify & construct in a single call, use `Webhook.construct_event(...)` instead."""
         return build_v1_event(
@@ -129,12 +131,32 @@ class WebhookSignature(object):
     @classmethod
     def verify_header(
         cls,
-        payload: Union[bytes, str],
-        header: str,
-        secret: str,
+        payload: WebhookPayload,
+        header: Optional[str],
+        secret: Optional[str],
         tolerance=None,
     ):
-        """Verifies the authenticity (and recency) of a webhook, throwing a `SignatureVerificationError` if there's a mismatch. Useful for quickly validating incoming webhooks before storing them for later processing (at which time you can use the `*_without_verification` methods for parsing)."""
+        """Verifies the authenticity (and recency) of a webhook, throwing a `SignatureVerificationError` if there's a mismatch. Useful for quickly validating incoming webhooks before storing them for later processing (at which time you can use the `*_without_verification` methods for parsing).
+
+        `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
+        # the signature is computed over the string form of the body, so binary
+        # input has to be decoded before it's interpolated below
+        if isinstance(payload, (bytes, bytearray)):
+            payload = payload.decode("utf-8")
+
+        if not header:
+            raise SignatureVerificationError(
+                "No Stripe-Signature header value was provided. Read it from the incoming request's headers and pass it in; if this webhook has already been verified (or came from a trusted source), use one of the `*_without_verification` methods instead.",
+                header,
+                payload,
+            )
+        if not secret:
+            raise SignatureVerificationError(
+                "No webhook secret value was provided. It should start with `whsec_`",
+                header,
+                payload,
+            )
+
         try:
             timestamp, signatures = cls._get_timestamp_and_signatures(
                 header, cls.EXPECTED_SCHEME
