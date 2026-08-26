@@ -77,7 +77,9 @@ class ShippingRate(
             """
             A non-negative integer in cents representing how much to charge.
             """
-            tax_behavior: Literal["exclusive", "inclusive", "unspecified"]
+            tax_behavior: Union[
+                Literal["exclusive", "inclusive", "unspecified"], str
+            ]
             """
             Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
             """
@@ -130,7 +132,9 @@ class ShippingRate(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: Optional[
+        Union[Literal["exclusive", "inclusive", "unspecified"], str]
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """

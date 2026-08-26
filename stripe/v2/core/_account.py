@@ -4003,7 +4003,7 @@ class Account(StripeObject):
             """
             legal_gender: Optional[Union[Literal["female", "male"], str]]
             """
-            The individual's gender (International regulations require either "male” or "female").
+            The individual's gender (International regulations require either "male" or "female").
             """
             metadata: Optional[UntypedStripeObject[str]]
             """

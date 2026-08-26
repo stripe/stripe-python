@@ -374,6 +374,8 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsPaymentDetailsFeatures as AccountSessionCreateParamsComponentsPaymentDetailsFeatures,
         AccountSessionCreateParamsComponentsPaymentDisputes as AccountSessionCreateParamsComponentsPaymentDisputes,
         AccountSessionCreateParamsComponentsPaymentDisputesFeatures as AccountSessionCreateParamsComponentsPaymentDisputesFeatures,
+        AccountSessionCreateParamsComponentsPaymentMethodSettings as AccountSessionCreateParamsComponentsPaymentMethodSettings,
+        AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures as AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures,
         AccountSessionCreateParamsComponentsPayments as AccountSessionCreateParamsComponentsPayments,
         AccountSessionCreateParamsComponentsPaymentsFeatures as AccountSessionCreateParamsComponentsPaymentsFeatures,
         AccountSessionCreateParamsComponentsPayoutDetails as AccountSessionCreateParamsComponentsPayoutDetails,
@@ -967,7 +969,9 @@ if TYPE_CHECKING:
     from stripe.params._customer_session_create_params import (
         CustomerSessionCreateParams as CustomerSessionCreateParams,
         CustomerSessionCreateParamsComponents as CustomerSessionCreateParamsComponents,
+        CustomerSessionCreateParamsComponentsActiveEntitlements as CustomerSessionCreateParamsComponentsActiveEntitlements,
         CustomerSessionCreateParamsComponentsBuyButton as CustomerSessionCreateParamsComponentsBuyButton,
+        CustomerSessionCreateParamsComponentsCustomerPortal as CustomerSessionCreateParamsComponentsCustomerPortal,
         CustomerSessionCreateParamsComponentsCustomerSheet as CustomerSessionCreateParamsComponentsCustomerSheet,
         CustomerSessionCreateParamsComponentsCustomerSheetFeatures as CustomerSessionCreateParamsComponentsCustomerSheetFeatures,
         CustomerSessionCreateParamsComponentsMobilePaymentElement as CustomerSessionCreateParamsComponentsMobilePaymentElement,
@@ -1107,6 +1111,7 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
@@ -1261,6 +1266,7 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
@@ -1349,6 +1355,7 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
@@ -2209,6 +2216,7 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsSubscriptionDataTrialSettings as PaymentLinkModifyParamsSubscriptionDataTrialSettings,
         PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior,
         PaymentLinkModifyParamsTaxIdCollection as PaymentLinkModifyParamsTaxIdCollection,
+        PaymentLinkModifyParamsTransferData as PaymentLinkModifyParamsTransferData,
     )
     from stripe.params._payment_link_retrieve_params import (
         PaymentLinkRetrieveParams as PaymentLinkRetrieveParams,
@@ -2260,6 +2268,7 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsSubscriptionDataTrialSettings as PaymentLinkUpdateParamsSubscriptionDataTrialSettings,
         PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior,
         PaymentLinkUpdateParamsTaxIdCollection as PaymentLinkUpdateParamsTaxIdCollection,
+        PaymentLinkUpdateParamsTransferData as PaymentLinkUpdateParamsTransferData,
     )
     from stripe.params._payment_method_attach_params import (
         PaymentMethodAttachParams as PaymentMethodAttachParams,
@@ -3597,6 +3606,7 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
@@ -3694,6 +3704,7 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
@@ -3869,6 +3880,7 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
@@ -5164,6 +5176,14 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsPaymentDisputesFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPaymentMethodSettings": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),
@@ -6653,7 +6673,15 @@ _import_map = {
         "stripe.params._customer_session_create_params",
         False,
     ),
+    "CustomerSessionCreateParamsComponentsActiveEntitlements": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
     "CustomerSessionCreateParamsComponentsBuyButton": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsCustomerPortal": (
         "stripe.params._customer_session_create_params",
         False,
     ),
@@ -6937,6 +6965,10 @@ _import_map = {
         False,
     ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie": (
         "stripe.params._invoice_create_params",
         False,
     ),
@@ -7421,6 +7453,10 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard": (
         "stripe.params._invoice_modify_params",
         False,
@@ -7654,6 +7690,10 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -10910,6 +10950,10 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsTransferData": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkRetrieveParams": (
         "stripe.params._payment_link_retrieve_params",
         False,
@@ -11095,6 +11139,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsTaxIdCollection": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsTransferData": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -15335,6 +15383,10 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard": (
         "stripe.params._subscription_create_params",
         False,
@@ -15640,6 +15692,10 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -16252,6 +16308,10 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie": (
         "stripe.params._subscription_update_params",
         False,
     ),
