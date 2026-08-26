@@ -93,7 +93,7 @@ class Cardholder(
 
             user_terms_acceptance: Optional[UserTermsAcceptance]
             """
-            Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
+            Information about cardholder acceptance of Celtic [Authorized User Terms](https://docs.stripe.com/issuing/compliance-us#issuing-terms). Required for cards backed by a Celtic program.
             """
             _inner_class_types = {"user_terms_acceptance": UserTermsAcceptance}
 

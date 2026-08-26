@@ -6,6 +6,11 @@ import stripe
 from stripe._webhook import Webhook
 from stripe.v2.core._event import EventNotification
 
+BINARY_ENCODERS = [
+    lambda p: p.encode("utf-8"),
+    lambda p: bytearray(p, "utf-8"),
+]
+
 
 @pytest.fixture
 def client():
@@ -178,6 +183,21 @@ class TestConstructEventWithoutVerification:
         with pytest.raises(ValueError, match="Unrecognized event format"):
             client.construct_event_without_verification(payload)
 
+    @pytest.mark.parametrize(
+        "payload_fixture", ["eventbridge_payload", "eventgrid_payload"]
+    )
+    @pytest.mark.parametrize(
+        "encode", BINARY_ENCODERS, ids=["bytes", "bytearray"]
+    )
+    def test_binary_envelope(self, request, client, payload_fixture, encode):
+        """An envelope can arrive as bytes or a bytearray, which is how many frameworks expose it"""
+        payload = request.getfixturevalue(payload_fixture)
+
+        result = client.construct_event_without_verification(encode(payload))
+
+        assert isinstance(result, stripe.Event)
+        assert result.type == "customer.created"
+
     def test_webhook_static_method_eventbridge(self, eventbridge_payload):
         result = Webhook.construct_event_without_verification(
             eventbridge_payload
@@ -200,6 +220,27 @@ class TestParseEventNotificationWithoutVerification:
             eventgrid_notification_payload
         )
         assert result.id == "evt_test_790"
+        assert result.type == "v2.core.event_destination.ping"
+
+    @pytest.mark.parametrize(
+        "payload_fixture",
+        [
+            "eventbridge_notification_payload",
+            "eventgrid_notification_payload",
+        ],
+    )
+    @pytest.mark.parametrize(
+        "encode", BINARY_ENCODERS, ids=["bytes", "bytearray"]
+    )
+    def test_binary_envelope(self, request, client, payload_fixture, encode):
+        """An envelope can arrive as bytes or a bytearray, which is how many frameworks expose it"""
+        payload = request.getfixturevalue(payload_fixture)
+
+        result = client.parse_event_notification_without_verification(
+            encode(payload)
+        )
+
+        assert isinstance(result, EventNotification)
         assert result.type == "v2.core.event_destination.ping"
 
     def test_v1_event_suggests_construct_event_without_verification(

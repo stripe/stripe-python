@@ -597,12 +597,6 @@ class Account(
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
         """
-        sequra_payments: Optional[
-            Union[Literal["active", "inactive", "pending"], str]
-        ]
-        """
-        The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
-        """
         shopeepay_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]
@@ -1144,6 +1138,12 @@ class Account(
             """
 
         class Error(StripeObject):
+            class Details(StripeObject):
+                partner_rejection_code: Optional[str]
+                """
+                The rejection code as received from our payment method partner.
+                """
+
             code: Literal[
                 "external_request",
                 "information_missing",
@@ -1248,6 +1248,7 @@ class Account(
             """
             The code for the type of error.
             """
+            details: Optional[Details]
             reason: str
             """
             An informative message that indicates the error type and provides additional details about the error.
@@ -1256,6 +1257,7 @@ class Account(
             """
             The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
             """
+            _inner_class_types = {"details": Details}
 
         alternatives: Optional[List[Alternative]]
         """
@@ -1327,6 +1329,12 @@ class Account(
             """
 
         class Error(StripeObject):
+            class Details(StripeObject):
+                partner_rejection_code: Optional[str]
+                """
+                The rejection code as received from our payment method partner.
+                """
+
             code: Literal[
                 "external_request",
                 "information_missing",
@@ -1431,6 +1439,7 @@ class Account(
             """
             The code for the type of error.
             """
+            details: Optional[Details]
             reason: str
             """
             An informative message that indicates the error type and provides additional details about the error.
@@ -1439,6 +1448,7 @@ class Account(
             """
             The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
             """
+            _inner_class_types = {"details": Details}
 
         alternatives: Optional[List[Alternative]]
         """

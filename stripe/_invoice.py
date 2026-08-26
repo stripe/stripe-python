@@ -913,7 +913,77 @@ class Invoice(
                 """
 
             class Billie(StripeObject):
-                pass
+                class CompanyDetails(StripeObject):
+                    class RegisteredAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code.
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (for example, street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (for example, apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    registered_address: Optional[RegisteredAddress]
+                    registered_name: Optional[str]
+                    """
+                    Company or entity name.
+                    """
+                    registration_number: Optional[str]
+                    """
+                    The official registration number for the given registration type.
+                    """
+                    registration_type: Optional[
+                        Literal[
+                            "ch_ein",
+                            "de_hrb",
+                            "dk_cvr",
+                            "es_cif",
+                            "fi_tunnus",
+                            "fr_siren",
+                            "fr_siret",
+                            "it_rea",
+                            "nl_kvk",
+                            "no_org_number",
+                            "no_pno",
+                            "se_org_number",
+                            "se_pno",
+                            "uk_crn",
+                        ]
+                    ]
+                    """
+                    Type of registration the company or entity holds in their registered country.
+                    """
+                    vat: Optional[str]
+                    """
+                    VAT ID number.
+                    """
+                    _inner_class_types = {
+                        "registered_address": RegisteredAddress,
+                    }
+
+                company_details: Optional[CompanyDetails]
+                reference: Optional[str]
+                """
+                An identifier or reference that this payment corresponds to.
+                """
+                _inner_class_types = {"company_details": CompanyDetails}
 
             class Bizum(StripeObject):
                 pass

@@ -53,6 +53,10 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
     """
+    user_consent: NotRequired["VerificationSessionCreateParamsUserConsent"]
+    """
+    Details on the user's consent to Stripe Terms of Service and Privacy Policy.
+    """
     verification_flow: NotRequired[str]
     """
     The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
@@ -108,4 +112,19 @@ class VerificationSessionCreateParamsRelatedPerson(TypedDict):
     person: str
     """
     A token referencing a Person resource that this verification is being used to verify.
+    """
+
+
+class VerificationSessionCreateParamsUserConsent(TypedDict):
+    date: int
+    """
+    The time at which the user gave consent, as a Unix timestamp.
+    """
+    ip: str
+    """
+    The IP address of the user when they gave consent.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser or device the user used to give consent.
     """

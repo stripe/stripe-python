@@ -6,12 +6,12 @@ from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
-class PaymentRecordCreateParams(RequestOptions):
-    amount: "PaymentRecordCreateParamsAmount"
+class PaymentRecordReportDisputeParams(RequestOptions):
+    amount: "PaymentRecordReportDisputeParamsAmount"
     """
     The amount that has been lost to the customer due to disputes on this payment.
     """
-    closed: NotRequired["PaymentRecordCreateParamsClosed"]
+    closed: NotRequired["PaymentRecordReportDisputeParamsClosed"]
     """
     Information about the dispute closing.
     """
@@ -19,7 +19,7 @@ class PaymentRecordCreateParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    funded: NotRequired["PaymentRecordCreateParamsFunded"]
+    funded: NotRequired["PaymentRecordReportDisputeParamsFunded"]
     """
     Information about the dispute funding event.
     """
@@ -33,7 +33,7 @@ class PaymentRecordCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    processor_details: "PaymentRecordCreateParamsProcessorDetails"
+    processor_details: "PaymentRecordReportDisputeParamsProcessorDetails"
     """
     Processor information for this payment.
     """
@@ -45,7 +45,7 @@ class PaymentRecordCreateParams(RequestOptions):
     """
 
 
-class PaymentRecordCreateParamsAmount(TypedDict):
+class PaymentRecordReportDisputeParamsAmount(TypedDict):
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -56,15 +56,15 @@ class PaymentRecordCreateParamsAmount(TypedDict):
     """
 
 
-class PaymentRecordCreateParamsClosed(TypedDict):
+class PaymentRecordReportDisputeParamsClosed(TypedDict):
     closed_at: int
     """
     When the dispute was closed. Measured in seconds since the Unix epoch.
     """
 
 
-class PaymentRecordCreateParamsFunded(TypedDict):
-    amount: "PaymentRecordCreateParamsFundedAmount"
+class PaymentRecordReportDisputeParamsFunded(TypedDict):
+    amount: "PaymentRecordReportDisputeParamsFundedAmount"
     """
     The amount that has been lost to the customer due to disputes on this payment.
     """
@@ -78,7 +78,7 @@ class PaymentRecordCreateParamsFunded(TypedDict):
     """
 
 
-class PaymentRecordCreateParamsFundedAmount(TypedDict):
+class PaymentRecordReportDisputeParamsFundedAmount(TypedDict):
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -89,8 +89,10 @@ class PaymentRecordCreateParamsFundedAmount(TypedDict):
     """
 
 
-class PaymentRecordCreateParamsProcessorDetails(TypedDict):
-    custom: NotRequired["PaymentRecordCreateParamsProcessorDetailsCustom"]
+class PaymentRecordReportDisputeParamsProcessorDetails(TypedDict):
+    custom: NotRequired[
+        "PaymentRecordReportDisputeParamsProcessorDetailsCustom"
+    ]
     """
     Information about the custom processor used to make this payment.
     """
@@ -100,7 +102,7 @@ class PaymentRecordCreateParamsProcessorDetails(TypedDict):
     """
 
 
-class PaymentRecordCreateParamsProcessorDetailsCustom(TypedDict):
+class PaymentRecordReportDisputeParamsProcessorDetailsCustom(TypedDict):
     dispute_reference: str
     """
     A reference to the external dispute. This field must be unique across all disputes.

@@ -1400,26 +1400,17 @@ class SessionCreateParamsPaymentIntentData(TypedDict):
     """
     setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
     """
-    Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
-    method collected by this Checkout Session.
+    Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
 
-    When setting this to `on_session`, Checkout will show a notice to the
-    customer that their payment details will be saved.
+    When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
 
-    When setting this to `off_session`, Checkout will show a notice to the
-    customer that their payment details will be saved and used for future
-    payments.
+    When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
 
-    If a Customer has been provided or Checkout creates a new Customer,
-    Checkout will attach the payment method to the Customer.
+    If a Customer has been provided or Checkout creates a new Customer, Checkout will attach the payment method to the Customer.
 
-    If Checkout does not create a Customer, the payment method is not attached
-    to a Customer. To reuse the payment method, you can retrieve it from the
-    Checkout Session's PaymentIntent.
+    If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
 
-    When processing card payments, Checkout also uses `setup_future_usage`
-    to dynamically optimize your payment flow and comply with regional
-    legislation and network rules, such as SCA.
+    When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
     """
     shipping: NotRequired["SessionCreateParamsPaymentIntentDataShipping"]
     """
@@ -2967,7 +2958,7 @@ class SessionCreateParamsPermissions(TypedDict):
 
     Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-    When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+    This parameter is only supported when `ui_mode=elements`.
     """
 
 
@@ -2986,7 +2977,7 @@ class SessionCreateParamsPermissionsUpdate(TypedDict):
 
     Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-    When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+    This parameter is only supported when `ui_mode=elements`.
     """
 
 

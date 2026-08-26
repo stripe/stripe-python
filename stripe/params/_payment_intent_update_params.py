@@ -163,7 +163,7 @@ class PaymentIntentUpdateParams(TypedDict):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -3142,7 +3142,6 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
-            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -4355,6 +4354,74 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsBillie(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    company_details: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+    reference: NotRequired[str]
+    """
+    An identifier or reference that this payment corresponds to.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT id number
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (e.g., street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (e.g., apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsBizum(TypedDict):
@@ -4790,6 +4857,12 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent(TypedDict):
+    aade_data: NotRequired[
+        "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentAadeData"
+    ]
+    """
+    Greek e-invoicing data required for card-present transactions processed by merchants subject to AADE's myDATA POS compliance mandate (Governor's Decision A.1155/2023).
+    """
     capture_by: NotRequired[
         "Literal['auth_expiry', 'end_of_day', 'target_delay']|str"
     ]
@@ -4845,6 +4918,33 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent(TypedDict):
     ]
     """
     Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentAadeData(
+    TypedDict,
+):
+    mark_data: NotRequired[str]
+    """
+    The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+    """
+    mode: Literal["autonomous", "standard"]
+    """
+    The e-invoicing mode under which the mark was generated.
+    """
+    provider_id: NotRequired[int]
+    """
+    The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+    """
+    signed_mark: NotRequired[str]
+    """
+    The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
+    """
+    unbound_pos: NotRequired[
+        Literal["interconnection_loss", "lock", "replacement_cash_system"]
+    ]
+    """
+    The reason for entering autonomous mode. Required when `mode` is `autonomous`.
     """
 
 

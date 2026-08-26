@@ -67,6 +67,7 @@ if TYPE_CHECKING:
         SessionCreateParamsFlowDataSubscriptionCancel as SessionCreateParamsFlowDataSubscriptionCancel,
         SessionCreateParamsFlowDataSubscriptionCancelRetention as SessionCreateParamsFlowDataSubscriptionCancelRetention,
         SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer as SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer,
+        SessionCreateParamsFlowDataSubscriptionPause as SessionCreateParamsFlowDataSubscriptionPause,
         SessionCreateParamsFlowDataSubscriptionUpdate as SessionCreateParamsFlowDataSubscriptionUpdate,
         SessionCreateParamsFlowDataSubscriptionUpdateConfirm as SessionCreateParamsFlowDataSubscriptionUpdateConfirm,
         SessionCreateParamsFlowDataSubscriptionUpdateConfirmDiscount as SessionCreateParamsFlowDataSubscriptionUpdateConfirmDiscount,
@@ -280,6 +281,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionPause": (
         "stripe.params.billing_portal._session_create_params",
         False,
     ),

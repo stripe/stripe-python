@@ -26921,24 +26921,24 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.create({"payment_method_types": ["card"]})
+        client.setup_intents.create({"allowed_payment_method_types": ["card"]})
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="payment_method_types[0]=card",
+            post_data="allowed_payment_method_types[0]=card",
         )
 
     def test_setup_intents_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        stripe.SetupIntent.create(payment_method_types=["card"])
+        stripe.SetupIntent.create(allowed_payment_method_types=["card"])
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents",
             query_string="",
-            post_data="payment_method_types[0]=card",
+            post_data="allowed_payment_method_types[0]=card",
         )
 
     def test_setup_intents_post_service(
@@ -26953,25 +26953,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v1.setup_intents.create({"payment_method_types": ["card"]})
+        client.v1.setup_intents.create(
+            {
+                "allowed_payment_method_types": ["card"],
+            }
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="payment_method_types[0]=card",
+            post_data="allowed_payment_method_types[0]=card",
         )
 
     @pytest.mark.anyio
     async def test_setup_intents_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        await stripe.SetupIntent.create_async(payment_method_types=["card"])
+        await stripe.SetupIntent.create_async(
+            allowed_payment_method_types=["card"],
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents",
             query_string="",
-            post_data="payment_method_types[0]=card",
+            post_data="allowed_payment_method_types[0]=card",
         )
 
     @pytest.mark.anyio
@@ -26989,7 +26995,7 @@ class TestGeneratedExamples(object):
 
         await client.v1.setup_intents.create_async(
             {
-                "payment_method_types": ["card"],
+                "allowed_payment_method_types": ["card"],
             }
         )
         http_client_mock.assert_requested(
@@ -26997,7 +27003,7 @@ class TestGeneratedExamples(object):
             path="/v1/setup_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="payment_method_types[0]=card",
+            post_data="allowed_payment_method_types[0]=card",
         )
 
     def test_setup_intents_post_2_service_non_namespaced(

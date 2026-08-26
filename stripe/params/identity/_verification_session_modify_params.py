@@ -33,6 +33,10 @@ class VerificationSessionModifyParams(RequestOptions):
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """
+    user_consent: NotRequired["VerificationSessionModifyParamsUserConsent"]
+    """
+    Details on the user's consent to Stripe Terms of Service and Privacy Policy.
+    """
 
 
 class VerificationSessionModifyParamsOptions(TypedDict):
@@ -73,4 +77,19 @@ class VerificationSessionModifyParamsProvidedDetails(TypedDict):
     phone: NotRequired[str]
     """
     Phone number of user being verified
+    """
+
+
+class VerificationSessionModifyParamsUserConsent(TypedDict):
+    date: int
+    """
+    The time at which the user gave consent, as a Unix timestamp.
+    """
+    ip: str
+    """
+    The IP address of the user when they gave consent.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser or device the user used to give consent.
     """

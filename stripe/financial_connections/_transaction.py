@@ -25,6 +25,22 @@ class Transaction(ListableAPIResource["Transaction"]):
     )
 
     class Classification(StripeObject):
+        class Credit(StripeObject):
+            confidence_level: Optional[
+                Literal["high", "low", "medium", "very_high"]
+            ]
+            """
+            Stripe's confidence in this classification.
+            """
+            detailed_label: Optional[str]
+            """
+            The detailed category label for this transaction.
+            """
+            primary_label: Optional[str]
+            """
+            The primary category label for this transaction.
+            """
+
         class MoneyMovement(StripeObject):
             confidence_level: Optional[
                 Literal["high", "low", "medium", "very_high"]
@@ -57,19 +73,15 @@ class Transaction(ListableAPIResource["Transaction"]):
             The primary category label for this transaction.
             """
 
+        credit: Optional[Credit]
         money_movement: Optional[MoneyMovement]
-        """
-        Money movement classification labels for this transaction.
-        """
         personal_finance: Optional[PersonalFinance]
-        """
-        Personal finance classification labels for this transaction.
-        """
         type: str
         """
         The taxonomy type for this classification entry.
         """
         _inner_class_types = {
+            "credit": Credit,
             "money_movement": MoneyMovement,
             "personal_finance": PersonalFinance,
         }

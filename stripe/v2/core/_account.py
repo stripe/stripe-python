@@ -2207,6 +2207,73 @@ class Account(StripeObject):
                         "status_details": StatusDetail,
                     }
 
+                class BlikRecurringPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active", "pending", "restricted", "unsupported"
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
                 class BoletoPayments(StripeObject):
                     class Protections(StripeObject):
                         class PspMigration(StripeObject):
@@ -4673,6 +4740,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process BLIK payments.
                 """
+                blik_recurring_payments: Optional[BlikRecurringPayments]
+                """
+                Allow the merchant to process recurring BLIK payments.
+                """
                 boleto_payments: Optional[BoletoPayments]
                 """
                 Allow the merchant to process Boleto payments.
@@ -4828,6 +4899,7 @@ class Account(StripeObject):
                     "bacs_debit_payments": BacsDebitPayments,
                     "bancontact_payments": BancontactPayments,
                     "blik_payments": BlikPayments,
+                    "blik_recurring_payments": BlikRecurringPayments,
                     "boleto_payments": BoletoPayments,
                     "card_payments": CardPayments,
                     "cartes_bancaires_payments": CartesBancairesPayments,

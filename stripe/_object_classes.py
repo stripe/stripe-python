@@ -146,6 +146,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CustomerCashBalanceTransaction",
     ),
     "customer_session": ("stripe._customer_session", "CustomerSession"),
+    "customer_tax_exemption": (
+        "stripe._customer_tax_exemption",
+        "CustomerTaxExemption",
+    ),
     "delegated_checkout.order": ("stripe.delegated_checkout._order", "Order"),
     "delegated_checkout.order_event": (
         "stripe.delegated_checkout._order_event",

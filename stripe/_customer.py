@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from stripe._customer_cash_balance_transaction import (
         CustomerCashBalanceTransaction,
     )
+    from stripe._customer_tax_exemption import CustomerTaxExemption
     from stripe._discount import Discount
     from stripe._funding_instructions import FundingInstructions
     from stripe._payment_method import PaymentMethod
@@ -49,6 +50,9 @@ if TYPE_CHECKING:
     from stripe.params._customer_create_source_params import (
         CustomerCreateSourceParams,
     )
+    from stripe.params._customer_create_tax_exemption_params import (
+        CustomerCreateTaxExemptionParams,
+    )
     from stripe.params._customer_create_tax_id_params import (
         CustomerCreateTaxIdParams,
     )
@@ -58,6 +62,9 @@ if TYPE_CHECKING:
     from stripe.params._customer_delete_params import CustomerDeleteParams
     from stripe.params._customer_delete_source_params import (
         CustomerDeleteSourceParams,
+    )
+    from stripe.params._customer_delete_tax_exemption_params import (
+        CustomerDeleteTaxExemptionParams,
     )
     from stripe.params._customer_delete_tax_id_params import (
         CustomerDeleteTaxIdParams,
@@ -77,6 +84,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_list_sources_params import (
         CustomerListSourcesParams,
+    )
+    from stripe.params._customer_list_tax_exemptions_params import (
+        CustomerListTaxExemptionsParams,
     )
     from stripe.params._customer_list_tax_ids_params import (
         CustomerListTaxIdsParams,
@@ -107,6 +117,9 @@ if TYPE_CHECKING:
     from stripe.params._customer_retrieve_source_params import (
         CustomerRetrieveSourceParams,
     )
+    from stripe.params._customer_retrieve_tax_exemption_params import (
+        CustomerRetrieveTaxExemptionParams,
+    )
     from stripe.params._customer_retrieve_tax_id_params import (
         CustomerRetrieveTaxIdParams,
     )
@@ -116,6 +129,7 @@ if TYPE_CHECKING:
 
 @nested_resource_class_methods("balance_transaction")
 @nested_resource_class_methods("cash_balance_transaction")
+@nested_resource_class_methods("tax_exemption")
 @nested_resource_class_methods("source")
 @nested_resource_class_methods("tax_id")
 class Customer(
@@ -1437,6 +1451,166 @@ class Customer(
                 "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
                     customer=sanitize_id(customer),
                     transaction=sanitize_id(transaction),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def delete_tax_exemption(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["CustomerDeleteTaxExemptionParams"],
+    ) -> "CustomerTaxExemption":
+        """
+        Delete a location specific tax exemption for a customer.
+        """
+        return cast(
+            "CustomerTaxExemption",
+            cls._static_request(
+                "delete",
+                "/v1/customers/{customer}/tax_exemptions/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def delete_tax_exemption_async(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["CustomerDeleteTaxExemptionParams"],
+    ) -> "CustomerTaxExemption":
+        """
+        Delete a location specific tax exemption for a customer.
+        """
+        return cast(
+            "CustomerTaxExemption",
+            await cls._static_request_async(
+                "delete",
+                "/v1/customers/{customer}/tax_exemptions/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def retrieve_tax_exemption(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["CustomerRetrieveTaxExemptionParams"],
+    ) -> "CustomerTaxExemption":
+        """
+        Retrieve a location specific tax exemption for a customer.
+        """
+        return cast(
+            "CustomerTaxExemption",
+            cls._static_request(
+                "get",
+                "/v1/customers/{customer}/tax_exemptions/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_tax_exemption_async(
+        cls,
+        customer: str,
+        id: str,
+        **params: Unpack["CustomerRetrieveTaxExemptionParams"],
+    ) -> "CustomerTaxExemption":
+        """
+        Retrieve a location specific tax exemption for a customer.
+        """
+        return cast(
+            "CustomerTaxExemption",
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/tax_exemptions/{id}".format(
+                    customer=sanitize_id(customer), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_tax_exemptions(
+        cls, customer: str, **params: Unpack["CustomerListTaxExemptionsParams"]
+    ) -> ListObject["CustomerTaxExemption"]:
+        """
+        List all location specific tax exemptions for a customer.
+        """
+        return cast(
+            ListObject["CustomerTaxExemption"],
+            cls._static_request(
+                "get",
+                "/v1/customers/{customer}/tax_exemptions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_tax_exemptions_async(
+        cls, customer: str, **params: Unpack["CustomerListTaxExemptionsParams"]
+    ) -> ListObject["CustomerTaxExemption"]:
+        """
+        List all location specific tax exemptions for a customer.
+        """
+        return cast(
+            ListObject["CustomerTaxExemption"],
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/tax_exemptions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_tax_exemption(
+        cls,
+        customer: str,
+        **params: Unpack["CustomerCreateTaxExemptionParams"],
+    ) -> "CustomerTaxExemption":
+        """
+        Create a location specific tax exemption for a customer.
+        """
+        return cast(
+            "CustomerTaxExemption",
+            cls._static_request(
+                "post",
+                "/v1/customers/{customer}/tax_exemptions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_tax_exemption_async(
+        cls,
+        customer: str,
+        **params: Unpack["CustomerCreateTaxExemptionParams"],
+    ) -> "CustomerTaxExemption":
+        """
+        Create a location specific tax exemption for a customer.
+        """
+        return cast(
+            "CustomerTaxExemption",
+            await cls._static_request_async(
+                "post",
+                "/v1/customers/{customer}/tax_exemptions".format(
+                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),
