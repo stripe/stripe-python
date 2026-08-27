@@ -16,20 +16,7 @@ class ValueListCreateParams(RequestOptions):
     Specifies which fields in the response should be expanded.
     """
     item_type: NotRequired[
-        Literal[
-            "account",
-            "card_bin",
-            "card_fingerprint",
-            "case_sensitive_string",
-            "country",
-            "crypto_fingerprint",
-            "customer_id",
-            "email",
-            "ip_address",
-            "sepa_debit_fingerprint",
-            "string",
-            "us_bank_account_fingerprint",
-        ]
+        "Literal['account', 'card_bin', 'card_fingerprint', 'case_sensitive_string', 'country', 'crypto_fingerprint', 'customer_id', 'email', 'ip_address', 'sepa_debit_fingerprint', 'string', 'us_bank_account_fingerprint']|str"
     ]
     """
     Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `account`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.

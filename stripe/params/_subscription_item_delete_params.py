@@ -10,12 +10,7 @@ class SubscriptionItemDeleteParams(RequestOptions):
     Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`.
     """
     payment_behavior: NotRequired[
-        Literal[
-            "allow_incomplete",
-            "default_incomplete",
-            "error_if_incomplete",
-            "pending_if_incomplete",
-        ]
+        "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']|str"
     ]
     """
     Controls how Stripe handles payment when a subscription update requires payment and `collection_method=charge_automatically`.

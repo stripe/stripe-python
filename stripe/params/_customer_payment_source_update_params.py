@@ -10,7 +10,7 @@ class CustomerPaymentSourceUpdateParams(TypedDict):
     """
     The name of the person or business that owns the bank account.
     """
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     The type of entity that holds the account. This can be either `individual` or `company`.
     """

@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import json
-from collections import OrderedDict
-
 from stripe import (
     DEFAULT_API_BASE,
     DEFAULT_CONNECT_API_BASE,
@@ -12,6 +9,14 @@ from stripe import (
 
 from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
+from stripe._event_notification_handler import (
+    AsyncFallbackCallback,
+    AsyncStripeEventNotificationHandler,
+    AsyncStripeEventNotificationHandlerWithoutVerification,
+    StripeEventNotificationHandler,
+    StripeEventNotificationHandlerWithoutVerification,
+    FallbackCallback,
+)
 from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
@@ -23,7 +28,12 @@ from stripe._api_version import _ApiVersion
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import _convert_to_stripe_object, get_api_mode
-from stripe._webhook import Webhook, WebhookSignature
+from stripe._webhook import (
+    Webhook,
+    WebhookPayload,
+    WebhookSignature,
+    maybe_extract_from_cloud_provider_envelope,
+)
 from stripe._event import Event
 from stripe.v2.core._event import EventNotification
 
@@ -213,55 +223,62 @@ class StripeClient(object):
         self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
-    def parse_event_notification(
+    def construct_event(
         self,
-        raw: Union[bytes, str, bytearray],
-        sig_header: str,
-        secret: str,
+        payload: WebhookPayload,
+        sig_header: Optional[str],
+        secret: Optional[str],
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
-    ) -> "ALL_EVENT_NOTIFICATIONS":
-        """
-        This should be your main method for interacting with `EventNotifications`. It's the V2 equivalent of `construct_event()`, but with better typing support.
+    ) -> Event:
+        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `construct_event_without_verification`.
 
-        It returns a union representing all known `EventNotification` classes. They have a `type` property that can be used for narrowing, which will get you very specific type support. If parsing an event the SDK isn't familiar with, it'll instead return `UnknownEventNotification`. That's not reflected in the return type of the function (because it messes up type narrowing) but is otherwise intended.
-        """
-        payload = (
-            cast(Union[bytes, bytearray], raw).decode("utf-8")
-            if hasattr(raw, "decode")
-            else cast(str, raw)
+        `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
+        return Webhook.construct_event(
+            payload,
+            sig_header,
+            secret,
+            tolerance,
+            api_requestor=self._requestor,
         )
 
-        WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
+    def construct_event_without_verification(
+        self,
+        payload: WebhookPayload,
+    ) -> Event:
+        """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook without first verifying its authenticity. Should be used after calling `Webhook.verify_header(...)` or with input from a trusted source (such as [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify & construct in a single call, use `Webhook.construct_event(...)` instead."""
+        return Webhook.construct_event_without_verification(
+            payload, api_requestor=self._requestor
+        )
+
+    def parse_event_notification(
+        self,
+        raw: WebhookPayload,
+        sig_header: Optional[str],
+        secret: Optional[str],
+        tolerance: int = Webhook.DEFAULT_TOLERANCE,
+    ) -> "ALL_EVENT_NOTIFICATIONS":
+        """Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `parse_event_notification_without_verification`.
+
+        `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
+        WebhookSignature.verify_header(raw, sig_header, secret, tolerance)
 
         return cast(
             "ALL_EVENT_NOTIFICATIONS",
-            EventNotification.from_json(payload, self),
+            EventNotification.from_json(raw, self),
         )
 
-    def construct_event(
+    def parse_event_notification_without_verification(
         self,
-        payload: Union[bytes, str],
-        sig_header: str,
-        secret: str,
-        tolerance: int = Webhook.DEFAULT_TOLERANCE,
-    ) -> Event:
-        if hasattr(payload, "decode"):
-            payload = cast(bytes, payload).decode("utf-8")
+        payload: WebhookPayload,
+    ) -> "ALL_EVENT_NOTIFICATIONS":
+        """Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from an incoming webhook without first verifying its authenticity. Should be used after calling `Webhook.verify_header(...)` or with input from a trusted source (such as [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify & parse in a single call, use `parse_event_notification(...)` instead."""
 
-        WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
-
-        data = json.loads(payload, object_pairs_hook=OrderedDict)
-        event = Event._construct_from(
-            values=data,
-            requestor=self._requestor,
-            api_mode="V1",
+        return cast(
+            "ALL_EVENT_NOTIFICATIONS",
+            EventNotification.from_json(
+                maybe_extract_from_cloud_provider_envelope(payload), self
+            ),
         )
-        if event.object == "v2.core.event":  # type: ignore
-            raise ValueError(
-                "You passed a thin event notification to StripeClient.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
-            )
-
-        return event
 
     def raw_request(self, method_: str, url_: str, **params):
         params = params.copy()
@@ -321,6 +338,83 @@ class StripeClient(object):
             params=params,
             requestor=self._requestor,
             api_mode=api_mode,
+        )
+
+    def with_stripe_context(
+        self, stripe_context: "Optional[Union[str, StripeContext]]"
+    ) -> "StripeClient":
+        """
+        Creates a new StripeClient with the same configuration as this client,
+        but with a different stripe_context. This is useful for handling webhooks
+        where each event may have its own context.
+
+        The new client reuses the HTTP client from this client to avoid
+        re-establishing TLS connections.
+        """
+        return StripeClient(
+            api_key=self._requestor.api_key,  # type: ignore
+            stripe_account=self._requestor._options.stripe_account,
+            stripe_context=stripe_context,
+            stripe_version=self._requestor._options.stripe_version,
+            base_addresses=self._requestor._options.base_addresses,
+            client_id=self._options.client_id,
+            max_network_retries=self._requestor._options.max_network_retries,
+            http_client=self._requestor._client,
+        )
+
+    def notification_handler(
+        self,
+        webhook_secret: Optional[str],
+        fallback_callback: FallbackCallback,
+    ) -> StripeEventNotificationHandler:
+        """
+        Returns an StripeEventNotificationHandler instance tied to this client.
+
+        `webhook_secret` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `ValueError` if a secret is not provided.
+        """
+        return StripeEventNotificationHandler(
+            self, webhook_secret, fallback_callback
+        )
+
+    def notification_handler_without_verification(
+        self, fallback_callback: FallbackCallback
+    ) -> StripeEventNotificationHandlerWithoutVerification:
+        """
+        A variant of StripeEventNotificationHandler that parses events without
+        verifying webhook signatures. Intended for pre-authenticated channels
+        like AWS EventBridge, Azure Event Grid, or your own queue system that
+        verifies payloads before storage.
+        """
+        return StripeEventNotificationHandler.without_verification(
+            self, fallback_callback
+        )
+
+    def async_notification_handler(
+        self,
+        webhook_secret: Optional[str],
+        fallback_callback: AsyncFallbackCallback,
+    ) -> AsyncStripeEventNotificationHandler:
+        """
+        Returns an AsyncStripeEventNotificationHandler instance tied to this client.
+        Register `async def` callbacks on it and run them using `await handler.handle_async()`.
+
+        `webhook_secret` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `ValueError` if a secret is not provided.
+        """
+        return AsyncStripeEventNotificationHandler(
+            self, webhook_secret, fallback_callback
+        )
+
+    def async_notification_handler_without_verification(
+        self, fallback_callback: AsyncFallbackCallback
+    ) -> AsyncStripeEventNotificationHandlerWithoutVerification:
+        """
+        A variant of AsyncStripeEventNotificationHandler that parses events without
+        verifying webhook signatures. Intended for pre-authenticated channels
+        like AWS EventBridge, Azure Event Grid, or your own queue system that
+        verifies payloads before storage.
+        """
+        return AsyncStripeEventNotificationHandler.without_verification(
+            self, fallback_callback
         )
 
     # deprecated v1 services: The beginning of the section generated from our OpenAPI spec

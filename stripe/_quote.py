@@ -175,7 +175,7 @@ class Quote(
             """
             Total after discounts and taxes are applied.
             """
-            interval: Literal["day", "month", "week", "year"]
+            interval: Union[Literal["day", "month", "week", "year"], str]
             """
             The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
             """
@@ -357,7 +357,9 @@ class Quote(
     class SubscriptionData(StripeObject):
         class BillingMode(StripeObject):
             class Flexible(StripeObject):
-                proration_discounts: Optional[Literal["included", "itemized"]]
+                proration_discounts: Optional[
+                    Union[Literal["included", "itemized"], str]
+                ]
                 """
                 Controls how invoices and invoice items display proration amounts and discount amounts.
                 """
@@ -507,7 +509,9 @@ class Quote(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote.
     """
     automatic_tax: AutomaticTax
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
     """

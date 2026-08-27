@@ -68,6 +68,10 @@ class Session(CreateableAPIResource["Session"]):
         """
         List of countries from which to filter accounts.
         """
+        country: Optional[str]
+        """
+        Country from which to filter accounts.
+        """
         require_payment_method_support: Optional[
             Literal["all", "at_least_one", "none"]
         ]
