@@ -40,23 +40,26 @@ class CalculationLineItem(StripeObject):
             """
             The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
             """
-            tax_type: Literal[
-                "amusement_tax",
-                "communications_tax",
-                "gst",
-                "hst",
-                "igst",
-                "jct",
-                "lease_tax",
-                "mass_transit_parking_tax",
-                "parking_tax",
-                "pst",
-                "qst",
-                "retail_delivery_fee",
-                "rst",
-                "sales_tax",
-                "service_tax",
-                "vat",
+            tax_type: Union[
+                Literal[
+                    "amusement_tax",
+                    "communications_tax",
+                    "gst",
+                    "hst",
+                    "igst",
+                    "jct",
+                    "lease_tax",
+                    "mass_transit_parking_tax",
+                    "parking_tax",
+                    "pst",
+                    "qst",
+                    "retail_delivery_fee",
+                    "rst",
+                    "sales_tax",
+                    "service_tax",
+                    "vat",
+                ],
+                str,
             ]
             """
             The tax type, such as `vat` or `sales_tax`.
@@ -67,7 +70,7 @@ class CalculationLineItem(StripeObject):
         The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
         jurisdiction: Jurisdiction
-        sourcing: Literal["destination", "origin"]
+        sourcing: Union[Literal["destination", "origin"], str]
         """
         Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
         """

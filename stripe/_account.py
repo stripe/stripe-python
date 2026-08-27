@@ -216,301 +216,399 @@ class Account(
         }
 
     class Capabilities(StripeObject):
-        acss_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        acss_debit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
         """
-        affirm_payments: Optional[Literal["active", "inactive", "pending"]]
+        affirm_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Affirm capability of the account, or whether the account can directly process Affirm charges.
         """
         afterpay_clearpay_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
         """
-        alma_payments: Optional[Literal["active", "inactive", "pending"]]
+        alma_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Alma capability of the account, or whether the account can directly process Alma payments.
         """
-        amazon_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        amazon_pay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
         """
-        app_distribution: Optional[Literal["active", "inactive", "pending"]]
+        app_distribution: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the `app_distribution` capability of the account, or whether the platform can distribute apps to other accounts.
         """
         au_becs_debit_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
         """
-        bacs_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        bacs_debit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
         """
-        bancontact_payments: Optional[Literal["active", "inactive", "pending"]]
+        bancontact_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Bancontact payments capability of the account, or whether the account can directly process Bancontact charges.
         """
         bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
         """
-        billie_payments: Optional[Literal["active", "inactive", "pending"]]
+        billie_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Billie capability of the account, or whether the account can directly process Billie payments.
         """
-        bizum_payments: Optional[Literal["active", "inactive", "pending"]]
+        bizum_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Bizum capability of the account, or whether the account can directly process Bizum payments.
         """
-        blik_payments: Optional[Literal["active", "inactive", "pending"]]
+        blik_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
         """
-        boleto_payments: Optional[Literal["active", "inactive", "pending"]]
+        boleto_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
         """
-        card_issuing: Optional[Literal["active", "inactive", "pending"]]
+        card_issuing: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
         """
-        card_payments: Optional[Literal["active", "inactive", "pending"]]
+        card_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
         """
         cartes_bancaires_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Cartes Bancaires payments capability of the account, or whether the account can directly process Cartes Bancaires card charges in EUR currency.
         """
-        cashapp_payments: Optional[Literal["active", "inactive", "pending"]]
+        cashapp_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
         """
-        crypto_payments: Optional[Literal["active", "inactive", "pending"]]
+        crypto_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Crypto capability of the account, or whether the account can directly process Crypto payments.
         """
-        eps_payments: Optional[Literal["active", "inactive", "pending"]]
+        eps_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
         """
-        fpx_payments: Optional[Literal["active", "inactive", "pending"]]
+        fpx_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the FPX payments capability of the account, or whether the account can directly process FPX charges.
         """
         gb_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the GB customer_balance payments (GBP currency) capability of the account, or whether the account can directly process GB customer_balance charges.
         """
-        giropay_payments: Optional[Literal["active", "inactive", "pending"]]
+        giropay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
         """
-        grabpay_payments: Optional[Literal["active", "inactive", "pending"]]
+        grabpay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
         """
-        ideal_payments: Optional[Literal["active", "inactive", "pending"]]
+        ideal_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
         """
         india_international_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the india_international_payments capability of the account, or whether the account can process international charges (non INR) in India.
         """
-        jcb_payments: Optional[Literal["active", "inactive", "pending"]]
+        jcb_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency.
         """
         jp_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Japanese customer_balance payments (JPY currency) capability of the account, or whether the account can directly process Japanese customer_balance charges.
         """
-        kakao_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        kakao_pay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the KakaoPay capability of the account, or whether the account can directly process KakaoPay payments.
         """
-        klarna_payments: Optional[Literal["active", "inactive", "pending"]]
+        klarna_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
         """
-        konbini_payments: Optional[Literal["active", "inactive", "pending"]]
+        konbini_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
         """
-        kr_card_payments: Optional[Literal["active", "inactive", "pending"]]
+        kr_card_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the KrCard capability of the account, or whether the account can directly process KrCard payments.
         """
-        legacy_payments: Optional[Literal["active", "inactive", "pending"]]
+        legacy_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the legacy payments capability of the account.
         """
-        link_payments: Optional[Literal["active", "inactive", "pending"]]
+        link_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the link_payments capability of the account, or whether the account can directly process Link charges.
         """
-        mb_way_payments: Optional[Literal["active", "inactive", "pending"]]
+        mb_way_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the MB WAY payments capability of the account, or whether the account can directly process MB WAY charges.
         """
-        mobilepay_payments: Optional[Literal["active", "inactive", "pending"]]
+        mobilepay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the MobilePay capability of the account, or whether the account can directly process MobilePay charges.
         """
-        multibanco_payments: Optional[Literal["active", "inactive", "pending"]]
+        multibanco_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Multibanco payments capability of the account, or whether the account can directly process Multibanco charges.
         """
         mx_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Mexican customer_balance payments (MXN currency) capability of the account, or whether the account can directly process Mexican customer_balance charges.
         """
-        naver_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        naver_pay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
         """
         nz_bank_account_becs_debit_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the New Zealand BECS Direct Debit payments capability of the account, or whether the account can directly process New Zealand BECS Direct Debit charges.
         """
-        oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
+        oxxo_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
         """
-        p24_payments: Optional[Literal["active", "inactive", "pending"]]
+        p24_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
         """
         pay_by_bank_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
         """
-        payco_payments: Optional[Literal["active", "inactive", "pending"]]
+        payco_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Payco capability of the account, or whether the account can directly process Payco payments.
         """
-        paynow_payments: Optional[Literal["active", "inactive", "pending"]]
+        paynow_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
         """
-        payto_payments: Optional[Literal["active", "inactive", "pending"]]
+        payto_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
         """
-        pix_payments: Optional[Literal["active", "inactive", "pending"]]
+        pix_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the pix payments capability of the account, or whether the account can directly process pix charges.
         """
-        promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
+        promptpay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
         """
         revolut_pay_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
         """
         samsung_pay_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
         """
-        satispay_payments: Optional[Literal["active", "inactive", "pending"]]
+        satispay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
         """
-        scalapay_payments: Optional[Literal["active", "inactive", "pending"]]
+        scalapay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Scalapay capability of the account, or whether the account can directly process Scalapay payments.
         """
         sepa_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
         """
-        sepa_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        sepa_debit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
         """
-        sofort_payments: Optional[Literal["active", "inactive", "pending"]]
+        sofort_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
         """
-        sunbit_payments: Optional[Literal["active", "inactive", "pending"]]
+        sunbit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
         """
-        swish_payments: Optional[Literal["active", "inactive", "pending"]]
+        swish_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Swish capability of the account, or whether the account can directly process Swish payments.
         """
         tax_reporting_us_1099_k: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the tax reporting 1099-K (US) capability of the account.
         """
         tax_reporting_us_1099_misc: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the tax reporting 1099-MISC (US) capability of the account.
         """
-        transfers: Optional[Literal["active", "inactive", "pending"]]
+        transfers: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
         """
-        treasury: Optional[Literal["active", "inactive", "pending"]]
+        treasury: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the banking capability, or whether the account can have bank accounts.
         """
-        twint_payments: Optional[Literal["active", "inactive", "pending"]]
+        twint_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
         """
-        upi_payments: Optional[Literal["active", "inactive", "pending"]]
+        upi_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the upi payments capability of the account, or whether the account can directly process upi charges.
         """
         us_bank_account_ach_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
         """
         us_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
         """
-        zip_payments: Optional[Literal["active", "inactive", "pending"]]
+        zip_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Zip capability of the account, or whether the account can directly process Zip charges.
         """
@@ -906,7 +1004,7 @@ class Account(
         A value indicating responsibility for collecting requirements on this account. Only returned when the Connect application retrieving the resource controls the account.
         """
         stripe_dashboard: Optional[StripeDashboard]
-        type: Literal["account", "application"]
+        type: Union[Literal["account", "application"], str]
         """
         The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
         """
@@ -1361,7 +1459,7 @@ class Account(
             The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
             """
             hosted_payment_method_save: Optional[
-                Literal["always", "never", "offer"]
+                Union[Literal["always", "never", "offer"], str]
             ]
             """
             Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.

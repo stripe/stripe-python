@@ -37,3 +37,7 @@ class SubscriptionCancelParamsCancellationDetails(TypedDict):
     """
     The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
     """
+    feedback_option: NotRequired[str]
+    """
+    Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+    """

@@ -50,6 +50,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CreditBalanceTransaction",
     ),
     "billing.credit_grant": ("stripe.billing._credit_grant", "CreditGrant"),
+    "billing.feedback_option": (
+        "stripe.billing._feedback_option",
+        "FeedbackOption",
+    ),
     "billing.meter": ("stripe.billing._meter", "Meter"),
     "billing.meter_event": ("stripe.billing._meter_event", "MeterEvent"),
     "billing.meter_event_adjustment": (

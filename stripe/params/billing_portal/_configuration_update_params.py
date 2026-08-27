@@ -137,7 +137,7 @@ class ConfigurationUpdateParamsFeaturesSubscriptionCancel(TypedDict):
     Whether to cancel subscriptions immediately or at the end of the billing period.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
@@ -151,6 +151,10 @@ class ConfigurationUpdateParamsFeaturesSubscriptionCancelCancellationReason(
     """
     Whether the feature is enabled.
     """
+    feedback_options: NotRequired["Literal['']|List[str]"]
+    """
+    The IDs of custom feedback options to use for this cancellation reason.
+    """
     options: NotRequired[
         "Literal['']|List[Union[Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused'], str]]"
     ]
@@ -160,7 +164,7 @@ class ConfigurationUpdateParamsFeaturesSubscriptionCancelCancellationReason(
 
 
 class ConfigurationUpdateParamsFeaturesSubscriptionUpdate(TypedDict):
-    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
     """
     Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -181,7 +185,7 @@ class ConfigurationUpdateParamsFeaturesSubscriptionUpdate(TypedDict):
     The list of up to 10 products that support subscription updates.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.

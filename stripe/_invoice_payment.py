@@ -4,7 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -47,7 +47,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
         """
         ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
         """
-        type: Literal["charge", "payment_intent", "payment_record"]
+        type: Union[Literal["charge", "payment_intent", "payment_record"], str]
         """
         Type of payment object associated with this invoice payment.
         """

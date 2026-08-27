@@ -43,7 +43,7 @@ class ChargeUpdateParams(TypedDict):
 
 
 class ChargeUpdateParamsFraudDetails(TypedDict):
-    user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
+    user_report: Union[Literal[""], Literal["fraudulent", "safe"], str]
     """
     Either `safe` or `fraudulent`.
     """
