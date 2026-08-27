@@ -31,7 +31,7 @@ class PayoutCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    method: NotRequired[Literal["instant", "standard"]]
+    method: NotRequired["Literal['instant', 'standard']|str"]
     """
     The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
     """
@@ -39,7 +39,7 @@ class PayoutCreateParams(RequestOptions):
     """
     The ID of a v2 FinancialAccount to send funds to.
     """
-    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+    source_type: NotRequired["Literal['bank_account', 'card', 'fpx']|str"]
     """
     The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
     """

@@ -1,7 +1,14 @@
 # pyright: strict
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Type, Literal, Self, deprecated
+from typing_extensions import (
+    TYPE_CHECKING,
+    NoReturn,
+    Type,
+    Literal,
+    Self,
+    deprecated,
+)
 from typing import (
     Any,
     Dict,
@@ -86,6 +93,20 @@ def _serialize_list(
 
 
 class StripeObject:
+    """
+    The base class for every response returned by the Stripe API.
+
+    A `StripeObject` is **not** a `dict` even though `str()` on one prints JSON. It deliberately keeps a small surface so that API fields never collide with `dict` method names (for example, `Subscription.items` is the API's `items` field, not `dict.items`).
+
+    If you want to do dict operations, on a StripeObject, call `.to_dict()` first. See [the readme](https://github.com/stripe/stripe-python#working-with-api-resources) for more information.
+    """
+
+    # Names we know people reach for out of dict habit. Used to give a pointed
+    # error instead of a bare `AttributeError: get`.
+    _DICT_METHOD_NAMES = frozenset(
+        {"get", "keys", "values", "items", "pop", "setdefault"}
+    )
+
     _retrieve_params: Mapping[str, Any]
     _previous: Optional[Mapping[str, Any]]
 
@@ -167,9 +188,17 @@ class StripeObject:
 
             try:
                 if k in self._field_remappings:
-                    k = self._field_remappings[k]
-                return self[k]
+                    key = self._field_remappings[k]
+                else:
+                    key = k
+                return self[key]
             except KeyError as err:
+                # Stays an AttributeError (rather than becoming a TypeError) so
+                # that hasattr() and getattr(obj, "get", None) keep working.
+                if k in self._DICT_METHOD_NAMES:
+                    raise AttributeError(
+                        f"'{k}' is a dict method, but a {type(self).__name__} is not a dict. Use .to_dict() to convert it. Docs: https://github.com/stripe/stripe-python#working-with-api-resources"
+                    ) from err
                 raise AttributeError(*err.args) from err
 
         def __delattr__(self, k):
@@ -232,6 +261,23 @@ class StripeObject:
 
     def __contains__(self, k: object) -> bool:
         return k in self._data
+
+    # Defining __getitem__ without __iter__ makes dict(obj), list(obj), and
+    # `for k in obj` fall back to Python's legacy *sequence* protocol, which asks
+    # for obj[0] and surfaces a baffling "KeyError: 0". Raising here names the
+    # actual problem instead. This can't collide with an API field name;
+    # subclasses that are genuinely iterable (ListObject, SearchResultObject)
+    # override it.
+    #
+    # Hidden from type checkers so that they still report iterating a
+    # StripeObject as an error, and so the iterable subclasses don't look like
+    # incompatible overrides of a NoReturn method.
+    if not TYPE_CHECKING:
+
+        def __iter__(self) -> NoReturn:
+            raise TypeError(
+                f"{type(self).__name__} is not iterable or a mapping; call .to_dict() for a plain dict. Docs: https://github.com/stripe/stripe-python#working-with-api-resources"
+            )
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, StripeObject):

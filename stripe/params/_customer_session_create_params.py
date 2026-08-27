@@ -25,9 +25,21 @@ class CustomerSessionCreateParams(RequestOptions):
 
 
 class CustomerSessionCreateParamsComponents(TypedDict):
+    active_entitlements: NotRequired[
+        "CustomerSessionCreateParamsComponentsActiveEntitlements"
+    ]
+    """
+    Configuration for active entitlements.
+    """
     buy_button: NotRequired["CustomerSessionCreateParamsComponentsBuyButton"]
     """
     Configuration for buy button.
+    """
+    customer_portal: NotRequired[
+        "CustomerSessionCreateParamsComponentsCustomerPortal"
+    ]
+    """
+    Configuration for customer portal.
     """
     customer_sheet: NotRequired[
         "CustomerSessionCreateParamsComponentsCustomerSheet"
@@ -55,10 +67,24 @@ class CustomerSessionCreateParamsComponents(TypedDict):
     """
 
 
+class CustomerSessionCreateParamsComponentsActiveEntitlements(TypedDict):
+    enabled: bool
+    """
+    Whether the active entitlements is enabled.
+    """
+
+
 class CustomerSessionCreateParamsComponentsBuyButton(TypedDict):
     enabled: bool
     """
     Whether the buy button is enabled.
+    """
+
+
+class CustomerSessionCreateParamsComponentsCustomerPortal(TypedDict):
+    enabled: bool
+    """
+    Whether the customer portal is enabled.
     """
 
 

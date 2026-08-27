@@ -17,6 +17,7 @@ from typing import (
     Iterator,
     List,
     Optional,
+    Union,
     cast,
     overload,
 )
@@ -155,7 +156,7 @@ class Product(
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
-    type: Literal["good", "service"]
+    type: Union[Literal["good", "service"], str]
     """
     The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     """

@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.billing._feedback_option import FeedbackOption
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -130,7 +131,9 @@ class Subscription(
 
     class BillingMode(StripeObject):
         class Flexible(StripeObject):
-            proration_discounts: Optional[Literal["included", "itemized"]]
+            proration_discounts: Optional[
+                Union[Literal["included", "itemized"], str]
+            ]
             """
             Controls how invoices and invoice items display proration amounts and discount amounts.
             """
@@ -162,7 +165,7 @@ class Subscription(
 
         class BillUntil(StripeObject):
             class Duration(StripeObject):
-                interval: Literal["day", "month", "week", "year"]
+                interval: Union[Literal["day", "month", "week", "year"], str]
                 """
                 Specifies billing duration. Either `day`, `week`, `month` or `year`.
                 """
@@ -236,6 +239,10 @@ class Subscription(
         """
         The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
         """
+        feedback_option: Optional[ExpandableField["FeedbackOption"]]
+        """
+        Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+        """
         reason: Optional[
             Union[
                 Literal[
@@ -298,7 +305,9 @@ class Subscription(
         """
 
     class PauseCollection(StripeObject):
-        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        behavior: Union[
+            Literal["keep_as_draft", "mark_uncollectible", "void"], str
+        ]
         """
         The payment collection behavior for this subscription while paused.
         """
@@ -335,6 +344,9 @@ class Subscription(
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
 
+            class Billie(StripeObject):
+                pass
+
             class Card(StripeObject):
                 class MandateOptions(StripeObject):
                     amount: Optional[int]
@@ -354,20 +366,23 @@ class Subscription(
 
                 mandate_options: Optional[MandateOptions]
                 network: Optional[
-                    Literal[
-                        "amex",
-                        "cartes_bancaires",
-                        "diners",
-                        "discover",
-                        "eftpos_au",
-                        "girocard",
-                        "interac",
-                        "jcb",
-                        "link",
-                        "mastercard",
-                        "unionpay",
-                        "unknown",
-                        "visa",
+                    Union[
+                        Literal[
+                            "amex",
+                            "cartes_bancaires",
+                            "diners",
+                            "discover",
+                            "eftpos_au",
+                            "girocard",
+                            "interac",
+                            "jcb",
+                            "link",
+                            "mastercard",
+                            "unionpay",
+                            "unknown",
+                            "visa",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -384,7 +399,9 @@ class Subscription(
             class CustomerBalance(StripeObject):
                 class BankTransfer(StripeObject):
                     class EuBankTransfer(StripeObject):
-                        country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                        country: Union[
+                            Literal["BE", "DE", "ES", "FR", "IE", "NL"], str
+                        ]
                         """
                         The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                         """
@@ -572,6 +589,10 @@ class Subscription(
             """
             This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
             """
+            billie: Optional[Billie]
+            """
+            This sub-hash contains details about the Billie payment method options to pass to invoices created by the subscription.
+            """
             card: Optional[Card]
             """
             This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
@@ -607,6 +628,7 @@ class Subscription(
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "billie": Billie,
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
@@ -634,6 +656,7 @@ class Subscription(
                         "au_becs_debit",
                         "bacs_debit",
                         "bancontact",
+                        "billie",
                         "boleto",
                         "card",
                         "cashapp",
@@ -690,7 +713,7 @@ class Subscription(
         _inner_class_types = {"payment_method_options": PaymentMethodOptions}
 
     class PendingInvoiceItemInterval(StripeObject):
-        interval: Literal["day", "month", "week", "year"]
+        interval: Union[Literal["day", "month", "week", "year"], str]
         """
         Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
         """
@@ -809,7 +832,9 @@ class Subscription(
     """
     Details about why this subscription was cancelled
     """
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
     """
@@ -1449,7 +1474,7 @@ class Subscription(
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
         To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
 
-        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
 
         Switching prices does not normally change the billing date or generate an immediate charge unless:
 
@@ -1486,7 +1511,7 @@ class Subscription(
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
         To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
 
-        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
 
         Switching prices does not normally change the billing date or generate an immediate charge unless:
 
