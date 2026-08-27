@@ -29,6 +29,41 @@ This release changes the pinned API version to 2026-08-26.preview.
   * Add support for error code `default_payout_method_cannot_be_disabled` on `CannotProceedError`
 * [#1878](https://github.com/stripe/stripe-python/pull/1878) Add non-verified methods to managed handlers
 
+## 15.6.0 - 2026-08-26
+This release changes the pinned API version to 2026-08-26.dahlia.
+
+* [#1881](https://github.com/stripe/stripe-python/pull/1881) Add new `EventNotificationHandler` class for better thin event management
+  
+  - We've been putting a lot of time into rethinking the event handling experience in the SDKs. This new class is the culmination [of that effort](https://stripe.dev/blog/event-notification-handlers-thin-events).
+  - They're designed for a tight coupling with both `StripeClient` and the fully-typed nature of [thin events](https://docs.stripe.com/event-destinations#thin-events). This delivers painless event destination upgrades, in-editor checks for common mistakes, and better code modularity.
+  - Now that we've released [thin event notifications for v1 objects](https://docs.stripe.com/changelog#2026-08-26.dahlia), these new handlers are our recommended path for all integrations using thin event notifications.
+  - See more detailed docs here: https://docs.stripe.com/webhooks/event-notification-handlers
+  - As part of this work, we've widened some of the types our webhook-related methods take so they play more nicely with the types commonly returned by popular web frameworks ([#1888](https://github.com/stripe/stripe-python/pull/1888))
+
+* [#1876](https://github.com/stripe/stripe-python/pull/1876) Update generated code
+  * Add support for new resource `billing.FeedbackOption`
+  * Add support for `create`, `deactivate`, `list`, `modify`, and `retrieve` methods on resource `billing.FeedbackOption`
+  * Add support for `payment_method_settings` on `AccountSession.Component` and `AccountSessionCreateParamsComponent`
+  * Add support for `feedback_options` on `BillingPortal.Configuration.Feature.SubscriptionCancel.CancellationReason`, `billing_portal.ConfigurationCreateParamsFeatureSubscriptionCancelCancellationReason`, and `billing_portal.ConfigurationModifyParamsFeatureSubscriptionCancelCancellationReason`
+  * Add support for new value `customer_update` on enums `BillingPortal.Session.Flow.type` and `billing_portal.SessionCreateParamsFlowDatum.type`
+  * Add support for `customer_update` on `BillingPortal.Session.Flow`
+  * Add support for `funding_source_group` on `Charge.PaymentMethodDetail.Card.Wallet.Link` and `Charge.PaymentMethodDetail.Link`
+  * Add support for `funding_types_blocked` on `Checkout.Session.PaymentMethodOption.Card.Restriction` and `checkout.SessionCreateParamsPaymentMethodOptionCardRestriction`
+  * Add support for `metadata` on `ConfirmationToken`
+  * Add support for `active_entitlements` and `customer_portal` on `CustomerSession.Component` and `CustomerSessionCreateParamsComponent`
+  * Add support for `country` on `FinancialConnections.Session.Filter`
+  * Add support for `frozen_fields` on `InvoiceItem`
+  * Add support for `billie` on `Invoice.PaymentSetting.PaymentMethodOption`, `InvoiceCreateParamsPaymentSettingPaymentMethodOption`, `InvoiceModifyParamsPaymentSettingPaymentMethodOption`, `Subscription.PaymentSetting.PaymentMethodOption`, `SubscriptionCreateParamsPaymentSettingPaymentMethodOption`, and `SubscriptionModifyParamsPaymentSettingPaymentMethodOption`
+  * Add support for new value `billie` on enums `Invoice.PaymentSetting.payment_method_types`, `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+  * ⚠️ Remove support for `cryptogram` on `PaymentAttemptRecord.PaymentMethodDetail.Card.ThreeDSecure` and `PaymentRecord.PaymentMethodDetail.Card.ThreeDSecure`
+  * Add support for new value `touch_n_go` on enums `PaymentIntent.allowed_payment_method_types`, `PaymentIntentConfirmParams.allowed_payment_method_types`, `PaymentIntentCreateParams.allowed_payment_method_types`, `PaymentIntentModifyParams.allowed_payment_method_types`, `SetupIntent.allowed_payment_method_types`, `SetupIntentConfirmParams.allowed_payment_method_types`, `SetupIntentCreateParams.allowed_payment_method_types`, and `SetupIntentModifyParams.allowed_payment_method_types`
+  * Change `PaymentIntent.allowed_payment_method_types` and `SetupIntent.allowed_payment_method_types` to be required
+  * Add support for `application_fee_amount`, `application_fee_percent`, `on_behalf_of`, and `transfer_data` on `PaymentLinkModifyParams`
+  * Add support for `feedback_option` on `Subscription.CancellationDetail`, `SubscriptionCancelParamsCancellationDetail`, and `SubscriptionModifyParamsCancellationDetail`
+  * Add support for `igic` on `Tax.Registration.CountryOption.At`, `Tax.Registration.CountryOption.Be`, `Tax.Registration.CountryOption.Bg`, `Tax.Registration.CountryOption.Cy`, `Tax.Registration.CountryOption.Cz`, `Tax.Registration.CountryOption.De`, `Tax.Registration.CountryOption.Dk`, `Tax.Registration.CountryOption.E`, `Tax.Registration.CountryOption.Ee`, `Tax.Registration.CountryOption.Fi`, `Tax.Registration.CountryOption.Fr`, `Tax.Registration.CountryOption.Gr`, `Tax.Registration.CountryOption.Hr`, `Tax.Registration.CountryOption.Hu`, `Tax.Registration.CountryOption.Ie`, `Tax.Registration.CountryOption.It`, `Tax.Registration.CountryOption.Lt`, `Tax.Registration.CountryOption.Lu`, `Tax.Registration.CountryOption.Lv`, `Tax.Registration.CountryOption.Mt`, `Tax.Registration.CountryOption.Nl`, `Tax.Registration.CountryOption.Pl`, `Tax.Registration.CountryOption.Pt`, `Tax.Registration.CountryOption.Ro`, `Tax.Registration.CountryOption.Se`, `Tax.Registration.CountryOption.Si`, `Tax.Registration.CountryOption.Sk`, `tax.RegistrationCreateParamsCountryOptionAt`, `tax.RegistrationCreateParamsCountryOptionBe`, `tax.RegistrationCreateParamsCountryOptionBg`, `tax.RegistrationCreateParamsCountryOptionCy`, `tax.RegistrationCreateParamsCountryOptionCz`, `tax.RegistrationCreateParamsCountryOptionDe`, `tax.RegistrationCreateParamsCountryOptionDk`, `tax.RegistrationCreateParamsCountryOptionE`, `tax.RegistrationCreateParamsCountryOptionEe`, `tax.RegistrationCreateParamsCountryOptionFi`, `tax.RegistrationCreateParamsCountryOptionFr`, `tax.RegistrationCreateParamsCountryOptionGr`, `tax.RegistrationCreateParamsCountryOptionHr`, `tax.RegistrationCreateParamsCountryOptionHu`, `tax.RegistrationCreateParamsCountryOptionIe`, `tax.RegistrationCreateParamsCountryOptionIt`, `tax.RegistrationCreateParamsCountryOptionLt`, `tax.RegistrationCreateParamsCountryOptionLu`, `tax.RegistrationCreateParamsCountryOptionLv`, `tax.RegistrationCreateParamsCountryOptionMt`, `tax.RegistrationCreateParamsCountryOptionNl`, `tax.RegistrationCreateParamsCountryOptionPl`, `tax.RegistrationCreateParamsCountryOptionPt`, `tax.RegistrationCreateParamsCountryOptionRo`, `tax.RegistrationCreateParamsCountryOptionSe`, `tax.RegistrationCreateParamsCountryOptionSi`, and `tax.RegistrationCreateParamsCountryOptionSk`
+  * Add support for new value `2026-08-26.dahlia` on enum `WebhookEndpointCreateParams.api_version`
+  * Add support for error codes `authentication_failure`, `capability_not_active`, `expired_payment_method`, `incorrect_postal_code`, `invalid_canceled_subscription_fields`, and `payment_method_restricted` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, `StripeError`, and `Terminal.Reader.Action.ApiError`
+
 ## 15.5.1 - 2026-08-18
 * [#1879](https://github.com/stripe/stripe-python/pull/1879) better document `StripeObject`'s `to_dict` behavior
 
