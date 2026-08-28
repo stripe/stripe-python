@@ -7,7 +7,7 @@ import re
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlsplit
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -260,8 +260,12 @@ def _convert_to_stripe_object(
                 klass = get_object_class(api_mode, klass_name)
         # TODO: this is a horrible hack. The API needs
         # to return something for `object` here.
-
-        elif "data" in resp and "next_page_url" in resp:
+        #
+        # Gated on V2: this runs recursively over every nested value, so without
+        # the mode check any nested map in a v1 payload carrying `data` and
+        # `next_page_url` becomes an auto-paginating v2 collection. A malicious webhook
+        # could potentially choose the host of a subsequent authenticated request.
+        elif api_mode == "V2" and "data" in resp and "next_page_url" in resp:
             klass = stripe.v2.ListObject
         elif klass_ is not None:
             klass = klass_
@@ -344,6 +348,36 @@ def merge_dicts(x, y):
 def sanitize_id(id):
     quotedId = quote_plus(id)
     return quotedId
+
+
+def validate_path(path: str) -> None:
+    """
+    Assert that a request path is origin-relative: that it begins with a single
+    "/" and carries no scheme, authority or userinfo.
+
+
+
+    The absolute URL is built by concatenating a base address onto this path, and
+    no base address ends in a slash. A path like "@evil.example/v1/x" or
+    ".evil.example/v1/x" would therefore land inside the authority component and
+    send the request (Authorization header included) -- to a host of the path's
+    choosing. Some request paths originate in remote data (a webhook body's
+    related_object.url, a response's next_page_url), so the path cannot be
+    assumed to be well-formed.
+
+    Stripe only ever issues plain paths, so anything else is tampering and is
+    rejected rather than sanitized.
+    """
+    if not path.startswith("/") or path.startswith("//"):
+        raise ValueError(
+            f'Request path must be a string beginning with a single "/", got: {path!r}'
+        )
+
+    parts = urlsplit(path)
+    if parts.scheme or parts.netloc:
+        raise ValueError(
+            f"Request path may not contain a scheme or authority, got: {path!r}"
+        )
 
 
 def get_api_mode(url: str) -> ApiMode:

@@ -23,8 +23,13 @@ from stripe._stripe_response import (
     StripeStreamResponse,
     StripeStreamResponseAsync,
 )
+from stripe._util import (
+    validate_path,
+    _convert_to_stripe_object,
+)
 from stripe.v2._deleted_object import DeletedObject
 from tests.http_client_mock import HTTPClientMock
+from tests.test_webhook import generate_header
 
 VALID_API_METHODS = ("get", "post", "delete")
 
@@ -175,10 +180,16 @@ class TestAPIRequestor(object):
             urlencode(expectation).replace("%5B", "[").replace("%5D", "]")
         )
         http_client_mock.stub_request(
-            "get", query_string=query_string, rbody="{}", rcode=200
+            "get",
+            path=self.v1_path,
+            query_string=query_string,
+            rbody="{}",
+            rcode=200,
         )
 
-        requestor.request("get", "", self.ENCODE_INPUTS, base_address="api")
+        requestor.request(
+            "get", self.v1_path, self.ENCODE_INPUTS, base_address="api"
+        )
 
         http_client_mock.assert_requested("get", query_string=query_string)
 
@@ -247,10 +258,11 @@ class TestAPIRequestor(object):
         assert encoded[4][0] == "ordered[nested][b]"
 
     def test_url_construction(self, requestor, http_client_mock):
+        # Paths must be origin-relative -- see validate_path.
         CASES = (
-            (f"{stripe.api_base}?foo=bar", "", {"foo": "bar"}),
-            (f"{stripe.api_base}?foo=bar", "?", {"foo": "bar"}),
-            (stripe.api_base, "", {}),
+            (f"{stripe.api_base}/v1/foo?foo=bar", "/v1/foo", {"foo": "bar"}),
+            (f"{stripe.api_base}/v1/foo?foo=bar", "/v1/foo?", {"foo": "bar"}),
+            (f"{stripe.api_base}/v1/foo", "/v1/foo", {}),
             (
                 f"{stripe.api_base}/%20spaced?baz=5&foo=bar%24",
                 "/%20spaced?foo=bar%24",
@@ -258,8 +270,8 @@ class TestAPIRequestor(object):
             ),
             # duplicate query params keys should be deduped
             (
-                f"{stripe.api_base}?foo=bar",
-                "?foo=bar",
+                f"{stripe.api_base}/v1/foo?foo=bar",
+                "/v1/foo?foo=bar",
                 {"foo": "bar"},
             ),
         )
@@ -982,7 +994,7 @@ class TestAPIRequestor(object):
 
     def test_invalid_method(self, requestor):
         with pytest.raises(stripe.APIConnectionError):
-            requestor.request("foo", "bar", base_address="api")
+            requestor.request("foo", self.v1_path, base_address="api")
 
     def test_oauth_invalid_requestor_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -1134,6 +1146,124 @@ class TestAPIRequestor(object):
             base_address="api",
         )
         assert supplied_headers["Content-Type"] == "multipart/form-data"
+
+    ORIGIN_RELATIVE_PATHS = [
+        "/v1/customers/cus_123",
+        "/v1/customers",
+        "/v2/core/accounts?page=page_123&limit=2",
+        # "@" is legal inside a path or query string -- it only opens an
+        # authority when it precedes the first "/".
+        "/v1/customers?email=user%40example.com",
+        "/v1/invoices/in_123@456",
+        # A backslash does not open an authority: the "/" already closed it.
+        "/v1/\\evil.example",
+    ]
+
+    HOSTILE_PATHS = [
+        # Concatenated onto a base address with no trailing slash, each of these
+        # moves the request's authority off api.stripe.com.
+        "@evil.example/v1/leak",
+        ":pw@evil.example/v1/leak",
+        ":80@evil.example/v1/leak",
+        # Extends the host into an attacker-owned subdomain
+        # (api.stripe.com.evil.example), which has a valid certificate.
+        ".evil.example/v1/leak",
+        "-evil.example/v1/leak",
+        "https://evil.example/v1/leak",
+        "//evil.example/v1/leak",
+        "",
+        "v1/customers",
+    ]
+
+    @pytest.mark.parametrize("path", ORIGIN_RELATIVE_PATHS)
+    def test_accepts_origin_relative_path(self, path):
+        validate_path(path)
+
+    @pytest.mark.parametrize("path", HOSTILE_PATHS)
+    def test_rejects_hostile_path(self, path):
+        with pytest.raises(ValueError):
+            validate_path(path)
+
+    @pytest.mark.parametrize("path", HOSTILE_PATHS)
+    def test_request_rejects_hostile_path_without_issuing_request(
+        self, path, requestor, http_client_mock
+    ):
+        with pytest.raises(ValueError):
+            requestor.request("get", path, base_address="api")
+
+        http_client_mock.assert_no_request()
+
+    def test_raw_request_rejects_hostile_path_without_issuing_request(
+        self, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+
+        with pytest.raises(ValueError):
+            client.raw_request("get", "@evil.example/v1/leak")
+
+        http_client_mock.assert_no_request()
+
+    def test_fetch_related_object_rejects_hostile_url_without_issuing_request(
+        self, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+        payload = json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v2.core.account.created",
+                "created": "2026-01-01T00:00:00Z",
+                "related_object": {
+                    "id": "acct_123",
+                    "type": "account",
+                    "url": "@evil.example/v1/leak",
+                },
+            }
+        )
+        secret = "whsec_test_secret"
+        header = generate_header(payload=payload, secret=secret)
+
+        notification = client.parse_event_notification(payload, header, secret)
+
+        with pytest.raises(ValueError):
+            notification.fetch_related_object()
+
+        http_client_mock.assert_no_request()
+
+    def test_v1_payload_does_not_produce_v2_list_object(self, requestor):
+        # A signature-verified v1 webhook body is attacker-shaped. Without the
+        # api_mode gate, `lines` here became an auto-paginating v2 collection
+        # whose next_page_url chose the host of the next authenticated request.
+        obj = _convert_to_stripe_object(
+            resp={
+                "id": "in_123",
+                "object": "invoice",
+                "lines": {
+                    "data": [{"id": "il_123"}],
+                    "next_page_url": "@evil.example/v1/leak",
+                },
+            },
+            requestor=requestor,
+            api_mode="V1",
+        )
+
+        assert not isinstance(obj["lines"], stripe.v2.ListObject)
+
+    def test_v2_response_still_produces_v2_list_object(self, requestor):
+        obj = _convert_to_stripe_object(
+            resp={
+                "data": [{"id": "acct_123"}],
+                "next_page_url": "/v2/core/accounts?page=page_123",
+            },
+            requestor=requestor,
+            api_mode="V2",
+        )
+
+        assert isinstance(obj, stripe.v2.ListObject)
 
 
 class TestDefaultClient(object):
