@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -62,7 +62,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["pending", "posted", "void"]
+    status: Union[Literal["pending", "posted", "void"], str]
     """
     The status of the transaction.
     """

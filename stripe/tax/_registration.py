@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -42,7 +42,9 @@ class Registration(
     class CountryOptions(StripeObject):
         class Ae(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -73,24 +75,35 @@ class Registration(
             """
 
         class At(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Au(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -133,20 +146,29 @@ class Registration(
             """
 
         class Be(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Bf(StripeObject):
             type: Literal["standard"]
@@ -155,20 +177,29 @@ class Registration(
             """
 
         class Bg(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Bh(StripeObject):
             type: Literal["standard"]
@@ -202,7 +233,9 @@ class Registration(
                 """
 
             province_standard: Optional[ProvinceStandard]
-            type: Literal["province_standard", "simplified", "standard"]
+            type: Union[
+                Literal["province_standard", "simplified", "standard"], str
+            ]
             """
             Type of registration in Canada.
             """
@@ -216,7 +249,9 @@ class Registration(
 
         class Ch(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -259,68 +294,104 @@ class Registration(
             """
 
         class Cy(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Cz(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class De(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Dk(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Ec(StripeObject):
             type: Literal["simplified"]
@@ -329,20 +400,29 @@ class Registration(
             """
 
         class Ee(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Eg(StripeObject):
             type: Literal["simplified"]
@@ -351,20 +431,29 @@ class Registration(
             """
 
         class Es(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Et(StripeObject):
             type: Literal["standard"]
@@ -373,40 +462,60 @@ class Registration(
             """
 
         class Fi(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Fr(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Gb(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -431,52 +540,79 @@ class Registration(
             """
 
         class Gr(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Hr(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Hu(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Id(StripeObject):
             type: Literal["simplified"]
@@ -485,20 +621,29 @@ class Registration(
             """
 
         class Ie(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class In(StripeObject):
             type: Literal["simplified"]
@@ -513,24 +658,35 @@ class Registration(
             """
 
         class It(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Jp(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -585,52 +741,79 @@ class Registration(
             """
 
         class Lt(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Lu(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Lv(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Ma(StripeObject):
             type: Literal["simplified"]
@@ -663,20 +846,29 @@ class Registration(
             """
 
         class Mt(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Mx(StripeObject):
             type: Literal["simplified"]
@@ -697,24 +889,35 @@ class Registration(
             """
 
         class Nl(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class No(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -734,7 +937,9 @@ class Registration(
 
         class Nz(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -765,52 +970,79 @@ class Registration(
             """
 
         class Pl(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Pt(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Ro(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Rs(StripeObject):
             type: Literal["standard"]
@@ -831,24 +1063,35 @@ class Registration(
             """
 
         class Se(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Sg(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "standard"], str
+                ]
                 """
                 Place of supply scheme used in an Default standard registration.
                 """
@@ -861,36 +1104,54 @@ class Registration(
             _inner_class_types = {"standard": Standard}
 
         class Si(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Sk(StripeObject):
+            class Igic(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an IGIC registration.
+                """
+
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal[
-                    "inbound_goods", "small_seller", "standard"
+                place_of_supply_scheme: Union[
+                    Literal["inbound_goods", "small_seller", "standard"], str
                 ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
 
+            igic: Optional[Igic]
             standard: Optional[Standard]
-            type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+            type: Union[
+                Literal["ioss", "oss_non_union", "oss_union", "standard"], str
+            ]
             """
             Type of registration in an EU country.
             """
-            _inner_class_types = {"standard": Standard}
+            _inner_class_types = {"igic": Igic, "standard": Standard}
 
         class Sn(StripeObject):
             type: Literal["simplified"]
@@ -959,16 +1220,31 @@ class Registration(
                 A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
                 """
 
+            class MassTransitParkingTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types) representing the local jurisdiction.
+                """
+
+            class ParkingTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types) representing the local jurisdiction.
+                """
+
             class StateSalesTax(StripeObject):
                 class Election(StripeObject):
                     jurisdiction: Optional[str]
                     """
                     A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
                     """
-                    type: Literal[
-                        "local_use_tax",
-                        "simplified_sellers_use_tax",
-                        "single_local_use_tax",
+                    type: Union[
+                        Literal[
+                            "local_use_tax",
+                            "simplified_sellers_use_tax",
+                            "single_local_use_tax",
+                        ],
+                        str,
                     ]
                     """
                     The type of the election for the state sales tax registration.
@@ -982,17 +1258,24 @@ class Registration(
 
             local_amusement_tax: Optional[LocalAmusementTax]
             local_lease_tax: Optional[LocalLeaseTax]
+            mass_transit_parking_tax: Optional[MassTransitParkingTax]
+            parking_tax: Optional[ParkingTax]
             state: str
             """
             Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
             state_sales_tax: Optional[StateSalesTax]
-            type: Literal[
-                "local_amusement_tax",
-                "local_lease_tax",
-                "state_communications_tax",
-                "state_retail_delivery_fee",
-                "state_sales_tax",
+            type: Union[
+                Literal[
+                    "local_amusement_tax",
+                    "local_lease_tax",
+                    "mass_transit_parking_tax",
+                    "parking_tax",
+                    "state_communications_tax",
+                    "state_retail_delivery_fee",
+                    "state_sales_tax",
+                ],
+                str,
             ]
             """
             Type of registration in the US.
@@ -1000,6 +1283,8 @@ class Registration(
             _inner_class_types = {
                 "local_amusement_tax": LocalAmusementTax,
                 "local_lease_tax": LocalLeaseTax,
+                "mass_transit_parking_tax": MassTransitParkingTax,
+                "parking_tax": ParkingTax,
                 "state_sales_tax": StateSalesTax,
             }
 
@@ -1274,7 +1559,7 @@ class Registration(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["active", "expired", "scheduled"]
+    status: Union[Literal["active", "expired", "scheduled"], str]
     """
     The status of the registration. This field is present for convenience and can be deduced from `active_from` and `expires_at`.
     """

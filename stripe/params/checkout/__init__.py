@@ -105,6 +105,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsSepaDebit as SessionCreateParamsPaymentMethodOptionsSepaDebit,
         SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
+        SessionCreateParamsPaymentMethodOptionsSunbit as SessionCreateParamsPaymentMethodOptionsSunbit,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
         SessionCreateParamsPaymentMethodOptionsTwint as SessionCreateParamsPaymentMethodOptionsTwint,
         SessionCreateParamsPaymentMethodOptionsUpi as SessionCreateParamsPaymentMethodOptionsUpi,
@@ -125,6 +126,7 @@ if TYPE_CHECKING:
         SessionCreateParamsShippingOptionShippingRateDataFixedAmount as SessionCreateParamsShippingOptionShippingRateDataFixedAmount,
         SessionCreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions as SessionCreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions,
         SessionCreateParamsSubscriptionData as SessionCreateParamsSubscriptionData,
+        SessionCreateParamsSubscriptionDataBillingCycleAnchorConfig as SessionCreateParamsSubscriptionDataBillingCycleAnchorConfig,
         SessionCreateParamsSubscriptionDataBillingMode as SessionCreateParamsSubscriptionDataBillingMode,
         SessionCreateParamsSubscriptionDataBillingModeFlexible as SessionCreateParamsSubscriptionDataBillingModeFlexible,
         SessionCreateParamsSubscriptionDataInvoiceSettings as SessionCreateParamsSubscriptionDataInvoiceSettings,
@@ -593,6 +595,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsSunbit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsSwish": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -670,6 +676,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsSubscriptionData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataBillingCycleAnchorConfig": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

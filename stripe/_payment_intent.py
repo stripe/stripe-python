@@ -101,9 +101,12 @@ class PaymentIntent(
     class AmountDetails(StripeObject):
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "amount_details_amount_mismatch",
-                    "amount_details_tax_shipping_discount_greater_than_amount",
+                Union[
+                    Literal[
+                        "amount_details_amount_mismatch",
+                        "amount_details_tax_shipping_discount_greater_than_amount",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -164,7 +167,7 @@ class PaymentIntent(
         }
 
     class AutomaticPaymentMethods(StripeObject):
-        allow_redirects: Optional[Literal["always", "never"]]
+        allow_redirects: Optional[Union[Literal["always", "never"], str]]
         """
         Controls whether this PaymentIntent will accept redirect-based payment methods.
 
@@ -199,197 +202,211 @@ class PaymentIntent(
         For card errors, the ID of the failed charge.
         """
         code: Optional[
-            Literal[
-                "account_closed",
-                "account_country_invalid_address",
-                "account_error_country_change_requires_additional_steps",
-                "account_information_mismatch",
-                "account_invalid",
-                "account_number_invalid",
-                "account_token_required_for_v2_account",
-                "acss_debit_session_incomplete",
-                "action_blocked",
-                "alipay_upgrade_required",
-                "amount_too_large",
-                "amount_too_small",
-                "api_key_expired",
-                "application_fees_not_allowed",
-                "approval_required",
-                "authentication_required",
-                "balance_insufficient",
-                "balance_invalid_parameter",
-                "bank_account_bad_routing_numbers",
-                "bank_account_declined",
-                "bank_account_exists",
-                "bank_account_restricted",
-                "bank_account_unusable",
-                "bank_account_unverified",
-                "bank_account_verification_failed",
-                "billing_invalid_mandate",
-                "bitcoin_upgrade_required",
-                "capture_charge_authorization_expired",
-                "capture_unauthorized_payment",
-                "card_decline_rate_limit_exceeded",
-                "card_declined",
-                "cardholder_phone_number_required",
-                "charge_already_captured",
-                "charge_already_refunded",
-                "charge_disputed",
-                "charge_exceeds_source_limit",
-                "charge_exceeds_transaction_limit",
-                "charge_expired_for_capture",
-                "charge_invalid_parameter",
-                "charge_not_refundable",
-                "clearing_code_unsupported",
-                "country_code_invalid",
-                "country_unsupported",
-                "coupon_expired",
-                "customer_max_payment_methods",
-                "customer_max_subscriptions",
-                "customer_session_expired",
-                "customer_tax_location_invalid",
-                "debit_not_authorized",
-                "email_invalid",
-                "expired_card",
-                "financial_connections_account_inactive",
-                "financial_connections_account_pending_account_numbers",
-                "financial_connections_account_unavailable_account_numbers",
-                "financial_connections_no_successful_transaction_refresh",
-                "forwarding_api_inactive",
-                "forwarding_api_invalid_parameter",
-                "forwarding_api_retryable_upstream_error",
-                "forwarding_api_upstream_connection_error",
-                "forwarding_api_upstream_connection_timeout",
-                "forwarding_api_upstream_error",
-                "idempotency_key_in_use",
-                "incorrect_address",
-                "incorrect_cvc",
-                "incorrect_number",
-                "incorrect_zip",
-                "india_recurring_payment_mandate_canceled",
-                "instant_payouts_config_disabled",
-                "instant_payouts_currency_disabled",
-                "instant_payouts_limit_exceeded",
-                "instant_payouts_unsupported",
-                "insufficient_funds",
-                "intent_invalid_state",
-                "intent_verification_method_missing",
-                "invalid_card_type",
-                "invalid_characters",
-                "invalid_charge_amount",
-                "invalid_cvc",
-                "invalid_expiry_month",
-                "invalid_expiry_year",
-                "invalid_mandate_reference_prefix_format",
-                "invalid_number",
-                "invalid_source_usage",
-                "invalid_tax_location",
-                "invoice_no_customer_line_items",
-                "invoice_no_payment_method_types",
-                "invoice_no_subscription_line_items",
-                "invoice_not_editable",
-                "invoice_on_behalf_of_not_editable",
-                "invoice_payment_intent_requires_action",
-                "invoice_upcoming_none",
-                "livemode_mismatch",
-                "lock_timeout",
-                "missing",
-                "no_account",
-                "not_allowed_on_standard_account",
-                "out_of_inventory",
-                "ownership_declaration_not_allowed",
-                "parameter_invalid_empty",
-                "parameter_invalid_integer",
-                "parameter_invalid_string_blank",
-                "parameter_invalid_string_empty",
-                "parameter_missing",
-                "parameter_unknown",
-                "parameters_exclusive",
-                "payment_intent_action_required",
-                "payment_intent_authentication_failure",
-                "payment_intent_incompatible_payment_method",
-                "payment_intent_invalid_parameter",
-                "payment_intent_konbini_rejected_confirmation_number",
-                "payment_intent_mandate_invalid",
-                "payment_intent_payment_attempt_expired",
-                "payment_intent_payment_attempt_failed",
-                "payment_intent_rate_limit_exceeded",
-                "payment_intent_unexpected_state",
-                "payment_method_bank_account_already_verified",
-                "payment_method_bank_account_blocked",
-                "payment_method_billing_details_address_missing",
-                "payment_method_configuration_failures",
-                "payment_method_currency_mismatch",
-                "payment_method_customer_decline",
-                "payment_method_invalid_parameter",
-                "payment_method_invalid_parameter_testmode",
-                "payment_method_microdeposit_failed",
-                "payment_method_microdeposit_processing_error",
-                "payment_method_microdeposit_verification_amounts_invalid",
-                "payment_method_microdeposit_verification_amounts_mismatch",
-                "payment_method_microdeposit_verification_attempts_exceeded",
-                "payment_method_microdeposit_verification_descriptor_code_mismatch",
-                "payment_method_microdeposit_verification_timeout",
-                "payment_method_not_available",
-                "payment_method_provider_decline",
-                "payment_method_provider_timeout",
-                "payment_method_unactivated",
-                "payment_method_unexpected_state",
-                "payment_method_unsupported_type",
-                "payout_reconciliation_not_ready",
-                "payouts_limit_exceeded",
-                "payouts_not_allowed",
-                "platform_account_required",
-                "platform_api_key_expired",
-                "postal_code_invalid",
-                "processing_error",
-                "product_inactive",
-                "progressive_onboarding_limit_exceeded",
-                "rate_limit",
-                "refer_to_customer",
-                "refund_disputed_payment",
-                "request_blocked",
-                "resource_already_exists",
-                "resource_missing",
-                "return_intent_already_processed",
-                "routing_number_invalid",
-                "secret_key_required",
-                "sepa_unsupported_account",
-                "service_period_coupon_with_metered_tiered_item_unsupported",
-                "setup_attempt_failed",
-                "setup_intent_authentication_failure",
-                "setup_intent_invalid_parameter",
-                "setup_intent_mandate_invalid",
-                "setup_intent_mobile_wallet_unsupported",
-                "setup_intent_setup_attempt_expired",
-                "setup_intent_unexpected_state",
-                "shipping_address_invalid",
-                "shipping_calculation_failed",
-                "siret_invalid",
-                "sku_inactive",
-                "state_unsupported",
-                "status_transition_invalid",
-                "storer_capability_missing",
-                "storer_capability_not_active",
-                "stripe_tax_inactive",
-                "tax_id_invalid",
-                "tax_id_prohibited",
-                "taxes_calculation_failed",
-                "terminal_location_country_unsupported",
-                "terminal_reader_busy",
-                "terminal_reader_hardware_fault",
-                "terminal_reader_invalid_location_for_activation",
-                "terminal_reader_invalid_location_for_payment",
-                "terminal_reader_offline",
-                "terminal_reader_timeout",
-                "testmode_charges_only",
-                "tls_version_unsupported",
-                "token_already_used",
-                "token_card_network_invalid",
-                "token_in_use",
-                "transfer_source_balance_parameters_mismatch",
-                "transfers_not_allowed",
-                "url_invalid",
+            Union[
+                Literal[
+                    "account_closed",
+                    "account_country_invalid_address",
+                    "account_error_country_change_requires_additional_steps",
+                    "account_information_mismatch",
+                    "account_invalid",
+                    "account_number_invalid",
+                    "account_token_required_for_v2_account",
+                    "acss_debit_session_incomplete",
+                    "action_blocked",
+                    "alipay_upgrade_required",
+                    "amount_too_large",
+                    "amount_too_small",
+                    "anomalous_money_movement_request",
+                    "api_key_expired",
+                    "application_fees_not_allowed",
+                    "approval_required",
+                    "authentication_failure",
+                    "authentication_required",
+                    "balance_insufficient",
+                    "balance_invalid_parameter",
+                    "bank_account_bad_routing_numbers",
+                    "bank_account_declined",
+                    "bank_account_exists",
+                    "bank_account_restricted",
+                    "bank_account_unusable",
+                    "bank_account_unverified",
+                    "bank_account_verification_failed",
+                    "billing_invalid_mandate",
+                    "bitcoin_upgrade_required",
+                    "capability_not_active",
+                    "capture_charge_authorization_expired",
+                    "capture_unauthorized_payment",
+                    "card_decline_rate_limit_exceeded",
+                    "card_declined",
+                    "cardholder_phone_number_required",
+                    "charge_already_captured",
+                    "charge_already_refunded",
+                    "charge_disputed",
+                    "charge_exceeds_source_limit",
+                    "charge_exceeds_transaction_limit",
+                    "charge_expired_for_capture",
+                    "charge_invalid_parameter",
+                    "charge_not_refundable",
+                    "clearing_code_unsupported",
+                    "country_code_invalid",
+                    "country_unsupported",
+                    "coupon_expired",
+                    "customer_max_payment_methods",
+                    "customer_max_subscriptions",
+                    "customer_session_expired",
+                    "customer_tax_location_invalid",
+                    "debit_not_authorized",
+                    "email_invalid",
+                    "expired_card",
+                    "expired_payment_method",
+                    "failed_tax_calculation",
+                    "financial_account_balance_does_not_support_currency",
+                    "financial_account_capability_not_enabled",
+                    "financial_account_capability_restricted",
+                    "financial_connections_account_inactive",
+                    "financial_connections_account_pending_account_numbers",
+                    "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_no_successful_transaction_refresh",
+                    "forwarding_api_inactive",
+                    "forwarding_api_invalid_parameter",
+                    "forwarding_api_retryable_upstream_error",
+                    "forwarding_api_upstream_connection_error",
+                    "forwarding_api_upstream_connection_timeout",
+                    "forwarding_api_upstream_error",
+                    "idempotency_key_in_use",
+                    "incorrect_address",
+                    "incorrect_cvc",
+                    "incorrect_number",
+                    "incorrect_postal_code",
+                    "incorrect_zip",
+                    "india_recurring_payment_mandate_canceled",
+                    "instant_payouts_config_disabled",
+                    "instant_payouts_currency_disabled",
+                    "instant_payouts_limit_exceeded",
+                    "instant_payouts_unsupported",
+                    "insufficient_funds",
+                    "intent_invalid_state",
+                    "intent_verification_method_missing",
+                    "invalid_canceled_subscription_fields",
+                    "invalid_card_type",
+                    "invalid_characters",
+                    "invalid_charge_amount",
+                    "invalid_cvc",
+                    "invalid_expiry_month",
+                    "invalid_expiry_year",
+                    "invalid_mandate_reference_prefix_format",
+                    "invalid_number",
+                    "invalid_source_usage",
+                    "invalid_tax_location",
+                    "invoice_no_customer_line_items",
+                    "invoice_no_payment_method_types",
+                    "invoice_no_subscription_line_items",
+                    "invoice_not_editable",
+                    "invoice_on_behalf_of_not_editable",
+                    "invoice_payment_intent_requires_action",
+                    "invoice_upcoming_none",
+                    "livemode_mismatch",
+                    "lock_timeout",
+                    "missing",
+                    "no_account",
+                    "not_allowed_on_standard_account",
+                    "out_of_inventory",
+                    "ownership_declaration_not_allowed",
+                    "parameter_invalid_empty",
+                    "parameter_invalid_integer",
+                    "parameter_invalid_string_blank",
+                    "parameter_invalid_string_empty",
+                    "parameter_missing",
+                    "parameter_unknown",
+                    "parameters_exclusive",
+                    "payment_intent_action_required",
+                    "payment_intent_authentication_failure",
+                    "payment_intent_incompatible_payment_method",
+                    "payment_intent_invalid_parameter",
+                    "payment_intent_konbini_rejected_confirmation_number",
+                    "payment_intent_mandate_invalid",
+                    "payment_intent_payment_attempt_expired",
+                    "payment_intent_payment_attempt_failed",
+                    "payment_intent_rate_limit_exceeded",
+                    "payment_intent_unexpected_state",
+                    "payment_method_bank_account_already_verified",
+                    "payment_method_bank_account_blocked",
+                    "payment_method_billing_details_address_missing",
+                    "payment_method_configuration_failures",
+                    "payment_method_currency_mismatch",
+                    "payment_method_customer_decline",
+                    "payment_method_invalid_parameter",
+                    "payment_method_invalid_parameter_testmode",
+                    "payment_method_microdeposit_failed",
+                    "payment_method_microdeposit_processing_error",
+                    "payment_method_microdeposit_verification_amounts_invalid",
+                    "payment_method_microdeposit_verification_amounts_mismatch",
+                    "payment_method_microdeposit_verification_attempts_exceeded",
+                    "payment_method_microdeposit_verification_descriptor_code_mismatch",
+                    "payment_method_microdeposit_verification_timeout",
+                    "payment_method_not_available",
+                    "payment_method_provider_decline",
+                    "payment_method_provider_timeout",
+                    "payment_method_restricted",
+                    "payment_method_unactivated",
+                    "payment_method_unexpected_state",
+                    "payment_method_unsupported_type",
+                    "payout_reconciliation_not_ready",
+                    "payouts_limit_exceeded",
+                    "payouts_not_allowed",
+                    "platform_account_required",
+                    "platform_api_key_expired",
+                    "postal_code_invalid",
+                    "processing_error",
+                    "product_inactive",
+                    "progressive_onboarding_limit_exceeded",
+                    "rate_limit",
+                    "refer_to_customer",
+                    "refund_disputed_payment",
+                    "request_blocked",
+                    "resource_already_exists",
+                    "resource_missing",
+                    "return_intent_already_processed",
+                    "routing_number_invalid",
+                    "secret_key_required",
+                    "sepa_unsupported_account",
+                    "service_period_coupon_with_metered_tiered_item_unsupported",
+                    "setup_attempt_failed",
+                    "setup_intent_authentication_failure",
+                    "setup_intent_invalid_parameter",
+                    "setup_intent_mandate_invalid",
+                    "setup_intent_mobile_wallet_unsupported",
+                    "setup_intent_setup_attempt_expired",
+                    "setup_intent_unexpected_state",
+                    "shipping_address_invalid",
+                    "shipping_calculation_failed",
+                    "siret_invalid",
+                    "sku_inactive",
+                    "state_unsupported",
+                    "status_transition_invalid",
+                    "storer_capability_missing",
+                    "storer_capability_not_active",
+                    "stripe_tax_inactive",
+                    "tax_id_invalid",
+                    "tax_id_prohibited",
+                    "taxes_calculation_failed",
+                    "terminal_location_country_unsupported",
+                    "terminal_reader_busy",
+                    "terminal_reader_hardware_fault",
+                    "terminal_reader_invalid_location_for_activation",
+                    "terminal_reader_invalid_location_for_payment",
+                    "terminal_reader_offline",
+                    "terminal_reader_timeout",
+                    "testmode_charges_only",
+                    "tls_version_unsupported",
+                    "token_already_used",
+                    "token_card_network_invalid",
+                    "token_in_use",
+                    "transfer_source_balance_parameters_mismatch",
+                    "transfers_not_allowed",
+                    "url_invalid",
+                ],
+                str,
             ]
         ]
         """
@@ -476,11 +493,14 @@ class PaymentIntent(
         source: Optional[
             Union["Account", "BankAccount", "CardResource", "Source"]
         ]
-        type: Literal[
-            "api_error",
-            "card_error",
-            "idempotency_error",
-            "invalid_request_error",
+        type: Union[
+            Literal[
+                "api_error",
+                "card_error",
+                "idempotency_error",
+                "invalid_request_error",
+            ],
+            str,
         ]
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
@@ -1060,15 +1080,19 @@ class PaymentIntent(
                 """
                 supported_networks: Optional[
                     List[
-                        Literal[
-                            "ach",
-                            "bacs",
-                            "domestic_wire_us",
-                            "fps",
-                            "sepa",
-                            "spei",
-                            "swift",
-                            "zengin",
+                        Union[
+                            Literal[
+                                "ach",
+                                "bacs",
+                                "chaps",
+                                "domestic_wire_us",
+                                "fps",
+                                "sepa",
+                                "spei",
+                                "swift",
+                                "zengin",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -1079,8 +1103,11 @@ class PaymentIntent(
                 """
                 SWIFT Records contain U.S. bank account details per the SWIFT format.
                 """
-                type: Literal[
-                    "aba", "iban", "sort_code", "spei", "swift", "zengin"
+                type: Union[
+                    Literal[
+                        "aba", "iban", "sort_code", "spei", "swift", "zengin"
+                    ],
+                    str,
                 ]
                 """
                 The type of financial address
@@ -1118,12 +1145,15 @@ class PaymentIntent(
             """
             A string identifying this payment. Instruct your customer to include this code in the reference or memo field of their bank transfer.
             """
-            type: Literal[
-                "eu_bank_transfer",
-                "gb_bank_transfer",
-                "jp_bank_transfer",
-                "mx_bank_transfer",
-                "us_bank_transfer",
+            type: Union[
+                Literal[
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                    "us_bank_transfer",
+                ],
+                str,
             ]
             """
             Type of bank transfer
@@ -1381,7 +1411,9 @@ class PaymentIntent(
             """
             The URL for the hosted verification page, which allows customers to verify their bank account.
             """
-            microdeposit_type: Optional[Literal["amounts", "descriptor_code"]]
+            microdeposit_type: Optional[
+                Union[Literal["amounts", "descriptor_code"], str]
+            ]
             """
             The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
             """
@@ -1541,19 +1573,21 @@ class PaymentIntent(
                 Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
                 """
                 payment_schedule: Optional[
-                    Literal["combined", "interval", "sporadic"]
+                    Union[Literal["combined", "interval", "sporadic"], str]
                 ]
                 """
                 Payment schedule for the mandate.
                 """
-                transaction_type: Optional[Literal["business", "personal"]]
+                transaction_type: Optional[
+                    Union[Literal["business", "personal"], str]
+                ]
                 """
                 Transaction type of the mandate.
                 """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1569,7 +1603,7 @@ class PaymentIntent(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[
-                Literal["automatic", "instant", "microdeposits"]
+                Union[Literal["automatic", "instant", "microdeposits"], str]
             ]
             """
             Bank account verification method. The default value is `automatic`.
@@ -1618,7 +1652,9 @@ class PaymentIntent(
             """
 
         class Alipay(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1640,7 +1676,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1653,7 +1691,7 @@ class PaymentIntent(
 
         class AuBecsDebit(StripeObject):
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1678,7 +1716,7 @@ class PaymentIntent(
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1696,11 +1734,13 @@ class PaymentIntent(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
-            preferred_language: Literal["de", "en", "fr", "nl"]
+            preferred_language: Union[Literal["de", "en", "fr", "nl"], str]
             """
             Preferred language of the Bancontact authorization page that the customer is redirected to.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1738,7 +1778,7 @@ class PaymentIntent(
             The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1762,7 +1802,9 @@ class PaymentIntent(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["bonus", "fixed_count", "revolving"]
+                    type: Union[
+                        Literal["bonus", "fixed_count", "revolving"], str
+                    ]
                     """
                     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
@@ -1777,7 +1819,9 @@ class PaymentIntent(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["bonus", "fixed_count", "revolving"]
+                    type: Union[
+                        Literal["bonus", "fixed_count", "revolving"], str
+                    ]
                     """
                     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
@@ -1804,7 +1848,7 @@ class PaymentIntent(
                 """
                 Amount to be charged for future payments, specified in the presentment currency.
                 """
-                amount_type: Literal["fixed", "maximum"]
+                amount_type: Union[Literal["fixed", "maximum"], str]
                 """
                 One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
                 """
@@ -1816,7 +1860,9 @@ class PaymentIntent(
                 """
                 End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
                 """
-                interval: Literal["day", "month", "sporadic", "week", "year"]
+                interval: Union[
+                    Literal["day", "month", "sporadic", "week", "year"], str
+                ]
                 """
                 Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
                 """
@@ -1852,47 +1898,54 @@ class PaymentIntent(
             Configuration options for setting up an eMandate for cards issued in India.
             """
             network: Optional[
-                Literal[
-                    "amex",
-                    "cartes_bancaires",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "girocard",
-                    "interac",
-                    "jcb",
-                    "link",
-                    "mastercard",
-                    "unionpay",
-                    "unknown",
-                    "visa",
+                Union[
+                    Literal[
+                        "amex",
+                        "cartes_bancaires",
+                        "diners",
+                        "discover",
+                        "eftpos_au",
+                        "girocard",
+                        "interac",
+                        "jcb",
+                        "link",
+                        "mastercard",
+                        "unionpay",
+                        "unknown",
+                        "visa",
+                    ],
+                    str,
                 ]
             ]
             """
             Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
             """
             request_extended_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
             """
             request_incremental_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
             """
-            request_multicapture: Optional[Literal["if_available", "never"]]
+            request_multicapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
             """
-            request_overcapture: Optional[Literal["if_available", "never"]]
+            request_overcapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
             """
             request_three_d_secure: Optional[
-                Literal["any", "automatic", "challenge"]
+                Union[Literal["any", "automatic", "challenge"], str]
             ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -1902,7 +1955,7 @@ class PaymentIntent(
             When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1929,7 +1982,7 @@ class PaymentIntent(
         class CardPresent(StripeObject):
             class Routing(StripeObject):
                 requested_priority: Optional[
-                    Literal["domestic", "international"]
+                    Union[Literal["domestic", "international"], str]
                 ]
                 """
                 Requested routing priority
@@ -1956,7 +2009,7 @@ class PaymentIntent(
             Controls when the funds will be captured from the customer's account.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1983,7 +2036,9 @@ class PaymentIntent(
         class CustomerBalance(StripeObject):
             class BankTransfer(StripeObject):
                 class EuBankTransfer(StripeObject):
-                    country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                    country: Union[
+                        Literal["BE", "DE", "ES", "FR", "IE", "NL"], str
+                    ]
                     """
                     The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                     """
@@ -1991,14 +2046,17 @@ class PaymentIntent(
                 eu_bank_transfer: Optional[EuBankTransfer]
                 requested_address_types: Optional[
                     List[
-                        Literal[
-                            "aba",
-                            "iban",
-                            "sepa",
-                            "sort_code",
-                            "spei",
-                            "swift",
-                            "zengin",
+                        Union[
+                            Literal[
+                                "aba",
+                                "iban",
+                                "sepa",
+                                "sort_code",
+                                "spei",
+                                "swift",
+                                "zengin",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -2008,12 +2066,15 @@ class PaymentIntent(
                 Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
                 """
                 type: Optional[
-                    Literal[
-                        "eu_bank_transfer",
-                        "gb_bank_transfer",
-                        "jp_bank_transfer",
-                        "mx_bank_transfer",
-                        "us_bank_transfer",
+                    Union[
+                        Literal[
+                            "eu_bank_transfer",
+                            "gb_bank_transfer",
+                            "jp_bank_transfer",
+                            "mx_bank_transfer",
+                            "us_bank_transfer",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2087,7 +2148,9 @@ class PaymentIntent(
             """
 
         class Ideal(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2106,7 +2169,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2127,7 +2192,7 @@ class PaymentIntent(
             Preferred locale of the Klarna checkout page that the customer is redirected to.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2172,7 +2237,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2192,7 +2259,9 @@ class PaymentIntent(
             """
             [Deprecated] This is a legacy parameter that no longer has any function.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2248,7 +2317,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2261,7 +2332,7 @@ class PaymentIntent(
 
         class NzBankAccount(StripeObject):
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2313,6 +2384,16 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
 
         class Paynow(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -2339,7 +2420,9 @@ class PaymentIntent(
             """
             A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2356,7 +2439,7 @@ class PaymentIntent(
                 """
                 Amount that will be collected. It is required when `amount_type` is `fixed`.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
                 """
@@ -2365,15 +2448,18 @@ class PaymentIntent(
                 Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "adhoc",
-                        "annual",
-                        "daily",
-                        "fortnightly",
-                        "monthly",
-                        "quarterly",
-                        "semi_annual",
-                        "weekly",
+                    Union[
+                        Literal[
+                            "adhoc",
+                            "annual",
+                            "daily",
+                            "fortnightly",
+                            "monthly",
+                            "quarterly",
+                            "semi_annual",
+                            "weekly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2384,18 +2470,21 @@ class PaymentIntent(
                 The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
                 """
                 purpose: Optional[
-                    Literal[
-                        "dependant_support",
-                        "government",
-                        "loan",
-                        "mortgage",
-                        "other",
-                        "pension",
-                        "personal",
-                        "retail",
-                        "salary",
-                        "tax",
-                        "utility",
+                    Union[
+                        Literal[
+                            "dependant_support",
+                            "government",
+                            "loan",
+                            "mortgage",
+                            "other",
+                            "pension",
+                            "personal",
+                            "retail",
+                            "salary",
+                            "tax",
+                            "utility",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2403,7 +2492,9 @@ class PaymentIntent(
                 """
 
             mandate_options: Optional[MandateOptions]
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2421,11 +2512,13 @@ class PaymentIntent(
                 """
                 Amount to be charged for future payments.
                 """
-                amount_includes_iof: Optional[Literal["always", "never"]]
+                amount_includes_iof: Optional[
+                    Union[Literal["always", "never"], str]
+                ]
                 """
                 Determines if the amount includes the IOF tax.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 Type of amount.
                 """
@@ -2438,12 +2531,15 @@ class PaymentIntent(
                 Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "halfyearly",
-                        "monthly",
-                        "quarterly",
-                        "weekly",
-                        "yearly",
+                    Union[
+                        Literal[
+                            "halfyearly",
+                            "monthly",
+                            "quarterly",
+                            "weekly",
+                            "yearly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2458,7 +2554,9 @@ class PaymentIntent(
                 Start date of the mandate, in `YYYY-MM-DD`.
                 """
 
-            amount_includes_iof: Optional[Literal["always", "never"]]
+            amount_includes_iof: Optional[
+                Union[Literal["always", "never"], str]
+            ]
             """
             Determines if the amount includes the IOF tax.
             """
@@ -2471,7 +2569,9 @@ class PaymentIntent(
             The timestamp at which the Pix expires.
             """
             mandate_options: Optional[MandateOptions]
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2516,11 +2616,33 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
 
         class Satispay(StripeObject):
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session", "on_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
         class Scalapay(StripeObject):
@@ -2538,7 +2660,7 @@ class PaymentIntent(
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2557,12 +2679,30 @@ class PaymentIntent(
 
         class Sofort(StripeObject):
             preferred_language: Optional[
-                Literal["de", "en", "es", "fr", "it", "nl", "pl"]
+                Union[Literal["de", "en", "es", "fr", "it", "nl", "pl"], str]
             ]
             """
             Preferred language of the SOFORT authorization page that the customer is redirected to.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class Sunbit(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2590,7 +2730,9 @@ class PaymentIntent(
             """
 
         class Twint(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2602,7 +2744,9 @@ class PaymentIntent(
             """
 
         class Upi(StripeObject):
-            setup_future_usage: Optional[Literal["off_session", "on_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["off_session", "on_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2617,7 +2761,7 @@ class PaymentIntent(
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
                     account_subcategories: Optional[
-                        List[Literal["checking", "savings"]]
+                        List[Union[Literal["checking", "savings"], str]]
                     ]
                     """
                     The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
@@ -2626,11 +2770,14 @@ class PaymentIntent(
                 filters: Optional[Filters]
                 permissions: Optional[
                     List[
-                        Literal[
-                            "balances",
-                            "ownership",
-                            "payment_method",
-                            "transactions",
+                        Union[
+                            Literal[
+                                "balances",
+                                "ownership",
+                                "payment_method",
+                                "transactions",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -2638,7 +2785,12 @@ class PaymentIntent(
                 The list of permissions to request. The `payment_method` permission must be included.
                 """
                 prefetch: Optional[
-                    List[Literal["balances", "ownership", "transactions"]]
+                    List[
+                        Union[
+                            Literal["balances", "ownership", "transactions"],
+                            str,
+                        ]
+                    ]
                 ]
                 """
                 Data features requested to be retrieved upon account creation.
@@ -2658,7 +2810,7 @@ class PaymentIntent(
             financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2674,13 +2826,15 @@ class PaymentIntent(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             transaction_purpose: Optional[
-                Literal["goods", "other", "services", "unspecified"]
+                Union[
+                    Literal["goods", "other", "services", "unspecified"], str
+                ]
             ]
             """
             The purpose of the transaction.
             """
             verification_method: Optional[
-                Literal["automatic", "instant", "microdeposits"]
+                Union[Literal["automatic", "instant", "microdeposits"], str]
             ]
             """
             Bank account verification method. The default value is `automatic`.
@@ -2693,9 +2847,9 @@ class PaymentIntent(
         class WechatPay(StripeObject):
             app_id: Optional[str]
             """
-            The app ID registered with WeChat Pay. Only required when client is ios or android.
+            The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
             """
-            client: Optional[Literal["android", "ios", "web"]]
+            client: Optional[Union[Literal["android", "ios", "web"], str]]
             """
             The client type that the end customer will pay from
             """
@@ -2771,6 +2925,7 @@ class PaymentIntent(
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         upi: Optional[Upi]
@@ -2827,6 +2982,7 @@ class PaymentIntent(
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,
@@ -2947,6 +3103,115 @@ class PaymentIntent(
         payment_data: Optional[PaymentData]
         _inner_class_types = {"payment_data": PaymentData}
 
+    allowed_payment_method_types: Optional[
+        List[
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boku_promptpay",
+                    "boleto",
+                    "capchase_pay",
+                    "card",
+                    "cashapp",
+                    "check_scan",
+                    "click_to_pay",
+                    "crypto",
+                    "customer_balance",
+                    "demo_pay",
+                    "duitnow",
+                    "dummy_auth_push",
+                    "dummy_passthrough_card",
+                    "edenred",
+                    "eps",
+                    "fpx",
+                    "gcash",
+                    "getbalance",
+                    "gift_card",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "id_bank_transfer",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "knet",
+                    "konbini",
+                    "kr_card",
+                    "kr_market",
+                    "kriya",
+                    "link",
+                    "mb_way",
+                    "mobilepay",
+                    "momo",
+                    "mondu",
+                    "multibanco",
+                    "naver_pay",
+                    "netbanking",
+                    "ng_bank",
+                    "ng_bank_transfer",
+                    "ng_card",
+                    "ng_market",
+                    "ng_ussd",
+                    "ng_wallet",
+                    "nz_bank_account",
+                    "octopus",
+                    "oxxo",
+                    "p24",
+                    "paper_check",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "sequra",
+                    "shop_pay",
+                    "shopeepay",
+                    "sofort",
+                    "south_korea_market",
+                    "stripe_balance",
+                    "sunbit",
+                    "swish",
+                    "tamara",
+                    "test_pay",
+                    "touch_n_go",
+                    "truemoney",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "us_cash_voucher",
+                    "vipps",
+                    "wechat_pay",
+                    "wero",
+                    "zip",
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    """
     amount: int
     """
     Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
@@ -2977,21 +3242,26 @@ class PaymentIntent(
     Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
     """
     cancellation_reason: Optional[
-        Literal[
-            "abandoned",
-            "automatic",
-            "duplicate",
-            "expired",
-            "failed_invoice",
-            "fraudulent",
-            "requested_by_customer",
-            "void_invoice",
+        Union[
+            Literal[
+                "abandoned",
+                "automatic",
+                "duplicate",
+                "expired",
+                "failed_invoice",
+                "fraudulent",
+                "requested_by_customer",
+                "void_invoice",
+            ],
+            str,
         ]
     ]
     """
     Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, `automatic`, or `expired`).
     """
-    capture_method: Literal["automatic", "automatic_async", "manual"]
+    capture_method: Union[
+        Literal["automatic", "automatic_async", "manual"], str
+    ]
     """
     Controls when the funds will be captured from the customer's account.
     """
@@ -3003,7 +3273,7 @@ class PaymentIntent(
 
     Refer to our docs to [accept a payment](https://docs.stripe.com/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
     """
-    confirmation_method: Literal["automatic", "manual"]
+    confirmation_method: Union[Literal["automatic", "manual"], str]
     """
     Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
     """
@@ -3037,60 +3307,63 @@ class PaymentIntent(
     """
     excluded_payment_method_types: Optional[
         List[
-            Literal[
-                "acss_debit",
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "amazon_pay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "bizum",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "crypto",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "giropay",
-                "grabpay",
-                "ideal",
-                "kakao_pay",
-                "klarna",
-                "konbini",
-                "kr_card",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "naver_pay",
-                "nz_bank_account",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "payco",
-                "paynow",
-                "paypal",
-                "payto",
-                "pix",
-                "promptpay",
-                "revolut_pay",
-                "samsung_pay",
-                "satispay",
-                "scalapay",
-                "sepa_debit",
-                "sofort",
-                "sunbit",
-                "swish",
-                "twint",
-                "upi",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "sofort",
+                    "sunbit",
+                    "swish",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
             ]
         ]
     ]
@@ -3167,7 +3440,9 @@ class PaymentIntent(
     """
     ID of the review associated with this PaymentIntent, if any.
     """
-    setup_future_usage: Optional[Literal["off_session", "on_session"]]
+    setup_future_usage: Optional[
+        Union[Literal["off_session", "on_session"], str]
+    ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3199,14 +3474,17 @@ class PaymentIntent(
     """
     Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
     """
-    status: Literal[
-        "canceled",
-        "processing",
-        "requires_action",
-        "requires_capture",
-        "requires_confirmation",
-        "requires_payment_method",
-        "succeeded",
+    status: Union[
+        Literal[
+            "canceled",
+            "processing",
+            "requires_action",
+            "requires_capture",
+            "requires_confirmation",
+            "requires_payment_method",
+            "succeeded",
+        ],
+        str,
     ]
     """
     Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://docs.stripe.com/payments/intents#intent-statuses).

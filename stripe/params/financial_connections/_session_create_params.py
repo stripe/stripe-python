@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -18,8 +18,19 @@ class SessionCreateParams(RequestOptions):
     """
     Filters to restrict the kinds of accounts to collect.
     """
+    limits: NotRequired["SessionCreateParamsLimits"]
+    """
+    Settings for configuring Session-specific limits.
+    """
+    manual_entry: NotRequired["SessionCreateParamsManualEntry"]
+    """
+    Customize manual entry behavior
+    """
     permissions: List[
-        Literal["balances", "ownership", "payment_method", "transactions"]
+        Union[
+            Literal["balances", "ownership", "payment_method", "transactions"],
+            str,
+        ]
     ]
     """
     List of data features that you would like to request access to.
@@ -27,7 +38,7 @@ class SessionCreateParams(RequestOptions):
     Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
     """
     prefetch: NotRequired[
-        List[Literal["balances", "ownership", "transactions"]]
+        List[Union[Literal["balances", "ownership", "transactions"], str]]
     ]
     """
     List of data features that you would like to retrieve upon account creation.
@@ -51,7 +62,7 @@ class SessionCreateParamsAccountHolder(TypedDict):
     """
     The ID of Account representing a customer whose accounts you will retrieve. Only available when `type` is `customer`.
     """
-    type: Literal["account", "customer"]
+    type: Union[Literal["account", "customer"], str]
     """
     Type of account holder to collect accounts for.
     """
@@ -60,12 +71,15 @@ class SessionCreateParamsAccountHolder(TypedDict):
 class SessionCreateParamsFilters(TypedDict):
     account_subcategories: NotRequired[
         List[
-            Literal[
-                "checking",
-                "credit_card",
-                "line_of_credit",
-                "mortgage",
-                "savings",
+            Union[
+                Literal[
+                    "checking",
+                    "credit_card",
+                    "line_of_credit",
+                    "mortgage",
+                    "savings",
+                ],
+                str,
             ]
         ]
     ]
@@ -75,4 +89,24 @@ class SessionCreateParamsFilters(TypedDict):
     countries: NotRequired[List[str]]
     """
     List of countries from which to collect accounts.
+    """
+    require_payment_method_support: NotRequired[
+        Literal["all", "at_least_one", "none"]
+    ]
+    """
+    Whether the session should require payment method support and successful account number retrieval before completion.
+    """
+
+
+class SessionCreateParamsLimits(TypedDict):
+    accounts: Union[Literal[""], int]
+    """
+    The number of accounts that can be linked in this Session. Pass an empty value to allow any number of accounts.
+    """
+
+
+class SessionCreateParamsManualEntry(TypedDict):
+    mode: NotRequired["Literal['automatic', 'disabled']|str"]
+    """
+    How manual entry should be handled.
     """

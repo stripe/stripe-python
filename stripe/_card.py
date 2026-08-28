@@ -66,11 +66,15 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     """
-    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: Optional[
+        Union[Literal["always", "limited", "unspecified"], str]
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """
-    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
+    available_payout_methods: Optional[
+        List[Union[Literal["instant", "standard"], str]]
+    ]
     """
     A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     """
@@ -157,7 +161,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    regulated_status: Optional[Literal["regulated", "unregulated"]]
+    regulated_status: Optional[Union[Literal["regulated", "unregulated"], str]]
     """
     Status of a card based on the card issuer.
     """

@@ -7,11 +7,12 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._application import Application
+    from stripe.billing._feedback_option import FeedbackOption
     from stripe.params.billing_portal._configuration_create_params import (
         ConfigurationCreateParams,
     )
@@ -56,8 +57,16 @@ class Configuration(
     class Features(StripeObject):
         class CustomerUpdate(StripeObject):
             allowed_updates: List[
-                Literal[
-                    "address", "email", "name", "phone", "shipping", "tax_id"
+                Union[
+                    Literal[
+                        "address",
+                        "email",
+                        "name",
+                        "phone",
+                        "shipping",
+                        "tax_id",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -90,16 +99,25 @@ class Configuration(
                 """
                 Whether the feature is enabled.
                 """
+                feedback_options: Optional[
+                    List[ExpandableField["FeedbackOption"]]
+                ]
+                """
+                The IDs of custom feedback options configured for this cancellation reason.
+                """
                 options: List[
-                    Literal[
-                        "customer_service",
-                        "low_quality",
-                        "missing_features",
-                        "other",
-                        "switched_service",
-                        "too_complex",
-                        "too_expensive",
-                        "unused",
+                    Union[
+                        Literal[
+                            "customer_service",
+                            "low_quality",
+                            "missing_features",
+                            "other",
+                            "switched_service",
+                            "too_complex",
+                            "too_expensive",
+                            "unused",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -111,12 +129,12 @@ class Configuration(
             """
             Whether the feature is enabled.
             """
-            mode: Literal["at_period_end", "immediately"]
+            mode: Union[Literal["at_period_end", "immediately"], str]
             """
             Whether to cancel subscriptions immediately or at the end of the billing period.
             """
-            proration_behavior: Literal[
-                "always_invoice", "create_prorations", "none"
+            proration_behavior: Union[
+                Literal["always_invoice", "create_prorations", "none"], str
             ]
             """
             Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`.
@@ -154,8 +172,11 @@ class Configuration(
 
             class ScheduleAtPeriodEnd(StripeObject):
                 class Condition(StripeObject):
-                    type: Literal[
-                        "decreasing_item_amount", "shortening_interval"
+                    type: Union[
+                        Literal[
+                            "decreasing_item_amount", "shortening_interval"
+                        ],
+                        str,
                     ]
                     """
                     The type of condition.
@@ -167,12 +188,14 @@ class Configuration(
                 """
                 _inner_class_types = {"conditions": Condition}
 
-            billing_cycle_anchor: Optional[Literal["now", "unchanged"]]
+            billing_cycle_anchor: Optional[
+                Union[Literal["now", "unchanged"], str]
+            ]
             """
             Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
             """
             default_allowed_updates: List[
-                Literal["price", "promotion_code", "quantity"]
+                Union[Literal["price", "promotion_code", "quantity"], str]
             ]
             """
             The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
@@ -185,14 +208,16 @@ class Configuration(
             """
             The list of up to 10 products that support subscription updates.
             """
-            proration_behavior: Literal[
-                "always_invoice", "create_prorations", "none"
+            proration_behavior: Union[
+                Literal["always_invoice", "create_prorations", "none"], str
             ]
             """
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
             """
             schedule_at_period_end: ScheduleAtPeriodEnd
-            trial_update_behavior: Literal["continue_trial", "end_trial"]
+            trial_update_behavior: Union[
+                Literal["continue_trial", "end_trial"], str
+            ]
             """
             Determines how handle updates to trialing subscriptions. Valid values are `end_trial` and `continue_trial`. Defaults to a value of `end_trial` if you don't set it during creation.
             """
@@ -241,7 +266,7 @@ class Configuration(
     """
     default_return_url: Optional[str]
     """
-    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
     """
     features: Features
     id: str

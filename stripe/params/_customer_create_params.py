@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -79,7 +79,9 @@ class CustomerCreateParams(RequestOptions):
     """
     Tax details about the customer.
     """
-    tax_exempt: NotRequired["Literal['']|Literal['exempt', 'none', 'reverse']"]
+    tax_exempt: NotRequired[
+        "Literal['']|Literal['exempt', 'none', 'reverse']|str"
+    ]
     """
     The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
     """
@@ -131,7 +133,7 @@ class CustomerCreateParamsCashBalance(TypedDict):
 
 class CustomerCreateParamsCashBalanceSettings(TypedDict):
     reconciliation_mode: NotRequired[
-        Literal["automatic", "manual", "merchant_default"]
+        "Literal['automatic', 'manual', 'merchant_default']|str"
     ]
     """
     Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://docs.stripe.com/payments/customer-balance/reconciliation).
@@ -174,7 +176,7 @@ class CustomerCreateParamsInvoiceSettingsCustomField(TypedDict):
 
 class CustomerCreateParamsInvoiceSettingsRenderingOptions(TypedDict):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -232,133 +234,137 @@ class CustomerCreateParamsTax(TypedDict):
     """
     A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
     """
-    validate_location: NotRequired[Literal["deferred", "immediately"]]
+    validate_location: NotRequired["Literal['deferred', 'immediately']|str"]
     """
     A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
     """
 
 
 class CustomerCreateParamsTaxIdDatum(TypedDict):
-    type: Literal[
-        "ad_nrt",
-        "ae_trn",
-        "al_tin",
-        "am_tin",
-        "ao_tin",
-        "ar_cuit",
-        "au_abn",
-        "au_arn",
-        "aw_tin",
-        "az_tin",
-        "ba_tin",
-        "bb_tin",
-        "bd_bin",
-        "bf_ifu",
-        "bg_uic",
-        "bh_vat",
-        "bj_ifu",
-        "bo_tin",
-        "br_cnpj",
-        "br_cpf",
-        "bs_tin",
-        "by_tin",
-        "ca_bn",
-        "ca_gst_hst",
-        "ca_pst_bc",
-        "ca_pst_mb",
-        "ca_pst_sk",
-        "ca_qst",
-        "cd_nif",
-        "ch_uid",
-        "ch_vat",
-        "cl_tin",
-        "cm_niu",
-        "cn_tin",
-        "co_nit",
-        "cr_tin",
-        "cv_nif",
-        "de_stn",
-        "do_rcn",
-        "ec_ruc",
-        "eg_tin",
-        "es_cif",
-        "et_tin",
-        "eu_oss_vat",
-        "eu_vat",
-        "fo_vat",
-        "gb_vat",
-        "ge_vat",
-        "gi_tin",
-        "gn_nif",
-        "hk_br",
-        "hr_oib",
-        "hu_tin",
-        "id_npwp",
-        "il_vat",
-        "in_gst",
-        "is_vat",
-        "it_cf",
-        "jp_cn",
-        "jp_rn",
-        "jp_trn",
-        "ke_pin",
-        "kg_tin",
-        "kh_tin",
-        "kr_brn",
-        "kz_bin",
-        "la_tin",
-        "li_uid",
-        "li_vat",
-        "lk_vat",
-        "ma_vat",
-        "md_vat",
-        "me_pib",
-        "mk_vat",
-        "mr_nif",
-        "mx_rfc",
-        "my_frp",
-        "my_itn",
-        "my_sst",
-        "ng_tin",
-        "no_vat",
-        "no_voec",
-        "np_pan",
-        "nz_gst",
-        "om_vat",
-        "pe_ruc",
-        "ph_tin",
-        "pl_nip",
-        "py_ruc",
-        "ro_tin",
-        "rs_pib",
-        "ru_inn",
-        "ru_kpp",
-        "sa_vat",
-        "sg_gst",
-        "sg_uen",
-        "si_tin",
-        "sn_ninea",
-        "sr_fin",
-        "sv_nit",
-        "th_vat",
-        "tj_tin",
-        "tr_tin",
-        "tw_vat",
-        "tz_vat",
-        "ua_vat",
-        "ug_tin",
-        "us_ein",
-        "uy_ruc",
-        "uz_tin",
-        "uz_vat",
-        "ve_rif",
-        "vn_tin",
-        "za_vat",
-        "zm_tin",
-        "zw_tin",
+    type: Union[
+        Literal[
+            "ad_nrt",
+            "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "aw_tin",
+            "az_tin",
+            "ba_tin",
+            "bb_tin",
+            "bd_bin",
+            "bf_ifu",
+            "bg_uic",
+            "bh_vat",
+            "bj_ifu",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "bs_tin",
+            "by_tin",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "cd_nif",
+            "ch_uid",
+            "ch_vat",
+            "cl_tin",
+            "cm_niu",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "cv_nif",
+            "de_stn",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "et_tin",
+            "eu_oss_vat",
+            "eu_vat",
+            "fo_vat",
+            "gb_vat",
+            "ge_vat",
+            "gi_tin",
+            "gn_nif",
+            "hk_br",
+            "hr_oib",
+            "hu_tin",
+            "ic_nif",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "it_cf",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kg_tin",
+            "kh_tin",
+            "kr_brn",
+            "kz_bin",
+            "la_tin",
+            "li_uid",
+            "li_vat",
+            "lk_vat",
+            "ma_vat",
+            "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "ng_tin",
+            "no_vat",
+            "no_voec",
+            "np_pan",
+            "nz_gst",
+            "om_vat",
+            "pe_ruc",
+            "ph_tin",
+            "pl_nip",
+            "py_ruc",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sn_ninea",
+            "sr_fin",
+            "sv_nit",
+            "th_vat",
+            "tj_tin",
+            "tr_tin",
+            "tw_vat",
+            "tz_vat",
+            "ua_vat",
+            "ug_tin",
+            "us_ein",
+            "uy_ruc",
+            "uz_tin",
+            "uz_vat",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
+            "zm_tin",
+            "zw_tin",
+        ],
+        str,
     ]
     """
-    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
     """
     value: str
     """

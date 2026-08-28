@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -27,7 +27,9 @@ class ShippingRateCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """
@@ -53,7 +55,7 @@ class ShippingRateCreateParamsDeliveryEstimate(TypedDict):
 
 
 class ShippingRateCreateParamsDeliveryEstimateMaximum(TypedDict):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -64,7 +66,7 @@ class ShippingRateCreateParamsDeliveryEstimateMaximum(TypedDict):
 
 
 class ShippingRateCreateParamsDeliveryEstimateMinimum(TypedDict):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -96,7 +98,9 @@ class ShippingRateCreateParamsFixedAmountCurrencyOptions(TypedDict):
     """
     A non-negative integer in cents representing how much to charge.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """

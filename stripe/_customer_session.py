@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -26,23 +26,39 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     OBJECT_NAME: ClassVar[Literal["customer_session"]] = "customer_session"
 
     class Components(StripeObject):
+        class ActiveEntitlements(StripeObject):
+            enabled: bool
+            """
+            Whether the active entitlements is enabled.
+            """
+
         class BuyButton(StripeObject):
             enabled: bool
             """
             Whether the buy button is enabled.
             """
 
+        class CustomerPortal(StripeObject):
+            enabled: bool
+            """
+            Whether the customer portal is enabled.
+            """
+
         class CustomerSheet(StripeObject):
             class Features(StripeObject):
                 payment_method_allow_redisplay_filters: Optional[
-                    List[Literal["always", "limited", "unspecified"]]
+                    List[
+                        Union[Literal["always", "limited", "unspecified"], str]
+                    ]
                 ]
                 """
                 A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the customer sheet displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
 
                 If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
                 """
-                payment_method_remove: Optional[Literal["disabled", "enabled"]]
+                payment_method_remove: Optional[
+                    Union[Literal["disabled", "enabled"], str]
+                ]
                 """
                 Controls whether the customer sheet displays the option to remove a saved payment method."
 
@@ -62,7 +78,9 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         class MobilePaymentElement(StripeObject):
             class Features(StripeObject):
                 payment_method_allow_redisplay_filters: Optional[
-                    List[Literal["always", "limited", "unspecified"]]
+                    List[
+                        Union[Literal["always", "limited", "unspecified"], str]
+                    ]
                 ]
                 """
                 A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the mobile payment element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
@@ -70,25 +88,29 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
                 If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
                 """
                 payment_method_redisplay: Optional[
-                    Literal["disabled", "enabled"]
+                    Union[Literal["disabled", "enabled"], str]
                 ]
                 """
                 Controls whether or not the mobile payment element shows saved payment methods.
                 """
-                payment_method_remove: Optional[Literal["disabled", "enabled"]]
+                payment_method_remove: Optional[
+                    Union[Literal["disabled", "enabled"], str]
+                ]
                 """
                 Controls whether the mobile payment element displays the option to remove a saved payment method."
 
                 Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
                 """
-                payment_method_save: Optional[Literal["disabled", "enabled"]]
+                payment_method_save: Optional[
+                    Union[Literal["disabled", "enabled"], str]
+                ]
                 """
                 Controls whether the mobile payment element displays a checkbox offering to save a new payment method.
 
                 If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
                 """
                 payment_method_save_allow_redisplay_override: Optional[
-                    Literal["always", "limited", "unspecified"]
+                    Union[Literal["always", "limited", "unspecified"], str]
                 ]
                 """
                 Allows overriding the value of allow_override when saving a new payment method when payment_method_save is set to disabled. Use values: "always", "limited", or "unspecified".
@@ -109,14 +131,16 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         class PaymentElement(StripeObject):
             class Features(StripeObject):
                 payment_method_allow_redisplay_filters: List[
-                    Literal["always", "limited", "unspecified"]
+                    Union[Literal["always", "limited", "unspecified"], str]
                 ]
                 """
                 A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
 
                 If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
                 """
-                payment_method_redisplay: Literal["disabled", "enabled"]
+                payment_method_redisplay: Union[
+                    Literal["disabled", "enabled"], str
+                ]
                 """
                 Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
                 """
@@ -124,20 +148,22 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
                 """
                 Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`. The maximum redisplay limit is `10`.
                 """
-                payment_method_remove: Literal["disabled", "enabled"]
+                payment_method_remove: Union[
+                    Literal["disabled", "enabled"], str
+                ]
                 """
                 Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
 
                 Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
                 """
-                payment_method_save: Literal["disabled", "enabled"]
+                payment_method_save: Union[Literal["disabled", "enabled"], str]
                 """
                 Controls whether the Payment Element displays a checkbox offering to save a new payment method. This parameter defaults to `disabled`.
 
                 If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
                 """
                 payment_method_save_usage: Optional[
-                    Literal["off_session", "on_session"]
+                    Union[Literal["off_session", "on_session"], str]
                 ]
                 """
                 When using PaymentIntents and the customer checks the save checkbox, this field determines the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value used to confirm the PaymentIntent.
@@ -161,9 +187,17 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             Whether the pricing table is enabled.
             """
 
+        active_entitlements: ActiveEntitlements
+        """
+        This hash contains whether the active entitlements is enabled.
+        """
         buy_button: BuyButton
         """
         This hash contains whether the buy button is enabled.
+        """
+        customer_portal: CustomerPortal
+        """
+        This hash contains whether the customer portal is enabled.
         """
         customer_sheet: CustomerSheet
         """
@@ -182,7 +216,9 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         This hash contains whether the pricing table is enabled.
         """
         _inner_class_types = {
+            "active_entitlements": ActiveEntitlements,
             "buy_button": BuyButton,
+            "customer_portal": CustomerPortal,
             "customer_sheet": CustomerSheet,
             "mobile_payment_element": MobilePaymentElement,
             "payment_element": PaymentElement,

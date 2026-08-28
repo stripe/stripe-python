@@ -1,5 +1,5 @@
 import json
-from typing import Callable
+from typing import Any, Callable, Dict, Optional, Union
 from typing_extensions import assert_type
 
 import pytest
@@ -14,11 +14,17 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterErrorReportTriggeredEvent,
 )
-from stripe.v2.core._event import UnknownEventNotification
+from stripe.v2.core._event import EventNotification, UnknownEventNotification
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
-from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
+from stripe._webhook import WebhookPayload, WebhookSignature
+from tests.test_webhook import DUMMY_WEBHOOK_SECRET
 
 EventParser = Callable[[str], ALL_EVENT_NOTIFICATIONS]
+
+BINARY_ENCODERS = [
+    lambda p: p.encode("utf-8"),
+    lambda p: bytearray(p, "utf-8"),
+]
 
 
 class TestV2Event(object):
@@ -83,7 +89,11 @@ class TestV2Event(object):
 
         def _parse_event_notif(payload: str):
             return stripe_client.parse_event_notification(
-                payload, generate_header(payload=payload), DUMMY_WEBHOOK_SECRET
+                payload,
+                WebhookSignature.generate_signature_header(
+                    payload, DUMMY_WEBHOOK_SECRET
+                ),
+                DUMMY_WEBHOOK_SECRET,
             )
 
         return _parse_event_notif
@@ -97,6 +107,7 @@ class TestV2Event(object):
             notif, V1BillingMeterErrorReportTriggeredEventNotification
         )
         assert notif.id == "evt_234"
+        assert notif.object == "v2.core.event"
 
         assert notif.related_object
         assert notif.related_object.id == "mtr_123"
@@ -118,6 +129,52 @@ class TestV2Event(object):
         # this isn't for constructing events, it's for parsing thin ones
         assert not hasattr(notif, "data")
         assert notif.reason is None
+
+    @pytest.mark.parametrize(
+        "encode", BINARY_ENCODERS, ids=["bytes", "bytearray"]
+    )
+    def test_parses_binary_event_notif(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        encode: Callable[[str], WebhookPayload],
+    ):
+        """The body can arrive as bytes or a bytearray, which is how many frameworks expose it"""
+        notif = stripe_client.parse_event_notification(
+            encode(v2_payload_no_data),
+            WebhookSignature.generate_signature_header(
+                v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+            ),
+            DUMMY_WEBHOOK_SECRET,
+        )
+
+        assert isinstance(
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert notif.id == "evt_234"
+
+    @pytest.mark.parametrize(
+        "to_payload",
+        [lambda p: p, *BINARY_ENCODERS, json.loads],
+        ids=["str", "bytes", "bytearray", "dict"],
+    )
+    def test_from_json_accepts_every_payload_shape(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        to_payload: Callable[[str], Union[WebhookPayload, Dict[str, Any]]],
+    ):
+        """`from_json` is public (for pre-verified payloads & tests), so it takes the same shapes the parse methods do"""
+        notif = EventNotification.from_json(
+            to_payload(v2_payload_no_data), stripe_client
+        )
+
+        assert isinstance(
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert notif.id == "evt_234"
+        assert notif.related_object
+        assert notif.related_object.id == "mtr_123"
 
     def test_parses_unknown_event_notif(self, parse_event_notif: EventParser):
         event = parse_event_notif(
@@ -161,6 +218,26 @@ class TestV2Event(object):
         with pytest.raises(SignatureVerificationError):
             stripe_client.parse_event_notification(
                 v2_payload_no_data, "bad header", DUMMY_WEBHOOK_SECRET
+            )
+
+    @pytest.mark.parametrize("secret", [None, ""])
+    def test_rejects_missing_secret(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        secret: Optional[str],
+    ):
+        """`secret` is typed as optional for web framework ergonomics, but a missing one is still an error"""
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_client.parse_event_notification(
+                v2_payload_no_data,
+                WebhookSignature.generate_signature_header(
+                    v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+                ),
+                secret,
             )
 
     def test_v2_events_data_type(self, http_client_mock, v2_payload_with_data):
@@ -232,7 +309,9 @@ class TestV2Event(object):
 
         event_notif = stripe_client.parse_event_notification(
             v2_payload_no_data,
-            generate_header(payload=v2_payload_no_data),
+            WebhookSignature.generate_signature_header(
+                v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+            ),
             DUMMY_WEBHOOK_SECRET,
         )
         assert event_notif.type == "v1.billing.meter.error_report_triggered"

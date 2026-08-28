@@ -8,7 +8,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -82,7 +82,7 @@ class CreditNote(
         """
         The discount that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount"]
+        type: Union[Literal["credit_balance_transaction", "discount"], str]
         """
         Type of the pretax credit amount referenced.
         """
@@ -110,7 +110,7 @@ class CreditNote(
         """
         ID of the refund.
         """
-        type: Optional[Literal["payment_record_refund", "refund"]]
+        type: Optional[Union[Literal["payment_record_refund", "refund"], str]]
         """
         Type of the refund, one of `refund` or `payment_record_refund`.
         """
@@ -129,22 +129,25 @@ class CreditNote(
             Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
-                Literal[
-                    "customer_exempt",
-                    "not_collecting",
-                    "not_subject_to_tax",
-                    "not_supported",
-                    "portion_product_exempt",
-                    "portion_reduced_rated",
-                    "portion_standard_rated",
-                    "product_exempt",
-                    "product_exempt_holiday",
-                    "proportionally_rated",
-                    "reduced_rated",
-                    "reverse_charge",
-                    "standard_rated",
-                    "taxable_basis_reduced",
-                    "zero_rated",
+                Union[
+                    Literal[
+                        "customer_exempt",
+                        "not_collecting",
+                        "not_subject_to_tax",
+                        "not_supported",
+                        "portion_product_exempt",
+                        "portion_reduced_rated",
+                        "portion_standard_rated",
+                        "product_exempt",
+                        "product_exempt_holiday",
+                        "proportionally_rated",
+                        "reduced_rated",
+                        "reverse_charge",
+                        "standard_rated",
+                        "taxable_basis_reduced",
+                        "zero_rated",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -188,7 +191,7 @@ class CreditNote(
         """
         The amount of the tax, in cents (or local equivalent).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Whether this tax is inclusive or exclusive.
         """
@@ -196,23 +199,26 @@ class CreditNote(
         """
         Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_available",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_available",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -322,8 +328,14 @@ class CreditNote(
     The pretax credit amounts (ex: discount, credit grants, etc) for all line items.
     """
     reason: Optional[
-        Literal[
-            "duplicate", "fraudulent", "order_change", "product_unsatisfactory"
+        Union[
+            Literal[
+                "duplicate",
+                "fraudulent",
+                "order_change",
+                "product_unsatisfactory",
+            ],
+            str,
         ]
     ]
     """
@@ -337,7 +349,7 @@ class CreditNote(
     """
     The details of the cost of shipping, including the ShippingRate applied to the invoice.
     """
-    status: Literal["issued", "void"]
+    status: Union[Literal["issued", "void"], str]
     """
     Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://docs.stripe.com/billing/invoices/credit-notes#voiding).
     """
@@ -361,7 +373,7 @@ class CreditNote(
     """
     The aggregate tax information for all line items.
     """
-    type: Literal["mixed", "post_payment", "pre_payment"]
+    type: Union[Literal["mixed", "post_payment", "pre_payment"], str]
     """
     Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
     """
@@ -388,6 +400,8 @@ class CreditNote(
 
         You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
         post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
+
+        For invoices that also have refunds created through the [Refund API](https://docs.stripe.com/docs/api/refunds), the credit note API subtracts those refund amounts from the maximum creditable amount. This prevents the combined credit notes and refunds from exceeding the invoice amount. If you use both, ensure the combined total does not exceed the invoice's paid amount.
         """
         return cast(
             "CreditNote",
@@ -416,6 +430,8 @@ class CreditNote(
 
         You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
         post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
+
+        For invoices that also have refunds created through the [Refund API](https://docs.stripe.com/docs/api/refunds), the credit note API subtracts those refund amounts from the maximum creditable amount. This prevents the combined credit notes and refunds from exceeding the invoice amount. If you use both, ensure the combined total does not exceed the invoice's paid amount.
         """
         return cast(
             "CreditNote",

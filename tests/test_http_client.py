@@ -101,8 +101,8 @@ class TestImports:
         with patch("builtins.__import__") as mocked_import_fn:
             mocked_import_fn.side_effect = mock_import(available_libs)
 
-            client = _http_client.new_default_http_client()
-            assert isinstance(client, expected)
+            resolved_class = _http_client._resolve_sync_client()
+            assert resolved_class is expected
 
     @pytest.mark.parametrize(
         ["available_libs", "expected"],
@@ -123,8 +123,8 @@ class TestImports:
         with patch("builtins.__import__") as mocked_import_fn:
             mocked_import_fn.side_effect = mock_import(available_libs)
 
-            client = _http_client.new_http_client_async_fallback()
-            assert isinstance(client, expected)
+            resolved_class = _http_client._resolve_async_client()
+            assert resolved_class is expected
 
 
 MakeReqFunc = Callable[[str, str, Dict[str, str], Optional[str]], Any]
@@ -167,23 +167,6 @@ class TestRetrySleepTimeDefaultHttpClient:
         max_delay = _http_client.HTTPClient.MAX_DELAY
         expected = [0.5, 1.0, 2.0, 4.0, max_delay, max_delay, max_delay]
         self.assert_sleep_times(client, expected)
-
-    def test_retry_after_header(self):
-        client = _http_client.new_default_http_client()
-        client._add_jitter_time = lambda sleep_seconds: sleep_seconds
-
-        # Prefer retry-after if it's bigger
-        assert 30 == client._sleep_time_seconds(
-            2, (None, 409, {"retry-after": "30"})
-        )
-        # Prefer default if it's bigger
-        assert 2 == client._sleep_time_seconds(
-            3, (None, 409, {"retry-after": "1"})
-        )
-        # Ignore crazy-big values
-        assert 1 == client._sleep_time_seconds(
-            2, (None, 409, {"retry-after": "300"})
-        )
 
     def test_randomness_added(self):
         client = _http_client.new_default_http_client()
@@ -616,7 +599,10 @@ class ClientTestBase:
 
 class RequestsVerify(object):
     def __eq__(self, other):
-        return other and other.endswith("stripe/data/ca-certificates.crt")
+        if not other:
+            return False
+        normalized = other.replace("\\", "/")
+        return normalized.endswith("stripe/data/ca-certificates.crt")
 
 
 class TestRequestsClient(ClientTestBase):

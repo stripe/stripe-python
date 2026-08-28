@@ -1,3 +1,156 @@
+## 15.6.0 - 2026-08-26
+This release changes the pinned API version to 2026-08-26.dahlia.
+
+* [#1881](https://github.com/stripe/stripe-python/pull/1881) Add new `EventNotificationHandler` class for better thin event management
+  
+  - We've been putting a lot of time into rethinking the event handling experience in the SDKs. This new class is the culmination [of that effort](https://stripe.dev/blog/event-notification-handlers-thin-events).
+  - They're designed for a tight coupling with both `StripeClient` and the fully-typed nature of [thin events](https://docs.stripe.com/event-destinations#thin-events). This delivers painless event destination upgrades, in-editor checks for common mistakes, and better code modularity.
+  - Now that we've released [thin event notifications for v1 objects](https://docs.stripe.com/changelog#2026-08-26.dahlia), these new handlers are our recommended path for all integrations using thin event notifications.
+  - See more detailed docs here: https://docs.stripe.com/webhooks/event-notification-handlers
+  - As part of this work, we've widened some of the types our webhook-related methods take so they play more nicely with the types commonly returned by popular web frameworks ([#1888](https://github.com/stripe/stripe-python/pull/1888))
+
+* [#1876](https://github.com/stripe/stripe-python/pull/1876) Update generated code
+  * Add support for new resource `billing.FeedbackOption`
+  * Add support for `create`, `deactivate`, `list`, `modify`, and `retrieve` methods on resource `billing.FeedbackOption`
+  * Add support for `payment_method_settings` on `AccountSession.Component` and `AccountSessionCreateParamsComponent`
+  * Add support for `feedback_options` on `BillingPortal.Configuration.Feature.SubscriptionCancel.CancellationReason`, `billing_portal.ConfigurationCreateParamsFeatureSubscriptionCancelCancellationReason`, and `billing_portal.ConfigurationModifyParamsFeatureSubscriptionCancelCancellationReason`
+  * Add support for new value `customer_update` on enums `BillingPortal.Session.Flow.type` and `billing_portal.SessionCreateParamsFlowDatum.type`
+  * Add support for `customer_update` on `BillingPortal.Session.Flow`
+  * Add support for `funding_source_group` on `Charge.PaymentMethodDetail.Card.Wallet.Link` and `Charge.PaymentMethodDetail.Link`
+  * Add support for `funding_types_blocked` on `Checkout.Session.PaymentMethodOption.Card.Restriction` and `checkout.SessionCreateParamsPaymentMethodOptionCardRestriction`
+  * Add support for `metadata` on `ConfirmationToken`
+  * Add support for `active_entitlements` and `customer_portal` on `CustomerSession.Component` and `CustomerSessionCreateParamsComponent`
+  * Add support for `country` on `FinancialConnections.Session.Filter`
+  * Add support for `frozen_fields` on `InvoiceItem`
+  * Add support for `billie` on `Invoice.PaymentSetting.PaymentMethodOption`, `InvoiceCreateParamsPaymentSettingPaymentMethodOption`, `InvoiceModifyParamsPaymentSettingPaymentMethodOption`, `Subscription.PaymentSetting.PaymentMethodOption`, `SubscriptionCreateParamsPaymentSettingPaymentMethodOption`, and `SubscriptionModifyParamsPaymentSettingPaymentMethodOption`
+  * Add support for new value `billie` on enums `Invoice.PaymentSetting.payment_method_types`, `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+  * ⚠️ Remove support for `cryptogram` on `PaymentAttemptRecord.PaymentMethodDetail.Card.ThreeDSecure` and `PaymentRecord.PaymentMethodDetail.Card.ThreeDSecure`
+  * Add support for new value `touch_n_go` on enums `PaymentIntent.allowed_payment_method_types`, `PaymentIntentConfirmParams.allowed_payment_method_types`, `PaymentIntentCreateParams.allowed_payment_method_types`, `PaymentIntentModifyParams.allowed_payment_method_types`, `SetupIntent.allowed_payment_method_types`, `SetupIntentConfirmParams.allowed_payment_method_types`, `SetupIntentCreateParams.allowed_payment_method_types`, and `SetupIntentModifyParams.allowed_payment_method_types`
+  * Change `PaymentIntent.allowed_payment_method_types` and `SetupIntent.allowed_payment_method_types` to be required
+  * Add support for `application_fee_amount`, `application_fee_percent`, `on_behalf_of`, and `transfer_data` on `PaymentLinkModifyParams`
+  * Add support for `feedback_option` on `Subscription.CancellationDetail`, `SubscriptionCancelParamsCancellationDetail`, and `SubscriptionModifyParamsCancellationDetail`
+  * Add support for `igic` on `Tax.Registration.CountryOption.At`, `Tax.Registration.CountryOption.Be`, `Tax.Registration.CountryOption.Bg`, `Tax.Registration.CountryOption.Cy`, `Tax.Registration.CountryOption.Cz`, `Tax.Registration.CountryOption.De`, `Tax.Registration.CountryOption.Dk`, `Tax.Registration.CountryOption.E`, `Tax.Registration.CountryOption.Ee`, `Tax.Registration.CountryOption.Fi`, `Tax.Registration.CountryOption.Fr`, `Tax.Registration.CountryOption.Gr`, `Tax.Registration.CountryOption.Hr`, `Tax.Registration.CountryOption.Hu`, `Tax.Registration.CountryOption.Ie`, `Tax.Registration.CountryOption.It`, `Tax.Registration.CountryOption.Lt`, `Tax.Registration.CountryOption.Lu`, `Tax.Registration.CountryOption.Lv`, `Tax.Registration.CountryOption.Mt`, `Tax.Registration.CountryOption.Nl`, `Tax.Registration.CountryOption.Pl`, `Tax.Registration.CountryOption.Pt`, `Tax.Registration.CountryOption.Ro`, `Tax.Registration.CountryOption.Se`, `Tax.Registration.CountryOption.Si`, `Tax.Registration.CountryOption.Sk`, `tax.RegistrationCreateParamsCountryOptionAt`, `tax.RegistrationCreateParamsCountryOptionBe`, `tax.RegistrationCreateParamsCountryOptionBg`, `tax.RegistrationCreateParamsCountryOptionCy`, `tax.RegistrationCreateParamsCountryOptionCz`, `tax.RegistrationCreateParamsCountryOptionDe`, `tax.RegistrationCreateParamsCountryOptionDk`, `tax.RegistrationCreateParamsCountryOptionE`, `tax.RegistrationCreateParamsCountryOptionEe`, `tax.RegistrationCreateParamsCountryOptionFi`, `tax.RegistrationCreateParamsCountryOptionFr`, `tax.RegistrationCreateParamsCountryOptionGr`, `tax.RegistrationCreateParamsCountryOptionHr`, `tax.RegistrationCreateParamsCountryOptionHu`, `tax.RegistrationCreateParamsCountryOptionIe`, `tax.RegistrationCreateParamsCountryOptionIt`, `tax.RegistrationCreateParamsCountryOptionLt`, `tax.RegistrationCreateParamsCountryOptionLu`, `tax.RegistrationCreateParamsCountryOptionLv`, `tax.RegistrationCreateParamsCountryOptionMt`, `tax.RegistrationCreateParamsCountryOptionNl`, `tax.RegistrationCreateParamsCountryOptionPl`, `tax.RegistrationCreateParamsCountryOptionPt`, `tax.RegistrationCreateParamsCountryOptionRo`, `tax.RegistrationCreateParamsCountryOptionSe`, `tax.RegistrationCreateParamsCountryOptionSi`, and `tax.RegistrationCreateParamsCountryOptionSk`
+  * Add support for new value `2026-08-26.dahlia` on enum `WebhookEndpointCreateParams.api_version`
+  * Add support for error codes `authentication_failure`, `capability_not_active`, `expired_payment_method`, `incorrect_postal_code`, `invalid_canceled_subscription_fields`, and `payment_method_restricted` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, `StripeError`, and `Terminal.Reader.Action.ApiError`
+
+## 15.5.1 - 2026-08-18
+* [#1879](https://github.com/stripe/stripe-python/pull/1879) better document `StripeObject`'s `to_dict` behavior
+
+## 15.5.0 - 2026-08-10
+* [#1874](https://github.com/stripe/stripe-python/pull/1874) Add async iteration to v2 list auto-pagination
+  - Adds `async for` support to v2 `ListObject.auto_paging_iter()`.
+* [#1869](https://github.com/stripe/stripe-python/pull/1869) Surface `object` property on `EventNotification`
+* [#1867](https://github.com/stripe/stripe-python/pull/1867) Emit Claude Code plugin hint at module load time
+  - Emits new Claude Code plugin hint when `CLAUDECODE` or `CLAUDE_CODE_CHILD_SESSION` environment variables are detected.
+* [#1855](https://github.com/stripe/stripe-python/pull/1855) add/adjust event parsing helpers
+  
+  - Added methods that return their respective `Event`/`EventNotification` class instances without verifying authenticity. Use them when you've previously verified an event (e.g. you verified, put the event in a queue, and are now processing). Supports events from [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) and [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) natively.
+    - `Webhook.construct_event_without_verification(payload)`
+    - `StripeClient.construct_event_without_verification(payload)`
+    - `StripeClient.parse_event_notification_without_verification(payload)`
+  - Added `WebhookSignature.generate_signature_header(payload, secret, timestamp=None)`, which computes a full `Stripe-Signature` header for the given payload. Useful for unit tests!
+  
+* [#1863](https://github.com/stripe/stripe-python/pull/1863) Add `stripe.major_api_version` constant
+
+## 15.4.0 - 2026-07-29
+This release changes the pinned API version to 2026-07-29.dahlia.
+
+* [#1857](https://github.com/stripe/stripe-python/pull/1857) Update generated code
+  * Add support for new resource `financial_connections.Authorization`
+  * Add support for `unreject` method on resource `Account`
+  * Add support for `list` method on resource `PaymentRecord`
+  * Add support for new values `mass_transit_parking_tax` and `parking_tax` on enums `Tax.Calculation.ShippingCost.TaxBreakdown.TaxRateDetail.tax_type`, `Tax.Calculation.TaxBreakdown.TaxRateDetail.tax_type`, `Tax.CalculationLineItem.TaxBreakdown.TaxRateDetail.tax_type`, and `Tax.Transaction.ShippingCost.TaxBreakdown.TaxRateDetail.tax_type`
+  * Add support for new value `chaps` on enums `FundingInstructions.BankTransfer.FinancialAddress.supported_networks` and `PaymentIntent.NextAction.DisplayBankTransferInstruction.FinancialAddress.supported_networks`
+  * Add support for `smart_disputes_management` on `AccountSession.Component.DisputesList.Feature`, `AccountSession.Component.Payment.Feature`, `AccountSession.Component.PaymentDetail.Feature`, `AccountSession.Component.PaymentDispute.Feature`, `AccountSessionCreateParamsComponentDisputesListFeature`, `AccountSessionCreateParamsComponentPaymentDetailFeature`, `AccountSessionCreateParamsComponentPaymentDisputeFeature`, and `AccountSessionCreateParamsComponentPaymentFeature`
+  * Add support for `administrative_address` and `principal_place_of_business` on `Account.Company`, `AccountCreateParamsCompany`, `AccountModifyParamsCompany`, and `TokenCreateParamsAccountCompany`
+  * Add support for `sepa_debit_payments` on `AccountModifyParamsSetting`
+  * Remove support for `proof_of_registration` on `AccountCreateParamsDocument`.  This field was limited-use and is being deprecated.
+  * Add support for `payouts_action` on `AccountRejectParams`
+  * Add support for new value `data_share_only` on enums `Charge.PaymentMethodDetail.Card.ThreeDSecure.result`, `PaymentAttemptRecord.PaymentMethodDetail.Card.ThreeDSecure.result`, `PaymentRecord.PaymentMethodDetail.Card.ThreeDSecure.result`, and `SetupAttempt.PaymentMethodDetail.Card.ThreeDSecure.result`
+  * Add support for new values `bnp_paribas`, `citibank`, and `mbsb_bank` on enums `Charge.PaymentMethodDetail.Fpx.bank`, `ConfirmationToken.PaymentMethodPreview.Fpx.bank`, `PaymentAttemptRecord.PaymentMethodDetail.Fpx.bank`, `PaymentMethod.Fpx.bank`, and `PaymentRecord.PaymentMethodDetail.Fpx.bank`
+  * Remove support for `dynamic_tax_rates` on `checkout.SessionCreateParamsLineItem`.  This field was limited-use and is being deprecated.
+  * Add support for `setup_future_usage` on `Checkout.Session.PaymentMethodOption.Payco`, `Checkout.Session.PaymentMethodOption.SamsungPay`, `PaymentIntent.PaymentMethodOption.Payco`, `PaymentIntent.PaymentMethodOption.SamsungPay`, `PaymentIntentConfirmParamsPaymentMethodOptionPayco`, `PaymentIntentConfirmParamsPaymentMethodOptionSamsungPay`, `PaymentIntentCreateParamsPaymentMethodOptionPayco`, `PaymentIntentCreateParamsPaymentMethodOptionSamsungPay`, `PaymentIntentModifyParamsPaymentMethodOptionPayco`, `PaymentIntentModifyParamsPaymentMethodOptionSamsungPay`, `PaymentLinkModifyParamsPaymentIntentDatum`, `checkout.SessionCreateParamsPaymentMethodOptionPayco`, and `checkout.SessionCreateParamsPaymentMethodOptionSamsungPay`
+  * Add support for new value `ic_nif` on enums `Checkout.Session.CustomerDetail.TaxId.type`, `Invoice.CustomerTaxId.type`, `Tax.Calculation.CustomerDetail.TaxId.type`, `Tax.Transaction.CustomerDetail.TaxId.type`, and `TaxId.type`
+  * Add support for new values `bnp_paribas`, `citibank`, and `mbsb_bank` on enums `ConfirmationTokenCreateParamsPaymentMethodDatumFpx.bank`, `PaymentIntentConfirmParamsPaymentMethodDatumFpx.bank`, `PaymentIntentCreateParamsPaymentMethodDatumFpx.bank`, `PaymentIntentModifyParamsPaymentMethodDatumFpx.bank`, `PaymentMethodCreateParamsFpx.bank`, `SetupIntentConfirmParamsPaymentMethodDatumFpx.bank`, `SetupIntentCreateParamsPaymentMethodDatumFpx.bank`, and `SetupIntentModifyParamsPaymentMethodDatumFpx.bank`
+  * Add support for new value `ic_nif` on enums `CustomerCreateParamsTaxIdDatum.type`, `CustomerCreateTaxIdParams.type`, `InvoiceCreatePreviewParamsCustomerDetailTaxId.type`, `TaxIdCreateParams.type`, and `tax.CalculationCreateParamsCustomerDetailTaxId.type`
+  * Add support for `network` on `Dispute.PaymentMethodDetail.Card`
+  * Add support for new values `financial_connections.account.expected_deactivation_date_updated`, `financial_connections.account.supported_payment_method_types_updated`, `financial_connections.account.upcoming_deactivation`, `financial_connections.authorization.expected_deactivation_date_updated`, and `financial_connections.authorization.upcoming_deactivation` on enum `Event.type`
+  * Add support for `limits` and `manual_entry` on `FinancialConnections.Session` and `financial_connections.SessionCreateParams`
+  * Add support for `require_payment_method_support` on `FinancialConnections.Session.Filter` and `financial_connections.SessionCreateParamsFilter`
+  * Add support for `bank_account_token` on `FinancialConnections.Session`
+  * Add support for new values `alipay` and `mb_way` on enums `Invoice.PaymentSetting.payment_method_types`, `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+  * Add support for new values `mass_transit_parking_tax` and `parking_tax` on enums `InvoiceAddLinesParamsLineTaxAmountTaxRateDatum.tax_type`, `InvoiceLineItemModifyParamsTaxAmountTaxRateDatum.tax_type`, `InvoiceUpdateLinesParamsLineTaxAmountTaxRateDatum.tax_type`, `TaxRate.tax_type`, `TaxRateCreateParams.tax_type`, and `TaxRateModifyParams.tax_type`
+  * Add support for `metadata` on `InvoiceCreatePreviewParamsSubscriptionDetail`
+  * Add support for new value `stripe_internal_error` on enum `Issuing.Authorization.RequestHistory.reason`
+  * Add support for `business_name` on `Issuing.Card.Shipping`, `issuing.CardCreateParamsShipping`, and `issuing.CardModifyParamsShipping`
+  * Add support for new value `correos` on enum `Issuing.Card.Shipping.carrier`
+  * Add support for `allowed_payment_method_types` on `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentModifyParams`, `PaymentIntent`, `SetupIntentConfirmParams`, `SetupIntentCreateParams`, `SetupIntentModifyParams`, and `SetupIntent`
+  * Add support for `referrer` on `PaymentIntentConfirmParamsRadarOption` and `PaymentIntentCreateParamsRadarOption`
+  * Add support for `consent_collection` and `shipping_options` on `PaymentLinkModifyParams`
+  * Add support for `custom_fields`, `description`, and `footer` on `Quote.InvoiceSetting`, `QuoteCreateParamsInvoiceSetting`, `QuoteModifyParamsInvoiceSetting`, `SubscriptionSchedule.DefaultSetting.InvoiceSetting`, `SubscriptionSchedule.Phase.InvoiceSetting`, `SubscriptionScheduleCreateParamsDefaultSettingInvoiceSetting`, `SubscriptionScheduleCreateParamsPhaseInvoiceSetting`, `SubscriptionScheduleModifyParamsDefaultSettingInvoiceSetting`, and `SubscriptionScheduleModifyParamsPhaseInvoiceSetting`
+  * Add support for `customer_account` and `customer` on `Refund`
+  * Add support for `payment_method` on `Refund` and `Topup`
+  * Add support for `trial` on `SubscriptionSchedule.Phase`
+  * Add support for `mass_transit_parking_tax` and `parking_tax` on `Tax.Registration.CountryOption.Me` and `tax.RegistrationCreateParamsCountryOptionMe`
+  * Add support for new values `mass_transit_parking_tax` and `parking_tax` on enum `tax.RegistrationCreateParamsCountryOptionMe.type`
+  * Add support for new values `mass_transit_parking_tax` and `parking_tax` on enum `Tax.Registration.CountryOption.Me.type`
+  * Add support for `initiated_by` and `payment_method_options` on `Topup`
+  * Add support for new values `financial_connections.account.expected_deactivation_date_updated`, `financial_connections.account.supported_payment_method_types_updated`, `financial_connections.account.upcoming_deactivation`, `financial_connections.authorization.expected_deactivation_date_updated`, and `financial_connections.authorization.upcoming_deactivation` on enums `WebhookEndpointCreateParams.enabled_events` and `WebhookEndpointModifyParams.enabled_events`
+  * Add support for new value `2026-07-29.dahlia` on enum `WebhookEndpointCreateParams.api_version`
+  * Add support for `additional_addresses` on `V2.Core.Account.Identity.BusinessDetail`, `v2.core.AccountCreateParamsIdentityBusinessDetail`, `v2.core.AccountModifyParamsIdentityBusinessDetail`, and `v2.core.AccountTokenCreateParamsIdentityBusinessDetail`
+  * Add support for snapshot events `financial_connections.account.expected_deactivation_date_updated`, `financial_connections.account.supported_payment_method_types_updated`, and `financial_connections.account.upcoming_deactivation` with resource `financial_connections.Account`
+  * Add support for snapshot events `financial_connections.authorization.expected_deactivation_date_updated` and `financial_connections.authorization.upcoming_deactivation` with resource `financial_connections.Authorization`
+  * Enum type annotations for non-exhaustive ("open") enums are now typed as `Union[Literal[...], str]` instead of plain `Literal[...]`. Many Stripe enums are open, meaning new values may appear in new versions of the API. This change ensures these fields have the correct type for both the values known at SDK release time and other values that may be added later. Refer to the [API Reference](https://docs.stripe.com) for the latest set of allowed values.
+* [#1853](https://github.com/stripe/stripe-python/pull/1853) Fix intermittent Windows test flake in async httpx integration tests
+* [#1849](https://github.com/stripe/stripe-python/pull/1849) Use ip address directly instead of localhost to speed up windows tests
+
+## 15.3.1 - 2026-07-15
+* [#1846](https://github.com/stripe/stripe-python/pull/1846) Replace source hash with Telemetry UUID
+* [#1845](https://github.com/stripe/stripe-python/pull/1845) Make Error fields generated
+* [#1843](https://github.com/stripe/stripe-python/pull/1843) Remove unused Retry-After header support
+* [#1834](https://github.com/stripe/stripe-python/pull/1834) Reduce StripeClient() cold start latency for serverless environments
+  - Moves HTTP library imports to module load time to better accommodate AWS Lambda and other serverless environments that have separate Init phase and Invoke phase time budgets.
+
+## 15.3.0 - 2026-06-24
+This release changes the pinned API version to 2026-06-24.dahlia.
+
+* [#1836](https://github.com/stripe/stripe-python/pull/1836) Update generated code
+  * Add support for `release_details` on `Reserve.Hold`
+  * ⚠️ Add support for new value `tax_fund` on enum `BalanceTransaction.type`
+  * Change `Billing.CreditGrant.priority` to be required
+  * Add support for `buyer_id` on `Charge.PaymentMethodDetail.Bizum`, `ConfirmationToken.PaymentMethodPreview.Bizum`, `ConfirmationToken.PaymentMethodPreview.Blik`, `PaymentAttemptRecord.PaymentMethodDetail.Bizum`, `PaymentMethod.Bizum`, `PaymentMethod.Blik`, and `PaymentRecord.PaymentMethodDetail.Bizum`
+  * Add support for `transaction_link_id` on `Charge.PaymentMethodDetail.Card`
+  * ⚠️ Add support for new value `sui` on enums `Charge.PaymentMethodDetail.Crypto.network`, `PaymentAttemptRecord.PaymentMethodDetail.Crypto.network`, and `PaymentRecord.PaymentMethodDetail.Crypto.network`
+  * ⚠️ Add support for new value `usdsui` on enums `Charge.PaymentMethodDetail.Crypto.token_currency`, `PaymentAttemptRecord.PaymentMethodDetail.Crypto.token_currency`, and `PaymentRecord.PaymentMethodDetail.Crypto.token_currency`
+  * Add support for `fingerprint` on `Charge.PaymentMethodDetail.Pix`, `ConfirmationToken.PaymentMethodPreview.Pix`, `PaymentMethod.Pix`, and `SetupAttempt.PaymentMethodDetail.Pix`
+  * Add support for `sunbit` on `Checkout.Session.PaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, `PaymentIntentConfirmParamsPaymentMethodOption`, `PaymentIntentCreateParamsPaymentMethodOption`, `PaymentIntentModifyParamsPaymentMethodOption`, and `checkout.SessionCreateParamsPaymentMethodOption`
+  * Add support for `billing_cycle_anchor_config` on `checkout.SessionCreateParamsSubscriptionDatum`
+  * Add support for `wechat_pay` on `Checkout.Session.PaymentMethodOption`
+  * Add support for `mastercard_compliance` on `Dispute.Evidence.EnhancedEvidence`, `Dispute.EvidenceDetail.EnhancedEligibility`, and `DisputeModifyParamsEvidenceEnhancedEvidence`
+  * ⚠️ Add support for new value `mastercard_compliance` on enum `Dispute.enhanced_eligibility_types`
+  * Add support for `status_details` on `FinancialConnections.Account`
+  * ⚠️ Add support for new value `validated` on enum `Identity.VerificationSession.Redaction.status`
+  * Add support for new value `satispay` on enums `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+  * ⚠️ Add support for new value `satispay` on enums `Invoice.PaymentSetting.payment_method_types` and `Subscription.PaymentSetting.payment_method_types`
+  * ⚠️ Remove support for `stored_credential_usage` on `PaymentAttemptRecord.PaymentMethodDetail.Card` and `PaymentRecord.PaymentMethodDetail.Card`
+  * ⚠️ Change `PaymentAttemptRecord.PaymentMethodDetail.Card.description` and `PaymentRecord.PaymentMethodDetail.Card.description` to be optional
+  * ⚠️ Change `PaymentAttemptRecord.PaymentMethodDetail.Card.iin` and `PaymentRecord.PaymentMethodDetail.Card.iin` to be optional
+  * ⚠️ Change `PaymentAttemptRecord.PaymentMethodDetail.Card.issuer` and `PaymentRecord.PaymentMethodDetail.Card.issuer` to be optional
+  * Add support for `setup_future_usage` on `PaymentIntent.PaymentMethodOption.Satispay`, `PaymentIntentConfirmParamsPaymentMethodOptionSatispay`, `PaymentIntentCreateParamsPaymentMethodOptionSatispay`, and `PaymentIntentModifyParamsPaymentMethodOptionSatispay`
+  * Change `PaymentRecordReportRefundParams.refunded` to be optional
+  * Add support for `satispay` on `SetupAttempt.PaymentMethodDetail`
+  * Add support for `custom_fields`, `description`, and `footer` on `Subscription.InvoiceSetting`, `SubscriptionCreateParamsInvoiceSetting`, and `SubscriptionModifyParamsInvoiceSetting`
+  * Add support for `payment_method_options` and `payment_method` on `TopupCreateParams`
+  * Add support for new value `2026-06-24.dahlia` on enum `WebhookEndpointCreateParams.api_version`
+  * Add support for `mode` on `V2.Commerce.ProductCatalogImport`
+  * ⚠️ Add support for new value `promotion` on enum `V2.Commerce.ProductCatalogImport.feed_type`
+  * Add support for `sunbit_payments` on `V2.Core.Account.Configuration.Merchant.Capability`, `v2.core.AccountCreateParamsConfigurationMerchantCapability`, and `v2.core.AccountModifyParamsConfigurationMerchantCapability`
+  * Add support for `crypto_money_manager` and `money_manager` on `v2.core.AccountModifyParamsIdentityAttestationTermsOfService`
+  * ⚠️ Remove support for `crypto_storer` and `storer` on `v2.core.AccountModifyParamsIdentityAttestationTermsOfService`
+  * Add support for new value `promotion` on enum `v2.commerce.ProductCatalogImportCreateParams.feed_type`
+  * ⚠️ Add support for new value `sunbit_payments` on enum `EventsV2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.updated_capability`
+  * Add support for error codes `anomalous_money_movement_request`, `failed_tax_calculation`, `financial_account_balance_does_not_support_currency`, `financial_account_capability_not_enabled`, and `financial_account_capability_restricted` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, `StripeError`, and `Terminal.Reader.Action.ApiError`
+
 ## 15.2.1 - 2026-06-12
 * [#1825](https://github.com/stripe/stripe-python/pull/1825) Add "source" field to user-agent header
 

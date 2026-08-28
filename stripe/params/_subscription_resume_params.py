@@ -6,7 +6,7 @@ from typing_extensions import Literal, NotRequired
 
 
 class SubscriptionResumeParams(RequestOptions):
-    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
     """
     The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -15,7 +15,7 @@ class SubscriptionResumeParams(RequestOptions):
     Specifies which fields in the response should be expanded.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) resulting from the `billing_cycle_anchor` being `unchanged`. When the `billing_cycle_anchor` is set to `now` (default value), no prorations are generated. If no value is passed, the default is `create_prorations`.

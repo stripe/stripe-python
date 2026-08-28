@@ -101,6 +101,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [payment disputes](https://docs.stripe.com/connect/supported-embedded-components/payment-disputes/) embedded component.
     """
+    payment_method_settings: NotRequired[
+        "AccountSessionCreateParamsComponentsPaymentMethodSettings"
+    ]
+    """
+    Configuration for the [payment method settings](https://docs.stripe.com/connect/supported-embedded-components/payment-method-settings/) embedded component.
+    """
     payments: NotRequired["AccountSessionCreateParamsComponentsPayments"]
     """
     Configuration for the [payments](https://docs.stripe.com/connect/supported-embedded-components/payments/) embedded component.
@@ -271,6 +277,10 @@ class AccountSessionCreateParamsComponentsDisputesListFeatures(TypedDict):
     refund_management: NotRequired[bool]
     """
     Whether sending refunds is enabled. This is `true` by default.
+    """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
     """
 
 
@@ -501,6 +511,10 @@ class AccountSessionCreateParamsComponentsPaymentDetailsFeatures(TypedDict):
     """
     Whether sending refunds is enabled. This is `true` by default.
     """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+    """
 
 
 class AccountSessionCreateParamsComponentsPaymentDisputes(TypedDict):
@@ -528,6 +542,32 @@ class AccountSessionCreateParamsComponentsPaymentDisputesFeatures(TypedDict):
     refund_management: NotRequired[bool]
     """
     Whether sending refunds is enabled. This is `true` by default.
+    """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+    """
+
+
+class AccountSessionCreateParamsComponentsPaymentMethodSettings(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures"
+    ]
+    """
+    The list of features enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures(
+    TypedDict,
+):
+    disable_stripe_user_authentication: NotRequired[bool]
+    """
+    Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
     """
 
 
@@ -560,6 +600,10 @@ class AccountSessionCreateParamsComponentsPaymentsFeatures(TypedDict):
     refund_management: NotRequired[bool]
     """
     Whether sending refunds is enabled. This is `true` by default.
+    """
+    smart_disputes_management: NotRequired[bool]
+    """
+    Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
     """
 
 

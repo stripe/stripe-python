@@ -76,8 +76,14 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
     The date that the transaction's net funds become available in the Stripe balance.
     """
-    balance_type: Literal[
-        "issuing", "payments", "refund_and_dispute_prefunding", "risk_reserved"
+    balance_type: Union[
+        Literal[
+            "issuing",
+            "payments",
+            "refund_and_dispute_prefunding",
+            "risk_reserved",
+        ],
+        str,
     ]
     """
     The balance that this transaction impacts.
@@ -96,7 +102,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
     exchange_rate: Optional[float]
     """
-    If applicable, this transaction uses an exchange rate. If money converts from currency A to currency B, then the `amount` in currency A, multipled by the `exchange_rate`, equals the `amount` in currency B. For example, if you charge a customer 10.00 EUR, the PaymentIntent's `amount` is `1000` and `currency` is `eur`. If this converts to 12.34 USD in your Stripe account, the BalanceTransaction's `amount` is `1234`, its `currency` is `usd`, and the `exchange_rate` is `1.234`.
+    If applicable, this transaction uses an exchange rate. If money converts from currency A to currency B, then the `amount` in currency A, multiplied by the `exchange_rate`, equals the `amount` in currency B. For example, if you charge a customer 10.00 EUR, the PaymentIntent's `amount` is `1000` and `currency` is `eur`. If this converts to 12.34 USD in your Stripe account, the BalanceTransaction's `amount` is `1234`, its `currency` is `usd`, and the `exchange_rate` is `1.234`.
     """
     fee: int
     """
@@ -151,59 +157,63 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
     The transaction's net funds status in the Stripe balance, which are either `available` or `pending`.
     """
-    type: Literal[
-        "adjustment",
-        "advance",
-        "advance_funding",
-        "anticipation_repayment",
-        "application_fee",
-        "application_fee_refund",
-        "charge",
-        "climate_order_purchase",
-        "climate_order_refund",
-        "connect_collection_transfer",
-        "contribution",
-        "fee_credit_funding",
-        "inbound_transfer",
-        "inbound_transfer_reversal",
-        "issuing_authorization_hold",
-        "issuing_authorization_release",
-        "issuing_dispute",
-        "issuing_transaction",
-        "obligation_outbound",
-        "obligation_reversal_inbound",
-        "payment",
-        "payment_failure_refund",
-        "payment_network_reserve_hold",
-        "payment_network_reserve_release",
-        "payment_refund",
-        "payment_reversal",
-        "payment_unreconciled",
-        "payout",
-        "payout_cancel",
-        "payout_failure",
-        "payout_minimum_balance_hold",
-        "payout_minimum_balance_release",
-        "refund",
-        "refund_failure",
-        "reserve_hold",
-        "reserve_release",
-        "reserve_transaction",
-        "reserved_funds",
-        "stripe_balance_payment_debit",
-        "stripe_balance_payment_debit_reversal",
-        "stripe_fee",
-        "stripe_fx_fee",
-        "tax_fee",
-        "topup",
-        "topup_reversal",
-        "transfer",
-        "transfer_cancel",
-        "transfer_failure",
-        "transfer_refund",
+    type: Union[
+        Literal[
+            "adjustment",
+            "advance",
+            "advance_funding",
+            "anticipation_repayment",
+            "application_fee",
+            "application_fee_refund",
+            "charge",
+            "climate_order_purchase",
+            "climate_order_refund",
+            "connect_collection_transfer",
+            "contribution",
+            "fee_credit_funding",
+            "inbound_transfer",
+            "inbound_transfer_reversal",
+            "issuing_authorization_hold",
+            "issuing_authorization_release",
+            "issuing_dispute",
+            "issuing_transaction",
+            "obligation_outbound",
+            "obligation_reversal_inbound",
+            "payment",
+            "payment_failure_refund",
+            "payment_network_reserve_hold",
+            "payment_network_reserve_release",
+            "payment_refund",
+            "payment_reversal",
+            "payment_unreconciled",
+            "payout",
+            "payout_cancel",
+            "payout_failure",
+            "payout_minimum_balance_hold",
+            "payout_minimum_balance_release",
+            "refund",
+            "refund_failure",
+            "reserve_hold",
+            "reserve_release",
+            "reserve_transaction",
+            "reserved_funds",
+            "stripe_balance_payment_debit",
+            "stripe_balance_payment_debit_reversal",
+            "stripe_fee",
+            "stripe_fx_fee",
+            "tax_fee",
+            "tax_fund",
+            "topup",
+            "topup_reversal",
+            "transfer",
+            "transfer_cancel",
+            "transfer_failure",
+            "transfer_refund",
+        ],
+        str,
     ]
     """
-    Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `inbound_transfer`, `inbound_transfer_reversal`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `reserve_hold`, `reserve_release`, `stripe_fee`, `stripe_fx_fee`, `stripe_balance_payment_debit`, `stripe_balance_payment_debit_reversal`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, `transfer_refund`, or `fee_credit_funding`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
+    Transaction type: `tax_fund`, `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `inbound_transfer`, `inbound_transfer_reversal`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `reserve_hold`, `reserve_release`, `stripe_fee`, `stripe_fx_fee`, `stripe_balance_payment_debit`, `stripe_balance_payment_debit_reversal`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, `transfer_refund`, or `fee_credit_funding`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
     """
 
     @classmethod
@@ -211,9 +221,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         cls, **params: Unpack["BalanceTransactionListParams"]
     ) -> ListObject["BalanceTransaction"]:
         """
-        Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
+        Returns a list of transactions that have contributed to the Stripe account balance (for example, charges, transfers, and so on). The transactions return in sorted order, with the most recent transactions appearing first.
 
-        Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
+        The previous name of this endpoint was “Balance history,” and it used the path /v1/balance/history.
         """
         result = cls._static_request(
             "get",
@@ -233,9 +243,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         cls, **params: Unpack["BalanceTransactionListParams"]
     ) -> ListObject["BalanceTransaction"]:
         """
-        Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
+        Returns a list of transactions that have contributed to the Stripe account balance (for example, charges, transfers, and so on). The transactions return in sorted order, with the most recent transactions appearing first.
 
-        Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
+        The previous name of this endpoint was “Balance history,” and it used the path /v1/balance/history.
         """
         result = await cls._static_request_async(
             "get",

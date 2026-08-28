@@ -145,6 +145,12 @@ class DisputeModifyParamsEvidence(TypedDict):
 
 
 class DisputeModifyParamsEvidenceEnhancedEvidence(TypedDict):
+    mastercard_compliance: NotRequired[
+        "DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance"
+    ]
+    """
+    Evidence provided for Mastercard compliance evidence submission.
+    """
     visa_compelling_evidence_3: NotRequired[
         "DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3"
     ]
@@ -156,6 +162,15 @@ class DisputeModifyParamsEvidenceEnhancedEvidence(TypedDict):
     ]
     """
     Evidence provided for Visa compliance evidence submission.
+    """
+
+
+class DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance(
+    TypedDict,
+):
+    fee_acknowledged: NotRequired[bool]
+    """
+    A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
     """
 
 
@@ -201,7 +216,9 @@ class DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3Disputed
     """
     The IP address that the customer used when making the purchase.
     """
-    merchandise_or_services: NotRequired[Literal["merchandise", "services"]]
+    merchandise_or_services: NotRequired[
+        "Literal['merchandise', 'services']|str"
+    ]
     """
     Categorization of disputed payment.
     """

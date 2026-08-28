@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -16,7 +16,7 @@ class AccountCreateParams(RequestOptions):
     Business information about the account.
     """
     business_type: NotRequired[
-        Literal["company", "government_entity", "individual", "non_profit"]
+        "Literal['company', 'government_entity', 'individual', 'non_profit']|str"
     ]
     """
     The business type. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
@@ -90,7 +90,7 @@ class AccountCreateParams(RequestOptions):
     """
     Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
     """
-    type: NotRequired[Literal["custom", "express", "standard"]]
+    type: NotRequired["Literal['custom', 'express', 'standard']|str"]
     """
     The `type` parameter is deprecated. Use [`controller`](https://docs.stripe.com/api/accounts/create#create_account-controller) instead to configure dashboard access, fee payer, loss liability, and requirement collection.
     """
@@ -113,12 +113,15 @@ class AccountCreateParamsBusinessProfile(TypedDict):
     """
     minority_owned_business_designation: NotRequired[
         List[
-            Literal[
-                "lgbtqi_owned_business",
-                "minority_owned_business",
-                "none_of_these_apply",
-                "prefer_not_to_answer",
-                "women_owned_business",
+            Union[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ],
+                str,
             ]
         ]
     ]
@@ -1048,6 +1051,12 @@ class AccountCreateParamsCompany(TypedDict):
     """
     The Kanji variation of the company's primary address (Japan only).
     """
+    administrative_address: NotRequired[
+        "AccountCreateParamsCompanyAdministrativeAddress"
+    ]
+    """
+    The location where the business is administered.
+    """
     directors_provided: NotRequired[bool]
     """
     Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
@@ -1093,7 +1102,7 @@ class AccountCreateParamsCompany(TypedDict):
     This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
     """
     ownership_exemption_reason: NotRequired[
-        "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']|str"
     ]
     """
     This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
@@ -1101,6 +1110,12 @@ class AccountCreateParamsCompany(TypedDict):
     phone: NotRequired[str]
     """
     The company's phone number (used for verification).
+    """
+    principal_place_of_business: NotRequired[
+        "AccountCreateParamsCompanyPrincipalPlaceOfBusiness"
+    ]
+    """
+    The primary location where the business conducts operations.
     """
     registration_date: NotRequired[
         "Literal['']|AccountCreateParamsCompanyRegistrationDate"
@@ -1119,7 +1134,7 @@ class AccountCreateParamsCompany(TypedDict):
     This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
     """
     structure: NotRequired[
-        "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
+        "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']|str"
     ]
     """
     The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -1127,6 +1142,8 @@ class AccountCreateParamsCompany(TypedDict):
     tax_id: NotRequired[str]
     """
     The business ID number of the company, as appropriate for the company's country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+
+    Changing this value requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     tax_id_registrar: NotRequired[str]
     """
@@ -1231,6 +1248,33 @@ class AccountCreateParamsCompanyAddressKanji(TypedDict):
     """
 
 
+class AccountCreateParamsCompanyAdministrativeAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
 class AccountCreateParamsCompanyDirectorshipDeclaration(TypedDict):
     date: NotRequired[int]
     """
@@ -1258,6 +1302,33 @@ class AccountCreateParamsCompanyOwnershipDeclaration(TypedDict):
     user_agent: NotRequired[str]
     """
     The user agent of the browser from which the beneficial owner attestation was made.
+    """
+
+
+class AccountCreateParamsCompanyPrincipalPlaceOfBusiness(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1318,7 +1389,7 @@ class AccountCreateParamsController(TypedDict):
     """
     A hash of configuration for products that have negative balance liability, and whether Stripe or a Connect application is responsible for them.
     """
-    requirement_collection: NotRequired[Literal["application", "stripe"]]
+    requirement_collection: NotRequired["Literal['application', 'stripe']|str"]
     """
     A value indicating responsibility for collecting updated information when requirements on the account are due or change. Defaults to `stripe`.
     """
@@ -1331,21 +1402,21 @@ class AccountCreateParamsController(TypedDict):
 
 
 class AccountCreateParamsControllerFees(TypedDict):
-    payer: NotRequired[Literal["account", "application"]]
+    payer: NotRequired["Literal['account', 'application']|str"]
     """
     A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
     """
 
 
 class AccountCreateParamsControllerLosses(TypedDict):
-    payments: NotRequired[Literal["application", "stripe"]]
+    payments: NotRequired["Literal['application', 'stripe']|str"]
     """
     A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
     """
 
 
 class AccountCreateParamsControllerStripeDashboard(TypedDict):
-    type: NotRequired[Literal["express", "full", "none"]]
+    type: NotRequired["Literal['express', 'full', 'none']|str"]
     """
     Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
     """
@@ -1366,7 +1437,7 @@ class AccountCreateParamsDocuments(TypedDict):
         "AccountCreateParamsDocumentsCompanyMemorandumOfAssociation"
     ]
     """
-    One or more documents showing the company's Memorandum of Association.
+    One or more documents showing the company's governing document (for example, a memorandum of association, constitution, or articles of association).
     """
     company_ministerial_decree: NotRequired[
         "AccountCreateParamsDocumentsCompanyMinisterialDecree"
@@ -1389,12 +1460,6 @@ class AccountCreateParamsDocuments(TypedDict):
     proof_of_address: NotRequired["AccountCreateParamsDocumentsProofOfAddress"]
     """
     One or more documents that demonstrate proof of address.
-    """
-    proof_of_registration: NotRequired[
-        "AccountCreateParamsDocumentsProofOfRegistration"
-    ]
-    """
-    One or more documents showing the company's proof of registration with the national business registry.
     """
     proof_of_ultimate_beneficial_ownership: NotRequired[
         "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership"
@@ -1453,26 +1518,6 @@ class AccountCreateParamsDocumentsProofOfAddress(TypedDict):
     """
 
 
-class AccountCreateParamsDocumentsProofOfRegistration(TypedDict):
-    files: NotRequired[List[str]]
-    """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
-    """
-    signer: NotRequired[
-        "AccountCreateParamsDocumentsProofOfRegistrationSigner"
-    ]
-    """
-    Information regarding the person signing the document if applicable.
-    """
-
-
-class AccountCreateParamsDocumentsProofOfRegistrationSigner(TypedDict):
-    person: NotRequired[str]
-    """
-    The token of the person signing the document, if applicable.
-    """
-
-
 class AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership(
     TypedDict
 ):
@@ -1503,7 +1548,7 @@ class AccountCreateParamsBankAccount(TypedDict):
     """
     The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
     """
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
     """
@@ -1634,7 +1679,7 @@ class AccountCreateParamsIndividual(TypedDict):
     """
     The individual's phone number.
     """
-    political_exposure: NotRequired[Literal["existing", "none"]]
+    political_exposure: NotRequired["Literal['existing', 'none']|str"]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """
@@ -1966,7 +2011,7 @@ class AccountCreateParamsSettingsCardPaymentsDeclineOn(TypedDict):
 
 class AccountCreateParamsSettingsInvoices(TypedDict):
     hosted_payment_method_save: NotRequired[
-        Literal["always", "never", "offer"]
+        "Literal['always', 'never', 'offer']|str"
     ]
     """
     Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
@@ -2008,7 +2053,9 @@ class AccountCreateParamsSettingsPayoutsSchedule(TypedDict):
     """
     The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
     """
-    interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
+    interval: NotRequired[
+        "Literal['daily', 'manual', 'monthly', 'weekly']|str"
+    ]
     """
     How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
     """
@@ -2021,21 +2068,20 @@ class AccountCreateParamsSettingsPayoutsSchedule(TypedDict):
     The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
     """
     weekly_anchor: NotRequired[
-        Literal[
-            "friday",
-            "monday",
-            "saturday",
-            "sunday",
-            "thursday",
-            "tuesday",
-            "wednesday",
-        ]
+        "Literal['friday', 'monday', 'saturday', 'sunday', 'thursday', 'tuesday', 'wednesday']|str"
     ]
     """
     The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
     """
     weekly_payout_days: NotRequired[
-        List[Literal["friday", "monday", "thursday", "tuesday", "wednesday"]]
+        List[
+            Union[
+                Literal[
+                    "friday", "monday", "thursday", "tuesday", "wednesday"
+                ],
+                str,
+            ]
+        ]
     ]
     """
     The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.

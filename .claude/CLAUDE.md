@@ -33,6 +33,9 @@
 - Virtual env managed in `.venv/`; `just` recipes handle setup automatically
 - Work is not complete until `just test`, `just lint` and `just typecheck` complete successfully.
 - All code must run on all supported Python versions (full list in the test section of @.github/workflows/ci.yml)
+- In test files, prefer pytest fixtures over module-level declarations
+- Prefer f-strings over `.format` in new code.
+    - When editing a method, update any `.format` calls to use f-strings.
 
 ### Comments
 

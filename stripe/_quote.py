@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import Any, ClassVar, List, Optional, cast, overload
+from typing import Any, ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -57,7 +57,7 @@ class Quote(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Union[Literal["account", "self"], str]
             """
             Type of the account referenced.
             """
@@ -75,7 +75,9 @@ class Quote(
         The tax provider powering automatic tax.
         """
         status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
+            Union[
+                Literal["complete", "failed", "requires_location_inputs"], str
+            ]
         ]
         """
         The status of the most recent automated tax calculation for this quote.
@@ -111,22 +113,25 @@ class Quote(
                         Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
+                            Union[
+                                Literal[
+                                    "customer_exempt",
+                                    "not_collecting",
+                                    "not_subject_to_tax",
+                                    "not_supported",
+                                    "portion_product_exempt",
+                                    "portion_reduced_rated",
+                                    "portion_standard_rated",
+                                    "product_exempt",
+                                    "product_exempt_holiday",
+                                    "proportionally_rated",
+                                    "reduced_rated",
+                                    "reverse_charge",
+                                    "standard_rated",
+                                    "taxable_basis_reduced",
+                                    "zero_rated",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -170,7 +175,7 @@ class Quote(
             """
             Total after discounts and taxes are applied.
             """
-            interval: Literal["day", "month", "week", "year"]
+            interval: Union[Literal["day", "month", "week", "year"], str]
             """
             The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
             """
@@ -209,22 +214,25 @@ class Quote(
                         Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
+                            Union[
+                                Literal[
+                                    "customer_exempt",
+                                    "not_collecting",
+                                    "not_subject_to_tax",
+                                    "not_supported",
+                                    "portion_product_exempt",
+                                    "portion_reduced_rated",
+                                    "portion_standard_rated",
+                                    "product_exempt",
+                                    "product_exempt_holiday",
+                                    "proportionally_rated",
+                                    "reduced_rated",
+                                    "reverse_charge",
+                                    "standard_rated",
+                                    "taxable_basis_reduced",
+                                    "zero_rated",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -293,22 +301,44 @@ class Quote(
         """
 
     class InvoiceSettings(StripeObject):
+        class CustomField(StripeObject):
+            name: str
+            """
+            The name of the custom field.
+            """
+            value: str
+            """
+            The value of the custom field.
+            """
+
         class Issuer(StripeObject):
             account: Optional[ExpandableField["Account"]]
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Union[Literal["account", "self"], str]
             """
             Type of the account referenced.
             """
 
+        custom_fields: Optional[List[CustomField]]
+        """
+        A list of up to 4 custom fields to be displayed on the invoice.
+        """
         days_until_due: Optional[int]
         """
         Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
         """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        footer: Optional[str]
+        """
+        Footer to be displayed on the invoice.
+        """
         issuer: Issuer
-        _inner_class_types = {"issuer": Issuer}
+        _inner_class_types = {"custom_fields": CustomField, "issuer": Issuer}
 
     class StatusTransitions(StripeObject):
         accepted_at: Optional[int]
@@ -327,13 +357,15 @@ class Quote(
     class SubscriptionData(StripeObject):
         class BillingMode(StripeObject):
             class Flexible(StripeObject):
-                proration_discounts: Optional[Literal["included", "itemized"]]
+                proration_discounts: Optional[
+                    Union[Literal["included", "itemized"], str]
+                ]
                 """
                 Controls how invoices and invoice items display proration amounts and discount amounts.
                 """
 
             flexible: Optional[Flexible]
-            type: Literal["classic", "flexible"]
+            type: Union[Literal["classic", "flexible"], str]
             """
             Controls how prorations and invoices for subscriptions are calculated and orchestrated.
             """
@@ -388,22 +420,25 @@ class Quote(
                 Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
-                    Literal[
-                        "customer_exempt",
-                        "not_collecting",
-                        "not_subject_to_tax",
-                        "not_supported",
-                        "portion_product_exempt",
-                        "portion_reduced_rated",
-                        "portion_standard_rated",
-                        "product_exempt",
-                        "product_exempt_holiday",
-                        "proportionally_rated",
-                        "reduced_rated",
-                        "reverse_charge",
-                        "standard_rated",
-                        "taxable_basis_reduced",
-                        "zero_rated",
+                    Union[
+                        Literal[
+                            "customer_exempt",
+                            "not_collecting",
+                            "not_subject_to_tax",
+                            "not_supported",
+                            "portion_product_exempt",
+                            "portion_reduced_rated",
+                            "portion_standard_rated",
+                            "product_exempt",
+                            "product_exempt_holiday",
+                            "proportionally_rated",
+                            "reduced_rated",
+                            "reverse_charge",
+                            "standard_rated",
+                            "taxable_basis_reduced",
+                            "zero_rated",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -474,7 +509,9 @@ class Quote(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote.
     """
     automatic_tax: AutomaticTax
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
     """
@@ -556,7 +593,7 @@ class Quote(
     """
     The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     """
-    status: Literal["accepted", "canceled", "draft", "open"]
+    status: Union[Literal["accepted", "canceled", "draft", "open"], str]
     """
     The status of the quote.
     """

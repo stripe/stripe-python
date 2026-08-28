@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -57,127 +57,131 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
 
         class TaxId(StripeObject):
-            type: Literal[
-                "ad_nrt",
-                "ae_trn",
-                "al_tin",
-                "am_tin",
-                "ao_tin",
-                "ar_cuit",
-                "au_abn",
-                "au_arn",
-                "aw_tin",
-                "az_tin",
-                "ba_tin",
-                "bb_tin",
-                "bd_bin",
-                "bf_ifu",
-                "bg_uic",
-                "bh_vat",
-                "bj_ifu",
-                "bo_tin",
-                "br_cnpj",
-                "br_cpf",
-                "bs_tin",
-                "by_tin",
-                "ca_bn",
-                "ca_gst_hst",
-                "ca_pst_bc",
-                "ca_pst_mb",
-                "ca_pst_sk",
-                "ca_qst",
-                "cd_nif",
-                "ch_uid",
-                "ch_vat",
-                "cl_tin",
-                "cm_niu",
-                "cn_tin",
-                "co_nit",
-                "cr_tin",
-                "cv_nif",
-                "de_stn",
-                "do_rcn",
-                "ec_ruc",
-                "eg_tin",
-                "es_cif",
-                "et_tin",
-                "eu_oss_vat",
-                "eu_vat",
-                "fo_vat",
-                "gb_vat",
-                "ge_vat",
-                "gi_tin",
-                "gn_nif",
-                "hk_br",
-                "hr_oib",
-                "hu_tin",
-                "id_npwp",
-                "il_vat",
-                "in_gst",
-                "is_vat",
-                "it_cf",
-                "jp_cn",
-                "jp_rn",
-                "jp_trn",
-                "ke_pin",
-                "kg_tin",
-                "kh_tin",
-                "kr_brn",
-                "kz_bin",
-                "la_tin",
-                "li_uid",
-                "li_vat",
-                "lk_vat",
-                "ma_vat",
-                "md_vat",
-                "me_pib",
-                "mk_vat",
-                "mr_nif",
-                "mx_rfc",
-                "my_frp",
-                "my_itn",
-                "my_sst",
-                "ng_tin",
-                "no_vat",
-                "no_voec",
-                "np_pan",
-                "nz_gst",
-                "om_vat",
-                "pe_ruc",
-                "ph_tin",
-                "pl_nip",
-                "py_ruc",
-                "ro_tin",
-                "rs_pib",
-                "ru_inn",
-                "ru_kpp",
-                "sa_vat",
-                "sg_gst",
-                "sg_uen",
-                "si_tin",
-                "sn_ninea",
-                "sr_fin",
-                "sv_nit",
-                "th_vat",
-                "tj_tin",
-                "tr_tin",
-                "tw_vat",
-                "tz_vat",
-                "ua_vat",
-                "ug_tin",
-                "unknown",
-                "us_ein",
-                "uy_ruc",
-                "uz_tin",
-                "uz_vat",
-                "ve_rif",
-                "vn_tin",
-                "za_vat",
-                "zm_tin",
-                "zw_tin",
+            type: Union[
+                Literal[
+                    "ad_nrt",
+                    "ae_trn",
+                    "al_tin",
+                    "am_tin",
+                    "ao_tin",
+                    "ar_cuit",
+                    "au_abn",
+                    "au_arn",
+                    "aw_tin",
+                    "az_tin",
+                    "ba_tin",
+                    "bb_tin",
+                    "bd_bin",
+                    "bf_ifu",
+                    "bg_uic",
+                    "bh_vat",
+                    "bj_ifu",
+                    "bo_tin",
+                    "br_cnpj",
+                    "br_cpf",
+                    "bs_tin",
+                    "by_tin",
+                    "ca_bn",
+                    "ca_gst_hst",
+                    "ca_pst_bc",
+                    "ca_pst_mb",
+                    "ca_pst_sk",
+                    "ca_qst",
+                    "cd_nif",
+                    "ch_uid",
+                    "ch_vat",
+                    "cl_tin",
+                    "cm_niu",
+                    "cn_tin",
+                    "co_nit",
+                    "cr_tin",
+                    "cv_nif",
+                    "de_stn",
+                    "do_rcn",
+                    "ec_ruc",
+                    "eg_tin",
+                    "es_cif",
+                    "et_tin",
+                    "eu_oss_vat",
+                    "eu_vat",
+                    "fo_vat",
+                    "gb_vat",
+                    "ge_vat",
+                    "gi_tin",
+                    "gn_nif",
+                    "hk_br",
+                    "hr_oib",
+                    "hu_tin",
+                    "ic_nif",
+                    "id_npwp",
+                    "il_vat",
+                    "in_gst",
+                    "is_vat",
+                    "it_cf",
+                    "jp_cn",
+                    "jp_rn",
+                    "jp_trn",
+                    "ke_pin",
+                    "kg_tin",
+                    "kh_tin",
+                    "kr_brn",
+                    "kz_bin",
+                    "la_tin",
+                    "li_uid",
+                    "li_vat",
+                    "lk_vat",
+                    "ma_vat",
+                    "md_vat",
+                    "me_pib",
+                    "mk_vat",
+                    "mr_nif",
+                    "mx_rfc",
+                    "my_frp",
+                    "my_itn",
+                    "my_sst",
+                    "ng_tin",
+                    "no_vat",
+                    "no_voec",
+                    "np_pan",
+                    "nz_gst",
+                    "om_vat",
+                    "pe_ruc",
+                    "ph_tin",
+                    "pl_nip",
+                    "py_ruc",
+                    "ro_tin",
+                    "rs_pib",
+                    "ru_inn",
+                    "ru_kpp",
+                    "sa_vat",
+                    "sg_gst",
+                    "sg_uen",
+                    "si_tin",
+                    "sn_ninea",
+                    "sr_fin",
+                    "sv_nit",
+                    "th_vat",
+                    "tj_tin",
+                    "tr_tin",
+                    "tw_vat",
+                    "tz_vat",
+                    "ua_vat",
+                    "ug_tin",
+                    "unknown",
+                    "us_ein",
+                    "uy_ruc",
+                    "uz_tin",
+                    "uz_vat",
+                    "ve_rif",
+                    "vn_tin",
+                    "za_vat",
+                    "zm_tin",
+                    "zw_tin",
+                ],
+                str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
             """
             value: str
             """
@@ -188,7 +192,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         The customer's postal address (for example, home or business location).
         """
-        address_source: Optional[Literal["billing", "shipping"]]
+        address_source: Optional[Union[Literal["billing", "shipping"], str]]
         """
         The type of customer address provided.
         """
@@ -200,8 +204,8 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         The customer's tax IDs (for example, EU VAT numbers).
         """
-        taxability_override: Literal[
-            "customer_exempt", "none", "reverse_charge"
+        taxability_override: Union[
+            Literal["customer_exempt", "none", "reverse_charge"], str
         ]
         """
         The taxability override used for taxation.
@@ -249,8 +253,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
                 """
                 A human-readable name for the jurisdiction imposing the tax.
                 """
-                level: Literal[
-                    "city", "country", "county", "district", "state"
+                level: Union[
+                    Literal["city", "country", "county", "district", "state"],
+                    str,
                 ]
                 """
                 Indicates the level of the jurisdiction imposing the tax.
@@ -269,21 +274,26 @@ class Calculation(CreateableAPIResource["Calculation"]):
                 """
                 The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
                 """
-                tax_type: Literal[
-                    "amusement_tax",
-                    "communications_tax",
-                    "gst",
-                    "hst",
-                    "igst",
-                    "jct",
-                    "lease_tax",
-                    "pst",
-                    "qst",
-                    "retail_delivery_fee",
-                    "rst",
-                    "sales_tax",
-                    "service_tax",
-                    "vat",
+                tax_type: Union[
+                    Literal[
+                        "amusement_tax",
+                        "communications_tax",
+                        "gst",
+                        "hst",
+                        "igst",
+                        "jct",
+                        "lease_tax",
+                        "mass_transit_parking_tax",
+                        "parking_tax",
+                        "pst",
+                        "qst",
+                        "retail_delivery_fee",
+                        "rst",
+                        "sales_tax",
+                        "service_tax",
+                        "vat",
+                    ],
+                    str,
                 ]
                 """
                 The tax type, such as `vat` or `sales_tax`.
@@ -294,7 +304,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
             jurisdiction: Jurisdiction
-            sourcing: Literal["destination", "origin"]
+            sourcing: Union[Literal["destination", "origin"], str]
             """
             Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
             """
@@ -302,22 +312,25 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             Details regarding the rate for this tax. This field will be `null` when the tax is not imposed, for example if the product is exempt from tax.
             """
-            taxability_reason: Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
+            taxability_reason: Union[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ],
+                str,
             ]
             """
             The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -343,7 +356,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
         """
@@ -381,7 +394,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             The tax rate percentage as a string. For example, 8.5% is represented as `"8.5"`.
             """
-            rate_type: Optional[Literal["flat_amount", "percentage"]]
+            rate_type: Optional[
+                Union[Literal["flat_amount", "percentage"], str]
+            ]
             """
             Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location. This field is only present for TaxRates created by Stripe Tax.
             """
@@ -390,21 +405,26 @@ class Calculation(CreateableAPIResource["Calculation"]):
             State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
             tax_type: Optional[
-                Literal[
-                    "amusement_tax",
-                    "communications_tax",
-                    "gst",
-                    "hst",
-                    "igst",
-                    "jct",
-                    "lease_tax",
-                    "pst",
-                    "qst",
-                    "retail_delivery_fee",
-                    "rst",
-                    "sales_tax",
-                    "service_tax",
-                    "vat",
+                Union[
+                    Literal[
+                        "amusement_tax",
+                        "communications_tax",
+                        "gst",
+                        "hst",
+                        "igst",
+                        "jct",
+                        "lease_tax",
+                        "mass_transit_parking_tax",
+                        "parking_tax",
+                        "pst",
+                        "qst",
+                        "retail_delivery_fee",
+                        "rst",
+                        "sales_tax",
+                        "service_tax",
+                        "vat",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -421,22 +441,25 @@ class Calculation(CreateableAPIResource["Calculation"]):
         Specifies whether the tax amount is included in the line item amount.
         """
         tax_rate_details: TaxRateDetails
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules.

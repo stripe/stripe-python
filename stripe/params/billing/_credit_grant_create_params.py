@@ -15,7 +15,7 @@ class CreditGrantCreateParams(RequestOptions):
     """
     Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
     """
-    category: NotRequired[Literal["paid", "promotional"]]
+    category: NotRequired["Literal['paid', 'promotional']|str"]
     """
     The category of this credit grant. It defaults to `paid` if not specified.
     """
@@ -91,7 +91,7 @@ class CreditGrantCreateParamsApplicabilityConfigScope(TypedDict):
         List["CreditGrantCreateParamsApplicabilityConfigScopePrice"]
     ]
     """
-    A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+    A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`. Limit 20 prices.
     """
 
 

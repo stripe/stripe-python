@@ -155,7 +155,7 @@ class BankAccount(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         past_due: Optional[List[str]]
         """
@@ -286,7 +286,7 @@ class BankAccount(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         past_due: Optional[List[str]]
         """
@@ -314,7 +314,9 @@ class BankAccount(
     """
     The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
     """
-    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
+    available_payout_methods: Optional[
+        List[Union[Literal["instant", "standard"], str]]
+    ]
     """
     A set of available payout methods for this bank account. Only values from this set should be passed as the `method` when creating a payout.
     """

@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -82,7 +82,12 @@ class TaxRate(
     The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
     """
     jurisdiction_level: Optional[
-        Literal["city", "country", "county", "district", "multiple", "state"]
+        Union[
+            Literal[
+                "city", "country", "county", "district", "multiple", "state"
+            ],
+            str,
+        ]
     ]
     """
     The level of the jurisdiction that imposes this tax rate. Will be `null` for manually defined tax rates.
@@ -103,7 +108,7 @@ class TaxRate(
     """
     Tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions.
     """
-    rate_type: Optional[Literal["flat_amount", "percentage"]]
+    rate_type: Optional[Union[Literal["flat_amount", "percentage"], str]]
     """
     Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location. This field is only present for TaxRates created by Stripe Tax.
     """
@@ -112,21 +117,26 @@ class TaxRate(
     [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
     """
     tax_type: Optional[
-        Literal[
-            "amusement_tax",
-            "communications_tax",
-            "gst",
-            "hst",
-            "igst",
-            "jct",
-            "lease_tax",
-            "pst",
-            "qst",
-            "retail_delivery_fee",
-            "rst",
-            "sales_tax",
-            "service_tax",
-            "vat",
+        Union[
+            Literal[
+                "amusement_tax",
+                "communications_tax",
+                "gst",
+                "hst",
+                "igst",
+                "jct",
+                "lease_tax",
+                "mass_transit_parking_tax",
+                "parking_tax",
+                "pst",
+                "qst",
+                "retail_delivery_fee",
+                "rst",
+                "sales_tax",
+                "service_tax",
+                "vat",
+            ],
+            str,
         ]
     ]
     """

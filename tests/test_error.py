@@ -54,6 +54,38 @@ class TestStripeError(object):
         assert err.error.code == "some_error"
         assert err.error.charge is None
 
+    def test_error_object_network_advice_code(self):
+        err = StripeError(
+            "message",
+            json_body={
+                "error": {
+                    "type": "card_error",
+                    "network_advice_code": "02",
+                }
+            },
+        )
+        assert err.error is not None
+        assert err.error.network_advice_code == "02"
+
+    def test_error_object_payment_intent(self):
+        err = StripeError(
+            "message",
+            json_body={
+                "error": {
+                    "type": "card_error",
+                    "payment_intent": {
+                        "id": "pi_123",
+                        "object": "payment_intent",
+                        "amount": 1000,
+                    },
+                }
+            },
+        )
+        assert err.error is not None
+        assert err.error.payment_intent is not None
+        assert err.error.payment_intent.id == "pi_123"
+        assert err.error.payment_intent.amount == 1000
+
     def test_error_object_not_dict(self):
         err = StripeError("message", json_body={"error": "not a dict"})
         assert err.error is None

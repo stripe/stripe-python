@@ -11,7 +11,7 @@ class SubscriptionListParams(RequestOptions):
     Filter subscriptions by their automatic tax settings.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.
@@ -65,18 +65,7 @@ class SubscriptionListParams(RequestOptions):
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
     status: NotRequired[
-        Literal[
-            "active",
-            "all",
-            "canceled",
-            "ended",
-            "incomplete",
-            "incomplete_expired",
-            "past_due",
-            "paused",
-            "trialing",
-            "unpaid",
-        ]
+        "Literal['active', 'all', 'canceled', 'ended', 'incomplete', 'incomplete_expired', 'past_due', 'paused', 'trialing', 'unpaid']|str"
     ]
     """
     The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://docs.stripe.com/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.

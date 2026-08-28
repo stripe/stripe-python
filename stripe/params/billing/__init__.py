@@ -62,6 +62,24 @@ if TYPE_CHECKING:
     from stripe.params.billing._credit_grant_void_grant_params import (
         CreditGrantVoidGrantParams as CreditGrantVoidGrantParams,
     )
+    from stripe.params.billing._feedback_option_create_params import (
+        FeedbackOptionCreateParams as FeedbackOptionCreateParams,
+    )
+    from stripe.params.billing._feedback_option_deactivate_params import (
+        FeedbackOptionDeactivateParams as FeedbackOptionDeactivateParams,
+    )
+    from stripe.params.billing._feedback_option_list_params import (
+        FeedbackOptionListParams as FeedbackOptionListParams,
+    )
+    from stripe.params.billing._feedback_option_modify_params import (
+        FeedbackOptionModifyParams as FeedbackOptionModifyParams,
+    )
+    from stripe.params.billing._feedback_option_retrieve_params import (
+        FeedbackOptionRetrieveParams as FeedbackOptionRetrieveParams,
+    )
+    from stripe.params.billing._feedback_option_update_params import (
+        FeedbackOptionUpdateParams as FeedbackOptionUpdateParams,
+    )
     from stripe.params.billing._meter_create_params import (
         MeterCreateParams as MeterCreateParams,
         MeterCreateParamsCustomerMapping as MeterCreateParamsCustomerMapping,
@@ -198,6 +216,30 @@ _import_map = {
     ),
     "CreditGrantVoidGrantParams": (
         "stripe.params.billing._credit_grant_void_grant_params",
+        False,
+    ),
+    "FeedbackOptionCreateParams": (
+        "stripe.params.billing._feedback_option_create_params",
+        False,
+    ),
+    "FeedbackOptionDeactivateParams": (
+        "stripe.params.billing._feedback_option_deactivate_params",
+        False,
+    ),
+    "FeedbackOptionListParams": (
+        "stripe.params.billing._feedback_option_list_params",
+        False,
+    ),
+    "FeedbackOptionModifyParams": (
+        "stripe.params.billing._feedback_option_modify_params",
+        False,
+    ),
+    "FeedbackOptionRetrieveParams": (
+        "stripe.params.billing._feedback_option_retrieve_params",
+        False,
+    ),
+    "FeedbackOptionUpdateParams": (
+        "stripe.params.billing._feedback_option_update_params",
         False,
     ),
     "MeterCreateParams": ("stripe.params.billing._meter_create_params", False),

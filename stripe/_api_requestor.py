@@ -1,10 +1,7 @@
 from io import BytesIO, IOBase
-import functools
-import hashlib
 import json
 import os
 import platform
-import socket
 from typing import (
     Any,
     AsyncIterable,
@@ -24,7 +21,6 @@ from typing_extensions import (
     NoReturn,
     Unpack,
 )
-import uuid
 from urllib.parse import urlsplit, urlunsplit, parse_qs
 
 # breaking circular dependency
@@ -75,19 +71,6 @@ HttpVerb = Literal["get", "post", "delete"]
 _default_proxy: Optional[str] = None
 
 
-@functools.lru_cache(maxsize=None)
-def _get_uname_hash() -> Optional[str]:
-    try:
-        parts: List[str] = list(platform.uname())
-        try:
-            parts.append(socket.gethostname())
-        except Exception:
-            pass
-        return hashlib.md5(" ".join(parts).encode()).hexdigest()
-    except Exception:
-        return None
-
-
 def _maybe_emit_stripe_notice(rheaders: Mapping[str, str]) -> None:
     notice = rheaders.get("Stripe-Notice")
     if notice:
@@ -98,6 +81,11 @@ def _maybe_emit_stripe_notice(rheaders: Mapping[str, str]) -> None:
 
 def is_v2_delete_resp(method: str, api_mode: ApiMode) -> bool:
     return method == "delete" and api_mode == "V2"
+
+
+def _generate_idempotency_key() -> str:
+    b = os.urandom(16)
+    return f"{b[0:4].hex()}-{b[4:6].hex()}-{b[6:8].hex()}-{b[8:10].hex()}-{b[10:].hex()}"
 
 
 class _APIRequestor(object):
@@ -541,9 +529,11 @@ class _APIRequestor(object):
             "lang": "python",
             "httplib": self._get_http_client().name,
         }
-        uname_hash = _get_uname_hash()
-        if uname_hash is not None:
-            ua["source"] = uname_hash
+        if stripe.enable_telemetry:
+            from stripe._telemetry_id import get_telemetry_id
+
+            if (telemetry_id := get_telemetry_id()) is not None:
+                ua["telemetry_id"] = telemetry_id
         attr_funcs: List[Tuple[str, Callable[[], str]]] = [
             ("lang_version", platform.python_version),
         ]
@@ -580,7 +570,7 @@ class _APIRequestor(object):
 
         # IKs should be set for all POST requests and v2 delete requests
         if method == "post" or (api_mode == "V2" and method == "delete"):
-            headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
+            headers.setdefault("Idempotency-Key", _generate_idempotency_key())
 
         if method == "post":
             if api_mode == "V2":

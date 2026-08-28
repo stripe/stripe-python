@@ -85,7 +85,9 @@ class CustomerUpdateParams(TypedDict):
     """
     Tax details about the customer.
     """
-    tax_exempt: NotRequired["Literal['']|Literal['exempt', 'none', 'reverse']"]
+    tax_exempt: NotRequired[
+        "Literal['']|Literal['exempt', 'none', 'reverse']|str"
+    ]
     """
     The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
     """
@@ -129,7 +131,7 @@ class CustomerUpdateParamsCashBalance(TypedDict):
 
 class CustomerUpdateParamsCashBalanceSettings(TypedDict):
     reconciliation_mode: NotRequired[
-        Literal["automatic", "manual", "merchant_default"]
+        "Literal['automatic', 'manual', 'merchant_default']|str"
     ]
     """
     Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://docs.stripe.com/payments/customer-balance/reconciliation).
@@ -172,7 +174,7 @@ class CustomerUpdateParamsInvoiceSettingsCustomField(TypedDict):
 
 class CustomerUpdateParamsInvoiceSettingsRenderingOptions(TypedDict):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -230,7 +232,9 @@ class CustomerUpdateParamsTax(TypedDict):
     """
     A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
     """
-    validate_location: NotRequired[Literal["auto", "deferred", "immediately"]]
+    validate_location: NotRequired[
+        "Literal['auto', 'deferred', 'immediately']|str"
+    ]
     """
     A flag that indicates when Stripe should validate the customer tax location. Defaults to `auto`.
     """

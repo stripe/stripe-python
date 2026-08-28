@@ -33,7 +33,7 @@ class PaymentRecordReportRefundParams(RequestOptions):
     """
     Processor information for this refund.
     """
-    refunded: "PaymentRecordReportRefundParamsRefunded"
+    refunded: NotRequired["PaymentRecordReportRefundParamsRefunded"]
     """
     Information about the payment attempt refund.
     """

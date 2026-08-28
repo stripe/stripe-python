@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -17,7 +17,7 @@ class ConfigurationModifyParams(RequestOptions):
     """
     default_return_url: NotRequired["Literal['']|str"]
     """
-    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
     """
     expand: NotRequired[List[str]]
     """
@@ -93,7 +93,7 @@ class ConfigurationModifyParamsFeatures(TypedDict):
 
 class ConfigurationModifyParamsFeaturesCustomerUpdate(TypedDict):
     allowed_updates: NotRequired[
-        "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
+        "Literal['']|List[Union[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id'], str]]"
     ]
     """
     The types of customer updates that are supported. When empty, customers are not updateable.
@@ -133,12 +133,12 @@ class ConfigurationModifyParamsFeaturesSubscriptionCancel(TypedDict):
     """
     Whether the feature is enabled.
     """
-    mode: NotRequired[Literal["at_period_end", "immediately"]]
+    mode: NotRequired["Literal['at_period_end', 'immediately']|str"]
     """
     Whether to cancel subscriptions immediately or at the end of the billing period.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
@@ -152,8 +152,12 @@ class ConfigurationModifyParamsFeaturesSubscriptionCancelCancellationReason(
     """
     Whether the feature is enabled.
     """
+    feedback_options: NotRequired["Literal['']|List[str]"]
+    """
+    The IDs of custom feedback options to use for this cancellation reason.
+    """
     options: NotRequired[
-        "Literal['']|List[Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']]"
+        "Literal['']|List[Union[Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused'], str]]"
     ]
     """
     Which cancellation reasons will be given as options to the customer.
@@ -161,12 +165,12 @@ class ConfigurationModifyParamsFeaturesSubscriptionCancelCancellationReason(
 
 
 class ConfigurationModifyParamsFeaturesSubscriptionUpdate(TypedDict):
-    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
     """
     Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
     default_allowed_updates: NotRequired[
-        "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]"
+        "Literal['']|List[Union[Literal['price', 'promotion_code', 'quantity'], str]]"
     ]
     """
     The types of subscription updates that are supported. When empty, subscriptions are not updateable.
@@ -182,7 +186,7 @@ class ConfigurationModifyParamsFeaturesSubscriptionUpdate(TypedDict):
     The list of up to 10 products that support subscription updates.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
@@ -193,7 +197,9 @@ class ConfigurationModifyParamsFeaturesSubscriptionUpdate(TypedDict):
     """
     Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
     """
-    trial_update_behavior: NotRequired[Literal["continue_trial", "end_trial"]]
+    trial_update_behavior: NotRequired[
+        "Literal['continue_trial', 'end_trial']|str"
+    ]
     """
     The behavior when updating a subscription that is trialing.
     """
@@ -247,7 +253,7 @@ class ConfigurationModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(
 class ConfigurationModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition(
     TypedDict,
 ):
-    type: Literal["decreasing_item_amount", "shortening_interval"]
+    type: Union[Literal["decreasing_item_amount", "shortening_interval"], str]
     """
     The type of condition.
     """

@@ -59,7 +59,7 @@ class InvoiceLineItemUpdateParams(TypedDict):
         "Literal['']|List[InvoiceLineItemUpdateParamsTaxAmount]"
     ]
     """
-    A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
+    A list of up to 20 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://docs.stripe.com/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://docs.stripe.com/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
     """
     tax_rates: NotRequired["Literal['']|List[str]"]
     """
@@ -108,7 +108,9 @@ class InvoiceLineItemUpdateParamsPriceData(TypedDict):
     """
     Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -168,23 +170,7 @@ class InvoiceLineItemUpdateParamsTaxAmount(TypedDict):
     Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
     """
     taxability_reason: NotRequired[
-        Literal[
-            "customer_exempt",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
-        ]
+        "Literal['customer_exempt', 'not_collecting', 'not_subject_to_tax', 'not_supported', 'portion_product_exempt', 'portion_reduced_rated', 'portion_standard_rated', 'product_exempt', 'product_exempt_holiday', 'proportionally_rated', 'reduced_rated', 'reverse_charge', 'standard_rated', 'taxable_basis_reduced', 'zero_rated']|str"
     ]
     """
     The reasoning behind this tax, for example, if the product is tax exempt.
@@ -217,7 +203,7 @@ class InvoiceLineItemUpdateParamsTaxAmountTaxRateData(TypedDict):
     The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
     """
     jurisdiction_level: NotRequired[
-        Literal["city", "country", "county", "district", "multiple", "state"]
+        "Literal['city', 'country', 'county', 'district', 'multiple', 'state']|str"
     ]
     """
     The level of the jurisdiction that imposes this tax rate.
@@ -231,22 +217,7 @@ class InvoiceLineItemUpdateParamsTaxAmountTaxRateData(TypedDict):
     [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
     """
     tax_type: NotRequired[
-        Literal[
-            "amusement_tax",
-            "communications_tax",
-            "gst",
-            "hst",
-            "igst",
-            "jct",
-            "lease_tax",
-            "pst",
-            "qst",
-            "retail_delivery_fee",
-            "rst",
-            "sales_tax",
-            "service_tax",
-            "vat",
-        ]
+        "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'mass_transit_parking_tax', 'parking_tax', 'pst', 'qst', 'retail_delivery_fee', 'rst', 'sales_tax', 'service_tax', 'vat']|str"
     ]
     """
     The high-level tax type, such as `vat` or `sales_tax`.

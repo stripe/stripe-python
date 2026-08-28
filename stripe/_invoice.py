@@ -130,15 +130,18 @@ class Invoice(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Union[Literal["account", "self"], str]
             """
             Type of the account referenced.
             """
 
         disabled_reason: Optional[
-            Literal[
-                "finalization_requires_location_inputs",
-                "finalization_system_error",
+            Union[
+                Literal[
+                    "finalization_requires_location_inputs",
+                    "finalization_system_error",
+                ],
+                str,
             ]
         ]
         """
@@ -157,7 +160,9 @@ class Invoice(
         The tax provider powering automatic tax.
         """
         status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
+            Union[
+                Literal["complete", "failed", "requires_location_inputs"], str
+            ]
         ]
         """
         The status of the most recent automated tax calculation for this invoice.
@@ -257,127 +262,131 @@ class Invoice(
         _inner_class_types = {"address": Address}
 
     class CustomerTaxId(StripeObject):
-        type: Literal[
-            "ad_nrt",
-            "ae_trn",
-            "al_tin",
-            "am_tin",
-            "ao_tin",
-            "ar_cuit",
-            "au_abn",
-            "au_arn",
-            "aw_tin",
-            "az_tin",
-            "ba_tin",
-            "bb_tin",
-            "bd_bin",
-            "bf_ifu",
-            "bg_uic",
-            "bh_vat",
-            "bj_ifu",
-            "bo_tin",
-            "br_cnpj",
-            "br_cpf",
-            "bs_tin",
-            "by_tin",
-            "ca_bn",
-            "ca_gst_hst",
-            "ca_pst_bc",
-            "ca_pst_mb",
-            "ca_pst_sk",
-            "ca_qst",
-            "cd_nif",
-            "ch_uid",
-            "ch_vat",
-            "cl_tin",
-            "cm_niu",
-            "cn_tin",
-            "co_nit",
-            "cr_tin",
-            "cv_nif",
-            "de_stn",
-            "do_rcn",
-            "ec_ruc",
-            "eg_tin",
-            "es_cif",
-            "et_tin",
-            "eu_oss_vat",
-            "eu_vat",
-            "fo_vat",
-            "gb_vat",
-            "ge_vat",
-            "gi_tin",
-            "gn_nif",
-            "hk_br",
-            "hr_oib",
-            "hu_tin",
-            "id_npwp",
-            "il_vat",
-            "in_gst",
-            "is_vat",
-            "it_cf",
-            "jp_cn",
-            "jp_rn",
-            "jp_trn",
-            "ke_pin",
-            "kg_tin",
-            "kh_tin",
-            "kr_brn",
-            "kz_bin",
-            "la_tin",
-            "li_uid",
-            "li_vat",
-            "lk_vat",
-            "ma_vat",
-            "md_vat",
-            "me_pib",
-            "mk_vat",
-            "mr_nif",
-            "mx_rfc",
-            "my_frp",
-            "my_itn",
-            "my_sst",
-            "ng_tin",
-            "no_vat",
-            "no_voec",
-            "np_pan",
-            "nz_gst",
-            "om_vat",
-            "pe_ruc",
-            "ph_tin",
-            "pl_nip",
-            "py_ruc",
-            "ro_tin",
-            "rs_pib",
-            "ru_inn",
-            "ru_kpp",
-            "sa_vat",
-            "sg_gst",
-            "sg_uen",
-            "si_tin",
-            "sn_ninea",
-            "sr_fin",
-            "sv_nit",
-            "th_vat",
-            "tj_tin",
-            "tr_tin",
-            "tw_vat",
-            "tz_vat",
-            "ua_vat",
-            "ug_tin",
-            "unknown",
-            "us_ein",
-            "uy_ruc",
-            "uz_tin",
-            "uz_vat",
-            "ve_rif",
-            "vn_tin",
-            "za_vat",
-            "zm_tin",
-            "zw_tin",
+        type: Union[
+            Literal[
+                "ad_nrt",
+                "ae_trn",
+                "al_tin",
+                "am_tin",
+                "ao_tin",
+                "ar_cuit",
+                "au_abn",
+                "au_arn",
+                "aw_tin",
+                "az_tin",
+                "ba_tin",
+                "bb_tin",
+                "bd_bin",
+                "bf_ifu",
+                "bg_uic",
+                "bh_vat",
+                "bj_ifu",
+                "bo_tin",
+                "br_cnpj",
+                "br_cpf",
+                "bs_tin",
+                "by_tin",
+                "ca_bn",
+                "ca_gst_hst",
+                "ca_pst_bc",
+                "ca_pst_mb",
+                "ca_pst_sk",
+                "ca_qst",
+                "cd_nif",
+                "ch_uid",
+                "ch_vat",
+                "cl_tin",
+                "cm_niu",
+                "cn_tin",
+                "co_nit",
+                "cr_tin",
+                "cv_nif",
+                "de_stn",
+                "do_rcn",
+                "ec_ruc",
+                "eg_tin",
+                "es_cif",
+                "et_tin",
+                "eu_oss_vat",
+                "eu_vat",
+                "fo_vat",
+                "gb_vat",
+                "ge_vat",
+                "gi_tin",
+                "gn_nif",
+                "hk_br",
+                "hr_oib",
+                "hu_tin",
+                "ic_nif",
+                "id_npwp",
+                "il_vat",
+                "in_gst",
+                "is_vat",
+                "it_cf",
+                "jp_cn",
+                "jp_rn",
+                "jp_trn",
+                "ke_pin",
+                "kg_tin",
+                "kh_tin",
+                "kr_brn",
+                "kz_bin",
+                "la_tin",
+                "li_uid",
+                "li_vat",
+                "lk_vat",
+                "ma_vat",
+                "md_vat",
+                "me_pib",
+                "mk_vat",
+                "mr_nif",
+                "mx_rfc",
+                "my_frp",
+                "my_itn",
+                "my_sst",
+                "ng_tin",
+                "no_vat",
+                "no_voec",
+                "np_pan",
+                "nz_gst",
+                "om_vat",
+                "pe_ruc",
+                "ph_tin",
+                "pl_nip",
+                "py_ruc",
+                "ro_tin",
+                "rs_pib",
+                "ru_inn",
+                "ru_kpp",
+                "sa_vat",
+                "sg_gst",
+                "sg_uen",
+                "si_tin",
+                "sn_ninea",
+                "sr_fin",
+                "sv_nit",
+                "th_vat",
+                "tj_tin",
+                "tr_tin",
+                "tw_vat",
+                "tz_vat",
+                "ua_vat",
+                "ug_tin",
+                "unknown",
+                "us_ein",
+                "uy_ruc",
+                "uz_tin",
+                "uz_vat",
+                "ve_rif",
+                "vn_tin",
+                "za_vat",
+                "zm_tin",
+                "zw_tin",
+            ],
+            str,
         ]
         """
-        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
         """
         value: Optional[str]
         """
@@ -399,7 +408,7 @@ class Invoice(
         """
         The connected account being referenced when `type` is `account`.
         """
-        type: Literal["account", "self"]
+        type: Union[Literal["account", "self"], str]
         """
         Type of the account referenced.
         """
@@ -414,197 +423,211 @@ class Invoice(
         For card errors, the ID of the failed charge.
         """
         code: Optional[
-            Literal[
-                "account_closed",
-                "account_country_invalid_address",
-                "account_error_country_change_requires_additional_steps",
-                "account_information_mismatch",
-                "account_invalid",
-                "account_number_invalid",
-                "account_token_required_for_v2_account",
-                "acss_debit_session_incomplete",
-                "action_blocked",
-                "alipay_upgrade_required",
-                "amount_too_large",
-                "amount_too_small",
-                "api_key_expired",
-                "application_fees_not_allowed",
-                "approval_required",
-                "authentication_required",
-                "balance_insufficient",
-                "balance_invalid_parameter",
-                "bank_account_bad_routing_numbers",
-                "bank_account_declined",
-                "bank_account_exists",
-                "bank_account_restricted",
-                "bank_account_unusable",
-                "bank_account_unverified",
-                "bank_account_verification_failed",
-                "billing_invalid_mandate",
-                "bitcoin_upgrade_required",
-                "capture_charge_authorization_expired",
-                "capture_unauthorized_payment",
-                "card_decline_rate_limit_exceeded",
-                "card_declined",
-                "cardholder_phone_number_required",
-                "charge_already_captured",
-                "charge_already_refunded",
-                "charge_disputed",
-                "charge_exceeds_source_limit",
-                "charge_exceeds_transaction_limit",
-                "charge_expired_for_capture",
-                "charge_invalid_parameter",
-                "charge_not_refundable",
-                "clearing_code_unsupported",
-                "country_code_invalid",
-                "country_unsupported",
-                "coupon_expired",
-                "customer_max_payment_methods",
-                "customer_max_subscriptions",
-                "customer_session_expired",
-                "customer_tax_location_invalid",
-                "debit_not_authorized",
-                "email_invalid",
-                "expired_card",
-                "financial_connections_account_inactive",
-                "financial_connections_account_pending_account_numbers",
-                "financial_connections_account_unavailable_account_numbers",
-                "financial_connections_no_successful_transaction_refresh",
-                "forwarding_api_inactive",
-                "forwarding_api_invalid_parameter",
-                "forwarding_api_retryable_upstream_error",
-                "forwarding_api_upstream_connection_error",
-                "forwarding_api_upstream_connection_timeout",
-                "forwarding_api_upstream_error",
-                "idempotency_key_in_use",
-                "incorrect_address",
-                "incorrect_cvc",
-                "incorrect_number",
-                "incorrect_zip",
-                "india_recurring_payment_mandate_canceled",
-                "instant_payouts_config_disabled",
-                "instant_payouts_currency_disabled",
-                "instant_payouts_limit_exceeded",
-                "instant_payouts_unsupported",
-                "insufficient_funds",
-                "intent_invalid_state",
-                "intent_verification_method_missing",
-                "invalid_card_type",
-                "invalid_characters",
-                "invalid_charge_amount",
-                "invalid_cvc",
-                "invalid_expiry_month",
-                "invalid_expiry_year",
-                "invalid_mandate_reference_prefix_format",
-                "invalid_number",
-                "invalid_source_usage",
-                "invalid_tax_location",
-                "invoice_no_customer_line_items",
-                "invoice_no_payment_method_types",
-                "invoice_no_subscription_line_items",
-                "invoice_not_editable",
-                "invoice_on_behalf_of_not_editable",
-                "invoice_payment_intent_requires_action",
-                "invoice_upcoming_none",
-                "livemode_mismatch",
-                "lock_timeout",
-                "missing",
-                "no_account",
-                "not_allowed_on_standard_account",
-                "out_of_inventory",
-                "ownership_declaration_not_allowed",
-                "parameter_invalid_empty",
-                "parameter_invalid_integer",
-                "parameter_invalid_string_blank",
-                "parameter_invalid_string_empty",
-                "parameter_missing",
-                "parameter_unknown",
-                "parameters_exclusive",
-                "payment_intent_action_required",
-                "payment_intent_authentication_failure",
-                "payment_intent_incompatible_payment_method",
-                "payment_intent_invalid_parameter",
-                "payment_intent_konbini_rejected_confirmation_number",
-                "payment_intent_mandate_invalid",
-                "payment_intent_payment_attempt_expired",
-                "payment_intent_payment_attempt_failed",
-                "payment_intent_rate_limit_exceeded",
-                "payment_intent_unexpected_state",
-                "payment_method_bank_account_already_verified",
-                "payment_method_bank_account_blocked",
-                "payment_method_billing_details_address_missing",
-                "payment_method_configuration_failures",
-                "payment_method_currency_mismatch",
-                "payment_method_customer_decline",
-                "payment_method_invalid_parameter",
-                "payment_method_invalid_parameter_testmode",
-                "payment_method_microdeposit_failed",
-                "payment_method_microdeposit_processing_error",
-                "payment_method_microdeposit_verification_amounts_invalid",
-                "payment_method_microdeposit_verification_amounts_mismatch",
-                "payment_method_microdeposit_verification_attempts_exceeded",
-                "payment_method_microdeposit_verification_descriptor_code_mismatch",
-                "payment_method_microdeposit_verification_timeout",
-                "payment_method_not_available",
-                "payment_method_provider_decline",
-                "payment_method_provider_timeout",
-                "payment_method_unactivated",
-                "payment_method_unexpected_state",
-                "payment_method_unsupported_type",
-                "payout_reconciliation_not_ready",
-                "payouts_limit_exceeded",
-                "payouts_not_allowed",
-                "platform_account_required",
-                "platform_api_key_expired",
-                "postal_code_invalid",
-                "processing_error",
-                "product_inactive",
-                "progressive_onboarding_limit_exceeded",
-                "rate_limit",
-                "refer_to_customer",
-                "refund_disputed_payment",
-                "request_blocked",
-                "resource_already_exists",
-                "resource_missing",
-                "return_intent_already_processed",
-                "routing_number_invalid",
-                "secret_key_required",
-                "sepa_unsupported_account",
-                "service_period_coupon_with_metered_tiered_item_unsupported",
-                "setup_attempt_failed",
-                "setup_intent_authentication_failure",
-                "setup_intent_invalid_parameter",
-                "setup_intent_mandate_invalid",
-                "setup_intent_mobile_wallet_unsupported",
-                "setup_intent_setup_attempt_expired",
-                "setup_intent_unexpected_state",
-                "shipping_address_invalid",
-                "shipping_calculation_failed",
-                "siret_invalid",
-                "sku_inactive",
-                "state_unsupported",
-                "status_transition_invalid",
-                "storer_capability_missing",
-                "storer_capability_not_active",
-                "stripe_tax_inactive",
-                "tax_id_invalid",
-                "tax_id_prohibited",
-                "taxes_calculation_failed",
-                "terminal_location_country_unsupported",
-                "terminal_reader_busy",
-                "terminal_reader_hardware_fault",
-                "terminal_reader_invalid_location_for_activation",
-                "terminal_reader_invalid_location_for_payment",
-                "terminal_reader_offline",
-                "terminal_reader_timeout",
-                "testmode_charges_only",
-                "tls_version_unsupported",
-                "token_already_used",
-                "token_card_network_invalid",
-                "token_in_use",
-                "transfer_source_balance_parameters_mismatch",
-                "transfers_not_allowed",
-                "url_invalid",
+            Union[
+                Literal[
+                    "account_closed",
+                    "account_country_invalid_address",
+                    "account_error_country_change_requires_additional_steps",
+                    "account_information_mismatch",
+                    "account_invalid",
+                    "account_number_invalid",
+                    "account_token_required_for_v2_account",
+                    "acss_debit_session_incomplete",
+                    "action_blocked",
+                    "alipay_upgrade_required",
+                    "amount_too_large",
+                    "amount_too_small",
+                    "anomalous_money_movement_request",
+                    "api_key_expired",
+                    "application_fees_not_allowed",
+                    "approval_required",
+                    "authentication_failure",
+                    "authentication_required",
+                    "balance_insufficient",
+                    "balance_invalid_parameter",
+                    "bank_account_bad_routing_numbers",
+                    "bank_account_declined",
+                    "bank_account_exists",
+                    "bank_account_restricted",
+                    "bank_account_unusable",
+                    "bank_account_unverified",
+                    "bank_account_verification_failed",
+                    "billing_invalid_mandate",
+                    "bitcoin_upgrade_required",
+                    "capability_not_active",
+                    "capture_charge_authorization_expired",
+                    "capture_unauthorized_payment",
+                    "card_decline_rate_limit_exceeded",
+                    "card_declined",
+                    "cardholder_phone_number_required",
+                    "charge_already_captured",
+                    "charge_already_refunded",
+                    "charge_disputed",
+                    "charge_exceeds_source_limit",
+                    "charge_exceeds_transaction_limit",
+                    "charge_expired_for_capture",
+                    "charge_invalid_parameter",
+                    "charge_not_refundable",
+                    "clearing_code_unsupported",
+                    "country_code_invalid",
+                    "country_unsupported",
+                    "coupon_expired",
+                    "customer_max_payment_methods",
+                    "customer_max_subscriptions",
+                    "customer_session_expired",
+                    "customer_tax_location_invalid",
+                    "debit_not_authorized",
+                    "email_invalid",
+                    "expired_card",
+                    "expired_payment_method",
+                    "failed_tax_calculation",
+                    "financial_account_balance_does_not_support_currency",
+                    "financial_account_capability_not_enabled",
+                    "financial_account_capability_restricted",
+                    "financial_connections_account_inactive",
+                    "financial_connections_account_pending_account_numbers",
+                    "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_no_successful_transaction_refresh",
+                    "forwarding_api_inactive",
+                    "forwarding_api_invalid_parameter",
+                    "forwarding_api_retryable_upstream_error",
+                    "forwarding_api_upstream_connection_error",
+                    "forwarding_api_upstream_connection_timeout",
+                    "forwarding_api_upstream_error",
+                    "idempotency_key_in_use",
+                    "incorrect_address",
+                    "incorrect_cvc",
+                    "incorrect_number",
+                    "incorrect_postal_code",
+                    "incorrect_zip",
+                    "india_recurring_payment_mandate_canceled",
+                    "instant_payouts_config_disabled",
+                    "instant_payouts_currency_disabled",
+                    "instant_payouts_limit_exceeded",
+                    "instant_payouts_unsupported",
+                    "insufficient_funds",
+                    "intent_invalid_state",
+                    "intent_verification_method_missing",
+                    "invalid_canceled_subscription_fields",
+                    "invalid_card_type",
+                    "invalid_characters",
+                    "invalid_charge_amount",
+                    "invalid_cvc",
+                    "invalid_expiry_month",
+                    "invalid_expiry_year",
+                    "invalid_mandate_reference_prefix_format",
+                    "invalid_number",
+                    "invalid_source_usage",
+                    "invalid_tax_location",
+                    "invoice_no_customer_line_items",
+                    "invoice_no_payment_method_types",
+                    "invoice_no_subscription_line_items",
+                    "invoice_not_editable",
+                    "invoice_on_behalf_of_not_editable",
+                    "invoice_payment_intent_requires_action",
+                    "invoice_upcoming_none",
+                    "livemode_mismatch",
+                    "lock_timeout",
+                    "missing",
+                    "no_account",
+                    "not_allowed_on_standard_account",
+                    "out_of_inventory",
+                    "ownership_declaration_not_allowed",
+                    "parameter_invalid_empty",
+                    "parameter_invalid_integer",
+                    "parameter_invalid_string_blank",
+                    "parameter_invalid_string_empty",
+                    "parameter_missing",
+                    "parameter_unknown",
+                    "parameters_exclusive",
+                    "payment_intent_action_required",
+                    "payment_intent_authentication_failure",
+                    "payment_intent_incompatible_payment_method",
+                    "payment_intent_invalid_parameter",
+                    "payment_intent_konbini_rejected_confirmation_number",
+                    "payment_intent_mandate_invalid",
+                    "payment_intent_payment_attempt_expired",
+                    "payment_intent_payment_attempt_failed",
+                    "payment_intent_rate_limit_exceeded",
+                    "payment_intent_unexpected_state",
+                    "payment_method_bank_account_already_verified",
+                    "payment_method_bank_account_blocked",
+                    "payment_method_billing_details_address_missing",
+                    "payment_method_configuration_failures",
+                    "payment_method_currency_mismatch",
+                    "payment_method_customer_decline",
+                    "payment_method_invalid_parameter",
+                    "payment_method_invalid_parameter_testmode",
+                    "payment_method_microdeposit_failed",
+                    "payment_method_microdeposit_processing_error",
+                    "payment_method_microdeposit_verification_amounts_invalid",
+                    "payment_method_microdeposit_verification_amounts_mismatch",
+                    "payment_method_microdeposit_verification_attempts_exceeded",
+                    "payment_method_microdeposit_verification_descriptor_code_mismatch",
+                    "payment_method_microdeposit_verification_timeout",
+                    "payment_method_not_available",
+                    "payment_method_provider_decline",
+                    "payment_method_provider_timeout",
+                    "payment_method_restricted",
+                    "payment_method_unactivated",
+                    "payment_method_unexpected_state",
+                    "payment_method_unsupported_type",
+                    "payout_reconciliation_not_ready",
+                    "payouts_limit_exceeded",
+                    "payouts_not_allowed",
+                    "platform_account_required",
+                    "platform_api_key_expired",
+                    "postal_code_invalid",
+                    "processing_error",
+                    "product_inactive",
+                    "progressive_onboarding_limit_exceeded",
+                    "rate_limit",
+                    "refer_to_customer",
+                    "refund_disputed_payment",
+                    "request_blocked",
+                    "resource_already_exists",
+                    "resource_missing",
+                    "return_intent_already_processed",
+                    "routing_number_invalid",
+                    "secret_key_required",
+                    "sepa_unsupported_account",
+                    "service_period_coupon_with_metered_tiered_item_unsupported",
+                    "setup_attempt_failed",
+                    "setup_intent_authentication_failure",
+                    "setup_intent_invalid_parameter",
+                    "setup_intent_mandate_invalid",
+                    "setup_intent_mobile_wallet_unsupported",
+                    "setup_intent_setup_attempt_expired",
+                    "setup_intent_unexpected_state",
+                    "shipping_address_invalid",
+                    "shipping_calculation_failed",
+                    "siret_invalid",
+                    "sku_inactive",
+                    "state_unsupported",
+                    "status_transition_invalid",
+                    "storer_capability_missing",
+                    "storer_capability_not_active",
+                    "stripe_tax_inactive",
+                    "tax_id_invalid",
+                    "tax_id_prohibited",
+                    "taxes_calculation_failed",
+                    "terminal_location_country_unsupported",
+                    "terminal_reader_busy",
+                    "terminal_reader_hardware_fault",
+                    "terminal_reader_invalid_location_for_activation",
+                    "terminal_reader_invalid_location_for_payment",
+                    "terminal_reader_offline",
+                    "terminal_reader_timeout",
+                    "testmode_charges_only",
+                    "tls_version_unsupported",
+                    "token_already_used",
+                    "token_card_network_invalid",
+                    "token_in_use",
+                    "transfer_source_balance_parameters_mismatch",
+                    "transfers_not_allowed",
+                    "url_invalid",
+                ],
+                str,
             ]
         ]
         """
@@ -691,11 +714,14 @@ class Invoice(
         source: Optional[
             Union["Account", "BankAccount", "CardResource", "Source"]
         ]
-        type: Literal[
-            "api_error",
-            "card_error",
-            "idempotency_error",
-            "invalid_request_error",
+        type: Union[
+            Literal[
+                "api_error",
+                "card_error",
+                "idempotency_error",
+                "invalid_request_error",
+            ],
+            str,
         ]
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
@@ -731,7 +757,7 @@ class Invoice(
         """
         Details about the subscription that generated this invoice
         """
-        type: Literal["quote_details", "subscription_details"]
+        type: Union[Literal["quote_details", "subscription_details"], str]
         """
         The type of parent that generated this invoice
         """
@@ -744,14 +770,18 @@ class Invoice(
         class PaymentMethodOptions(StripeObject):
             class AcssDebit(StripeObject):
                 class MandateOptions(StripeObject):
-                    transaction_type: Optional[Literal["business", "personal"]]
+                    transaction_type: Optional[
+                        Union[Literal["business", "personal"], str]
+                    ]
                     """
                     Transaction type of the mandate.
                     """
 
                 mandate_options: Optional[MandateOptions]
                 verification_method: Optional[
-                    Literal["automatic", "instant", "microdeposits"]
+                    Union[
+                        Literal["automatic", "instant", "microdeposits"], str
+                    ]
                 ]
                 """
                 Bank account verification method. The default value is `automatic`.
@@ -759,10 +789,13 @@ class Invoice(
                 _inner_class_types = {"mandate_options": MandateOptions}
 
             class Bancontact(StripeObject):
-                preferred_language: Literal["de", "en", "fr", "nl"]
+                preferred_language: Union[Literal["de", "en", "fr", "nl"], str]
                 """
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
+
+            class Billie(StripeObject):
+                pass
 
             class Card(StripeObject):
                 class Installments(StripeObject):
@@ -773,7 +806,7 @@ class Invoice(
 
                 installments: Optional[Installments]
                 request_three_d_secure: Optional[
-                    Literal["any", "automatic", "challenge"]
+                    Union[Literal["any", "automatic", "challenge"], str]
                 ]
                 """
                 We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -783,7 +816,9 @@ class Invoice(
             class CustomerBalance(StripeObject):
                 class BankTransfer(StripeObject):
                     class EuBankTransfer(StripeObject):
-                        country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                        country: Union[
+                            Literal["BE", "DE", "ES", "FR", "IE", "NL"], str
+                        ]
                         """
                         The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                         """
@@ -811,23 +846,28 @@ class Invoice(
                     """
                     The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
                     """
-                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    amount_type: Optional[
+                        Union[Literal["fixed", "maximum"], str]
+                    ]
                     """
                     Only `maximum` is supported.
                     """
                     purpose: Optional[
-                        Literal[
-                            "dependant_support",
-                            "government",
-                            "loan",
-                            "mortgage",
-                            "other",
-                            "pension",
-                            "personal",
-                            "retail",
-                            "salary",
-                            "tax",
-                            "utility",
+                        Union[
+                            Literal[
+                                "dependant_support",
+                                "government",
+                                "loan",
+                                "mortgage",
+                                "other",
+                                "pension",
+                                "personal",
+                                "retail",
+                                "salary",
+                                "tax",
+                                "utility",
+                            ],
+                            str,
                         ]
                     ]
                     """
@@ -838,7 +878,9 @@ class Invoice(
                 _inner_class_types = {"mandate_options": MandateOptions}
 
             class Pix(StripeObject):
-                amount_includes_iof: Optional[Literal["always", "never"]]
+                amount_includes_iof: Optional[
+                    Union[Literal["always", "never"], str]
+                ]
                 """
                 Determines if the amount includes the IOF tax.
                 """
@@ -856,7 +898,9 @@ class Invoice(
                     """
                     Amount to be charged for future payments.
                     """
-                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    amount_type: Optional[
+                        Union[Literal["fixed", "maximum"], str]
+                    ]
                     """
                     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
                     """
@@ -876,7 +920,7 @@ class Invoice(
                 class FinancialConnections(StripeObject):
                     class Filters(StripeObject):
                         account_subcategories: Optional[
-                            List[Literal["checking", "savings"]]
+                            List[Union[Literal["checking", "savings"], str]]
                         ]
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
@@ -885,11 +929,14 @@ class Invoice(
                     filters: Optional[Filters]
                     permissions: Optional[
                         List[
-                            Literal[
-                                "balances",
-                                "ownership",
-                                "payment_method",
-                                "transactions",
+                            Union[
+                                Literal[
+                                    "balances",
+                                    "ownership",
+                                    "payment_method",
+                                    "transactions",
+                                ],
+                                str,
                             ]
                         ]
                     ]
@@ -897,7 +944,14 @@ class Invoice(
                     The list of permissions to request. The `payment_method` permission must be included.
                     """
                     prefetch: Optional[
-                        List[Literal["balances", "ownership", "transactions"]]
+                        List[
+                            Union[
+                                Literal[
+                                    "balances", "ownership", "transactions"
+                                ],
+                                str,
+                            ]
+                        ]
                     ]
                     """
                     Data features requested to be retrieved upon account creation.
@@ -906,7 +960,9 @@ class Invoice(
 
                 financial_connections: Optional[FinancialConnections]
                 verification_method: Optional[
-                    Literal["automatic", "instant", "microdeposits"]
+                    Union[
+                        Literal["automatic", "instant", "microdeposits"], str
+                    ]
                 ]
                 """
                 Bank account verification method. The default value is `automatic`.
@@ -922,6 +978,10 @@ class Invoice(
             bancontact: Optional[Bancontact]
             """
             If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
+            """
+            billie: Optional[Billie]
+            """
+            If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
             """
             card: Optional[Card]
             """
@@ -958,6 +1018,7 @@ class Invoice(
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "billie": Billie,
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
@@ -978,52 +1039,59 @@ class Invoice(
         """
         payment_method_types: Optional[
             List[
-                Literal[
-                    "ach_credit_transfer",
-                    "ach_debit",
-                    "acss_debit",
-                    "affirm",
-                    "amazon_pay",
-                    "au_becs_debit",
-                    "bacs_debit",
-                    "bancontact",
-                    "boleto",
-                    "card",
-                    "cashapp",
-                    "crypto",
-                    "custom",
-                    "customer_balance",
-                    "eps",
-                    "fpx",
-                    "giropay",
-                    "grabpay",
-                    "ideal",
-                    "jp_credit_transfer",
-                    "kakao_pay",
-                    "klarna",
-                    "konbini",
-                    "kr_card",
-                    "link",
-                    "multibanco",
-                    "naver_pay",
-                    "nz_bank_account",
-                    "p24",
-                    "pay_by_bank",
-                    "payco",
-                    "paynow",
-                    "paypal",
-                    "payto",
-                    "pix",
-                    "promptpay",
-                    "revolut_pay",
-                    "sepa_credit_transfer",
-                    "sepa_debit",
-                    "sofort",
-                    "swish",
-                    "twint",
-                    "upi",
-                    "us_bank_account",
-                    "wechat_pay",
+                Union[
+                    Literal[
+                        "ach_credit_transfer",
+                        "ach_debit",
+                        "acss_debit",
+                        "affirm",
+                        "alipay",
+                        "amazon_pay",
+                        "au_becs_debit",
+                        "bacs_debit",
+                        "bancontact",
+                        "billie",
+                        "boleto",
+                        "card",
+                        "cashapp",
+                        "crypto",
+                        "custom",
+                        "customer_balance",
+                        "eps",
+                        "fpx",
+                        "giropay",
+                        "grabpay",
+                        "ideal",
+                        "jp_credit_transfer",
+                        "kakao_pay",
+                        "klarna",
+                        "konbini",
+                        "kr_card",
+                        "link",
+                        "mb_way",
+                        "multibanco",
+                        "naver_pay",
+                        "nz_bank_account",
+                        "p24",
+                        "pay_by_bank",
+                        "payco",
+                        "paynow",
+                        "paypal",
+                        "payto",
+                        "pix",
+                        "promptpay",
+                        "revolut_pay",
+                        "satispay",
+                        "sepa_credit_transfer",
+                        "sepa_debit",
+                        "sofort",
+                        "swish",
+                        "twint",
+                        "upi",
+                        "us_bank_account",
+                        "wechat_pay",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -1034,7 +1102,7 @@ class Invoice(
 
     class Rendering(StripeObject):
         class Pdf(StripeObject):
-            page_size: Optional[Literal["a4", "auto", "letter"]]
+            page_size: Optional[Union[Literal["a4", "auto", "letter"], str]]
             """
             Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
             """
@@ -1070,22 +1138,25 @@ class Invoice(
             Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
-                Literal[
-                    "customer_exempt",
-                    "not_collecting",
-                    "not_subject_to_tax",
-                    "not_supported",
-                    "portion_product_exempt",
-                    "portion_reduced_rated",
-                    "portion_standard_rated",
-                    "product_exempt",
-                    "product_exempt_holiday",
-                    "proportionally_rated",
-                    "reduced_rated",
-                    "reverse_charge",
-                    "standard_rated",
-                    "taxable_basis_reduced",
-                    "zero_rated",
+                Union[
+                    Literal[
+                        "customer_exempt",
+                        "not_collecting",
+                        "not_subject_to_tax",
+                        "not_supported",
+                        "portion_product_exempt",
+                        "portion_reduced_rated",
+                        "portion_standard_rated",
+                        "product_exempt",
+                        "product_exempt_holiday",
+                        "proportionally_rated",
+                        "reduced_rated",
+                        "reverse_charge",
+                        "standard_rated",
+                        "taxable_basis_reduced",
+                        "zero_rated",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1228,7 +1299,7 @@ class Invoice(
         """
         The discount that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount"]
+        type: Union[Literal["credit_balance_transaction", "discount"], str]
         """
         Type of the pretax credit amount referenced.
         """
@@ -1244,7 +1315,7 @@ class Invoice(
         """
         The amount of the tax, in cents (or local equivalent).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Whether this tax is inclusive or exclusive.
         """
@@ -1252,23 +1323,26 @@ class Invoice(
         """
         Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_available",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_available",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -1341,16 +1415,19 @@ class Invoice(
     The time when this invoice is currently scheduled to be automatically finalized. The field will be `null` if the invoice is not scheduled to finalize in the future. If the invoice is not in the draft state, this field will always be `null` - see `finalized_at` for the time when an already-finalized invoice was finalized.
     """
     billing_reason: Optional[
-        Literal[
-            "automatic_pending_invoice_item_invoice",
-            "manual",
-            "quote_accept",
-            "subscription",
-            "subscription_create",
-            "subscription_cycle",
-            "subscription_threshold",
-            "subscription_update",
-            "upcoming",
+        Union[
+            Literal[
+                "automatic_pending_invoice_item_invoice",
+                "manual",
+                "quote_accept",
+                "subscription",
+                "subscription_create",
+                "subscription_cycle",
+                "subscription_threshold",
+                "subscription_update",
+                "upcoming",
+            ],
+            str,
         ]
     ]
     """
@@ -1364,7 +1441,9 @@ class Invoice(
     * `subscription_update`: A subscription was updated.
     * `upcoming`: Reserved for upcoming invoices created through the Create Preview Invoice API or when an `invoice.upcoming` event is generated for an upcoming invoice on a subscription.
     """
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
     """
@@ -1412,7 +1491,9 @@ class Invoice(
     """
     The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated.
     """
-    customer_tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
+    customer_tax_exempt: Optional[
+        Union[Literal["exempt", "none", "reverse"], str]
+    ]
     """
     The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
     """
@@ -1566,7 +1647,9 @@ class Invoice(
     """
     Extra information about an invoice for the customer's credit card statement.
     """
-    status: Optional[Literal["draft", "open", "paid", "uncollectible", "void"]]
+    status: Optional[
+        Union[Literal["draft", "open", "paid", "uncollectible", "void"], str]
+    ]
     """
     The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     """

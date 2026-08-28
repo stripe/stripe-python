@@ -450,7 +450,9 @@ class RegistrationCreateParamsCountryOptionsAe(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsAeStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -468,7 +470,9 @@ class RegistrationCreateParamsCountryOptionsAl(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsAlStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -493,26 +497,39 @@ class RegistrationCreateParamsCountryOptionsAo(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsAoStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsAt(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsAtIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsAtStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsAtIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsAtStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -531,7 +548,9 @@ class RegistrationCreateParamsCountryOptionsAu(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsAuStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -549,7 +568,9 @@ class RegistrationCreateParamsCountryOptionsAw(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsAwStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -574,7 +595,9 @@ class RegistrationCreateParamsCountryOptionsBa(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsBaStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -592,7 +615,9 @@ class RegistrationCreateParamsCountryOptionsBb(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsBbStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -610,26 +635,39 @@ class RegistrationCreateParamsCountryOptionsBd(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsBdStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsBe(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsBeIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsBeStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsBeIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsBeStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -648,26 +686,39 @@ class RegistrationCreateParamsCountryOptionsBf(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsBfStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsBg(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsBgIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsBgStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsBgIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsBgStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -686,7 +737,9 @@ class RegistrationCreateParamsCountryOptionsBh(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsBhStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -711,7 +764,9 @@ class RegistrationCreateParamsCountryOptionsBs(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsBsStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -731,7 +786,7 @@ class RegistrationCreateParamsCountryOptionsCa(TypedDict):
     """
     Options for the provincial tax registration.
     """
-    type: Literal["province_standard", "simplified", "standard"]
+    type: Union[Literal["province_standard", "simplified", "standard"], str]
     """
     Type of registration to be created in Canada.
     """
@@ -756,7 +811,9 @@ class RegistrationCreateParamsCountryOptionsCd(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsCdStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -774,7 +831,9 @@ class RegistrationCreateParamsCountryOptionsCh(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsChStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -816,19 +875,30 @@ class RegistrationCreateParamsCountryOptionsCv(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsCy(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsCyIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsCyStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsCyIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsCyStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -836,19 +906,30 @@ class RegistrationCreateParamsCountryOptionsCyStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsCz(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsCzIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsCzStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsCzIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsCzStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -856,19 +937,30 @@ class RegistrationCreateParamsCountryOptionsCzStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsDe(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsDeIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsDeStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsDeIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsDeStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -876,19 +968,30 @@ class RegistrationCreateParamsCountryOptionsDeStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsDk(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsDkIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsDkStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsDkIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsDkStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -903,19 +1006,30 @@ class RegistrationCreateParamsCountryOptionsEc(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsEe(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsEeIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsEeStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsEeIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsEeStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -930,19 +1044,30 @@ class RegistrationCreateParamsCountryOptionsEg(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsEs(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsEsIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsEsStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsEsIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsEsStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -961,26 +1086,39 @@ class RegistrationCreateParamsCountryOptionsEt(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsEtStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsFi(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsFiIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsFiStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsFiIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsFiStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -988,19 +1126,30 @@ class RegistrationCreateParamsCountryOptionsFiStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsFr(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsFrIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsFrStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsFrIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsFrStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1019,7 +1168,9 @@ class RegistrationCreateParamsCountryOptionsGb(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsGbStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1044,26 +1195,39 @@ class RegistrationCreateParamsCountryOptionsGn(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsGnStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsGr(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsGrIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsGrStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsGrIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsGrStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1071,19 +1235,30 @@ class RegistrationCreateParamsCountryOptionsGrStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsHr(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsHrIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsHrStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsHrIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsHrStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1091,19 +1266,30 @@ class RegistrationCreateParamsCountryOptionsHrStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsHu(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsHuIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsHuStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsHuIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsHuStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1118,19 +1304,30 @@ class RegistrationCreateParamsCountryOptionsId(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsIe(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsIeIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsIeStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsIeIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsIeStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1156,26 +1353,39 @@ class RegistrationCreateParamsCountryOptionsIs(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsIsStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsIt(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsItIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsItStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsItIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsItStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1194,7 +1404,9 @@ class RegistrationCreateParamsCountryOptionsJp(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsJpStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1250,19 +1462,30 @@ class RegistrationCreateParamsCountryOptionsLk(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsLt(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsLtIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsLtStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsLtIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsLtStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1270,19 +1493,30 @@ class RegistrationCreateParamsCountryOptionsLtStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsLu(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsLuIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsLuStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsLuIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsLuStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1290,19 +1524,30 @@ class RegistrationCreateParamsCountryOptionsLuStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsLv(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsLvIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsLvStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsLvIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsLvStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1335,7 +1580,9 @@ class RegistrationCreateParamsCountryOptionsMe(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsMeStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1353,7 +1600,9 @@ class RegistrationCreateParamsCountryOptionsMk(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsMkStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1371,26 +1620,39 @@ class RegistrationCreateParamsCountryOptionsMr(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsMrStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsMt(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsMtIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsMtStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsMtIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsMtStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1419,19 +1681,30 @@ class RegistrationCreateParamsCountryOptionsNg(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsNl(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsNlIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsNlStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsNlIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsNlStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1450,7 +1723,9 @@ class RegistrationCreateParamsCountryOptionsNo(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsNoStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1475,7 +1750,9 @@ class RegistrationCreateParamsCountryOptionsNz(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsNzStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1493,7 +1770,9 @@ class RegistrationCreateParamsCountryOptionsOm(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsOmStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1514,19 +1793,30 @@ class RegistrationCreateParamsCountryOptionsPh(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsPl(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsPlIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsPlStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsPlIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsPlStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1534,19 +1824,30 @@ class RegistrationCreateParamsCountryOptionsPlStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsPt(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsPtIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsPtStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsPtIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsPtStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1554,19 +1855,30 @@ class RegistrationCreateParamsCountryOptionsPtStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsRo(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsRoIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsRoStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsRoIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsRoStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1585,7 +1897,9 @@ class RegistrationCreateParamsCountryOptionsRs(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsRsStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1606,19 +1920,30 @@ class RegistrationCreateParamsCountryOptionsSa(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsSe(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsSeIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsSeStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsSeIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsSeStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1637,26 +1962,39 @@ class RegistrationCreateParamsCountryOptionsSg(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsSgStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
 
 
 class RegistrationCreateParamsCountryOptionsSi(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsSiIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsSiStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsSiIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsSiStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1664,19 +2002,30 @@ class RegistrationCreateParamsCountryOptionsSiStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsSk(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsSkIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsSkStandard"]
     """
     Options for the standard registration.
     """
-    type: Literal["ioss", "oss_non_union", "oss_union", "standard"]
+    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
     Type of registration to be created in an EU country.
     """
 
 
+class RegistrationCreateParamsCountryOptionsSkIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsSkStandard(TypedDict):
-    place_of_supply_scheme: Literal[
-        "inbound_goods", "small_seller", "standard"
+    place_of_supply_scheme: Union[
+        Literal["inbound_goods", "small_seller", "standard"], str
     ]
     """
     Place of supply scheme used in an EU standard registration.
@@ -1702,7 +2051,9 @@ class RegistrationCreateParamsCountryOptionsSr(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsSrStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1770,6 +2121,18 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
     Options for the local lease tax registration.
     """
+    mass_transit_parking_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax"
+    ]
+    """
+    Options for the mass transit parking tax registration.
+    """
+    parking_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsParkingTax"
+    ]
+    """
+    Options for the parking tax registration.
+    """
     state: str
     """
     Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
@@ -1780,12 +2143,17 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
     Options for the state sales tax registration.
     """
-    type: Literal[
-        "local_amusement_tax",
-        "local_lease_tax",
-        "state_communications_tax",
-        "state_retail_delivery_fee",
-        "state_sales_tax",
+    type: Union[
+        Literal[
+            "local_amusement_tax",
+            "local_lease_tax",
+            "mass_transit_parking_tax",
+            "parking_tax",
+            "state_communications_tax",
+            "state_retail_delivery_fee",
+            "state_sales_tax",
+        ],
+        str,
     ]
     """
     Type of registration to be created in the US.
@@ -1806,6 +2174,20 @@ class RegistrationCreateParamsCountryOptionsUsLocalLeaseTax(TypedDict):
     """
 
 
+class RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsParkingTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types).
+    """
+
+
 class RegistrationCreateParamsCountryOptionsUsStateSalesTax(TypedDict):
     elections: List[
         "RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection"
@@ -1820,8 +2202,13 @@ class RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection(TypedDict):
     """
     A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
     """
-    type: Literal[
-        "local_use_tax", "simplified_sellers_use_tax", "single_local_use_tax"
+    type: Union[
+        Literal[
+            "local_use_tax",
+            "simplified_sellers_use_tax",
+            "single_local_use_tax",
+        ],
+        str,
     ]
     """
     The type of the election for the state sales tax registration.
@@ -1840,7 +2227,9 @@ class RegistrationCreateParamsCountryOptionsUy(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsUyStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1872,7 +2261,9 @@ class RegistrationCreateParamsCountryOptionsZa(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsZaStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """
@@ -1897,7 +2288,9 @@ class RegistrationCreateParamsCountryOptionsZw(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsZwStandard(TypedDict):
-    place_of_supply_scheme: NotRequired[Literal["inbound_goods", "standard"]]
+    place_of_supply_scheme: NotRequired[
+        "Literal['inbound_goods', 'standard']|str"
+    ]
     """
     Place of supply scheme used in an standard registration.
     """

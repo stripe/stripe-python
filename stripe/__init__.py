@@ -30,6 +30,7 @@ connect_api_base: str = DEFAULT_CONNECT_API_BASE
 upload_api_base: str = DEFAULT_UPLOAD_API_BASE
 meter_events_api_base: str = DEFAULT_METER_EVENTS_API_BASE
 api_version: str = _ApiVersion.CURRENT
+major_api_version: str = _ApiVersion.CURRENT_MAJOR
 verify_ssl_certs: bool = True
 proxy: Optional[str] = None
 default_http_client: Optional["HTTPClient"] = None
@@ -105,6 +106,10 @@ def set_app_info(
         "version": version,
     }
 
+
+from stripe._util import _emit_claude_code_hint
+
+_emit_claude_code_hint()
 
 # The beginning of the section generated from our OpenAPI spec
 from importlib import import_module
@@ -296,6 +301,13 @@ if TYPE_CHECKING:
         OAuthErrorObject as OAuthErrorObject,
     )
     from stripe._event import Event as Event
+    from stripe._event_notification_handler import (
+        AsyncStripeEventNotificationHandler as AsyncStripeEventNotificationHandler,
+        AsyncStripeEventNotificationHandlerWithoutVerification as AsyncStripeEventNotificationHandlerWithoutVerification,
+        StripeEventNotificationHandler as StripeEventNotificationHandler,
+        StripeEventNotificationHandlerWithoutVerification as StripeEventNotificationHandlerWithoutVerification,
+        UnhandledNotificationDetails as UnhandledNotificationDetails,
+    )
     from stripe._event_service import EventService as EventService
     from stripe._exchange_rate import ExchangeRate as ExchangeRate
     from stripe._exchange_rate_service import (
@@ -691,6 +703,26 @@ _import_map = {
     "ErrorObject": ("stripe._error_object", False),
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
+    "AsyncStripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "AsyncStripeEventNotificationHandlerWithoutVerification": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "StripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "StripeEventNotificationHandlerWithoutVerification": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "UnhandledNotificationDetails": (
+        "stripe._event_notification_handler",
+        False,
+    ),
     "EventService": ("stripe._event_service", False),
     "ExchangeRate": ("stripe._exchange_rate", False),
     "ExchangeRateService": ("stripe._exchange_rate_service", False),

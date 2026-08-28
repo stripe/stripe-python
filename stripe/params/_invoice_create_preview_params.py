@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -50,7 +50,7 @@ class InvoiceCreatePreviewParams(RequestOptions):
     """
     The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://docs.stripe.com/billing/invoices/connect) documentation for details.
     """
-    preview_mode: NotRequired[Literal["next", "recurring"]]
+    preview_mode: NotRequired["Literal['next', 'recurring']|str"]
     """
     Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
     """
@@ -90,7 +90,7 @@ class InvoiceCreatePreviewParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -113,7 +113,9 @@ class InvoiceCreatePreviewParamsCustomerDetails(TypedDict):
     """
     Tax details about the customer.
     """
-    tax_exempt: NotRequired["Literal['']|Literal['exempt', 'none', 'reverse']"]
+    tax_exempt: NotRequired[
+        "Literal['']|Literal['exempt', 'none', 'reverse']|str"
+    ]
     """
     The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
     """
@@ -202,126 +204,130 @@ class InvoiceCreatePreviewParamsCustomerDetailsTax(TypedDict):
 
 
 class InvoiceCreatePreviewParamsCustomerDetailsTaxId(TypedDict):
-    type: Literal[
-        "ad_nrt",
-        "ae_trn",
-        "al_tin",
-        "am_tin",
-        "ao_tin",
-        "ar_cuit",
-        "au_abn",
-        "au_arn",
-        "aw_tin",
-        "az_tin",
-        "ba_tin",
-        "bb_tin",
-        "bd_bin",
-        "bf_ifu",
-        "bg_uic",
-        "bh_vat",
-        "bj_ifu",
-        "bo_tin",
-        "br_cnpj",
-        "br_cpf",
-        "bs_tin",
-        "by_tin",
-        "ca_bn",
-        "ca_gst_hst",
-        "ca_pst_bc",
-        "ca_pst_mb",
-        "ca_pst_sk",
-        "ca_qst",
-        "cd_nif",
-        "ch_uid",
-        "ch_vat",
-        "cl_tin",
-        "cm_niu",
-        "cn_tin",
-        "co_nit",
-        "cr_tin",
-        "cv_nif",
-        "de_stn",
-        "do_rcn",
-        "ec_ruc",
-        "eg_tin",
-        "es_cif",
-        "et_tin",
-        "eu_oss_vat",
-        "eu_vat",
-        "fo_vat",
-        "gb_vat",
-        "ge_vat",
-        "gi_tin",
-        "gn_nif",
-        "hk_br",
-        "hr_oib",
-        "hu_tin",
-        "id_npwp",
-        "il_vat",
-        "in_gst",
-        "is_vat",
-        "it_cf",
-        "jp_cn",
-        "jp_rn",
-        "jp_trn",
-        "ke_pin",
-        "kg_tin",
-        "kh_tin",
-        "kr_brn",
-        "kz_bin",
-        "la_tin",
-        "li_uid",
-        "li_vat",
-        "lk_vat",
-        "ma_vat",
-        "md_vat",
-        "me_pib",
-        "mk_vat",
-        "mr_nif",
-        "mx_rfc",
-        "my_frp",
-        "my_itn",
-        "my_sst",
-        "ng_tin",
-        "no_vat",
-        "no_voec",
-        "np_pan",
-        "nz_gst",
-        "om_vat",
-        "pe_ruc",
-        "ph_tin",
-        "pl_nip",
-        "py_ruc",
-        "ro_tin",
-        "rs_pib",
-        "ru_inn",
-        "ru_kpp",
-        "sa_vat",
-        "sg_gst",
-        "sg_uen",
-        "si_tin",
-        "sn_ninea",
-        "sr_fin",
-        "sv_nit",
-        "th_vat",
-        "tj_tin",
-        "tr_tin",
-        "tw_vat",
-        "tz_vat",
-        "ua_vat",
-        "ug_tin",
-        "us_ein",
-        "uy_ruc",
-        "uz_tin",
-        "uz_vat",
-        "ve_rif",
-        "vn_tin",
-        "za_vat",
-        "zm_tin",
-        "zw_tin",
+    type: Union[
+        Literal[
+            "ad_nrt",
+            "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "aw_tin",
+            "az_tin",
+            "ba_tin",
+            "bb_tin",
+            "bd_bin",
+            "bf_ifu",
+            "bg_uic",
+            "bh_vat",
+            "bj_ifu",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "bs_tin",
+            "by_tin",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "cd_nif",
+            "ch_uid",
+            "ch_vat",
+            "cl_tin",
+            "cm_niu",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "cv_nif",
+            "de_stn",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "et_tin",
+            "eu_oss_vat",
+            "eu_vat",
+            "fo_vat",
+            "gb_vat",
+            "ge_vat",
+            "gi_tin",
+            "gn_nif",
+            "hk_br",
+            "hr_oib",
+            "hu_tin",
+            "ic_nif",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "it_cf",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kg_tin",
+            "kh_tin",
+            "kr_brn",
+            "kz_bin",
+            "la_tin",
+            "li_uid",
+            "li_vat",
+            "lk_vat",
+            "ma_vat",
+            "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "ng_tin",
+            "no_vat",
+            "no_voec",
+            "np_pan",
+            "nz_gst",
+            "om_vat",
+            "pe_ruc",
+            "ph_tin",
+            "pl_nip",
+            "py_ruc",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sn_ninea",
+            "sr_fin",
+            "sv_nit",
+            "th_vat",
+            "tj_tin",
+            "tr_tin",
+            "tw_vat",
+            "tz_vat",
+            "ua_vat",
+            "ug_tin",
+            "us_ein",
+            "uy_ruc",
+            "uz_tin",
+            "uz_vat",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
+            "zm_tin",
+            "zw_tin",
+        ],
+        str,
     ]
     """
-    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
     """
     value: str
     """
@@ -397,7 +403,9 @@ class InvoiceCreatePreviewParamsInvoiceItem(TypedDict):
     """
     Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -454,7 +462,9 @@ class InvoiceCreatePreviewParamsInvoiceItemPriceData(TypedDict):
     """
     The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -473,7 +483,7 @@ class InvoiceCreatePreviewParamsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -486,7 +496,7 @@ class InvoiceCreatePreviewParamsScheduleDetails(TypedDict):
     """
     Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     """
-    end_behavior: NotRequired[Literal["cancel", "release"]]
+    end_behavior: NotRequired["Literal['cancel', 'release']|str"]
     """
     Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
     """
@@ -495,7 +505,7 @@ class InvoiceCreatePreviewParamsScheduleDetails(TypedDict):
     List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
@@ -509,14 +519,14 @@ class InvoiceCreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
     """
     Configure behavior for flexible billing mode.
     """
-    type: Literal["classic", "flexible"]
+    type: Union[Literal["classic", "flexible"], str]
     """
     Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
     """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible(TypedDict):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """
@@ -539,7 +549,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     """
     Automatic tax settings for this phase.
     """
-    billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
+    billing_cycle_anchor: NotRequired[
+        "Literal['automatic', 'phase_start']|str"
+    ]
     """
     Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -550,7 +562,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -606,14 +618,14 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     The account on behalf of which to charge, for each of the associated subscription's invoices.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
     """
     start_date: NotRequired["int|Literal['now']"]
     """
-    The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
+    The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase. Prefer to specify `now` over an explicit timestamp when appropriate to avoid unexpected behavior due to request delays or clock skew resulting in the phase being slightly backdated or postdated.
     """
     transfer_data: NotRequired[
         "InvoiceCreatePreviewParamsScheduleDetailsPhaseTransferData"
@@ -627,7 +639,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     """
     trial_end: NotRequired["int|Literal['now']"]
     """
-    Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+    Sets the phase to trialing from the start date to this date. Must be within the phase. When previewing an update, if combined with `trial=true`, it must match the phase end date.
     """
 
 
@@ -713,7 +725,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd(
     """
     A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
     """
-    type: Literal["min_item_period_end", "phase_end", "timestamp"]
+    type: Union[Literal["min_item_period_end", "phase_end", "timestamp"], str]
     """
     Select how to calculate the end of the invoice item period.
     """
@@ -726,7 +738,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart(
     """
     A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
     """
-    type: Literal["max_item_period_start", "phase_start", "timestamp"]
+    type: Union[
+        Literal["max_item_period_start", "phase_start", "timestamp"], str
+    ]
     """
     Select how to calculate the start of the invoice item period.
     """
@@ -743,7 +757,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPriceData(
     """
     The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -777,7 +793,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAutomaticTaxLiability(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -812,7 +828,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscount(TypedDict):
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies phase duration. Either `day`, `week`, `month` or `year`.
     """
@@ -846,7 +862,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseInvoiceSettingsIssuer(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Union[Literal["account", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -932,7 +948,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -949,7 +967,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemPriceData(TypedDict):
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemPriceDataRecurring(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -971,7 +989,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseTransferData(TypedDict):
 
 
 class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|int"]
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str|int"]
     """
     For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
     """
@@ -988,7 +1006,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     Sets the billing schedules for the subscription.
     """
     cancel_at: NotRequired[
-        "Literal['']|int|Literal['max_billed_until', 'max_period_end', 'min_period_end']"
+        "Literal['']|int|Literal['max_billed_until', 'max_period_end', 'min_period_end']|str"
     ]
     """
     A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -1011,8 +1029,14 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     """
     A list of up to 20 subscription items, each with an attached price.
     """
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -1042,7 +1066,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
     """
     Configure behavior for flexible billing mode.
     """
-    type: Literal["classic", "flexible"]
+    type: Union[Literal["classic", "flexible"], str]
     """
     Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
     """
@@ -1051,7 +1075,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
 class InvoiceCreatePreviewParamsSubscriptionDetailsBillingModeFlexible(
     TypedDict,
 ):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """
@@ -1070,7 +1094,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingSchedule(TypedDict):
         "InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil"
     ]
     """
-    The end date for the billing schedule.
+    The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
     """
     key: NotRequired[str]
     """
@@ -1104,7 +1128,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil(
     """
     The end date of the billing schedule.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """
@@ -1113,7 +1137,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil(
 class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing duration. Either `day`, `week`, `month` or `year`.
     """
@@ -1146,7 +1170,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     id: NotRequired[str]
     """
-    Subscription item to update.
+    Subscription item to update. If you omit `id`, the API adds a new subscription item rather than updating the existing one. See [Changing a subscription's price](https://docs.stripe.com/billing/subscriptions/change-price#changing).
     """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
@@ -1217,7 +1241,9 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -1234,7 +1260,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData(TypedDict):
 class InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """

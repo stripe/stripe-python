@@ -65,6 +65,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments,
@@ -96,6 +97,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsTermsOfService as AccountCreateParamsIdentityAttestationsTermsOfService,
         AccountCreateParamsIdentityAttestationsTermsOfServiceAccount as AccountCreateParamsIdentityAttestationsTermsOfServiceAccount,
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
+        AccountCreateParamsIdentityBusinessDetailsAdditionalAddress as AccountCreateParamsIdentityBusinessDetailsAdditionalAddress,
         AccountCreateParamsIdentityBusinessDetailsAddress as AccountCreateParamsIdentityBusinessDetailsAddress,
         AccountCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountCreateParamsIdentityBusinessDetailsAnnualRevenue,
         AccountCreateParamsIdentityBusinessDetailsDocuments as AccountCreateParamsIdentityBusinessDetailsDocuments,
@@ -168,6 +170,7 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityAttestationsTermsOfService as AccountTokenCreateParamsIdentityAttestationsTermsOfService,
         AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount,
         AccountTokenCreateParamsIdentityBusinessDetails as AccountTokenCreateParamsIdentityBusinessDetails,
+        AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress as AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress,
         AccountTokenCreateParamsIdentityBusinessDetailsAddress as AccountTokenCreateParamsIdentityBusinessDetailsAddress,
         AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue,
         AccountTokenCreateParamsIdentityBusinessDetailsDocuments as AccountTokenCreateParamsIdentityBusinessDetailsDocuments,
@@ -275,6 +278,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments,
@@ -305,9 +309,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration as AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration,
         AccountUpdateParamsIdentityAttestationsTermsOfService as AccountUpdateParamsIdentityAttestationsTermsOfService,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount as AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount,
-        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
-        AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
+        AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress as AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress,
         AccountUpdateParamsIdentityBusinessDetailsAddress as AccountUpdateParamsIdentityBusinessDetailsAddress,
         AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue as AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue,
         AccountUpdateParamsIdentityBusinessDetailsDocuments as AccountUpdateParamsIdentityBusinessDetailsDocuments,
@@ -622,6 +627,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -743,6 +752,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityBusinessDetails": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityBusinessDetailsAdditionalAddress": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -996,6 +1009,10 @@ _import_map = {
         False,
     ),
     "AccountTokenCreateParamsIdentityBusinessDetails": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsAdditionalAddress": (
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
@@ -1411,6 +1428,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1531,15 +1552,19 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer": (
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer": (
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
     "AccountUpdateParamsIdentityBusinessDetails": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

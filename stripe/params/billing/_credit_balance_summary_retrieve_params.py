@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -35,7 +35,7 @@ class CreditBalanceSummaryRetrieveParamsFilter(TypedDict):
     """
     The credit grant for which to fetch credit balance summary.
     """
-    type: Literal["applicability_scope", "credit_grant"]
+    type: Union[Literal["applicability_scope", "credit_grant"], str]
     """
     Specify the type of this filter.
     """
@@ -50,7 +50,7 @@ class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope(TypedDict):
         List["CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice"]
     ]
     """
-    A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+    A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`. Limit 20 prices.
     """
 
 

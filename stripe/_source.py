@@ -7,7 +7,7 @@ from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -489,7 +489,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     ach_debit: Optional[AchDebit]
     acss_debit: Optional[AcssDebit]
     alipay: Optional[Alipay]
-    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: Optional[
+        Union[Literal["always", "limited", "unspecified"], str]
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """
@@ -563,26 +565,29 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     The status of the source, one of `canceled`, `chargeable`, `consumed`, `failed`, or `pending`. Only `chargeable` sources can be used to create a charge.
     """
     three_d_secure: Optional[ThreeDSecure]
-    type: Literal[
-        "ach_credit_transfer",
-        "ach_debit",
-        "acss_debit",
-        "alipay",
-        "au_becs_debit",
-        "bancontact",
-        "card",
-        "card_present",
-        "eps",
-        "giropay",
-        "ideal",
-        "klarna",
-        "multibanco",
-        "p24",
-        "sepa_credit_transfer",
-        "sepa_debit",
-        "sofort",
-        "three_d_secure",
-        "wechat",
+    type: Union[
+        Literal[
+            "ach_credit_transfer",
+            "ach_debit",
+            "acss_debit",
+            "alipay",
+            "au_becs_debit",
+            "bancontact",
+            "card",
+            "card_present",
+            "eps",
+            "giropay",
+            "ideal",
+            "klarna",
+            "multibanco",
+            "p24",
+            "sepa_credit_transfer",
+            "sepa_debit",
+            "sofort",
+            "three_d_secure",
+            "wechat",
+        ],
+        str,
     ]
     """
     The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://docs.stripe.com/sources) used.

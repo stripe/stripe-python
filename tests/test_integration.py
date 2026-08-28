@@ -1,6 +1,7 @@
 import platform
 from threading import Thread, Lock
 import json
+import os
 import warnings
 import time
 
@@ -22,8 +23,26 @@ if platform.python_implementation() == "PyPy":
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+MOCK_HOST = os.environ.get("STRIPE_MOCK_HOST", "localhost")
+
+
+class RequestSnapshot:
+    """Snapshot of request attributes, captured at handle time.
+
+    With HTTP/1.1 keep-alive, multiple requests reuse the same handler
+    instance whose attributes get overwritten on each request.
+    """
+
+    def __init__(self, handler: BaseHTTPRequestHandler):
+        self.command = handler.command
+        self.path = handler.path
+        self.headers = handler.headers
+
 
 class MyTestHandler(BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+    timeout = 0.5
+
     num_requests = 0
 
     requests = defaultdict(Queue)
@@ -31,10 +50,10 @@ class MyTestHandler(BaseHTTPRequestHandler):
     @classmethod
     def _add_request(cls, req):
         q = cls.requests[id(cls)]
-        q.put(req)
+        q.put(RequestSnapshot(req))
 
     @classmethod
-    def get_requests(cls, n) -> List[BaseHTTPRequestHandler]:
+    def get_requests(cls, n) -> List[RequestSnapshot]:
         reqs = []
         for _ in range(n):
             reqs.append(cls.requests[id(cls)].get(False))
@@ -49,6 +68,12 @@ class MyTestHandler(BaseHTTPRequestHandler):
         return self._do_request()
 
     def _do_request(self):
+        # Drain the request body so it doesn't pollute the next request
+        # on the keep-alive connection.
+        content_length = int(self.headers.get("Content-Length", 0))
+        if content_length:
+            self.rfile.read(content_length)
+
         n = self.__class__.num_requests
         self.__class__.num_requests += 1
         self._add_request(self)
@@ -98,8 +123,8 @@ class TestIntegration(object):
             "max_network_retries": stripe.max_network_retries,
             "proxy": stripe.proxy,
         }
-        stripe.api_base = "http://localhost:12111"  # stripe-mock
-        stripe.upload_api_base = "http://localhost:12111"  # stripe-mock
+        stripe.api_base = f"http://{MOCK_HOST}:12111"  # stripe-mock
+        stripe.upload_api_base = f"http://{MOCK_HOST}:12111"  # stripe-mock
         stripe.api_key = "sk_test_123"
         stripe.default_http_client = None
         stripe._default_proxy = None
@@ -117,7 +142,7 @@ class TestIntegration(object):
     def setup_mock_server(self, handler):
         # Configure mock server.
         # Passing 0 as the port will cause a random free port to be chosen.
-        self.mock_server = HTTPServer(("localhost", 0), handler)
+        self.mock_server = HTTPServer((MOCK_HOST, 0), handler)
         _, self.mock_server_port = self.mock_server.server_address
 
         # Start running mock server in a separate thread.
@@ -132,7 +157,7 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
 
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+        stripe.api_base = f"http://{MOCK_HOST}:{self.mock_server_port}"
         stripe.Balance.retrieve()
         reqs = MockServerRequestHandler.get_requests(1)
         assert reqs[0].path == "/v1/balance"
@@ -143,7 +168,7 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
 
-        stripe.proxy = "http://localhost:%s" % self.mock_server_port
+        stripe.proxy = f"http://{MOCK_HOST}:{self.mock_server_port}"
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
 
@@ -165,7 +190,7 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
 
         stripe.default_http_client = stripe.new_default_http_client(
-            proxy="http://localhost:%s" % self.mock_server_port
+            proxy=f"http://{MOCK_HOST}:{self.mock_server_port}"
         )
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
@@ -178,8 +203,8 @@ class TestIntegration(object):
 
         client = stripe.StripeClient(
             "sk_test_123",
-            proxy="http://localhost:%s" % self.mock_server_port,
-            base_addresses={"api": "http://localhost:12111"},
+            proxy=f"http://{MOCK_HOST}:{self.mock_server_port}",
+            base_addresses={"api": f"http://{MOCK_HOST}:12111"},
         )
         client.balance.retrieve()
 
@@ -194,9 +219,9 @@ class TestIntegration(object):
         client = stripe.StripeClient(
             "sk_test_123",
             http_client=new_default_http_client(
-                proxy="http://localhost:%s" % self.mock_server_port
+                proxy=f"http://{MOCK_HOST}:{self.mock_server_port}"
             ),
-            base_addresses={"api": "http://localhost:12111"},
+            base_addresses={"api": f"http://{MOCK_HOST}:12111"},
         )
         client.balance.retrieve()
 
@@ -218,7 +243,7 @@ class TestIntegration(object):
                 ]
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+        stripe.api_base = f"http://{MOCK_HOST}:{self.mock_server_port}"
         stripe.enable_telemetry = True
 
         cus = stripe.Customer("cus_xyz")
@@ -242,7 +267,8 @@ class TestIntegration(object):
         duration_ms = telemetry["last_request_metrics"]["request_duration_ms"]
         # The first request took 31 ms, so the client perceived
         # latency shouldn't be outside this range.
-        assert 30 < duration_ms < 300
+        # Windows CI can be significantly slower due to process startup overhead.
+        assert 30 < duration_ms < 5000
 
         usage = telemetry["last_request_metrics"]["usage"]
         assert usage == ["save"]
@@ -282,7 +308,7 @@ class TestIntegration(object):
                 ]
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+        stripe.api_base = f"http://{MOCK_HOST}:{self.mock_server_port}"
         stripe.enable_telemetry = True
         stripe.default_http_client = stripe.RequestsClient()
 
@@ -318,7 +344,7 @@ class TestIntegration(object):
         client = stripe.StripeClient(
             "sk_test_123",
             base_addresses={
-                "api": "http://localhost:%s" % self.mock_server_port
+                "api": f"http://{MOCK_HOST}:{self.mock_server_port}"
             },
         )
         await client.customers.create_async()
@@ -364,7 +390,7 @@ class TestIntegration(object):
         client = StripeClient(
             "sk_test_123",
             base_addresses={
-                "api": "http://localhost:%s" % self.mock_server_port
+                "api": f"http://{MOCK_HOST}:{self.mock_server_port}"
             },
         )
         resp = await client.raw_request_async(
@@ -384,7 +410,7 @@ class TestIntegration(object):
     ):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, n):
-                time.sleep(0.02)
+                time.sleep(0.5)
                 return super().do_request(n)
 
         self.setup_mock_server(MockServerRequestHandler)
@@ -415,7 +441,7 @@ class TestIntegration(object):
                 "sk_test_123",
                 http_client=hc,
                 base_addresses={
-                    "api": "http://localhost:%s" % self.mock_server_port
+                    "api": f"http://{MOCK_HOST}:{self.mock_server_port}"
                 },
                 max_network_retries=0,
             )
@@ -449,7 +475,7 @@ class TestIntegration(object):
         client = StripeClient(
             "sk_test_123",
             base_addresses={
-                "api": "http://localhost:%s" % self.mock_server_port
+                "api": f"http://{MOCK_HOST}:{self.mock_server_port}"
             },
             max_network_retries=stripe.max_network_retries,
         )
@@ -482,7 +508,7 @@ class TestIntegration(object):
             client = StripeClient(
                 "sk_test_123",
                 base_addresses={
-                    "api": "http://localhost:%s" % self.mock_server_port
+                    "api": f"http://{MOCK_HOST}:{self.mock_server_port}"
                 },
             )
             await client.raw_request_async(
@@ -501,7 +527,7 @@ class TestIntegration(object):
                 return (200, None, b"hello")
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
+        stripe.upload_api_base = f"http://{MOCK_HOST}:{self.mock_server_port}"
 
         result = await stripe.Quote.pdf_async("qt_123")
         assert str(await result.read_async(), "utf-8") == "hello"
@@ -514,7 +540,7 @@ class TestIntegration(object):
                 return (400, None, b'{"error": {"message": "bad request"}}')
 
         self.setup_mock_server(MockServerRequestHandler)
-        stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
+        stripe.upload_api_base = f"http://{MOCK_HOST}:{self.mock_server_port}"
 
         try:
             await stripe.Quote.pdf_async("qt_123")

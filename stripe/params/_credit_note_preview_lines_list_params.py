@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -19,7 +19,7 @@ class CreditNotePreviewLinesListParams(TypedDict):
     """
     The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
     """
-    email_type: NotRequired[Literal["credit_note", "none"]]
+    email_type: NotRequired["Literal['credit_note', 'none']|str"]
     """
     Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
     """
@@ -56,9 +56,7 @@ class CreditNotePreviewLinesListParams(TypedDict):
     The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.
     """
     reason: NotRequired[
-        Literal[
-            "duplicate", "fraudulent", "order_change", "product_unsatisfactory"
-        ]
+        "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|str"
     ]
     """
     Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
@@ -106,13 +104,13 @@ class CreditNotePreviewLinesListParamsLine(TypedDict):
         "Literal['']|List[CreditNotePreviewLinesListParamsLineTaxAmount]"
     ]
     """
-    A list of up to 10 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
+    A list of up to 20 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
     """
     tax_rates: NotRequired["Literal['']|List[str]"]
     """
     The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and `tax_amounts` is not used.
     """
-    type: Literal["custom_line_item", "invoice_line_item"]
+    type: Union[Literal["custom_line_item", "invoice_line_item"], str]
     """
     Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. `custom_line_item` is not valid when the invoice is set up with `automatic_tax[enabled]=true`.
     """
@@ -156,7 +154,7 @@ class CreditNotePreviewLinesListParamsRefund(TypedDict):
     """
     ID of an existing refund to link this credit note to. Required when `type` is `refund`.
     """
-    type: NotRequired[Literal["payment_record_refund", "refund"]]
+    type: NotRequired["Literal['payment_record_refund', 'refund']|str"]
     """
     Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
     """

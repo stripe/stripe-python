@@ -68,6 +68,7 @@ if TYPE_CHECKING:
     from stripe.params._account_retrieve_person_params import (
         AccountRetrievePersonParams,
     )
+    from stripe.params._account_unreject_params import AccountUnrejectParams
 
 
 @nested_resource_class_methods("capability")
@@ -164,12 +165,15 @@ class Account(
         """
         minority_owned_business_designation: Optional[
             List[
-                Literal[
-                    "lgbtqi_owned_business",
-                    "minority_owned_business",
-                    "none_of_these_apply",
-                    "prefer_not_to_answer",
-                    "women_owned_business",
+                Union[
+                    Literal[
+                        "lgbtqi_owned_business",
+                        "minority_owned_business",
+                        "none_of_these_apply",
+                        "prefer_not_to_answer",
+                        "women_owned_business",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -212,301 +216,399 @@ class Account(
         }
 
     class Capabilities(StripeObject):
-        acss_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        acss_debit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
         """
-        affirm_payments: Optional[Literal["active", "inactive", "pending"]]
+        affirm_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Affirm capability of the account, or whether the account can directly process Affirm charges.
         """
         afterpay_clearpay_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
         """
-        alma_payments: Optional[Literal["active", "inactive", "pending"]]
+        alma_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Alma capability of the account, or whether the account can directly process Alma payments.
         """
-        amazon_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        amazon_pay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
         """
-        app_distribution: Optional[Literal["active", "inactive", "pending"]]
+        app_distribution: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the `app_distribution` capability of the account, or whether the platform can distribute apps to other accounts.
         """
         au_becs_debit_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
         """
-        bacs_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        bacs_debit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
         """
-        bancontact_payments: Optional[Literal["active", "inactive", "pending"]]
+        bancontact_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Bancontact payments capability of the account, or whether the account can directly process Bancontact charges.
         """
         bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
         """
-        billie_payments: Optional[Literal["active", "inactive", "pending"]]
+        billie_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Billie capability of the account, or whether the account can directly process Billie payments.
         """
-        bizum_payments: Optional[Literal["active", "inactive", "pending"]]
+        bizum_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Bizum capability of the account, or whether the account can directly process Bizum payments.
         """
-        blik_payments: Optional[Literal["active", "inactive", "pending"]]
+        blik_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
         """
-        boleto_payments: Optional[Literal["active", "inactive", "pending"]]
+        boleto_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
         """
-        card_issuing: Optional[Literal["active", "inactive", "pending"]]
+        card_issuing: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
         """
-        card_payments: Optional[Literal["active", "inactive", "pending"]]
+        card_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
         """
         cartes_bancaires_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Cartes Bancaires payments capability of the account, or whether the account can directly process Cartes Bancaires card charges in EUR currency.
         """
-        cashapp_payments: Optional[Literal["active", "inactive", "pending"]]
+        cashapp_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
         """
-        crypto_payments: Optional[Literal["active", "inactive", "pending"]]
+        crypto_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Crypto capability of the account, or whether the account can directly process Crypto payments.
         """
-        eps_payments: Optional[Literal["active", "inactive", "pending"]]
+        eps_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
         """
-        fpx_payments: Optional[Literal["active", "inactive", "pending"]]
+        fpx_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the FPX payments capability of the account, or whether the account can directly process FPX charges.
         """
         gb_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the GB customer_balance payments (GBP currency) capability of the account, or whether the account can directly process GB customer_balance charges.
         """
-        giropay_payments: Optional[Literal["active", "inactive", "pending"]]
+        giropay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
         """
-        grabpay_payments: Optional[Literal["active", "inactive", "pending"]]
+        grabpay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
         """
-        ideal_payments: Optional[Literal["active", "inactive", "pending"]]
+        ideal_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
         """
         india_international_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the india_international_payments capability of the account, or whether the account can process international charges (non INR) in India.
         """
-        jcb_payments: Optional[Literal["active", "inactive", "pending"]]
+        jcb_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency.
         """
         jp_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Japanese customer_balance payments (JPY currency) capability of the account, or whether the account can directly process Japanese customer_balance charges.
         """
-        kakao_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        kakao_pay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the KakaoPay capability of the account, or whether the account can directly process KakaoPay payments.
         """
-        klarna_payments: Optional[Literal["active", "inactive", "pending"]]
+        klarna_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
         """
-        konbini_payments: Optional[Literal["active", "inactive", "pending"]]
+        konbini_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
         """
-        kr_card_payments: Optional[Literal["active", "inactive", "pending"]]
+        kr_card_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the KrCard capability of the account, or whether the account can directly process KrCard payments.
         """
-        legacy_payments: Optional[Literal["active", "inactive", "pending"]]
+        legacy_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the legacy payments capability of the account.
         """
-        link_payments: Optional[Literal["active", "inactive", "pending"]]
+        link_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the link_payments capability of the account, or whether the account can directly process Link charges.
         """
-        mb_way_payments: Optional[Literal["active", "inactive", "pending"]]
+        mb_way_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the MB WAY payments capability of the account, or whether the account can directly process MB WAY charges.
         """
-        mobilepay_payments: Optional[Literal["active", "inactive", "pending"]]
+        mobilepay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the MobilePay capability of the account, or whether the account can directly process MobilePay charges.
         """
-        multibanco_payments: Optional[Literal["active", "inactive", "pending"]]
+        multibanco_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Multibanco payments capability of the account, or whether the account can directly process Multibanco charges.
         """
         mx_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the Mexican customer_balance payments (MXN currency) capability of the account, or whether the account can directly process Mexican customer_balance charges.
         """
-        naver_pay_payments: Optional[Literal["active", "inactive", "pending"]]
+        naver_pay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
         """
         nz_bank_account_becs_debit_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the New Zealand BECS Direct Debit payments capability of the account, or whether the account can directly process New Zealand BECS Direct Debit charges.
         """
-        oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
+        oxxo_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
         """
-        p24_payments: Optional[Literal["active", "inactive", "pending"]]
+        p24_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
         """
         pay_by_bank_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
         """
-        payco_payments: Optional[Literal["active", "inactive", "pending"]]
+        payco_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Payco capability of the account, or whether the account can directly process Payco payments.
         """
-        paynow_payments: Optional[Literal["active", "inactive", "pending"]]
+        paynow_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
         """
-        payto_payments: Optional[Literal["active", "inactive", "pending"]]
+        payto_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
         """
-        pix_payments: Optional[Literal["active", "inactive", "pending"]]
+        pix_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the pix payments capability of the account, or whether the account can directly process pix charges.
         """
-        promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
+        promptpay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
         """
         revolut_pay_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
         """
         samsung_pay_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
         """
-        satispay_payments: Optional[Literal["active", "inactive", "pending"]]
+        satispay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
         """
-        scalapay_payments: Optional[Literal["active", "inactive", "pending"]]
+        scalapay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Scalapay capability of the account, or whether the account can directly process Scalapay payments.
         """
         sepa_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
         """
-        sepa_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        sepa_debit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
         """
-        sofort_payments: Optional[Literal["active", "inactive", "pending"]]
+        sofort_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
         """
-        sunbit_payments: Optional[Literal["active", "inactive", "pending"]]
+        sunbit_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
         """
-        swish_payments: Optional[Literal["active", "inactive", "pending"]]
+        swish_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Swish capability of the account, or whether the account can directly process Swish payments.
         """
         tax_reporting_us_1099_k: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the tax reporting 1099-K (US) capability of the account.
         """
         tax_reporting_us_1099_misc: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the tax reporting 1099-MISC (US) capability of the account.
         """
-        transfers: Optional[Literal["active", "inactive", "pending"]]
+        transfers: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
         """
-        treasury: Optional[Literal["active", "inactive", "pending"]]
+        treasury: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the banking capability, or whether the account can have bank accounts.
         """
-        twint_payments: Optional[Literal["active", "inactive", "pending"]]
+        twint_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
         """
-        upi_payments: Optional[Literal["active", "inactive", "pending"]]
+        upi_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the upi payments capability of the account, or whether the account can directly process upi charges.
         """
         us_bank_account_ach_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
         """
         us_bank_transfer_payments: Optional[
-            Literal["active", "inactive", "pending"]
+            Union[Literal["active", "inactive", "pending"], str]
         ]
         """
         The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
         """
-        zip_payments: Optional[Literal["active", "inactive", "pending"]]
+        zip_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
         """
         The status of the Zip capability of the account, or whether the account can directly process Zip charges.
         """
@@ -598,6 +700,32 @@ class Account(
             Town/cho-me.
             """
 
+        class AdministrativeAddress(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1, such as the street, PO Box, or company name.
+            """
+            line2: Optional[str]
+            """
+            Address line 2, such as the apartment, suite, unit, or building.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            """
+
         class DirectorshipDeclaration(StripeObject):
             date: Optional[int]
             """
@@ -624,6 +752,32 @@ class Account(
             user_agent: Optional[str]
             """
             The user-agent string from the browser where the beneficial owner attestation was made.
+            """
+
+        class PrincipalPlaceOfBusiness(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1, such as the street, PO Box, or company name.
+            """
+            line2: Optional[str]
+            """
+            Address line 2, such as the apartment, suite, unit, or building.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         class RegistrationDate(StripeObject):
@@ -685,6 +839,7 @@ class Account(
         """
         The Kanji variation of the company's primary address (Japan only).
         """
+        administrative_address: Optional[AdministrativeAddress]
         directors_provided: Optional[bool]
         """
         Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-directors_provided).
@@ -726,9 +881,12 @@ class Account(
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
         ownership_exemption_reason: Optional[
-            Literal[
-                "qualified_entity_exceeds_ownership_threshold",
-                "qualifies_as_financial_institution",
+            Union[
+                Literal[
+                    "qualified_entity_exceeds_ownership_threshold",
+                    "qualifies_as_financial_institution",
+                ],
+                str,
             ]
         ]
         """
@@ -738,36 +896,40 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        principal_place_of_business: Optional[PrincipalPlaceOfBusiness]
         registration_date: Optional[RegistrationDate]
         representative_declaration: Optional[RepresentativeDeclaration]
         """
         This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
         """
         structure: Optional[
-            Literal[
-                "free_zone_establishment",
-                "free_zone_llc",
-                "government_instrumentality",
-                "governmental_unit",
-                "incorporated_non_profit",
-                "incorporated_partnership",
-                "limited_liability_partnership",
-                "llc",
-                "multi_member_llc",
-                "private_company",
-                "private_corporation",
-                "private_partnership",
-                "public_company",
-                "public_corporation",
-                "public_partnership",
-                "registered_charity",
-                "single_member_llc",
-                "sole_establishment",
-                "sole_proprietorship",
-                "tax_exempt_government_instrumentality",
-                "unincorporated_association",
-                "unincorporated_non_profit",
-                "unincorporated_partnership",
+            Union[
+                Literal[
+                    "free_zone_establishment",
+                    "free_zone_llc",
+                    "government_instrumentality",
+                    "governmental_unit",
+                    "incorporated_non_profit",
+                    "incorporated_partnership",
+                    "limited_liability_partnership",
+                    "llc",
+                    "multi_member_llc",
+                    "private_company",
+                    "private_corporation",
+                    "private_partnership",
+                    "public_company",
+                    "public_corporation",
+                    "public_partnership",
+                    "registered_charity",
+                    "single_member_llc",
+                    "sole_establishment",
+                    "sole_proprietorship",
+                    "tax_exempt_government_instrumentality",
+                    "unincorporated_association",
+                    "unincorporated_non_profit",
+                    "unincorporated_partnership",
+                ],
+                str,
             ]
         ]
         """
@@ -793,8 +955,10 @@ class Account(
             "address": Address,
             "address_kana": AddressKana,
             "address_kanji": AddressKanji,
+            "administrative_address": AdministrativeAddress,
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
+            "principal_place_of_business": PrincipalPlaceOfBusiness,
             "registration_date": RegistrationDate,
             "representative_declaration": RepresentativeDeclaration,
             "verification": Verification,
@@ -802,24 +966,27 @@ class Account(
 
     class Controller(StripeObject):
         class Fees(StripeObject):
-            payer: Literal[
-                "account",
-                "application",
-                "application_custom",
-                "application_express",
+            payer: Union[
+                Literal[
+                    "account",
+                    "application",
+                    "application_custom",
+                    "application_express",
+                ],
+                str,
             ]
             """
             A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
             """
 
         class Losses(StripeObject):
-            payments: Literal["application", "stripe"]
+            payments: Union[Literal["application", "stripe"], str]
             """
             A value indicating who is liable when this account can't pay back negative balances from payments.
             """
 
         class StripeDashboard(StripeObject):
-            type: Literal["express", "full", "none"]
+            type: Union[Literal["express", "full", "none"], str]
             """
             A value indicating the Stripe dashboard this account has access to independent of the Connect application.
             """
@@ -830,12 +997,14 @@ class Account(
         `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://docs.stripe.com/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
         """
         losses: Optional[Losses]
-        requirement_collection: Optional[Literal["application", "stripe"]]
+        requirement_collection: Optional[
+            Union[Literal["application", "stripe"], str]
+        ]
         """
         A value indicating responsibility for collecting requirements on this account. Only returned when the Connect application retrieving the resource controls the account.
         """
         stripe_dashboard: Optional[StripeDashboard]
-        type: Literal["account", "application"]
+        type: Union[Literal["account", "application"], str]
         """
         The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
         """
@@ -1004,7 +1173,7 @@ class Account(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: Optional[List[str]]
         """
@@ -1159,7 +1328,7 @@ class Account(
         """
         currently_due: Optional[List[str]]
         """
-        Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
         """
         disabled_reason: Optional[
             Literal[
@@ -1185,7 +1354,7 @@ class Account(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: Optional[List[str]]
         """
@@ -1290,7 +1459,7 @@ class Account(
             The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
             """
             hosted_payment_method_save: Optional[
-                Literal["always", "never", "offer"]
+                Union[Literal["always", "never", "offer"], str]
             ]
             """
             Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
@@ -1342,12 +1511,15 @@ class Account(
                 """
                 weekly_payout_days: Optional[
                     List[
-                        Literal[
-                            "friday",
-                            "monday",
-                            "thursday",
-                            "tuesday",
-                            "wednesday",
+                        Union[
+                            Literal[
+                                "friday",
+                                "monday",
+                                "thursday",
+                                "tuesday",
+                                "wednesday",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -1436,7 +1608,12 @@ class Account(
     Business information about the account.
     """
     business_type: Optional[
-        Literal["company", "government_entity", "individual", "non_profit"]
+        Union[
+            Literal[
+                "company", "government_entity", "individual", "non_profit"
+            ],
+            str,
+        ]
     ]
     """
     The business type.
@@ -1511,7 +1688,9 @@ class Account(
     Options for customizing how the account functions within Stripe.
     """
     tos_acceptance: Optional[TosAcceptance]
-    type: Optional[Literal["custom", "express", "none", "standard"]]
+    type: Optional[
+        Union[Literal["custom", "express", "none", "standard"], str]
+    ]
     """
     The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
     """
@@ -1522,7 +1701,7 @@ class Account(
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -1543,7 +1722,7 @@ class Account(
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -1855,7 +2034,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -1876,7 +2055,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1885,7 +2064,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1896,7 +2075,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -1916,7 +2095,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -1937,7 +2116,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1948,7 +2127,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1959,13 +2138,153 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}/reject".format(
+                    account=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_unreject(
+        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def unreject(
+        account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @overload
+    def unreject(self, **params: Unpack["AccountUnrejectParams"]) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @class_method_variant("_cls_unreject")
+    def unreject(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_unreject_async(
+        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def unreject_async(
+        account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @overload
+    async def unreject_async(
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @class_method_variant("_cls_unreject_async")
+    async def unreject_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
                     account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
@@ -2414,7 +2733,7 @@ class Account(
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the representative. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",
@@ -2435,7 +2754,7 @@ class Account(
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the representative. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",

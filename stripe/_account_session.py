@@ -120,6 +120,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether sending refunds is enabled. This is `true` by default.
                 """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+                """
 
             enabled: bool
             """
@@ -293,6 +297,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether sending refunds is enabled. This is `true` by default.
                 """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+                """
 
             enabled: bool
             """
@@ -314,6 +322,24 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 refund_management: bool
                 """
                 Whether sending refunds is enabled. This is `true` by default.
+                """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class PaymentMethodSettings(StripeObject):
+            class Features(StripeObject):
+                disable_stripe_user_authentication: bool
+                """
+                Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
                 """
 
             enabled: bool
@@ -340,6 +366,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 refund_management: bool
                 """
                 Whether sending refunds is enabled. This is `true` by default.
+                """
+                smart_disputes_management: bool
+                """
+                Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
                 """
 
             enabled: bool
@@ -448,6 +478,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payment_disputes: PaymentDisputes
+        payment_method_settings: PaymentMethodSettings
         payments: Payments
         payout_details: PayoutDetails
         payout_reconciliation_report: PayoutReconciliationReport
@@ -470,6 +501,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payment_disputes": PaymentDisputes,
+            "payment_method_settings": PaymentMethodSettings,
             "payments": Payments,
             "payout_details": PayoutDetails,
             "payout_reconciliation_report": PayoutReconciliationReport,
