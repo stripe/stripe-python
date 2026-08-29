@@ -34,7 +34,7 @@ class TestFileUpload(object):
         assert isinstance(resource, File)
 
     def test_is_creatable(self, setup_upload_api_base, http_client_mock):
-        MultipartDataGenerator._initialize_boundary = lambda self: 1234567890
+        MultipartDataGenerator._initialize_boundary = lambda self: "abc123"
         test_file = tempfile.TemporaryFile()
         resource = File.create(
             purpose="dispute_evidence",
@@ -45,7 +45,7 @@ class TestFileUpload(object):
             "post",
             api_base=stripe.upload_api_base,
             path="/v1/files",
-            content_type="multipart/form-data; boundary=1234567890",
+            content_type="multipart/form-data; boundary=abc123",
         )
         assert isinstance(resource, File)
 
