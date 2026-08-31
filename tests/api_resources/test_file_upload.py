@@ -36,7 +36,6 @@ class TestFileUpload(object):
     def test_is_creatable(
         self, setup_upload_api_base, http_client_mock, monkeypatch
     ):
-        # Pin the boundary so the Content-Type assertion below is stable.
         monkeypatch.setattr(
             MultipartDataGenerator,
             "_initialize_boundary",
