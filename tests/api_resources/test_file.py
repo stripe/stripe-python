@@ -32,8 +32,15 @@ class TestFile(object):
         )
         assert isinstance(resource, stripe.File)
 
-    def test_is_creatable(self, setup_upload_api_base, http_client_mock):
-        MultipartDataGenerator._initialize_boundary = lambda self: "abc123"
+    def test_is_creatable(
+        self, setup_upload_api_base, http_client_mock, monkeypatch
+    ):
+        # Pin the boundary so the Content-Type assertion below is stable.
+        monkeypatch.setattr(
+            MultipartDataGenerator,
+            "_initialize_boundary",
+            lambda self: "abc123",
+        )
         test_file = tempfile.TemporaryFile()
         resource = stripe.File.create(
             purpose="dispute_evidence",

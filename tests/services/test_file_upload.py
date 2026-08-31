@@ -28,8 +28,14 @@ class TestFileUpload(object):
         self,
         file_stripe_mock_stripe_client,
         http_client_mock,
+        monkeypatch,
     ):
-        MultipartDataGenerator._initialize_boundary = lambda self: "abc123"
+        # Pin the boundary so the Content-Type assertion below is stable.
+        monkeypatch.setattr(
+            MultipartDataGenerator,
+            "_initialize_boundary",
+            lambda self: "abc123",
+        )
         test_file = tempfile.TemporaryFile()
 
         # We create a new client here instead of re-using the stripe_mock_stripe_client fixture
