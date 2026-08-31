@@ -10,7 +10,7 @@ from typing import Any, ClassVar, Dict, Optional, cast, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from stripe._util import get_api_mode
+from stripe._util import get_api_mode, sanitize_id
 from stripe._stripe_context import StripeContext
 from stripe._webhook import WebhookPayload
 
@@ -221,7 +221,7 @@ class EventNotification:
     def fetch_event(self) -> Event:
         response = self._client.raw_request(
             "get",
-            f"/v2/core/events/{self.id}",
+            f"/v2/core/events/{sanitize_id(self.id)}",
             stripe_context=self.context,
             headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["pushed_event_pull"],
@@ -231,7 +231,7 @@ class EventNotification:
     async def fetch_event_async(self) -> Event:
         response = await self._client.raw_request_async(
             "get",
-            f"/v2/core/events/{self.id}",
+            f"/v2/core/events/{sanitize_id(self.id)}",
             stripe_context=self.context,
             headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["pushed_event_pull", "pushed_event_pull_async"],
