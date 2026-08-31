@@ -21,7 +21,7 @@ class SubscriptionUpdateParams(TypedDict):
     """
     Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     """
-    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
     """
     Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -29,7 +29,7 @@ class SubscriptionUpdateParams(TypedDict):
         "Literal['']|List[SubscriptionUpdateParamsBillingSchedule]"
     ]
     """
-    Sets the billing schedules for the subscription.
+    An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     """
     billing_thresholds: NotRequired[
         "Literal['']|SubscriptionUpdateParamsBillingThresholds"
@@ -54,7 +54,7 @@ class SubscriptionUpdateParams(TypedDict):
     Details about why this subscription was cancelled
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
@@ -118,12 +118,7 @@ class SubscriptionUpdateParams(TypedDict):
     If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     """
     payment_behavior: NotRequired[
-        Literal[
-            "allow_incomplete",
-            "default_incomplete",
-            "error_if_incomplete",
-            "pending_if_incomplete",
-        ]
+        "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']|str"
     ]
     """
     Controls how Stripe handles payment when a subscription update requires payment and `collection_method=charge_automatically`.
@@ -262,7 +257,9 @@ class SubscriptionUpdateParamsAddInvoiceItemPriceData(TypedDict):
     """
     The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -307,7 +304,7 @@ class SubscriptionUpdateParamsBillingSchedule(TypedDict):
     """
     bill_until: NotRequired["SubscriptionUpdateParamsBillingScheduleBillUntil"]
     """
-    The end date for the billing schedule.
+    The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
     """
     key: NotRequired[str]
     """
@@ -344,7 +341,7 @@ class SubscriptionUpdateParamsBillingScheduleBillUntil(TypedDict):
 
 
 class SubscriptionUpdateParamsBillingScheduleBillUntilDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing duration. Either `day`, `week`, `month` or `year`.
     """
@@ -375,6 +372,10 @@ class SubscriptionUpdateParamsCancellationDetails(TypedDict):
     ]
     """
     The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+    """
+    feedback_option: NotRequired[str]
+    """
+    Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
     """
 
 
@@ -528,7 +529,9 @@ class SubscriptionUpdateParamsItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -543,7 +546,7 @@ class SubscriptionUpdateParamsItemPriceData(TypedDict):
 
 
 class SubscriptionUpdateParamsItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -554,7 +557,9 @@ class SubscriptionUpdateParamsItemPriceDataRecurring(TypedDict):
 
 
 class SubscriptionUpdateParamsPauseCollection(TypedDict):
-    behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+    behavior: Union[
+        Literal["keep_as_draft", "mark_uncollectible", "void"], str
+    ]
     """
     The payment collection behavior for this subscription while paused.
     """
@@ -572,7 +577,7 @@ class SubscriptionUpdateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -597,6 +602,12 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     ]
     """
     This sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
+    """
+    billie: NotRequired[
+        "Literal['']|SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie"
+    ]
+    """
+    This sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
     """
     card: NotRequired[
         "Literal['']|SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard"
@@ -683,6 +694,12 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact(
     """
 
 
+class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie(
+    TypedDict,
+):
+    pass
+
+
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard(
     TypedDict,
 ):
@@ -693,21 +710,7 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard(
     Configuration options for setting up an eMandate for cards issued in India.
     """
     network: NotRequired[
-        Literal[
-            "amex",
-            "cartes_bancaires",
-            "diners",
-            "discover",
-            "eftpos_au",
-            "girocard",
-            "interac",
-            "jcb",
-            "link",
-            "mastercard",
-            "unionpay",
-            "unknown",
-            "visa",
-        ]
+        "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'girocard', 'interac', 'jcb', 'link', 'mastercard', 'unionpay', 'unknown', 'visa']|str"
     ]
     """
     Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
@@ -912,7 +915,12 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFi
     """
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -938,7 +946,7 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFi
 
 
 class SubscriptionUpdateParamsPendingInvoiceItemInterval(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
     """

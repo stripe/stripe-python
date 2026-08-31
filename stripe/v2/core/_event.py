@@ -10,6 +10,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import get_api_mode
 from stripe._stripe_context import StripeContext
+from stripe._webhook import WebhookPayload
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
@@ -175,16 +176,22 @@ class EventNotification:
 
     @staticmethod
     def from_json(
-        payload: Union[str, Dict[str, Any]], client: "StripeClient"
+        payload: Union[WebhookPayload, Dict[str, Any]], client: "StripeClient"
     ) -> "EventNotification":
         """
         Helper for constructing an Event Notification. Doesn't perform signature validation, so you
         should use StripeClient.parse_event_notification() instead for initial handling.
         This is useful in unit tests and working with EventNotifications whose authenticity you've already validated.
         """
-        parsed_body = (
-            json.loads(payload) if isinstance(payload, str) else payload
-        )
+        if isinstance(payload, dict):
+            parsed_body = payload
+        else:
+            parsed_body = json.loads(
+                payload.decode("utf-8")
+                if isinstance(payload, (bytes, bytearray))
+                else payload
+            )
+
         if parsed_body.get("object") == "event":
             raise ValueError(
                 "You passed a webhook payload to StripeClient.parse_event_notification, which expects a thin event notification. Use StripeClient.construct_event instead."

@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route("/webhooks", methods=["POST"])
 def webhooks():
-    payload = request.data.decode("utf-8")
+    payload = request.data
     received_sig = request.headers.get("Stripe-Signature", None)
 
     try:

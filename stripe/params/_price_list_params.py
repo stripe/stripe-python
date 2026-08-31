@@ -46,7 +46,7 @@ class PriceListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    type: NotRequired[Literal["one_time", "recurring"]]
+    type: NotRequired["Literal['one_time', 'recurring']|str"]
     """
     Only return prices of type `recurring` or `one_time`.
     """
@@ -72,7 +72,7 @@ class PriceListParamsCreated(TypedDict):
 
 
 class PriceListParamsRecurring(TypedDict):
-    interval: NotRequired[Literal["day", "month", "week", "year"]]
+    interval: NotRequired["Literal['day', 'month', 'week', 'year']|str"]
     """
     Filter by billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -80,7 +80,7 @@ class PriceListParamsRecurring(TypedDict):
     """
     Filter by the price's meter.
     """
-    usage_type: NotRequired[Literal["licensed", "metered"]]
+    usage_type: NotRequired["Literal['licensed', 'metered']|str"]
     """
     Filter by the usage type for this price. Can be either `metered` or `licensed`.
     """

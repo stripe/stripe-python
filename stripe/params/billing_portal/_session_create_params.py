@@ -67,6 +67,7 @@ class SessionCreateParamsFlowData(TypedDict):
     """
     type: Union[
         Literal[
+            "customer_update",
             "payment_method_update",
             "subscription_cancel",
             "subscription_update",

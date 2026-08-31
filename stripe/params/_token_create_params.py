@@ -78,6 +78,9 @@ class TokenCreateParamsAccountCompany(TypedDict):
     administrative_address: NotRequired[
         "TokenCreateParamsAccountCompanyAdministrativeAddress"
     ]
+    """
+    The location where the business is administered.
+    """
     directors_provided: NotRequired[bool]
     """
     Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
@@ -139,6 +142,9 @@ class TokenCreateParamsAccountCompany(TypedDict):
     principal_place_of_business: NotRequired[
         "TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness"
     ]
+    """
+    The primary location where the business conducts operations.
+    """
     registration_date: NotRequired[
         "Literal['']|TokenCreateParamsAccountCompanyRegistrationDate"
     ]
@@ -703,7 +709,7 @@ class TokenCreateParamsBankAccount(TypedDict):
     """
     The name of the person or business that owns the bank account. This field is required when attaching the bank account to a `Customer` object.
     """
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
     """
@@ -711,7 +717,9 @@ class TokenCreateParamsBankAccount(TypedDict):
     """
     The account number for the bank account, in string form. Must be a checking account.
     """
-    account_type: NotRequired[Literal["checking", "futsu", "savings", "toza"]]
+    account_type: NotRequired[
+        "Literal['checking', 'futsu', 'savings', 'toza']|str"
+    ]
     """
     The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
     """

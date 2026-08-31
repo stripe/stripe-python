@@ -139,7 +139,7 @@ class Order(
     """
     expected_delivery_year: int
     """
-    The year this order is expected to be delivered.
+    The year this order is expected to be delivered. If the year is in the past, the order is a spot purchase and will be delivered within 30 days of purchase.
     """
     id: str
     """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -47,12 +47,12 @@ class SourceUpdateParamsMandate(TypedDict):
     """
     The currency specified by the mandate. (Must match `currency` of the source)
     """
-    interval: NotRequired[Literal["one_time", "scheduled", "variable"]]
+    interval: NotRequired["Literal['one_time', 'scheduled', 'variable']|str"]
     """
     The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
     """
     notification_method: NotRequired[
-        Literal["deprecated_none", "email", "manual", "none", "stripe_email"]
+        "Literal['deprecated_none', 'email', 'manual', 'none', 'stripe_email']|str"
     ]
     """
     The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
@@ -76,11 +76,11 @@ class SourceUpdateParamsMandateAcceptance(TypedDict):
     """
     The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
     """
-    status: Literal["accepted", "pending", "refused", "revoked"]
+    status: Union[Literal["accepted", "pending", "refused", "revoked"], str]
     """
     The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
     """
-    type: NotRequired[Literal["offline", "online"]]
+    type: NotRequired["Literal['offline', 'online']|str"]
     """
     The type of acceptance information included with the mandate. Either `online` or `offline`
     """
@@ -181,7 +181,7 @@ class SourceUpdateParamsSourceOrderItem(TypedDict):
     """
     The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
     """
-    type: NotRequired[Literal["discount", "shipping", "sku", "tax"]]
+    type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']|str"]
 
 
 class SourceUpdateParamsSourceOrderShipping(TypedDict):

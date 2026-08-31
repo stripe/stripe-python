@@ -22,7 +22,7 @@ class SettingsModifyParams(RequestOptions):
 
 class SettingsModifyParamsDefaults(TypedDict):
     tax_behavior: NotRequired[
-        Literal["exclusive", "inclusive", "inferred_by_currency"]
+        "Literal['exclusive', 'inclusive', 'inferred_by_currency']|str"
     ]
     """
     Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
