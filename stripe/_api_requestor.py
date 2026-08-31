@@ -29,6 +29,7 @@ from stripe._util import (
     log_debug,
     log_info,
     dashboard_link,
+    validate_path,
     _convert_to_stripe_object,
     get_api_mode,
 )
@@ -654,6 +655,7 @@ class _APIRequestor(object):
                 "questions."
             )
 
+        validate_path(url)
         abs_url = "%s%s" % (
             self._options.base_addresses.get(base_address),
             url,
