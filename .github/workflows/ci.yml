@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - beta
+      - private-preview
       - sdk-release/**
       - feature/**
     tags:
@@ -27,10 +28,12 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Python 3
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.13"
       - name: check examples w/ mypy (against python@3.13)
@@ -54,11 +57,13 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python 3
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.10"
 
@@ -67,7 +72,7 @@ jobs:
           just build
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: dist
           path: dist/
@@ -100,10 +105,12 @@ jobs:
             # use any modern-ish version
             python_version: "3.14"
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python_version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python_version }}
       - uses: stripe/openapi/actions/stripe-mock@master
@@ -127,12 +134,15 @@ jobs:
       id-token: write
     steps:
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        # v8 errors on an artifact digest mismatch; v4 only warned. A mismatch
+        # means the artifact `test` gated on isn't the one reaching PyPI, so
+        # failing is right — set `digest-mismatch: warn` if it ever misfires.
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: dist
           path: dist
       - name: Publish packages to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
         with:
           packages-dir: dist/
       - uses: stripe/openapi/actions/notify-release@master
