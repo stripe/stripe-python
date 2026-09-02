@@ -157,6 +157,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class CapitalFinancingManualPayment(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class CapitalFinancingPromotion(StripeObject):
             class Features(StripeObject):
                 pass
@@ -692,6 +703,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         capital_financing: Optional[CapitalFinancing]
         capital_financing_application: Optional[CapitalFinancingApplication]
+        capital_financing_manual_payment: Optional[
+            CapitalFinancingManualPayment
+        ]
+        """
+        Configuration for the [Capital financing manual payment](https://docs.stripe.com/connect/supported-embedded-components/capital-financing-manual-payment/) embedded component.
+        """
         capital_financing_promotion: Optional[CapitalFinancingPromotion]
         check_scanning: Optional[CheckScanning]
         """
@@ -758,6 +775,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "bills": Bills,
             "capital_financing": CapitalFinancing,
             "capital_financing_application": CapitalFinancingApplication,
+            "capital_financing_manual_payment": CapitalFinancingManualPayment,
             "capital_financing_promotion": CapitalFinancingPromotion,
             "check_scanning": CheckScanning,
             "disputes_list": DisputesList,

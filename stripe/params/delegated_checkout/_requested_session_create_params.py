@@ -57,7 +57,7 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The details of the seller.
     """
-    setup_future_usage: NotRequired[Literal["on_session"]]
+    setup_future_usage: NotRequired["Literal['on_session']|str"]
     """
     The setup future usage for this requested session.
     """

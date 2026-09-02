@@ -26,7 +26,7 @@ class ReceivedDebitMandateListParams(TypedDict):
     """
     Filter by mandate status.
     """
-    type: NotRequired[Literal["bank_transfer"]]
+    type: NotRequired["Literal['bank_transfer']|str"]
     """
     The type of ReceivedDebitMandate to filter by.
     """

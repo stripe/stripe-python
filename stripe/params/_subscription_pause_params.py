@@ -20,7 +20,7 @@ class SubscriptionPauseParams(RequestOptions):
     """
     Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
     """
-    type: NotRequired[Literal["subscription"]]
+    type: NotRequired["Literal['subscription']|str"]
     """
     The type of pause to apply. Defaults to `subscription`.
     """

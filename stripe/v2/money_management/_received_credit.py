@@ -65,7 +65,7 @@ class ReceivedCredit(StripeObject):
             The last 4 digits of the account number that originated the transfer.
             Depending on the bank, this may instead be the last 4 digits of the return account number.
             """
-            network: Literal["acss"]
+            network: Union[Literal["acss"], str]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -87,7 +87,7 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Literal["sepa"]
+            network: Union[Literal["sepa"], str]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -127,7 +127,7 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Literal["spei"]
+            network: Union[Literal["spei"], str]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -153,7 +153,7 @@ class ReceivedCredit(StripeObject):
             """
             The IBAN that originated the transfer.
             """
-            network: Literal["sepa_credit_transfer"]
+            network: Union[Literal["sepa_credit_transfer"], str]
             """
             The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -336,7 +336,7 @@ class ReceivedCredit(StripeObject):
             """
 
         class Returned(StripeObject):
-            reason: Literal["originator_initiated_reversal"]
+            reason: Union[Literal["originator_initiated_reversal"], str]
             """
             Open Enum. The `returned` status reason.
             """
@@ -384,7 +384,7 @@ class ReceivedCredit(StripeObject):
             """
             The network ID of the sender.
             """
-            type: Literal["network_business_profile"]
+            type: Union[Literal["network_business_profile"], str]
             """
             Open Enum. The type of the sender.
             """

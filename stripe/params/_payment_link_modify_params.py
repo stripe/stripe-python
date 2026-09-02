@@ -19,6 +19,14 @@ class PaymentLinkModifyParams(RequestOptions):
     """
     Enables user redeemable promotion codes.
     """
+    application_fee_amount: NotRequired["Literal['']|int"]
+    """
+    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Can only be applied when there are no line items with recurring prices.
+    """
+    application_fee_percent: NotRequired["Literal['']|float"]
+    """
+    A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
+    """
     automatic_tax: NotRequired["PaymentLinkModifyParamsAutomaticTax"]
     """
     Configuration for automatic tax collection.
@@ -70,6 +78,10 @@ class PaymentLinkModifyParams(RequestOptions):
     ]
     """
     Controls settings applied for collecting the customer's name.
+    """
+    on_behalf_of: NotRequired["Literal['']|str"]
+    """
+    The account on behalf of which to charge.
     """
     optional_items: NotRequired[
         "Literal['']|List[PaymentLinkModifyParamsOptionalItem]"
@@ -146,6 +158,12 @@ class PaymentLinkModifyParams(RequestOptions):
     tax_id_collection: NotRequired["PaymentLinkModifyParamsTaxIdCollection"]
     """
     Controls tax ID collection during checkout.
+    """
+    transfer_data: NotRequired[
+        "Literal['']|PaymentLinkModifyParamsTransferData"
+    ]
+    """
+    The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
     """
 
 
@@ -990,4 +1008,18 @@ class PaymentLinkModifyParamsTaxIdCollection(TypedDict):
     required: NotRequired["Literal['if_supported', 'never']|str"]
     """
     Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+    """
+
+
+class PaymentLinkModifyParamsTransferData(TypedDict):
+    amount: NotRequired["Literal['']|int"]
+    """
+    The amount that will be transferred automatically when a charge succeeds.
+    """
+    destination: str
+    """
+    If specified, successful charges will be attributed to the destination
+     account for tax reporting, and the funds from charges will be transferred
+     to the destination account. The ID of the resulting transfer will be
+     returned on the successful charge's `transfer` field.
     """

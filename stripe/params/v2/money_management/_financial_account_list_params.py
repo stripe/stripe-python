@@ -25,6 +25,7 @@ class FinancialAccountListParams(TypedDict):
                     "credit",
                     "multiprocessor_settlement",
                     "payments",
+                    "savings",
                     "storage",
                 ],
                 str,

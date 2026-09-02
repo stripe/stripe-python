@@ -45,7 +45,7 @@ class DebitDispute(StripeObject):
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
-            reason: Literal["unknown"]
+            reason: Union[Literal["unknown"], str]
             """
             The reason for the failure of the DebitDispute.
             """
@@ -114,7 +114,7 @@ class DebitDispute(StripeObject):
     """
     The time at which the DebitDispute transitioned to a particular status.
     """
-    type: Literal["bank_transfer"]
+    type: Union[Literal["bank_transfer"], str]
     """
     The type of the DebitDispute.
     """

@@ -23,7 +23,7 @@ class ApiKey(StripeObject):
         """
         An application.
         """
-        type: Literal["application"]
+        type: Union[Literal["application"], str]
         """
         The type of entity.
         """

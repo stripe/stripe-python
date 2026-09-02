@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -30,7 +30,7 @@ class CadenceSpendModifier(StripeObject):
             """
             The custom pricing unit amount. Present if type is `custom_pricing_unit`.
             """
-            type: Literal["custom_pricing_unit"]
+            type: Union[Literal["custom_pricing_unit"], str]
             """
             The type of the spend modifier amount.
             """
@@ -91,7 +91,7 @@ class CadenceSpendModifier(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    type: Literal["max_billing_period_spend"]
+    type: Union[Literal["max_billing_period_spend"], str]
     """
     The type of the spend modifier.
     """

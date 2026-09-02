@@ -929,7 +929,7 @@ class SessionCreateParamsItem(TypedDict):
     """
     Configuration for the subscription item.
     """
-    type: Literal["subscription"]
+    type: Union[Literal["subscription"], str]
     """
     The type of item.
     """
@@ -1838,7 +1838,7 @@ class SessionCreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
 
 
 class SessionCreateParamsPaymentMethodOptionsAlipay(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2089,6 +2089,12 @@ class SessionCreateParamsPaymentMethodOptionsCardRestrictions(TypedDict):
     ]
     """
     The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+    """
+    funding_types_blocked: NotRequired[
+        List[Union[Literal["credit", "debit", "prepaid"], str]]
+    ]
+    """
+    Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
     """
 
 
@@ -2919,7 +2925,7 @@ class SessionCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The client type that the end customer will pay from
     """
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

@@ -330,7 +330,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 Determines how to handle debits and credits when pausing.
                 """
-                type: Literal["subscription"]
+                type: Union[Literal["subscription"], str]
                 """
                 The type of pause settings.
                 """

@@ -3,8 +3,8 @@
 from typing_extensions import NotRequired, TypedDict
 
 
-class ApprovalRequestSubmitParams(TypedDict):
+class ApprovalRequestUpdateParams(TypedDict):
     reason: NotRequired[str]
     """
-    The reason for submitting the approval request.
+    The updated reason for the approval request.
     """

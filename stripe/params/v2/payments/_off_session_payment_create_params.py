@@ -222,7 +222,7 @@ class OffSessionPaymentCreateParamsPaymentMethodData(TypedDict):
     """
     Contains card details that can be used to create a card PaymentMethod for PCI compliant users.
     """
-    type: Literal["card"]
+    type: Union[Literal["card"], str]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
     """

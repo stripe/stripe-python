@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.shared_payment._granted_token_create_params import (
         GrantedTokenCreateParams as GrantedTokenCreateParams,
         GrantedTokenCreateParamsUsageLimits as GrantedTokenCreateParamsUsageLimits,
+        GrantedTokenCreateParamsUsageLimitsRecurring as GrantedTokenCreateParamsUsageLimitsRecurring,
     )
     from stripe.params.test_helpers.shared_payment._granted_token_revoke_params import (
         GrantedTokenRevokeParams as GrantedTokenRevokeParams,
@@ -19,6 +20,10 @@ _import_map = {
         False,
     ),
     "GrantedTokenCreateParamsUsageLimits": (
+        "stripe.params.test_helpers.shared_payment._granted_token_create_params",
+        False,
+    ),
+    "GrantedTokenCreateParamsUsageLimitsRecurring": (
         "stripe.params.test_helpers.shared_payment._granted_token_create_params",
         False,
     ),

@@ -450,7 +450,7 @@ class Subscription(
                     """
                     Amount to be charged for future payments. Required when `amount_type=fixed`.
                     """
-                    amount_type: Optional[Literal["fixed"]]
+                    amount_type: Optional[Union[Literal["fixed"], str]]
                     """
                     Indicates the mandate amount type.
                     """
@@ -871,6 +871,7 @@ class Subscription(
                         "sofort",
                         "stripe_balance",
                         "swish",
+                        "truemoney",
                         "twint",
                         "upi",
                         "us_bank_account",
@@ -987,7 +988,7 @@ class Subscription(
             """
             Unix timestamp in seconds of when the subscription status transitioned to `paused`.
             """
-            type: Literal["subscription"]
+            type: Union[Literal["subscription"], str]
             """
             The type of pause.
             """

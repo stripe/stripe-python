@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -20,7 +20,7 @@ class ContractPricingLineQuantityChange(StripeObject):
         """
         The ID of the V1 price. Present when `type` is `price`.
         """
-        type: Literal["price"]
+        type: Union[Literal["price"], str]
         """
         The type of pricing.
         """

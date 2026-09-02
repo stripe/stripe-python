@@ -1010,7 +1010,7 @@ class PaymentMethod(
         """
 
     class GiftCard(StripeObject):
-        brand: Literal["svs"]
+        brand: Union[Literal["svs"], str]
         """
         The brand of the gift card.
         """
@@ -1811,6 +1811,7 @@ class PaymentMethod(
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",

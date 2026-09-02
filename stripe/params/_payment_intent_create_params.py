@@ -102,6 +102,7 @@ class PaymentIntentCreateParams(RequestOptions):
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -240,6 +241,7 @@ class PaymentIntentCreateParams(RequestOptions):
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",
@@ -323,10 +325,6 @@ class PaymentIntentCreateParams(RequestOptions):
     ]
     """
     Payment method-specific configuration for this PaymentIntent.
-    """
-    payment_method_types: NotRequired[List[str]]
-    """
-    The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
     payments_orchestration: NotRequired[
         "PaymentIntentCreateParamsPaymentsOrchestration"
@@ -3299,6 +3297,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -4470,6 +4469,9 @@ class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
     """
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
+    verification_method: NotRequired[
+        Literal["automatic", "payer_name_verification"]
+    ]
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(
@@ -7675,7 +7677,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The client type that the end customer will pay from
     """
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

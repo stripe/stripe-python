@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -96,7 +96,7 @@ class V2PaymentsSettlementAllocationIntentErroredEvent(Event):
         """
         User Message detailing the reason code and possible resolution .
         """
-        reason_code: Literal["amount_mismatch"]
+        reason_code: Union[Literal["amount_mismatch"], str]
         """
         Open Enum. The `errored` status reason.
         """

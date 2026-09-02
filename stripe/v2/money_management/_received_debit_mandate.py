@@ -23,7 +23,7 @@ class ReceivedDebitMandate(StripeObject):
         """
         The financial address associated with this mandate.
         """
-        network: Literal["bacs"]
+        network: Union[Literal["bacs"], str]
         """
         The bank transfer network for this mandate.
         """
@@ -122,7 +122,7 @@ class ReceivedDebitMandate(StripeObject):
     """
     Timestamps describing when the mandate changed status.
     """
-    type: Literal["bank_transfer"]
+    type: Union[Literal["bank_transfer"], str]
     """
     The type of the ReceivedDebitMandate.
     """

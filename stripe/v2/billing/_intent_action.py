@@ -55,7 +55,7 @@ class IntentAction(StripeObject):
         class InvoiceDiscountRule(StripeObject):
             class PercentOff(StripeObject):
                 class MaximumApplications(StripeObject):
-                    type: Literal["indefinite"]
+                    type: Union[Literal["indefinite"], str]
                     """
                     The type of maximum applications configuration.
                     """
@@ -73,7 +73,7 @@ class IntentAction(StripeObject):
                 }
                 _field_encodings = {"percent_off": "decimal_string"}
 
-            applies_to: Literal["cadence"]
+            applies_to: Union[Literal["cadence"], str]
             """
             The entity that the discount rule applies to, for example, the Billing Cadence.
             """
@@ -85,7 +85,7 @@ class IntentAction(StripeObject):
             """
             Configuration for percentage off discount.
             """
-            type: Literal["percent_off"]
+            type: Union[Literal["percent_off"], str]
             """
             Type of the discount rule.
             """
@@ -147,7 +147,7 @@ class IntentAction(StripeObject):
             """
             Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
             """
-            type: Literal["max_billing_period_spend"]
+            type: Union[Literal["max_billing_period_spend"], str]
             """
             Type of the spend modifier.
             """

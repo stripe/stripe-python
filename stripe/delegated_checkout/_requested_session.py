@@ -423,7 +423,7 @@ class RequestedSession(
                 """
                 The content type of the disclosure.
                 """
-                type: Literal["disclaimer"]
+                type: Union[Literal["disclaimer"], str]
                 """
                 The type of disclosure.
                 """
@@ -834,7 +834,7 @@ class RequestedSession(
     The risk details of the requested session.
     """
     seller_details: SellerDetails
-    setup_future_usage: Optional[Literal["on_session"]]
+    setup_future_usage: Optional[Union[Literal["on_session"], str]]
     """
     Whether or not the payment method should be saved for future use.
     """

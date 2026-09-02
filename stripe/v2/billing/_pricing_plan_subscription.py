@@ -46,7 +46,7 @@ class PricingPlanSubscription(StripeObject):
         """
         The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
         """
-        reason: Optional[Literal["cancellation_requested"]]
+        reason: Optional[Union[Literal["cancellation_requested"], str]]
         """
         System-generated reason for cancellation.
         """
@@ -283,7 +283,7 @@ class PricingPlanSubscription(StripeObject):
                         """
                         The billable items to apply the credit grant to.
                         """
-                        price_type: Optional[Literal["metered"]]
+                        price_type: Optional[Union[Literal["metered"], str]]
                         """
                         The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                         """
@@ -295,7 +295,7 @@ class PricingPlanSubscription(StripeObject):
                     _inner_class_types = {"scope": Scope}
 
                 class ExpiryConfig(StripeObject):
-                    type: Literal["end_of_service_period"]
+                    type: Union[Literal["end_of_service_period"], str]
                     """
                     The type of the expiry configuration. We currently support `end_of_service_period`.
                     """
@@ -361,7 +361,7 @@ class PricingPlanSubscription(StripeObject):
                         """
                         The billable items to apply the credit grant to.
                         """
-                        price_type: Optional[Literal["metered"]]
+                        price_type: Optional[Union[Literal["metered"], str]]
                         """
                         The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                         """
@@ -373,7 +373,7 @@ class PricingPlanSubscription(StripeObject):
                     _inner_class_types = {"scope": Scope}
 
                 class ExpiryConfig(StripeObject):
-                    type: Literal["end_of_service_period"]
+                    type: Union[Literal["end_of_service_period"], str]
                     """
                     The type of the expiry configuration. We currently support `end_of_service_period`.
                     """

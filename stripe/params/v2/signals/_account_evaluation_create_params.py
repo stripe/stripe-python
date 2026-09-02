@@ -62,6 +62,8 @@ class AccountEvaluationCreateParamsAccountActivityDetailsData(TypedDict):
     """
     type: Union[
         Literal[
+            "account_restricted",
+            "account_suspended",
             "login_attempt",
             "login_decision",
             "registration_attempt",

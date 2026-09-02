@@ -54,7 +54,7 @@ class ActivityLog(StripeObject):
                 """
                 An application.
                 """
-                type: Literal["application"]
+                type: Union[Literal["application"], str]
                 """
                 The type of entity.
                 """
@@ -206,7 +206,7 @@ class ActivityLog(StripeObject):
                     """
                     The user access action used a novel device.
                     """
-                    type: Literal["novel_device"]
+                    type: Union[Literal["novel_device"], str]
                     """
                     Type of risk signal.
                     """

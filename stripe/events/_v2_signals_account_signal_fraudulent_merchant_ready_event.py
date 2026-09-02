@@ -161,7 +161,7 @@ class V2SignalsAccountSignalFraudulentMerchantReadyEvent(Event):
         """
         Fraudulent merchant signal data. Present when type is fraudulent_merchant.
         """
-        type: Literal["fraudulent_merchant"]
+        type: Union[Literal["fraudulent_merchant"], str]
         """
         The type of account signal. Currently only fraudulent_merchant is supported.
         """

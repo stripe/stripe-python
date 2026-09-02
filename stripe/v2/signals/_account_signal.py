@@ -29,49 +29,54 @@ class AccountSignal(StripeObject):
         """
 
     class FraudulentMerchant(StripeObject):
-        class Indicator(StripeObject):
-            explanation: str
-            """
-            A brief explanation of how this indicator contributed to the fraudulent merchant probability.
-            """
-            impact: Literal[
-                "decrease", "neutral", "slight_increase", "strong_increase"
-            ]
-            """
-            The effect this indicator had on the overall risk level.
-            """
-            indicator: Literal[
-                "bank_account",
-                "business_information_and_account_activity",
-                "disputes",
-                "failures",
-                "geolocation",
-                "other",
-                "other_related_accounts",
-                "other_transaction_activity",
-                "owner_email",
-            ]
-            """
-            The name of the specific indicator used in the risk assessment.
-            """
+        class AdditionalDetails(StripeObject):
+            class Indicator(StripeObject):
+                explanation: str
+                """
+                A brief explanation of how this indicator contributed to the fraudulent merchant probability.
+                """
+                impact: Literal[
+                    "decrease", "neutral", "slight_increase", "strong_increase"
+                ]
+                """
+                The effect this indicator had on the overall risk level.
+                """
+                indicator: Literal[
+                    "bank_account",
+                    "business_information_and_account_activity",
+                    "disputes",
+                    "failures",
+                    "geolocation",
+                    "other",
+                    "other_related_accounts",
+                    "other_transaction_activity",
+                    "owner_email",
+                ]
+                """
+                The name of the specific indicator used in the risk assessment.
+                """
 
-        indicators: List[Indicator]
+            indicators: List[Indicator]
+            """
+            Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is unknown,
+            or when the user is not on a product tier that includes indicators.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
+        additional_details: Optional[AdditionalDetails]
         """
-        Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is not_assessed or unknown,
-        or when the user is not on a product tier that includes indicators.
+        Supplementary contextual data for the signal, including indicators.
         """
         probability: Optional[Decimal]
         """
-        The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is not_assessed or unknown,
+        The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is unknown,
         or when the user is not on a product tier that includes numeric scores.
         """
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
-        ]
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
         Categorical assessment of the fraudulent merchant risk based on probability.
         """
-        _inner_class_types = {"indicators": Indicator}
+        _inner_class_types = {"additional_details": AdditionalDetails}
         _field_encodings = {"probability": "decimal_string"}
 
     class FraudulentWebsite(StripeObject):
@@ -79,64 +84,67 @@ class AccountSignal(StripeObject):
         """
         Human-readable details about the fraudulent website evaluation.
         """
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
-        ]
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
         Categorical assessment of the fraudulent website risk.
         """
 
     class MerchantDelinquency(StripeObject):
-        class Indicator(StripeObject):
-            explanation: str
-            """
-            A brief explanation of how this indicator contributed to the delinquency probability.
-            """
-            impact: Literal[
-                "decrease", "neutral", "slight_increase", "strong_increase"
-            ]
-            """
-            The effect this indicator had on the overall risk level.
-            """
-            indicator: Literal[
-                "account_balance",
-                "aov",
-                "charge_concentration",
-                "disputes",
-                "dispute_window",
-                "exposure",
-                "firmographic",
-                "lifetime_metrics",
-                "other",
-                "payment_processing",
-                "payment_volume",
-                "payouts",
-                "refunds",
-                "related_accounts",
-                "tenure",
-                "transfers",
-            ]
-            """
-            The name of the specific indicator used in the risk assessment.
-            """
+        class AdditionalDetails(StripeObject):
+            class Indicator(StripeObject):
+                explanation: str
+                """
+                A brief explanation of how this indicator contributed to the delinquency probability.
+                """
+                impact: Literal[
+                    "decrease", "neutral", "slight_increase", "strong_increase"
+                ]
+                """
+                The effect this indicator had on the overall risk level.
+                """
+                indicator: Literal[
+                    "account_balance",
+                    "aov",
+                    "charge_concentration",
+                    "disputes",
+                    "dispute_window",
+                    "exposure",
+                    "firmographic",
+                    "lifetime_metrics",
+                    "other",
+                    "payment_processing",
+                    "payment_volume",
+                    "payouts",
+                    "refunds",
+                    "related_accounts",
+                    "tenure",
+                    "transfers",
+                ]
+                """
+                The name of the specific indicator used in the risk assessment.
+                """
 
-        indicators: List[Indicator]
+            indicators: List[Indicator]
+            """
+            Array of objects representing individual factors that contributed to the calculated probability of delinquency. Absent when risk level is unknown,
+            or when the user is not on a product tier that includes indicators.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
+        additional_details: Optional[AdditionalDetails]
         """
-        Array of objects representing individual factors that contributed to the calculated probability of delinquency. Absent when risk level is not_assessed or unknown,
-        or when the user is not on a product tier that includes indicators.
+        Supplementary contextual data for the signal, including indicators.
         """
         probability: Optional[Decimal]
         """
-        The probability of delinquency. Can be between 0.00 and 100.00. Absent when risk level is not_assessed or unknown,
+        The probability of delinquency. Can be between 0.00 and 100.00. Absent when risk level is unknown,
         or when the user is not on a product tier that includes numeric scores.
         """
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
-        ]
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
         Categorical assessment of the delinquency risk based on probability.
         """
-        _inner_class_types = {"indicators": Indicator}
+        _inner_class_types = {"additional_details": AdditionalDetails}
         _field_encodings = {"probability": "decimal_string"}
 
     class PaymentDelinquencyExposure(StripeObject):
@@ -191,9 +199,7 @@ class AccountSignal(StripeObject):
         }
 
     class UserAccountSharing(StripeObject):
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
-        ]
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
         Categorical assessment of the account-sharing risk.
         """
@@ -205,9 +211,7 @@ class AccountSignal(StripeObject):
         _field_encodings = {"score": "decimal_string"}
 
     class UserMultiAccounting(StripeObject):
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
-        ]
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
         Categorical assessment of the multi-accounting risk.
         """

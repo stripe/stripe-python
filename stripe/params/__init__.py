@@ -1363,7 +1363,9 @@ if TYPE_CHECKING:
     from stripe.params._customer_session_create_params import (
         CustomerSessionCreateParams as CustomerSessionCreateParams,
         CustomerSessionCreateParamsComponents as CustomerSessionCreateParamsComponents,
+        CustomerSessionCreateParamsComponentsActiveEntitlements as CustomerSessionCreateParamsComponentsActiveEntitlements,
         CustomerSessionCreateParamsComponentsBuyButton as CustomerSessionCreateParamsComponentsBuyButton,
+        CustomerSessionCreateParamsComponentsCustomerPortal as CustomerSessionCreateParamsComponentsCustomerPortal,
         CustomerSessionCreateParamsComponentsCustomerSheet as CustomerSessionCreateParamsComponentsCustomerSheet,
         CustomerSessionCreateParamsComponentsCustomerSheetFeatures as CustomerSessionCreateParamsComponentsCustomerSheetFeatures,
         CustomerSessionCreateParamsComponentsMobilePaymentElement as CustomerSessionCreateParamsComponentsMobilePaymentElement,
@@ -3951,6 +3953,7 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsSubscriptionDataTrialSettings as PaymentLinkModifyParamsSubscriptionDataTrialSettings,
         PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior,
         PaymentLinkModifyParamsTaxIdCollection as PaymentLinkModifyParamsTaxIdCollection,
+        PaymentLinkModifyParamsTransferData as PaymentLinkModifyParamsTransferData,
     )
     from stripe.params._payment_link_retrieve_params import (
         PaymentLinkRetrieveParams as PaymentLinkRetrieveParams,
@@ -4002,6 +4005,7 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsSubscriptionDataTrialSettings as PaymentLinkUpdateParamsSubscriptionDataTrialSettings,
         PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior,
         PaymentLinkUpdateParamsTaxIdCollection as PaymentLinkUpdateParamsTaxIdCollection,
+        PaymentLinkUpdateParamsTransferData as PaymentLinkUpdateParamsTransferData,
     )
     from stripe.params._payment_location_capability_list_params import (
         PaymentLocationCapabilityListParams as PaymentLocationCapabilityListParams,
@@ -4653,6 +4657,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_record_report_payment_attempt_params import (
         PaymentRecordReportPaymentAttemptParams as PaymentRecordReportPaymentAttemptParams,
+        PaymentRecordReportPaymentAttemptParamsCanceled as PaymentRecordReportPaymentAttemptParamsCanceled,
         PaymentRecordReportPaymentAttemptParamsFailed as PaymentRecordReportPaymentAttemptParamsFailed,
         PaymentRecordReportPaymentAttemptParamsFailedProcessorDetails as PaymentRecordReportPaymentAttemptParamsFailedProcessorDetails,
         PaymentRecordReportPaymentAttemptParamsFailedProcessorDetailsCustom as PaymentRecordReportPaymentAttemptParamsFailedProcessorDetailsCustom,
@@ -4671,6 +4676,7 @@ if TYPE_CHECKING:
     from stripe.params._payment_record_report_payment_params import (
         PaymentRecordReportPaymentParams as PaymentRecordReportPaymentParams,
         PaymentRecordReportPaymentParamsAmountRequested as PaymentRecordReportPaymentParamsAmountRequested,
+        PaymentRecordReportPaymentParamsCanceled as PaymentRecordReportPaymentParamsCanceled,
         PaymentRecordReportPaymentParamsCustomerDetails as PaymentRecordReportPaymentParamsCustomerDetails,
         PaymentRecordReportPaymentParamsFailed as PaymentRecordReportPaymentParamsFailed,
         PaymentRecordReportPaymentParamsFailedProcessorDetails as PaymentRecordReportPaymentParamsFailedProcessorDetails,
@@ -10615,7 +10621,15 @@ _import_map = {
         "stripe.params._customer_session_create_params",
         False,
     ),
+    "CustomerSessionCreateParamsComponentsActiveEntitlements": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
     "CustomerSessionCreateParamsComponentsBuyButton": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsCustomerPortal": (
         "stripe.params._customer_session_create_params",
         False,
     ),
@@ -19813,6 +19827,10 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsTransferData": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkRetrieveParams": (
         "stripe.params._payment_link_retrieve_params",
         False,
@@ -19998,6 +20016,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsTaxIdCollection": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsTransferData": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -22277,6 +22299,10 @@ _import_map = {
         "stripe.params._payment_record_report_payment_attempt_params",
         False,
     ),
+    "PaymentRecordReportPaymentAttemptParamsCanceled": (
+        "stripe.params._payment_record_report_payment_attempt_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptParamsFailed": (
         "stripe.params._payment_record_report_payment_attempt_params",
         False,
@@ -22338,6 +22364,10 @@ _import_map = {
         False,
     ),
     "PaymentRecordReportPaymentParamsAmountRequested": (
+        "stripe.params._payment_record_report_payment_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentParamsCanceled": (
         "stripe.params._payment_record_report_payment_params",
         False,
     ),

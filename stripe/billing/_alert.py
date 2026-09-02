@@ -216,7 +216,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
                 "custom_pricing_unit": CustomPricingUnit,
             }
 
-        aggregation_period: Literal["billing"]
+        aggregation_period: Union[Literal["billing"], str]
         """
         Defines the period over which spend is aggregated.
         """

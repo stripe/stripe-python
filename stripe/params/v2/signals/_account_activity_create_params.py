@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import Union
+from stripe._stripe_object import UntypedStripeObject
+from typing import Dict, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -13,6 +14,20 @@ class AccountActivityCreateParams(TypedDict):
     """
     The account evaluation this activity is associated with, when applicable.
     """
+    account_restricted: NotRequired[
+        "AccountActivityCreateParamsAccountRestricted"
+    ]
+    """
+    Details for the account restriction. Provide only when type is account_restricted. The activity
+    requires an existing account_details.account or account_details.customer; inline data is unsupported.
+    """
+    account_suspended: NotRequired[
+        "AccountActivityCreateParamsAccountSuspended"
+    ]
+    """
+    Details for the account suspension. Provide only when type is account_suspended. The activity
+    requires an existing account_details.customer; account_details.account and inline data are unsupported.
+    """
     login_attempt: NotRequired["AccountActivityCreateParamsLoginAttempt"]
     """
     Details for the login attempt. Provide only when type is login_attempt.
@@ -20,6 +35,10 @@ class AccountActivityCreateParams(TypedDict):
     login_decision: NotRequired["AccountActivityCreateParamsLoginDecision"]
     """
     Details for the login decision. Provide only when type is login_decision.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Additional information about the activity.
     """
     occurred_at: NotRequired[str]
     """
@@ -39,6 +58,8 @@ class AccountActivityCreateParams(TypedDict):
     """
     type: Union[
         Literal[
+            "account_restricted",
+            "account_suspended",
             "login_attempt",
             "login_decision",
             "registration_attempt",
@@ -118,6 +139,20 @@ class AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails(
     registered_name: NotRequired[str]
     """
     Registered business name.
+    """
+
+
+class AccountActivityCreateParamsAccountRestricted(TypedDict):
+    reason: Union[Literal["abuse", "other"], str]
+    """
+    The reason the account or customer was restricted.
+    """
+
+
+class AccountActivityCreateParamsAccountSuspended(TypedDict):
+    reason: Union[Literal["abuse", "other"], str]
+    """
+    The reason the customer was suspended.
     """
 
 

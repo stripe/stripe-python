@@ -2120,7 +2120,7 @@ class OrderCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The client type that the end customer will pay from
     """
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

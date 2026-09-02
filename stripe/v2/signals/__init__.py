@@ -22,6 +22,18 @@ if TYPE_CHECKING:
     from stripe.v2.signals._account_signal_service import (
         AccountSignalService as AccountSignalService,
     )
+    from stripe.v2.signals._payment_retry_evaluation import (
+        PaymentRetryEvaluation as PaymentRetryEvaluation,
+    )
+    from stripe.v2.signals._payment_retry_evaluation_service import (
+        PaymentRetryEvaluationService as PaymentRetryEvaluationService,
+    )
+    from stripe.v2.signals._payment_retry_signal import (
+        PaymentRetrySignal as PaymentRetrySignal,
+    )
+    from stripe.v2.signals._payment_retry_signal_service import (
+        PaymentRetrySignalService as PaymentRetrySignalService,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -38,6 +50,19 @@ _import_map = {
     "AccountSignal": ("stripe.v2.signals._account_signal", False),
     "AccountSignalService": (
         "stripe.v2.signals._account_signal_service",
+        False,
+    ),
+    "PaymentRetryEvaluation": (
+        "stripe.v2.signals._payment_retry_evaluation",
+        False,
+    ),
+    "PaymentRetryEvaluationService": (
+        "stripe.v2.signals._payment_retry_evaluation_service",
+        False,
+    ),
+    "PaymentRetrySignal": ("stripe.v2.signals._payment_retry_signal", False),
+    "PaymentRetrySignalService": (
+        "stripe.v2.signals._payment_retry_signal_service",
         False,
     ),
 }

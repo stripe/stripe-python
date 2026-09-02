@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._payout_method_archive_params import (
         PayoutMethodArchiveParams,
     )
+    from stripe.params.v2.money_management._payout_method_disable_params import (
+        PayoutMethodDisableParams,
+    )
     from stripe.params.v2.money_management._payout_method_list_params import (
         PayoutMethodListParams,
     )
@@ -144,6 +147,54 @@ class PayoutMethodService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/money_management/payout_methods/{id}/archive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def disable(
+        self,
+        id: str,
+        params: Optional["PayoutMethodDisableParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
+        """
+        Disable a PayoutMethod object. The payout method will not be available for use in outbound money movement.
+        To re-enable the payout method, create an OutboundSetupIntent
+        using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
+        """
+        return cast(
+            "PayoutMethod",
+            self._request(
+                "post",
+                "/v2/money_management/payout_methods/{id}/disable".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def disable_async(
+        self,
+        id: str,
+        params: Optional["PayoutMethodDisableParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
+        """
+        Disable a PayoutMethod object. The payout method will not be available for use in outbound money movement.
+        To re-enable the payout method, create an OutboundSetupIntent
+        using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
+        """
+        return cast(
+            "PayoutMethod",
+            await self._request_async(
+                "post",
+                "/v2/money_management/payout_methods/{id}/disable".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

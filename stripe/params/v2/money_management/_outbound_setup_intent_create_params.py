@@ -51,7 +51,7 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
         str,
     ]
     """
-    Closed Enum. The type of payout method to be created.
+    Open Enum. The type of payout method to be created.
     """
 
 

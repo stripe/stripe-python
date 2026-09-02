@@ -102,6 +102,10 @@ class UsBankAccount(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    restricted: bool
+    """
+    Whether the US Bank Account is currently unusable for money movement, despite potentially being correctly set up. Please reach out to Stripe Support for more information.
+    """
     routing_number: Optional[str]
     """
     The ACH routing number of the bank account.

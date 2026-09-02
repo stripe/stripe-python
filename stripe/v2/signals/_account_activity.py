@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
@@ -73,6 +73,18 @@ class AccountActivity(StripeObject):
         Inline account data to evaluate without creating a v2 account.
         """
         _inner_class_types = {"data": Data}
+
+    class AccountRestricted(StripeObject):
+        reason: Union[Literal["abuse", "other"], str]
+        """
+        The reason the account or customer was restricted.
+        """
+
+    class AccountSuspended(StripeObject):
+        reason: Union[Literal["abuse", "other"], str]
+        """
+        The reason the customer was suspended.
+        """
 
     class LoginAttempt(StripeObject):
         class ClientDetails(StripeObject):
@@ -158,6 +170,16 @@ class AccountActivity(StripeObject):
     """
     The account evaluation this activity is associated with, when applicable.
     """
+    account_restricted: Optional[AccountRestricted]
+    """
+    Details for the account restriction. Present only when type is account_restricted. The activity
+    requires an existing account_details.account or account_details.customer; inline data is unsupported.
+    """
+    account_suspended: Optional[AccountSuspended]
+    """
+    Details for the account suspension. Present only when type is account_suspended. The activity
+    requires an existing account_details.customer; account_details.account and inline data are unsupported.
+    """
     created: str
     """
     Timestamp at which the account activity was created.
@@ -178,6 +200,10 @@ class AccountActivity(StripeObject):
     """
     Details for the login decision. Present only when type is login_decision.
     """
+    metadata: Optional[UntypedStripeObject[str]]
+    """
+    Additional information about the activity.
+    """
     object: Literal["v2.signals.account_activity"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -196,6 +222,8 @@ class AccountActivity(StripeObject):
     """
     type: Union[
         Literal[
+            "account_restricted",
+            "account_suspended",
             "login_attempt",
             "login_decision",
             "registration_attempt",
@@ -208,6 +236,8 @@ class AccountActivity(StripeObject):
     """
     _inner_class_types = {
         "account_details": AccountDetails,
+        "account_restricted": AccountRestricted,
+        "account_suspended": AccountSuspended,
         "login_attempt": LoginAttempt,
         "login_decision": LoginDecision,
         "registration_attempt": RegistrationAttempt,

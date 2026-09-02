@@ -16,11 +16,15 @@ class ReceivedDebit(StripeObject):
     )
 
     class BalanceTransfer(StripeObject):
+        to_account: Optional[str]
+        """
+        The ID of the v1 account that received the balance transfer.
+        """
         topup: Optional[str]
         """
         The ID of the topup object that originated the ReceivedDebit.
         """
-        type: Literal["topup"]
+        type: Union[Literal["topup"], str]
         """
         Open Enum. The type of balance transfer that originated the ReceivedDebit.
         """
@@ -39,7 +43,7 @@ class ReceivedDebit(StripeObject):
             """
             Last 4 digits of the bank account number.
             """
-            network: Literal["bacs"]
+            network: Union[Literal["bacs"], str]
             """
             Open Enum. The bank network the debit was originated on.
             """
@@ -57,7 +61,7 @@ class ReceivedDebit(StripeObject):
             """
             The name of the bank the debit originated from.
             """
-            network: Literal["ach"]
+            network: Union[Literal["ach"], str]
             """
             Open Enum. The bank network the debit was originated on.
             """
@@ -164,7 +168,7 @@ class ReceivedDebit(StripeObject):
             """
 
         class Returned(StripeObject):
-            reason: Literal["originator_initiated"]
+            reason: Union[Literal["originator_initiated"], str]
             """
             Open Enum. The reason the ReceivedDebit was returned.
             """

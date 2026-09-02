@@ -12,6 +12,8 @@ if TYPE_CHECKING:
         AccountActivityCreateParamsAccountDetailsDataDefaultsProfile as AccountActivityCreateParamsAccountDetailsDataDefaultsProfile,
         AccountActivityCreateParamsAccountDetailsDataIdentity as AccountActivityCreateParamsAccountDetailsDataIdentity,
         AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails as AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails,
+        AccountActivityCreateParamsAccountRestricted as AccountActivityCreateParamsAccountRestricted,
+        AccountActivityCreateParamsAccountSuspended as AccountActivityCreateParamsAccountSuspended,
         AccountActivityCreateParamsLoginAttempt as AccountActivityCreateParamsLoginAttempt,
         AccountActivityCreateParamsLoginAttemptClientDetails as AccountActivityCreateParamsLoginAttemptClientDetails,
         AccountActivityCreateParamsLoginAttemptClientDetailsData as AccountActivityCreateParamsLoginAttemptClientDetailsData,
@@ -54,6 +56,21 @@ if TYPE_CHECKING:
     from stripe.params.v2.signals._account_signal_retrieve_params import (
         AccountSignalRetrieveParams as AccountSignalRetrieveParams,
     )
+    from stripe.params.v2.signals._payment_retry_evaluation_cancel_params import (
+        PaymentRetryEvaluationCancelParams as PaymentRetryEvaluationCancelParams,
+    )
+    from stripe.params.v2.signals._payment_retry_evaluation_create_params import (
+        PaymentRetryEvaluationCreateParams as PaymentRetryEvaluationCreateParams,
+    )
+    from stripe.params.v2.signals._payment_retry_evaluation_retrieve_params import (
+        PaymentRetryEvaluationRetrieveParams as PaymentRetryEvaluationRetrieveParams,
+    )
+    from stripe.params.v2.signals._payment_retry_evaluation_update_params import (
+        PaymentRetryEvaluationUpdateParams as PaymentRetryEvaluationUpdateParams,
+    )
+    from stripe.params.v2.signals._payment_retry_signal_retrieve_params import (
+        PaymentRetrySignalRetrieveParams as PaymentRetrySignalRetrieveParams,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -82,6 +99,14 @@ _import_map = {
         False,
     ),
     "AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsAccountRestricted": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsAccountSuspended": (
         "stripe.params.v2.signals._account_activity_create_params",
         False,
     ),
@@ -199,6 +224,26 @@ _import_map = {
     ),
     "AccountSignalRetrieveParams": (
         "stripe.params.v2.signals._account_signal_retrieve_params",
+        False,
+    ),
+    "PaymentRetryEvaluationCancelParams": (
+        "stripe.params.v2.signals._payment_retry_evaluation_cancel_params",
+        False,
+    ),
+    "PaymentRetryEvaluationCreateParams": (
+        "stripe.params.v2.signals._payment_retry_evaluation_create_params",
+        False,
+    ),
+    "PaymentRetryEvaluationRetrieveParams": (
+        "stripe.params.v2.signals._payment_retry_evaluation_retrieve_params",
+        False,
+    ),
+    "PaymentRetryEvaluationUpdateParams": (
+        "stripe.params.v2.signals._payment_retry_evaluation_update_params",
+        False,
+    ),
+    "PaymentRetrySignalRetrieveParams": (
+        "stripe.params.v2.signals._payment_retry_signal_retrieve_params",
         False,
     ),
 }

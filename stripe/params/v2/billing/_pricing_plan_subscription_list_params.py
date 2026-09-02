@@ -49,7 +49,7 @@ class PricingPlanSubscriptionListParamsPayer(TypedDict):
     """
     The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the cadences with the specified payer will be returned.
     """
-    type: Literal["customer"]
+    type: Union[Literal["customer"], str]
     """
     A string identifying the type of the payer. Currently the only supported value is `customer`.
     """

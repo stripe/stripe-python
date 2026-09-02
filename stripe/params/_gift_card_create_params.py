@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired
 
 
 class GiftCardCreateParams(RequestOptions):
-    brand: Literal["svs"]
+    brand: Union[Literal["svs"], str]
     """
     The brand of the gift card.
     """

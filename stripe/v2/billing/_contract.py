@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
@@ -104,6 +105,42 @@ class Contract(StripeObject):
             "collection_settings_details": CollectionSettingsDetails,
         }
 
+    class OneTimeFees(StripeObject):
+        class Data(StripeObject):
+            class BillAt(StripeObject):
+                timestamp: str
+                """
+                The timestamp at which the fee will be billed.
+                """
+
+            amount: Amount
+            """
+            The amount billed for this fee.
+            """
+            bill_at: BillAt
+            """
+            When this fee will be billed. Always contains a concrete timestamp.
+            """
+            id: str
+            """
+            The id of the one-time fee.
+            """
+            lookup_key: Optional[str]
+            """
+            The user-provided lookup key.
+            """
+            product: str
+            """
+            The id of the product for this fee.
+            """
+            _inner_class_types = {"bill_at": BillAt}
+
+        data: List[Data]
+        """
+        The one-time fees for this page.
+        """
+        _inner_class_types = {"data": Data}
+
     class PricingLines(StripeObject):
         class Data(StripeObject):
             class EndsAt(StripeObject):
@@ -162,7 +199,7 @@ class Contract(StripeObject):
                             """
                             Timestamp when this override starts.
                             """
-                            type: Literal["overwrite_price"]
+                            type: Union[Literal["overwrite_price"], str]
                             """
                             The type of override.
                             """
@@ -199,7 +236,7 @@ class Contract(StripeObject):
                 """
                 V1 price details. Present when `type` is `price`.
                 """
-                type: Literal["price"]
+                type: Union[Literal["price"], str]
                 """
                 The type of pricing.
                 """
@@ -314,7 +351,7 @@ class Contract(StripeObject):
             """
             Resolved timestamp when the pricing override starts.
             """
-            type: Literal["multiply_pricing"]
+            type: Union[Literal["multiply_pricing"], str]
             """
             The type of pricing override.
             """
@@ -384,6 +421,10 @@ class Contract(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    one_time_fees: Optional[OneTimeFees]
+    """
+    The one-time fees. Only populated when `one_time_fees` is passed in the `include` parameter.
+    """
     pricing_lines: Optional[PricingLines]
     """
     The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
@@ -403,6 +444,7 @@ class Contract(StripeObject):
     _inner_class_types = {
         "billing_cycle_anchor": BillingCycleAnchor,
         "billing_settings": BillingSettings,
+        "one_time_fees": OneTimeFees,
         "pricing_lines": PricingLines,
         "pricing_overrides": PricingOverrides,
         "status_transitions": StatusTransitions,

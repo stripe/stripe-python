@@ -985,6 +985,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_meter_event_summaries_delayed_resolved_event import (
         V2CoreHealthMeterEventSummariesDelayedResolvedEventNotification,
     )
+    from stripe.events._v2_core_health_metronome_notification_latency_firing_event import (
+        V2CoreHealthMetronomeNotificationLatencyFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_metronome_notification_latency_resolved_event import (
+        V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification,
+    )
     from stripe.events._v2_core_health_payment_method_error_firing_event import (
         V2CoreHealthPaymentMethodErrorFiringEventNotification,
     )
@@ -1159,6 +1165,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_intent_canceled_event import (
+        V2MoneyManagementPayoutIntentCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_created_event import (
+        V2MoneyManagementPayoutIntentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_posted_event import (
+        V2MoneyManagementPayoutIntentPostedEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_processing_event import (
+        V2MoneyManagementPayoutIntentProcessingEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_requires_action_event import (
+        V2MoneyManagementPayoutIntentRequiresActionEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_created_event import (
         V2MoneyManagementPayoutMethodCreatedEventNotification,
     )
@@ -1329,6 +1350,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event import (
         V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluations_retry_recommended_event import (
+        V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification,
     )
 
 
@@ -2637,6 +2661,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_meter_event_summaries_delayed_resolved_event",
         "V2CoreHealthMeterEventSummariesDelayedResolvedEvent",
     ),
+    "v2.core.health.metronome_notification_latency.firing": (
+        "stripe.events._v2_core_health_metronome_notification_latency_firing_event",
+        "V2CoreHealthMetronomeNotificationLatencyFiringEvent",
+    ),
+    "v2.core.health.metronome_notification_latency.resolved": (
+        "stripe.events._v2_core_health_metronome_notification_latency_resolved_event",
+        "V2CoreHealthMetronomeNotificationLatencyResolvedEvent",
+    ),
     "v2.core.health.payment_method_error.firing": (
         "stripe.events._v2_core_health_payment_method_error_firing_event",
         "V2CoreHealthPaymentMethodErrorFiringEvent",
@@ -2869,6 +2901,26 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEvent",
     ),
+    "v2.money_management.payout_intent.canceled": (
+        "stripe.events._v2_money_management_payout_intent_canceled_event",
+        "V2MoneyManagementPayoutIntentCanceledEvent",
+    ),
+    "v2.money_management.payout_intent.created": (
+        "stripe.events._v2_money_management_payout_intent_created_event",
+        "V2MoneyManagementPayoutIntentCreatedEvent",
+    ),
+    "v2.money_management.payout_intent.posted": (
+        "stripe.events._v2_money_management_payout_intent_posted_event",
+        "V2MoneyManagementPayoutIntentPostedEvent",
+    ),
+    "v2.money_management.payout_intent.processing": (
+        "stripe.events._v2_money_management_payout_intent_processing_event",
+        "V2MoneyManagementPayoutIntentProcessingEvent",
+    ),
+    "v2.money_management.payout_intent.requires_action": (
+        "stripe.events._v2_money_management_payout_intent_requires_action_event",
+        "V2MoneyManagementPayoutIntentRequiresActionEvent",
+    ),
     "v2.money_management.payout_method.created": (
         "stripe.events._v2_money_management_payout_method_created_event",
         "V2MoneyManagementPayoutMethodCreatedEvent",
@@ -3096,6 +3148,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.signals.account_signal.payment_delinquency_exposure_ready": (
         "stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event",
         "V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent",
+    ),
+    "v2.signals.payment_retry_evaluations.retry_recommended": (
+        "stripe.events._v2_signals_payment_retry_evaluations_retry_recommended_event",
+        "V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent",
     ),
 }
 
@@ -4416,6 +4472,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_meter_event_summaries_delayed_resolved_event",
         "V2CoreHealthMeterEventSummariesDelayedResolvedEventNotification",
     ),
+    "v2.core.health.metronome_notification_latency.firing": (
+        "stripe.events._v2_core_health_metronome_notification_latency_firing_event",
+        "V2CoreHealthMetronomeNotificationLatencyFiringEventNotification",
+    ),
+    "v2.core.health.metronome_notification_latency.resolved": (
+        "stripe.events._v2_core_health_metronome_notification_latency_resolved_event",
+        "V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification",
+    ),
     "v2.core.health.payment_method_error.firing": (
         "stripe.events._v2_core_health_payment_method_error_firing_event",
         "V2CoreHealthPaymentMethodErrorFiringEventNotification",
@@ -4648,6 +4712,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEventNotification",
     ),
+    "v2.money_management.payout_intent.canceled": (
+        "stripe.events._v2_money_management_payout_intent_canceled_event",
+        "V2MoneyManagementPayoutIntentCanceledEventNotification",
+    ),
+    "v2.money_management.payout_intent.created": (
+        "stripe.events._v2_money_management_payout_intent_created_event",
+        "V2MoneyManagementPayoutIntentCreatedEventNotification",
+    ),
+    "v2.money_management.payout_intent.posted": (
+        "stripe.events._v2_money_management_payout_intent_posted_event",
+        "V2MoneyManagementPayoutIntentPostedEventNotification",
+    ),
+    "v2.money_management.payout_intent.processing": (
+        "stripe.events._v2_money_management_payout_intent_processing_event",
+        "V2MoneyManagementPayoutIntentProcessingEventNotification",
+    ),
+    "v2.money_management.payout_intent.requires_action": (
+        "stripe.events._v2_money_management_payout_intent_requires_action_event",
+        "V2MoneyManagementPayoutIntentRequiresActionEventNotification",
+    ),
     "v2.money_management.payout_method.created": (
         "stripe.events._v2_money_management_payout_method_created_event",
         "V2MoneyManagementPayoutMethodCreatedEventNotification",
@@ -4875,6 +4959,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.signals.account_signal.payment_delinquency_exposure_ready": (
         "stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event",
         "V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification",
+    ),
+    "v2.signals.payment_retry_evaluations.retry_recommended": (
+        "stripe.events._v2_signals_payment_retry_evaluations_retry_recommended_event",
+        "V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification",
     ),
 }
 
@@ -5217,6 +5305,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEventNotification",
     "V2CoreHealthMeterEventSummariesDelayedFiringEventNotification",
     "V2CoreHealthMeterEventSummariesDelayedResolvedEventNotification",
+    "V2CoreHealthMetronomeNotificationLatencyFiringEventNotification",
+    "V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification",
     "V2CoreHealthPaymentMethodErrorFiringEventNotification",
     "V2CoreHealthPaymentMethodErrorResolvedEventNotification",
     "V2CoreHealthSepaDebitDelayedFiringEventNotification",
@@ -5275,6 +5365,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementOutboundTransferReturnedEventNotification",
     "V2MoneyManagementOutboundTransferUnderReviewEventNotification",
     "V2MoneyManagementOutboundTransferUpdatedEventNotification",
+    "V2MoneyManagementPayoutIntentCanceledEventNotification",
+    "V2MoneyManagementPayoutIntentCreatedEventNotification",
+    "V2MoneyManagementPayoutIntentPostedEventNotification",
+    "V2MoneyManagementPayoutIntentProcessingEventNotification",
+    "V2MoneyManagementPayoutIntentRequiresActionEventNotification",
     "V2MoneyManagementPayoutMethodCreatedEventNotification",
     "V2MoneyManagementPayoutMethodUpdatedEventNotification",
     "V2MoneyManagementReceivedCreditAvailableEventNotification",
@@ -5332,4 +5427,5 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2SignalsAccountSignalFraudulentWebsiteReadyEventNotification",
     "V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification",
     "V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification",
+    "V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification",
 ]

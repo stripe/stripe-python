@@ -116,7 +116,9 @@ class OutboundPaymentQuote(StripeObject):
                         """
                         Open Enum. ACH submission timing.
                         """
-                        transaction_purpose: Optional[Literal["payroll"]]
+                        transaction_purpose: Optional[
+                            Union[Literal["payroll"], str]
+                        ]
                         """
                         The transaction purpose for this ACH payment.
                         """

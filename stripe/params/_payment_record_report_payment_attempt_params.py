@@ -7,6 +7,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentRecordReportPaymentAttemptParams(RequestOptions):
+    canceled: NotRequired["PaymentRecordReportPaymentAttemptParamsCanceled"]
+    """
+    Information about the payment attempt cancelation.
+    """
     description: NotRequired[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
@@ -50,6 +54,23 @@ class PaymentRecordReportPaymentAttemptParams(RequestOptions):
     ]
     """
     Shipping information for this payment.
+    """
+
+
+class PaymentRecordReportPaymentAttemptParamsCanceled(TypedDict):
+    canceled_at: int
+    """
+    When the reported payment was canceled. Measured in seconds since the Unix epoch.
+    """
+    payment_evaluations: NotRequired[List[str]]
+    """
+    Payment evaluations associated with this reported payment.
+    """
+    reason: NotRequired[
+        "Literal['blocked_for_fraud', 'merchant_canceled']|str"
+    ]
+    """
+    The reason the payment attempt was canceled.
     """
 
 

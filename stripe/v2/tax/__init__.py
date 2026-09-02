@@ -4,6 +4,12 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.tax._integration_configuration import (
+        IntegrationConfiguration as IntegrationConfiguration,
+    )
+    from stripe.v2.tax._integration_configuration_service import (
+        IntegrationConfigurationService as IntegrationConfigurationService,
+    )
     from stripe.v2.tax._manual_rule import ManualRule as ManualRule
     from stripe.v2.tax._manual_rule_service import (
         ManualRuleService as ManualRuleService,
@@ -17,6 +23,14 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "IntegrationConfiguration": (
+        "stripe.v2.tax._integration_configuration",
+        False,
+    ),
+    "IntegrationConfigurationService": (
+        "stripe.v2.tax._integration_configuration_service",
+        False,
+    ),
     "ManualRule": ("stripe.v2.tax._manual_rule", False),
     "ManualRuleService": ("stripe.v2.tax._manual_rule_service", False),
     "OperationService": ("stripe.v2.tax._operation_service", False),

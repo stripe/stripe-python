@@ -5,10 +5,17 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.tax._integration_configuration_service import (
+        IntegrationConfigurationService,
+    )
     from stripe.v2.tax._manual_rule_service import ManualRuleService
     from stripe.v2.tax._operation_service import OperationService
 
 _subservices = {
+    "integration_configurations": [
+        "stripe.v2.tax._integration_configuration_service",
+        "IntegrationConfigurationService",
+    ],
     "manual_rules": [
         "stripe.v2.tax._manual_rule_service",
         "ManualRuleService",
@@ -18,6 +25,7 @@ _subservices = {
 
 
 class TaxService(StripeService):
+    integration_configurations: "IntegrationConfigurationService"
     manual_rules: "ManualRuleService"
     operations: "OperationService"
 

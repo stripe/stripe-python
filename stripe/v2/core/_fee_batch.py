@@ -94,6 +94,10 @@ class FeeBatch(StripeObject):
         """
         The ID of the associated credit transaction.
         """
+        crypto_transaction: Optional[str]
+        """
+        The ID of the associated crypto transaction.
+        """
         money_management_transaction: Optional[str]
         """
         The ID of the associated v2 money management transaction.
@@ -110,6 +114,7 @@ class FeeBatch(StripeObject):
             Literal[
                 "balance_transaction",
                 "credit_transaction",
+                "crypto_transaction",
                 "money_management_transaction",
                 "payable_invoice",
             ],

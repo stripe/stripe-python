@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -9,7 +9,7 @@ class EventListParams(TypedDict):
     """
     Set of filters to query events within a range of `created` timestamps.
     """
-    include: NotRequired[List[Literal["reason.request.client"]]]
+    include: NotRequired[List[Union[Literal["reason.request.client"], str]]]
     """
     Additional fields to include in the response.
     """

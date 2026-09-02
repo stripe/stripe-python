@@ -15,25 +15,67 @@ class ApprovalRequest(StripeObject):
     )
 
     class RequestedBy(StripeObject):
-        id: str
+        class ApiKey(StripeObject):
+            id: str
+            """
+            Stripe-defined identifier for the API key (e.g. a restricted API key token).
+            """
+            name: Optional[str]
+            """
+            Merchant-defined name for the API key.
+            """
+
+        class User(StripeObject):
+            email: str
+            """
+            Email address of the dashboard user.
+            """
+
+        api_key: Optional[ApiKey]
         """
-        Stripe-defined identifier for the requester (e.g. a restricted API key token).
+        Present when `type` is `api_key`.
         """
-        name: Optional[str]
+        type: Union[Literal["api_key", "user"], str]
         """
-        Merchant-defined name for the requester.
+        The type of actor that made the request.
         """
+        user: Optional[User]
+        """
+        Present when `type` is `user`.
+        """
+        _inner_class_types = {"api_key": ApiKey, "user": User}
 
     class Review(StripeObject):
         class ReviewedBy(StripeObject):
-            id: str
+            class ApiKey(StripeObject):
+                id: str
+                """
+                Stripe-defined identifier for the API key (e.g. a restricted API key token).
+                """
+                name: Optional[str]
+                """
+                Merchant-defined name for the API key.
+                """
+
+            class User(StripeObject):
+                email: str
+                """
+                Email address of the dashboard user.
+                """
+
+            api_key: Optional[ApiKey]
             """
-            Stripe-defined identifier for the reviewer (e.g. a restricted API key token).
+            Present when `type` is `api_key`.
             """
-            name: str
+            type: Union[Literal["api_key", "user"], str]
             """
-            Merchant-defined name for the reviewer.
+            The type of actor that reviewed the request.
             """
+            user: Optional[User]
+            """
+            Present when `type` is `user`.
+            """
+            _inner_class_types = {"api_key": ApiKey, "user": User}
 
         reason: Optional[str]
         """
@@ -200,6 +242,10 @@ class ApprovalRequest(StripeObject):
         }
 
     class StatusTransitions(StripeObject):
+        approved_at: Optional[str]
+        """
+        Timestamp when the approval request was approved.
+        """
         canceled_at: Optional[str]
         """
         Timestamp when the approval request was canceled.
@@ -215,10 +261,6 @@ class ApprovalRequest(StripeObject):
         rejected_at: Optional[str]
         """
         Timestamp when the approval request was rejected.
-        """
-        requires_execution_at: Optional[str]
-        """
-        Timestamp when the approval request moved to requires_execution status.
         """
         succeeded_at: Optional[str]
         """
@@ -257,10 +299,6 @@ class ApprovalRequest(StripeObject):
     """
     The URL to the dashboard for this ApprovalRequest.
     """
-    description: Optional[str]
-    """
-    A description of the approval request.
-    """
     expires_at: str
     """
     The timestamp at which this ApprovalRequest will expire.
@@ -276,6 +314,10 @@ class ApprovalRequest(StripeObject):
     object: Literal["v2.core.approval_request"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
+    """
+    reason: Optional[str]
+    """
+    Context provided by the requester (e.g. an agent) to help reviewers evaluate the request.
     """
     requested_by: RequestedBy
     """

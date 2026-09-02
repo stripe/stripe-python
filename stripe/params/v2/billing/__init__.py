@@ -129,6 +129,8 @@ if TYPE_CHECKING:
         ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue as ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue,
         ContractCreateParamsBillingSettingsBillingProfileDetails as ContractCreateParamsBillingSettingsBillingProfileDetails,
         ContractCreateParamsBillingSettingsCollectionSettingsDetails as ContractCreateParamsBillingSettingsCollectionSettingsDetails,
+        ContractCreateParamsOneTimeFee as ContractCreateParamsOneTimeFee,
+        ContractCreateParamsOneTimeFeeBillAt as ContractCreateParamsOneTimeFeeBillAt,
         ContractCreateParamsPricingLine as ContractCreateParamsPricingLine,
         ContractCreateParamsPricingLineEndsAt as ContractCreateParamsPricingLineEndsAt,
         ContractCreateParamsPricingLinePricing as ContractCreateParamsPricingLinePricing,
@@ -157,6 +159,12 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.billing._contract_update_params import (
         ContractUpdateParams as ContractUpdateParams,
+        ContractUpdateParamsOneTimeFeeAction as ContractUpdateParamsOneTimeFeeAction,
+        ContractUpdateParamsOneTimeFeeActionAdd as ContractUpdateParamsOneTimeFeeActionAdd,
+        ContractUpdateParamsOneTimeFeeActionAddBillAt as ContractUpdateParamsOneTimeFeeActionAddBillAt,
+        ContractUpdateParamsOneTimeFeeActionRemove as ContractUpdateParamsOneTimeFeeActionRemove,
+        ContractUpdateParamsOneTimeFeeActionUpdate as ContractUpdateParamsOneTimeFeeActionUpdate,
+        ContractUpdateParamsOneTimeFeeActionUpdateBillAt as ContractUpdateParamsOneTimeFeeActionUpdateBillAt,
         ContractUpdateParamsPricingLineAction as ContractUpdateParamsPricingLineAction,
         ContractUpdateParamsPricingLineActionAdd as ContractUpdateParamsPricingLineActionAdd,
         ContractUpdateParamsPricingLineActionAddEndsAt as ContractUpdateParamsPricingLineActionAddEndsAt,
@@ -812,6 +820,14 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
+    "ContractCreateParamsOneTimeFee": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsOneTimeFeeBillAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
     "ContractCreateParamsPricingLine": (
         "stripe.params.v2.billing._contract_create_params",
         False,
@@ -889,6 +905,30 @@ _import_map = {
         False,
     ),
     "ContractUpdateParams": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsOneTimeFeeAction": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsOneTimeFeeActionAdd": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsOneTimeFeeActionAddBillAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsOneTimeFeeActionRemove": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsOneTimeFeeActionUpdate": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsOneTimeFeeActionUpdateBillAt": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
