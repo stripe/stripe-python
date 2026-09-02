@@ -597,6 +597,12 @@ class Account(
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
         """
+        sequra_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
+        """
         shopeepay_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]

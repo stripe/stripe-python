@@ -104,14 +104,14 @@ class ServiceActionCreateParamsCreditGrantApplicabilityConfigScope(TypedDict):
     """
     The billable items to apply the credit grant to.
     """
-    price_type: NotRequired[Literal["metered"]]
+    price_type: NotRequired["Literal['metered']|str"]
     """
     The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
     """
 
 
 class ServiceActionCreateParamsCreditGrantExpiryConfig(TypedDict):
-    type: Literal["end_of_service_period"]
+    type: Union[Literal["end_of_service_period"], str]
     """
     The type of the expiry configuration. We currently support `end_of_service_period`.
     """
@@ -200,14 +200,14 @@ class ServiceActionCreateParamsCreditGrantPerTenantApplicabilityConfigScope(
     """
     The billable items to apply the credit grant to.
     """
-    price_type: NotRequired[Literal["metered"]]
+    price_type: NotRequired["Literal['metered']|str"]
     """
     The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
     """
 
 
 class ServiceActionCreateParamsCreditGrantPerTenantExpiryConfig(TypedDict):
-    type: Literal["end_of_service_period"]
+    type: Union[Literal["end_of_service_period"], str]
     """
     The type of the expiry configuration. We currently support `end_of_service_period`.
     """
@@ -220,7 +220,7 @@ class ServiceActionCreateParamsCreditGrantPerTenantGrantCondition(TypedDict):
     """
     The grant condition for the meter event first per period.
     """
-    type: Literal["meter_event_first_per_period"]
+    type: Union[Literal["meter_event_first_per_period"], str]
     """
     The type of the grant condition. We currently support `meter_event_first_per_period`.
     """
@@ -246,7 +246,7 @@ class ServiceActionCreateParamsCreditGrantPerTenantGrantConditionMeterEventFirst
     """
     Dimension-based meter segment condition.
     """
-    type: Literal["dimension"]
+    type: Union[Literal["dimension"], str]
     """
     The type of the meter segment condition. We currently support `dimension`.
     """

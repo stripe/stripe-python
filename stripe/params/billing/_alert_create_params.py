@@ -167,7 +167,7 @@ class AlertCreateParamsCreditBalanceThresholdLteMonetary(TypedDict):
 
 
 class AlertCreateParamsSpendThreshold(TypedDict):
-    aggregation_period: Literal["billing"]
+    aggregation_period: Union[Literal["billing"], str]
     """
     Defines the period over which spend is aggregated.
     """

@@ -142,6 +142,10 @@ class SubscriptionModifyParams(RequestOptions):
     """
     If specified, the invoicing for the given billing cycle iterations will be processed now.
     """
+    pricing_token: NotRequired[str]
+    """
+    Token used to resolve the presentment currency and FX rate applied to this subscription's adaptive pricing.
+    """
     proration_behavior: NotRequired[
         "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
@@ -417,6 +421,10 @@ class SubscriptionModifyParamsCancellationDetails(TypedDict):
     ]
     """
     The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+    """
+    feedback_option: NotRequired[str]
+    """
+    Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
     """
 
 
@@ -821,7 +829,7 @@ class SubscriptionModifyParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sequra', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay'], str]]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sequra', 'sofort', 'stripe_balance', 'swish', 'truemoney', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1055,7 +1063,7 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBizumMandateOpt
     """
     Amount to be charged for future payments. Required when `amount_type=fixed`.
     """
-    amount_type: Literal["fixed"]
+    amount_type: Union[Literal["fixed"], str]
     """
     Indicates the mandate amount type.
     """

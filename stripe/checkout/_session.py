@@ -1298,7 +1298,7 @@ class Session(
         """
         Details on the subscription for this item.
         """
-        type: Literal["subscription"]
+        type: Union[Literal["subscription"], str]
         """
         The type of the item.
         """
@@ -1457,7 +1457,7 @@ class Session(
             """
 
         class Alipay(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1535,7 +1535,9 @@ class Session(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2257,6 +2259,12 @@ class Session(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Sequra(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class Sofort(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -2438,7 +2446,7 @@ class Session(
             """
             The client type that the end customer will pay from
             """
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2489,6 +2497,7 @@ class Session(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         sofort: Optional[Sofort]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
@@ -2537,6 +2546,7 @@ class Session(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "sofort": Sofort,
             "sunbit": Sunbit,
             "swish": Swish,

@@ -341,7 +341,7 @@ class SubscriptionScheduleModifyParamsPauseSchedulePauseSettings(TypedDict):
     """
     Determines whether to generate an invoice for outstanding amounts when pausing.
     """
-    type: NotRequired[Literal["subscription"]]
+    type: NotRequired["Literal['subscription']|str"]
     """
     The pause type. Currently only `subscription` is supported.
     """

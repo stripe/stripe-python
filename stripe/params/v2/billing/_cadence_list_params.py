@@ -37,7 +37,7 @@ class CadenceListParamsPayer(TypedDict):
     """
     The ID of the Customer object. If provided, only cadences that specifically reference the provided customer ID will be returned.
     """
-    type: Literal["customer"]
+    type: Union[Literal["customer"], str]
     """
     A string identifying the type of the payer. Currently the only supported value is `customer`.
     """

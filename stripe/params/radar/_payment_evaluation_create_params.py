@@ -134,7 +134,7 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails(
         "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard"
     ]
     """
-    Describes card money movement details for the payment evaluation.
+    Describes card money movement details.
     """
     money_movement_type: Literal["card"]
     """

@@ -4960,10 +4960,6 @@ class Account(StripeObject):
                 """
                 The ID of the payment method to use for gross settlement payouts.
                 """
-                payment_method_collection: Optional[Literal["always", "never"]]
-                """
-                Whether to collect a payment method for gross settlement.
-                """
 
             class KonbiniPayments(StripeObject):
                 class Support(StripeObject):
@@ -9404,6 +9400,10 @@ class Account(StripeObject):
         """
         The Account's preferred locales (languages), ordered by preference.
         """
+        payout_methods: Optional[UntypedStripeObject[str]]
+        """
+        Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+        """
         profile: Optional[Profile]
         """
         Account profile information.
@@ -11098,7 +11098,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11108,7 +11108,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11118,7 +11118,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11128,7 +11128,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11138,7 +11138,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11148,7 +11148,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11168,7 +11168,7 @@ class Account(StripeObject):
                     """
                     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                     """
-                    type: Literal["front_back"]
+                    type: Union[Literal["front_back"], str]
                     """
                     The format of the verification document. Currently supports `front_back` only.
                     """
@@ -11179,7 +11179,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11199,7 +11199,7 @@ class Account(StripeObject):
                     """
                     Person that is signing the document.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11220,7 +11220,7 @@ class Account(StripeObject):
                     """
                     Person that is signing the document.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11780,7 +11780,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11790,7 +11790,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -11810,7 +11810,7 @@ class Account(StripeObject):
                     """
                     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                     """
-                    type: Literal["front_back"]
+                    type: Union[Literal["front_back"], str]
                     """
                     The format of the verification document. Currently supports `front_back` only.
                     """
@@ -11831,7 +11831,7 @@ class Account(StripeObject):
                     """
                     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                     """
-                    type: Literal["front_back"]
+                    type: Union[Literal["front_back"], str]
                     """
                     The format of the verification document. Currently supports `front_back` only.
                     """
@@ -11842,7 +11842,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """

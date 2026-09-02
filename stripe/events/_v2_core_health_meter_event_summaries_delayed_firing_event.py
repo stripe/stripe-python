@@ -4,7 +4,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -42,7 +42,7 @@ class V2CoreHealthMeterEventSummariesDelayedFiringEvent(Event):
 
     class V2CoreHealthMeterEventSummariesDelayedFiringEventData(StripeObject):
         class Impact(StripeObject):
-            ingestion_method: Optional[Literal["import_sets"]]
+            ingestion_method: Optional[Union[Literal["import_sets"], str]]
             """
             The ingestion method.
             """

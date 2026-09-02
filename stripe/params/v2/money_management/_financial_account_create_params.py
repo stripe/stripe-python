@@ -14,13 +14,24 @@ class FinancialAccountCreateParams(TypedDict):
     """
     Metadata associated with the FinancialAccount.
     """
+    savings: NotRequired["FinancialAccountCreateParamsSavings"]
+    """
+    Parameters specific to creating `savings` type FinancialAccounts.
+    """
     storage: NotRequired["FinancialAccountCreateParamsStorage"]
     """
     Parameters specific to creating `storage` type FinancialAccounts.
     """
-    type: Literal["credit", "storage"]
+    type: Literal["credit", "savings", "storage"]
     """
     The type of FinancialAccount to create.
+    """
+
+
+class FinancialAccountCreateParamsSavings(TypedDict):
+    holds_currencies: List[str]
+    """
+    The currencies that this savings FinancialAccount can hold. Three-letter ISO currency code, in lowercase.
     """
 
 

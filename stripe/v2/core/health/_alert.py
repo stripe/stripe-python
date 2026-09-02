@@ -344,7 +344,7 @@ class Alert(StripeObject):
         """
 
     class MeterEventSummariesDelayed(StripeObject):
-        ingestion_method: Optional[Literal["import_sets"]]
+        ingestion_method: Optional[Union[Literal["import_sets"], str]]
         """
         The ingestion method.
         """

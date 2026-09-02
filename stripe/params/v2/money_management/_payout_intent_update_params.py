@@ -147,7 +147,7 @@ class PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOp
     """
     Open Enum. ACH submission timing.
     """
-    transaction_purpose: NotRequired[Literal["payroll"]]
+    transaction_purpose: NotRequired["Literal['payroll']|str"]
     """
     The transaction purpose for this ACH payment.
     """

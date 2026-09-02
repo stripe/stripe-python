@@ -47,7 +47,7 @@ class PayoutMethod(StripeObject):
         """
         The country code of the bank account.
         """
-        enabled_delivery_options: List[str]
+        enabled_delivery_schemes: List[str]
         """
         List of enabled flows for this bank account (wire or local).
         """
@@ -141,13 +141,17 @@ class PayoutMethod(StripeObject):
         """
 
     class UsageStatus(StripeObject):
-        payments: Literal["eligible", "invalid", "requires_action"]
+        payments: Literal["disabled", "eligible", "invalid", "requires_action"]
         """
         Payments status - used when sending OutboundPayments (sending funds to recipients).
+        If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
         """
-        transfers: Literal["eligible", "invalid", "requires_action"]
+        transfers: Literal[
+            "disabled", "eligible", "invalid", "requires_action"
+        ]
         """
         Transfers status - used when making an OutboundTransfer (sending funds to yourself).
+        If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
         """
 
     alternative_reference: Optional[AlternativeReference]
@@ -209,7 +213,7 @@ class PayoutMethod(StripeObject):
         str,
     ]
     """
-    Closed Enum. The type of payout method.
+    Open Enum. The type of payout method.
     """
     usage_status: UsageStatus
     """

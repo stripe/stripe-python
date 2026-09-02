@@ -12,6 +12,12 @@ if TYPE_CHECKING:
         AccountEvaluationService,
     )
     from stripe.v2.signals._account_signal_service import AccountSignalService
+    from stripe.v2.signals._payment_retry_evaluation_service import (
+        PaymentRetryEvaluationService,
+    )
+    from stripe.v2.signals._payment_retry_signal_service import (
+        PaymentRetrySignalService,
+    )
 
 _subservices = {
     "account_activity": [
@@ -26,6 +32,14 @@ _subservices = {
         "stripe.v2.signals._account_signal_service",
         "AccountSignalService",
     ],
+    "payment_retry_evaluations": [
+        "stripe.v2.signals._payment_retry_evaluation_service",
+        "PaymentRetryEvaluationService",
+    ],
+    "payment_retry_signals": [
+        "stripe.v2.signals._payment_retry_signal_service",
+        "PaymentRetrySignalService",
+    ],
 }
 
 
@@ -33,6 +47,8 @@ class SignalsService(StripeService):
     account_activity: "AccountActivityService"
     account_evaluations: "AccountEvaluationService"
     account_signals: "AccountSignalService"
+    payment_retry_evaluations: "PaymentRetryEvaluationService"
+    payment_retry_signals: "PaymentRetrySignalService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

@@ -46535,17 +46535,17 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/approval_requests/id_123/cancel",
+            "/v2/core/approval_requests/id_123",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.core.approval_requests.cancel("id_123")
+        client.v2.core.approval_requests.update("id_123")
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/approval_requests/id_123/cancel",
+            path="/v2/core/approval_requests/id_123",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -46557,39 +46557,17 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/approval_requests/id_123/execute",
+            "/v2/core/approval_requests/id_123/cancel",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.core.approval_requests.execute("id_123")
+        client.v2.core.approval_requests.cancel("id_123")
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/approval_requests/id_123/execute",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_core_approval_request_post_3_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/approval_requests/id_123/submit",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.approval_requests.submit("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/approval_requests/id_123/submit",
+            path="/v2/core/approval_requests/id_123/cancel",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -48876,6 +48854,28 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
+            "/v2/money_management/payout_methods/id_123/disable",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.payout_methods.disable("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/payout_methods/id_123/disable",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_payout_method_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
             "/v2/money_management/payout_methods/id_123/unarchive",
         )
         client = StripeClient(
@@ -49946,7 +49946,7 @@ class TestGeneratedExamples(object):
 
         client.v2.signals.account_activity.create(
             {
-                "type": "registration_attempt",
+                "type": "account_restricted",
             }
         )
         http_client_mock.assert_requested(
@@ -49954,7 +49954,7 @@ class TestGeneratedExamples(object):
             path="/v2/signals/account_activity",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"type":"registration_attempt"}',
+            post_data='{"type":"account_restricted"}',
             is_json=True,
         )
 
@@ -50105,6 +50105,154 @@ class TestGeneratedExamples(object):
             path="/v2/signals/account_signals/id_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_v2_signals_payment_retry_evaluation_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/signals/payment_retry_evaluations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.signals.payment_retry_evaluations.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/signals/payment_retry_evaluations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_signals_payment_retry_evaluation_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/signals/payment_retry_evaluations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.signals.payment_retry_evaluations.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/signals/payment_retry_evaluations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_signals_payment_retry_evaluation_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/signals/payment_retry_evaluations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.signals.payment_retry_evaluations.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/signals/payment_retry_evaluations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_signals_payment_retry_evaluation_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/signals/payment_retry_evaluations/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.signals.payment_retry_evaluations.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/signals/payment_retry_evaluations/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_signals_payment_retry_signal_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/signals/payment_retry_signals/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.signals.payment_retry_signals.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/signals/payment_retry_signals/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_tax_integration_configuration_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/tax/integration_configurations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.integration_configurations.retrieve()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/tax/integration_configurations",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_tax_integration_configuration_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/tax/integration_configurations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.integration_configurations.update()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/tax/integration_configurations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_tax_manual_rule_get_service(
@@ -50390,7 +50538,7 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/money_management/financial_accounts",
+            "/v2/billing/contracts",
             rbody='{"error":{"type":"already_exists","code":"already_exists"}}',
             rcode=400,
         )
@@ -50400,19 +50548,20 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.money_management.financial_accounts.create(
+            client.v2.billing.contracts.create(
                 {
-                    "type": "credit",
+                    "contract_number": "contract_number",
+                    "currency": "usd",
                 }
             )
         except _error.AlreadyExistsError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/money_management/financial_accounts",
+            path="/v2/billing/contracts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"type":"credit"}',
+            post_data='{"contract_number":"contract_number","currency":"usd"}',
             is_json=True,
         )
 
@@ -50453,7 +50602,7 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/vault/us_bank_accounts/id_123/archive",
+            "/v2/billing/contracts/id_123",
             rbody='{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
             rcode=400,
         )
@@ -50463,12 +50612,12 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.vault.us_bank_accounts.archive("id_123")
+            client.v2.billing.contracts.update("id_123")
         except _error.CannotProceedError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/vault/us_bank_accounts/id_123/archive",
+            path="/v2/billing/contracts/id_123",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",

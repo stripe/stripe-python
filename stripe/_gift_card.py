@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -27,7 +27,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["gift_card"]] = "gift_card"
-    brand: Literal["svs"]
+    brand: Union[Literal["svs"], str]
     """
     The brand of the gift card.
     """

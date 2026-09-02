@@ -32,7 +32,7 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
     """
     The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
     """
-    purpose: NotRequired[Literal["payroll"]]
+    purpose: NotRequired["Literal['payroll']|str"]
     """
     The purpose of the OutboundPayment.
     """
@@ -196,7 +196,7 @@ class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetwor
     """
     Open Enum. ACH submission timing.
     """
-    transaction_purpose: NotRequired[Literal["payroll"]]
+    transaction_purpose: NotRequired["Literal['payroll']|str"]
     """
     The transaction purpose for this ACH payment.
     """

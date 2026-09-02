@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from stripe.params.shared_payment._granted_token_create_params import (
         GrantedTokenCreateParams as GrantedTokenCreateParams,
         GrantedTokenCreateParamsUsageLimits as GrantedTokenCreateParamsUsageLimits,
+        GrantedTokenCreateParamsUsageLimitsRecurring as GrantedTokenCreateParamsUsageLimitsRecurring,
     )
     from stripe.params.shared_payment._granted_token_retrieve_params import (
         GrantedTokenRetrieveParams as GrantedTokenRetrieveParams,
@@ -18,6 +19,7 @@ if TYPE_CHECKING:
         IssuedTokenCreateParams as IssuedTokenCreateParams,
         IssuedTokenCreateParamsSellerDetails as IssuedTokenCreateParamsSellerDetails,
         IssuedTokenCreateParamsUsageLimits as IssuedTokenCreateParamsUsageLimits,
+        IssuedTokenCreateParamsUsageLimitsRecurring as IssuedTokenCreateParamsUsageLimitsRecurring,
     )
     from stripe.params.shared_payment._issued_token_retrieve_params import (
         IssuedTokenRetrieveParams as IssuedTokenRetrieveParams,
@@ -33,6 +35,10 @@ _import_map = {
         False,
     ),
     "GrantedTokenCreateParamsUsageLimits": (
+        "stripe.params.shared_payment._granted_token_create_params",
+        False,
+    ),
+    "GrantedTokenCreateParamsUsageLimitsRecurring": (
         "stripe.params.shared_payment._granted_token_create_params",
         False,
     ),
@@ -53,6 +59,10 @@ _import_map = {
         False,
     ),
     "IssuedTokenCreateParamsUsageLimits": (
+        "stripe.params.shared_payment._issued_token_create_params",
+        False,
+    ),
+    "IssuedTokenCreateParamsUsageLimitsRecurring": (
         "stripe.params.shared_payment._issued_token_create_params",
         False,
     ),

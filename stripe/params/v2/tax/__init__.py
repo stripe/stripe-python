@@ -4,6 +4,13 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.tax._integration_configuration_retrieve_params import (
+        IntegrationConfigurationRetrieveParams as IntegrationConfigurationRetrieveParams,
+    )
+    from stripe.params.v2.tax._integration_configuration_update_params import (
+        IntegrationConfigurationUpdateParams as IntegrationConfigurationUpdateParams,
+        IntegrationConfigurationUpdateParamsCheckoutSessions as IntegrationConfigurationUpdateParamsCheckoutSessions,
+    )
     from stripe.params.v2.tax._manual_rule_create_params import (
         ManualRuleCreateParams as ManualRuleCreateParams,
         ManualRuleCreateParamsLocation as ManualRuleCreateParamsLocation,
@@ -34,6 +41,18 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "IntegrationConfigurationRetrieveParams": (
+        "stripe.params.v2.tax._integration_configuration_retrieve_params",
+        False,
+    ),
+    "IntegrationConfigurationUpdateParams": (
+        "stripe.params.v2.tax._integration_configuration_update_params",
+        False,
+    ),
+    "IntegrationConfigurationUpdateParamsCheckoutSessions": (
+        "stripe.params.v2.tax._integration_configuration_update_params",
+        False,
+    ),
     "ManualRuleCreateParams": (
         "stripe.params.v2.tax._manual_rule_create_params",
         False,

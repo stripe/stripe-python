@@ -152,6 +152,10 @@ class ConfigurationModifyParamsFeaturesSubscriptionCancelCancellationReason(
     """
     Whether the feature is enabled.
     """
+    feedback_options: NotRequired["Literal['']|List[str]"]
+    """
+    The IDs of custom feedback options to use for this cancellation reason.
+    """
     options: NotRequired[
         "Literal['']|List[Union[Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused'], str]]"
     ]

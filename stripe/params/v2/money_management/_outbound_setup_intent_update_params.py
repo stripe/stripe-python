@@ -40,7 +40,7 @@ class OutboundSetupIntentUpdateParamsPayoutMethodData(TypedDict):
         str,
     ]
     """
-    Closed Enum. The type of payout method to be created/updated.
+    Open Enum. The type of payout method to be created/updated.
     """
 
 

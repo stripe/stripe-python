@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional, Union
@@ -154,6 +155,35 @@ class FinancialAccount(StripeObject):
             "starting_balance": StartingBalance,
         }
 
+    class Savings(StripeObject):
+        class Interest(StripeObject):
+            class Rate(StripeObject):
+                percentage: Decimal
+                """
+                Current variable rate, e.g. "3.00".
+                """
+                period: Union[Literal["annual"], str]
+                """
+                The period over which interest accrues.
+                """
+                _field_encodings = {"percentage": "decimal_string"}
+
+            rate: Rate
+            """
+            The interest rate applied to this savings FinancialAccount.
+            """
+            _inner_class_types = {"rate": Rate}
+
+        holds_currencies: List[str]
+        """
+        The currencies that this savings FinancialAccount can hold.
+        """
+        interest: Optional[Interest]
+        """
+        Interest details for this savings FinancialAccount. Populated by the server.
+        """
+        _inner_class_types = {"interest": Interest}
+
     class StatusDetails(StripeObject):
         class Closed(StripeObject):
             class ForwardingSettings(StripeObject):
@@ -244,6 +274,10 @@ class FinancialAccount(StripeObject):
     """
     If this is a `payments` FinancialAccount, this hash include details specific to `payments` FinancialAccount.
     """
+    savings: Optional[Savings]
+    """
+    If this is a `savings` FinancialAccount, this hash includes details specific to `savings` FinancialAccounts.
+    """
     status: Literal["closed", "open", "pending"]
     """
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
@@ -262,6 +296,7 @@ class FinancialAccount(StripeObject):
         "multiprocessor_settlement",
         "other",
         "payments",
+        "savings",
         "storage",
     ]
     """
@@ -275,6 +310,7 @@ class FinancialAccount(StripeObject):
         "multiprocessor_settlement": MultiprocessorSettlement,
         "other": Other,
         "payments": Payments,
+        "savings": Savings,
         "status_details": StatusDetails,
         "storage": Storage,
     }

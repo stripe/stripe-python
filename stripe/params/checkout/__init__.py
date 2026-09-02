@@ -202,6 +202,7 @@ if TYPE_CHECKING:
         SessionModifyParamsLineItemPriceDataProductData as SessionModifyParamsLineItemPriceDataProductData,
         SessionModifyParamsLineItemPriceDataProductDataTaxDetails as SessionModifyParamsLineItemPriceDataProductDataTaxDetails,
         SessionModifyParamsLineItemPriceDataRecurring as SessionModifyParamsLineItemPriceDataRecurring,
+        SessionModifyParamsPaymentIntentData as SessionModifyParamsPaymentIntentData,
         SessionModifyParamsShippingOption as SessionModifyParamsShippingOption,
         SessionModifyParamsShippingOptionShippingRateData as SessionModifyParamsShippingOptionShippingRateData,
         SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate as SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -235,6 +236,7 @@ if TYPE_CHECKING:
         SessionUpdateParamsLineItemPriceDataProductData as SessionUpdateParamsLineItemPriceDataProductData,
         SessionUpdateParamsLineItemPriceDataProductDataTaxDetails as SessionUpdateParamsLineItemPriceDataProductDataTaxDetails,
         SessionUpdateParamsLineItemPriceDataRecurring as SessionUpdateParamsLineItemPriceDataRecurring,
+        SessionUpdateParamsPaymentIntentData as SessionUpdateParamsPaymentIntentData,
         SessionUpdateParamsShippingOption as SessionUpdateParamsShippingOption,
         SessionUpdateParamsShippingOptionShippingRateData as SessionUpdateParamsShippingOptionShippingRateData,
         SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate as SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -990,6 +992,10 @@ _import_map = {
         "stripe.params.checkout._session_modify_params",
         False,
     ),
+    "SessionModifyParamsPaymentIntentData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
     "SessionModifyParamsShippingOption": (
         "stripe.params.checkout._session_modify_params",
         False,
@@ -1103,6 +1109,10 @@ _import_map = {
         False,
     ),
     "SessionUpdateParamsLineItemPriceDataRecurring": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsPaymentIntentData": (
         "stripe.params.checkout._session_update_params",
         False,
     ),

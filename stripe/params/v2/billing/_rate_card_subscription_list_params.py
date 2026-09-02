@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -38,7 +39,7 @@ class RateCardSubscriptionListParamsPayer(TypedDict):
     """
     The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Cadences with the specified payer will be returned.
     """
-    type: Literal["customer"]
+    type: Union[Literal["customer"], str]
     """
     A string identifying the type of the payer. Currently the only supported value is `customer`.
     """

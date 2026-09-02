@@ -67,7 +67,7 @@ class ReportRun(StripeObject):
         Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
         its content type, size, and a URL to download its contents.
         """
-        type: Literal["file"]
+        type: Union[Literal["file"], str]
         """
         The type of the `ReportRun` or `QueryRun` result.
         """

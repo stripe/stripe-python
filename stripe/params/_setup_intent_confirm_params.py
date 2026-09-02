@@ -98,6 +98,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -562,6 +563,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -1268,6 +1270,9 @@ class SetupIntentConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
     """
     Additional fields for Mandate creation
     """
+    verification_method: NotRequired[
+        Literal["automatic", "payer_name_verification"]
+    ]
 
 
 class SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(

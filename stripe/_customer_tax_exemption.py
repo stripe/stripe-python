@@ -32,8 +32,17 @@ class CustomerTaxExemption(StripeObject):
 
     ca: Optional[Ca]
     country: str
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     customer: str
+    """
+    ID of the customer this tax exemption belongs to.
+    """
     deleted: Optional[bool]
     """
     Present and true when the exemption has been deleted.
@@ -47,7 +56,16 @@ class CustomerTaxExemption(StripeObject):
     ISO 8601 date (YYYY-MM-DD) when the exemption expires.
     """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
     object: Literal["customer_tax_exemption"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     us: Optional[Us]
     _inner_class_types = {"ca": Ca, "us": Us}

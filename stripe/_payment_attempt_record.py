@@ -305,7 +305,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     """
 
                 card: Optional[Card]
-                type: Optional[Literal["card"]]
+                type: Optional[Union[Literal["card"], str]]
                 """
                 funding type of the underlying payment method.
                 """
@@ -560,7 +560,6 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                         Literal[
                             "attempt_acknowledged",
                             "authenticated",
-                            "data_share_only",
                             "exempted",
                             "failed",
                             "not_supported",
@@ -1941,7 +1940,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     """
 
                 card: Optional[Card]
-                type: Optional[Literal["card"]]
+                type: Optional[Union[Literal["card"], str]]
                 """
                 Funding type of the underlying payment method.
                 """
@@ -2018,6 +2017,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             mandate: Optional[str]
             """
             Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
+            """
+
+        class Sequra(StripeObject):
+            transaction_id: Optional[str]
+            """
+            The SeQura transaction ID associated with this payment.
             """
 
         class Shopeepay(StripeObject):
@@ -2248,6 +2253,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         scalapay: Optional[Scalapay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
@@ -2327,6 +2333,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "scalapay": Scalapay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,

@@ -1128,17 +1128,15 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._approval_request_cancel_params import (
         ApprovalRequestCancelParams as ApprovalRequestCancelParams,
     )
-    from stripe.params.v2.core._approval_request_execute_params import (
-        ApprovalRequestExecuteParams as ApprovalRequestExecuteParams,
-    )
     from stripe.params.v2.core._approval_request_list_params import (
         ApprovalRequestListParams as ApprovalRequestListParams,
+        ApprovalRequestListParamsCreated as ApprovalRequestListParamsCreated,
     )
     from stripe.params.v2.core._approval_request_retrieve_params import (
         ApprovalRequestRetrieveParams as ApprovalRequestRetrieveParams,
     )
-    from stripe.params.v2.core._approval_request_submit_params import (
-        ApprovalRequestSubmitParams as ApprovalRequestSubmitParams,
+    from stripe.params.v2.core._approval_request_update_params import (
+        ApprovalRequestUpdateParams as ApprovalRequestUpdateParams,
     )
     from stripe.params.v2.core._batch_job_cancel_params import (
         BatchJobCancelParams as BatchJobCancelParams,
@@ -5615,11 +5613,11 @@ _import_map = {
         "stripe.params.v2.core._approval_request_cancel_params",
         False,
     ),
-    "ApprovalRequestExecuteParams": (
-        "stripe.params.v2.core._approval_request_execute_params",
+    "ApprovalRequestListParams": (
+        "stripe.params.v2.core._approval_request_list_params",
         False,
     ),
-    "ApprovalRequestListParams": (
+    "ApprovalRequestListParamsCreated": (
         "stripe.params.v2.core._approval_request_list_params",
         False,
     ),
@@ -5627,8 +5625,8 @@ _import_map = {
         "stripe.params.v2.core._approval_request_retrieve_params",
         False,
     ),
-    "ApprovalRequestSubmitParams": (
-        "stripe.params.v2.core._approval_request_submit_params",
+    "ApprovalRequestUpdateParams": (
+        "stripe.params.v2.core._approval_request_update_params",
         False,
     ),
     "BatchJobCancelParams": (

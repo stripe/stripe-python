@@ -79,7 +79,7 @@ class PaymentLocationCapability(
     """
     The account that the capability enables functionality for.
     """
-    capability: Literal["fr_meal_vouchers_conecs_payments"]
+    capability: Union[Literal["fr_meal_vouchers_conecs_payments"], str]
     """
     The identifier for the capability.
     """

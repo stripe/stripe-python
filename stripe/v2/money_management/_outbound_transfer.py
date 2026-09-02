@@ -54,7 +54,7 @@ class OutboundTransfer(StripeObject):
             """
 
         class Processing(StripeObject):
-            reason: Literal["under_review"]
+            reason: Union[Literal["under_review"], str]
             """
             Open Enum. The `processing` status reason.
             """

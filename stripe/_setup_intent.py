@@ -114,6 +114,7 @@ class SetupIntent(
                     "api_key_expired",
                     "application_fees_not_allowed",
                     "approval_required",
+                    "authentication_failure",
                     "authentication_required",
                     "balance_insufficient",
                     "balance_invalid_parameter",
@@ -126,6 +127,7 @@ class SetupIntent(
                     "bank_account_verification_failed",
                     "billing_invalid_mandate",
                     "bitcoin_upgrade_required",
+                    "capability_not_active",
                     "capture_charge_authorization_expired",
                     "capture_unauthorized_payment",
                     "card_decline_rate_limit_exceeded",
@@ -150,6 +152,7 @@ class SetupIntent(
                     "debit_not_authorized",
                     "email_invalid",
                     "expired_card",
+                    "expired_payment_method",
                     "failed_tax_calculation",
                     "financial_account_balance_does_not_support_currency",
                     "financial_account_capability_not_enabled",
@@ -169,6 +172,7 @@ class SetupIntent(
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
+                    "incorrect_postal_code",
                     "incorrect_zip",
                     "india_recurring_payment_mandate_canceled",
                     "instant_payouts_config_disabled",
@@ -178,6 +182,7 @@ class SetupIntent(
                     "insufficient_funds",
                     "intent_invalid_state",
                     "intent_verification_method_missing",
+                    "invalid_canceled_subscription_fields",
                     "invalid_card_type",
                     "invalid_characters",
                     "invalid_charge_amount",
@@ -237,6 +242,7 @@ class SetupIntent(
                     "payment_method_not_available",
                     "payment_method_provider_decline",
                     "payment_method_provider_timeout",
+                    "payment_method_restricted",
                     "payment_method_unactivated",
                     "payment_method_unexpected_state",
                     "payment_method_unsupported_type",
@@ -609,6 +615,9 @@ class SetupIntent(
                 """
 
             mandate_options: Optional[MandateOptions]
+            verification_method: Optional[
+                Literal["automatic", "payer_name_verification"]
+            ]
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bizum(StripeObject):
@@ -1123,6 +1132,7 @@ class SetupIntent(
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -1241,6 +1251,7 @@ class SetupIntent(
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",

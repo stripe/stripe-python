@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
@@ -1031,7 +1031,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
 
         class GiftCard(StripeObject):
-            brand: Literal["svs"]
+            brand: Union[Literal["svs"], str]
             """
             The brand of the gift card.
             """
@@ -1508,6 +1508,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             _inner_class_types = {"generated_from": GeneratedFrom}
 
+        class Sequra(StripeObject):
+            pass
+
         class Shopeepay(StripeObject):
             pass
 
@@ -1719,6 +1722,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
@@ -1783,6 +1787,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "satispay",
                 "scalapay",
                 "sepa_debit",
+                "sequra",
                 "shopeepay",
                 "sofort",
                 "stripe_balance",
@@ -1862,6 +1867,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
@@ -1933,6 +1939,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     mandate_data: Optional[MandateData]
     """
     Data used for generating a Mandate.
+    """
+    metadata: Optional[UntypedStripeObject[str]]
+    """
+    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["confirmation_token"]
     """

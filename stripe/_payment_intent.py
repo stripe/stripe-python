@@ -347,6 +347,7 @@ class PaymentIntent(
                     "api_key_expired",
                     "application_fees_not_allowed",
                     "approval_required",
+                    "authentication_failure",
                     "authentication_required",
                     "balance_insufficient",
                     "balance_invalid_parameter",
@@ -359,6 +360,7 @@ class PaymentIntent(
                     "bank_account_verification_failed",
                     "billing_invalid_mandate",
                     "bitcoin_upgrade_required",
+                    "capability_not_active",
                     "capture_charge_authorization_expired",
                     "capture_unauthorized_payment",
                     "card_decline_rate_limit_exceeded",
@@ -383,6 +385,7 @@ class PaymentIntent(
                     "debit_not_authorized",
                     "email_invalid",
                     "expired_card",
+                    "expired_payment_method",
                     "failed_tax_calculation",
                     "financial_account_balance_does_not_support_currency",
                     "financial_account_capability_not_enabled",
@@ -402,6 +405,7 @@ class PaymentIntent(
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
+                    "incorrect_postal_code",
                     "incorrect_zip",
                     "india_recurring_payment_mandate_canceled",
                     "instant_payouts_config_disabled",
@@ -411,6 +415,7 @@ class PaymentIntent(
                     "insufficient_funds",
                     "intent_invalid_state",
                     "intent_verification_method_missing",
+                    "invalid_canceled_subscription_fields",
                     "invalid_card_type",
                     "invalid_characters",
                     "invalid_charge_amount",
@@ -470,6 +475,7 @@ class PaymentIntent(
                     "payment_method_not_available",
                     "payment_method_provider_decline",
                     "payment_method_provider_timeout",
+                    "payment_method_restricted",
                     "payment_method_unactivated",
                     "payment_method_unexpected_state",
                     "payment_method_unsupported_type",
@@ -3578,6 +3584,9 @@ class PaymentIntent(
             """
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
+            verification_method: Optional[
+                Literal["automatic", "payer_name_verification"]
+            ]
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
@@ -4954,6 +4963,22 @@ class PaymentIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Sequra(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Shopeepay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -5231,7 +5256,7 @@ class PaymentIntent(
             """
             The client type that the end customer will pay from
             """
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5308,6 +5333,7 @@ class PaymentIntent(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
@@ -5374,6 +5400,7 @@ class PaymentIntent(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
@@ -5611,6 +5638,7 @@ class PaymentIntent(
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -5777,6 +5805,7 @@ class PaymentIntent(
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",

@@ -93,7 +93,7 @@ class OutboundPayment(StripeObject):
             """
 
         class Processing(StripeObject):
-            reason: Literal["under_review"]
+            reason: Union[Literal["under_review"], str]
             """
             Open Enum. The `processing` status reason.
             """
@@ -170,7 +170,9 @@ class OutboundPayment(StripeObject):
                         """
                         Open Enum. ACH submission timing.
                         """
-                        transaction_purpose: Optional[Literal["payroll"]]
+                        transaction_purpose: Optional[
+                            Union[Literal["payroll"], str]
+                        ]
                         """
                         The transaction purpose for this ACH payment.
                         """
@@ -366,7 +368,7 @@ class OutboundPayment(StripeObject):
     """
     The PayoutIntent ID that triggered this OutboundPayment.
     """
-    purpose: Optional[Literal["payroll"]]
+    purpose: Optional[Union[Literal["payroll"], str]]
     """
     The purpose of the OutboundPayment.
     """

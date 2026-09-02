@@ -219,7 +219,13 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             code: Optional[
                 Union[
                     Literal[
-                        "email_unverified_other", "email_verification_declined"
+                        "email_address_mismatch",
+                        "email_name_mismatch",
+                        "email_ownership_unverified",
+                        "email_phone_mismatch",
+                        "email_short_tenure",
+                        "email_unverified_other",
+                        "email_verification_declined",
                     ],
                     str,
                 ]
@@ -232,17 +238,53 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             A human-readable message giving the reason for the failure. These messages can be shown to your users.
             """
 
+        address_match_confidence: Optional[
+            Union[Literal["highest", "low", "normal", "unknown"], str]
+        ]
+        """
+        Confidence that the provided address matches the email records.
+        """
         details: Optional[Details]
         """
         Additional email verification details
+        """
+        domain_country: Optional[str]
+        """
+        Two-letter country code of the email domain's country.
         """
         email: Optional[str]
         """
         Email to be verified.
         """
+        email_exists_confidence: Optional[
+            Union[Literal["highest", "low", "normal", "unknown"], str]
+        ]
+        """
+        Confidence that the email address exists.
+        """
         error: Optional[Error]
         """
         Details on the verification error. Present when status is `unverified`.
+        """
+        name_match_confidence: Optional[
+            Union[Literal["highest", "low", "normal", "unknown"], str]
+        ]
+        """
+        Confidence that the provided name matches the email records.
+        """
+        observed_domain_tenure_days: Optional[float]
+        """
+        The observed number of days the email domain has existed.
+        """
+        observed_email_tenure_days: Optional[float]
+        """
+        The observed number of days the email address has existed.
+        """
+        phone_match_confidence: Optional[
+            Union[Literal["highest", "low", "normal", "unknown"], str]
+        ]
+        """
+        Confidence that the provided phone matches the email records.
         """
         status: Union[Literal["unverified", "verified"], str]
         """
@@ -353,7 +395,15 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             code: Optional[
                 Union[
                     Literal[
-                        "phone_unverified_other", "phone_verification_declined"
+                        "phone_address_mismatch",
+                        "phone_invalid",
+                        "phone_invalid_line_type",
+                        "phone_name_mismatch",
+                        "phone_ownership_unverified",
+                        "phone_short_tenure",
+                        "phone_unsupported_country",
+                        "phone_unverified_other",
+                        "phone_verification_declined",
                     ],
                     str,
                 ]
@@ -366,9 +416,33 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             A human-readable message giving the reason for the failure. These messages can be shown to your users.
             """
 
+        address_match_confidence: Optional[
+            Union[Literal["highest", "low", "normal", "unknown"], str]
+        ]
+        """
+        Confidence that the provided address matches the phone records.
+        """
+        carrier: Optional[str]
+        """
+        The phone carrier.
+        """
         error: Optional[Error]
         """
         Details on the verification error. Present when status is `unverified`.
+        """
+        line_type: Optional[Union[Literal["landline", "mobile", "voip"], str]]
+        """
+        The type of phone line.
+        """
+        name_match_confidence: Optional[
+            Union[Literal["highest", "low", "normal", "unknown"], str]
+        ]
+        """
+        Confidence that the provided name matches the phone records.
+        """
+        observed_phone_tenure_days: Optional[float]
+        """
+        The observed number of days the person has owned the phone number.
         """
         phone: Optional[str]
         """

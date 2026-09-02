@@ -175,6 +175,16 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
         _inner_class_types = {"amount_captured": AmountCaptured}
 
     class UsageLimits(StripeObject):
+        class Recurring(StripeObject):
+            interval: Union[Literal["day", "month", "week", "year"], str]
+            """
+            The interval at which the shared payment token's amount usage restrictions reset.
+            """
+            interval_count: int
+            """
+            The number of intervals between each reset.
+            """
+
         currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -187,12 +197,17 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
         """
         Max amount that can be captured using this SharedPaymentToken.
         """
+        recurring: Optional[Recurring]
+        """
+        The recurring schedule for the shared payment token's amount usage restrictions.
+        """
         recurring_interval: Optional[
             Union[Literal["month", "week", "year"], str]
         ]
         """
         The recurring interval at which the shared payment token's amount usage restrictions reset.
         """
+        _inner_class_types = {"recurring": Recurring}
 
     created: int
     """

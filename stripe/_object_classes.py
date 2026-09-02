@@ -339,6 +339,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.radar._account_evaluation",
         "AccountEvaluation",
     ),
+    "radar.billing_evaluation": (
+        "stripe.radar._billing_evaluation",
+        "BillingEvaluation",
+    ),
     "radar.customer_evaluation": (
         "stripe.radar._customer_evaluation",
         "CustomerEvaluation",
@@ -791,6 +795,18 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.signals.account_signal": (
         "stripe.v2.signals._account_signal",
         "AccountSignal",
+    ),
+    "v2.signals.payment_retry_evaluation": (
+        "stripe.v2.signals._payment_retry_evaluation",
+        "PaymentRetryEvaluation",
+    ),
+    "v2.signals.payment_retry_signal": (
+        "stripe.v2.signals._payment_retry_signal",
+        "PaymentRetrySignal",
+    ),
+    "v2.tax.integration_configuration": (
+        "stripe.v2.tax._integration_configuration",
+        "IntegrationConfiguration",
     ),
     "v2.tax.manual_rule": ("stripe.v2.tax._manual_rule", "ManualRule"),
     "v2.tax.operations_resolve_address_result": (

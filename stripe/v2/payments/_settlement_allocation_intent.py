@@ -25,7 +25,7 @@ class SettlementAllocationIntent(StripeObject):
             """
             User Message detailing the reason code and possible resolution .
             """
-            reason_code: Literal["amount_mismatch"]
+            reason_code: Union[Literal["amount_mismatch"], str]
             """
             Open Enum. The `errored` status reason.
             """

@@ -3,5 +3,5 @@
 from typing_extensions import TypedDict
 
 
-class ApprovalRequestExecuteParams(TypedDict):
+class IntegrationConfigurationRetrieveParams(TypedDict):
     pass

@@ -1017,6 +1017,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_meter_event_summaries_delayed_resolved_event import (
         V2CoreHealthMeterEventSummariesDelayedResolvedEventNotification,
     )
+    from stripe.events._v2_core_health_metronome_notification_latency_firing_event import (
+        V2CoreHealthMetronomeNotificationLatencyFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_metronome_notification_latency_resolved_event import (
+        V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification,
+    )
     from stripe.events._v2_core_health_payment_method_error_firing_event import (
         V2CoreHealthPaymentMethodErrorFiringEventNotification,
     )
@@ -1191,6 +1197,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_intent_canceled_event import (
+        V2MoneyManagementPayoutIntentCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_created_event import (
+        V2MoneyManagementPayoutIntentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_posted_event import (
+        V2MoneyManagementPayoutIntentPostedEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_processing_event import (
+        V2MoneyManagementPayoutIntentProcessingEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_requires_action_event import (
+        V2MoneyManagementPayoutIntentRequiresActionEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_created_event import (
         V2MoneyManagementPayoutMethodCreatedEventNotification,
     )
@@ -1361,6 +1382,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event import (
         V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluations_retry_recommended_event import (
+        V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification,
     )
     # event-notification-types: The end of the section generated from our OpenAPI spec
 
@@ -5736,6 +5760,32 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_core_health_metronome_notification_latency_firing(
+        self,
+        func: "Callable[[V2CoreHealthMetronomeNotificationLatencyFiringEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthMetronomeNotificationLatencyFiringEvent` (`v2.core.health.metronome_notification_latency.firing`) event notification.
+        """
+        self._register(
+            "v2.core.health.metronome_notification_latency.firing",
+            func,
+        )
+        return func
+
+    def on_v2_core_health_metronome_notification_latency_resolved(
+        self,
+        func: "Callable[[V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthMetronomeNotificationLatencyResolvedEvent` (`v2.core.health.metronome_notification_latency.resolved`) event notification.
+        """
+        self._register(
+            "v2.core.health.metronome_notification_latency.resolved",
+            func,
+        )
+        return func
+
     def on_v2_core_health_payment_method_error_firing(
         self,
         func: "Callable[[V2CoreHealthPaymentMethodErrorFiringEventNotification, StripeClient], CallbackReturn]",
@@ -6490,6 +6540,71 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_money_management_payout_intent_canceled(
+        self,
+        func: "Callable[[V2MoneyManagementPayoutIntentCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementPayoutIntentCanceledEvent` (`v2.money_management.payout_intent.canceled`) event notification.
+        """
+        self._register(
+            "v2.money_management.payout_intent.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_payout_intent_created(
+        self,
+        func: "Callable[[V2MoneyManagementPayoutIntentCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementPayoutIntentCreatedEvent` (`v2.money_management.payout_intent.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.payout_intent.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_payout_intent_posted(
+        self,
+        func: "Callable[[V2MoneyManagementPayoutIntentPostedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementPayoutIntentPostedEvent` (`v2.money_management.payout_intent.posted`) event notification.
+        """
+        self._register(
+            "v2.money_management.payout_intent.posted",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_payout_intent_processing(
+        self,
+        func: "Callable[[V2MoneyManagementPayoutIntentProcessingEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementPayoutIntentProcessingEvent` (`v2.money_management.payout_intent.processing`) event notification.
+        """
+        self._register(
+            "v2.money_management.payout_intent.processing",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_payout_intent_requires_action(
+        self,
+        func: "Callable[[V2MoneyManagementPayoutIntentRequiresActionEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementPayoutIntentRequiresActionEvent` (`v2.money_management.payout_intent.requires_action`) event notification.
+        """
+        self._register(
+            "v2.money_management.payout_intent.requires_action",
+            func,
+        )
+        return func
+
     def on_v2_money_management_payout_method_created(
         self,
         func: "Callable[[V2MoneyManagementPayoutMethodCreatedEventNotification, StripeClient], CallbackReturn]",
@@ -7227,6 +7342,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.signals.account_signal.payment_delinquency_exposure_ready",
+            func,
+        )
+        return func
+
+    def on_v2_signals_payment_retry_evaluations_retry_recommended(
+        self,
+        func: "Callable[[V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent` (`v2.signals.payment_retry_evaluations.retry_recommended`) event notification.
+        """
+        self._register(
+            "v2.signals.payment_retry_evaluations.retry_recommended",
             func,
         )
         return func

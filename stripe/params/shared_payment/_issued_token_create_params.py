@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -65,7 +65,22 @@ class IssuedTokenCreateParamsUsageLimits(TypedDict):
     """
     Max amount that can be captured using this SharedPaymentToken
     """
+    recurring: NotRequired["IssuedTokenCreateParamsUsageLimitsRecurring"]
+    """
+    The recurring schedule for the shared payment token's amount usage restrictions.
+    """
     recurring_interval: NotRequired["Literal['month', 'week', 'year']|str"]
     """
     The recurring interval at which the shared payment token's amount usage restrictions reset.
+    """
+
+
+class IssuedTokenCreateParamsUsageLimitsRecurring(TypedDict):
+    interval: Union[Literal["day", "month", "week", "year"], str]
+    """
+    The interval at which the shared payment token's amount usage restrictions reset.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals between each reset. Defaults to 1.
     """

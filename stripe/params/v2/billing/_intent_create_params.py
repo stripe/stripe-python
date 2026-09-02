@@ -117,7 +117,7 @@ class IntentCreateParamsActionApplyEffectiveAt(TypedDict):
 
 
 class IntentCreateParamsActionApplyInvoiceDiscountRule(TypedDict):
-    applies_to: Literal["cadence"]
+    applies_to: Union[Literal["cadence"], str]
     """
     The entity that the discount rule applies to, for example, the cadence.
     """
@@ -127,7 +127,7 @@ class IntentCreateParamsActionApplyInvoiceDiscountRule(TypedDict):
     """
     Configuration for percentage off discount.
     """
-    type: Literal["percent_off"]
+    type: Union[Literal["percent_off"], str]
     """
     Type of the discount rule.
     """
@@ -147,7 +147,7 @@ class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff(TypedDict):
 class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications(
     TypedDict,
 ):
-    type: Literal["indefinite"]
+    type: Union[Literal["indefinite"], str]
     """
     The type of maximum applications configuration.
     """
@@ -164,7 +164,7 @@ class IntentCreateParamsActionApplySpendModifierRule(TypedDict):
     """
     Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
     """
-    type: Literal["max_billing_period_spend"]
+    type: Union[Literal["max_billing_period_spend"], str]
     """
     Type of the spend modifier.
     """

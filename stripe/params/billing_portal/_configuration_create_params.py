@@ -146,6 +146,10 @@ class ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason(
     """
     Whether the feature is enabled.
     """
+    feedback_options: NotRequired["Literal['']|List[str]"]
+    """
+    The IDs of custom feedback options to use for this cancellation reason.
+    """
     options: Union[
         Literal[""],
         List[

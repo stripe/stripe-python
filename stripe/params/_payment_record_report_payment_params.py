@@ -11,6 +11,10 @@ class PaymentRecordReportPaymentParams(RequestOptions):
     """
     The amount you initially requested for this payment.
     """
+    canceled: NotRequired["PaymentRecordReportPaymentParamsCanceled"]
+    """
+    Information about the payment attempt cancelation.
+    """
     customer_details: NotRequired[
         "PaymentRecordReportPaymentParamsCustomerDetails"
     ]
@@ -79,6 +83,23 @@ class PaymentRecordReportPaymentParamsAmountRequested(TypedDict):
     value: int
     """
     A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+    """
+
+
+class PaymentRecordReportPaymentParamsCanceled(TypedDict):
+    canceled_at: int
+    """
+    When the reported payment was canceled. Measured in seconds since the Unix epoch.
+    """
+    payment_evaluations: NotRequired[List[str]]
+    """
+    Payment evaluations associated with this reported payment.
+    """
+    reason: NotRequired[
+        "Literal['blocked_for_fraud', 'merchant_canceled']|str"
+    ]
+    """
+    The reason the payment attempt was canceled.
     """
 
 

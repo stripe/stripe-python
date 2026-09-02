@@ -92,12 +92,7 @@ class AccountEvaluation(StripeObject):
             Timestamp at which the signal was evaluated.
             """
             risk_level: Literal[
-                "elevated",
-                "highest",
-                "low",
-                "normal",
-                "not_assessed",
-                "unknown",
+                "elevated", "highest", "low", "normal", "unknown"
             ]
             """
             Categorical assessment of the fraudulent website risk.
@@ -113,12 +108,7 @@ class AccountEvaluation(StripeObject):
             Timestamp at which the signal was evaluated.
             """
             risk_level: Literal[
-                "elevated",
-                "highest",
-                "low",
-                "normal",
-                "not_assessed",
-                "unknown",
+                "elevated", "highest", "low", "normal", "unknown"
             ]
             """
             Categorical assessment of the account-sharing risk.
@@ -139,12 +129,7 @@ class AccountEvaluation(StripeObject):
             Timestamp at which the signal was evaluated.
             """
             risk_level: Literal[
-                "elevated",
-                "highest",
-                "low",
-                "normal",
-                "not_assessed",
-                "unknown",
+                "elevated", "highest", "low", "normal", "unknown"
             ]
             """
             Categorical assessment of the multi-accounting risk.

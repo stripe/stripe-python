@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -38,7 +38,7 @@ class OperationsResolveAddressResult(StripeObject):
 
     class PrecisionDetails(StripeObject):
         class Issue(StripeObject):
-            code: Literal["required_for_improved_precision"]
+            code: Union[Literal["required_for_improved_precision"], str]
             """
             A code describing the issue.
             """
