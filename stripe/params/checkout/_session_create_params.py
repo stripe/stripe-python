@@ -258,7 +258,7 @@ class SessionCreateParams(RequestOptions):
 
     For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
 
-    You can't set this parameter if `ui_mode` is `custom`.
+    You can't set this parameter if `ui_mode` is `elements` or `form`.
     """
     origin_context: NotRequired["Literal['mobile_app', 'web']|str"]
     """
@@ -347,6 +347,7 @@ class SessionCreateParams(RequestOptions):
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -936,6 +937,10 @@ class SessionCreateParamsItem(TypedDict):
 
 
 class SessionCreateParamsItemSubscription(TypedDict):
+    backdate_start_date: NotRequired[int]
+    """
+    A past timestamp to backdate the subscription's start date to.
+    """
     billing_cycle_anchor_config: NotRequired[
         "SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig"
     ]

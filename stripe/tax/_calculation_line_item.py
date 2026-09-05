@@ -107,6 +107,10 @@ class CalculationLineItem(StripeObject):
         """
         The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
+        customer_tax_exemption: Optional[str]
+        """
+        The ID of the [customer tax exemption](https://docs.stripe.com/api/tax/exemptions) that was applied to this tax breakdown.
+        """
         jurisdiction: Jurisdiction
         sourcing: Union[Literal["destination", "origin", "performance"], str]
         """

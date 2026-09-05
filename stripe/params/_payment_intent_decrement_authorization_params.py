@@ -142,6 +142,10 @@ class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItem(
     """
     The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     """
+    unit_cost_precision: NotRequired[int]
+    """
+    The number of decimal places implied in the unit_cost. For example, if unit_cost is 10000 and unit_cost_precision is 1, the actual unit cost is 1000.0. Defaults to 0 if not provided.
+    """
     unit_of_measure: NotRequired[str]
     """
     A unit of measure for the line item, such as gallons, feet, meters, etc.

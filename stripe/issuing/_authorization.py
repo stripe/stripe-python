@@ -1311,6 +1311,10 @@ class Authorization(
         """
         Details about the authorization request, such as identifiers, set by the card network.
         """
+        network_response_code: Optional[str]
+        """
+        The network-specific response code associated with Stripe's decision for this authorization request. The value is a Visa or Mastercard response code depending on the network over which the authorization was routed.
+        """
         network_risk_score: Optional[int]
         """
         The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.

@@ -2829,7 +2829,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-        monetary values, as well as collection_method, become uneditable.
+        you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+        this also includes description.
 
         If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
         sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
@@ -2851,7 +2852,8 @@ class Invoice(
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-        monetary values, as well as collection_method, become uneditable.
+        you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+        this also includes description.
 
         If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
         sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass

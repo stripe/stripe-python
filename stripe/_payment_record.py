@@ -575,6 +575,7 @@ class PaymentRecord(
                         Literal[
                             "attempt_acknowledged",
                             "authenticated",
+                            "data_share_only",
                             "exempted",
                             "failed",
                             "not_supported",

@@ -13,9 +13,7 @@ if TYPE_CHECKING:
 
 class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     """
-    A financing summary object describes a connected account's financing status in real time.
-    A financing status is either `accepted`, `delivered`, or `none`.
-    You can read the status of your connected accounts.
+    A financing summary object describes a connected account's financing details in real time.
     """
 
     OBJECT_NAME: ClassVar[Literal["capital.financing_summary"]] = (
