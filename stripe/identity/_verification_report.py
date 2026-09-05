@@ -497,6 +497,178 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         _inner_class_types = {"error": Error}
 
+    class Signals(StripeObject):
+        class FraudulentEmail(StripeObject):
+            class Indicator(StripeObject):
+                explanation: str
+                """
+                A brief explanation of how this indicator contributed to the risk level
+                """
+                impact: Union[
+                    Literal[
+                        "decrease",
+                        "neutral",
+                        "slight_increase",
+                        "strong_increase",
+                    ],
+                    str,
+                ]
+                """
+                The effect this indicator had on the overall risk level.
+                """
+                indicator: Union[
+                    Literal[
+                        "address_mismatch",
+                        "domain_reputation",
+                        "domain_tenure",
+                        "email_reputation",
+                        "email_tenure",
+                        "gibberish_email",
+                        "invalid_email",
+                        "name_mismatch",
+                        "other",
+                        "phone_mismatch",
+                    ],
+                    str,
+                ]
+                """
+                The name of the specific indicator used in the risk assessment.
+                """
+
+            indicators: List[Indicator]
+            """
+            Array of objects representing individual factors that contributed to the calculated risk level.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Categorical assessment of the email risk.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
+        class FraudulentPerson(StripeObject):
+            class Indicator(StripeObject):
+                explanation: str
+                """
+                A brief explanation of how this indicator contributed to the risk level
+                """
+                impact: Union[
+                    Literal[
+                        "decrease",
+                        "neutral",
+                        "slight_increase",
+                        "strong_increase",
+                    ],
+                    str,
+                ]
+                """
+                The effect this indicator had on the overall risk level.
+                """
+                indicator: Union[
+                    Literal[
+                        "fraudulent_person_match",
+                        "no_transaction_match",
+                        "other",
+                    ],
+                    str,
+                ]
+                """
+                The name of the specific indicator used in the risk assessment.
+                """
+
+            indicators: List[Indicator]
+            """
+            Array of objects representing individual factors that contributed to the calculated risk level.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Categorical assessment of the fraudulent person risk.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
+        class FraudulentPhone(StripeObject):
+            class Indicator(StripeObject):
+                explanation: str
+                """
+                A brief explanation of how this indicator contributed to the risk level
+                """
+                impact: Union[
+                    Literal[
+                        "decrease",
+                        "neutral",
+                        "slight_increase",
+                        "strong_increase",
+                    ],
+                    str,
+                ]
+                """
+                The effect this indicator had on the overall risk level.
+                """
+                indicator: Union[
+                    Literal[
+                        "address_mismatch",
+                        "carrier_reputation",
+                        "line_type",
+                        "name_mismatch",
+                        "other",
+                        "phone_reputation",
+                        "phone_tenure",
+                        "phone_velocity",
+                    ],
+                    str,
+                ]
+                """
+                The name of the specific indicator used in the risk assessment.
+                """
+
+            indicators: List[Indicator]
+            """
+            Array of objects representing individual factors that contributed to the calculated risk level.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Categorical assessment of the phone risk.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
+        fraudulent_email: Optional[FraudulentEmail]
+        fraudulent_person: Optional[FraudulentPerson]
+        fraudulent_phone: Optional[FraudulentPhone]
+        _inner_class_types = {
+            "fraudulent_email": FraudulentEmail,
+            "fraudulent_person": FraudulentPerson,
+            "fraudulent_phone": FraudulentPhone,
+        }
+
     client_reference_id: Optional[str]
     """
     A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
@@ -538,6 +710,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     Result from a selfie check
     """
+    signals: Optional[Signals]
     type: Union[
         Literal["document", "email", "id_number", "verification_flow"], str
     ]
@@ -622,4 +795,5 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         "options": Options,
         "phone": Phone,
         "selfie": Selfie,
+        "signals": Signals,
     }
