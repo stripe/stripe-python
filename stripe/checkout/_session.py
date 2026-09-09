@@ -1246,6 +1246,10 @@ class Session(
                 """
                 _inner_class_types = {"end_behavior": EndBehavior}
 
+            backdate_start_date: Optional[int]
+            """
+            The Unix timestamp marking the subscription's backdated start date.
+            """
             description: Optional[str]
             """
             The description for the subscription.
