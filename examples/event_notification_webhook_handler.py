@@ -25,7 +25,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 api_key = os.environ.get("STRIPE_API_KEY", "")
-webhook_secret = os.environ.get("WEBHOOK_SECRET", "")
+webhook_secret = os.environ["WEBHOOK_SECRET"]
 
 client = StripeClient(api_key)
 
