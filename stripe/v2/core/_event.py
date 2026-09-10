@@ -123,6 +123,18 @@ class RelatedObject:
         return f"<RelatedObject id={self.id} type={self.type} url={self.url}>"
 
 
+class RelatedSingletonObject:
+    type: str
+    url: str
+
+    def __init__(self, d) -> None:
+        self.type = d["type"]
+        self.url = d["url"]
+
+    def __repr__(self) -> str:
+        return f"<RelatedSingletonObject type={self.type} url={self.url}>"
+
+
 class EventNotification:
     """
     EventNotification represents the json that's delivered from an Event Destination. It's a basic struct-like object with a few convenience methods. Use `fetch_event()` to get the full event object.

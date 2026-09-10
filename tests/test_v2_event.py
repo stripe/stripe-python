@@ -14,7 +14,11 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterErrorReportTriggeredEvent,
 )
-from stripe.v2.core._event import EventNotification, UnknownEventNotification
+from stripe.v2.core._event import (
+    EventNotification,
+    RelatedSingletonObject,
+    UnknownEventNotification,
+)
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
 from stripe._webhook import WebhookPayload, WebhookSignature
 from tests.test_webhook import DUMMY_WEBHOOK_SECRET
@@ -197,6 +201,19 @@ class TestV2Event(object):
 
         assert type(event) is UnknownEventNotification
         assert event.related_object
+
+    def test_related_singleton_object_omits_id(self):
+        """
+        events whose related object is a singleton get a `RelatedSingletonObject`,
+        which has no `id` at all (instead of a perpetually-`None` one)
+        """
+        related_object = RelatedSingletonObject(
+            {"type": "balance", "url": "/v1/balance"}
+        )
+
+        assert related_object.type == "balance"
+        assert related_object.url == "/v1/balance"
+        assert not hasattr(related_object, "id")
 
     def test_raise_on_v1_payload(self, parse_event_notif: EventParser):
         v1_payload = json.dumps(
