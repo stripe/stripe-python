@@ -868,7 +868,7 @@ class Subscription(
             """
             Unix timestamp in seconds of when the subscription status transitioned to `paused`.
             """
-            type: Literal["subscription"]
+            type: Union[Literal["subscription"], str]
             """
             The type of pause.
             """
