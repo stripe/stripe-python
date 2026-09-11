@@ -4417,7 +4417,7 @@ class PaymentIntent(
             """
             The client type that the end customer will pay from
             """
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

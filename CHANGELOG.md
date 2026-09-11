@@ -29,6 +29,11 @@ This release changes the pinned API version to 2026-08-26.preview.
   * Add support for error code `default_payout_method_cannot_be_disabled` on `CannotProceedError`
 * [#1878](https://github.com/stripe/stripe-python/pull/1878) Add non-verified methods to managed handlers
 
+## 15.6.1 - 2026-09-01
+* [#1896](https://github.com/stripe/stripe-python/pull/1896) Harden API requestor code against malicious URLs
+* [#1898](https://github.com/stripe/stripe-python/pull/1898) Use cryptographically secure boundaries for multipart file uploads
+* [#1860](https://github.com/stripe/stripe-python/pull/1860) Dispatch discriminated union fields to their variant class
+
 ## 15.6.0 - 2026-08-26
 This release changes the pinned API version to 2026-08-26.dahlia.
 

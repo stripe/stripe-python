@@ -94,7 +94,7 @@ class ReceivedCredit(StripeObject):
             """
             The IBAN that originated the transfer.
             """
-            network: Literal["sepa_credit_transfer"]
+            network: Union[Literal["sepa_credit_transfer"], str]
             """
             The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -170,7 +170,7 @@ class ReceivedCredit(StripeObject):
             """
 
         class Returned(StripeObject):
-            reason: Literal["originator_initiated_reversal"]
+            reason: Union[Literal["originator_initiated_reversal"], str]
             """
             Open Enum. The `returned` status reason.
             """

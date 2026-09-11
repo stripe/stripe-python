@@ -131,7 +131,7 @@ class CollectionSetting(StripeObject):
             """
             Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
             """
-            funding_type: Optional[Literal["bank_transfer"]]
+            funding_type: Optional[Union[Literal["bank_transfer"], str]]
             """
             The funding method type to be used when there are not enough funds in the customer balance. Currently the only supported value is `bank_transfer`.
             """

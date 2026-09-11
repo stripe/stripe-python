@@ -61,7 +61,7 @@ class OutboundPayment(StripeObject):
             """
 
         class Processing(StripeObject):
-            reason: Literal["under_review"]
+            reason: Union[Literal["under_review"], str]
             """
             Open Enum. The `processing` status reason.
             """
@@ -204,7 +204,7 @@ class OutboundPayment(StripeObject):
     """
     The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
     """
-    purpose: Optional[Literal["payroll"]]
+    purpose: Optional[Union[Literal["payroll"], str]]
     """
     The purpose of the OutboundPayment.
     """
