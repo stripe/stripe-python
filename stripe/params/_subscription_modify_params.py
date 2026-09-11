@@ -624,11 +624,11 @@ class SubscriptionModifyParamsItem(TypedDict):
     """
     price: NotRequired[str]
     """
-    The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     """
     price_data: NotRequired["SubscriptionModifyParamsItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     """
     quantity: NotRequired[int]
     """
@@ -849,6 +849,12 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice's PaymentIntent.
     """
+    bacs_debit: NotRequired[
+        "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit"
+    ]
+    """
+    This sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice's PaymentIntent.
+    """
     bancontact: NotRequired[
         "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact"
     ]
@@ -965,6 +971,18 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandat
     """
     Transaction type of the mandate.
     """
+
+
+class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit(
+    TypedDict,
+):
+    debit_behavior: NotRequired[str]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+    verification_method: NotRequired[
+        "Literal['automatic', 'payer_name_verification']|str"
+    ]
 
 
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(

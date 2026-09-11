@@ -616,7 +616,7 @@ class SetupIntent(
 
             mandate_options: Optional[MandateOptions]
             verification_method: Optional[
-                Literal["automatic", "payer_name_verification"]
+                Union[Literal["automatic", "payer_name_verification"], str]
             ]
             _inner_class_types = {"mandate_options": MandateOptions}
 

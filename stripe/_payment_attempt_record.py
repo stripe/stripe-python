@@ -590,7 +590,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 Additional information about why 3D Secure succeeded or failed, based on the `result`.
                 """
                 version: Optional[
-                    Union[Literal["1.0.2", "2.1.0", "2.2.0"], str]
+                    Union[
+                        Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"],
+                        str,
+                    ]
                 ]
                 """
                 The version of 3D Secure that was used.
@@ -1573,6 +1576,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             country: Optional[str]
             """
             Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
+            """
+            funding_source_group: Optional[str]
+            """
+            The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
             """
 
         class MbWay(StripeObject):
