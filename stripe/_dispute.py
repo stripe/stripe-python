@@ -34,6 +34,20 @@ class Dispute(
     OBJECT_NAME: ClassVar[Literal["dispute"]] = "dispute"
 
     class Evidence(StripeObject):
+        class Appeal(StripeObject):
+            class Card(StripeObject):
+                reason_for_filing: Optional[str]
+                """
+                The reason for filing the appeal.
+                """
+                supporting_files: Optional[List[str]]
+                """
+                One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+                """
+
+            card: Optional[Card]
+            _inner_class_types = {"card": Card}
+
         class EnhancedEvidence(StripeObject):
             class MastercardCompliance(StripeObject):
                 fee_acknowledged: bool
@@ -198,6 +212,7 @@ class Dispute(
         """
         Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
         """
+        appeal: Optional[Appeal]
         billing_address: Optional[str]
         """
         The billing address provided by the customer.
@@ -303,7 +318,10 @@ class Dispute(
         """
         Any additional evidence or statements.
         """
-        _inner_class_types = {"enhanced_evidence": EnhancedEvidence}
+        _inner_class_types = {
+            "appeal": Appeal,
+            "enhanced_evidence": EnhancedEvidence,
+        }
 
     class EvidenceDetails(StripeObject):
         class EnhancedEligibility(StripeObject):

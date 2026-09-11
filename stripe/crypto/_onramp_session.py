@@ -126,6 +126,7 @@ class OnrampSession(
                         "btc",
                         "eth",
                         "matic",
+                        "ripusd",
                         "sol",
                         "usdc",
                         "usdt",
@@ -146,6 +147,7 @@ class OnrampSession(
                     "btc",
                     "eth",
                     "matic",
+                    "ripusd",
                     "sol",
                     "usdc",
                     "usdt",
@@ -223,7 +225,9 @@ class OnrampSession(
         """
         The amount of fiat we intend to onramp - excluding fees
         """
-        source_currency: Optional[Union[Literal["eur", "gbp", "usd"], str]]
+        source_currency: Optional[
+            Union[Literal["cad", "cop", "eur", "gbp", "php", "usd"], str]
+        ]
         """
         A fiat currency code
         """

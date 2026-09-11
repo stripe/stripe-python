@@ -313,6 +313,12 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice's PaymentIntent.
     """
+    bacs_debit: NotRequired[
+        "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit"
+    ]
+    """
+    If paying by `bacs_debit`, this sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice's PaymentIntent.
+    """
     bancontact: NotRequired[
         "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact"
     ]
@@ -429,6 +435,18 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOpti
     """
     Transaction type of the mandate.
     """
+
+
+class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit(
+    TypedDict,
+):
+    target_date: NotRequired[str]
+    """
+    Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+    """
+    verification_method: NotRequired[
+        "Literal['automatic', 'payer_name_verification']|str"
+    ]
 
 
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact(

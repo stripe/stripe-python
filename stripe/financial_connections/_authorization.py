@@ -95,7 +95,7 @@ class Authorization(APIResource["Authorization"]):
         cls, id: str, **params: Unpack["AuthorizationRetrieveParams"]
     ) -> "Authorization":
         """
-        Retrieves the details of an Financial Connections Authorization.
+        Retrieves the details of a Financial Connections Authorization.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -106,7 +106,7 @@ class Authorization(APIResource["Authorization"]):
         cls, id: str, **params: Unpack["AuthorizationRetrieveParams"]
     ) -> "Authorization":
         """
-        Retrieves the details of an Financial Connections Authorization.
+        Retrieves the details of a Financial Connections Authorization.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

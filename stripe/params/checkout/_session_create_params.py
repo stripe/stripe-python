@@ -347,6 +347,7 @@ class SessionCreateParams(RequestOptions):
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -689,7 +690,7 @@ class SessionCreateParamsCustomFieldDropdownOption(TypedDict):
 class SessionCreateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """
@@ -1918,6 +1919,9 @@ class SessionCreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
     """
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
+    verification_method: NotRequired[
+        "Literal['automatic', 'payer_name_verification']|str"
+    ]
 
 
 class SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(

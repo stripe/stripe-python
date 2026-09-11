@@ -369,6 +369,15 @@ class Subscription(
                 """
                 _inner_class_types = {"mandate_options": MandateOptions}
 
+            class BacsDebit(StripeObject):
+                debit_behavior: str
+                """
+                Controls when the funds will be captured from the customer's account.
+                """
+                verification_method: Optional[
+                    Union[Literal["automatic", "payer_name_verification"], str]
+                ]
+
             class Bancontact(StripeObject):
                 preferred_language: Union[Literal["de", "en", "fr", "nl"], str]
                 """
@@ -731,6 +740,10 @@ class Subscription(
             """
             This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
             """
+            bacs_debit: Optional[BacsDebit]
+            """
+            This sub-hash contains details about the Bacs Direct Debit payment method options to pass to invoices created by the subscription.
+            """
             bancontact: Optional[Bancontact]
             """
             This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
@@ -793,6 +806,7 @@ class Subscription(
             """
             _inner_class_types = {
                 "acss_debit": AcssDebit,
+                "bacs_debit": BacsDebit,
                 "bancontact": Bancontact,
                 "billie": Billie,
                 "bizum": Bizum,

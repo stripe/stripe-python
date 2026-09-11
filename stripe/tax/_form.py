@@ -111,7 +111,7 @@ class Form(ListableAPIResource["Form"]):
         """
         type: Union[Literal["account", "external_reference"], str]
         """
-        Either `account` or `external_reference`.
+        Specifies the payee type.
         """
 
     class Us1099K(StripeObject):
