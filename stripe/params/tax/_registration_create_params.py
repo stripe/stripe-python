@@ -2060,7 +2060,7 @@ class RegistrationCreateParamsCountryOptionsSrStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsTh(TypedDict):
-    type: Literal["simplified"]
+    type: Union[Literal["simplified"], str]
     """
     Type of registration to be created in `country`.
     """

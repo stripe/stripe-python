@@ -138,7 +138,7 @@ class AccountPerson(StripeObject):
             """
             One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
             """
-            type: Literal["files"]
+            type: Union[Literal["files"], str]
             """
             The format of the document. Currently supports `files` only.
             """
@@ -148,7 +148,7 @@ class AccountPerson(StripeObject):
             """
             One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
             """
-            type: Literal["files"]
+            type: Union[Literal["files"], str]
             """
             The format of the document. Currently supports `files` only.
             """
@@ -168,7 +168,7 @@ class AccountPerson(StripeObject):
             """
             The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
             """
-            type: Literal["front_back"]
+            type: Union[Literal["front_back"], str]
             """
             The format of the verification document. Currently supports `front_back` only.
             """
@@ -189,7 +189,7 @@ class AccountPerson(StripeObject):
             """
             The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
             """
-            type: Literal["front_back"]
+            type: Union[Literal["front_back"], str]
             """
             The format of the verification document. Currently supports `front_back` only.
             """
@@ -200,7 +200,7 @@ class AccountPerson(StripeObject):
             """
             One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
             """
-            type: Literal["files"]
+            type: Union[Literal["files"], str]
             """
             The format of the document. Currently supports `files` only.
             """
