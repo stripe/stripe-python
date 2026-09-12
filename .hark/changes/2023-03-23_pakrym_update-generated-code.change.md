@@ -1,6 +1,6 @@
 ---
 title: Update generated code for beta (new)
-pr_link: https://github.com/stripe/stripe-python/pull/941
+pr_url: https://github.com/stripe/stripe-python/pull/941
 is_stripe_api_change: true
 released_in_version: 5.4.0b1
 ---

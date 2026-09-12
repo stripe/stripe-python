@@ -1,6 +1,6 @@
 ---
 title: Add EventNotificationHandler
-pr_link: https://github.com/stripe/stripe-python/pull/1653
+pr_url: https://github.com/stripe/stripe-python/pull/1653
 released_in_version: 14.2.0b1
 ---
 

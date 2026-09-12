@@ -1,6 +1,6 @@
 ---
 title: Bring back invoice payments APIs that were missing in the public preview SDKs
-pr_link: https://github.com/stripe/stripe-python/pull/1545
+pr_url: https://github.com/stripe/stripe-python/pull/1545
 released_in_version: 12.5.0b2
 ---
 

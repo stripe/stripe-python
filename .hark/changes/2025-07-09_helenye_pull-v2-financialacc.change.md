@@ -1,6 +1,6 @@
 ---
 title: Pull in V2 FinancialAccount changes for June release
-pr_link: https://github.com/stripe/stripe-python/pull/1536
+pr_url: https://github.com/stripe/stripe-python/pull/1536
 is_stripe_api_change: true
 released_in_version: 12.4.0b2
 ---

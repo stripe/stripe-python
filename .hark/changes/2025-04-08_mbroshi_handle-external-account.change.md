@@ -1,6 +1,6 @@
 ---
 title: Handle external account
-pr_link: https://github.com/stripe/stripe-python/pull/1490
+pr_url: https://github.com/stripe/stripe-python/pull/1490
 released_in_version: 12.1.0b2
 ---
 

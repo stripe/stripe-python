@@ -1,6 +1,6 @@
 ---
 title: Updates beta branch with changes in master & update generated code
-pr_link: https://github.com/stripe/stripe-python/pull/1407
+pr_url: https://github.com/stripe/stripe-python/pull/1407
 released_in_version: 11.2.0b1
 ---
 
