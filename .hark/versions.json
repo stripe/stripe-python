@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "language": "python",
+    "channel": "beta"
+  },
   "versions": [
     {
       "version": "15.7.0b1",
