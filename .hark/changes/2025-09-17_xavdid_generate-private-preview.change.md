@@ -1,6 +1,6 @@
 ---
 title: generate private-preview SDK w/ mid Sept changes
-pr_link: https://github.com/stripe/stripe-python/pull/1571
+pr_url: https://github.com/stripe/stripe-python/pull/1571
 is_stripe_api_change: true
 released_in_version: 12.6.0a2
 ---
