@@ -3,7 +3,7 @@
     "language": "python",
     "channel": "ga"
   },
-  "versions": [
+  "releases": [
     {
       "version": "15.6.1",
       "released_on": "2026-09-01",
