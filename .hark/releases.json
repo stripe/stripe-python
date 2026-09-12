@@ -3,7 +3,7 @@
     "language": "python",
     "channel": "private-preview"
   },
-  "versions": [
+  "releases": [
     {
       "version": "15.7.0a3",
       "released_on": "2026-09-09",
