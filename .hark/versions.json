@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "language": "python",
+    "channel": "private-preview"
+  },
   "versions": [
     {
       "version": "15.7.0a3",
