@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "language": "python",
+    "channel": "ga"
+  },
   "versions": [
     {
       "version": "15.6.1",
