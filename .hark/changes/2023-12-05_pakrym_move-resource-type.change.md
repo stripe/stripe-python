@@ -1,6 +1,6 @@
 ---
 title: Move resource type exports to stripe.___
-pr_link: https://github.com/stripe/stripe-python/pull/1142
+pr_url: https://github.com/stripe/stripe-python/pull/1142
 released_in_version: 7.8.0
 ---
 

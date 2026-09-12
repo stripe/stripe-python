@@ -1,6 +1,6 @@
 ---
 title: API Updates
-pr_link: https://github.com/stripe/stripe-python/pull/810
+pr_url: https://github.com/stripe/stripe-python/pull/810
 is_stripe_api_change: true
 released_in_version: 3.1.0
 ---

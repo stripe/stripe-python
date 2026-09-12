@@ -1,6 +1,6 @@
 ---
 title: Dramatically improve performance by lazily loading most imports
-pr_link: https://github.com/stripe/stripe-python/pull/1645
+pr_url: https://github.com/stripe/stripe-python/pull/1645
 released_in_version: 13.1.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Pin to the latest API version
-pr_link: https://github.com/stripe/stripe-python/pull/987
+pr_url: https://github.com/stripe/stripe-python/pull/987
 is_breaking: true
 released_in_version: 6.0.0
 ---

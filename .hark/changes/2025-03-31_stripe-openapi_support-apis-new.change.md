@@ -1,6 +1,6 @@
 ---
 title: Support for APIs in the new API version 2025-03-31.basil
-pr_link: https://github.com/stripe/stripe-python/pull/1463
+pr_url: https://github.com/stripe/stripe-python/pull/1463
 is_stripe_api_change: true
 released_in_version: 12.0.0
 ---

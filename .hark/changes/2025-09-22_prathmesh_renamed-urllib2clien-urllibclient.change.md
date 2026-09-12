@@ -1,6 +1,6 @@
 ---
 title: Renamed Urllib2Client to UrllibClient
-pr_link: https://github.com/stripe/stripe-python/pull/1569
+pr_url: https://github.com/stripe/stripe-python/pull/1569
 is_breaking: true
 released_in_version: 13.0.0
 ---

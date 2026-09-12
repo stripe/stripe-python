@@ -1,5 +1,5 @@
 ---
 title: Add support for SearchResult.
-pr_link: https://github.com/stripe/stripe-python/pull/777
+pr_url: https://github.com/stripe/stripe-python/pull/777
 released_in_version: 2.68.0
 ---

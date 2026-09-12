@@ -1,6 +1,6 @@
 ---
 title: Fix incorrect property name on `ThinEvent.related_object.type`
-pr_link: https://github.com/stripe/stripe-python/pull/1471
+pr_url: https://github.com/stripe/stripe-python/pull/1471
 is_breaking: true
 section: ⚠️ Other Breaking changes in the SDK
 released_in_version: 12.0.0

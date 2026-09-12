@@ -1,6 +1,6 @@
 ---
 title: Fixed InvoiceLineItem method definition
-pr_link: https://github.com/stripe/stripe-python/pull/1604
+pr_url: https://github.com/stripe/stripe-python/pull/1604
 is_breaking: true
 released_in_version: 13.0.0
 ---

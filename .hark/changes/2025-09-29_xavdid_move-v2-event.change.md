@@ -1,6 +1,6 @@
 ---
 title: Move `V2.Event` API resources to `V2.Core.Events`
-pr_link: https://github.com/stripe/stripe-python/pull/1602
+pr_url: https://github.com/stripe/stripe-python/pull/1602
 is_breaking: true
 released_in_version: 13.0.0
 ---

@@ -1,6 +1,6 @@
 ---
 title: Add strongly typed EventNotifications
-pr_link: https://github.com/stripe/stripe-python/pull/1538
+pr_url: https://github.com/stripe/stripe-python/pull/1538
 is_breaking: true
 released_in_version: 13.0.0
 ---

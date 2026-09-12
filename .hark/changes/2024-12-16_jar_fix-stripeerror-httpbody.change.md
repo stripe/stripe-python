@@ -1,6 +1,6 @@
 ---
 title: Fix StripeError http_body
-pr_link: https://github.com/stripe/stripe-python/pull/1435
+pr_url: https://github.com/stripe/stripe-python/pull/1435
 released_in_version: 11.4.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Add static methods to manipulate resources from parent
-pr_link: https://github.com/stripe/stripe-python/pull/350
+pr_url: https://github.com/stripe/stripe-python/pull/350
 released_in_version: 1.68.0
 ---
 

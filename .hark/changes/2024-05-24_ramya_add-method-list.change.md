@@ -1,6 +1,6 @@
 ---
 title: Add method to list invoice line items
-pr_link: https://github.com/stripe/stripe-python/pull/1335
+pr_url: https://github.com/stripe/stripe-python/pull/1335
 released_in_version: 9.9.0
 ---
 

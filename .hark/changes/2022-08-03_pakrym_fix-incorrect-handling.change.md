@@ -1,6 +1,6 @@
 ---
 title: Fix incorrect handling of additional request parameters
-pr_link: https://github.com/stripe/stripe-python/pull/850
+pr_url: https://github.com/stripe/stripe-python/pull/850
 released_in_version: 4.0.1
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Track usage of deprecated `save`
-pr_link: https://github.com/stripe/stripe-python/pull/1146
+pr_url: https://github.com/stripe/stripe-python/pull/1146
 released_in_version: 7.9.0
 ---
 

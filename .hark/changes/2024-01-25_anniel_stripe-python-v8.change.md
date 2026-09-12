@@ -1,6 +1,6 @@
 ---
 title: stripe-python v8 release
-pr_link: https://github.com/stripe/stripe-python/pull/1206
+pr_url: https://github.com/stripe/stripe-python/pull/1206
 is_breaking: true
 released_in_version: 8.0.0
 ---

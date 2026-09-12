@@ -1,6 +1,6 @@
 ---
 title: Add decimal_string coercion for v1 and v2 API fields
-pr_link: https://github.com/stripe/stripe-python/pull/1769
+pr_url: https://github.com/stripe/stripe-python/pull/1769
 is_breaking: true
 released_in_version: 15.0.0
 ---

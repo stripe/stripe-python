@@ -1,6 +1,6 @@
 ---
 title: Rename `StripeStreamResponseAsync`'s `.read()` to `read_async()` for consistency
-pr_link: https://github.com/stripe/stripe-python/pull/1474
+pr_url: https://github.com/stripe/stripe-python/pull/1474
 is_breaking: true
 section: ⚠️ Other Breaking changes in the SDK
 released_in_version: 12.0.0

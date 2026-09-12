@@ -1,6 +1,6 @@
 ---
 title: API Updates
-pr_link: https://github.com/stripe/stripe-python/pull/771
+pr_url: https://github.com/stripe/stripe-python/pull/771
 is_stripe_api_change: true
 released_in_version: 2.66.0
 ---

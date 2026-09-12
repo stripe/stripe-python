@@ -1,6 +1,6 @@
 ---
 title: Reduce StripeClient() cold start latency for serverless environments
-pr_link: https://github.com/stripe/stripe-python/pull/1834
+pr_url: https://github.com/stripe/stripe-python/pull/1834
 released_in_version: 15.3.1
 ---
 

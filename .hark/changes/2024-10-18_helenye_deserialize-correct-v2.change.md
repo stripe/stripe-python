@@ -1,6 +1,6 @@
 ---
 title: Deserialize into correct v2 EventData types
-pr_link: https://github.com/stripe/stripe-python/pull/1414
+pr_url: https://github.com/stripe/stripe-python/pull/1414
 released_in_version: 11.1.1
 ---
 

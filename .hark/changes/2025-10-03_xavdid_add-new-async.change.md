@@ -1,6 +1,6 @@
 ---
 title: Add new `async` optional dependency
-pr_link: https://github.com/stripe/stripe-python/pull/1633
+pr_url: https://github.com/stripe/stripe-python/pull/1633
 released_in_version: 13.0.1
 ---
 

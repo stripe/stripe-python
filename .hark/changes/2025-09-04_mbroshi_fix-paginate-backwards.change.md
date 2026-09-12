@@ -1,6 +1,6 @@
 ---
 title: "fix: Paginate backwards if `starting_after == None`"
-pr_link: https://github.com/stripe/stripe-python/pull/1563
+pr_url: https://github.com/stripe/stripe-python/pull/1563
 released_in_version: 12.5.1
 ---
 

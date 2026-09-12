@@ -1,6 +1,6 @@
 ---
 title: Assert types of pagination responses
-pr_link: https://github.com/stripe/stripe-python/pull/1015
+pr_url: https://github.com/stripe/stripe-python/pull/1015
 is_breaking: true
 released_in_version: 6.0.0
 ---

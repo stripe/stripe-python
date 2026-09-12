@@ -1,6 +1,6 @@
 ---
 title: Introduce V1 namespaces in StripeClient
-pr_link: https://github.com/stripe/stripe-python/pull/1549
+pr_url: https://github.com/stripe/stripe-python/pull/1549
 released_in_version: 12.5.0
 ---
 

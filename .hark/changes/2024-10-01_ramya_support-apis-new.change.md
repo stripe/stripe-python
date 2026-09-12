@@ -1,6 +1,6 @@
 ---
 title: Support for APIs in the new API version 2024-09-30.acacia
-pr_link: https://github.com/stripe/stripe-python/pull/1404
+pr_url: https://github.com/stripe/stripe-python/pull/1404
 is_stripe_api_change: true
 released_in_version: 11.0.0
 ---

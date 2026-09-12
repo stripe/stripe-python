@@ -1,6 +1,6 @@
 ---
 title: Fix V2 ListObject.data type hint
-pr_link: https://github.com/stripe/stripe-python/pull/1442
+pr_url: https://github.com/stripe/stripe-python/pull/1442
 released_in_version: 11.5.0
 ---
 

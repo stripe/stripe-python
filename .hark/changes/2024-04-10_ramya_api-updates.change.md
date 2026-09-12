@@ -1,6 +1,6 @@
 ---
 title: API Updates
-pr_link: https://github.com/stripe/stripe-python/pull/1286
+pr_url: https://github.com/stripe/stripe-python/pull/1286
 released_in_version: 9.0.0
 ---
 

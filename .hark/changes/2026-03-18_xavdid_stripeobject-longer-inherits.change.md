@@ -1,6 +1,6 @@
 ---
 title: "`StripeObject` no longer inherits from `dict`"
-pr_link: https://github.com/stripe/stripe-python/pull/1762
+pr_url: https://github.com/stripe/stripe-python/pull/1762
 is_breaking: true
 released_in_version: 15.0.0
 ---

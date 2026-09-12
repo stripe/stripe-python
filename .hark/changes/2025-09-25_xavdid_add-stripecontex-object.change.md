@@ -1,6 +1,6 @@
 ---
 title: Add `StripeContext` object
-pr_link: https://github.com/stripe/stripe-python/pull/1589
+pr_url: https://github.com/stripe/stripe-python/pull/1589
 is_breaking: true
 released_in_version: 13.0.0
 ---

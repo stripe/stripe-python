@@ -1,6 +1,6 @@
 ---
 title: Remove broken child methods
-pr_link: https://github.com/stripe/stripe-python/pull/1237
+pr_url: https://github.com/stripe/stripe-python/pull/1237
 released_in_version: 8.3.0
 ---
 

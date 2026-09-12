@@ -1,6 +1,6 @@
 ---
 title: Encode bools with lower case
-pr_link: https://github.com/stripe/stripe-python/pull/1499
+pr_url: https://github.com/stripe/stripe-python/pull/1499
 released_in_version: 12.0.1
 ---
 

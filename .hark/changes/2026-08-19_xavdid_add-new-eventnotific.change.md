@@ -1,6 +1,6 @@
 ---
 title: Add new `EventNotificationHandler` class for better thin event management
-pr_link: https://github.com/stripe/stripe-python/pull/1881
+pr_url: https://github.com/stripe/stripe-python/pull/1881
 released_in_version: 15.6.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Port **async support** from beta to the stable channel. To use it, add an `_async` suffix to any request-making method.
-pr_link: https://github.com/stripe/stripe-python/pull/1288
+pr_url: https://github.com/stripe/stripe-python/pull/1288
 released_in_version: 8.10.0
 ---
 

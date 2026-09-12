@@ -1,6 +1,6 @@
 ---
 title: Build SDK w/ V2 OpenAPI spec
-pr_link: https://github.com/stripe/stripe-python/pull/1565
+pr_url: https://github.com/stripe/stripe-python/pull/1565
 is_breaking: true
 released_in_version: 13.0.0
 ---
