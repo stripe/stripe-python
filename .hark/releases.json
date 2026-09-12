@@ -3,7 +3,7 @@
     "language": "python",
     "channel": "beta"
   },
-  "versions": [
+  "releases": [
     {
       "version": "15.7.0b1",
       "released_on": "2026-08-26",
