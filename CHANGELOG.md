@@ -1,20 +1,25 @@
+<!--
+THIS IS A GENERATED FILE. Any changes you make to it directly will be blown away.
+Instead, edit a corresponding `.change.md` file and run `hark build`.
+-->
+
+# Changelog
+
 ## 15.6.1 - 2026-09-01
+* [#1860](https://github.com/stripe/stripe-python/pull/1860) Dispatch discriminated union fields to their variant class
 * [#1896](https://github.com/stripe/stripe-python/pull/1896) Harden API requestor code against malicious URLs
 * [#1898](https://github.com/stripe/stripe-python/pull/1898) Use cryptographically secure boundaries for multipart file uploads
-* [#1860](https://github.com/stripe/stripe-python/pull/1860) Dispatch discriminated union fields to their variant class
 
 ## 15.6.0 - 2026-08-26
-This release changes the pinned API version to 2026-08-26.dahlia.
+This release changes the pinned API version to `2026-08-26.dahlia`.
 
 * [#1881](https://github.com/stripe/stripe-python/pull/1881) Add new `EventNotificationHandler` class for better thin event management
-  
   - We've been putting a lot of time into rethinking the event handling experience in the SDKs. This new class is the culmination [of that effort](https://stripe.dev/blog/event-notification-handlers-thin-events).
   - They're designed for a tight coupling with both `StripeClient` and the fully-typed nature of [thin events](https://docs.stripe.com/event-destinations#thin-events). This delivers painless event destination upgrades, in-editor checks for common mistakes, and better code modularity.
   - Now that we've released [thin event notifications for v1 objects](https://docs.stripe.com/changelog#2026-08-26.dahlia), these new handlers are our recommended path for all integrations using thin event notifications.
   - See more detailed docs here: https://docs.stripe.com/webhooks/event-notification-handlers
   - As part of this work, we've widened some of the types our webhook-related methods take so they play more nicely with the types commonly returned by popular web frameworks ([#1888](https://github.com/stripe/stripe-python/pull/1888))
-
-* [#1876](https://github.com/stripe/stripe-python/pull/1876) Update generated code
+* ⚠️ [#1876](https://github.com/stripe/stripe-python/pull/1876) Update generated code
   * Add support for new resource `billing.FeedbackOption`
   * Add support for `create`, `deactivate`, `list`, `modify`, and `retrieve` methods on resource `billing.FeedbackOption`
   * Add support for `payment_method_settings` on `AccountSession.Component` and `AccountSessionCreateParamsComponent`
@@ -42,24 +47,24 @@ This release changes the pinned API version to 2026-08-26.dahlia.
 * [#1879](https://github.com/stripe/stripe-python/pull/1879) better document `StripeObject`'s `to_dict` behavior
 
 ## 15.5.0 - 2026-08-10
-* [#1874](https://github.com/stripe/stripe-python/pull/1874) Add async iteration to v2 list auto-pagination
-  - Adds `async for` support to v2 `ListObject.auto_paging_iter()`.
-* [#1869](https://github.com/stripe/stripe-python/pull/1869) Surface `object` property on `EventNotification`
-* [#1867](https://github.com/stripe/stripe-python/pull/1867) Emit Claude Code plugin hint at module load time
-  - Emits new Claude Code plugin hint when `CLAUDECODE` or `CLAUDE_CODE_CHILD_SESSION` environment variables are detected.
+* [#1863](https://github.com/stripe/stripe-python/pull/1863) Add `stripe.major_api_version` constant
 * [#1855](https://github.com/stripe/stripe-python/pull/1855) add/adjust event parsing helpers
-  
   - Added methods that return their respective `Event`/`EventNotification` class instances without verifying authenticity. Use them when you've previously verified an event (e.g. you verified, put the event in a queue, and are now processing). Supports events from [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) and [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) natively.
     - `Webhook.construct_event_without_verification(payload)`
     - `StripeClient.construct_event_without_verification(payload)`
     - `StripeClient.parse_event_notification_without_verification(payload)`
   - Added `WebhookSignature.generate_signature_header(payload, secret, timestamp=None)`, which computes a full `Stripe-Signature` header for the given payload. Useful for unit tests!
-  
-* [#1863](https://github.com/stripe/stripe-python/pull/1863) Add `stripe.major_api_version` constant
+* [#1867](https://github.com/stripe/stripe-python/pull/1867) Emit Claude Code plugin hint at module load time
+  - Emits new Claude Code plugin hint when `CLAUDECODE` or `CLAUDE_CODE_CHILD_SESSION` environment variables are detected.
+* [#1869](https://github.com/stripe/stripe-python/pull/1869) Surface `object` property on `EventNotification`
+* [#1874](https://github.com/stripe/stripe-python/pull/1874) Add async iteration to v2 list auto-pagination
+  - Adds `async for` support to v2 `ListObject.auto_paging_iter()`.
 
 ## 15.4.0 - 2026-07-29
-This release changes the pinned API version to 2026-07-29.dahlia.
+This release changes the pinned API version to `2026-07-29.dahlia`.
 
+* [#1849](https://github.com/stripe/stripe-python/pull/1849) Use ip address directly instead of localhost to speed up windows tests
+* [#1853](https://github.com/stripe/stripe-python/pull/1853) Fix intermittent Windows test flake in async httpx integration tests
 * [#1857](https://github.com/stripe/stripe-python/pull/1857) Update generated code
   * Add support for new resource `financial_connections.Authorization`
   * Add support for `unreject` method on resource `Account`
@@ -106,20 +111,18 @@ This release changes the pinned API version to 2026-07-29.dahlia.
   * Add support for snapshot events `financial_connections.account.expected_deactivation_date_updated`, `financial_connections.account.supported_payment_method_types_updated`, and `financial_connections.account.upcoming_deactivation` with resource `financial_connections.Account`
   * Add support for snapshot events `financial_connections.authorization.expected_deactivation_date_updated` and `financial_connections.authorization.upcoming_deactivation` with resource `financial_connections.Authorization`
   * Enum type annotations for non-exhaustive ("open") enums are now typed as `Union[Literal[...], str]` instead of plain `Literal[...]`. Many Stripe enums are open, meaning new values may appear in new versions of the API. This change ensures these fields have the correct type for both the values known at SDK release time and other values that may be added later. Refer to the [API Reference](https://docs.stripe.com) for the latest set of allowed values.
-* [#1853](https://github.com/stripe/stripe-python/pull/1853) Fix intermittent Windows test flake in async httpx integration tests
-* [#1849](https://github.com/stripe/stripe-python/pull/1849) Use ip address directly instead of localhost to speed up windows tests
 
 ## 15.3.1 - 2026-07-15
-* [#1846](https://github.com/stripe/stripe-python/pull/1846) Replace source hash with Telemetry UUID
-* [#1845](https://github.com/stripe/stripe-python/pull/1845) Make Error fields generated
-* [#1843](https://github.com/stripe/stripe-python/pull/1843) Remove unused Retry-After header support
 * [#1834](https://github.com/stripe/stripe-python/pull/1834) Reduce StripeClient() cold start latency for serverless environments
   - Moves HTTP library imports to module load time to better accommodate AWS Lambda and other serverless environments that have separate Init phase and Invoke phase time budgets.
+* [#1843](https://github.com/stripe/stripe-python/pull/1843) Remove unused Retry-After header support
+* [#1845](https://github.com/stripe/stripe-python/pull/1845) Make Error fields generated
+* [#1846](https://github.com/stripe/stripe-python/pull/1846) Replace source hash with Telemetry UUID
 
 ## 15.3.0 - 2026-06-24
-This release changes the pinned API version to 2026-06-24.dahlia.
+This release changes the pinned API version to `2026-06-24.dahlia`.
 
-* [#1836](https://github.com/stripe/stripe-python/pull/1836) Update generated code
+* ⚠️ [#1836](https://github.com/stripe/stripe-python/pull/1836) Update generated code
   * Add support for `release_details` on `Reserve.Hold`
   * ⚠️ Add support for new value `tax_fund` on enum `BalanceTransaction.type`
   * Change `Billing.CreditGrant.priority` to be required
@@ -160,9 +163,10 @@ This release changes the pinned API version to 2026-06-24.dahlia.
 * [#1825](https://github.com/stripe/stripe-python/pull/1825) Add "source" field to user-agent header
 
 ## 15.2.0 - 2026-05-27
-This release changes the pinned API version to 2026-05-27.dahlia.
+This release changes the pinned API version to `2026-05-27.dahlia`.
 
-* [#1816](https://github.com/stripe/stripe-python/pull/1816) Update generated code
+* [#1813](https://github.com/stripe/stripe-python/pull/1813) Emit warning when `stripe-notify` header is present in response
+* ⚠️ [#1816](https://github.com/stripe/stripe-python/pull/1816) Update generated code
   * Add support for new resource `v2.commerce.ProductCatalogImport`
   * Add support for `create` and `retrieve` methods on resource `v2.commerce.ProductCatalogImport`
   * Add support for `bizum_payments` and `scalapay_payments` on `Account.Capability`, `AccountCreateParamsCapability`, and `AccountModifyParamsCapability`
@@ -212,12 +216,11 @@ This release changes the pinned API version to 2026-05-27.dahlia.
   * ⚠️ Add support for new value `meter_event_value_too_many_digits` on enums `EventsV1BillingMeterErrorReportTriggeredEvent.Reason.ErrorType.code` and `EventsV1BillingMeterNoMeterFoundEvent.Reason.ErrorType.code`
   * Add support for event notifications `V2CommerceProductCatalogImportsFailedEvent`, `V2CommerceProductCatalogImportsProcessingEvent`, `V2CommerceProductCatalogImportsSucceededEvent`, and `V2CommerceProductCatalogImportsSucceededWithErrorsEvent` with related object `v2.commerce.ProductCatalogImport`
   * Add support for error codes `payment_method_microdeposit_processing_error` and `siret_invalid` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1813](https://github.com/stripe/stripe-python/pull/1813) Emit warning when `stripe-notify` header is present in response
 
 ## 15.1.0 - 2026-04-23
-This release changes the pinned API version to 2026-04-22.dahlia.
+This release changes the pinned API version to `2026-04-22.dahlia`.
 
-* [#1793](https://github.com/stripe/stripe-python/pull/1793) Update generated code
+* ⚠️ [#1793](https://github.com/stripe/stripe-python/pull/1793) Update generated code
   * Add support for `balance_report` and `payout_reconciliation_report` on `AccountSession.Component` and `AccountSessionCreateParamsComponent`
   * Add support for `app_distribution` and `sunbit_payments` on `Account.Capability`, `AccountCreateParamsCapability`, and `AccountModifyParamsCapability`
   * ⚠️ Add support for new values `fee_credit_funding`, `inbound_transfer_reversal`, and `inbound_transfer` on enum `BalanceTransaction.type`
@@ -259,17 +262,27 @@ This release changes the pinned API version to 2026-04-22.dahlia.
   * Add support for error codes `action_blocked` and `approval_required` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
 
 ## 15.0.1 - 2026-04-01
+* [#1780](https://github.com/stripe/stripe-python/pull/1780) Fix `str` / `repr` for `StripeObjects` with decimals & add support for plain dicts
 * [#1786](https://github.com/stripe/stripe-python/pull/1786) Fix encoding two-dimensional array request params
 * [#1785](https://github.com/stripe/stripe-python/pull/1785) Improve types for `metadata` and other dict-like types
-* [#1780](https://github.com/stripe/stripe-python/pull/1780) Fix `str` / `repr` for `StripeObjects` with decimals & add support for plain dicts
 
 ## 15.0.0 - 2026-03-25
+This release changes the pinned API version to `2026-03-25.dahlia`.
 
-This release changes the pinned API version to `2026-03-25.dahlia` and contains breaking changes (prefixed with ⚠️ below). There's also a [detailed migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15) to simplify your upgrade process.
+This release contains breaking changes (prefixed with ⚠️ below). There's also a [detailed migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15) to simplify your upgrade process.
 
 Please review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/dahlia) before upgrading.
 
-* ⚠️ **Breaking change:** [#1769](https://github.com/stripe/stripe-python/pull/1769) Add decimal_string coercion for v1 and v2 API fields
+* ⚠️ [#1764](https://github.com/stripe/stripe-python/pull/1764) Drop support for Python 3.7 & 3.8
+* ⚠️ [#1762](https://github.com/stripe/stripe-python/pull/1762) `StripeObject` no longer inherits from `dict`
+  - `StripeObject` no longer inherits from `dict`, so any `dict` methods will no longer exist, including `.get()` and notably, `.items()`.
+    - For convenience, it's still possible to check key presence with `'some_key' in some_obj`. To replicate `.get()` behavior, use `getattr(obj, 'some_key', None)` for now. We've got some improvements around accessing properties that may not be present planned, but `getattr` works for now.
+    - `.update()` has been retained for easier interaction with `metadata`, but it's not really intended for use on full objects.
+    - Equality between `StripeObject`s still works: it checks for equality between the same class and underlying data.
+  - To access the underlying data as a `dict`, call `some_obj.to_dict()`, which recursively dumps all stripe-provided classes into native Python types. This is a read-only view; changes to the output of `to_dict()` won't affect the original object.
+  - Write operations can still be done with dot notation (`some_obj.val = 123`) or bracket notation (`some_obj["val"] = 123`). Do that instead of trying to interact with the underlying data store, as the implementation is considered private and may change without warning in the future.
+* ⚠️ [#1767](https://github.com/stripe/stripe-python/pull/1767) Throw an error when using the wrong webhook parsing method
+* ⚠️ [#1769](https://github.com/stripe/stripe-python/pull/1769) Add decimal_string coercion for v1 and v2 API fields
   - All `decimal_string` fields changed type from `str` to `decimal.Decimal` in both request params and response objects. Code that reads or writes these fields as `str` will need to use `Decimal` instead. Affected fields across v1 and v2 APIs:
     - **checkout.Session**: `fx_rate`
     - **climate.Order**: `metric_tons`; **climate.Product**: `metric_tons_available`
@@ -281,20 +294,10 @@ Please review details for the breaking changes and alternatives in the [Stripe A
     - **Price**: `unit_amount_decimal`, `flat_amount_decimal` (including `currency_options` and `tiers`)
     - **v2.core.Account** / **v2.core.AccountPerson**: `percent_ownership`
     - Request params on **Invoice**, **Product**, **Quote**, **Subscription**, **SubscriptionItem**, **SubscriptionSchedule**, **PaymentLink**: `unit_amount_decimal`, `flat_amount_decimal`, `quantity_decimal` (where applicable)
-* [⚠️ **Breaking change:**#1767](https://github.com/stripe/stripe-python/pull/1767) Throw an error when using the wrong webhook parsing method
-* ⚠️ **Breaking change:** [#1764](https://github.com/stripe/stripe-python/pull/1764) Drop support for Python 3.7 & 3.8
-* ⚠️ **Breaking change:** [#1762](https://github.com/stripe/stripe-python/pull/1762) `StripeObject` no longer inherits from `dict`
-
-  - `StripeObject` no longer inherits from `dict`, so any `dict` methods will no longer exist, including `.get()` and notably, `.items()`.
-    - For convenience, it's still possible to check key presence with `'some_key' in some_obj`. To replicate `.get()` behavior, use `getattr(obj, 'some_key', None)` for now. We've got some improvements around accessing properties that may not be present planned, but `getattr` works for now.
-    - `.update()` has been retained for easier interaction with `metadata`, but it's not really intended for use on full objects.
-    - Equality between `StripeObject`s still works: it checks for equality between the same class and underlying data.
-  - To access the underlying data as a `dict`, call `some_obj.to_dict()`, which recursively dumps all stripe-provided classes into native Python types. This is a read-only view; changes to the output of `to_dict()` won't affect the original object.
-  - Write operations can still be done with dot notation (`some_obj.val = 123`) or bracket notation (`some_obj["val"] = 123`). Do that instead of trying to interact with the underlying data store, as the implementation is considered private and may change without warning in the future.
 
 ### ⚠️ Breaking changes  due to changes in the Stripe API
-
-* Generated changes from [#1749](https://github.com/stripe/stripe-python/pull/1749), [#1771](https://github.com/stripe/stripe-python/pull/1771), [#1773](https://github.com/stripe/stripe-python/pull/1773), [#1775](https://github.com/stripe/stripe-python/pull/1775)
+* [#1756](https://github.com/stripe/stripe-python/pull/1756) Add runtime support for V2 int64 string-encoded fields
+* ⚠️ Generated changes from [#1749](https://github.com/stripe/stripe-python/pull/1749), [#1771](https://github.com/stripe/stripe-python/pull/1771), [#1773](https://github.com/stripe/stripe-python/pull/1773), [#1775](https://github.com/stripe/stripe-python/pull/1775)
   * Add support for `upi_payments` on `Account.Capability`, `AccountCreateParamsCapability`, and `AccountModifyParamsCapability`
   * Add support for `upi` on `Charge.PaymentMethodDetail`, `Checkout.Session.PaymentMethodOption`, `ConfirmationToken.PaymentMethodPreview`, `ConfirmationTokenCreateParamsPaymentMethodDatum`, `Mandate.PaymentMethodDetail`, `PaymentAttemptRecord.PaymentMethodDetail`, `PaymentIntent.PaymentMethodOption`, `PaymentIntentConfirmParamsPaymentMethodDatum`, `PaymentIntentConfirmParamsPaymentMethodOption`, `PaymentIntentCreateParamsPaymentMethodDatum`, `PaymentIntentCreateParamsPaymentMethodOption`, `PaymentIntentModifyParamsPaymentMethodDatum`, `PaymentIntentModifyParamsPaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationModifyParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord.PaymentMethodDetail`, `SetupAttempt.PaymentMethodDetail`, `SetupIntent.PaymentMethodOption`, `SetupIntentConfirmParamsPaymentMethodDatum`, `SetupIntentConfirmParamsPaymentMethodOption`, `SetupIntentCreateParamsPaymentMethodDatum`, `SetupIntentCreateParamsPaymentMethodOption`, `SetupIntentModifyParamsPaymentMethodDatum`, `SetupIntentModifyParamsPaymentMethodOption`, and `checkout.SessionCreateParamsPaymentMethodOption`
   * Add support for new value `tempo` on enums `Charge.PaymentMethodDetail.Crypto.network`, `PaymentAttemptRecord.PaymentMethodDetail.Crypto.network`, and `PaymentRecord.PaymentMethodDetail.Crypto.network`
@@ -330,16 +333,15 @@ Please review details for the breaking changes and alternatives in the [Stripe A
   * Add support for new value `2026-03-25.dahlia` on enum `WebhookEndpointCreateParams.api_version`
   * ⚠️ Change type of `V2.Core.EventDestination.events_from` and `v2.core.EventDestinationCreateParams.events_from` from `enum('other_accounts'|'self')` to `string`
   * Add support for error code `service_period_coupon_with_metered_tiered_item_unsupported` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1756](https://github.com/stripe/stripe-python/pull/1756) Add runtime support for V2 int64 string-encoded fields
-
 
 ## 14.4.1 - 2026-03-06
-* [#1748](https://github.com/stripe/stripe-python/pull/1748) Add Stripe-Request-Trigger header
 * [#1743](https://github.com/stripe/stripe-python/pull/1743) Add agent information to UserAgent
+* [#1748](https://github.com/stripe/stripe-python/pull/1748) Add Stripe-Request-Trigger header
 
 ## 14.4.0 - 2026-02-25
 This release changes the pinned API version to `2026-02-25.clover`.
 
+* [#1731](https://github.com/stripe/stripe-python/pull/1731) Added instruction to update CA certificates in README.
 * [#1737](https://github.com/stripe/stripe-python/pull/1737) Allow AIOHTTPClient to accept user-provided session or connector. Fixes [#1736](https://github.com/stripe/stripe-python/pull/1736)
 * [#1732](https://github.com/stripe/stripe-python/pull/1732) Update generated code
   * Add support for new resources `reserve.Hold`, `reserve.Plan`, and `reserve.Release`
@@ -366,11 +368,11 @@ This release changes the pinned API version to `2026-02-25.clover`.
   * Add support for snapshot events `reserve.plan.created`, `reserve.plan.disabled`, `reserve.plan.expired`, and `reserve.plan.updated` with resource `reserve.Plan`
   * Add support for snapshot event `reserve.release.created` with resource `reserve.Release`
   * Add support for error codes `storer_capability_missing` and `storer_capability_not_active` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1731](https://github.com/stripe/stripe-python/pull/1731) Added instruction to update CA certificates in README.
 
 ## 14.3.0 - 2026-01-28
 This release changes the pinned API version to `2026-01-28.clover`.
 
+* [#1722](https://github.com/stripe/stripe-python/pull/1722) Add documentation for undocumented API parameters
 * [#1725](https://github.com/stripe/stripe-python/pull/1725) Update generated code
   * Add support for new resource `radar.PaymentEvaluation`
   * Add support for `create` method on resource `radar.PaymentEvaluation`
@@ -391,19 +393,20 @@ This release changes the pinned API version to `2026-01-28.clover`.
   * Add support for `registration_date` on `V2.Core.Account.Identity.BusinessDetail`, `v2.core.AccountCreateParamsIdentityBusinessDetail`, `v2.core.AccountModifyParamsIdentityBusinessDetail`, and `v2.core.AccountTokenCreateParamsIdentityBusinessDetail`
   * Add support for new value `gb_vat` on enums `V2.Core.Account.Identity.BusinessDetail.IdNumber.type`, `v2.core.AccountCreateParamsIdentityBusinessDetailIdNumber.type`, `v2.core.AccountModifyParamsIdentityBusinessDetailIdNumber.type`, and `v2.core.AccountTokenCreateParamsIdentityBusinessDetailIdNumber.type`
   * Add support for error code `request_blocked` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1722](https://github.com/stripe/stripe-python/pull/1722) Add documentation for undocumented API parameters
 
 ## 14.2.0 - 2026-01-16
+* [#1703](https://github.com/stripe/stripe-python/pull/1703) Update ci to run on Python 3.14 as well
+* [#1687](https://github.com/stripe/stripe-python/pull/1687) Fix DeprecationWarning when encoding StripeObject metadata (fixes #1651)
 * [#1720](https://github.com/stripe/stripe-python/pull/1720) Update generated code
   * Add support for event notifications `V2CoreAccountClosedEvent`, `V2CoreAccountCreatedEvent`, `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingDefaultsUpdatedEvent`, `V2CoreAccountIncludingFutureRequirementsUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, `V2CoreAccountIncludingRequirementsUpdatedEvent`, and `V2CoreAccountUpdatedEvent` with related object `v2.core.Account`
   * Add support for event notification `V2CoreAccountLinkReturnedEvent`
   * Add support for event notifications `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `v2.core.AccountPerson`
-* [#1687](https://github.com/stripe/stripe-python/pull/1687) Fix DeprecationWarning when encoding StripeObject metadata (fixes #1651)
-* [#1703](https://github.com/stripe/stripe-python/pull/1703) Update ci to run on Python 3.14 as well
 
 ## 14.1.0 - 2025-12-16
 This release changes the pinned API version to `2025-12-15.clover`.
 
+* [#1676](https://github.com/stripe/stripe-python/pull/1676) Add create_async method to EphemeralKey
+* [#1692](https://github.com/stripe/stripe-python/pull/1692) Updated bundled CA certificates
 * [#1696](https://github.com/stripe/stripe-python/pull/1696) Update generated code
   * Add support for new resources `v2.core.AccountLink`, `v2.core.AccountPersonToken`, `v2.core.AccountPerson`, `v2.core.AccountToken`, and `v2.core.Account`
   * Add support for `create` and `retrieve` methods on resources `v2.core.AccountPersonToken` and `v2.core.AccountToken`
@@ -440,19 +443,15 @@ This release changes the pinned API version to `2025-12-15.clover`.
   * Add support for new values `2025-12-15.clover` and `2026-01-28.clover` on enum `WebhookEndpointCreateParams.api_version`
   * Add support for `changes` on `V2.Core.Event`
   * Add support for error code `account_token_required_for_v2_account` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1692](https://github.com/stripe/stripe-python/pull/1692) Updated bundled CA certificates
-* [#1676](https://github.com/stripe/stripe-python/pull/1676) Add create_async method to EphemeralKey
 
 ## 14.0.1 - 2025-11-21
+* [#1681](https://github.com/stripe/stripe-python/pull/1681) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging.
 * [#1684](https://github.com/stripe/stripe-python/pull/1684) Update generated code
   * `stripe.error` module is now accessible globally. Fixes [#1682](https://github.com/stripe/stripe-python/issues/1682)
-* [#1681](https://github.com/stripe/stripe-python/pull/1681) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging.
 
 ## 14.0.0 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.clover`.
 
-* [#1673](https://github.com/stripe/stripe-python/pull/1673) Update generated code
-  * ⚠️ Remove support for `gt`, `gte`, `lt`, and `lte` on `v2.core.EventListParams` in favor of `created`.
 * [#1669](https://github.com/stripe/stripe-python/pull/1669) Update v2 array parameter serialization to use indexed format
   - `Retrieve` and `List` calls for `/v2` endpoints now use indexed format (e.g., `?include[0]=foo&include[1]=bar`) instead of repeated parameter format (e.g., `?include=foo&include=bar`) when communicating with the Stripe API. This may break any unit tests that expect the latter behavior when setting up a mock server. Instead, they should now expect the former.
 * [#1667](https://github.com/stripe/stripe-python/pull/1667) Update generated code
@@ -474,6 +473,8 @@ This release changes the pinned API version to `2025-11-17.clover`.
   * Add support for `mb_way` and `twint` on `Refund.DestinationDetail`
   * Add support for new values `financial_connections.account.account_numbers_updated` and `financial_connections.account.upcoming_account_number_expiry` on enums `WebhookEndpointCreateParams.enabled_events` and `WebhookEndpointModifyParams.enabled_events`
   * Add support for snapshot events `financial_connections.account.account_numbers_updated` and `financial_connections.account.upcoming_account_number_expiry` with resource `financial_connections.Account`
+* ⚠️ [#1673](https://github.com/stripe/stripe-python/pull/1673) Update generated code
+  * ⚠️ Remove support for `gt`, `gte`, `lt`, and `lte` on `v2.core.EventListParams` in favor of `created`.
 
 ## 13.2.0 - 2025-11-05
 * [#1662](https://github.com/stripe/stripe-python/pull/1662) Update generated code
@@ -486,11 +487,12 @@ This release changes the pinned API version to `2025-11-17.clover`.
 * [#1660](https://github.com/stripe/stripe-python/pull/1660) Fix `stripe-context` header not being included in paged list requests
 
 ## 13.1.0 - 2025-10-29
-
 This release changes the pinned API version to `2025-10-29.clover`.
 
-* [#1656](https://github.com/stripe/stripe-python/pull/1656) Update generated code
-  * Improve docs for PaymentIntent related endpoints
+* [#1645](https://github.com/stripe/stripe-python/pull/1645) Dramatically improve performance by lazily loading most imports
+  - move many type imports behind an `if TYPE_CHECKING` block
+  - lazily initialize subservices
+  - add module-level `__getattr__` functions to most `__init__.py` files
 * [#1650](https://github.com/stripe/stripe-python/pull/1650) Update generated code
   * Add support for new resources `PaymentAttemptRecord`, `PaymentIntentAmountDetailsLineItem`, and `PaymentRecord`
   * Add support for `list` and `retrieve` methods on resource `PaymentAttemptRecord`
@@ -534,67 +536,50 @@ This release changes the pinned API version to `2025-10-29.clover`.
   * Add support for snapshot event `balance_settings.updated` with resource `BalanceSettings`
   * Add support for snapshot event `invoice.payment_attempt_required` with resource `Invoice`
   * Add support for error code `payment_intent_rate_limit_exceeded` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1645](https://github.com/stripe/stripe-python/pull/1645) Dramatically improve performance by lazily loading most imports
-  - move many type imports behind an `if TYPE_CHECKING` block
-  - lazily initialize subservices
-  - add module-level `__getattr__` functions to most `__init__.py` files
+* [#1656](https://github.com/stripe/stripe-python/pull/1656) Update generated code
+  * Improve docs for PaymentIntent related endpoints
 
 ## 13.0.1 - 2025-10-03
 * [#1626](https://github.com/stripe/stripe-python/pull/1626) Make the new nested params classes correctly importable
   - For example, In SDK `v13.0.0`, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error when it shouldn't have. This is fixed.
   - Reported in https://github.com/stripe/stripe-python/issues/1625
+* [#1627](https://github.com/stripe/stripe-python/pull/1627) Re-add `tests` to our `sdist`
+  - Reported in https://github.com/stripe/stripe-python/issues/1616
 * [#1633](https://github.com/stripe/stripe-python/pull/1633) Add new `async` optional dependency
   - Now, `pip install stripe[async]` gets you everything you need to make async HTTP calls out of the box.
   - Reported in https://github.com/stripe/stripe-python/issues/1558
-* [#1627](https://github.com/stripe/stripe-python/pull/1627) Re-add `tests` to our `sdist`
-  - Reported in https://github.com/stripe/stripe-python/issues/1616
 * [#1632](https://github.com/stripe/stripe-python/pull/1632) remove gpg step from publish. PyPI has ignored these for years, so we took the opportunity to simplify our build process
 
 ## 13.0.0 - 2025-09-30
-This release changes the pinned API version to `2025-09-30.clover` and contains breaking changes (prefixed with ⚠️ below)
+This release changes the pinned API version to `2025-09-30.clover`.
 
-* [#1604](https://github.com/stripe/stripe-python/pull/1604) Fixed InvoiceLineItem method definition
-  * ⚠️ `InvoiceLineItem.modify` and `InvoiceLineItem.modify_async` now require `invoice` and `line_item_id` as method parameters.
-    * Removed `InvoiceLineItem.ModifyParam` class. Use a `typing.dict` to type hint instead.
-* [#1538](https://github.com/stripe/stripe-python/pull/1538) ⚠️ Add strongly typed EventNotifications
+This release contains breaking changes (prefixed with ⚠️ below)
+
+* ⚠️ [#1565](https://github.com/stripe/stripe-python/pull/1565) Build SDK w/ V2 OpenAPI spec
+  - ⚠️ The delete methods for v2 APIs (the ones in the `StripeClient.v2` namespace) now return a `V2DeletedObject` which has the id of the object that has been deleted and a string representing the type of the object that has been deleted.
+  - ⚠️ Deeply nested param hashes with no properties no longer have classes generated for them. Instead, they're typed as `Dict[str, Any]`. Because there were no params, it's unlikely you were using these classes.
+* [#1570](https://github.com/stripe/stripe-python/pull/1570) Don't use mutable default arguments
+  - Service methods now correctly set `None` as the default function argument instead of `{}`
+* ⚠️ [#1569](https://github.com/stripe/stripe-python/pull/1569) Renamed Urllib2Client to UrllibClient
+  - ⚠️ Rename `http_client.Urllib2Client` to `http_client.UrllibClient` as Python `urllib2` was renamed to `urllib` in Python 3.
+* ⚠️ [#1572](https://github.com/stripe/stripe-python/pull/1572) migrate from `setup.py` to `pyproject.toml`
+  - ⚠️ The package has swapped from `setup.py` to `pyproject.toml`. As a result, we're dropping support for `pip < 10.0.0` (released April 2018).
+  - Additionally, we're no longer shipping tests or examples in our sdist now, which should offer a small size reduction for the package if installed without the wheel (approx. 2.5MB unzipped)
+* ⚠️ [#1589](https://github.com/stripe/stripe-python/pull/1589) Add `StripeContext` object
+  - Add the `StripeContext` class. Previously, one could only pass a string for `stripe_context`. You can now use the new class as well.
+  - ⚠️ Change `EventNotification` (formerly known as `ThinEvent`)'s `context` property from `string` to `StripeContext`
+* ⚠️ [#1538](https://github.com/stripe/stripe-python/pull/1538) Add strongly typed EventNotifications
   We've overhauled how V2 Events are handled in the SDK! This approach should provide a lot more information at authoring and compile time, leading to more robust integrations. As part of this process, there are a number of changes to be aware of.
   - Added matching `EventNotification` classes to every v2 `Event`. For example, there's now a `V1BillingMeterErrorReportTriggeredEventNotification` to match the existing `V1BillingMeterErrorReportTriggeredEvent`. Each notification class defines a `fetch_event()` method to retrieve its corresponding event. For events with related objects, there's a `fetch_related_object()` method that performs the API call and casts the response to the correct type.
   - ⚠️ Rename function `StripeClient.parse_thin_event` to `StripeClient.parse_event_notification` and remove the `Stripe.ThinEvent` class.
       - This function now returns a `stripe.v2.core.EventNotification` (which is the shared base class that all of the more specific `stripe.events.*EventNotification` classes  share) instead of `Stripe.ThinEvent`. When applicable, these event notifications will have the `related_object` property and a `fetch_related_object()` function. They also have a `fetch_()` method to retrieve their corresponding `stripe.events.*Event` instance.
       - If you parse an event the SDK doesn't have types for (e.g. it's newer than the SDK you're using), you'll get an instance of `Stripe.Events.UnknownEventNotification` instead of a more specific type. It has both the `relatedObject` property and the `FetchRelatedObject()` function (but they may be/return `null`)
-* [#1602](https://github.com/stripe/stripe-python/pull/1602) Move `V2.Event` API resources to `V2.Core.Events`
+* ⚠️ [#1604](https://github.com/stripe/stripe-python/pull/1604) Fixed InvoiceLineItem method definition
+  * ⚠️ `InvoiceLineItem.modify` and `InvoiceLineItem.modify_async` now require `invoice` and `line_item_id` as method parameters.
+    * Removed `InvoiceLineItem.ModifyParam` class. Use a `typing.dict` to type hint instead.
+* ⚠️ [#1602](https://github.com/stripe/stripe-python/pull/1602) Move `V2.Event` API resources to `V2.Core.Events`
   - ⚠️ Move `stripe.v2._event` and `stripe.v2._event_destination` to `stripe.v2.core._event` and `stripe.v2.core._event_destination` respectively. They now correctly match their API path
-* [#1589](https://github.com/stripe/stripe-python/pull/1589) Add `StripeContext` object
-  - Add the `StripeContext` class. Previously, one could only pass a string for `stripe_context`. You can now use the new class as well.
-  - ⚠️ Change `EventNotification` (formerly known as `ThinEvent`)'s `context` property from `string` to `StripeContext`
-* [#1565](https://github.com/stripe/stripe-python/pull/1565) ⚠️ Build SDK w/ V2 OpenAPI spec
-  - ⚠️ The delete methods for v2 APIs (the ones in the `StripeClient.v2` namespace) now return a `V2DeletedObject` which has the id of the object that has been deleted and a string representing the type of the object that has been deleted.
-  - ⚠️ Deeply nested param hashes with no properties no longer have classes generated for them. Instead, they're typed as `Dict[str, Any]`. Because there were no params, it's unlikely you were using these classes.
-* [#1569](https://github.com/stripe/stripe-python/pull/1569) Renamed Urllib2Client to UrllibClient
-  - ⚠️ Rename `http_client.Urllib2Client` to `http_client.UrllibClient` as Python `urllib2` was renamed to `urllib` in Python 3.
-* [#1606](https://github.com/stripe/stripe-python/pull/1606) ⚠️ drop support for Python 3.6 & clarify version policy
-  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy)
-      - ⚠️ In this release, we drop support for Python 3.6
-      - Support for Python 3.7 is deprecated and will be removed in the next scheduled major release (March 2026)
-* [#1596](https://github.com/stripe/stripe-python/pull/1596) ⚠️ Unify resource and service method parameters into one class
-  * ⚠️ Resource and service request parameter types have been moved to the top-level and are shared, prepended with their related resource/service
-    * For example, `_stripe._account.Account.CreateParams` and `_stripe._account_service.CreateParams` have moved to `_stripe.params._account_create_params.AccountCreateParams`
-    * This change only affects users who explicitly refer to params types. No migration is necessary for users otherwise
-* [#1572](https://github.com/stripe/stripe-python/pull/1572) migrate from `setup.py` to `pyproject.toml`
-  - ⚠️ The package has swapped from `setup.py` to `pyproject.toml`. As a result, we're dropping support for `pip < 10.0.0` (released April 2018).
-  - Additionally, we're no longer shipping tests or examples in our sdist now, which should offer a small size reduction for the package if installed without the wheel (approx. 2.5MB unzipped)
-* [#1570](https://github.com/stripe/stripe-python/pull/1570) Don't use mutable default arguments
-  - Service methods now correctly set `None` as the default function argument instead of `{}`
-* ⚠️ Deprecated the V1 service accessors living directly under StripeClient(e.g. customers, products) as they were copied under the new V1 service in our [last release](https://github.com/stripe/stripe-python/releases/tag/v12.5.0). Service accessors living directly under StripeClient(e.g. customers, products) will be removed from StripeClient in a future release. E.g.
-  ```diff
-  client = StripeClient("sk_test...")
-
-  # Accessing V1 Stripe services on a StripeClient should be through the V1 namespace
-  - client.customers.list()
-  + client.v1.customers.list()
-  ```
-  Refer to the [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for help upgrading.
-* [#1603](https://github.com/stripe/stripe-python/pull/1603) ⚠️ Remove deprecated compatibility exports
+* ⚠️ [#1603](https://github.com/stripe/stripe-python/pull/1603) Remove deprecated compatibility exports
   - ⚠️ Removed deprecated module shims. They've long been available in the `stripe` module directly; now that's the only place to import them. Specifically, we removed:
     - `stripe.stripe_response`
     - `stripe.stripe_object`
@@ -632,8 +617,24 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
 
   - ⚠️ Removed the `io` import from `stripe._util`. If you had code relying on `stripe.util.io`, you'll need to import the `io` package directly yourself.
   - added `UrllibClient` to `stripe` to make creating your own HTTP client easier.
+* ⚠️ Deprecated the V1 service accessors living directly under StripeClient(e.g. customers, products) as they were copied under the new V1 service in our [last release](https://github.com/stripe/stripe-python/releases/tag/v12.5.0). Service accessors living directly under StripeClient(e.g. customers, products) will be removed from StripeClient in a future release. E.g.
+  ```diff
+  client = StripeClient("sk_test...")
 
-* [#1567](https://github.com/stripe/stripe-python/pull/1567), [#1593](https://github.com/stripe/stripe-python/pull/1593), [#1607](https://github.com/stripe/stripe-python/pull/1607), [#1605](https://github.com/stripe/stripe-python/pull/1605) Update generated code based on incoming API changes in the `2025-09-30.clover` API version.
+  # Accessing V1 Stripe services on a StripeClient should be through the V1 namespace
+  - client.customers.list()
+  + client.v1.customers.list()
+  ```
+  Refer to the [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for help upgrading.
+* ⚠️ [#1606](https://github.com/stripe/stripe-python/pull/1606) drop support for Python 3.6 & clarify version policy
+  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy)
+      - ⚠️ In this release, we drop support for Python 3.6
+      - Support for Python 3.7 is deprecated and will be removed in the next scheduled major release (March 2026)
+* ⚠️ [#1596](https://github.com/stripe/stripe-python/pull/1596) Unify resource and service method parameters into one class
+  * ⚠️ Resource and service request parameter types have been moved to the top-level and are shared, prepended with their related resource/service
+    * For example, `_stripe._account.Account.CreateParams` and `_stripe._account_service.CreateParams` have moved to `_stripe.params._account_create_params.AccountCreateParams`
+    * This change only affects users who explicitly refer to params types. No migration is necessary for users otherwise
+* ⚠️ [#1567](https://github.com/stripe/stripe-python/pull/1567) , [#1593](https://github.com/stripe/stripe-python/pull/1593), [#1607](https://github.com/stripe/stripe-python/pull/1607), [#1605](https://github.com/stripe/stripe-python/pull/1605) Update generated code based on incoming API changes in the `2025-09-30.clover` API version.
   * ⚠️ Remove support for `balance_report` and `payout_reconciliation_report` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
   * ⚠️ Remove support for values `saturday` and `sunday` from enums `Account.CreateParamsSettingPayoutSchedule.weekly_payout_days`, `Account.ModifyParamsSettingPayoutSchedule.weekly_payout_days`, and `Account.Setting.Payout.Schedule.weekly_payout_days`
   * ⚠️ Remove support for `iterations` on `Invoice.CreatePreviewParamsScheduleDetailPhase`, `SubscriptionSchedule.CreateParamsPhase`, and `SubscriptionSchedule.ModifyParamsPhase`
@@ -675,14 +676,26 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
   * Add support for new value `2025-09-30.clover` on enum `WebhookEndpoint.CreateParams.api_version`
   * Add support for error codes `financial_connections_account_pending_account_numbers` and `financial_connections_account_unavailable_account_numbers` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
 
-
 ## 12.5.1 - 2025-09-05
 * [#1563](https://github.com/stripe/stripe-python/pull/1563) fix: Paginate backwards if `starting_after == None`
   * Addresses an [issue](https://github.com/stripe/stripe-python/issues/1562) where List iteration would be forwards when `starting_after` was set to `None` but backwards if it was not set at all. Now, it will paginate backwards in both cases.
 
 ## 12.5.0 - 2025-08-27
+This release changes the pinned API version to `2025-08-27.basil`.
+
+* [#1549](https://github.com/stripe/stripe-python/pull/1549) Introduce V1 namespaces in StripeClient
+  - All the top level non-namespaced services under StripeClient services(eg. customers, products) are copied under the new V1 namespace. These top level non-namespaced services will be marked as deprecated in the next major release and will be removed in a future release. Eg.
+  ```diff
+  client = StripeClient("sk_test...")
+
+  # Accessing V1 Stripe services on a StripeClient should be through the V1 namespace
+  - client.customers.list()
+  + client.v1.customers.list()
+  ```
+  Refer to the [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for help upgrading.
 * [#1554](https://github.com/stripe/stripe-python/pull/1554) Add section on private preview SDKs in readme
-* [#1544](https://github.com/stripe/stripe-python/pull/1544) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.
+* [#1553](https://github.com/stripe/stripe-python/pull/1553) Import available http libraries more efficiently
+* [#1544](https://github.com/stripe/stripe-python/pull/1544) Update generated code.
   * Add support for `balance_report`, `payout_details`, and `payout_reconciliation_report` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
   * Add support for `name` on `BillingPortal.Configuration`, `billing_portal.Configuration.CreateParams`, and `billing_portal.Configuration.ModifyParams`
   * Add support for `installments` on `Charge.PaymentMethodDetail.Alma`
@@ -701,21 +714,11 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
   * Add support for new value `card` on enum `terminal.Reader.PresentPaymentMethodParams.type`
   * Add support for new value `2025-08-27.basil` on enum `WebhookEndpoint.CreateParams.api_version`
   * Add support for error codes `customer_session_expired` and `india_recurring_payment_mandate_canceled` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1553](https://github.com/stripe/stripe-python/pull/1553) Import available http libraries more efficiently
-* [#1549](https://github.com/stripe/stripe-python/pull/1549) Introduce V1 namespaces in StripeClient
-  - All the top level non-namespaced services under StripeClient services(eg. customers, products) are copied under the new V1 namespace. These top level non-namespaced services will be marked as deprecated in the next major release and will be removed in a future release. Eg.
-  ```diff
-  client = StripeClient("sk_test...")
-
-  # Accessing V1 Stripe services on a StripeClient should be through the V1 namespace
-  - client.customers.list()
-  + client.v1.customers.list()
-  ```
-  Refer to the [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for help upgrading.
 
 ## 12.4.0 - 2025-07-30
 This release changes the pinned API version to `2025-07-30.basil`.
 
+* [#1537](https://github.com/stripe/stripe-python/pull/1537) Fix timeout type hint in RequestsClient
 * [#1541](https://github.com/stripe/stripe-python/pull/1541) Update generated code
   * Add support for `instant_payouts_promotion` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
   * Add support for `adjustable_quantity` on `BillingPortal.Configuration.Feature.SubscriptionUpdate.Product`, `billing_portal.Configuration.CreateParamsFeatureSubscriptionUpdateProduct`, and `billing_portal.Configuration.ModifyParamsFeatureSubscriptionUpdateProduct`
@@ -736,11 +739,11 @@ This release changes the pinned API version to `2025-07-30.basil`.
   * Add support for new value `inbound_goods` on enums `Tax.Registration.CountryOption.At.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Be.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Bg.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Cy.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Cz.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.De.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Dk.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.E.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ee.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Fi.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Fr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Gr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Hr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Hu.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ie.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.It.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lu.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lv.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Mt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Nl.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Pl.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Pt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ro.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Se.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Si.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Sk.Standard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionAtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionBeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionBgStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionCyStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionCzStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionDeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionDkStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionEStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionEeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionFiStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionFrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionGrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionHrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionHuStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionIeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionItStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLuStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLvStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionMtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionNlStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionPlStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionPtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionRoStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionSeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionSiStandard.place_of_supply_scheme`, and `tax.Registration.CreateParamsCountryOptionSkStandard.place_of_supply_scheme`
   * Add support for `aed`, `bgn`, `huf`, and `ron` on `Terminal.Configuration.Tipping`, `terminal.Configuration.CreateParamsTipping`, and `terminal.Configuration.ModifyParamsTipping`
   * Add support for new value `2025-07-30.basil` on enum `WebhookEndpoint.CreateParams.api_version`
-* [#1537](https://github.com/stripe/stripe-python/pull/1537) Fix timeout type hint in RequestsClient
 
 ## 12.3.0 - 2025-07-01
 This release changes the pinned API version to `2025-06-30.basil`.
 
+* [#1534](https://github.com/stripe/stripe-python/pull/1534) Fix the link to releases page from readme
 * [#1526](https://github.com/stripe/stripe-python/pull/1526) Update generated code
   * Add support for `migrate` method on resource `Subscription`
   * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `terminal.Reader`
@@ -775,11 +778,11 @@ This release changes the pinned API version to `2025-06-30.basil`.
   * Add support for new value `terminal.reader.action_updated` on enums `WebhookEndpoint.CreateParams.enabled_events` and `WebhookEndpoint.ModifyParams.enabled_events`
   * Add support for new value `2025-06-30.basil` on enum `WebhookEndpoint.CreateParams.api_version`
   * Add support for snapshot event `terminal.reader.action_updated` with resource `terminal.Reader`
-* [#1534](https://github.com/stripe/stripe-python/pull/1534) Fix the link to releases page from readme
 
 ## 12.2.0 - 2025-05-29
- This release changes the pinned API version to `2025-05-28.basil`.
+This release changes the pinned API version to `2025-05-28.basil`.
 
+* [#1511](https://github.com/stripe/stripe-python/pull/1511) Adds CONTRIBUTING.md
 * [#1517](https://github.com/stripe/stripe-python/pull/1517) Update generated code
   * Add support for `attach_payment` method on resource `Invoice`
   * Add support for `collect_inputs` method on resource `terminal.Reader`
@@ -811,10 +814,8 @@ This release changes the pinned API version to `2025-06-30.basil`.
   * Add support for new value `2025-05-28.basil` on enum `WebhookEndpoint.CreateParams.api_version`
   * Add support for snapshot event `invoice_payment.paid` with resource `InvoicePayment`
   * Add support for error code `forwarding_api_upstream_error` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
-* [#1511](https://github.com/stripe/stripe-python/pull/1511) Adds CONTRIBUTING.md
 
 ## 12.1.0 - 2025-04-30
-
 This release changes the pinned API version to `2025-04-30.basil`.
 
 * [#1496](https://github.com/stripe/stripe-python/pull/1496) Update generated code
@@ -842,14 +843,15 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for new value `2025-04-30.basil` on enums `WebhookEndpoint.CreateParams.api_version` and `WebhookEndpointService.CreateParams.api_version`
 
 ## 12.0.1 - 2025-04-21
+* [#1493](https://github.com/stripe/stripe-python/pull/1493) Update readme with clarification on resource based call patterns
+* [#1401](https://github.com/stripe/stripe-python/pull/1401) Fix type hint for SearchResultObject.data
 * [#1499](https://github.com/stripe/stripe-python/pull/1499) Encode bools with lower case
   - Serializes boolean query parameter values to `true`/`false` (lower case) before sending to the Stripe API for compatibility with Stripe V2 endpoints
-* [#1401](https://github.com/stripe/stripe-python/pull/1401) Fix type hint for SearchResultObject.data
-* [#1493](https://github.com/stripe/stripe-python/pull/1493) Update readme with clarification on resource based call patterns
 
 ## 12.0.0 - 2025-04-01
-* [#1463](https://github.com/stripe/stripe-python/pull/1463) Support for APIs in the new API version 2025-03-31.basil
+This release changes the pinned API version to `2025-03-31.basil`.
 
+* [#1463](https://github.com/stripe/stripe-python/pull/1463) Support for APIs in the new API version 2025-03-31.basil
   This release changes the pinned API version to `2025-03-31.basil`.
 
   ### ⚠️ Breaking changes  due to changes in the Stripe API
@@ -938,15 +940,55 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for new values `2025-03-01.dashboard` and `2025-03-31.basil` on enum `WebhookEndpoint.CreateParams.api_version`
 
 ### ⚠️ Other Breaking changes in the SDK
-* [#1474](https://github.com/stripe/stripe-python/pull/1474) Rename `StripeStreamResponseAsync`'s `.read()` to `read_async()` for consistency
+* ⚠️ [#1471](https://github.com/stripe/stripe-python/pull/1471) Fix incorrect property name on `ThinEvent.related_object.type`
+  * Rename `ThinEvent.related_object.type_` to `ThinEvent.related_object.type`
+    * This was an unintentional typo before. The property name now correctly matches the value you get back from the API
+* ⚠️ [#1474](https://github.com/stripe/stripe-python/pull/1474) Rename `StripeStreamResponseAsync`'s `.read()` to `read_async()` for consistency
   * Rename `StripeStreamResponseAsync.read()` to `.read_async()`
     * This brings the method name in line with the conventions used by every other async method in the package, ensuring consistent `async` usage.
     * You'll need to update your code if you call `Quote.pdf_async().read()` method. A typechecker will alert you to this change.
-* [#1471](https://github.com/stripe/stripe-python/pull/1471) Fix incorrect property name on `ThinEvent.related_object.type`
-  * Rename `ThinEvent.related_object.type_` to `ThinEvent.related_object.type`
-    * This was an unintentional typo before. The property name now correctly matches the value you get back from the API
 
 ## 11.6.0 - 2025-02-24
+This release changes the pinned API version to `2025-02-24.acacia`.
+
+* [#1442](https://github.com/stripe/stripe-python/pull/1442) Fix V2 ListObject.data type hint
+  - Change `stripe.v2.ListObject.data` type hint from `List[StripeObject]` to `List[T]` where T is the specific stripe object contained within the list
+* [#1440](https://github.com/stripe/stripe-python/pull/1440) add justfile, update readme, remove coveralls
+* [#1445](https://github.com/stripe/stripe-python/pull/1445) minor justfile fixes & pin CI version
+* [#1444](https://github.com/stripe/stripe-python/pull/1444) Added CONTRIBUTING.md file
+* [#1446](https://github.com/stripe/stripe-python/pull/1446) add just to publish CI
+* [#1448](https://github.com/stripe/stripe-python/pull/1448) Updated upload artifact ci action
+* [#1452](https://github.com/stripe/stripe-python/pull/1452) Revert "Bump version to 11.5.0"
+* [#1451](https://github.com/stripe/stripe-python/pull/1451) Upgrade to download-artifact@v4
+* [#1457](https://github.com/stripe/stripe-python/pull/1457) add codeowners file
+* [#1456](https://github.com/stripe/stripe-python/pull/1456) upgrade ruff version
+* [#1461](https://github.com/stripe/stripe-python/pull/1461) Remove incorrect changelog entry about parse_snapshot_event
+* [#1443](https://github.com/stripe/stripe-python/pull/1443) Update generated code
+  * Add support for `pay_by_bank_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
+  * Add support for `directorship_declaration` on resource class `stripe.Account.Company` and parameter classes `stripe.Account.CreateParamsCompany` and `stripe.Token.CreateParamsAccountCompany`
+  * Add support for `ownership_exemption_reason` on resource class `stripe.Account.Company` and parameter classes `stripe.Account.CreateParamsCompany` and `stripe.Token.CreateParamsAccountCompany`
+  * Add support for `proof_of_ultimate_beneficial_ownership` on parameter class `stripe.Account.CreateParamsDocuments`
+  * Add support for `financial_account` on resource classes `stripe.AccountSession.Components` and `stripe.treasury.OutboundTransfer.DestinationPaymentMethodDetails` and parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for `issuing_card` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for `advice_code` on resource classes `stripe.Charge.Outcome`, `stripe.Invoice.LastFinalizationError`, `stripe.PaymentIntent.LastPaymentError`, `stripe.SetupAttempt.SetupError`, and `stripe.SetupIntent.LastSetupError`
+  * Add support for `country` on resource classes `stripe.Charge.PaymentMethodDetails.Paypal`, `stripe.ConfirmationToken.PaymentMethodPreview.Paypal`, and `stripe.PaymentMethod.Paypal`
+  * Add support for `pay_by_bank` on resource classes `stripe.Charge.PaymentMethodDetails`, `stripe.ConfirmationToken.PaymentMethodPreview`, and `stripe.PaymentIntent.PaymentMethodOptions`, parameter classes `stripe.ConfirmationToken.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptions`, `stripe.PaymentIntent.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptions`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptions`, `stripe.PaymentMethod.CreateParams`, `stripe.PaymentMethod.ModifyParams`, `stripe.PaymentMethodConfiguration.CreateParams`, `stripe.PaymentMethodConfiguration.ModifyParams`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData`, `stripe.SetupIntent.CreateParamsPaymentMethodData`, `stripe.SetupIntent.ModifyParamsPaymentMethodData`, and `stripe.checkout.Session.CreateParamsPaymentMethodOptions`, and resources `stripe.PaymentMethod` and `stripe.PaymentMethodConfiguration`
+  * Add support for `phone_number_collection` on parameter class `stripe.PaymentLink.ModifyParams`
+  * Add support for `discounts` on resource `stripe.checkout.Session`
+  * Add support for `jpy` on parameter classes `stripe.terminal.Configuration.CreateParamsTipping` and `stripe.terminal.Configuration.ModifyParamsTipping` and resource class `stripe.terminal.Configuration.Tipping`
+  * Add support for `nickname` on parameter classes `stripe.treasury.FinancialAccount.CreateParams` and `stripe.treasury.FinancialAccount.ModifyParams` and resource `stripe.treasury.FinancialAccount`
+  * Add support for `forwarding_settings` on parameter class `stripe.treasury.FinancialAccount.ModifyParams`
+  * Add support for `_cls_close` on resource `stripe.treasury.FinancialAccount`
+  * Add support for `close` on resource `stripe.treasury.FinancialAccount`
+  * Add support for `is_default` on resource `stripe.treasury.FinancialAccount`
+  * Add support for `destination_payment_method_data` on parameter class `stripe.treasury.OutboundTransfer.CreateParams`
+  * Add support for `outbound_transfer` on resource class `stripe.treasury.ReceivedCredit.LinkedFlows.SourceFlowDetails`
+  * Add support for `SD` on enums `stripe.checkout.Session.ShippingAddressCollection.allowed_countries`, `stripe.checkout.Session.CreateParamsShippingAddressCollection.allowed_countries`, `stripe.PaymentLink.ShippingAddressCollection.allowed_countries`, `stripe.PaymentLink.CreateParamsShippingAddressCollection.allowed_countries`, and `stripe.PaymentLink.ModifyParamsShippingAddressCollection.allowed_countries`
+  * Add support for `pay_by_bank` on enums `stripe.checkout.Session.CreateParams.payment_method_types`, `stripe.ConfirmationToken.PaymentMethodPreview.type`, `stripe.ConfirmationToken.CreateParamsPaymentMethodData.type`, `stripe.Customer.ListPaymentMethodsParams.type`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData.type`, `stripe.PaymentIntent.CreateParamsPaymentMethodData.type`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData.type`, `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, `stripe.PaymentLink.ModifyParams.payment_method_types`, `stripe.PaymentMethod.type`, `stripe.PaymentMethod.CreateParams.type`, `stripe.PaymentMethod.ListParams.type`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData.type`, `stripe.SetupIntent.CreateParamsPaymentMethodData.type`, and `stripe.SetupIntent.ModifyParamsPaymentMethodData.type`
+  * Add support for `financial_account` on enum `stripe.treasury.OutboundTransfer.DestinationPaymentMethodDetails.type`
+  * Add support for `outbound_transfer` on enums `stripe.treasury.ReceivedCredit.LinkedFlows.SourceFlowDetails.type` and `stripe.treasury.ReceivedCredit.ListParamsLinkedFlows.source_flow_type`
+  * Add support for `2025-01-27.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
+  * Change type of `pretax_credit_amounts` on  `stripe.CreditNote` and `stripe.CreditNoteLineItem` from `Optional[List[PretaxCreditAmount]]` to `List[PretaxCreditAmount]`
 * [#1450](https://github.com/stripe/stripe-python/pull/1450) Update generated code
   * Add support for `target_date` on parameter classes `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebit`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsAuBecsDebit`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsBacsDebit`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebit`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsAuBecsDebit`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsBacsDebit`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccount`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebit`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsAuBecsDebit`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsBacsDebit`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccount`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsAcssDebit`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsAuBecsDebit`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsBacsDebit`, `stripe.checkout.Session.CreateParamsPaymentMethodOptionsSepaDebit`, and `stripe.checkout.Session.CreateParamsPaymentMethodOptionsUsBankAccount` and resource classes `stripe.PaymentIntent.PaymentMethodOptions.AcssDebit`, `stripe.PaymentIntent.PaymentMethodOptions.AuBecsDebit`, `stripe.PaymentIntent.PaymentMethodOptions.BacsDebit`, `stripe.PaymentIntent.PaymentMethodOptions.SepaDebit`, `stripe.PaymentIntent.PaymentMethodOptions.UsBankAccount`, `stripe.checkout.Session.PaymentMethodOptions.AcssDebit`, `stripe.checkout.Session.PaymentMethodOptions.AuBecsDebit`, `stripe.checkout.Session.PaymentMethodOptions.BacsDebit`, `stripe.checkout.Session.PaymentMethodOptions.SepaDebit`, and `stripe.checkout.Session.PaymentMethodOptions.UsBankAccount`
   * Add support for `metadata` on parameter class `stripe.Product.CreateParamsDefaultPriceData`
@@ -957,46 +999,18 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Change type of `price_type` on  `stripe.billing.CreditBalanceSummary.RetrieveParamsFilterApplicabilityScope` and `stripe.billing.CreditGrant.CreateParamsApplicabilityConfigScope` from `Literal['metered']` to `NotRequired[Literal['metered']]`
   * Change type of `price_type` on  `stripe.billing.CreditGrant.ApplicabilityConfig.Scope` from `Literal['metered']` to `Optional[Literal['metered']]`
   * Add support for `2025-02-24.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
-* [#1461](https://github.com/stripe/stripe-python/pull/1461) Remove incorrect changelog entry about parse_snapshot_event
-* [#1457](https://github.com/stripe/stripe-python/pull/1457) add codeowners file
-* [#1456](https://github.com/stripe/stripe-python/pull/1456) upgrade ruff version
-* [#1452](https://github.com/stripe/stripe-python/pull/1452) Revert "Bump version to 11.5.0"
-* [#1451](https://github.com/stripe/stripe-python/pull/1451) Upgrade to download-artifact@v4
-* [#1443](https://github.com/stripe/stripe-python/pull/1443) Update generated code
-  * Add support for `pay_by_bank_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
-  * Add support for `directorship_declaration` on resource class `stripe.Account.Company` and parameter classes `stripe.Account.CreateParamsCompany` and `stripe.Token.CreateParamsAccountCompany`
-  * Add support for `ownership_exemption_reason` on resource class `stripe.Account.Company` and parameter classes `stripe.Account.CreateParamsCompany` and `stripe.Token.CreateParamsAccountCompany`
-  * Add support for `proof_of_ultimate_beneficial_ownership` on parameter class `stripe.Account.CreateParamsDocuments`
-  * Add support for `financial_account` on resource classes `stripe.AccountSession.Components` and `stripe.treasury.OutboundTransfer.DestinationPaymentMethodDetails` and parameter class `stripe.AccountSession.CreateParamsComponents`
-  * Add support for `issuing_card` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
-  * Add support for `advice_code` on resource classes `stripe.Charge.Outcome`, `stripe.Invoice.LastFinalizationError`, `stripe.PaymentIntent.LastPaymentError`, `stripe.SetupAttempt.SetupError`, and `stripe.SetupIntent.LastSetupError`
-  * Add support for `country` on resource classes `stripe.Charge.PaymentMethodDetails.Paypal`, `stripe.ConfirmationToken.PaymentMethodPreview.Paypal`, and `stripe.PaymentMethod.Paypal`
-  * Add support for `pay_by_bank` on resource classes `stripe.Charge.PaymentMethodDetails`, `stripe.ConfirmationToken.PaymentMethodPreview`, and `stripe.PaymentIntent.PaymentMethodOptions`, parameter classes `stripe.ConfirmationToken.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodOptions`, `stripe.PaymentIntent.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.CreateParamsPaymentMethodOptions`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData`, `stripe.PaymentIntent.ModifyParamsPaymentMethodOptions`, `stripe.PaymentMethod.CreateParams`, `stripe.PaymentMethod.ModifyParams`, `stripe.PaymentMethodConfiguration.CreateParams`, `stripe.PaymentMethodConfiguration.ModifyParams`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData`, `stripe.SetupIntent.CreateParamsPaymentMethodData`, `stripe.SetupIntent.ModifyParamsPaymentMethodData`, and `stripe.checkout.Session.CreateParamsPaymentMethodOptions`, and resources `stripe.PaymentMethod` and `stripe.PaymentMethodConfiguration`
-  * Add support for `phone_number_collection` on parameter class `stripe.PaymentLink.ModifyParams`
-  * Add support for `discounts` on resource `stripe.checkout.Session`
-  * Add support for `jpy` on parameter classes `stripe.terminal.Configuration.CreateParamsTipping` and `stripe.terminal.Configuration.ModifyParamsTipping` and resource class `stripe.terminal.Configuration.Tipping`
-  * Add support for `nickname` on parameter classes `stripe.treasury.FinancialAccount.CreateParams` and `stripe.treasury.FinancialAccount.ModifyParams` and resource `stripe.treasury.FinancialAccount`
-  * Add support for `forwarding_settings` on parameter class `stripe.treasury.FinancialAccount.ModifyParams`
-  * Add support for `_cls_close` on resource `stripe.treasury.FinancialAccount`
-  * Add support for `close` on resource `stripe.treasury.FinancialAccount`
-  * Add support for `is_default` on resource `stripe.treasury.FinancialAccount`
-  * Add support for `destination_payment_method_data` on parameter class `stripe.treasury.OutboundTransfer.CreateParams`
-  * Add support for `outbound_transfer` on resource class `stripe.treasury.ReceivedCredit.LinkedFlows.SourceFlowDetails`
-  * Add support for `SD` on enums `stripe.checkout.Session.ShippingAddressCollection.allowed_countries`, `stripe.checkout.Session.CreateParamsShippingAddressCollection.allowed_countries`, `stripe.PaymentLink.ShippingAddressCollection.allowed_countries`, `stripe.PaymentLink.CreateParamsShippingAddressCollection.allowed_countries`, and `stripe.PaymentLink.ModifyParamsShippingAddressCollection.allowed_countries`
-  * Add support for `pay_by_bank` on enums `stripe.checkout.Session.CreateParams.payment_method_types`, `stripe.ConfirmationToken.PaymentMethodPreview.type`, `stripe.ConfirmationToken.CreateParamsPaymentMethodData.type`, `stripe.Customer.ListPaymentMethodsParams.type`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData.type`, `stripe.PaymentIntent.CreateParamsPaymentMethodData.type`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData.type`, `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, `stripe.PaymentLink.ModifyParams.payment_method_types`, `stripe.PaymentMethod.type`, `stripe.PaymentMethod.CreateParams.type`, `stripe.PaymentMethod.ListParams.type`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData.type`, `stripe.SetupIntent.CreateParamsPaymentMethodData.type`, and `stripe.SetupIntent.ModifyParamsPaymentMethodData.type`
-  * Add support for `financial_account` on enum `stripe.treasury.OutboundTransfer.DestinationPaymentMethodDetails.type`
-  * Add support for `outbound_transfer` on enums `stripe.treasury.ReceivedCredit.LinkedFlows.SourceFlowDetails.type` and `stripe.treasury.ReceivedCredit.ListParamsLinkedFlows.source_flow_type`
-  * Add support for `2025-01-27.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
-  * Change type of `pretax_credit_amounts` on  `stripe.CreditNote` and `stripe.CreditNoteLineItem` from `Optional[List[PretaxCreditAmount]]` to `List[PretaxCreditAmount]`
-* [#1448](https://github.com/stripe/stripe-python/pull/1448) Updated upload artifact ci action
-* [#1446](https://github.com/stripe/stripe-python/pull/1446) add just to publish CI
-* [#1444](https://github.com/stripe/stripe-python/pull/1444) Added CONTRIBUTING.md file
-* [#1445](https://github.com/stripe/stripe-python/pull/1445) minor justfile fixes & pin CI version
-* [#1440](https://github.com/stripe/stripe-python/pull/1440) add justfile, update readme, remove coveralls
-* [#1442](https://github.com/stripe/stripe-python/pull/1442) Fix V2 ListObject.data type hint
-  - Change `stripe.v2.ListObject.data` type hint from `List[StripeObject]` to `List[T]` where T is the specific stripe object contained within the list
 
 ## 11.5.0 - 2025-01-27
+This release changes the pinned API version to `2025-01-27.acacia`.
+
+* [#1442](https://github.com/stripe/stripe-python/pull/1442) Fix V2 ListObject.data type hint
+  - Change `stripe.v2.ListObject.data` type hint from `List[StripeObject]` to `List[T]` where T is the specific stripe object contained within the list
+* [#1440](https://github.com/stripe/stripe-python/pull/1440) add justfile, update readme, remove coveralls
+* [#1445](https://github.com/stripe/stripe-python/pull/1445) minor justfile fixes & pin CI version
+* [#1444](https://github.com/stripe/stripe-python/pull/1444) Added CONTRIBUTING.md file
+* [#1446](https://github.com/stripe/stripe-python/pull/1446) add just to publish CI
+* [#1448](https://github.com/stripe/stripe-python/pull/1448) Updated upload artifact ci action
+* [#1451](https://github.com/stripe/stripe-python/pull/1451) Upgrade to download-artifact@v4
 * [#1443](https://github.com/stripe/stripe-python/pull/1443) Update generated code
   * Add support for `pay_by_bank_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
   * Add support for `directorship_declaration` on resource class `stripe.Account.Company` and parameter classes `stripe.Account.CreateParamsCompany` and `stripe.Token.CreateParamsAccountCompany`
@@ -1023,20 +1037,18 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `outbound_transfer` on enums `stripe.treasury.ReceivedCredit.LinkedFlows.SourceFlowDetails.type` and `stripe.treasury.ReceivedCredit.ListParamsLinkedFlows.source_flow_type`
   * Add support for `2025-01-27.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
   * Change type of `pretax_credit_amounts` on  `stripe.CreditNote` and `stripe.CreditNoteLineItem` from `Optional[List[PretaxCreditAmount]]` to `List[PretaxCreditAmount]`
-* [#1451](https://github.com/stripe/stripe-python/pull/1451) Upgrade to download-artifact@v4
-* [#1448](https://github.com/stripe/stripe-python/pull/1448) Updated upload artifact ci action
-* [#1446](https://github.com/stripe/stripe-python/pull/1446) add just to publish CI
-* [#1444](https://github.com/stripe/stripe-python/pull/1444) Added CONTRIBUTING.md file
-* [#1445](https://github.com/stripe/stripe-python/pull/1445) minor justfile fixes & pin CI version
-* [#1440](https://github.com/stripe/stripe-python/pull/1440) add justfile, update readme, remove coveralls
-* [#1442](https://github.com/stripe/stripe-python/pull/1442) Fix V2 ListObject.data type hint
-  - Change `stripe.v2.ListObject.data` type hint from `List[StripeObject]` to `List[T]` where T is the specific stripe object contained within the list
 
 ## 11.4.1 - 2024-12-19
 * [#1438](https://github.com/stripe/stripe-python/pull/1438) Fix regression when using httpx HTTP client
 
 ## 11.4.0 - 2024-12-18
-* [#1430](https://github.com/stripe/stripe-python/pull/1430) This release changes the pinned API version to `2024-12-18.acacia`.
+This release changes the pinned API version to `2024-12-18.acacia`.
+
+* [#1431](https://github.com/stripe/stripe-python/pull/1431) fix deprecation warning in httpx @ 0.28
+* [#1435](https://github.com/stripe/stripe-python/pull/1435) Fix StripeError http_body
+  - Fixes an issue where `StripeError.http_body` may be None even when `json_body` is a valid dictionary.
+* [#1434](https://github.com/stripe/stripe-python/pull/1434) Fix using `auto_paging_iter()` with `expand: [...]`
+* [#1430](https://github.com/stripe/stripe-python/pull/1430) Update generated code
   * Add support for `allow_redisplay` on resources `stripe.Card` and `stripe.Source`
   * Add support for `regulated_status` on resource `stripe.Card` and resource classes `stripe.Charge.PaymentMethodDetails.Card`, `stripe.ConfirmationToken.PaymentMethodPreview.Card`, and `stripe.PaymentMethod.Card`
   * Add support for `network_advice_code` on resource classes `stripe.Charge.Outcome`, `stripe.Invoice.LastFinalizationError`, `stripe.PaymentIntent.LastPaymentError`, `stripe.SetupAttempt.SetupError`, and `stripe.SetupIntent.LastSetupError`
@@ -1098,13 +1110,11 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `request_signature` on enums `stripe.forwarding.Request.replacements` and `stripe.forwarding.Request.CreateParams.replacements`
   * Add support for `2024-12-18.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
   * Change type of `schedule_at_period_end` on  `stripe.billing_portal.Configuration.Features.SubscriptionUpdate` from `Optional[ScheduleAtPeriodEnd]` to `ScheduleAtPeriodEnd`
-* [#1434](https://github.com/stripe/stripe-python/pull/1434) Fix using `auto_paging_iter()` with `expand: [...]`
-* [#1435](https://github.com/stripe/stripe-python/pull/1435) Fix StripeError http_body
-  - Fixes an issue where `StripeError.http_body` may be None even when `json_body` is a valid dictionary.
-* [#1431](https://github.com/stripe/stripe-python/pull/1431) fix deprecation warning in httpx @ 0.28
 
 ## 11.3.0 - 2024-11-20
-* [#1424](https://github.com/stripe/stripe-python/pull/1424) This release changes the pinned API version to `2024-11-20.acacia`.
+This release changes the pinned API version to `2024-11-20.acacia`.
+
+* [#1424](https://github.com/stripe/stripe-python/pull/1424) Update generated code
   * Add support for `authorizer` on parameter classes `stripe.Account.CreatePersonParamsRelationship`, `stripe.Account.ListPersonsParamsRelationship`, `stripe.Account.ModifyPersonParamsRelationship`, `stripe.Account.PersonsParamsRelationship`, and `stripe.Token.CreateParamsPersonRelationship` and resource class `stripe.Person.Relationship`
   * Add support for `account_holder_address`, `account_holder_name`, `account_type` and `bank_address` on resource classes `stripe.FundingInstructions.BankTransfer.FinancialAddress.Aba`, `stripe.FundingInstructions.BankTransfer.FinancialAddress.Swift`, `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Aba`, and `stripe.PaymentIntent.NextAction.DisplayBankTransferInstructions.FinancialAddress.Swift`
   * Add support for `submit_type` on parameter class `stripe.PaymentLink.ModifyParams`
@@ -1128,7 +1138,9 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Change type of `origin_payment_method` on  `stripe.treasury.InboundTransfer` from `str` to `Optional[str]`
 
 ## 11.2.0 - 2024-10-29
-* [#1411](https://github.com/stripe/stripe-python/pull/1411) This release changes the pinned API version to `2024-10-28.acacia`.
+This release changes the pinned API version to `2024-10-28.acacia`.
+
+* [#1411](https://github.com/stripe/stripe-python/pull/1411) Update generated code
   * Add support for resource `stripe.v2.EventDestinations`
   * Add support for `create`, `retrieve`, `update`, `list`, `delete`, `disable`, `enable` and `ping` methods on resource `V2.EventDestinations`
   * Add support for `alma_payments`, `kakao_pay_payments`, `kr_card_payments`, `naver_pay_payments`, `payco_payments`, `samsung_pay_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
@@ -1162,12 +1174,11 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `2024-10-28.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
 
 ## 11.1.1 - 2024-10-18
+* [#1412](https://github.com/stripe/stripe-python/pull/1412) Clean up examples
 * [#1414](https://github.com/stripe/stripe-python/pull/1414) Deserialize into correct v2 EventData types
   * Fixes a bug where v2 EventData was not being deserialized into the appropriate type for `V1BillingMeterErrorReportTriggeredEvent` and `V1BillingMeterNoMeterFoundEvent`
 * [#1415](https://github.com/stripe/stripe-python/pull/1415) update object tags for meter-related classes
-
   - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
-* [#1412](https://github.com/stripe/stripe-python/pull/1412) Clean up examples
 
 ## 11.1.0 - 2024-10-03
 * [#1409](https://github.com/stripe/stripe-python/pull/1409) Update the class for `ThinEvent` to include `livemode`
@@ -1175,8 +1186,9 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Remove the support for resource `Margin` that was accidentally made public in the last release
 
 ## 11.0.0 - 2024-10-01
-* [#1404](https://github.com/stripe/stripe-python/pull/1404) Support for APIs in the new API version 2024-09-30.acacia
+This release changes the pinned API version to `2024-09-30.acacia`.
 
+* [#1404](https://github.com/stripe/stripe-python/pull/1404) Support for APIs in the new API version 2024-09-30.acacia
   This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Changelog](https://docs.stripe.com/changelog/acacia#2024-09-30.acacia) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes due to changes in the API
@@ -1205,7 +1217,6 @@ This release changes the pinned API version to `2025-04-30.basil`.
   ### Other changes
   * Change type of `default_allowed_updates` on  `stripe.billing_portal.Configuration.CreateParamsFeaturesSubscriptionUpdate` from `Union[Literal[''], List[Literal['price', 'promotion_code', 'quantity']]]` to `NotRequired[Literal['']|List[Literal['price', 'promotion_code', 'quantity']]]`
   * Change type of `products` on  `stripe.billing_portal.Configuration.CreateParamsFeaturesSubscriptionUpdate` from `Union[Literal[''], List[Configuration.CreateParamsFeaturesSubscriptionUpdateProduct]]` to `NotRequired[Literal['']|List[Configuration.CreateParamsFeaturesSubscriptionUpdateProduct]]`
-
 
 ## 10.12.0 - 2024-09-18
 * [#1394](https://github.com/stripe/stripe-python/pull/1394) Update generated code
@@ -1272,7 +1283,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Change type of `account` on  `stripe.Person.AdditionalTosAcceptances` from `Account` to `Optional[Account]`
 
 ## 10.6.0 - 2024-08-01
-* [#1369](https://github.com/stripe/stripe-python/pull/1369) Update generated code
+* ⚠️ [#1369](https://github.com/stripe/stripe-python/pull/1369) Update generated code
   * Add support for resource `stripe.billing.Alert`
   * ⚠️ Remove support for `authorization_code` on resource class `stripe.Charge.PaymentMethodDetails.Card`. This was accidentally released last week.
   * Add support for `billing.alert.triggered` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
@@ -1295,15 +1306,15 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `invoice.will_be_due` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
 
 ## 10.4.0 - 2024-07-18
+* [#1360](https://github.com/stripe/stripe-python/pull/1360) Update changelog
 * [#1362](https://github.com/stripe/stripe-python/pull/1362) Update generated code
   * Add support for `customer` on resource class `stripe.ConfirmationToken.PaymentMethodPreview`
   * Add support for `issuing_dispute.funds_rescinded` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
   * Add support for `multibanco` on enums `stripe.Invoice.PaymentSettings.payment_method_types`, `stripe.Invoice.CreateParamsPaymentSettings.payment_method_types`, `stripe.Invoice.ModifyParamsPaymentSettings.payment_method_types`, `stripe.Subscription.PaymentSettings.payment_method_types`, `stripe.Subscription.CreateParamsPaymentSettings.payment_method_types`, and `stripe.Subscription.ModifyParamsPaymentSettings.payment_method_types`
   * Add support for `stripe_s700` on enums `stripe.terminal.Reader.device_type` and `stripe.terminal.Reader.ListParams.device_type`
-* [#1360](https://github.com/stripe/stripe-python/pull/1360) Update changelog
 
 ## 10.3.0 - 2024-07-11
-* [#1358](https://github.com/stripe/stripe-python/pull/1358) Update generated code
+* ⚠️ [#1358](https://github.com/stripe/stripe-python/pull/1358) Update generated code
   * Add support for `payment_method_options` on resource `stripe.ConfirmationToken`
   * Add support for `payment_element` on resource class `stripe.CustomerSession.Components` and parameter class `stripe.CustomerSession.CreateParamsComponents`
   * Add support for `address_validation` on parameter class `stripe.issuing.Card.CreateParamsShipping` and resource class `stripe.issuing.Card.Shipping`
@@ -1330,8 +1341,9 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `zip` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
 
 ## 10.0.0 - 2024-06-24
-* [#1350](https://github.com/stripe/stripe-python/pull/1350) Update generated code
+This release changes the pinned API version to `2024-06-20`.
 
+* [#1350](https://github.com/stripe/stripe-python/pull/1350) Update generated code
   This release changes the pinned API version to 2024-06-20. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-06-20) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
@@ -1398,6 +1410,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `terminal_reader_invalid_location_for_payment` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
 
 ## 9.7.0 - 2024-05-16
+* [#1329](https://github.com/stripe/stripe-python/pull/1329) Switch from `black` to `ruff` for formatting
 * [#1328](https://github.com/stripe/stripe-python/pull/1328) Update generated code
   * Add support for `fee_source` on resource `stripe.ApplicationFee`
   * Add support for `net_available` on resource class `stripe.Balance.InstantAvailable`
@@ -1413,7 +1426,6 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `klarna` on enum `stripe.Dispute.PaymentMethodDetails.type`
   * Add support for `no_valid_authorization` on enums `stripe.issuing.Dispute.Evidence.reason`, `stripe.issuing.Dispute.CreateParamsEvidence.reason`, and `stripe.issuing.Dispute.ModifyParamsEvidence.reason`
   * Change type of `countries` on  `stripe.financial_connections.Session.CreateParamsFilters` from `List[str]` to `NotRequired[List[str]]`
-* [#1329](https://github.com/stripe/stripe-python/pull/1329) Switch from `black` to `ruff` for formatting
 
 ## 9.6.0 - 2024-05-09
 * [#1323](https://github.com/stripe/stripe-python/pull/1323) Update generated code
@@ -1426,6 +1438,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `treasury.outbound_transfer.tracking_details_updated` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
 
 ## 9.5.0 - 2024-05-02
+* [#1319](https://github.com/stripe/stripe-python/pull/1319) Fix type change entries in Python Changelog
 * [#1317](https://github.com/stripe/stripe-python/pull/1317) Update generated code
   * Add support for `paypal` on resource class `stripe.Dispute.PaymentMethodDetails`
   * Add support for `payment_method_types` on parameter class `stripe.PaymentIntent.ConfirmParams`
@@ -1434,9 +1447,9 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `paypal` on enum `stripe.Dispute.PaymentMethodDetails.type`
   * Add support for `shipping_address_invalid` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
   * Change type of `metadata` on  `stripe.entitlements.Feature.ModifyParams` from `Dict[str, str]` to `Literal['']|Dict[str, str]`
-* [#1319](https://github.com/stripe/stripe-python/pull/1319) Fix type change entries in Python Changelog
 
 ## 9.4.0 - 2024-04-25
+* [#1307](https://github.com/stripe/stripe-python/pull/1307) Bump aiohttp from 3.9.2 to 3.9.4
 * [#1316](https://github.com/stripe/stripe-python/pull/1316) Update generated code
   * Add support for `amazon_pay` on resource classes `stripe.Mandate.PaymentMethodDetails` and `stripe.SetupAttempt.PaymentMethodDetails`
   * Add support for `revolut_pay` on resource classes `stripe.Mandate.PaymentMethodDetails` and `stripe.SetupAttempt.PaymentMethodDetails`
@@ -1449,9 +1462,9 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `amazon_pay` on enums `stripe.Invoice.PaymentSettings.payment_method_types`, `stripe.Invoice.CreateParamsPaymentSettings.payment_method_types`, `stripe.Invoice.ModifyParamsPaymentSettings.payment_method_types`, `stripe.Subscription.PaymentSettings.payment_method_types`, `stripe.Subscription.CreateParamsPaymentSettings.payment_method_types`, and `stripe.Subscription.ModifyParamsPaymentSettings.payment_method_types`
   * Add support for `revolut_pay` on enums `stripe.Invoice.PaymentSettings.payment_method_types`, `stripe.Invoice.CreateParamsPaymentSettings.payment_method_types`, `stripe.Invoice.ModifyParamsPaymentSettings.payment_method_types`, `stripe.Subscription.PaymentSettings.payment_method_types`, `stripe.Subscription.CreateParamsPaymentSettings.payment_method_types`, and `stripe.Subscription.ModifyParamsPaymentSettings.payment_method_types`
   * Remove support for inadvertently released identity verification features `email` and `phone` on parameter classes `stripe.identity.VerificationSession.CreateParamsOptions` and `stripe.identity.VerificationSession.ModifyParamsOptions`
-* [#1307](https://github.com/stripe/stripe-python/pull/1307) Bump aiohttp from 3.9.2 to 3.9.4
 
 ## 9.3.0 - 2024-04-18
+* [#1306](https://github.com/stripe/stripe-python/pull/1306) Update `Quote.pdf()` to use the right base address i.e. files.stripe.com instead of api.stripe.com. Fixes [#1303](https://github.com/stripe/stripe-python/issues/1303)
 * [#1305](https://github.com/stripe/stripe-python/pull/1305) Update generated code
   * Add support for `allow_redisplay` on parameter classes `stripe.ConfirmationToken.CreateParamsPaymentMethodData`, `stripe.Customer.ListPaymentMethodsParams`, `stripe.PaymentIntent.ConfirmParamsPaymentMethodData`, `stripe.PaymentIntent.CreateParamsPaymentMethodData`, `stripe.PaymentIntent.ModifyParamsPaymentMethodData`, `stripe.PaymentMethod.CreateParams`, `stripe.PaymentMethod.ModifyParams`, `stripe.SetupIntent.ConfirmParamsPaymentMethodData`, `stripe.SetupIntent.CreateParamsPaymentMethodData`, and `stripe.SetupIntent.ModifyParamsPaymentMethodData`
   * Add support for `schedule_details` on parameter classes `stripe.Invoice.UpcomingLinesParams` and `stripe.Invoice.UpcomingParams`
@@ -1462,7 +1475,6 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `mobilepay` on parameter class `stripe.checkout.Session.CreateParamsPaymentMethodOptions` and resource class `stripe.checkout.Session.PaymentMethodOptions`
   * Add support for `mobilepay` on enum `stripe.checkout.Session.CreateParams.payment_method_types`
   * Add support for `other` on enums `stripe.issuing.Authorization.CaptureParamsPurchaseDetailsFuel.unit`, `stripe.issuing.Transaction.CreateForceCaptureParamsPurchaseDetailsFuel.unit`, and `stripe.issuing.Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFuel.unit`
-* [#1306](https://github.com/stripe/stripe-python/pull/1306) Update `Quote.pdf()` to use the right base address i.e. files.stripe.com instead of api.stripe.com. Fixes [#1303](https://github.com/stripe/stripe-python/issues/1303)
 
 ## 9.2.0 - 2024-04-16
 * [#1301](https://github.com/stripe/stripe-python/pull/1301) Update generated code
@@ -1477,6 +1489,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `entitlements.active_entitlement_summary.updated` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
 
 ## 9.1.0 - 2024-04-11
+* [#1297](https://github.com/stripe/stripe-python/pull/1297) Use stdlib AsyncMock when available
 * [#1300](https://github.com/stripe/stripe-python/pull/1300) Update generated code
   * Add support for `external_account_collection` on resource class `stripe.AccountSession.Components.AccountOnboarding.Features` and parameter class `stripe.AccountSession.CreateParamsComponentsAccountOnboardingFeatures`
   * Add support for `account_management` on resource class `stripe.AccountSession.Components` and parameter class `stripe.AccountSession.CreateParamsComponents`
@@ -1498,11 +1511,11 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `billing_policy_remote_function_timeout` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
   * Add support for `billing_policy_remote_function_unexpected_status_code` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
   * Add support for `billing_policy_remote_function_unreachable` on enums `stripe.Invoice.LastFinalizationError.code`, `stripe.PaymentIntent.LastPaymentError.code`, `stripe.SetupAttempt.SetupError.code`, and `stripe.SetupIntent.LastSetupError.code`
-* [#1297](https://github.com/stripe/stripe-python/pull/1297) Use stdlib AsyncMock when available
 
 ## 9.0.0 - 2024-04-10
-* [#1286](https://github.com/stripe/stripe-python/pull/1286)
+This release changes the pinned API version to `2024-04-10`.
 
+* [#1286](https://github.com/stripe/stripe-python/pull/1286) API Updates
   * This release changes the pinned API version to `2024-04-10`. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-04-10) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
@@ -1551,10 +1564,9 @@ This release changes the pinned API version to `2025-04-30.basil`.
    * Remove the deprecated value `obligation` for `ReportRun.CreateParamsParameters.reporting_category` and `ReportRunService.CreateParamsParameters.reporting_category`
    * Remove the legacy field `rendering_options` on parameter classes `stripe.Invoice.CreateParams` and `stripe.Invoice.ModifyParams` and resource `stripe.Invoice`. Use `rendering` instead.
 
-
-
-
 ## 8.11.0 - 2024-04-09
+* [#1299](https://github.com/stripe/stripe-python/pull/1299) Fix README.md
+* [#1292](https://github.com/stripe/stripe-python/pull/1292) Tweak changelog for python async note
 * [#1295](https://github.com/stripe/stripe-python/pull/1295) Update generated code
   * Add support for `fees`, `losses`, `requirement_collection` & `stripe_dashboard` on resource class `stripe.Account.Controller`
   * Add support for `controller` on parameter class `stripe.Account.CreateParams`
@@ -1566,19 +1578,15 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for resource `stripe.entitlements.Feature`
   * Add support for `none` on enum `stripe.Account.type`
 
-* [#1299](https://github.com/stripe/stripe-python/pull/1299) Fix README.md
-* [#1292](https://github.com/stripe/stripe-python/pull/1292) Tweak changelog for python async note
-
 ## 8.10.0 - 2024-04-04
-
 * [#1288](https://github.com/stripe/stripe-python/pull/1288) Port **async support** from beta to the stable channel. To use it, add an `_async` suffix to any request-making method.
+  ```diff
+  - cus = stripe.Customer.create(...)
+  + cus = await stripe.Customer.create_async(...)
+  ```
 
-    ```diff
-    - cus = stripe.Customer.create(...)
-    + cus = await stripe.Customer.create_async(...)
-    ```
-
-    See the [README](./README.md#async) for detailed usage instructions. Support is provided out of the box for async requests via the HTTPX (used by default) and aiohttp libraries. For other libraries, you can also provide your own `stripe.HTTPClient` implementation. Please do not hesitate to [open a Github issue](https://github.com/stripe/stripe-python/issues/new/choose) if you have any feedback on this feature.
+  See the [README](./README.md#async) for detailed usage instructions. Support is provided out of the box for async requests via the HTTPX (used by default) and aiohttp libraries. For other libraries, you can also provide your own `stripe.HTTPClient` implementation. Please do not hesitate to [open a Github issue](https://github.com/stripe/stripe-python/issues/new/choose) if you have any feedback on this feature.
+* [#1289](https://github.com/stripe/stripe-python/pull/1289) Bump aiohttp from 3.9.0 to 3.9.2
 * [#1284](https://github.com/stripe/stripe-python/pull/1284) Update generated code
   * Add support for `subscription_item` on resource `stripe.Discount`
   * Add support for `promotion_code` on parameter classes `stripe.Invoice.CreateParamsDiscount`, `stripe.Invoice.ModifyParamsDiscount`, `stripe.InvoiceItem.CreateParamsDiscount`, `stripe.InvoiceItem.ModifyParamsDiscount`, `stripe.InvoiceLineItem.ModifyParamsDiscount`, `stripe.Quote.CreateParamsDiscount`, and `stripe.Quote.ModifyParamsDiscount`
@@ -1607,10 +1615,10 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Change type of `hosted_instructions_url` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str`
   * Change type of `mobile_auth_url` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[str]` to `str`
   * Change type of `qr_code` on  `stripe.PaymentIntent.NextAction.SwishHandleRedirectOrDisplayQrCode` from `Optional[QrCode]` to `QrCode`
-* [#1289](https://github.com/stripe/stripe-python/pull/1289) Bump aiohttp from 3.9.0 to 3.9.2
-
 
 ## 8.9.0 - 2024-03-28
+* [#1279](https://github.com/stripe/stripe-python/pull/1279) Update README.md
+* [#1278](https://github.com/stripe/stripe-python/pull/1278) Types: remove unnecessary quotes
 * [#1276](https://github.com/stripe/stripe-python/pull/1276) Update generated code
   * Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
   * Add support for `create`, `deactivate`, `list`, `modify`, `reactivate`, and `retrieve` methods on resource `Meter`
@@ -1621,8 +1629,6 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `meter` on `Plan.CreateParams`, `Plan`, `PlanService.CreateParams`, `Price.Recurring`, `Price.CreateParamsRecurring`, `Price.ListParamsRecurring`, `PriceService.CreateParamsRecurring`, and `PriceService.ListParamsRecurring`
   * Add support for `mandate` on `Charge.PaymentMethodDetails.USBankAccount`, `Treasury.InboundTransfer.OriginPaymentMethodDetails.USBankAccount`, `Treasury.OutboundPayment.DestinationPaymentMethodDetails.USBankAccount`, and `Treasury.OutboundTransfer.DestinationPaymentMethodDetails.USBankAccount`
   * Add support for `second_line` on `Issuing.Card.CreateParams`
-* [#1278](https://github.com/stripe/stripe-python/pull/1278) Types: remove unnecessary quotes
-* [#1279](https://github.com/stripe/stripe-python/pull/1279) Update README.md
 
 ## 8.8.0 - 2024-03-21
 * [#1273](https://github.com/stripe/stripe-python/pull/1273) Update generated code
@@ -1640,8 +1646,6 @@ This release changes the pinned API version to `2025-04-30.basil`.
    * Add support for new value `mobilepay` on enums `PaymentIntentService.ConfirmParamsPaymentMethodData.type`, `PaymentIntentService.CreateParamsPaymentMethodData.type`, `PaymentIntentService.UpdateParamsPaymentMethodData.type`, `SetupIntentService.ConfirmParamsPaymentMethodData.type`, `SetupIntentService.CreateParamsPaymentMethodData.type`, and `SetupIntentService.UpdateParamsPaymentMethodData.type`
    * Add support for new value `mobilepay` on enum `PaymentMethod.type`
 
-
-
 ## 8.7.0 - 2024-03-14
 * [#1269](https://github.com/stripe/stripe-python/pull/1269) Update generated code
   * Add support for `personalization_design` on parameter classes `CardService.CreateParams`, `CardService.ListParams`, `CardService.UpdateParams`, `stripe.issuing.Card.CreateParams`, `stripe.issuing.Card.ListParams`, and `stripe.issuing.Card.ModifyParams` and resource `stripe.issuing.Card`
@@ -1650,16 +1654,17 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for resource `stripe.issuing.PhysicalBundle`
   * Change type from `float` to `Literal['']|float` of `application_fee_percent` on fields `stripe.Subscription.CreateParams`, `stripe.Subscription.ModifyParams`, `SubscriptionService.UpdateParams`, and `SubscriptionService.CreateParams`
 
-
 ## 8.6.0 - 2024-03-07
+* [#1268](https://github.com/stripe/stripe-python/pull/1268) Update README.md
 * [#1267](https://github.com/stripe/stripe-python/pull/1267) Update generated code
   * Add support for `documents` on `AccountSession.Components`
   * Add support for `request_three_d_secure` on `Checkout.Session.PaymentMethodOptionsCard` and `Checkout.Session.CreateParams.PaymentMethodOptionsCard`
   * Add support for `created` on `CreditNote.ListParams`
   * Add support for `sepa_debit` on `Invoice.PaymentSettings.PaymentMethodOptions`, `InvoiceCreateParams.PaymentSettings.PaymentMethodOptions`, and `InvoiceUpdateParams.PaymentSettings.PaymentMethodOptions`
-* [#1268](https://github.com/stripe/stripe-python/pull/1268) Update README.md
 
 ## 8.5.0 - 2024-02-29
+* [#1250](https://github.com/stripe/stripe-python/pull/1250) Fix type of ErrorObject.code
+* [#1260](https://github.com/stripe/stripe-python/pull/1260) Update README to use add_beta_version
 * [#1255](https://github.com/stripe/stripe-python/pull/1255) Update generated code
   * Change `identity.VerificationReport.type` to be required
   * Change type of `identity.VerificationSession.type` from `Optional[Literal["document", "id_number"]]` to `Literal["document", "id_number"]`
@@ -1668,19 +1673,20 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `refund_payment_config` on `Terminal.Reader.Action.refund_payment` and `Terminal.Reader.RefundPaymentParams`
   * Add support for `payment_method` on `Token.CreateParams.bank_account`
   * Add `list_refunds` and `retrieve_refund` methods on resource `Charge`.
-* [#1260](https://github.com/stripe/stripe-python/pull/1260) Update README to use add_beta_version
-* [#1250](https://github.com/stripe/stripe-python/pull/1250) Fix type of ErrorObject.code
 
 ## 8.4.0 - 2024-02-22
-* [#1241](https://github.com/stripe/stripe-python/pull/1241) Update generated code
-  - Add `InvoiceLineItem.modify` method.
+* [#1242](https://github.com/stripe/stripe-python/pull/1242) Testing: unify http client mock
+* [#1243](https://github.com/stripe/stripe-python/pull/1243) Remove http client base
 * [#1244](https://github.com/stripe/stripe-python/pull/1244) Add TaxIds API
   * Add support for `create`, `retrieve`, `delete`, and `list` methods on resource `TaxId`
   * The `instance_url` function on resource `TaxId` now returns the top-level `/v1/tax_ids/{id}` path instead of the `/v1/customers/{customer}/tax_ids/{id}` path.
-* [#1243](https://github.com/stripe/stripe-python/pull/1243) Remove http client base
-* [#1242](https://github.com/stripe/stripe-python/pull/1242) Testing: unify http client mock
+* [#1241](https://github.com/stripe/stripe-python/pull/1241) Update generated code
+  - Add `InvoiceLineItem.modify` method.
 
 ## 8.3.0 - 2024-02-15
+* [#1232](https://github.com/stripe/stripe-python/pull/1232) Improve types in _http_client.py
+* [#1237](https://github.com/stripe/stripe-python/pull/1237) Remove broken child methods
+  * Bugfix: remove support for `CreditNoteLineItem.list`, `CustomerCashBalanceTransaction.list`, and `CustomerCashBalanceTransaction.retrieve`. These methods were included in the library unintentionally and never functioned.
 * [#1230](https://github.com/stripe/stripe-python/pull/1230) Update generated code
   * Add support for `networks` on `Card`, `PaymentMethod.CreateParamsCard`, `PaymentMethod.ModifyParamsCard`, and `Token.CreateParamsCard`
   * Add support for new value `no_voec` on enums `Checkout.Session.CustomerDetails.TaxId.type`, `Invoice.CustomerTaxId.type`, `Tax.Calculation.CustomerDetails.TaxId.type`, `Tax.Transaction.CustomerDetails.TaxId.type`, and `TaxId.type`
@@ -1688,19 +1694,16 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for new value `financial_connections.account.refreshed_ownership` on enum `Event.type`
   * Add support for `display_brand` on `PaymentMethod.card`
   * Add support for new value `financial_connections.account.refreshed_ownership` on enums `WebhookEndpoint.CreateParams.enabled_events[]` and `WebhookEndpoint.UpdateParams.enabled_events[]`
-* [#1237](https://github.com/stripe/stripe-python/pull/1237) Remove broken child methods
-  * Bugfix: remove support for `CreditNoteLineItem.list`, `CustomerCashBalanceTransaction.list`, and `CustomerCashBalanceTransaction.retrieve`. These methods were included in the library unintentionally and never functioned.
-* [#1232](https://github.com/stripe/stripe-python/pull/1232) Improve types in _http_client.py
 
 ## 8.2.0 - 2024-02-08
+* [#1220](https://github.com/stripe/stripe-python/pull/1220) Measure StripeClient usage
+* [#1223](https://github.com/stripe/stripe-python/pull/1223) Move StripeClient usage collection onto StripeService
 * [#1225](https://github.com/stripe/stripe-python/pull/1225) Update generated code
   * Add support for `invoices` on `Account.Settings`
   * Add support for new value `velobank` on various enums `PaymentMethodDetails.P24.bank`
   * Add support for `setup_future_usage` on `PaymentMethodOptions.Blik`
   * Add support for `require_cvc_recollection` on `PaymentMethodOptions.Card`
   * Add support for `account_tax_ids` on various `InvoiceSettings` request parameters
-* [#1223](https://github.com/stripe/stripe-python/pull/1223) Move StripeClient usage collection onto StripeService
-* [#1220](https://github.com/stripe/stripe-python/pull/1220) Measure StripeClient usage
 
 ## 8.1.0 - 2024-02-01
 * [#1213](https://github.com/stripe/stripe-python/pull/1213) Update generated code
@@ -1710,7 +1713,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Change type from `str` to `Literal["offline", "online"]` of `status` on field `terminal.Reader`
 
 ## 8.0.0 - 2024-01-25
-* [#1206](https://github.com/stripe/stripe-python/pull/1206) stripe-python v8 release
+* ⚠️ [#1206](https://github.com/stripe/stripe-python/pull/1206) stripe-python v8 release
   This release introduces `StripeClient` and a service-based call pattern. This new interface allows you to easily call Stripe APIs and has several benefits over the existing resource-based pattern:
 
   * No global config: you can simultaneously use multiple clients with different configuration options (such as API keys)
@@ -1799,8 +1802,9 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Change type from `Optional[Features]` to `Features` of `features` on fields `AccountSession.Components.PaymentDetails`, `AccountSession.Components.Payments`, and `AccountSession.Components.Payouts`
   * Change type from `Optional[InvoiceSettings]` to `InvoiceSettings` of `invoice_settings` on field `SubscriptionSchedule.DefaultSettings`
 
-
 ## 7.10.0 - 2023-12-22
+* [#1178](https://github.com/stripe/stripe-python/pull/1178) Support accessing reserved word resource properties via attribute
+* [#1184](https://github.com/stripe/stripe-python/pull/1184) Remove api_base from RequestOptions type
 * [#1176](https://github.com/stripe/stripe-python/pull/1176) Update generated code
   * Add support for new resource `FinancialConnections.Transaction`
   * Add support for `list` and `retrieve` methods on resource `Transaction`
@@ -1819,41 +1823,40 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Change type of `Quote.invoice_settings` from `InvoiceSettingQuoteSetting | null` to `InvoiceSettingQuoteSetting`
   * Add support for `destination_details` on `Refund`
   * Add support for new value `financial_connections.account.refreshed_transactions` on enums `WebhookEndpointCreateParams.enabled_events[]` and `WebhookEndpointUpdateParams.enabled_events[]`
-
 * [#1185](https://github.com/stripe/stripe-python/pull/1185) Update generated code
-* [#1184](https://github.com/stripe/stripe-python/pull/1184) Remove api_base from RequestOptions type
-* [#1178](https://github.com/stripe/stripe-python/pull/1178) Support accessing reserved word resource properties via attribute
 
 ## 7.9.0 - 2023-12-14
+* [#1169](https://github.com/stripe/stripe-python/pull/1169) Add more types to _http_client.py
+* [#1101](https://github.com/stripe/stripe-python/pull/1101) Mark defunct and internal methods as deprecated
+* [#1146](https://github.com/stripe/stripe-python/pull/1146) Track usage of deprecated `save`
+  * Reports uses of the deprecated `.save` in `X-Stripe-Client-Telemetry`. (You can disable telemetry via `stripe.enable_telemetry = false`, see the [README](https://github.com/stripe/stripe-python/blob/master/README.md#telemetry).)
 * [#1161](https://github.com/stripe/stripe-python/pull/1161) Update generated code
-
   * Add support for `payment_method_reuse_agreement` on resource classes `PaymentLink.ConsentCollection` and `checkout.Session.ConsentCollection` and parameter classes `PaymentLink.CreateParamsConsentCollection` and `checkout.Session.CreateParamsConsentCollection`
   * Add support for `after_submit` on parameter classes `PaymentLink.CreateParamsCustomText`, `PaymentLink.ModifyParamsCustomText`, and `checkout.Session.CreateParamsCustomText` and resource classes `PaymentLink.CustomText` and `checkout.Session.CustomText`
   * Add support for `created` on parameter class `radar.EarlyFraudWarning.ListParams`
-* [#1146](https://github.com/stripe/stripe-python/pull/1146) Track usage of deprecated `save`
-  * Reports uses of the deprecated `.save` in `X-Stripe-Client-Telemetry`. (You can disable telemetry via `stripe.enable_telemetry = false`, see the [README](https://github.com/stripe/stripe-python/blob/master/README.md#telemetry).)
-* [#1101](https://github.com/stripe/stripe-python/pull/1101) Mark defunct and internal methods as deprecated
-* [#1169](https://github.com/stripe/stripe-python/pull/1169) Add more types to _http_client.py
 
 ## 7.8.2 - 2023-12-11
 * [#1168](https://github.com/stripe/stripe-python/pull/1168) Do not raise a DeprecationWarning in `stripe.app_info`
 
 ## 7.8.1 - 2023-12-08
-* [#1159](https://github.com/stripe/stripe-python/pull/1159) Fix __getattr__ to raise AttributeError rather than returning None. This fixes a regression in 7.8.0 that caused `stripe.checkout`/`stripe.issuing` etc. to return `None`.
 * [#1157](https://github.com/stripe/stripe-python/pull/1157) Add missing explicit reexport for `OAuth`, `Webhook`, `WebhookSignature`
+* [#1159](https://github.com/stripe/stripe-python/pull/1159) Fix __getattr__ to raise AttributeError rather than returning None. This fixes a regression in 7.8.0 that caused `stripe.checkout`/`stripe.issuing` etc. to return `None`.
 
 ## 7.8.0 - 2023-12-07
-* [#1155](https://github.com/stripe/stripe-python/pull/1155) Update generated code
-  * Add support for `payment_details`, `payments`, and `payouts` on `AccountSession.components` and `CreateParams.components`
-  * Add support for `features` on `AccountSession.components.account_onboarding` and `CreateParams.components.account_onboarding`
-  * Add support for new values `customer_tax_location_invalid` and `financial_connections_no_successful_transaction_refresh` on enums `Invoice.last_finalization_error.code`, `PaymentIntent.last_payment_error.code`, `SetupAttempt.setup_error.code`, `SetupIntent.last_setup_error.code`, and `StripeError.code`
-  * Add support for new values `payment_network_reserve_hold` and `payment_network_reserve_release` on enum `BalanceTransaction.type`
-  * Change `Climate.Product.metric_tons_available` to be required
-  * Remove support for value `various` from enum `Climate.Supplier.removal_pathway`
-  * Remove support for values `challenge_only` and `challenge` from enum `PaymentIntent.payment_method_options.card.request_three_d_secure`
-  * Add support for `inactive_message` and `restrictions` on `CreateParams`, `ModifyParams`, and `PaymentLink`
-  * Add support for `transfer_group` on `PaymentLink.payment_intent_data`, `CreateParams.payment_intent_data`, and `ModifyParams.payment_intent_data`
-  * Add support for `trial_settings` on `PaymentLink.subscription_data`, `CreateParams.subscription_data`, and `ModifyParams.subscription_data`
+* [#1142](https://github.com/stripe/stripe-python/pull/1142) Move resource type exports to stripe.___
+  - `stripe.error`, `stripe.stripe_object`, `stripe.api_requestor`, `stripe.stripe_response`, `stripe.request_options`, `stripe.api_resources.*`,  `stripe.api_resources.abstract.*` modules are deprecated. All types are available directly from `stripe` module now.
+     Before:
+     ```python
+     from stripe.error import APIError
+     # or
+     stripe.error.APIError
+     ````
+     After:
+     ```python
+     from stripe import APIError
+     # or
+     stripe.APIError
+     ```
 * [#1153](https://github.com/stripe/stripe-python/pull/1153) Move exports for more modules
   -  `stripe.app_info`, `stripe.http_client`, `stripe.oauth`, `stripe.util`, `stripe.version`, `stripe.webhook`,  modules are deprecated. All types are available directly from `stripe` module now.
      Before:
@@ -1869,22 +1872,20 @@ This release changes the pinned API version to `2025-04-30.basil`.
      stripe.convert_to_stripe_object
      ```
   - `stripe.api_version`, `stripe.multipart_data_generator`, `stripe.request_metrics` are deprecated and will be fully removed in the future.
-* [#1142](https://github.com/stripe/stripe-python/pull/1142) Move resource type exports to stripe.___
-  - `stripe.error`, `stripe.stripe_object`, `stripe.api_requestor`, `stripe.stripe_response`, `stripe.request_options`, `stripe.api_resources.*`,  `stripe.api_resources.abstract.*` modules are deprecated. All types are available directly from `stripe` module now.
-     Before:
-     ```python
-     from stripe.error import APIError
-     # or
-     stripe.error.APIError
-     ````
-     After:
-     ```python
-     from stripe import APIError
-     # or
-     stripe.APIError
-     ```
+* [#1155](https://github.com/stripe/stripe-python/pull/1155) Update generated code
+  * Add support for `payment_details`, `payments`, and `payouts` on `AccountSession.components` and `CreateParams.components`
+  * Add support for `features` on `AccountSession.components.account_onboarding` and `CreateParams.components.account_onboarding`
+  * Add support for new values `customer_tax_location_invalid` and `financial_connections_no_successful_transaction_refresh` on enums `Invoice.last_finalization_error.code`, `PaymentIntent.last_payment_error.code`, `SetupAttempt.setup_error.code`, `SetupIntent.last_setup_error.code`, and `StripeError.code`
+  * Add support for new values `payment_network_reserve_hold` and `payment_network_reserve_release` on enum `BalanceTransaction.type`
+  * Change `Climate.Product.metric_tons_available` to be required
+  * Remove support for value `various` from enum `Climate.Supplier.removal_pathway`
+  * Remove support for values `challenge_only` and `challenge` from enum `PaymentIntent.payment_method_options.card.request_three_d_secure`
+  * Add support for `inactive_message` and `restrictions` on `CreateParams`, `ModifyParams`, and `PaymentLink`
+  * Add support for `transfer_group` on `PaymentLink.payment_intent_data`, `CreateParams.payment_intent_data`, and `ModifyParams.payment_intent_data`
+  * Add support for `trial_settings` on `PaymentLink.subscription_data`, `CreateParams.subscription_data`, and `ModifyParams.subscription_data`
 
 ## 7.7.0 - 2023-11-30
+* [#1145](https://github.com/stripe/stripe-python/pull/1145) Refactor integration test
 * [#1147](https://github.com/stripe/stripe-python/pull/1147) Update generated code
   * Add support for new resources `Climate.Order`, `Climate.Product`, and `Climate.Supplier`
   * Add support for `cancel`, `create`, `list`, `modify`, and `retrieve` methods on resource `Order`
@@ -1897,7 +1898,6 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for new value `challenge` on enums `PaymentIntent. PaymentMethodOptions.Card.request_three_d_secure` and `SetupIntent. PaymentMethodOptions.Card.request_three_d_secure`
   * Add support for new values `climate_order_purchase` and `climate_order_refund` on enum `Reporting.ReportRun. CreateParamsParameters.reporting_category`
   * Add support for new values `climate.order.canceled`, `climate.order.created`, `climate.order.delayed`, `climate.order.delivered`, `climate.order.product_substituted`, `climate.product.created`, and `climate.product.pricing_updated` on enums `WebhookEndpoint.CreateParams.enabled_events[]` and `WebhookEndpoint.ModifyParams.enabled_events[]`
-* [#1145](https://github.com/stripe/stripe-python/pull/1145) Refactor integration test
 
 ## 7.6.0 - 2023-11-21
 * [#1138](https://github.com/stripe/stripe-python/pull/1138) Update generated code
@@ -1913,6 +1913,14 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `authorization_code` on resource class `issuing.Transaction.NetworkData`
 
 ## 7.5.0 - 2023-11-16
+* [#1125](https://github.com/stripe/stripe-python/pull/1125) Add support for Python 3.11/3.12
+* [#1123](https://github.com/stripe/stripe-python/pull/1123) Move to python3 venv and update vscode settings
+* [#1126](https://github.com/stripe/stripe-python/pull/1126) Suppress type errors from latest pyright
+* [#1132](https://github.com/stripe/stripe-python/pull/1132) Fix unnecessary casts from pyright 1.1.336
+* [#1134](https://github.com/stripe/stripe-python/pull/1134) Run pyright via tox
+* [#1131](https://github.com/stripe/stripe-python/pull/1131) Upgrade black dependency
+* [#1135](https://github.com/stripe/stripe-python/pull/1135) Add initial tests for exports and run them in mypy and pyright
+* [#1130](https://github.com/stripe/stripe-python/pull/1130) Mention types in README.md
 * [#1127](https://github.com/stripe/stripe-python/pull/1127) Update generated code
   * Add support for `bacs_debit_payments` on `Account.CreateParamsSettings`
   * Add support for `service_user_number` on `Account.Settings.BacsDebitPayments`
@@ -1921,20 +1929,12 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `tax_amounts` on `CreditNote.CreateParamsLine`, `CreditNote.PreviewParamsLine`, and `CreditNote.PreviewLinesParamsLine`
   * Add support for `network_data` on `Issuing.Transaction`
   * Add support for `status` on `Checkout.Session.ListParams`
-* [#1135](https://github.com/stripe/stripe-python/pull/1135) Add initial tests for exports and run them in mypy and pyright
-* [#1130](https://github.com/stripe/stripe-python/pull/1130) Mention types in README.md
-* [#1134](https://github.com/stripe/stripe-python/pull/1134) Run pyright via tox
-* [#1131](https://github.com/stripe/stripe-python/pull/1131) Upgrade black dependency
-* [#1132](https://github.com/stripe/stripe-python/pull/1132) Fix unnecessary casts from pyright 1.1.336
-* [#1126](https://github.com/stripe/stripe-python/pull/1126) Suppress type errors from latest pyright
-* [#1125](https://github.com/stripe/stripe-python/pull/1125) Add support for Python 3.11/3.12
-* [#1123](https://github.com/stripe/stripe-python/pull/1123) Move to python3 venv and update vscode settings
 
 ## 7.4.0 - 2023-11-09
+* [#1121](https://github.com/stripe/stripe-python/pull/1121) [types] Remove `None` from optional param types
 * [#1119](https://github.com/stripe/stripe-python/pull/1119) Update generated code
   * Add support for new value `terminal_reader_hardware_fault` on enums `Invoice.last_finalization_error.code`, `PaymentIntent.last_payment_error.code`, `SetupAttempt.setup_error.code`, `SetupIntent.last_setup_error.code`, and `StripeError.code`
   * Add support for `metadata` on `Quote.subscription_data`, `QuoteCreateParams.subscription_data`, and `QuoteUpdateParams.subscription_data`
-* [#1121](https://github.com/stripe/stripe-python/pull/1121) [types] Remove `None` from optional param types
 
 ## 7.3.0 - 2023-11-02
 * [#1112](https://github.com/stripe/stripe-python/pull/1112) Update generated code
@@ -1946,21 +1946,21 @@ This release changes the pinned API version to `2025-04-30.basil`.
 * [#1116](https://github.com/stripe/stripe-python/pull/1116) Types: Use @staticmethod overloads instead of @classmethod to fix MyPy compatibility.
 
 ## 7.1.0 - 2023-10-26
+* [#1091](https://github.com/stripe/stripe-python/pull/1091) APIRequestor: don't mutate incoming multipart headers
+* [#1096](https://github.com/stripe/stripe-python/pull/1096) Add @util.deprecated decorator and deprecate `save`.
+* ⚠️ [#1103](https://github.com/stripe/stripe-python/pull/1103) Inner resource classes
+  * Behavior change: nested json objects will now deserialize into instances of specific classes that subclass `StripeObject`, instead of into generic `StripeObject` instances.
+  * ⚠️  Behavior change: `PromotionCode.restrictions.currency_options` will now deserialize into `dict` and not `StripeObject`.
 * [#1104](https://github.com/stripe/stripe-python/pull/1104) Include `py.typed` and enable type annotations for the package
   * This PR includes `py.typed` and enables inline type annotations for stripe-python package. Inline type annotations will now take precedence over Typeshed for users who use a type checker or IDE.
   * See a detailed guide on the [Github Wiki](https://github.com/stripe/stripe-python/wiki/Inline-type-annotations).
-* [#1103](https://github.com/stripe/stripe-python/pull/1103) Inner resource classes
-  * Behavior change: nested json objects will now deserialize into instances of specific classes that subclass `StripeObject`, instead of into generic `StripeObject` instances.
-  * ⚠️  Behavior change: `PromotionCode.restrictions.currency_options` will now deserialize into `dict` and not `StripeObject`.
 * [#1090](https://github.com/stripe/stripe-python/pull/1090) Update generated code
   * Add support for new value `balance_invalid_parameter` on enums `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, and `SetupIntent.LastSetupError`
-* [#1096](https://github.com/stripe/stripe-python/pull/1096) Add @util.deprecated decorator and deprecate `save`.
-* [#1091](https://github.com/stripe/stripe-python/pull/1091) APIRequestor: don't mutate incoming multipart headers
 
-
-# Changelog
 ## 7.0.0 - 2023-10-16
-* This release changes the pinned API version to `2023-10-16`. Please read the [API Changelog](https://docs.stripe.com/changelog/2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
+This release changes the pinned API version to `2023-10-16`.
+
+* Please read the [API Changelog](https://docs.stripe.com/changelog/2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
 * [#1085](https://github.com/stripe/stripe-python/pull/1085) Update generated code
   - Updated pinned API version
 
@@ -1970,51 +1970,49 @@ This release changes the pinned API version to `2025-04-30.basil`.
   * Add support for `list`, `modify`, and `retrieve` methods on resource `Token`
 
 ## 6.6.0 - 2023-09-21
+* [#1057](https://github.com/stripe/stripe-python/pull/1057) Add optional types to non-required fields
+* [#1055](https://github.com/stripe/stripe-python/pull/1055) Partially type resource methods (no **params)
+* [#1054](https://github.com/stripe/stripe-python/pull/1054) Types: add deleted field
 * [#1056](https://github.com/stripe/stripe-python/pull/1056) Update generated code
 
-* [#1055](https://github.com/stripe/stripe-python/pull/1055) Partially type resource methods (no **params)
-* [#1057](https://github.com/stripe/stripe-python/pull/1057) Add optional types to non-required fields
-* [#1054](https://github.com/stripe/stripe-python/pull/1054) Types: add deleted field
-
 ## 6.5.0 - 2023-09-14
-* [#1052](https://github.com/stripe/stripe-python/pull/1052) Update generated code
-  * Add support for new resource `PaymentMethodConfiguration`
-  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `PaymentMethodConfiguration`
+* [#1030](https://github.com/stripe/stripe-python/pull/1030) Explicitly define CRUDL methods in each resource
+* [#1049](https://github.com/stripe/stripe-python/pull/1049) Types: datetimes to ints, add enum support
+* [#1050](https://github.com/stripe/stripe-python/pull/1050) Generate explicit nested resource class methods
 * [#1047](https://github.com/stripe/stripe-python/pull/1047) Update generated code
   * Add support for `capture`, `create`, `expire`, `increment`, and `reverse` test helper methods on resource `Issuing.Authorization`
   * Add support for `create_force_capture`, `create_unlinked_refund`, and `refund` test helper methods on resource `Issuing.Transaction`
-* [#1049](https://github.com/stripe/stripe-python/pull/1049) Types: datetimes to ints, add enum support
-* [#1030](https://github.com/stripe/stripe-python/pull/1030) Explicitly define CRUDL methods in each resource
-* [#1050](https://github.com/stripe/stripe-python/pull/1050) Generate explicit nested resource class methods
+* [#1052](https://github.com/stripe/stripe-python/pull/1052) Update generated code
+  * Add support for new resource `PaymentMethodConfiguration`
+  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `PaymentMethodConfiguration`
 
 ## 6.4.0 - 2023-09-07
+* [#1043](https://github.com/stripe/stripe-python/pull/1043) Types: ListObject
+* [#1044](https://github.com/stripe/stripe-python/pull/1044) Types: ExpandableField
 * [#1033](https://github.com/stripe/stripe-python/pull/1033) Update generated code
   * Add support for new resource `PaymentMethodDomain`
   * Add support for `create`, `list`, `modify`, `retrieve`, and `validate` methods on resource `PaymentMethodDomain`
-* [#1044](https://github.com/stripe/stripe-python/pull/1044) Types: ExpandableField
-* [#1043](https://github.com/stripe/stripe-python/pull/1043) Types: ListObject
 
 ## 6.3.0 - 2023-09-05
-* [#1042](https://github.com/stripe/stripe-python/pull/1042) Require typing_extensions >= 4.0.0
 * [#1026](https://github.com/stripe/stripe-python/pull/1026) Types: annotate resource properties
+* [#1042](https://github.com/stripe/stripe-python/pull/1042) Require typing_extensions >= 4.0.0
 
 ## 6.2.0 - 2023-08-31
+* [#1032](https://github.com/stripe/stripe-python/pull/1032) Types for CRUDL methods on parents
 * [#1024](https://github.com/stripe/stripe-python/pull/1024) Update generated code
   * Add support for new resource `AccountSession`
   * Add support for `create` method on resource `AccountSession`
-* [#1032](https://github.com/stripe/stripe-python/pull/1032) Types for CRUDL methods on parents
 
 ## 6.1.0 - 2023-08-24
-* [#1016](https://github.com/stripe/stripe-python/pull/1016) Update generated code
 * [#1020](https://github.com/stripe/stripe-python/pull/1020) Adds type annotations, and dependency on `typing_extensions`.
-
+* [#1016](https://github.com/stripe/stripe-python/pull/1016) Update generated code
 
 ## 6.0.0 - 2023-08-16
-**⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
-* [#1001](https://github.com/stripe/stripe-python/pull/1001) [#1008](https://github.com/stripe/stripe-python/pull/1008) Remove support for Python 2.
-  * The last version of stripe-python that supports Python 2 is 5.5.0. [The Python Software Foundation (PSF)](https://www.python.org/psf-landing/) community [announced the end of support of Python 2](https://www.python.org/doc/sunset-python-2/) on 01 January 2020. To continue to get new features and security updates, please make sure to update your Python runtime to Python 3.6+.
-* [#987](https://github.com/stripe/stripe-python/pull/987) ⚠️⚠️Pin to the latest API version⚠️⚠️
+This release changes the pinned API version to `2023-08-16`.
 
+**⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
+
+* ⚠️ [#987](https://github.com/stripe/stripe-python/pull/987) Pin to the latest API version
   In this release, Stripe API Version `2023-08-16` (the latest at time of release) will be sent by default on all requests.
   The previous default was to use your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version).
 
@@ -2043,11 +2041,12 @@ This release changes the pinned API version to `2025-04-30.basil`.
   Going forward, each major release of this library will be *pinned* by default to the latest Stripe API Version at the time of release.
 
   That is, instead of upgrading stripe-python and separately upgrading your Stripe API Version through the Stripe Dashboard, whenever you upgrade major versions of stripe-python, you should also upgrade your integration to be compatible with the latest Stripe API version.
-
-* [#1013](https://github.com/stripe/stripe-python/pull/1013) ⚠️Removed @test_helper decorator
-  * This is technically breaking but unlikely to affect most users.
-* [#1015](https://github.com/stripe/stripe-python/pull/1015) ⚠️Assert types of pagination responses
+* [#1001](https://github.com/stripe/stripe-python/pull/1001) [#1008](https://github.com/stripe/stripe-python/pull/1008) Remove support for Python 2.
+  * The last version of stripe-python that supports Python 2 is 5.5.0. [The Python Software Foundation (PSF)](https://www.python.org/psf-landing/) community [announced the end of support of Python 2](https://www.python.org/doc/sunset-python-2/) on 01 January 2020. To continue to get new features and security updates, please make sure to update your Python runtime to Python 3.6+.
+* ⚠️ [#1015](https://github.com/stripe/stripe-python/pull/1015) Assert types of pagination responses
   * Pagination will raise an exception if the API response is not of the correct type. This should never happen in production use but may break tests that use mock data.
+* ⚠️ [#1013](https://github.com/stripe/stripe-python/pull/1013) Removed @test_helper decorator
+  * This is technically breaking but unlikely to affect most users.
 
 ## 5.5.0 - 2023-07-13
 * [#990](https://github.com/stripe/stripe-python/pull/990) Update generated code
@@ -2073,29 +2072,29 @@ This release changes the pinned API version to `2025-04-30.basil`.
 * [#923](https://github.com/stripe/stripe-python/pull/923) Bugfix: revert "Pass params into logger.{info,debug}"
 
 ## 5.1.0 - 2023-02-02
+* [#913](https://github.com/stripe/stripe-python/pull/913) Pass params into logger.{info,debug}
 * [#920](https://github.com/stripe/stripe-python/pull/920) API Updates
   * Add support for `resume` method on resource `Subscription`
-* [#913](https://github.com/stripe/stripe-python/pull/913) Pass params into logger.{info,debug}
 
 ## 5.0.0 - 2022-11-16
+This release changes the pinned API version to `2022-11-15`.
 
 Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-11-15.
 
 "⚠️" symbol highlights breaking changes.
 
-* [#895](https://github.com/stripe/stripe-python/pull/895) Next major release changes
-* [#889](https://github.com/stripe/stripe-python/pull/889) API Updates
-
-* [#888](https://github.com/stripe/stripe-python/pull/888) Do not run Coveralls if secret token is not available
 * [#875](https://github.com/stripe/stripe-python/pull/875) hide misleading ssl security warning in python>=2.7.9
+* [#888](https://github.com/stripe/stripe-python/pull/888) Do not run Coveralls if secret token is not available
+* [#889](https://github.com/stripe/stripe-python/pull/889) API Updates
+* [#895](https://github.com/stripe/stripe-python/pull/895) Next major release changes
 
 ### ⚠️ Changed
-- Dropped support for Python version 3.4 and 3.5 (#881). We now support Python 2.7 or 3.6+.
-- Fixed mistyped names for two OAuth exceptions: `UnsupportedGrantTypError`->`UnsupportedGrantTypeError` and `UnsupportedResponseTypError`->`UnsupportedResponseTypeError` (#872).
+* ⚠️ [#872](https://github.com/stripe/stripe-python/pull/872) Fixed mistyped names for two OAuth exceptions: `UnsupportedGrantTypError`->`UnsupportedGrantTypeError` and `UnsupportedResponseTypError`->`UnsupportedResponseTypeError`
+* ⚠️ Dropped support for Python version 3.4 and 3.5 (#881). We now support Python 2.7 or 3.6+.
 
 ### Deprecated
-- Deprecate `save` method on resources (#887). Use `modify` instead.
-   ```python
+* Deprecate `save` method on resources (#887). Use `modify` instead.
+  ```python
   # Before
   customer = stripe.Customer.retrieve("cus_123")
   customer.email = "example@test.com"
@@ -2106,21 +2105,21 @@ Breaking changes that arose during code generation of the library that we postpo
    ```
 
 ### ⚠️ Removed
-- Removed `Orders` resource (#882).
-- Removed `SKU` resource (#883).
+* ⚠️ [#882](https://github.com/stripe/stripe-python/pull/882) Removed `Orders` resource
+* ⚠️ [#883](https://github.com/stripe/stripe-python/pull/883) Removed `SKU` resource
 
 ## 4.2.0 - 2022-09-23
-* [#877](https://github.com/stripe/stripe-python/pull/877) API Updates
-  * Add `upcoming_lines` method to the `Invoice` resource.
 * [#873](https://github.com/stripe/stripe-python/pull/873) Add abstract methods for SearchableAPIResource
 * [#867](https://github.com/stripe/stripe-python/pull/867) API Updates
   * Update links in documentation to be absolute.
+* [#877](https://github.com/stripe/stripe-python/pull/877) API Updates
+  * Add `upcoming_lines` method to the `Invoice` resource.
 
 ## 4.1.0 - 2022-08-19
+* [#717](https://github.com/stripe/stripe-python/pull/717) Fix test TestCharge.test_is_saveable().
+* [#860](https://github.com/stripe/stripe-python/pull/860) Add a support section to the readme
 * [#861](https://github.com/stripe/stripe-python/pull/861) API Updates
   * Add support for new resource `CustomerCashBalanceTransaction`
-* [#860](https://github.com/stripe/stripe-python/pull/860) Add a support section to the readme
-* [#717](https://github.com/stripe/stripe-python/pull/717) Fix test TestCharge.test_is_saveable().
 
 ## 4.0.2 - 2022-08-03
 * [#855](https://github.com/stripe/stripe-python/pull/855) Fix issue where auto_paging_iter failed on nested list objects.
@@ -2130,31 +2129,32 @@ Breaking changes that arose during code generation of the library that we postpo
   * Fixes issue where using special parameter like `api_key`, `idempotency_key`, `stripe_version`, `stripe_account`, `headers` can cause a `Received unknown parameter error`.
 
 ## 4.0.0 - 2022-08-02
+This release changes the pinned API version to `2022-08-01`.
 
 Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v4. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-08-01.
 
 "⚠️" symbol highlights breaking changes.
 
-* [#847](https://github.com/stripe/stripe-python/pull/847) API Updates
-* [#845](https://github.com/stripe/stripe-python/pull/845) Next major release changes
-* [#836](https://github.com/stripe/stripe-python/pull/836) API Updates. Add Price.create tests.
 * [#835](https://github.com/stripe/stripe-python/pull/835) API Updates. Use auto-generation for credit_note and invoice methods.
-
-### ⚠️ Removed
-- Removed deprecated `AlipayAccount`, `BitcoinReceiver`, `BitcoinTransaction`, `IssuerFraudRecord`, `Recipient`, `RecipientTransfer`, and  `ThreeDSecure` classes.
-- Removed deprecated `Charge.update_dispute` and `Charge.close_dispute` methods that were using legacy REST API endpoint. Prefer [Dispute.modify](https://stripe.com/docs/api/disputes/update?lang=python) and [Dispute.close](https://stripe.com/docs/api/disputes/close?lang=python)
-- Removed deprecated `Card.details` method and `CardDetails` resource. The REST API endpoint is not longer supported.
-- Removed the deprecated `Source.source_transactions` method. Prefer `SubscriptionItem.list_source_transactions`
-- Removed the deprecated `SubscriptionItem.usage_record_summaries` method. Prefer `SubscriptionItem.list_usage_record_summaries`
-- Removed the deprecated `Charge.refund` method. Prefer [Refund.create](https://stripe.com/docs/api/refunds/create)
+* [#836](https://github.com/stripe/stripe-python/pull/836) API Updates. Add Price.create tests.
+* [#845](https://github.com/stripe/stripe-python/pull/845) Next major release changes
+* [#847](https://github.com/stripe/stripe-python/pull/847) API Updates
 
 ### ⚠️ Changed
-- To be consistent with other resource methods, `ApplicationFee.refund` returns an instance of `ApplicationFee` and doesn't mutate the instance of `ApplicationFee`.
-- To be consistent with other resource methods, the `Customer.delete_discount` no longer resets the `discount` property to `None` and returns the deleted discount instead. If you were relying on this behavior, reset the discount property manually:
-- The `LineItem` resource now inherits from `StripeObject` as it has no methods of it's own.
-- To be consistent with other resource methods, the `Subscription.delete_discount` returns an instance of deleted discount and doesn't mutate the instance of `Subscription`.
-- Update the CA certificate bundle.
-- Request sending logic unified across standard and custom methods (https://github.com/stripe/stripe-python/pull/832)
+* ⚠️ To be consistent with other resource methods, `ApplicationFee.refund` returns an instance of `ApplicationFee` and doesn't mutate the instance of `ApplicationFee`.
+* ⚠️ To be consistent with other resource methods, the `Customer.delete_discount` no longer resets the `discount` property to `None` and returns the deleted discount instead. If you were relying on this behavior, reset the discount property manually:
+* ⚠️ To be consistent with other resource methods, the `Subscription.delete_discount` returns an instance of deleted discount and doesn't mutate the instance of `Subscription`.
+* ⚠️ The `LineItem` resource now inherits from `StripeObject` as it has no methods of it's own.
+* Request sending logic unified across standard and custom methods (https://github.com/stripe/stripe-python/pull/832)
+* Update the CA certificate bundle.
+
+### ⚠️ Removed
+* ⚠️ Removed deprecated `AlipayAccount`, `BitcoinReceiver`, `BitcoinTransaction`, `IssuerFraudRecord`, `Recipient`, `RecipientTransfer`, and  `ThreeDSecure` classes.
+* ⚠️ Removed deprecated `Card.details` method and `CardDetails` resource. The REST API endpoint is not longer supported.
+* ⚠️ Removed deprecated `Charge.update_dispute` and `Charge.close_dispute` methods that were using legacy REST API endpoint. Prefer [Dispute.modify](https://stripe.com/docs/api/disputes/update?lang=python) and [Dispute.close](https://stripe.com/docs/api/disputes/close?lang=python)
+* ⚠️ Removed the deprecated `Charge.refund` method. Prefer [Refund.create](https://stripe.com/docs/api/refunds/create)
+* ⚠️ Removed the deprecated `Source.source_transactions` method. Prefer `SubscriptionItem.list_source_transactions`
+* ⚠️ Removed the deprecated `SubscriptionItem.usage_record_summaries` method. Prefer `SubscriptionItem.list_usage_record_summaries`
 
 ## 3.5.0 - 2022-06-30
 * [#831](https://github.com/stripe/stripe-python/pull/831) API Updates
@@ -2163,9 +2163,9 @@ Breaking changes that arose during code generation of the library that we postpo
   * Switch from using explicit class methods for test helpers instead of using meta-programming.
 
 ## 3.4.0 - 2022-06-17
+* [#823](https://github.com/stripe/stripe-python/pull/823) Trigger workflows on beta branches
 * [#824](https://github.com/stripe/stripe-python/pull/824) API Updates
   * Add support for `fund_cash_balance` test helper method on resource `Customer`
-* [#823](https://github.com/stripe/stripe-python/pull/823) Trigger workflows on beta branches
 
 ## 3.3.0 - 2022-06-08
 * [#818](https://github.com/stripe/stripe-python/pull/818) fix: Update cash balance methods to no longer require nested ID.
@@ -2175,18 +2175,17 @@ Breaking changes that arose during code generation of the library that we postpo
   * Add support for new resource `Apps.Secret`
 
 ## 3.1.0 - 2022-05-19
+* [#811](https://github.com/stripe/stripe-python/pull/811) Add sanitize_id method
+* [#767](https://github.com/stripe/stripe-python/pull/767) Bump vendored six to 1.16.0
+* [#719](https://github.com/stripe/stripe-python/pull/719) Set daemon attribute instead of using setDaemon method that was deprecated in Python 3.10
+* [#806](https://github.com/stripe/stripe-python/pull/806) Start testing on pypy-3.8
 * [#810](https://github.com/stripe/stripe-python/pull/810) API Updates
   * Add support for new resources `Treasury.CreditReversal`, `Treasury.DebitReversal`, `Treasury.FinancialAccountFeatures`, `Treasury.FinancialAccount`, `Treasury.FlowDetails`, `Treasury.InboundTransfer`, `Treasury.OutboundPayment`, `Treasury.OutboundTransfer`, `Treasury.ReceivedCredit`, `Treasury.ReceivedDebit`, `Treasury.TransactionEntry`, and `Treasury.Transaction`
   * Add support for `retrieve_payment_method` method on resource `Customer`
   * Add support for `list_owners` and `list` methods on resource `FinancialConnections.Account`
-* [#719](https://github.com/stripe/stripe-python/pull/719) Set daemon attribute instead of using setDaemon method that was deprecated in Python 3.10
-* [#767](https://github.com/stripe/stripe-python/pull/767) Bump vendored six to 1.16.0
-* [#806](https://github.com/stripe/stripe-python/pull/806) Start testing on pypy-3.8
-* [#811](https://github.com/stripe/stripe-python/pull/811) Add sanitize_id method
-
 
 ## 3.0.0 - 2022-05-09
-* [#809](https://github.com/stripe/stripe-python/pull/809) Release of major version v3.0.0. The [migration guide](https://github.com/stripe/stripe-python/wiki/Migration-Guide-for-v3) contains more information.
+* ⚠️ [#809](https://github.com/stripe/stripe-python/pull/809) Release of major version v3.0.0. The [migration guide](https://github.com/stripe/stripe-python/wiki/Migration-Guide-for-v3) contains more information.
   (⚠️ = breaking changes):
   * ⚠️ Replace the legacy `Order` API with the new `Order` API.
     * New methods: `cancel`, `list_line_items`, `reopen`, and `submit`
@@ -2224,17 +2223,17 @@ Breaking changes that arose during code generation of the library that we postpo
   * Add support for `cancel_action`, `process_payment_intent`, `process_setup_intent`, and `set_reader_display` methods on resource `Terminal.Reader`
 
 ## 2.69.0 - 2022-03-29
+* [#773](https://github.com/stripe/stripe-python/pull/773) Add infrastructure for test-helper methods
+* [#782](https://github.com/stripe/stripe-python/pull/782) Revert Orders to use qualified name for upload_api_base
+* [#784](https://github.com/stripe/stripe-python/pull/784) Pin click dependency to 8.0.4 to avoid breakage in black
 * [#783](https://github.com/stripe/stripe-python/pull/783) API Updates
   * Add support for Search API
     * Add support for `search` method on resources `Charge`, `Customer`, `Invoice`, `PaymentIntent`, `Price`, `Product`, and `Subscription`
-* [#784](https://github.com/stripe/stripe-python/pull/784) Pin click dependency to 8.0.4 to avoid breakage in black
-* [#773](https://github.com/stripe/stripe-python/pull/773) Add infrastructure for test-helper methods
-* [#782](https://github.com/stripe/stripe-python/pull/782) Revert Orders to use qualified name for upload_api_base
 
 ## 2.68.0 - 2022-03-23
+* [#777](https://github.com/stripe/stripe-python/pull/777) Add support for SearchResult.
 * [#781](https://github.com/stripe/stripe-python/pull/781) API Updates
   * Add support for `cancel` method on resource `Refund`
-* [#777](https://github.com/stripe/stripe-python/pull/777) Add support for SearchResult.
 
 ## 2.67.0 - 2022-03-01
 * [#774](https://github.com/stripe/stripe-python/pull/774) API Updates
@@ -2245,14 +2244,14 @@ Breaking changes that arose during code generation of the library that we postpo
   * Add support for `verify_microdeposits` method on resources `PaymentIntent` and `SetupIntent`
 
 ## 2.65.0 - 2022-01-20
+* [#763](https://github.com/stripe/stripe-python/pull/763) Start testing Python 3.10
 * [#766](https://github.com/stripe/stripe-python/pull/766) API Updates
   * Add support for new resource `PaymentLink`
-* [#763](https://github.com/stripe/stripe-python/pull/763) Start testing Python 3.10
 
 ## 2.64.0 - 2021-12-21
-* [#757](https://github.com/stripe/stripe-python/pull/757) Update class custom methods to save list object parameters.
-* [#756](https://github.com/stripe/stripe-python/pull/756) Introduce custom listing methods on objects.
 * [#754](https://github.com/stripe/stripe-python/pull/754) Clarify metadata deletion message.
+* [#756](https://github.com/stripe/stripe-python/pull/756) Introduce custom listing methods on objects.
+* [#757](https://github.com/stripe/stripe-python/pull/757) Update class custom methods to save list object parameters.
 
 ## 2.63.0 - 2021-11-16
 * [#748](https://github.com/stripe/stripe-python/pull/748) API Updates
@@ -2263,9 +2262,9 @@ Breaking changes that arose during code generation of the library that we postpo
   * Add support for `expire` method on resource `Checkout.Session`
 
 ## 2.61.0 - 2021-10-11
+* [#736](https://github.com/stripe/stripe-python/pull/736) Stop sending raw exception message as part of Stripe user agent.
 * [#738](https://github.com/stripe/stripe-python/pull/738) API Updates
   * Add support for `list_payment_methods` method on resource `Customer`
-* [#736](https://github.com/stripe/stripe-python/pull/736) Stop sending raw exception message as part of Stripe user agent.
 
 ## 2.60.0 - 2021-07-14
 * [#728](https://github.com/stripe/stripe-python/pull/728) API Updates
@@ -2288,16 +2287,20 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#704](https://github.com/stripe/stripe-python/pull/704) Fix CA bundle path issue
 
 ## 2.55.1 - 2020-12-01
-* [#698](https://github.com/stripe/stripe-python/pull/698) Fix issue where StripeObjects in lists would not be converted to dicts
-* [#699](https://github.com/stripe/stripe-python/pull/699) Start testing Python 3.9
 * [#691](https://github.com/stripe/stripe-python/pull/691) Include the examples in the built sources
+* [#699](https://github.com/stripe/stripe-python/pull/699) Start testing Python 3.9
+* [#698](https://github.com/stripe/stripe-python/pull/698) Fix issue where StripeObjects in lists would not be converted to dicts
 
 ## 2.55.0 - 2020-10-14
 * [#684](https://github.com/stripe/stripe-python/pull/684) Add support for the Payout Reverse API
 
 ## 2.54.0 - 2020-09-29
-* [#681](https://github.com/stripe/stripe-python/pull/681) Add support for the `SetupAttempt` resource and List API
 * 2.52.0 and 2.53.0 were empty releases that contained no additional changes.
+* [#681](https://github.com/stripe/stripe-python/pull/681) Add support for the `SetupAttempt` resource and List API
+
+## 2.53.0 - 2020-09-24
+
+## 2.52.0 - 2020-09-24
 
 ## 2.51.0 - 2020-09-02
 * [#676](https://github.com/stripe/stripe-python/pull/676) Add support for the Issuing Dispute Submit API
@@ -2327,14 +2330,14 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#644](https://github.com/stripe/stripe-python/pull/644) Add support for listing Checkout `Session`
 
 ## 2.42.0 - 2020-01-14
+* [#637](https://github.com/stripe/stripe-python/pull/637) Start testing Python 3.8
 * [#640](https://github.com/stripe/stripe-python/pull/640) Add support for `CreditNoteLineItem`
 * [#639](https://github.com/stripe/stripe-python/pull/639) Pin black version
-* [#637](https://github.com/stripe/stripe-python/pull/637) Start testing Python 3.8
 
 ## 2.41.1 - 2019-12-30
-* [#636](https://github.com/stripe/stripe-python/pull/636) Fix uploading files with Unicode names (Python 2.7)
-* [#635](https://github.com/stripe/stripe-python/pull/635) Update Python API docs inline link
 * [#631](https://github.com/stripe/stripe-python/pull/631) Update `proxy.py`
+* [#635](https://github.com/stripe/stripe-python/pull/635) Update Python API docs inline link
+* [#636](https://github.com/stripe/stripe-python/pull/636) Fix uploading files with Unicode names (Python 2.7)
 
 ## 2.41.0 - 2019-11-26
 * [#630](https://github.com/stripe/stripe-python/pull/630) Add support for `CreditNote` preview
@@ -2346,8 +2349,8 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#625](https://github.com/stripe/stripe-python/pull/625) Add support for `Mandate`
 
 ## 2.38.0 - 2019-10-29
-* [#623](https://github.com/stripe/stripe-python/pull/623) Add support for reverse pagination
 * [#624](https://github.com/stripe/stripe-python/pull/624) Contributor Convenant
+* [#623](https://github.com/stripe/stripe-python/pull/623) Add support for reverse pagination
 
 ## 2.37.2 - 2019-10-04
 * [#621](https://github.com/stripe/stripe-python/pull/621) Implement support for stripe-should-retry and retry-after headers
@@ -2356,8 +2359,8 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#620](https://github.com/stripe/stripe-python/pull/620) Check that `error` is a dict before trying to use it to create a `StripeError`
 
 ## 2.37.0 - 2019-09-26
-* [#619](https://github.com/stripe/stripe-python/pull/619) Add `ErrorObject` to `StripeError` exceptions
 * [#616](https://github.com/stripe/stripe-python/pull/616) Pass `CFLAGS` and `LDFLAGS` when running tests
+* [#619](https://github.com/stripe/stripe-python/pull/619) Add `ErrorObject` to `StripeError` exceptions
 
 ## 2.36.2 - 2019-09-12
 * [#614](https://github.com/stripe/stripe-python/pull/614) Use `OrderedDict` to maintain key order in API requests and responses
@@ -2369,8 +2372,8 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#610](https://github.com/stripe/stripe-python/pull/610) Add support for header parameters in `ListObject` request methods
 
 ## 2.35.1 - 2019-08-20
-* [#605](https://github.com/stripe/stripe-python/pull/605) Fix automatic retries of failed requests
 * [#606](https://github.com/stripe/stripe-python/pull/606) Clarify what `max_network_retries` does
+* [#605](https://github.com/stripe/stripe-python/pull/605) Fix automatic retries of failed requests
 
 ## 2.35.0 - 2019-08-12
 * [#607](https://github.com/stripe/stripe-python/pull/607) Add `SubscriptionItem.create_usage_record` method
@@ -2441,13 +2444,13 @@ Version 2.29.2 was non-functional due to a bugged `version.py` file. This releas
 * [#550](https://github.com/stripe/stripe-python/pull/550) Fix encoding of nested parameters in multipart requests
 
 ## 2.24.0 - 2019-04-03
-* [#543](https://github.com/stripe/stripe-python/pull/543) Add `delete` class method on deletable API resources
 * [#547](https://github.com/stripe/stripe-python/pull/547) Add class methods for all custom API requests (e.g. `Charge.capture`)
+* [#543](https://github.com/stripe/stripe-python/pull/543) Add `delete` class method on deletable API resources
 
 ## 2.23.0 - 2019-03-18
+* [#542](https://github.com/stripe/stripe-python/pull/542) Add support for deleting a Terminal `Location` and `Reader`
 * [#537](https://github.com/stripe/stripe-python/pull/537) Add support for the `PaymentMethod` resource and APIs
 * [#540](https://github.com/stripe/stripe-python/pull/540) Add support for retrieving a Checkout `Session`
-* [#542](https://github.com/stripe/stripe-python/pull/542) Add support for deleting a Terminal `Location` and `Reader`
 
 ## 2.22.0 - 2019-03-14
 * [#541](https://github.com/stripe/stripe-python/pull/541) Add `stripe.util.convert_to_dict` method for converting `StripeObject` instances to regular `dict`s
@@ -2553,14 +2556,11 @@ Version 2.29.2 was non-functional due to a bugged `version.py` file. This releas
 
 ## 2.0.0 - 2018-07-10
 Major version release. List of backwards incompatible changes to watch out for:
-* The minimum Python versions are now 2.7 / 3.4. If you're using Python 2.6 or 3.3, consider upgrading to a more recent version.
-* Stripe exception classes should now be accessed via `stripe.error` rather than just `stripe`
-* Some older deprecated methods have been removed
-* Trying to detach an unattached source will now raise a `stripe.error.InvalidRequestError` exception instead of a `NotImplementedError` exception
 
 For more information, check out the [migration guide for v2](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v2)
 
 Pull requests included in this release:
+
 * [#385](https://github.com/stripe/stripe-python/pull/385) Drop support for Python 2.6 and 3.3
 * [#384](https://github.com/stripe/stripe-python/pull/384) Use py.test for tests
 * [#399](https://github.com/stripe/stripe-python/pull/399) Remove deprecated code
@@ -2568,6 +2568,10 @@ Pull requests included in this release:
 * [#403](https://github.com/stripe/stripe-python/pull/403) Update setup.py and test flow
 * [#410](https://github.com/stripe/stripe-python/pull/410) Use pipenv
 * [#415](https://github.com/stripe/stripe-python/pull/415) Change exception when detaching unattached sources from `NotImplementedError` to `stripe.error.InvalidRequestError`
+* The minimum Python versions are now 2.7 / 3.4. If you're using Python 2.6 or 3.3, consider upgrading to a more recent version.
+* Some older deprecated methods have been removed
+* Stripe exception classes should now be accessed via `stripe.error` rather than just `stripe`
+* Trying to detach an unattached source will now raise a `stripe.error.InvalidRequestError` exception instead of a `NotImplementedError` exception
 
 ## 1.84.2 - 2018-07-06
 * [#441](https://github.com/stripe/stripe-python/pull/441) Better (hopefully) fix for serialization of empty `ListObject`s
@@ -2600,8 +2604,8 @@ Pull requests included in this release:
 * [#401](https://github.com/stripe/stripe-python/pull/401) Drop conditional dependencies that incorrectly led to an added `simplejson` dependency in Python 3+ after switching to universal wheel
 
 ## 1.79.0 - 2018-02-23
-* [#397](https://github.com/stripe/stripe-python/pull/397) Build universal wheels by default
 * [#398](https://github.com/stripe/stripe-python/pull/398) Add support for `code` attribute on all Stripe exceptions
+* [#397](https://github.com/stripe/stripe-python/pull/397) Build universal wheels by default
 
 ## 1.78.0 - 2018-02-21
 * [#396](https://github.com/stripe/stripe-python/pull/396) Add support for topups
@@ -2654,15 +2658,15 @@ Pull requests included in this release:
 
 ## 1.69.0 - 2017-10-20
 * [#351](https://github.com/stripe/stripe-python/pull/351) Break resource.py module into separate ones for each type of resource
-    * Classes are still into resource.py for backwards compatibility
+  * Classes are still into resource.py for backwards compatibility
 * [#353](https://github.com/stripe/stripe-python/pull/353) Fix unpickling `StripeObject` in Python 3
 
 ## 1.68.0 - 2017-10-19
 * [#350](https://github.com/stripe/stripe-python/pull/350) Add static methods to manipulate resources from parent
-    * `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)
-    * `ApplicationFee` gains methods for refunds
-    * `Customer` gains methods for sources
-    * `Transfer` gains methods for reversals
+  * `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)
+  * `ApplicationFee` gains methods for refunds
+  * `Customer` gains methods for sources
+  * `Transfer` gains methods for reversals
 
 ## 1.67.0 - 2017-10-11
 * [#349](https://github.com/stripe/stripe-python/pull/349) Rename source `delete` to `detach` (and deprecate the former)
@@ -2753,9 +2757,9 @@ Pull requests included in this release:
 * Use internal session for Requests for connection pooling
 
 ## 1.45.0 - 2017-01-06
-* request logging goes to stderr now
-* Logs properly handle unicode
 * Format is now the same between logging logs, and console logs
+* Logs properly handle unicode
+* request logging goes to stderr now
 
 ## 1.44.0 - 2016-12-16
 * Add request logging and some mechanisms to enable it when debugging
@@ -2779,8 +2783,8 @@ Pull requests included in this release:
 * Add configurable timeout for Requests HTTP library
 
 ## 1.39.0 - 2016-10-06
-* Add support for subscription items
 * Add proxy support for pycurl, Requests, urlfetch, and urllib2 libraries
+* Add support for subscription items
 
 ## 1.38.0 - 2016-09-15
 * Add support for Apple Pay domains
@@ -2830,15 +2834,15 @@ Pull requests included in this release:
 
 ## 1.28.0 - 2016-01-04
 * Add an automatic paginating iterator to lists available via `auto_paging_iter`
-* List objects are now iterable
-* Error messages set to `None` are now handled properly
 * The `all` method on list objects has been deprecated in favor of `list`
 * Calls to `instance_url` are now side effect free
+* Error messages set to `None` are now handled properly
+* List objects are now iterable
 
 ## 1.27.1 - 2015-10-02
-* Official Python 3.4 & 3.5 compatibility
-* Add configurable HTTP client
 * Add ability to delete attributes
+* Add configurable HTTP client
+* Official Python 3.4 & 3.5 compatibility
 
 ## 1.27.0 - 2015-09-14
 * Products, SKUs, Orders resources
@@ -2853,8 +2857,8 @@ Pull requests included in this release:
 * Fix error handling for Python 2.6
 
 ## 1.24.0 - 2015-08-03
-* Managed accounts can now be deleted
 * Added dispute listing and retrieval
+* Managed accounts can now be deleted
 
 ## 1.23.0 - 2015-07-06
 * Include response headers in exceptions
@@ -2886,7 +2890,7 @@ Pull requests included in this release:
 ## 1.19.1 - 2014-10-23
 * Remove redundant manual SSL blacklist preflight check
 
-## 1.19.0 - 2014-07-26
+## 1.19.0 - 2014-07-29
 * Application Fee refunds now a list instead of array
 
 ## 1.18.0 - 2014-06-17
@@ -2898,19 +2902,19 @@ Pull requests included in this release:
 ## 1.16.0 - 2014-05-28
 * Support for canceling transfers
 
-## 1.15.1 - 2014-05-21
+## 1.15.1 - 2014-05-22
 * Support cards for recipients.
 
 ## 1.14.1 - 2014-05-19
 * Disable loading the ssl module on the Google App Engine dev server.
 
 ## 1.14.0 - 2014-04-09
-* Use DER encoded certificate for checksumming
 * Don't rely on SNI support in integration tests
+* Use DER encoded certificate for checksumming
 
 ## 1.13.0 - 2014-04-09
-* Update bundled ca-certificates
 * Add certificate blacklist for CVE-2014-0160 mitigation
+* Update bundled ca-certificates
 
 ## 1.12.2 - 2014-03-13
 * Fix syntax errors in setup.py metadata
@@ -2924,26 +2928,26 @@ Pull requests included in this release:
 * Added support for multiple subscriptions per customer
 
 ## 1.11.0 - 2013-12-05
+* Abstracted http library selection and use from the `APIRequestor` into `stripe.http_client`
 * Added extensive unit tests
 * Extended functional test coverage
-* Refactored code into modules and out of stripe/__init__.py
-* Abstracted http library selection and use from the `APIRequestor` into `stripe.http_client`
-* Refactored `StripeObject` to inherit from `dict` and avoid direct access of `__dict__`.
 * PEP8ified the codebase and enforced with a test.
 * Proper encoding of timezone aware datetimes
+* Refactored code into modules and out of stripe/__init__.py
+* Refactored `StripeObject` to inherit from `dict` and avoid direct access of `__dict__`.
 
 ### Backwards incompatible changes
-* The `to_dict` and `values` methods on resources no longer recursively convert objects to plain `dict`s.  All resources now inherit from `dict` but are functionally different in that you cannot set a value to an empty string and cannot delete items.
 * The `previous_metadata` attribute on resources is now protected.
 * Timezone aware `datetime` objects passed to the API will now be encoded in a way that does not depend on the local system time.  If you are passing timezone-aware datetimes to our API and your server time is not already in UTC, this will change the value passed to our API.
+* ⚠️ The `to_dict` and `values` methods on resources no longer recursively convert objects to plain `dict`s.  All resources now inherit from `dict` but are functionally different in that you cannot set a value to an empty string and cannot delete items.
 
-## 1.10.8 - 2013-12-02
+## 1.10.8 - 2013-12-04
 * Add stripe.ApplicationFee resource
 
 ## 1.9.8 - 2013-10-17
 * Removed incorrect test.
 
-## 1.9.7 - 2013-10-10
+## 1.9.7 - 2013-10-17
 * Add support for metadata.
 
 ## 1.9.6 - 2013-10-08
@@ -2952,7 +2956,7 @@ Pull requests included in this release:
 ## 1.9.5 - 2013-09-18
 * Add support for closing disputes.
 
-## 1.9.4 - 2013-08-13
+## 1.9.4 - 2013-08-20
 * Add stripe.Balance and stripe.BalanceTransaction resources
 
 ## 1.9.3 - 2013-08-12
@@ -2969,13 +2973,13 @@ Pull requests included in this release:
 * Support for Python 3 (github issue #32)
 
 ## 1.8.0 - 2013-04-11
-* Allow transfers to be creatable
 * Add new stripe.Recipient resource
+* Allow transfers to be creatable
 
 ## 1.7.10 - 2013-02-21
 * Add 'id' to the list of permanent attributes
 
-## 1.7.9 - 2013-02-01
+## 1.7.9 - 2013-02-04
 * Add support for passing options when retrieving Stripe objects; e.g., stripe.Charge.retrieve("foo", params={"expand":["customer"]})
 
 ## 1.7.8 - 2013-01-15
@@ -2995,7 +2999,7 @@ Pull requests included in this release:
 ## 1.7.4 - 2012-08-31
 * Add update and pay methods for Invoice resource
 
-## 1.7.3 - 2012-08-15
+## 1.7.3 - 2012-08-17
 * Add new stripe.Account resource
 * Remove uncaptured_charge tests (this has been deprecated from the API).
 
@@ -3008,8 +3012,82 @@ Pull requests included in this release:
 ## 1.7.0 - 2012-05-17
 * Add new delete_discount method to stripe.Customer
 * Add new stripe.Transfer resource
-* Switch from using HTTP Basic auth to Bearer auth. (Note: Stripe will support Basic auth for the indefinite future, but recommends Bearer auth when possible going forward)
 * Numerous test suite improvements
+* Switch from using HTTP Basic auth to Bearer auth. (Note: Stripe will support Basic auth for the indefinite future, but recommends Bearer auth when possible going forward)
 
-## 1.6.1 - 2011-09-14
+## 1.6.1 - 2012-02-04
 * Parameters with value None are no longer included in API requests
+
+## 1.5.36 - 2012-01-26
+
+## 1.5.35 - 2012-01-05
+
+## 1.5.34 - 2012-01-05
+
+## 1.5.33 - 2012-01-05
+
+## 1.5.32 - 2012-01-05
+
+## 1.5.31 - 2012-01-05
+
+## 1.5.30 - 2011-12-12
+
+## 1.5.29 - 2011-11-25
+
+## 1.5.28 - 2011-11-23
+
+## 1.5.27 - 2011-10-29
+
+## 1.5.26 - 2011-10-29
+
+## 1.5.25 - 2011-10-29
+
+## 1.5.24 - 2011-10-21
+
+## 1.5.23 - 2011-10-21
+
+## 1.5.22 - 2011-09-14
+
+## 1.5.21 - 2011-09-14
+
+## 1.5.20 - 2011-08-29
+
+## 1.5.19 - 2011-08-27
+
+## 1.5.18 - 2011-08-09
+
+## 1.5.17 - 2011-07-31
+
+## 1.5.16 - 2011-07-29
+
+## 1.5.15 - 2011-07-27
+
+## 1.5.14 - 2011-07-13
+
+## 1.5.13 - 2011-07-12
+
+## 1.5.12 - 2011-07-12
+
+## 1.5.11 - 2011-07-11
+
+## 1.5.10 - 2011-06-26
+
+## 1.5.9 - 2011-06-23
+
+## 1.5.8 - 2011-06-13
+
+## 1.5.7 - 2011-06-13
+
+## 1.5.6 - 2011-06-03
+
+## 1.5.5 - 2011-06-03
+
+## 1.5.4 - 2011-06-03
+
+## 1.5.3 - 2011-06-02
+
+## 1.5.2 - 2011-06-01
+
+## 1.5.1 - 2011-05-30
+
+## 1.5.0 - 2011-05-26
