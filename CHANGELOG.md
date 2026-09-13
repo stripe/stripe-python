@@ -7,7 +7,7 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 > This changelog only covers the **private preview** releases. Each release builds on the most recent GA release; see those notes in [the GA changelog](https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md).
 
-## 15.7.0a3 - 2026-09-09
+## <a id="15-7-0a3"></a>15.7.0a3 - 2026-09-09
 * [#1901](https://github.com/stripe/stripe-python/pull/1901) Update generated code for private-preview
   * Add support for `customer_tax_exemption` on `Tax.Calculation.ShippingCost.TaxBreakdown`, `Tax.CalculationLineItem.TaxBreakdown`, and `Tax.Transaction.ShippingCost.TaxBreakdown`
   * Add support for new value `data_share_only` on enums `Charge.PaymentMethodDetail.Card.ThreeDSecure.result`, `PaymentAttemptRecord.PaymentMethodDetail.Card.ThreeDSecure.result`, `PaymentRecord.PaymentMethodDetail.Card.ThreeDSecure.result`, and `SetupAttempt.PaymentMethodDetail.Card.ThreeDSecure.result`
@@ -21,7 +21,7 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
   * Add support for new value `rtp` on enum `Treasury.FinancialAccount.FinancialAddress.supported_networks`
   * Add support for new value `blik_recurring_payments` on enums `V2.Core.Account.FutureRequirement.Entry.Impact.RestrictsCapability.capability` and `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.capability`
 
-## 15.7.0a2 - 2026-09-02
+## <a id="15-7-0a2"></a>15.7.0a2 - 2026-09-02
 * ⚠️ [#1893](https://github.com/stripe/stripe-python/pull/1893) Update generated code for private-preview
   * Add support for new resources `radar.BillingEvaluation`, `v2.signals.PaymentRetryEvaluation`, `v2.signals.PaymentRetrySignal`, and `v2.tax.IntegrationConfiguration`
   * Add support for `create` method on resource `radar.BillingEvaluation`
@@ -105,7 +105,7 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
   * Add support for error code `contract_number_already_exists` on `AlreadyExistsError`
   * Add support for error codes `default_payout_method_cannot_be_disabled`, `evaluation_not_monitoring`, `missing_payment_data_for_evaluation`, `one_time_fee_already_billed`, `payment_not_eligible`, and `webhook_endpoint_not_configured` on `CannotProceedError`
 
-## 15.7.0a1 - 2026-08-26
+## <a id="15-7-0a1"></a>15.7.0a1 - 2026-08-26
 This release changes the pinned API version to `2026-08-26.preview`.
 
 * [#1880](https://github.com/stripe/stripe-python/pull/1880) Add non-verified manged handlers
@@ -141,7 +141,7 @@ This release changes the pinned API version to `2026-08-26.preview`.
   * Add support for new value `user_access_started` on enum `v2.iam.ActivityLogListParams.actions`
   * Add support for new value `blik_recurring_payments` on enum `EventsV2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.updated_capability`
 
-## 15.6.0a2 - 2026-08-19
+## <a id="15-6-0a2"></a>15.6.0a2 - 2026-08-19
 * ⚠️ [#1875](https://github.com/stripe/stripe-python/pull/1875) Update generated code for private-preview
   * Add support for new resources `PaymentPlan` and `billing.FeedbackOption`
   * ⚠️ Remove support for resource `billing.FeedbackOptions`
@@ -172,7 +172,7 @@ This release changes the pinned API version to `2026-08-26.preview`.
   * Change type of `v2.billing.ContractModifyParamsPricingLineActionUpdatePricingPriceDetailPricingOverrideActionUpdate.metadata` from `string` to `emptyable(string)`
   * Add support for snapshot events `payment_plan.created`, `payment_plan.installment_due`, `payment_plan.installment_paid`, `payment_plan.installment_will_be_due`, and `payment_plan.updated` with resource `PaymentPlan`
 
-## 15.6.0a1 - 2026-08-12
+## <a id="15-6-0a1"></a>15.6.0a1 - 2026-08-12
 This release changes the pinned API version to `2026-08-12.preview`.
 
 * ⚠️ [#1873](https://github.com/stripe/stripe-python/pull/1873) Update generated code for private-preview
@@ -222,7 +222,7 @@ This release changes the pinned API version to `2026-08-12.preview`.
   * Add support for event notification `V1InvoicePaymentAttemptRequiredEvent` with related object `Invoice`
   * Add support for error type `FxQuoteNeedsRefreshError`
 
-## 15.5.0a2 - 2026-08-05
+## <a id="15-5-0a2"></a>15.5.0a2 - 2026-08-05
 * ⚠️ [#1859](https://github.com/stripe/stripe-python/pull/1859) Update generated code for private-preview
   * Add support for new resource `billing.FeedbackOptions`
   * Add support for `sequra_payments` on `Account.Capability`
@@ -248,7 +248,7 @@ This release changes the pinned API version to `2026-08-12.preview`.
   * Add support for `status` on `v2.money_management.FinancialAccountStatementListParams`
   * Change `v2.billing.ContractCreateParams.pricing_lines` to be optional
 
-## 15.5.0a1 - 2026-07-29
+## <a id="15-5-0a1"></a>15.5.0a1 - 2026-07-29
 This release changes the pinned API version to `2026-07-29.preview`.
 
 * ⚠️ [#1854](https://github.com/stripe/stripe-python/pull/1854) Update generated code for private-preview
@@ -300,7 +300,7 @@ This release changes the pinned API version to `2026-07-29.preview`.
   * Add support for event notification `V2SignalsAccountEvaluationCompleteEvent` with related object `v2.signals.AccountEvaluation`
   * Add support for event notifications `V2SignalsAccountSignalFraudulentWebsiteReadyEvent` and `V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent` with related object `v2.signals.AccountSignal`
 
-## 15.4.0a5 - 2026-07-22
+## <a id="15-4-0a5"></a>15.4.0a5 - 2026-07-22
 * ⚠️ [#1852](https://github.com/stripe/stripe-python/pull/1852) Update generated code for private-preview
   * Add support for new resources `billing.AlertNotification` and `crypto.DepositAddress`
   * Add support for `create`, `list`, and `retrieve` methods on resource `crypto.DepositAddress`
@@ -334,7 +334,7 @@ This release changes the pinned API version to `2026-07-29.preview`.
   * Add support for new value `payment_delinquency_exposure` on enums `V2.Signals.AccountSignal.type` and `v2.signals.AccountSignalListParams.type`
   * Add support for new value `commercial.stripe.spend_card` on enum `EventsV2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.updated_capability`
 
-## 15.4.0a4 - 2026-07-16
+## <a id="15-4-0a4"></a>15.4.0a4 - 2026-07-16
 * ⚠️ [#1844](https://github.com/stripe/stripe-python/pull/1844) Update generated code for private-preview
   * ⚠️ Remove support for resource `FrMealVouchersOnboarding`
   * ⚠️ Remove support for `create`, `list`, `modify`, and `retrieve` methods on resource `FrMealVouchersOnboarding`
@@ -359,7 +359,7 @@ This release changes the pinned API version to `2026-07-29.preview`.
   * Add support for snapshot events `financial_connections.account.expected_deactivation_date_updated`, `financial_connections.account.supported_payment_method_types_updated`, and `financial_connections.account.upcoming_deactivation` with resource `financial_connections.Account`
   * Add support for snapshot events `financial_connections.authorization.expected_deactivation_date_updated` and `financial_connections.authorization.upcoming_deactivation` with resource `financial_connections.Authorization`
 
-## 15.4.0a3 - 2026-07-08
+## <a id="15-4-0a3"></a>15.4.0a3 - 2026-07-08
 This release changes the pinned API version to `2026-07-08.preview`.
 
 * ⚠️ [#1842](https://github.com/stripe/stripe-python/pull/1842) Update generated code for private-preview
@@ -408,7 +408,7 @@ This release changes the pinned API version to `2026-07-08.preview`.
   * ⚠️ Change type of `v2.billing.ContractModifyParamsPricingLineActionAddStartsAt.type`, `v2.billing.ContractModifyParamsPricingLineActionUpdatePricingPriceDetailPricingOverrideActionAddStartsAt.type`, `v2.billing.ContractModifyParamsPricingLineActionUpdatePricingPriceDetailPricingOverrideActionUpdateStartsAt.type`, `v2.billing.ContractModifyParamsPricingLineActionUpdateStartsAt.type`, `v2.billing.ContractModifyParamsPricingOverrideActionAddStartsAt.type`, and `v2.billing.ContractModifyParamsPricingOverrideActionUpdateStartsAt.type` from `enum('billing_period_start'|'timestamp')` to `literal('timestamp')`
   * Add support for event notifications `V2BillingContractActivatedEvent`, `V2BillingContractCanceledEvent`, `V2BillingContractCreatedEvent`, `V2BillingContractEndedEvent`, and `V2BillingContractUpdatedEvent` with related object `v2.billing.Contract`
 
-## 15.4.0a2 - 2026-07-01
+## <a id="15-4-0a2"></a>15.4.0a2 - 2026-07-01
 This release changes the pinned API version to `2026-07-01.preview`.
 
 * ⚠️ [#1839](https://github.com/stripe/stripe-python/pull/1839) Update generated code for private-preview
@@ -440,7 +440,7 @@ This release changes the pinned API version to `2026-07-01.preview`.
   * Change type of `v2.money_management.FinancialAccountCreateParams.type` from `literal('storage')` to `enum('credit'|'storage')`
   * Add support for `expires_at` on `v2.iam.ApiKeyCreateParams`
 
-## 15.4.0a1 - 2026-06-24
+## <a id="15-4-0a1"></a>15.4.0a1 - 2026-06-24
 This release changes the pinned API version to `2026-06-24.preview`.
 
 * ⚠️ [#1833](https://github.com/stripe/stripe-python/pull/1833) Update generated code for private-preview
@@ -541,7 +541,7 @@ This release changes the pinned API version to `2026-06-24.preview`.
   * Add support for error codes `us_bank_account_microdeposits_cannot_be_confirmed` and `us_bank_account_microdeposits_cannot_be_sent` on `ControlledByAlternateResourceError`
   * Add support for error code `payout_intent_not_cancelable` on `NotCancelableError`
 
-## 15.3.0a4 - 2026-06-17
+## <a id="15-3-0a4"></a>15.3.0a4 - 2026-06-17
 * ⚠️ [#1828](https://github.com/stripe/stripe-python/pull/1828) Update generated code for private-preview
   * Add support for `retrieve` method on resource `radar.CustomerEvaluation`
   * Add support for `disable_stripe_user_authentication` on `AccountSession.Component.Bill.Feature`
@@ -593,7 +593,7 @@ This release changes the pinned API version to `2026-06-24.preview`.
   * Add support for `payment_record` on `RefundListParams`
   * Add support for `protections` on `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.Celtic.ChargeCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.Celtic.SpendCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.CrossRiverBank.ChargeCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.CrossRiverBank.PrepaidCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.CrossRiverBank.SpendCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.FifthThird.ChargeCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.Lead.PrepaidCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.Stripe.ChargeCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Commercial.Stripe.PrepaidCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Consumer.Celtic.RevolvingCreditCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Consumer.CrossRiverBank.PrepaidCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Consumer.Lead.DebitCard`, `V2.Core.Account.Configuration.CardCreator.Capability.Consumer.Lead.PrepaidCard`, `V2.Core.Account.Configuration.Customer.Capability.AutomaticIndirectTax`, `V2.Core.Account.Configuration.Merchant.Capability.AchDebitPayment`, `V2.Core.Account.Configuration.Merchant.Capability.AcssDebitPayment`, `V2.Core.Account.Configuration.Merchant.Capability.AffirmPayment`, `V2.Core.Account.Configuration.Merchant.Capability.AfterpayClearpayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.AlmaPayment`, `V2.Core.Account.Configuration.Merchant.Capability.AmazonPayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.AuBecsDebitPayment`, `V2.Core.Account.Configuration.Merchant.Capability.BacsDebitPayment`, `V2.Core.Account.Configuration.Merchant.Capability.BancontactPayment`, `V2.Core.Account.Configuration.Merchant.Capability.BlikPayment`, `V2.Core.Account.Configuration.Merchant.Capability.BoletoPayment`, `V2.Core.Account.Configuration.Merchant.Capability.CardPayment`, `V2.Core.Account.Configuration.Merchant.Capability.CartesBancairesPayment`, `V2.Core.Account.Configuration.Merchant.Capability.CashappPayment`, `V2.Core.Account.Configuration.Merchant.Capability.EpsPayment`, `V2.Core.Account.Configuration.Merchant.Capability.FpxPayment`, `V2.Core.Account.Configuration.Merchant.Capability.GbBankTransferPayment`, `V2.Core.Account.Configuration.Merchant.Capability.GrabpayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.IdealPayment`, `V2.Core.Account.Configuration.Merchant.Capability.JcbPayment`, `V2.Core.Account.Configuration.Merchant.Capability.JpBankTransferPayment`, `V2.Core.Account.Configuration.Merchant.Capability.KakaoPayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.KlarnaPayment`, `V2.Core.Account.Configuration.Merchant.Capability.KonbiniPayment`, `V2.Core.Account.Configuration.Merchant.Capability.KrCardPayment`, `V2.Core.Account.Configuration.Merchant.Capability.LinkPayment`, `V2.Core.Account.Configuration.Merchant.Capability.MobilepayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.MultibancoPayment`, `V2.Core.Account.Configuration.Merchant.Capability.MxBankTransferPayment`, `V2.Core.Account.Configuration.Merchant.Capability.NaverPayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.OxxoPayment`, `V2.Core.Account.Configuration.Merchant.Capability.P24Payment`, `V2.Core.Account.Configuration.Merchant.Capability.PayByBankPayment`, `V2.Core.Account.Configuration.Merchant.Capability.PaycoPayment`, `V2.Core.Account.Configuration.Merchant.Capability.PaynowPayment`, `V2.Core.Account.Configuration.Merchant.Capability.PromptpayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.RevolutPayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.SamsungPayPayment`, `V2.Core.Account.Configuration.Merchant.Capability.SepaBankTransferPayment`, `V2.Core.Account.Configuration.Merchant.Capability.SepaDebitPayment`, `V2.Core.Account.Configuration.Merchant.Capability.StripeBalance.Payout`, `V2.Core.Account.Configuration.Merchant.Capability.SwishPayment`, `V2.Core.Account.Configuration.Merchant.Capability.TwintPayment`, `V2.Core.Account.Configuration.Merchant.Capability.UsBankTransferPayment`, `V2.Core.Account.Configuration.Merchant.Capability.ZipPayment`, `V2.Core.Account.Configuration.Recipient.Capability.BankAccount.Instant`, `V2.Core.Account.Configuration.Recipient.Capability.BankAccount.Local`, `V2.Core.Account.Configuration.Recipient.Capability.BankAccount.Wire`, `V2.Core.Account.Configuration.Recipient.Capability.Card`, `V2.Core.Account.Configuration.Recipient.Capability.CryptoWallet`, `V2.Core.Account.Configuration.Recipient.Capability.PaperCheck`, `V2.Core.Account.Configuration.Recipient.Capability.StripeBalance.Payout`, `V2.Core.Account.Configuration.Recipient.Capability.StripeBalance.StripeTransfer`, `V2.Core.Account.Configuration.Storer.Capability.Consumer.HoldsCurrency.Usd`, `V2.Core.Account.Configuration.Storer.Capability.FinancialAddress.BankAccount`, `V2.Core.Account.Configuration.Storer.Capability.FinancialAddress.CryptoWallet`, `V2.Core.Account.Configuration.Storer.Capability.HoldsCurrency.Eur`, `V2.Core.Account.Configuration.Storer.Capability.HoldsCurrency.Gbp`, `V2.Core.Account.Configuration.Storer.Capability.HoldsCurrency.Usd`, `V2.Core.Account.Configuration.Storer.Capability.HoldsCurrency.Usdc`, `V2.Core.Account.Configuration.Storer.Capability.InboundTransfer.BankAccount`, `V2.Core.Account.Configuration.Storer.Capability.OutboundPayment.BankAccount`, `V2.Core.Account.Configuration.Storer.Capability.OutboundPayment.Card`, `V2.Core.Account.Configuration.Storer.Capability.OutboundPayment.CryptoWallet`, `V2.Core.Account.Configuration.Storer.Capability.OutboundPayment.FinancialAccount`, `V2.Core.Account.Configuration.Storer.Capability.OutboundPayment.PaperCheck`, `V2.Core.Account.Configuration.Storer.Capability.OutboundTransfer.BankAccount`, `V2.Core.Account.Configuration.Storer.Capability.OutboundTransfer.CryptoWallet`, `V2.Core.Account.Configuration.Storer.Capability.OutboundTransfer.FinancialAccount`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialCelticChargeCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialCelticSpendCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialCrossRiverBankChargeCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialCrossRiverBankPrepaidCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialCrossRiverBankSpendCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialFifthThirdChargeCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialLeadPrepaidCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialStripeChargeCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityCommercialStripePrepaidCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityConsumerCelticRevolvingCreditCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityConsumerCrossRiverBankPrepaidCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityConsumerLeadDebitCard`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityConsumerLeadPrepaidCard`, `v2.core.AccountCreateParamsConfigurationCustomerCapabilityAutomaticIndirectTax`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityAchDebitPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityAcssDebitPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityAffirmPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityAfterpayClearpayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityAlmaPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityAmazonPayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityAuBecsDebitPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityBacsDebitPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityBancontactPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityBlikPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityBoletoPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityCardPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityCartesBancairesPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityCashappPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityEpsPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityFpxPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityGbBankTransferPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityGrabpayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityIdealPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityJcbPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityJpBankTransferPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityKakaoPayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityKlarnaPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityKonbiniPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityKrCardPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityLinkPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityMobilepayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityMultibancoPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityMxBankTransferPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityNaverPayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityOxxoPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityP24Payment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityPayByBankPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityPaycoPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityPaynowPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityPromptpayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityRevolutPayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilitySamsungPayPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilitySepaBankTransferPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilitySepaDebitPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilitySwishPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityTwintPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityUsBankTransferPayment`, `v2.core.AccountCreateParamsConfigurationMerchantCapabilityZipPayment`, `v2.core.AccountCreateParamsConfigurationRecipientCapabilityBankAccountInstant`, `v2.core.AccountCreateParamsConfigurationRecipientCapabilityBankAccountLocal`, `v2.core.AccountCreateParamsConfigurationRecipientCapabilityBankAccountWire`, `v2.core.AccountCreateParamsConfigurationRecipientCapabilityCard`, `v2.core.AccountCreateParamsConfigurationRecipientCapabilityCryptoWallet`, `v2.core.AccountCreateParamsConfigurationRecipientCapabilityPaperCheck`, `v2.core.AccountCreateParamsConfigurationRecipientCapabilityStripeBalanceStripeTransfer`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityConsumerHoldsCurrencyUsd`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityFinancialAddressBankAccount`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityFinancialAddressCryptoWallet`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityHoldsCurrencyEur`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityHoldsCurrencyGbp`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityHoldsCurrencyUsd`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityHoldsCurrencyUsdc`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityInboundTransferBankAccount`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundPaymentBankAccount`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundPaymentCard`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundPaymentCryptoWallet`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundPaymentFinancialAccount`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundPaymentPaperCheck`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundTransferBankAccount`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundTransferCryptoWallet`, `v2.core.AccountCreateParamsConfigurationStorerCapabilityOutboundTransferFinancialAccount`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialCelticChargeCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialCelticSpendCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialCrossRiverBankChargeCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialCrossRiverBankPrepaidCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialCrossRiverBankSpendCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialFifthThirdChargeCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialLeadPrepaidCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialStripeChargeCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityCommercialStripePrepaidCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityConsumerCelticRevolvingCreditCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityConsumerCrossRiverBankPrepaidCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityConsumerLeadDebitCard`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityConsumerLeadPrepaidCard`, `v2.core.AccountModifyParamsConfigurationCustomerCapabilityAutomaticIndirectTax`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityAchDebitPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityAcssDebitPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityAffirmPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityAfterpayClearpayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityAlmaPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityAmazonPayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityAuBecsDebitPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityBacsDebitPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityBancontactPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityBlikPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityBoletoPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityCardPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityCartesBancairesPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityCashappPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityEpsPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityFpxPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityGbBankTransferPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityGrabpayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityIdealPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityJcbPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityJpBankTransferPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityKakaoPayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityKlarnaPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityKonbiniPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityKrCardPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityLinkPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityMobilepayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityMultibancoPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityMxBankTransferPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityNaverPayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityOxxoPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityP24Payment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityPayByBankPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityPaycoPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityPaynowPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityPromptpayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityRevolutPayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilitySamsungPayPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilitySepaBankTransferPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilitySepaDebitPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilitySwishPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityTwintPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityUsBankTransferPayment`, `v2.core.AccountModifyParamsConfigurationMerchantCapabilityZipPayment`, `v2.core.AccountModifyParamsConfigurationRecipientCapabilityBankAccountInstant`, `v2.core.AccountModifyParamsConfigurationRecipientCapabilityBankAccountLocal`, `v2.core.AccountModifyParamsConfigurationRecipientCapabilityBankAccountWire`, `v2.core.AccountModifyParamsConfigurationRecipientCapabilityCard`, `v2.core.AccountModifyParamsConfigurationRecipientCapabilityCryptoWallet`, `v2.core.AccountModifyParamsConfigurationRecipientCapabilityPaperCheck`, `v2.core.AccountModifyParamsConfigurationRecipientCapabilityStripeBalanceStripeTransfer`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityConsumerHoldsCurrencyUsd`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityFinancialAddressBankAccount`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityFinancialAddressCryptoWallet`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityHoldsCurrencyEur`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityHoldsCurrencyGbp`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityHoldsCurrencyUsd`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityHoldsCurrencyUsdc`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityInboundTransferBankAccount`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundPaymentBankAccount`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundPaymentCard`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundPaymentCryptoWallet`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundPaymentFinancialAccount`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundPaymentPaperCheck`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundTransferBankAccount`, `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundTransferCryptoWallet`, and `v2.core.AccountModifyParamsConfigurationStorerCapabilityOutboundTransferFinancialAccount`
 
-## 15.3.0a3 - 2026-06-10
+## <a id="15-3-0a3"></a>15.3.0a3 - 2026-06-10
 This release changes the pinned API version to `2026-06-10.preview`.
 
 * ⚠️ [#1827](https://github.com/stripe/stripe-python/pull/1827) Update generated code for private-preview
@@ -634,7 +634,7 @@ This release changes the pinned API version to `2026-06-10.preview`.
   * Add support for new value `promotion` on enum `v2.commerce.ProductCatalogImportCreateParams.feed_type`
   * Add support for error code `default_us_bank_account_cannot_be_archived` on `CannotProceedError`
 
-## 15.3.0a2 - 2026-06-03
+## <a id="15-3-0a2"></a>15.3.0a2 - 2026-06-03
 This release changes the pinned API version to `2026-06-03.preview`.
 
 * ⚠️ [#1818](https://github.com/stripe/stripe-python/pull/1818) Update generated code for private-preview
@@ -662,7 +662,7 @@ This release changes the pinned API version to `2026-06-03.preview`.
   * Add support for `requirements_collector` on `v2.core.AccountCreateParamsDefaultResponsibility` and `v2.core.AccountModifyParamsDefaultResponsibility`
   * Add support for event notification `V2SignalsAccountSignalMerchantDelinquencyReadyEvent` with related object `v2.signals.AccountSignal`
 
-## 15.3.0a1 - 2026-05-27
+## <a id="15-3-0a1"></a>15.3.0a1 - 2026-05-27
 This release changes the pinned API version to `2026-05-27.preview`.
 
 * ⚠️ [#1815](https://github.com/stripe/stripe-python/pull/1815) Update generated code for private-preview
@@ -683,7 +683,7 @@ This release changes the pinned API version to `2026-05-27.preview`.
   * Add support for snapshot event `payment_intent.expired` with resource `PaymentIntent`
   * Add support for event notifications `V2CoreHealthElementsErrorFiringEvent`, `V2CoreHealthElementsErrorResolvedEvent`, `V2CoreHealthInvoiceCountDroppedFiringEvent`, and `V2CoreHealthInvoiceCountDroppedResolvedEvent`
 
-## 15.2.0a6 - 2026-05-20
+## <a id="15-2-0a6"></a>15.2.0a6 - 2026-05-20
 * [#1811](https://github.com/stripe/stripe-python/pull/1811) remove unnecessary cast
 * ⚠️ [#1809](https://github.com/stripe/stripe-python/pull/1809) Update generated code for private-preview
   * Add support for new resource `PaymentLocationCapability`
@@ -704,7 +704,7 @@ This release changes the pinned API version to `2026-05-27.preview`.
   * ⚠️ Remove support for `payment_behavior` on `SubscriptionResumeParams`
   * ⚠️ Remove support for `status_details` on `Subscription`
 
-## 15.2.0a5 - 2026-05-13
+## <a id="15-2-0a5"></a>15.2.0a5 - 2026-05-13
 * ⚠️ [#1807](https://github.com/stripe/stripe-python/pull/1807) Update generated code for private-preview
   * Add support for new resources `v2.core.FeeBatch`, `v2.core.FeeEntry`, `v2.money_management.DebitDispute`, and `v2.money_management.FinancialAccountStatement`
   * Add support for `simulate_network_lifecycle_pre_arbitration_response` and `simulate_network_lifecycle_pre_arbitration_submission` test helper methods on resource `issuing.Dispute`
@@ -730,7 +730,7 @@ This release changes the pinned API version to `2026-05-27.preview`.
   * Add support for `payment_attempt_record` on `EventsV2PaymentsOffSessionPaymentAttemptFailedEvent` and `EventsV2PaymentsOffSessionPaymentFailedEvent`
   * Add support for event notifications `V2MoneyManagementFinancialAccountStatementCreatedEvent` and `V2MoneyManagementFinancialAccountStatementRestatedEvent` with related object `v2.money_management.FinancialAccountStatement`
 
-## 15.2.0a4 - 2026-05-06
+## <a id="15-2-0a4"></a>15.2.0a4 - 2026-05-06
 * [#1805](https://github.com/stripe/stripe-python/pull/1805) Add EventNotificationHandler (private preview)
 * ⚠️ [#1804](https://github.com/stripe/stripe-python/pull/1804) Update generated code for private-preview
   * Add support for new resource `PaymentLocation`
@@ -747,13 +747,13 @@ This release changes the pinned API version to `2026-05-27.preview`.
   * ⚠️ Add support for new value `gift_card` on enums `PaymentIntent.excluded_payment_method_types` and `SetupIntent.excluded_payment_method_types`
   * Add support for `status_details` on `Subscription`
 
-## 15.2.0a3 - 2026-04-28
+## <a id="15-2-0a3"></a>15.2.0a3 - 2026-04-28
 * ⚠️ [#1802](https://github.com/stripe/stripe-python/pull/1802) Update generated code for private-preview
   * Add support for `debit_card` on `V2.Core.Account.Configuration.CardCreator.Capability.Consumer.Lead`, `V2.Core.Account.Identity.Attestation.TermsOfService.CardCreator.Consumer.Lead`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityConsumerLead`, `v2.core.AccountCreateParamsIdentityAttestationTermsOfServiceCardCreatorConsumerLead`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityConsumerLead`, and `v2.core.AccountModifyParamsIdentityAttestationTermsOfServiceCardCreatorConsumerLead`
   * ⚠️ Add support for new value `consumer.lead.debit_card` on enums `V2.Core.Account.FutureRequirement.Entry.Impact.RestrictsCapability.capability` and `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.capability`
   * ⚠️ Add support for new value `consumer.lead.debit_card` on enum `EventsV2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.updated_capability`
 
-## 15.2.0a2 - 2026-04-28
+## <a id="15-2-0a2"></a>15.2.0a2 - 2026-04-28
 * ⚠️ [#1800](https://github.com/stripe/stripe-python/pull/1800) Update generated code for private-preview
   * Add support for new resource `v2.data.analytics.MetricQueryResult`
   * Add support for `create`, `retrieve`, and `revoke` methods on resource `shared_payment.IssuedToken`
@@ -826,7 +826,7 @@ This release changes the pinned API version to `2026-05-27.preview`.
   * Add support for event notification `V2ExtendExtensionRunFailedEvent`
   * Add support for error codes `action_blocked` and `approval_required` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `QuotePreviewInvoice.LastFinalizationError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
 
-## 15.2.0a1 - 2026-04-24
+## <a id="15-2-0a1"></a>15.2.0a1 - 2026-04-24
 This release changes the pinned API version to `2026-04-22.preview`.
 
 * ⚠️ [#1795](https://github.com/stripe/stripe-python/pull/1795) Update generated code for private-preview
@@ -964,7 +964,7 @@ This release changes the pinned API version to `2026-04-22.preview`.
   * Add support for error type `FxQuoteExpiredError`
   * Add support for error codes `invalid_workflow_input_parameters` and `workflow_not_invokable` on `CannotProceedError`
 
-## 15.1.0a4 - 2026-04-15
+## <a id="15-1-0a4"></a>15.1.0a4 - 2026-04-15
 * [#1794](https://github.com/stripe/stripe-python/pull/1794) Update generated code for private-preview
   * Add support for `latest_version` on `V2.Billing.LicenseFee`, `V2.Billing.PricingPlan`, and `V2.Billing.RateCard`
   * Add support for `service_interval_count` and `service_interval` on `V2.Billing.LicenseFee` and `V2.Billing.RateCard`
@@ -994,7 +994,7 @@ This release changes the pinned API version to `2026-04-22.preview`.
   * ⚠️ Remove support for `external_reference` on `Plan`
   * Change `SharedPayment.GrantedToken.PaymentMethodDetail.billing_details` to be required
 
-## 15.1.0a3 - 2026-04-08
+## <a id="15-1-0a3"></a>15.1.0a3 - 2026-04-08
 This release changes the pinned API version to `2026-04-08.preview`.
 
 * ⚠️ [#1789](https://github.com/stripe/stripe-python/pull/1789) Update generated code for private-preview
@@ -1017,7 +1017,7 @@ This release changes the pinned API version to `2026-04-08.preview`.
   * ⚠️ Remove support for values `bm_pp`, `bo_ci`, `bt_cid`, `eg_tin`, `gh_pin`, `gy_tin`, `hn_rtn`, `jm_trn`, `jo_pin`, `ky_pp`, `lk_nic`, `mo_bir`, `mt_nic`, `mv_tin`, `pa_ruc`, `ph_tin`, `py_ruc`, `si_pin`, `sv_nit`, and `vg_pp` from enums `V2.Core.Account.Identity.Individual.IdNumber.type`, `V2.Core.AccountPerson.IdNumber.type`, `v2.core.AccountCreateParamsIdentityIndividualIdNumber.type`, `v2.core.AccountModifyParamsIdentityIndividualIdNumber.type`, `v2.core.AccountPersonCreateParamsIdNumber.type`, `v2.core.AccountPersonModifyParamsIdNumber.type`, `v2.core.AccountPersonTokenCreateParamsIdNumber.type`, and `v2.core.AccountTokenCreateParamsIdentityIndividualIdNumber.type`
   * Add support for error type `CannotProceedError`
 
-## 15.1.0a2 - 2026-04-01
+## <a id="15-1-0a2"></a>15.1.0a2 - 2026-04-01
 This release changes the pinned API version to `2026-04-01.preview`.
 
 * Please refer to the changelog for [v15.0.1](https://github.com/stripe/stripe-python/blob/v15.0.1/CHANGELOG.md#1501---2026-04-01) for additional changes.
@@ -1070,7 +1070,7 @@ This release changes the pinned API version to `2026-04-01.preview`.
   * Add support for event notifications `V2DataReportingQueryRunCreatedEvent`, `V2DataReportingQueryRunFailedEvent`, `V2DataReportingQueryRunSucceededEvent`, and `V2DataReportingQueryRunUpdatedEvent` with related object `v2.data.reporting.QueryRun`
   * Add support for event notifications `V2PaymentsOffSessionPaymentPausedEvent` and `V2PaymentsOffSessionPaymentResumedEvent` with related object `v2.payments.OffSessionPayment`
 
-## 15.1.0a1 - 2026-03-25
+## <a id="15-1-0a1"></a>15.1.0a1 - 2026-03-25
 This release changes the pinned API version to `2026-03-25.preview`.
 
 This release contains additional breaking changes. See the [GA changelog](https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md#1500---2026-03-25) for more information.
@@ -1178,7 +1178,7 @@ This release contains additional breaking changes. See the [GA changelog](https:
   * Add support for `include` on `v2.billing.IntentCreateParams`, `v2.billing.IntentReserveParams`, `v2.billing.PricingPlanSubscriptionListParams`, `v2.billing.PricingPlanSubscriptionRetrieveParams`, `v2.money_management.FinancialAccountListParams`, and `v2.money_management.FinancialAccountRetrieveParams`
   * Add support for event notifications `V1AccountSignalsIncludingDelinquencyCreatedEvent`, `V2CoreAccountSignalsFraudulentWebsiteReadyEvent`, and `V2SignalsAccountSignalFraudulentMerchantReadyEvent`
 
-## 14.5.0a4 - 2026-03-18
+## <a id="14-5-0a4"></a>14.5.0a4 - 2026-03-18
 * ⚠️ [#1755](https://github.com/stripe/stripe-python/pull/1755) Update generated code for private-preview
   * Add support for new resources `orchestration.PaymentAttempt` and `radar.CustomerEvaluation`
   * Add support for `retrieve` method on resource `orchestration.PaymentAttempt`
@@ -1215,7 +1215,7 @@ This release contains additional breaking changes. See the [GA changelog](https:
   * Add support for `deposit_options` and `mode` on `PaymentIntent.PaymentMethodOption.Crypto`, `PaymentIntentConfirmParamsPaymentMethodOptionCrypto`, `PaymentIntentCreateParamsPaymentMethodOptionCrypto`, and `PaymentIntentModifyParamsPaymentMethodOptionCrypto`
   * Add support for `crypto_display_details` on `PaymentIntent.NextAction`
 
-## 14.5.0a3 - 2026-03-11
+## <a id="14-5-0a3"></a>14.5.0a3 - 2026-03-11
 * ⚠️ [#1750](https://github.com/stripe/stripe-python/pull/1750) Update generated code for private-preview
   * Add support for new resource `radar.IssuingAuthorizationEvaluation`
   * Add support for `create` method on resource `radar.IssuingAuthorizationEvaluation`
@@ -1232,7 +1232,7 @@ This release contains additional breaking changes. See the [GA changelog](https:
   * Change `v2.payments.OffSessionPaymentCreateParams.payment_method` to be optional
   * Add support for new values `commercial.cross_river_bank.prepaid_card`, `commercial.fifth_third.charge_card`, `consumer.celtic.revolving_credit_card`, `consumer.cross_river_bank.prepaid_card`, and `consumer.lead.prepaid_card` on enum `EventsV2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.updated_capability`
 
-## 14.5.0a2 - 2026-03-04
+## <a id="14-5-0a2"></a>14.5.0a2 - 2026-03-04
 This release changes the pinned API version to `2026-03-04.preview`.
 
 * ⚠️ [#1741](https://github.com/stripe/stripe-python/pull/1741) Update generated code for private-preview
@@ -1293,7 +1293,7 @@ This release changes the pinned API version to `2026-03-04.preview`.
   * Add support for event notifications `V2IamStripeAccessGrantApprovedEvent`, `V2IamStripeAccessGrantCanceledEvent`, `V2IamStripeAccessGrantDeniedEvent`, `V2IamStripeAccessGrantRemovedEvent`, `V2IamStripeAccessGrantRequestedEvent`, and `V2IamStripeAccessGrantUpdatedEvent`
   * Add support for error codes `storer_capability_missing` and `storer_capability_not_active` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `QuotePreviewInvoice.LastFinalizationError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
 
-## 14.5.0a1 - 2026-02-25
+## <a id="14-5-0a1"></a>14.5.0a1 - 2026-02-25
 This release uses the API version `2026-01-28.preview`.
 
 * [#1735](https://github.com/stripe/stripe-python/pull/1735) Update generated code for private-preview
@@ -1307,7 +1307,7 @@ This release uses the API version `2026-01-28.preview`.
   * Add support for `url` on `FinancialConnections.Session`
   * Add support for `billing_cycle_anchor` on `SubscriptionCreateParamsTrialSettingEndBehavior` and `SubscriptionModifyParamsTrialSettingEndBehavior`
 
-## 14.4.0a4 - 2026-02-19
+## <a id="14-4-0a4"></a>14.4.0a4 - 2026-02-19
 * ⚠️ [#1734](https://github.com/stripe/stripe-python/pull/1734) Update generated code for private-preview
   * ⚠️ Add support for new value `spend_threshold` on enums `Billing.Alert.alert_type`, `billing.AlertCreateParams.alert_type`, and `billing.AlertListParams.alert_type`
   * Add support for `spend_threshold` on `Billing.Alert` and `billing.AlertCreateParams`
@@ -1318,7 +1318,7 @@ This release uses the API version `2026-01-28.preview`.
   * ⚠️ Remove support for `outstanding_usage` and `unused_time` on `SubscriptionPauseParamsBillFor`
   * ⚠️ Remove support for `payment_behavior` on `SubscriptionResumeParams`
 
-## 14.4.0a3 - 2026-02-11
+## <a id="14-4-0a3"></a>14.4.0a3 - 2026-02-11
 * [#1730](https://github.com/stripe/stripe-python/pull/1730) Update generated code for private-preview
   * Add support for new resources `v2.billing.CadenceSpendModifier`, `v2.billing.OneTimeItem`, and `v2.billing.RateCardCustomPricingUnitOverageRate`
   * Add support for `create`, `delete`, `list`, and `retrieve` methods on resource `v2.billing.RateCardCustomPricingUnitOverageRate`
@@ -1335,7 +1335,7 @@ This release uses the API version `2026-01-28.preview`.
   * Add support for `effective_at` and `spend_modifier_rule` on `V2.Billing.IntentAction.Apply`, `V2.Billing.IntentAction.Remove`, `v2.billing.IntentCreateParamsActionApply`, and `v2.billing.IntentCreateParamsActionRemove`
   * Change type of `V2.Billing.IntentAction.Apply.type`, `V2.Billing.IntentAction.Remove.type`, `v2.billing.IntentCreateParamsActionApply.type`, and `v2.billing.IntentCreateParamsActionRemove.type` from `literal('invoice_discount_rule')` to `enum('invoice_discount_rule'|'spend_modifier_rule')`
 
-## 14.4.0a2 - 2026-02-04
+## <a id="14-4-0a2"></a>14.4.0a2 - 2026-02-04
 * [#1728](https://github.com/stripe/stripe-python/pull/1728) Update generated code for private-preview
   * Add support for new resource `v2.core.ConnectionSession`
   * Add support for `create` and `retrieve` methods on resource `v2.core.ConnectionSession`
@@ -1368,7 +1368,7 @@ This release uses the API version `2026-01-28.preview`.
   * Add support for error code `invalid_payout_method_data` on `InvalidPayoutMethodError`
   * Add support for error code `limit_payout_method` on `QuotaExceededError`
 
-## 14.4.0a1 - 2026-01-28
+## <a id="14-4-0a1"></a>14.4.0a1 - 2026-01-28
 This release changes the pinned API version to `2026-01-28.preview`.
 
 * [#1726](https://github.com/stripe/stripe-python/pull/1726) Update generated code for private-preview
@@ -1387,12 +1387,12 @@ This release changes the pinned API version to `2026-01-28.preview`.
   * Add support for `subtotal` on `InvoiceLineItem`
   * Add support for `billing_cadence` on `SubscriptionListParams`
 
-## 14.3.0a1 - 2026-01-21
+## <a id="14-3-0a1"></a>14.3.0a1 - 2026-01-21
 * [#1723](https://github.com/stripe/stripe-python/pull/1723) Update generated code for private-preview
   * Remove support for `pause` method on resource `Subscription`
   * Change type of `Quote.SubscriptionDataOverride.phase_effective_at` and `Quote.SubscriptionDatum.phase_effective_at` from `enum('billing_period_start'|'phase_start')` to `nullable(enum('billing_period_start'|'phase_start'))`
 
-## 14.2.0a3 - 2026-01-14
+## <a id="14-2-0a3"></a>14.2.0a3 - 2026-01-14
 * [#1718](https://github.com/stripe/stripe-python/pull/1718) Update generated code for private-preview
   * Add support for `risk_details` on `DelegatedCheckout.RequestedSession`
   * Remove support for `description`, `images`, and `name` on `DelegatedCheckout.RequestedSession.LineItemDetail`
@@ -1400,7 +1400,7 @@ This release changes the pinned API version to `2026-01-28.preview`.
   * Add support for `login_failed` and `registration_failed` on `Radar.AccountEvaluation.Event` and `radar.AccountEvaluationModifyParams`
   * Change type of `radar.AccountEvaluationModifyParams.type` from `literal('registration_succeeded')` to `enum('login_failed'|'login_succeeded'|'registration_failed'|'registration_succeeded')`
 
-## 14.2.0a2 - 2026-01-07
+## <a id="14-2-0a2"></a>14.2.0a2 - 2026-01-07
 * [#1698](https://github.com/stripe/stripe-python/pull/1698) Update generated code for private-preview
   * Add support for new resource `tax.Location`
   * Add support for `create`, `list`, and `retrieve` methods on resource `tax.Location`
@@ -1426,7 +1426,7 @@ This release changes the pinned API version to `2026-01-28.preview`.
   * Add support for event notification `V2CoreAccountIncludingFutureRequirementsUpdatedEvent` with related object `v2.core.Account`
   * Add support for error code `account_rate_limit_exceeded` on `RateLimitError`
 
-## 14.2.0a1 - 2025-12-14
+## <a id="14-2-0a1"></a>14.2.0a1 - 2025-12-14
 This release changes the pinned API version to `2025-12-15.preview`.
 
 * [#1693](https://github.com/stripe/stripe-python/pull/1693) Update generated code for private-preview
@@ -1467,7 +1467,7 @@ This release changes the pinned API version to `2025-12-15.preview`.
   * Add support for event notifications `V2PaymentsSettlementAllocationIntentSplitCanceledEvent`, `V2PaymentsSettlementAllocationIntentSplitCreatedEvent`, and `V2PaymentsSettlementAllocationIntentSplitSettledEvent` with related object `v2.payments.SettlementAllocationIntentSplit`
   * Remove support for error code `account_rate_limit_exceeded` on `RateLimitError`
 
-## 14.1.0a4 - 2025-12-04
+## <a id="14-1-0a4"></a>14.1.0a4 - 2025-12-04
 * [#1691](https://github.com/stripe/stripe-python/pull/1691) Update generated code for private-preview
   * Add support for event notifications `V2IamApiKeyCreatedEvent`, `V2IamApiKeyDefaultSecretRevealedEvent`, `V2IamApiKeyExpiredEvent`, `V2IamApiKeyPermissionsUpdatedEvent`, `V2IamApiKeyRotatedEvent`, and `V2IamApiKeyUpdatedEvent`
 * [#1686](https://github.com/stripe/stripe-python/pull/1686) Update generated code for private-preview
@@ -1479,7 +1479,7 @@ This release changes the pinned API version to `2025-12-15.preview`.
   * Add support for new values `balance_transfer` and `stripe_balance_payment` on enum `V2.MoneyManagement.ReceivedDebit.type`
   * Add support for `include` on `v2.core.EventListParams` and `v2.core.EventRetrieveParams`
 
-## 14.1.0a3 - 2025-11-24
+## <a id="14-1-0a3"></a>14.1.0a3 - 2025-11-24
 * [#1685](https://github.com/stripe/stripe-python/pull/1685) Update generated code for private-preview
   * Add support for new resource `product_catalog.TrialOffer`
   * Add support for `create` method on resource `product_catalog.TrialOffer`
@@ -1489,7 +1489,7 @@ This release changes the pinned API version to `2025-12-15.preview`.
   * Remove support for `amount_discount` on `DelegatedCheckout.RequestedSession.TotalDetail`
   * Add support for `payments_orchestration` on `PaymentIntentCreateParams` and `PaymentIntent`
 
-## 14.1.0a2 - 2025-11-20
+## <a id="14-1-0a2"></a>14.1.0a2 - 2025-11-20
 This release changes the pinned API version to `2025-11-17.preview`.
 
 * [#1679](https://github.com/stripe/stripe-python/pull/1679) Update generated code for private-preview
@@ -1601,7 +1601,7 @@ This release changes the pinned API version to `2025-11-17.preview`.
   * Remove support for thin events `V1TopupCanceledEvent`, `V1TopupCreatedEvent`, `V1TopupFailedEvent`, `V1TopupReversedEvent`, and `V1TopupSucceededEvent` with related object `Topup`
   * Remove support for thin events `V1TransferCreatedEvent`, `V1TransferReversedEvent`, and `V1TransferUpdatedEvent` with related object `Transfer`
 
-## 14.1.0a1 - 2025-11-18
+## <a id="14-1-0a1"></a>14.1.0a1 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.preview`.
 
 * [#1674](https://github.com/stripe/stripe-python/pull/1674) Update generated code for private-preview
@@ -1636,7 +1636,7 @@ This release changes the pinned API version to `2025-11-17.preview`.
 * [#1675](https://github.com/stripe/stripe-python/pull/1675) Update generated code for private-preview
   * Add support for `billing_schedules_actions` on `InvoiceCreatePreviewParamsScheduleDetailAmendment` and `SubscriptionScheduleAmendParamsAmendment`
 
-## 13.3.0a2 - 2025-11-13
+## <a id="13-3-0a2"></a>13.3.0a2 - 2025-11-13
 This release changes the pinned API version to `2025-10-29.preview`.
 
 * [#1666](https://github.com/stripe/stripe-python/pull/1666) Update generated code for private-preview
@@ -1661,7 +1661,7 @@ This release changes the pinned API version to `2025-10-29.preview`.
   * Add support for `latest_invoice` on `QuotePreviewSubscriptionSchedule` and `SubscriptionSchedule`
   * Add support for `phase_effective_at` on `QuotePreviewSubscriptionSchedule.DefaultSetting`, `SubscriptionSchedule.DefaultSetting`, `SubscriptionScheduleCreateParamsDefaultSetting`, and `SubscriptionScheduleModifyParamsDefaultSetting`
 
-## 13.3.0a1 - 2025-11-06
+## <a id="13-3-0a1"></a>13.3.0a1 - 2025-11-06
 * [#1664](https://github.com/stripe/stripe-python/pull/1664) Update generated code for private-preview
   * Add support for new resources `TransitBalance`, `v2.reporting.ReportRun`, `v2.reporting.Report`
   * Add support for `create` and `retrieve` methods on resource `v2.reporting.ReportRun`
@@ -1670,7 +1670,7 @@ This release changes the pinned API version to `2025-10-29.preview`.
   * Add support for `allocated_funds` on `Charge`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, and `PaymentIntentModifyParams`
   * Add support for thin events `V2ReportingReportRunCreatedEvent`, `V2ReportingReportRunFailedEvent`, `V2ReportingReportRunSucceededEvent`, and `V2ReportingReportRunUpdatedEvent` with related object `v2.reporting.ReportRun`
 
-## 13.2.0a2 - 2025-10-30
+## <a id="13-2-0a2"></a>13.2.0a2 - 2025-10-30
 * [#1659](https://github.com/stripe/stripe-python/pull/1659) Update generated code for private-preview
   * Change `delegated_checkout.RequestedSessionModifyParamsLineItemDetail.quantity` to be required
   * Add support for `payment_method_preview` on `DelegatedCheckout.RequestedSession`
@@ -1680,7 +1680,7 @@ This release changes the pinned API version to `2025-10-29.preview`.
   * Add support for new value `commercial.lead.prepaid_card` on enum `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.capability`
   * Add support for new value `commercial.lead.prepaid_card` on enum `EventsV2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.updated_capability`
 
-## 13.2.0a1 - 2025-10-29
+## <a id="13-2-0a1"></a>13.2.0a1 - 2025-10-29
 * [#1654](https://github.com/stripe/stripe-python/pull/1654) Update generated code for private-preview
   * Add support for `report_refund` method on resource `PaymentRecord`
   * Add support for new value `verification_data_not_found` on enums `Account.FutureRequirement.Error.code`, `Account.Requirement.Error.code`, `BankAccount.FutureRequirement.Error.code`, `BankAccount.Requirement.Error.code`, `Capability.FutureRequirement.Error.code`, `Capability.Requirement.Error.code`, `Person.FutureRequirement.Error.code`, and `Person.Requirement.Error.code`
@@ -1732,7 +1732,7 @@ This release changes the pinned API version to `2025-10-29.preview`.
   * Add support for `external_amount` on `V2.MoneyManagement.ReceivedCredit` and `V2.MoneyManagement.ReceivedDebit`
   * Add support for error code `payment_intent_rate_limit_exceeded` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `QuotePreviewInvoice.LastFinalizationError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
 
-## 13.1.0a4 - 2025-10-23
+## <a id="13-1-0a4"></a>13.1.0a4 - 2025-10-23
 * [#1649](https://github.com/stripe/stripe-python/pull/1649) Update generated code for private-preview
   * Add support for new resource `v2.billing.PricingPlanSubscriptionComponents`
   * Add support for `retrieve` method on resource `v2.billing.PricingPlanSubscriptionComponents`
@@ -1747,14 +1747,14 @@ This release changes the pinned API version to `2025-10-29.preview`.
   * Add support for `address`, `email`, `fulfillment_options`, `name`, `phone`, and `selected_fulfillment_option` on `DelegatedCheckout.RequestedSession.FulfillmentDetail`
   * Add support for new values `billie`, `crypto`, `kr_card`, `kriya`, `mb_way`, `mondu`, `ng_bank_transfer`, `ng_bank`, `ng_card`, `ng_market`, `ng_ussd`, `ng_wallet`, `payco`, `paypay`, `rechnung`, `samsung_pay`, `satispay`, `scalapay`, `sequra`, `sunbit`, `us_bank_account`, and `vipps` on enums `EventsV2CoreHealthAuthorizationRateDropFiringEvent.Impact.payment_method_type`, `EventsV2CoreHealthAuthorizationRateDropResolvedEvent.Impact.payment_method_type`, `EventsV2CoreHealthPaymentMethodErrorFiringEvent.Impact.payment_method_type`, and `EventsV2CoreHealthPaymentMethodErrorResolvedEvent.Impact.payment_method_type`
 
-## 13.1.0a3 - 2025-10-17
+## <a id="13-1-0a3"></a>13.1.0a3 - 2025-10-17
 * [#1643](https://github.com/stripe/stripe-python/pull/1643) Update generated code for private-preview
   * Add support for new resources `delegated_checkout.RequestedSession` and `identity.BlocklistEntry`
   * Add support for `confirm`, `create`, `expire`, `modify`, and `retrieve` methods on resource `delegated_checkout.RequestedSession`
   * Add support for `create`, `disable`, `list`, and `retrieve` methods on resource `identity.BlocklistEntry`
   * Add support for `blocked_by_entry` on `Identity.VerificationReport.Document`, `Identity.VerificationReport.Selfie`, and `identity.VerificationReportListParams`
 
-## 13.1.0a2 - 2025-10-09
+## <a id="13-1-0a2"></a>13.1.0a2 - 2025-10-09
 * [#1629](https://github.com/stripe/stripe-python/pull/1629) Update generated code for private-preview
   * Add support for new resource `PaymentMethodBalance`
   * Add support for `check_balance` method on resource `PaymentMethod`
@@ -1769,7 +1769,7 @@ This release changes the pinned API version to `2025-10-29.preview`.
   * Add support for thin events `V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent` with related object `v2.core.Account`
   * Remove support for thin events `V1CustomerDiscountCreatedEvent`, `V1CustomerDiscountDeletedEvent`, and `V1CustomerDiscountUpdatedEvent` with related object `Discount`
 
-## 13.1.0a1 - 2025-10-01
+## <a id="13-1-0a1"></a>13.1.0a1 - 2025-10-01
 This release changes the pinned API version to `2025-09-30.preview`.
 
 It is built on top of SDK version 13.0.0 and 13.1.0-beta.1 which contain breaking changes. Please review the changelog for these versions if upgrading from older SDK versions.
@@ -1810,7 +1810,7 @@ It is built on top of SDK version 13.0.0 and 13.1.0-beta.1 which contain breakin
   * Remove support for resources `v2.reporting.ReportRun`, `v2.reporting.Report`
   * Remove support for thin events `V2ReportingReportRunCreatedEvent`, `V2ReportingReportRunFailedEvent`, `V2ReportingReportRunSucceededEvent`, and `V2ReportingReportRunUpdatedEvent` with related object `v2.reporting.ReportRun`
 
-## 12.6.0a2 - 2025-09-17
+## <a id="12-6-0a2"></a>12.6.0a2 - 2025-09-17
 This release changes the pinned API version to `2025-08-04.preview`.
 
 * [#1571](https://github.com/stripe/stripe-python/pull/1571) generate private-preview SDK w/ mid Sept changes
@@ -1827,7 +1827,7 @@ This release changes the pinned API version to `2025-08-04.preview`.
   * Add support for thin events `V2CoreClaimableSandboxClaimedEvent`, `V2CoreClaimableSandboxExpiredEvent`, `V2CoreClaimableSandboxExpiringEvent`, and `V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent` with related object `V2.core.ClaimableSandbox`
   * Remove support for thin event `V2BillingCadenceErroredEvent` with related object `V2.billing.Cadence`
 
-## 12.6.0a1 - 2025-08-27
+## <a id="12-6-0a1"></a>12.6.0a1 - 2025-08-27
 * [#1556](https://github.com/stripe/stripe-python/pull/1556) Use the right API version 2025-08-27.preview
 * [#1552](https://github.com/stripe/stripe-python/pull/1552) Update generated code for private-preview
   * Add support for `attach_cadence` method on resource `Subscription`
