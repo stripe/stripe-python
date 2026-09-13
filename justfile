@@ -103,3 +103,7 @@ profile-imports name:
 profile name:
     python -m cProfile -o {{ name }}.prof stripe/main.py
     tuna {{ name }}.prof
+
+# the lowest Python this SDK supports, for the changelog
+minimum-runtime-version:
+    rg -N --color never -o 'requires-python = ">=([^"]+)"' --replace '$1' pyproject.toml
