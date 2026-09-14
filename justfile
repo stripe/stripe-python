@@ -103,3 +103,10 @@ profile-imports name:
 profile name:
     python -m cProfile -o {{ name }}.prof stripe/main.py
     tuna {{ name }}.prof
+
+# ⭐ print the API version this SDK pins and the lowest runtime it supports
+print-version-info:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "pinned-api-version: $(rg -N --color never -m1 -o '[0-9]{4}-[0-9]{2}-[0-9]{2}[.\w-]*' stripe/_api_version.py)"
+    echo "minimum-runtime-version: $(rg -N --color never -o 'requires-python = ">=([^"]+)"' --replace '$1' pyproject.toml)"
