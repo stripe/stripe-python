@@ -1,6 +1,6 @@
 ---
 title: "Generated changes from [#1749](https://github.com/stripe/stripe-python/pull/1749), [#1771](https://github.com/stripe/stripe-python/pull/1771), [#1773](https://github.com/stripe/stripe-python/pull/1773), [#1775](https://github.com/stripe/stripe-python/pull/1775)"
-is_breaking: true
+semver_level: major
 is_stripe_api_change: true
 section: ⚠️ Breaking changes  due to changes in the Stripe API
 released_in_version: 15.0.0

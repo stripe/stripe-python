@@ -1,6 +1,6 @@
 ---
 title: Deprecated the V1 service accessors living directly under StripeClient(e.g. customers, products) as they were copied under the new V1 service in our [last release](https://github.com/stripe/stripe-python/releases/tag/v12.5.0). Service accessors living directly under StripeClient(e.g. customers, products) will be removed from StripeClient in a future release. E.g.
-is_breaking: true
+semver_level: major
 released_in_version: 13.0.0
 ---
 

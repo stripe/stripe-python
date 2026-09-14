@@ -1,7 +1,7 @@
 ---
 title: Unify resource and service method parameters into one class
 pr_url: https://github.com/stripe/stripe-python/pull/1596
-is_breaking: true
+semver_level: major
 released_in_version: 13.0.0
 ---
 

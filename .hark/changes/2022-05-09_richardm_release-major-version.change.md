@@ -1,7 +1,7 @@
 ---
 title: Release of major version v3.0.0. The [migration guide](https://github.com/stripe/stripe-python/wiki/Migration-Guide-for-v3) contains more information.
 pr_url: https://github.com/stripe/stripe-python/pull/809
-is_breaking: true
+semver_level: major
 released_in_version: 3.0.0
 ---
 

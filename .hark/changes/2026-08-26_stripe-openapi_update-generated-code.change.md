@@ -1,7 +1,7 @@
 ---
 title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1876
-is_breaking: true
+semver_level: major
 is_stripe_api_change: true
 released_in_version: 15.6.0
 ---
