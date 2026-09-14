@@ -1,7 +1,7 @@
 ---
 title: "Beta: Collapse HTTPClientAsync into HTTPClient"
 pr_url: https://github.com/stripe/stripe-python/pull/1239
-is_breaking: true
+semver_level: major
 released_in_version: 8.5.0b1
 ---
 
