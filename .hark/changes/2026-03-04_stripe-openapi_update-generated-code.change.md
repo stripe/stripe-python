@@ -1,7 +1,7 @@
 ---
 title: Update generated code for private-preview
 pr_url: https://github.com/stripe/stripe-python/pull/1741
-is_breaking: true
+semver_level: major
 is_stripe_api_change: true
 released_in_version: 14.5.0a2
 ---
