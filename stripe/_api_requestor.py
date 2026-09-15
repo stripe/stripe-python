@@ -72,12 +72,31 @@ HttpVerb = Literal["get", "post", "delete"]
 _default_proxy: Optional[str] = None
 
 
-def _maybe_emit_stripe_notice(rheaders: Mapping[str, str]) -> None:
+def _maybe_emit_stripe_notice(
+    rheaders: Mapping[str, str],
+    environ: Optional[Mapping[str, str]] = None,
+) -> None:
     notice = rheaders.get("Stripe-Notice")
-    if notice:
-        import warnings
+    if not notice:
+        return
 
-        warnings.warn(notice)
+    environ = os.environ if environ is None else environ
+    ai_agent = _APIRequestor._detect_ai_agent(environ)
+    if (
+        not ai_agent
+        and environ.get("STRIPE_SUPPRESS_NOTICES", "").lower() == "true"
+    ):
+        return
+
+    if not ai_agent:
+        notice += (
+            "\nTo suppress Stripe notices in test and sandbox environments, "
+            "set STRIPE_SUPPRESS_NOTICES=true."
+        )
+
+    import warnings
+
+    warnings.warn(notice)
 
 
 def is_v2_delete_resp(method: str, api_mode: ApiMode) -> bool:

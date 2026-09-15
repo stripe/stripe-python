@@ -11,7 +11,11 @@ import urllib3
 
 import stripe
 import io
-from stripe._api_requestor import _api_encode, _APIRequestor
+from stripe._api_requestor import (
+    _api_encode,
+    _APIRequestor,
+    _maybe_emit_stripe_notice,
+)
 from stripe._customer import Customer
 from stripe._request_options import RequestOptions
 from stripe._requestor_options import (
@@ -1076,6 +1080,55 @@ class TestAPIRequestor(object):
 
         with pytest.warns(UserWarning, match="test notice value"):
             requestor.request("get", self.v1_path, {}, base_address="api")
+
+    def test_stripe_notice_tells_humans_how_to_suppress_notices(self):
+        with pytest.warns(UserWarning) as warning:
+            _maybe_emit_stripe_notice(
+                {"Stripe-Notice": "test notice value"}, {}
+            )
+
+        assert str(warning[0].message) == (
+            "test notice value\n"
+            "To suppress Stripe notices in test and sandbox environments, "
+            "set STRIPE_SUPPRESS_NOTICES=true."
+        )
+
+    @pytest.mark.parametrize("suppression_value", ["true", "TRUE"])
+    def test_stripe_notice_can_be_suppressed_for_humans(
+        self, suppression_value
+    ):
+        import warnings
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            _maybe_emit_stripe_notice(
+                {"Stripe-Notice": "test notice value"},
+                {"STRIPE_SUPPRESS_NOTICES": suppression_value},
+            )
+
+    @pytest.mark.parametrize(
+        "suppression_value", ["", "false", "1", "invalid"]
+    )
+    def test_stripe_notice_is_not_suppressed_for_other_values(
+        self, suppression_value
+    ):
+        with pytest.warns(UserWarning):
+            _maybe_emit_stripe_notice(
+                {"Stripe-Notice": "test notice value"},
+                {"STRIPE_SUPPRESS_NOTICES": suppression_value},
+            )
+
+    def test_stripe_notice_is_not_suppressed_for_ai_agents(self):
+        with pytest.warns(UserWarning) as warning:
+            _maybe_emit_stripe_notice(
+                {"Stripe-Notice": "test notice value"},
+                {
+                    "STRIPE_SUPPRESS_NOTICES": "true",
+                    "CODEX_SANDBOX": "1",
+                },
+            )
+
+        assert str(warning[0].message) == "test notice value"
 
     @pytest.mark.anyio
     async def test_stripe_notice_header_emits_warning_async(
