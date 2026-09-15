@@ -1090,7 +1090,7 @@ class TestAPIRequestor(object):
         assert str(warning[0].message) == (
             "test notice value\n"
             "To suppress Stripe notices in test and sandbox environments, "
-            "set STRIPE_SUPPRESS_NOTICES=true."
+            "set the STRIPE_SUPPRESS_NOTICES environment variable to true."
         )
 
     @pytest.mark.parametrize("suppression_value", ["true", "TRUE"])

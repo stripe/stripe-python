@@ -91,7 +91,7 @@ def _maybe_emit_stripe_notice(
     if not ai_agent:
         notice += (
             "\nTo suppress Stripe notices in test and sandbox environments, "
-            "set STRIPE_SUPPRESS_NOTICES=true."
+            "set the STRIPE_SUPPRESS_NOTICES environment variable to true."
         )
 
     import warnings
