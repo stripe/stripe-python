@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, TypedDict
 
 
@@ -12,7 +13,7 @@ class MeterEventAdjustmentCreateParams(TypedDict):
     """
     The name of the meter event. Corresponds with the `event_name` field on a meter.
     """
-    type: Literal["cancel"]
+    type: Union[Literal["cancel"], str]
     """
     Specifies the type of cancellation. Currently supports canceling a single event.
     """

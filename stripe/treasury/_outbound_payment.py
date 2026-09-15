@@ -300,7 +300,7 @@ class OutboundPayment(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    purpose: Optional[Literal["payroll"]]
+    purpose: Optional[Union[Literal["payroll"], str]]
     """
     The purpose of the OutboundPayment, if applicable.
     """
