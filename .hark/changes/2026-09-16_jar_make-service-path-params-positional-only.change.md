@@ -2,6 +2,7 @@
 title: Make path parameters positional-only in all service methods
 pr_url: https://github.com/stripe/stripe-python/pull/1910
 semver_level: major
+released_in_version: 15.7.0a4
 ---
 
 Path parameters must now be passed positionally to service methods. Passing them by keyword is no longer supported.  Resource methods are unaffected by this change.
