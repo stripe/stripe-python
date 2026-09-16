@@ -5,43 +5,34 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAddressCreateParams(TypedDict):
-    crypto_properties: NotRequired[
-        "FinancialAddressCreateParamsCryptoProperties"
-    ]
+    bank_account: NotRequired["FinancialAddressCreateParamsBankAccount"]
     """
-    Properties needed to create a FinancialAddress for an FA with USDC currency.
+    Properties for creating a bank account FinancialAddress.
     """
+    crypto_wallet: NotRequired["FinancialAddressCreateParamsCryptoWallet"]
     financial_account: str
     """
     The ID of the FinancialAccount the new FinancialAddress should be associated with.
     """
-    sepa_bank_account: NotRequired[
-        "FinancialAddressCreateParamsSepaBankAccount"
-    ]
-    """
-    Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
-    """
     settlement_currency: NotRequired[str]
+    type: Union[Literal["bank_account", "crypto_wallet"], str]
     """
-    Open Enum. The currency the FinancialAddress settles into the FinancialAccount. Currently, only the `usd`, `gbp` and `usdc` values are supported.
-    """
-    type: Union[
-        Literal[
-            "ca_bank_account",
-            "crypto_wallet",
-            "gb_bank_account",
-            "mx_bank_account",
-            "sepa_bank_account",
-            "us_bank_account",
-        ],
-        str,
-    ]
-    """
-    The type of FinancialAddress details to provision.
+    The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
     """
 
 
-class FinancialAddressCreateParamsCryptoProperties(TypedDict):
+class FinancialAddressCreateParamsBankAccount(TypedDict):
+    country: NotRequired[str]
+    """
+    The country for the bank account. Used to select the appropriate rails (e.g. for SEPA).
+    """
+    currency: Union[Literal["cad", "eur", "gbp", "mxn", "usd"], str]
+    """
+    The currency of the bank account to provision.
+    """
+
+
+class FinancialAddressCreateParamsCryptoWallet(TypedDict):
     network: Union[
         Literal[
             "arbitrum",
@@ -58,11 +49,4 @@ class FinancialAddressCreateParamsCryptoProperties(TypedDict):
     ]
     """
     The blockchain network of the crypto wallet.
-    """
-
-
-class FinancialAddressCreateParamsSepaBankAccount(TypedDict):
-    country: str
-    """
-    The originating country of the SEPA Bank account.
     """

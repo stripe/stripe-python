@@ -276,7 +276,7 @@ class InvoiceItem(
         """
         discount_amounts: List[DiscountAmount]
         """
-        Discount amounts applied when the proration was created.
+        Discount amounts applied when the proration was created. This field is only populated for prorations created from subscriptions with `billing_mode=flexible`.
         """
         _inner_class_types = {
             "credited_items": CreditedItems,

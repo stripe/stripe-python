@@ -106,6 +106,7 @@ class AgreementService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AgreementRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Agreement":
@@ -128,6 +129,7 @@ class AgreementService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AgreementRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Agreement":
@@ -150,6 +152,7 @@ class AgreementService(StripeService):
     def confirm(
         self,
         id: str,
+        /,
         params: Optional["AgreementConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Agreement":
@@ -172,6 +175,7 @@ class AgreementService(StripeService):
     async def confirm_async(
         self,
         id: str,
+        /,
         params: Optional["AgreementConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Agreement":
@@ -194,6 +198,7 @@ class AgreementService(StripeService):
     def terminate(
         self,
         id: str,
+        /,
         params: Optional["AgreementTerminateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Agreement":
@@ -216,6 +221,7 @@ class AgreementService(StripeService):
     async def terminate_async(
         self,
         id: str,
+        /,
         params: Optional["AgreementTerminateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Agreement":

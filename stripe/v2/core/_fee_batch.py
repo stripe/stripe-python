@@ -17,13 +17,11 @@ class FeeBatch(StripeObject):
         class TaxAdjustment(StripeObject):
             currency: str
             """
-            A lowercase alpha3 currency code like "usd"
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            A lowercase alpha3 currency code like "usd".
             """
             value: str
             """
-            In major units like "1.23" for 1.23 USD
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            In major units like "1.23" for 1.23 USD.
             """
 
         tax_adjustment: Optional[TaxAdjustment]
@@ -35,13 +33,11 @@ class FeeBatch(StripeObject):
     class Amount(StripeObject):
         currency: str
         """
-        A lowercase alpha3 currency code like "usd"
-        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+        A lowercase alpha3 currency code like "usd".
         """
         value: str
         """
-        In major units like "1.23" for 1.23 USD
-        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+        In major units like "1.23" for 1.23 USD.
         """
 
     class CollectedBy(StripeObject):
@@ -54,26 +50,22 @@ class FeeBatch(StripeObject):
         class Amount(StripeObject):
             currency: str
             """
-            A lowercase alpha3 currency code like "usd"
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            A lowercase alpha3 currency code like "usd".
             """
             value: str
             """
-            In major units like "1.23" for 1.23 USD
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            In major units like "1.23" for 1.23 USD.
             """
 
         class Tax(StripeObject):
             class Amount(StripeObject):
                 currency: str
                 """
-                A lowercase alpha3 currency code like "usd"
-                For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+                A lowercase alpha3 currency code like "usd".
                 """
                 value: str
                 """
-                In major units like "1.23" for 1.23 USD
-                For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+                In major units like "1.23" for 1.23 USD.
                 """
 
             amount: Amount
@@ -135,13 +127,11 @@ class FeeBatch(StripeObject):
         class Amount(StripeObject):
             currency: str
             """
-            A lowercase alpha3 currency code like "usd"
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            A lowercase alpha3 currency code like "usd".
             """
             value: str
             """
-            In major units like "1.23" for 1.23 USD
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            In major units like "1.23" for 1.23 USD.
             """
 
         amount: Amount

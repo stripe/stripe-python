@@ -55,6 +55,7 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["EventRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Event":
@@ -75,6 +76,7 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["EventRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Event":

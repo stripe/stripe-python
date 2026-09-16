@@ -101,6 +101,7 @@ class ProgramService(StripeService):
     def retrieve(
         self,
         program: str,
+        /,
         params: Optional["ProgramRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Program":
@@ -123,6 +124,7 @@ class ProgramService(StripeService):
     async def retrieve_async(
         self,
         program: str,
+        /,
         params: Optional["ProgramRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Program":
@@ -145,6 +147,7 @@ class ProgramService(StripeService):
     def update(
         self,
         program: str,
+        /,
         params: Optional["ProgramUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Program":
@@ -167,6 +170,7 @@ class ProgramService(StripeService):
     async def update_async(
         self,
         program: str,
+        /,
         params: Optional["ProgramUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Program":

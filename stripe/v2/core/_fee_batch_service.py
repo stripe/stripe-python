@@ -57,6 +57,7 @@ class FeeBatchService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FeeBatchRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeeBatch":
@@ -77,6 +78,7 @@ class FeeBatchService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FeeBatchRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeeBatch":

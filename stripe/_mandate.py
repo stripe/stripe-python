@@ -128,7 +128,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
 
         class Blik(StripeObject):
-            expires_after: Optional[int]
+            expires_at: Optional[int]
             """
             Date at which the mandate expires.
             """

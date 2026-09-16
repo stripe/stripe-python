@@ -17,6 +17,7 @@ class PaymentAttemptService(StripeService):
     def retrieve(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttempt":
@@ -39,6 +40,7 @@ class PaymentAttemptService(StripeService):
     async def retrieve_async(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttempt":

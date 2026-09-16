@@ -47248,6 +47248,96 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_vault_network_token_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/network_tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.network_tokens.create({"type": "card"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/network_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"type":"card"}',
+            is_json=True,
+        )
+
+    def test_v2_core_vault_network_token_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/network_tokens/create_from_credential",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.network_tokens.create_from_credential(
+            {
+                "type": "card",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/network_tokens/create_from_credential",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"type":"card"}',
+            is_json=True,
+        )
+
+    def test_v2_core_vault_network_token_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/vault/network_tokens/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.network_tokens.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/vault/network_tokens/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_vault_network_token_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/network_tokens/id_123/generate_cryptogram",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.network_tokens.generate_cryptogram("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/network_tokens/id_123/generate_cryptogram",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_core_vault_us_bank_account_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -48126,7 +48216,7 @@ class TestGeneratedExamples(object):
         client.v2.money_management.financial_addresses.create(
             {
                 "financial_account": "financial_account",
-                "type": "ca_bank_account",
+                "type": "bank_account",
             }
         )
         http_client_mock.assert_requested(
@@ -48134,7 +48224,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","type":"ca_bank_account"}',
+            post_data='{"financial_account":"financial_account","type":"bank_account"}',
             is_json=True,
         )
 
@@ -49944,17 +50034,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.signals.account_activity.create(
-            {
-                "type": "account_restricted",
-            }
-        )
+        client.v2.signals.account_activity.create({"type": "login_attempt"})
         http_client_mock.assert_requested(
             "post",
             path="/v2/signals/account_activity",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"type":"account_restricted"}',
+            post_data='{"type":"login_attempt"}',
             is_json=True,
         )
 
@@ -50570,7 +50656,7 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/vault/us_bank_accounts",
+            "/v2/core/vault/network_tokens",
             rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method"}}',
             rcode=400,
         )
@@ -50580,20 +50666,15 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.vault.us_bank_accounts.create(
-                {
-                    "account_number": "account_number",
-                    "currency": "usd",
-                }
-            )
+            client.v2.core.vault.network_tokens.create({"type": "card"})
         except _error.BlockedByStripeError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/vault/us_bank_accounts",
+            path="/v2/core/vault/network_tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number","currency":"usd"}',
+            post_data='{"type":"card"}',
             is_json=True,
         )
 
@@ -50603,7 +50684,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/billing/contracts/id_123",
-            rbody='{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
+            rbody='{"error":{"type":"cannot_proceed","code":"card_brand_not_supported"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -50730,7 +50811,7 @@ class TestGeneratedExamples(object):
             client.v2.money_management.financial_addresses.create(
                 {
                     "financial_account": "financial_account",
-                    "type": "ca_bank_account",
+                    "type": "bank_account",
                 }
             )
         except _error.FinancialAccountNotOpenError:
@@ -50740,7 +50821,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","type":"ca_bank_account"}',
+            post_data='{"financial_account":"financial_account","type":"bank_account"}',
             is_json=True,
         )
 
@@ -50898,6 +50979,33 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_merchant_not_gated_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/network_tokens",
+            rbody='{"error":{"type":"merchant_not_gated","code":"permission_denied"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.network_tokens.create({"type": "card"})
+        except _error.MerchantNotGatedError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/network_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"type":"card"}',
+            is_json=True,
+        )
+
     def test_non_zero_balance_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -50988,8 +51096,8 @@ class TestGeneratedExamples(object):
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
-            "get",
-            "/v2/core/accounts",
+            "delete",
+            "/v2/billing/contracts/id_123",
             rbody='{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
             rcode=400,
         )
@@ -50999,12 +51107,12 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.accounts.list()
+            client.v2.billing.contracts.delete("id_123")
         except _error.RateLimitError:
             pass
         http_client_mock.assert_requested(
-            "get",
-            path="/v2/core/accounts",
+            "delete",
+            path="/v2/billing/contracts/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )

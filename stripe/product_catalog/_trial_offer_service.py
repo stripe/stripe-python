@@ -100,6 +100,7 @@ class TrialOfferService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["TrialOfferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TrialOffer":
@@ -122,6 +123,7 @@ class TrialOfferService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["TrialOfferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TrialOffer":

@@ -76,6 +76,7 @@ class CreditUnderwritingRecordService(StripeService):
     def retrieve(
         self,
         credit_underwriting_record: str,
+        /,
         params: Optional["CreditUnderwritingRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditUnderwritingRecord":
@@ -100,6 +101,7 @@ class CreditUnderwritingRecordService(StripeService):
     async def retrieve_async(
         self,
         credit_underwriting_record: str,
+        /,
         params: Optional["CreditUnderwritingRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditUnderwritingRecord":
@@ -124,6 +126,7 @@ class CreditUnderwritingRecordService(StripeService):
     def correct(
         self,
         credit_underwriting_record: str,
+        /,
         params: Optional["CreditUnderwritingRecordCorrectParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditUnderwritingRecord":
@@ -148,6 +151,7 @@ class CreditUnderwritingRecordService(StripeService):
     async def correct_async(
         self,
         credit_underwriting_record: str,
+        /,
         params: Optional["CreditUnderwritingRecordCorrectParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditUnderwritingRecord":
@@ -172,6 +176,7 @@ class CreditUnderwritingRecordService(StripeService):
     def report_decision(
         self,
         credit_underwriting_record: str,
+        /,
         params: "CreditUnderwritingRecordReportDecisionParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CreditUnderwritingRecord":
@@ -196,6 +201,7 @@ class CreditUnderwritingRecordService(StripeService):
     async def report_decision_async(
         self,
         credit_underwriting_record: str,
+        /,
         params: "CreditUnderwritingRecordReportDecisionParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CreditUnderwritingRecord":
@@ -220,6 +226,7 @@ class CreditUnderwritingRecordService(StripeService):
     def report_offer_acceptance(
         self,
         credit_underwriting_record: str,
+        /,
         params: Optional[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
         ] = None,
@@ -246,6 +253,7 @@ class CreditUnderwritingRecordService(StripeService):
     async def report_offer_acceptance_async(
         self,
         credit_underwriting_record: str,
+        /,
         params: Optional[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
         ] = None,

@@ -818,7 +818,7 @@ class Session(
         class Label(StripeObject):
             custom: Optional[str]
             """
-            Custom text for the label, displayed to the customer. Up to 50 characters.
+            Custom text for the label, displayed to the customer. Up to 100 characters.
             """
             type: Literal["custom"]
             """
@@ -1212,6 +1212,16 @@ class Session(
     class Item(StripeObject):
         class Subscription(StripeObject):
             class Item(StripeObject):
+                class CurrentTrial(StripeObject):
+                    trial_offer: str
+                    """
+                    The ID of the trial offer applied to this subscription item.
+                    """
+
+                current_trial: Optional[CurrentTrial]
+                """
+                The trial offer applied to this subscription item.
+                """
                 price: ExpandableField["Price"]
                 """
                 The price for this subscription item.
@@ -1220,6 +1230,7 @@ class Session(
                 """
                 The quantity for this subscription item.
                 """
+                _inner_class_types = {"current_trial": CurrentTrial}
 
             class PendingInvoiceItemInterval(StripeObject):
                 interval: Union[Literal["day", "month", "week", "year"], str]
@@ -1536,6 +1547,9 @@ class Session(
             """
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
+            verification_method: Optional[
+                Union[Literal["automatic", "payer_name_verification"], str]
+            ]
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
@@ -3465,7 +3479,7 @@ class Session(
 
     @classmethod
     def _cls_approve(
-        cls, session: str, **params: Unpack["SessionApproveParams"]
+        cls, session: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3484,7 +3498,7 @@ class Session(
     @overload
     @staticmethod
     def approve(
-        session: str, **params: Unpack["SessionApproveParams"]
+        session: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3518,7 +3532,7 @@ class Session(
 
     @classmethod
     async def _cls_approve_async(
-        cls, session: str, **params: Unpack["SessionApproveParams"]
+        cls, session: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3537,7 +3551,7 @@ class Session(
     @overload
     @staticmethod
     async def approve_async(
-        session: str, **params: Unpack["SessionApproveParams"]
+        session: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3603,7 +3617,7 @@ class Session(
 
     @classmethod
     def _cls_expire(
-        cls, session: str, **params: Unpack["SessionExpireParams"]
+        cls, session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3624,7 +3638,7 @@ class Session(
     @overload
     @staticmethod
     def expire(
-        session: str, **params: Unpack["SessionExpireParams"]
+        session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3664,7 +3678,7 @@ class Session(
 
     @classmethod
     async def _cls_expire_async(
-        cls, session: str, **params: Unpack["SessionExpireParams"]
+        cls, session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3685,7 +3699,7 @@ class Session(
     @overload
     @staticmethod
     async def expire_async(
-        session: str, **params: Unpack["SessionExpireParams"]
+        session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3767,7 +3781,7 @@ class Session(
 
     @classmethod
     def _cls_list_line_items(
-        cls, session: str, **params: Unpack["SessionListLineItemsParams"]
+        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3786,7 +3800,7 @@ class Session(
     @overload
     @staticmethod
     def list_line_items(
-        session: str, **params: Unpack["SessionListLineItemsParams"]
+        session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3822,7 +3836,7 @@ class Session(
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls, session: str, **params: Unpack["SessionListLineItemsParams"]
+        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3841,7 +3855,7 @@ class Session(
     @overload
     @staticmethod
     async def list_line_items_async(
-        session: str, **params: Unpack["SessionListLineItemsParams"]
+        session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

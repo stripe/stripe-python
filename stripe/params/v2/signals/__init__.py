@@ -13,6 +13,7 @@ if TYPE_CHECKING:
         AccountActivityCreateParamsAccountDetailsDataIdentity as AccountActivityCreateParamsAccountDetailsDataIdentity,
         AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails as AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails,
         AccountActivityCreateParamsAccountRestricted as AccountActivityCreateParamsAccountRestricted,
+        AccountActivityCreateParamsAccountReviewed as AccountActivityCreateParamsAccountReviewed,
         AccountActivityCreateParamsAccountSuspended as AccountActivityCreateParamsAccountSuspended,
         AccountActivityCreateParamsLoginAttempt as AccountActivityCreateParamsLoginAttempt,
         AccountActivityCreateParamsLoginAttemptClientDetails as AccountActivityCreateParamsLoginAttemptClientDetails,
@@ -103,6 +104,10 @@ _import_map = {
         False,
     ),
     "AccountActivityCreateParamsAccountRestricted": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsAccountReviewed": (
         "stripe.params.v2.signals._account_activity_create_params",
         False,
     ),

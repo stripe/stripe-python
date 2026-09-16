@@ -23,6 +23,7 @@ class StatementService(StripeService):
     def list(
         self,
         financial_account_id: str,
+        /,
         params: Optional["StatementListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAccountStatement]":
@@ -45,6 +46,7 @@ class StatementService(StripeService):
     async def list_async(
         self,
         financial_account_id: str,
+        /,
         params: Optional["StatementListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAccountStatement]":
@@ -68,6 +70,7 @@ class StatementService(StripeService):
         self,
         financial_account_id: str,
         id: str,
+        /,
         params: Optional["StatementRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccountStatement":
@@ -92,6 +95,7 @@ class StatementService(StripeService):
         self,
         financial_account_id: str,
         id: str,
+        /,
         params: Optional["StatementRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccountStatement":

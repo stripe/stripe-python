@@ -62,7 +62,7 @@ class Charge(
     """
     The `Charge` object represents a single attempt to move money into your Stripe account.
     PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://docs.stripe.com/connect/account-debits) may also create Charges.
-    Some legacy payment flows create Charges directly, which is not recommended for new integrations.
+    The create and capture methods are deprecated and will be deleted soon. If your integration uses either of them, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/payments/payment-intents).
     """
 
     OBJECT_NAME: ClassVar[Literal["charge"]] = "charge"
@@ -967,7 +967,7 @@ class Charge(
             """
             The last four digits of the card.
             """
-            mandate: Optional[str]
+            mandate: Optional[ExpandableField["Mandate"]]
             """
             ID of the mandate used to make this payment or created by it.
             """
@@ -2519,6 +2519,10 @@ class Charge(
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
         sequra: Optional[Sequra]
+        shared_payment_granted_token: Optional[str]
+        """
+        ID of the shared payment granted token used to make this payment.
+        """
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
@@ -2888,14 +2892,10 @@ class Charge(
 
     @classmethod
     def _cls_capture(
-        cls, charge: str, **params: Unpack["ChargeCaptureParams"]
+        cls, charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -2911,25 +2911,17 @@ class Charge(
     @overload
     @staticmethod
     def capture(
-        charge: str, **params: Unpack["ChargeCaptureParams"]
+        charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         ...
 
     @overload
     def capture(self, **params: Unpack["ChargeCaptureParams"]) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         ...
 
@@ -2938,11 +2930,7 @@ class Charge(
         self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -2957,14 +2945,10 @@ class Charge(
 
     @classmethod
     async def _cls_capture_async(
-        cls, charge: str, **params: Unpack["ChargeCaptureParams"]
+        cls, charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -2980,14 +2964,10 @@ class Charge(
     @overload
     @staticmethod
     async def capture_async(
-        charge: str, **params: Unpack["ChargeCaptureParams"]
+        charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         ...
 
@@ -2996,11 +2976,7 @@ class Charge(
         self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         ...
 
@@ -3009,11 +2985,7 @@ class Charge(
         self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -3029,9 +3001,7 @@ class Charge(
     @classmethod
     def create(cls, **params: Unpack["ChargeCreateParams"]) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
-        to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
-        object used to request payment.
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -3047,9 +3017,7 @@ class Charge(
         cls, **params: Unpack["ChargeCreateParams"]
     ) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
-        to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
-        object used to request payment.
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -3217,6 +3185,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
+        /,
         **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
         """
@@ -3238,6 +3207,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
+        /,
         **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
         """
@@ -3256,7 +3226,7 @@ class Charge(
 
     @classmethod
     def list_refunds(
-        cls, charge: str, **params: Unpack["ChargeListRefundsParams"]
+        cls, charge: str, /, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -3274,7 +3244,7 @@ class Charge(
 
     @classmethod
     async def list_refunds_async(
-        cls, charge: str, **params: Unpack["ChargeListRefundsParams"]
+        cls, charge: str, /, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.

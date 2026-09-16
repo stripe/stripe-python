@@ -103,6 +103,7 @@ class MeteredItemService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["MeteredItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "MeteredItem":
@@ -123,6 +124,7 @@ class MeteredItemService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["MeteredItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "MeteredItem":
@@ -143,6 +145,7 @@ class MeteredItemService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["MeteredItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "MeteredItem":
@@ -163,6 +166,7 @@ class MeteredItemService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["MeteredItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "MeteredItem":

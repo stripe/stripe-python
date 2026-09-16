@@ -238,13 +238,13 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["SetupIntentConfirmParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAuBecsDebit"
@@ -1271,7 +1271,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
     Additional fields for Mandate creation
     """
     verification_method: NotRequired[
-        Literal["automatic", "payer_name_verification"]
+        "Literal['automatic', 'payer_name_verification']|str"
     ]
 
 

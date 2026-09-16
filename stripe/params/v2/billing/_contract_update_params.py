@@ -82,6 +82,10 @@ class ContractUpdateParamsOneTimeFeeActionAdd(TypedDict):
     """
     A user-provided lookup key.
     """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Metadata for the one-time fee.
+    """
     product: str
     """
     The id of the product for this fee.
@@ -126,6 +130,12 @@ class ContractUpdateParamsOneTimeFeeActionUpdate(TypedDict):
     lookup_key: NotRequired[str]
     """
     The lookup key of the one-time fee to update.
+    """
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
+    """
+    Metadata mutations to apply to the one-time fee.
     """
 
 

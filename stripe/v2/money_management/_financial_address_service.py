@@ -27,7 +27,7 @@ class FinancialAddressService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAddress]":
         """
-        List all FinancialAddresses for a FinancialAccount.
+        List all FinancialAddresses for a FinancialAccount (V2 shape).
         """
         return cast(
             "ListObject[FinancialAddress]",
@@ -46,7 +46,7 @@ class FinancialAddressService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAddress]":
         """
-        List all FinancialAddresses for a FinancialAccount.
+        List all FinancialAddresses for a FinancialAccount (V2 shape).
         """
         return cast(
             "ListObject[FinancialAddress]",
@@ -65,7 +65,7 @@ class FinancialAddressService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddress":
         """
-        Create a new FinancialAddress for a FinancialAccount.
+        Create a new FinancialAddress for a FinancialAccount (V2 shape).
         """
         return cast(
             "FinancialAddress",
@@ -84,7 +84,7 @@ class FinancialAddressService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddress":
         """
-        Create a new FinancialAddress for a FinancialAccount.
+        Create a new FinancialAddress for a FinancialAccount (V2 shape).
         """
         return cast(
             "FinancialAddress",
@@ -100,11 +100,12 @@ class FinancialAddressService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FinancialAddressRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddress":
         """
-        Retrieve a FinancialAddress. By default, the FinancialAddress will be returned in its unexpanded state, revealing only the last 4 digits of the account number.
+        Retrieve a FinancialAddress (V2 shape).
         """
         return cast(
             "FinancialAddress",
@@ -122,11 +123,12 @@ class FinancialAddressService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FinancialAddressRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddress":
         """
-        Retrieve a FinancialAddress. By default, the FinancialAddress will be returned in its unexpanded state, revealing only the last 4 digits of the account number.
+        Retrieve a FinancialAddress (V2 shape).
         """
         return cast(
             "FinancialAddress",

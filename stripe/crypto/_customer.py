@@ -39,7 +39,9 @@ class Customer(APIResource["Customer"]):
         verification_errors: List[
             Union[
                 Literal[
+                    "address_validation_failed",
                     "id_document_verification_failed",
+                    "person_verification_failed",
                     "phone_verification_failed",
                     "user_has_reached_max_verification_attempts",
                 ],
@@ -67,7 +69,9 @@ class Customer(APIResource["Customer"]):
         errors: List[
             Union[
                 Literal[
+                    "address_validation_failed",
                     "id_document_verification_failed",
+                    "person_verification_failed",
                     "phone_verification_failed",
                     "user_has_reached_max_verification_attempts",
                 ],
@@ -173,6 +177,7 @@ class Customer(APIResource["Customer"]):
     def list_crypto_consumer_wallets(
         cls,
         id: str,
+        /,
         **params: Unpack["CustomerListCryptoConsumerWalletsParams"],
     ) -> ListObject["CustomerConsumerWallet"]:
         """
@@ -193,6 +198,7 @@ class Customer(APIResource["Customer"]):
     async def list_crypto_consumer_wallets_async(
         cls,
         id: str,
+        /,
         **params: Unpack["CustomerListCryptoConsumerWalletsParams"],
     ) -> ListObject["CustomerConsumerWallet"]:
         """
@@ -211,7 +217,7 @@ class Customer(APIResource["Customer"]):
 
     @classmethod
     def list_payment_tokens(
-        cls, id: str, **params: Unpack["CustomerListPaymentTokensParams"]
+        cls, id: str, /, **params: Unpack["CustomerListPaymentTokensParams"]
     ) -> ListObject["CustomerPaymentToken"]:
         """
         Lists the Payment Tokens for a Crypto Customer.
@@ -229,7 +235,7 @@ class Customer(APIResource["Customer"]):
 
     @classmethod
     async def list_payment_tokens_async(
-        cls, id: str, **params: Unpack["CustomerListPaymentTokensParams"]
+        cls, id: str, /, **params: Unpack["CustomerListPaymentTokensParams"]
     ) -> ListObject["CustomerPaymentToken"]:
         """
         Lists the Payment Tokens for a Crypto Customer.

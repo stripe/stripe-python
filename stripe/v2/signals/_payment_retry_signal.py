@@ -49,7 +49,7 @@ class PaymentRetrySignal(StripeObject):
     """
     The payment intent this signal relates to.
     """
-    payment_record: str
+    payment_record: Optional[str]
     """
     The payment record this signal relates to.
     """

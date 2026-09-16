@@ -605,7 +605,10 @@ class PaymentRecord(
                 Additional information about why 3D Secure succeeded or failed, based on the `result`.
                 """
                 version: Optional[
-                    Union[Literal["1.0.2", "2.1.0", "2.2.0"], str]
+                    Union[
+                        Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"],
+                        str,
+                    ]
                 ]
                 """
                 The version of 3D Secure that was used.
@@ -621,19 +624,24 @@ class PaymentRecord(
                 class GooglePay(StripeObject):
                     pass
 
+                class Link(StripeObject):
+                    pass
+
                 apple_pay: Optional[ApplePay]
                 dynamic_last4: Optional[str]
                 """
                 (For tokenized numbers only.) The last four digits of the device account number.
                 """
                 google_pay: Optional[GooglePay]
+                link: Optional[Link]
                 type: str
                 """
-                The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+                The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
                 """
                 _inner_class_types = {
                     "apple_pay": ApplePay,
                     "google_pay": GooglePay,
+                    "link": Link,
                 }
 
             authorization_code: Optional[str]
@@ -1589,6 +1597,10 @@ class PaymentRecord(
             """
             Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
             """
+            funding_source_group: Optional[str]
+            """
+            The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+            """
 
         class MbWay(StripeObject):
             pass
@@ -1621,6 +1633,16 @@ class PaymentRecord(
             Internal card details
             """
             _inner_class_types = {"card": Card}
+
+        class Momo(StripeObject):
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular MoMo account. You can use this attribute to check whether two MoMo accounts are the same.
+            """
+            mandate: Optional[str]
+            """
+            ID of the multi-use Mandate created by, or used to make, this MoMo payment.
+            """
 
         class Multibanco(StripeObject):
             entity: Optional[str]
@@ -2244,6 +2266,7 @@ class PaymentRecord(
         link: Optional[Link]
         mb_way: Optional[MbWay]
         mobilepay: Optional[Mobilepay]
+        momo: Optional[Momo]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
         nz_bank_account: Optional[NzBankAccount]
@@ -2328,6 +2351,7 @@ class PaymentRecord(
             "link": Link,
             "mb_way": MbWay,
             "mobilepay": Mobilepay,
+            "momo": Momo,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
             "nz_bank_account": NzBankAccount,
@@ -2589,7 +2613,7 @@ class PaymentRecord(
 
     @classmethod
     def _cls_report_dispute(
-        cls, id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+        cls, id: str, /, **params: Unpack["PaymentRecordReportDisputeParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2609,7 +2633,7 @@ class PaymentRecord(
     @overload
     @staticmethod
     def report_dispute(
-        id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+        id: str, /, **params: Unpack["PaymentRecordReportDisputeParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2648,7 +2672,7 @@ class PaymentRecord(
 
     @classmethod
     async def _cls_report_dispute_async(
-        cls, id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+        cls, id: str, /, **params: Unpack["PaymentRecordReportDisputeParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2668,7 +2692,7 @@ class PaymentRecord(
     @overload
     @staticmethod
     async def report_dispute_async(
-        id: str, **params: Unpack["PaymentRecordReportDisputeParams"]
+        id: str, /, **params: Unpack["PaymentRecordReportDisputeParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2745,6 +2769,7 @@ class PaymentRecord(
     def _cls_report_payment_attempt(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptParams"],
     ) -> "PaymentRecord":
         """
@@ -2765,7 +2790,7 @@ class PaymentRecord(
     @overload
     @staticmethod
     def report_payment_attempt(
-        id: str, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
+        id: str, /, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2806,6 +2831,7 @@ class PaymentRecord(
     async def _cls_report_payment_attempt_async(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptParams"],
     ) -> "PaymentRecord":
         """
@@ -2826,7 +2852,7 @@ class PaymentRecord(
     @overload
     @staticmethod
     async def report_payment_attempt_async(
-        id: str, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
+        id: str, /, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2867,6 +2893,7 @@ class PaymentRecord(
     def _cls_report_payment_attempt_canceled(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
@@ -2888,6 +2915,7 @@ class PaymentRecord(
     @staticmethod
     def report_payment_attempt_canceled(
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
@@ -2931,6 +2959,7 @@ class PaymentRecord(
     async def _cls_report_payment_attempt_canceled_async(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
@@ -2952,6 +2981,7 @@ class PaymentRecord(
     @staticmethod
     async def report_payment_attempt_canceled_async(
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
@@ -2995,6 +3025,7 @@ class PaymentRecord(
     def _cls_report_payment_attempt_failed(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
@@ -3016,6 +3047,7 @@ class PaymentRecord(
     @staticmethod
     def report_payment_attempt_failed(
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
@@ -3057,6 +3089,7 @@ class PaymentRecord(
     async def _cls_report_payment_attempt_failed_async(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
@@ -3078,6 +3111,7 @@ class PaymentRecord(
     @staticmethod
     async def report_payment_attempt_failed_async(
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
@@ -3119,6 +3153,7 @@ class PaymentRecord(
     def _cls_report_payment_attempt_guaranteed(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
@@ -3140,6 +3175,7 @@ class PaymentRecord(
     @staticmethod
     def report_payment_attempt_guaranteed(
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
@@ -3183,6 +3219,7 @@ class PaymentRecord(
     async def _cls_report_payment_attempt_guaranteed_async(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
@@ -3204,6 +3241,7 @@ class PaymentRecord(
     @staticmethod
     async def report_payment_attempt_guaranteed_async(
         id: str,
+        /,
         **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
@@ -3247,6 +3285,7 @@ class PaymentRecord(
     def _cls_report_payment_attempt_informational(
         cls,
         id: str,
+        /,
         **params: Unpack[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
@@ -3269,6 +3308,7 @@ class PaymentRecord(
     @staticmethod
     def report_payment_attempt_informational(
         id: str,
+        /,
         **params: Unpack[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
@@ -3315,6 +3355,7 @@ class PaymentRecord(
     async def _cls_report_payment_attempt_informational_async(
         cls,
         id: str,
+        /,
         **params: Unpack[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
@@ -3337,6 +3378,7 @@ class PaymentRecord(
     @staticmethod
     async def report_payment_attempt_informational_async(
         id: str,
+        /,
         **params: Unpack[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
@@ -3381,7 +3423,7 @@ class PaymentRecord(
 
     @classmethod
     def _cls_report_refund(
-        cls, id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+        cls, id: str, /, **params: Unpack["PaymentRecordReportRefundParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3401,7 +3443,7 @@ class PaymentRecord(
     @overload
     @staticmethod
     def report_refund(
-        id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+        id: str, /, **params: Unpack["PaymentRecordReportRefundParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3440,7 +3482,7 @@ class PaymentRecord(
 
     @classmethod
     async def _cls_report_refund_async(
-        cls, id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+        cls, id: str, /, **params: Unpack["PaymentRecordReportRefundParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3460,7 +3502,7 @@ class PaymentRecord(
     @overload
     @staticmethod
     async def report_refund_async(
-        id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+        id: str, /, **params: Unpack["PaymentRecordReportRefundParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record

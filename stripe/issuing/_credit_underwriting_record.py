@@ -461,6 +461,7 @@ class CreditUnderwritingRecord(
     def _cls_correct(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -483,6 +484,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     def correct(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -523,6 +525,7 @@ class CreditUnderwritingRecord(
     async def _cls_correct_async(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -545,6 +548,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     async def correct_async(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -701,6 +705,7 @@ class CreditUnderwritingRecord(
     def _cls_report_decision(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -723,6 +728,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     def report_decision(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -763,6 +769,7 @@ class CreditUnderwritingRecord(
     async def _cls_report_decision_async(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -785,6 +792,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     async def report_decision_async(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -825,6 +833,7 @@ class CreditUnderwritingRecord(
     def _cls_report_offer_acceptance(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
         ],
@@ -849,6 +858,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     def report_offer_acceptance(
         credit_underwriting_record: str,
+        /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
         ],
@@ -897,6 +907,7 @@ class CreditUnderwritingRecord(
     async def _cls_report_offer_acceptance_async(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
         ],
@@ -921,6 +932,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     async def report_offer_acceptance_async(
         credit_underwriting_record: str,
+        /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
         ],

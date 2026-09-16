@@ -241,6 +241,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def _cls_mark_delivered(
         cls,
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -262,6 +263,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     def mark_delivered(
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -303,6 +305,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     async def _cls_mark_delivered_async(
         cls,
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -324,6 +327,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     async def mark_delivered_async(
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -422,6 +426,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         def _cls_refill(
             cls,
             financing_offer: str,
+            /,
             **params: Unpack["FinancingOfferRefillParams"],
         ) -> "FinancingOffer":
             """
@@ -442,6 +447,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         @staticmethod
         def refill(
             financing_offer: str,
+            /,
             **params: Unpack["FinancingOfferRefillParams"],
         ) -> "FinancingOffer":
             """
@@ -482,6 +488,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         async def _cls_refill_async(
             cls,
             financing_offer: str,
+            /,
             **params: Unpack["FinancingOfferRefillParams"],
         ) -> "FinancingOffer":
             """
@@ -502,6 +509,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         @staticmethod
         async def refill_async(
             financing_offer: str,
+            /,
             **params: Unpack["FinancingOfferRefillParams"],
         ) -> "FinancingOffer":
             """

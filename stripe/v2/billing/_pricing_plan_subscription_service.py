@@ -67,6 +67,7 @@ class PricingPlanSubscriptionService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanSubscriptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanSubscription":
@@ -89,6 +90,7 @@ class PricingPlanSubscriptionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanSubscriptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanSubscription":
@@ -111,6 +113,7 @@ class PricingPlanSubscriptionService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanSubscriptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanSubscription":
@@ -133,6 +136,7 @@ class PricingPlanSubscriptionService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanSubscriptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanSubscription":
@@ -155,6 +159,7 @@ class PricingPlanSubscriptionService(StripeService):
     def remove_discounts(
         self,
         id: str,
+        /,
         params: Optional[
             "PricingPlanSubscriptionRemoveDiscountsParams"
         ] = None,
@@ -179,6 +184,7 @@ class PricingPlanSubscriptionService(StripeService):
     async def remove_discounts_async(
         self,
         id: str,
+        /,
         params: Optional[
             "PricingPlanSubscriptionRemoveDiscountsParams"
         ] = None,

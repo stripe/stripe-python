@@ -52,6 +52,7 @@ if TYPE_CHECKING:
         SessionCreateParamsItemSubscriptionBillingMode as SessionCreateParamsItemSubscriptionBillingMode,
         SessionCreateParamsItemSubscriptionBillingModeFlexible as SessionCreateParamsItemSubscriptionBillingModeFlexible,
         SessionCreateParamsItemSubscriptionItem as SessionCreateParamsItemSubscriptionItem,
+        SessionCreateParamsItemSubscriptionItemCurrentTrial as SessionCreateParamsItemSubscriptionItemCurrentTrial,
         SessionCreateParamsItemSubscriptionItemPriceData as SessionCreateParamsItemSubscriptionItemPriceData,
         SessionCreateParamsItemSubscriptionItemPriceDataProductData as SessionCreateParamsItemSubscriptionItemPriceDataProductData,
         SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails as SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails,
@@ -429,6 +430,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsItemSubscriptionItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionItemCurrentTrial": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

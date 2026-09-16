@@ -80,6 +80,12 @@ class AccountActivity(StripeObject):
         The reason the account or customer was restricted.
         """
 
+    class AccountReviewed(StripeObject):
+        outcome: Union[Literal["trusted"], str]
+        """
+        The outcome of the merchant review.
+        """
+
     class AccountSuspended(StripeObject):
         reason: Union[Literal["abuse", "other"], str]
         """
@@ -175,6 +181,11 @@ class AccountActivity(StripeObject):
     Details for the account restriction. Present only when type is account_restricted. The activity
     requires an existing account_details.account or account_details.customer; inline data is unsupported.
     """
+    account_reviewed: Optional[AccountReviewed]
+    """
+    Details for the account review. Present only when type is account_reviewed. The activity
+    requires an existing account_details.account or account_details.customer; inline data is unsupported.
+    """
     account_suspended: Optional[AccountSuspended]
     """
     Details for the account suspension. Present only when type is account_suspended. The activity
@@ -223,6 +234,7 @@ class AccountActivity(StripeObject):
     type: Union[
         Literal[
             "account_restricted",
+            "account_reviewed",
             "account_suspended",
             "login_attempt",
             "login_decision",
@@ -237,6 +249,7 @@ class AccountActivity(StripeObject):
     _inner_class_types = {
         "account_details": AccountDetails,
         "account_restricted": AccountRestricted,
+        "account_reviewed": AccountReviewed,
         "account_suspended": AccountSuspended,
         "login_attempt": LoginAttempt,
         "login_decision": LoginDecision,

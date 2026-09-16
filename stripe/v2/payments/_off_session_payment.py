@@ -134,6 +134,73 @@ class OffSessionPayment(StripeObject):
         The method to use to capture the payment.
         """
 
+    class LatestPaymentAttemptRecordDetails(StripeObject):
+        class FailureDetails(StripeObject):
+            code: Optional[str]
+            """
+            Code for the failure.
+            """
+            message: Optional[str]
+            """
+            Message describing the failure.
+            """
+
+        class PaymentMethodDetails(StripeObject):
+            class Card(StripeObject):
+                authorization_code: Optional[str]
+                """
+                Authorization code returned by the card network.
+                """
+                decline_code: Optional[str]
+                """
+                Stripe decline code for the latest payment attempt.
+                """
+                network_advice_code: Optional[str]
+                """
+                Advice code returned by the card network.
+                """
+                network_decline_code: Optional[str]
+                """
+                Decline code returned by the card network.
+                """
+
+            card: Optional[Card]
+            """
+            Details about the card used for the latest payment attempt.
+            """
+            _inner_class_types = {"card": Card}
+
+        class ProcessorDetails(StripeObject):
+            class Stripe(StripeObject):
+                charge: Optional[str]
+                """
+                ID of the Charge created for the latest payment attempt.
+                """
+
+            stripe: Optional[Stripe]
+            """
+            Details about Stripe as the processor.
+            """
+            _inner_class_types = {"stripe": Stripe}
+
+        failure_details: Optional[FailureDetails]
+        """
+        Details about the failure for the latest payment attempt.
+        """
+        payment_method_details: Optional[PaymentMethodDetails]
+        """
+        Details about the payment method for the latest payment attempt.
+        """
+        processor_details: Optional[ProcessorDetails]
+        """
+        Details about the processor for the latest payment attempt.
+        """
+        _inner_class_types = {
+            "failure_details": FailureDetails,
+            "payment_method_details": PaymentMethodDetails,
+            "processor_details": ProcessorDetails,
+        }
+
     class PaymentDetails(StripeObject):
         customer_reference: Optional[str]
         """
@@ -198,7 +265,7 @@ class OffSessionPayment(StripeObject):
     """
     amount_requested: Amount
     """
-    The "presentment amount" to be collected from the customer.
+    Amount intended to be collected by this payment.
     """
     application: Optional[str]
     """
@@ -255,6 +322,12 @@ class OffSessionPayment(StripeObject):
     latest_payment_attempt_record: Optional[str]
     """
     Payment attempt record for the latest attempt, if one exists.
+    """
+    latest_payment_attempt_record_details: Optional[
+        LatestPaymentAttemptRecordDetails
+    ]
+    """
+    Details from the latest Payment Attempt Record, if one exists.
     """
     livemode: bool
     """
@@ -340,6 +413,7 @@ class OffSessionPayment(StripeObject):
     _inner_class_types = {
         "amount_details": AmountDetails,
         "capture": Capture,
+        "latest_payment_attempt_record_details": LatestPaymentAttemptRecordDetails,
         "payment_details": PaymentDetails,
         "payments_orchestration": PaymentsOrchestration,
         "retry_details": RetryDetails,

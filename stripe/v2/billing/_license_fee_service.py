@@ -146,6 +146,7 @@ class LicenseFeeService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["LicenseFeeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicenseFee":
@@ -166,6 +167,7 @@ class LicenseFeeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["LicenseFeeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicenseFee":
@@ -186,6 +188,7 @@ class LicenseFeeService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["LicenseFeeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicenseFee":
@@ -212,6 +215,7 @@ class LicenseFeeService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["LicenseFeeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicenseFee":

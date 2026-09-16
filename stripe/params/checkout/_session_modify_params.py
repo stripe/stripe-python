@@ -54,9 +54,9 @@ class SessionModifyParams(RequestOptions):
     """
     payment_intent_data: NotRequired["SessionModifyParamsPaymentIntentData"]
     """
-    A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
+    A subset of parameters to apply to the PaymentIntent for Checkout Sessions in `payment` mode.
 
-    You can only update these parameters when `ui_mode` is `elements` and while the session is active.
+    You can only update these parameters when `ui_mode` is `elements` and while the session is active. If the PaymentIntent requires customer action or confirmation, updating these parameters abandons the current payment attempt and returns the PaymentIntent to `requires_payment_method`. You can't update these parameters after the PaymentIntent begins processing, requires capture, succeeds, or is canceled.
     """
     shipping_options: NotRequired[
         "Literal['']|List[SessionModifyParamsShippingOption]"

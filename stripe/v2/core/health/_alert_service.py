@@ -87,6 +87,7 @@ class AlertService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AlertRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -107,6 +108,7 @@ class AlertService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AlertRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":

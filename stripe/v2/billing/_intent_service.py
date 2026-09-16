@@ -164,6 +164,7 @@ class IntentService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["IntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -184,6 +185,7 @@ class IntentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["IntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -204,6 +206,7 @@ class IntentService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["IntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -224,6 +227,7 @@ class IntentService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["IntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -244,6 +248,7 @@ class IntentService(StripeService):
     def commit(
         self,
         id: str,
+        /,
         params: Optional["IntentCommitParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -264,6 +269,7 @@ class IntentService(StripeService):
     async def commit_async(
         self,
         id: str,
+        /,
         params: Optional["IntentCommitParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -284,6 +290,7 @@ class IntentService(StripeService):
     def release_reservation(
         self,
         id: str,
+        /,
         params: Optional["IntentReleaseReservationParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -306,6 +313,7 @@ class IntentService(StripeService):
     async def release_reservation_async(
         self,
         id: str,
+        /,
         params: Optional["IntentReleaseReservationParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -328,6 +336,7 @@ class IntentService(StripeService):
     def reserve(
         self,
         id: str,
+        /,
         params: Optional["IntentReserveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":
@@ -348,6 +357,7 @@ class IntentService(StripeService):
     async def reserve_async(
         self,
         id: str,
+        /,
         params: Optional["IntentReserveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Intent":

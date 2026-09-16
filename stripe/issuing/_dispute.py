@@ -735,7 +735,7 @@ class Dispute(
 
     @classmethod
     def _cls_submit(
-        cls, dispute: str, **params: Unpack["DisputeSubmitParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -754,7 +754,7 @@ class Dispute(
     @overload
     @staticmethod
     def submit(
-        dispute: str, **params: Unpack["DisputeSubmitParams"]
+        dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -788,7 +788,7 @@ class Dispute(
 
     @classmethod
     async def _cls_submit_async(
-        cls, dispute: str, **params: Unpack["DisputeSubmitParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -807,7 +807,7 @@ class Dispute(
     @overload
     @staticmethod
     async def submit_async(
-        dispute: str, **params: Unpack["DisputeSubmitParams"]
+        dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -846,7 +846,7 @@ class Dispute(
 
         @classmethod
         def _cls_close(
-            cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+            cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -865,7 +865,7 @@ class Dispute(
         @overload
         @staticmethod
         def close(
-            dispute: str, **params: Unpack["DisputeCloseParams"]
+            dispute: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -899,7 +899,7 @@ class Dispute(
 
         @classmethod
         async def _cls_close_async(
-            cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+            cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -918,7 +918,7 @@ class Dispute(
         @overload
         @staticmethod
         async def close_async(
-            dispute: str, **params: Unpack["DisputeCloseParams"]
+            dispute: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -956,6 +956,7 @@ class Dispute(
         def _cls_provisional_credit(
             cls,
             dispute: str,
+            /,
             **params: Unpack["DisputeProvisionalCreditParams"],
         ) -> "Dispute":
             """
@@ -975,7 +976,7 @@ class Dispute(
         @overload
         @staticmethod
         def provisional_credit(
-            dispute: str, **params: Unpack["DisputeProvisionalCreditParams"]
+            dispute: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
             Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
@@ -1013,6 +1014,7 @@ class Dispute(
         async def _cls_provisional_credit_async(
             cls,
             dispute: str,
+            /,
             **params: Unpack["DisputeProvisionalCreditParams"],
         ) -> "Dispute":
             """
@@ -1032,7 +1034,7 @@ class Dispute(
         @overload
         @staticmethod
         async def provisional_credit_async(
-            dispute: str, **params: Unpack["DisputeProvisionalCreditParams"]
+            dispute: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
             Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
@@ -1070,6 +1072,7 @@ class Dispute(
         def _cls_simulate_network_lifecycle_dispute_response(
             cls,
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
             ],
@@ -1092,6 +1095,7 @@ class Dispute(
         @staticmethod
         def simulate_network_lifecycle_dispute_response(
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
             ],
@@ -1140,6 +1144,7 @@ class Dispute(
         async def _cls_simulate_network_lifecycle_dispute_response_async(
             cls,
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
             ],
@@ -1162,6 +1167,7 @@ class Dispute(
         @staticmethod
         async def simulate_network_lifecycle_dispute_response_async(
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
             ],
@@ -1210,6 +1216,7 @@ class Dispute(
         def _cls_simulate_network_lifecycle_pre_arbitration_response(
             cls,
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
             ],
@@ -1232,6 +1239,7 @@ class Dispute(
         @staticmethod
         def simulate_network_lifecycle_pre_arbitration_response(
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
             ],
@@ -1280,6 +1288,7 @@ class Dispute(
         async def _cls_simulate_network_lifecycle_pre_arbitration_response_async(
             cls,
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
             ],
@@ -1302,6 +1311,7 @@ class Dispute(
         @staticmethod
         async def simulate_network_lifecycle_pre_arbitration_response_async(
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
             ],
@@ -1350,6 +1360,7 @@ class Dispute(
         def _cls_simulate_network_lifecycle_pre_arbitration_submission(
             cls,
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
             ],
@@ -1372,6 +1383,7 @@ class Dispute(
         @staticmethod
         def simulate_network_lifecycle_pre_arbitration_submission(
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
             ],
@@ -1420,6 +1432,7 @@ class Dispute(
         async def _cls_simulate_network_lifecycle_pre_arbitration_submission_async(
             cls,
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
             ],
@@ -1442,6 +1455,7 @@ class Dispute(
         @staticmethod
         async def simulate_network_lifecycle_pre_arbitration_submission_async(
             dispute: str,
+            /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
             ],

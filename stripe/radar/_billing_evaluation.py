@@ -51,7 +51,7 @@ class BillingEvaluation(CreateableAPIResource["BillingEvaluation"]):
         """
         data: Optional[Data]
         """
-        Attributes of the customer being evaluated. These are populated from the `customer` or `customer_account` object when one was supplied, and from the request otherwise.
+        Attributes of the customer being evaluated, as supplied on the request. Null when the customer was identified by `customer` or `customer_account`.
         """
         _inner_class_types = {"data": Data}
 

@@ -66,6 +66,7 @@ class PaymentRetryEvaluationService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetryEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetryEvaluation":
@@ -88,6 +89,7 @@ class PaymentRetryEvaluationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetryEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetryEvaluation":
@@ -110,6 +112,7 @@ class PaymentRetryEvaluationService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetryEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetryEvaluation":
@@ -132,6 +135,7 @@ class PaymentRetryEvaluationService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetryEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetryEvaluation":
@@ -154,6 +158,7 @@ class PaymentRetryEvaluationService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetryEvaluationCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetryEvaluation":
@@ -176,6 +181,7 @@ class PaymentRetryEvaluationService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetryEvaluationCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetryEvaluation":

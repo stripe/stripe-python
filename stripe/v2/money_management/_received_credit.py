@@ -132,6 +132,155 @@ class ReceivedCredit(StripeObject):
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
 
+        class OriginatingBankAccount(StripeObject):
+            class Aba(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that sent the payment.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                network: Union[Literal["ach", "rtp", "us_domestic_wire"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+                routing_number: Optional[str]
+                """
+                The routing number of the account that originated the transfer.
+                """
+
+            class Clabe(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that sent the payment.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                bic: Optional[str]
+                """
+                The BIC/SWIFT code of the account that originated the transfer.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                network: Union[Literal["spei"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+
+            class Cpa(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that sent the payment.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                bic: Optional[str]
+                """
+                The BIC/SWIFT code of the account that originated the transfer.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                network: Union[Literal["acss"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+
+            class Iban(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The account holder name of the bank account the transfer was received from.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                bic: Optional[str]
+                """
+                The BIC/SWIFT code of the account that originated the transfer.
+                """
+                country: Optional[str]
+                """
+                The origination country of the bank transfer.
+                """
+                iban: Optional[str]
+                """
+                The IBAN that originated the transfer.
+                """
+                network: Union[Literal["sepa_credit_transfer"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+
+            class SortCode(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The account holder name of the bank account the transfer was received from.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                network: Union[Literal["chaps", "fps"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+                sort_code: Optional[str]
+                """
+                The sort code of the account that originated the transfer.
+                """
+
+            aba: Optional[Aba]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `aba`.
+            """
+            clabe: Optional[Clabe]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `clabe`.
+            """
+            cpa: Optional[Cpa]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `cpa`.
+            """
+            iban: Optional[Iban]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `iban`.
+            """
+            sort_code: Optional[SortCode]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `sort_code`.
+            """
+            type: Union[
+                Literal["aba", "clabe", "cpa", "iban", "sort_code"], str
+            ]
+            """
+            Open Enum. The type of bank transfer that originated this ReceivedCredit.
+            """
+            _inner_class_types = {
+                "aba": Aba,
+                "clabe": Clabe,
+                "cpa": Cpa,
+                "iban": Iban,
+                "sort_code": SortCode,
+            }
+
         class SepaBankAccount(StripeObject):
             account_holder_name: Optional[str]
             """
@@ -182,11 +331,11 @@ class ReceivedCredit(StripeObject):
 
         ca_bank_account: Optional[CaBankAccount]
         """
-        Hash containing the transaction bank details. Present if `origin_type` field value is `ca_bank_account`.
+        Deprecated. Use `originating_bank_account.cpa` instead.
         """
         eu_bank_account: Optional[EuBankAccount]
         """
-        Hash containing the transaction bank details. Present if `origin_type` field value is `eu_bank_account`.
+        Deprecated. Use `originating_bank_account.iban` instead.
         """
         financial_address: str
         """
@@ -194,30 +343,19 @@ class ReceivedCredit(StripeObject):
         """
         gb_bank_account: Optional[GbBankAccount]
         """
-        Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
+        Deprecated. Use `originating_bank_account.sort_code` instead.
         """
         mx_bank_account: Optional[MxBankAccount]
         """
-        Hash containing the transaction bank details. Present if  `origin_type` field value is `mx_bank_account`.
+        Deprecated. Use `originating_bank_account.clabe` instead.
         """
-        origin_type: Union[
-            Literal[
-                "ca_bank_account",
-                "crypto_wallet",
-                "eu_bank_account",
-                "gb_bank_account",
-                "mx_bank_account",
-                "sepa_bank_account",
-                "us_bank_account",
-            ],
-            str,
-        ]
+        originating_bank_account: OriginatingBankAccount
         """
-        Open Enum. Indicates the origin of source from which external funds originated from.
+        Hash containing the originating bank account details and type for this bank transfer.
         """
         sepa_bank_account: Optional[SepaBankAccount]
         """
-        Hash containing the transaction bank details. Present if `origin_type` field value is `sepa_bank_account`.
+        Deprecated. Use `originating_bank_account.iban` instead.
         """
         statement_descriptor: Optional[str]
         """
@@ -225,13 +363,14 @@ class ReceivedCredit(StripeObject):
         """
         us_bank_account: Optional[UsBankAccount]
         """
-        Hash containing the transaction bank details. Present if `origin_type` field value is `us_bank_account`.
+        Deprecated. Use `originating_bank_account.aba` instead.
         """
         _inner_class_types = {
             "ca_bank_account": CaBankAccount,
             "eu_bank_account": EuBankAccount,
             "gb_bank_account": GbBankAccount,
             "mx_bank_account": MxBankAccount,
+            "originating_bank_account": OriginatingBankAccount,
             "sepa_bank_account": SepaBankAccount,
             "us_bank_account": UsBankAccount,
         }
@@ -299,24 +438,13 @@ class ReceivedCredit(StripeObject):
         """
         Financial Address on which funds for ReceivedCredit were received.
         """
-        origin_type: Union[
-            Literal[
-                "ca_bank_account",
-                "crypto_wallet",
-                "eu_bank_account",
-                "gb_bank_account",
-                "mx_bank_account",
-                "sepa_bank_account",
-                "us_bank_account",
-            ],
-            str,
-        ]
-        """
-        Open Enum. Indicates the origin of source from which external funds originated from.
-        """
         statement_descriptor: Optional[str]
         """
         Freeform string set by originator of the external ReceivedCredit.
+        """
+        type: Union[Literal["crypto_wallet"], str]
+        """
+        Open Enum. The type of crypto wallet transfer that originated this ReceivedCredit.
         """
         _inner_class_types = {"crypto_wallet": CryptoWallet}
 
@@ -399,6 +527,10 @@ class ReceivedCredit(StripeObject):
     amount: Amount
     """
     The amount and currency of the ReceivedCredit.
+    """
+    amount_received: Amount
+    """
+    The amount and currency of the ReceivedCredit that was received.
     """
     balance_transfer: Optional[BalanceTransfer]
     """

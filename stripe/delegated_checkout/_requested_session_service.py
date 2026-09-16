@@ -61,6 +61,7 @@ class RequestedSessionService(StripeService):
     def retrieve(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
@@ -83,6 +84,7 @@ class RequestedSessionService(StripeService):
     async def retrieve_async(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
@@ -105,6 +107,7 @@ class RequestedSessionService(StripeService):
     def update(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
@@ -127,6 +130,7 @@ class RequestedSessionService(StripeService):
     async def update_async(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
@@ -187,6 +191,7 @@ class RequestedSessionService(StripeService):
     def confirm(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
@@ -209,6 +214,7 @@ class RequestedSessionService(StripeService):
     async def confirm_async(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
@@ -231,6 +237,7 @@ class RequestedSessionService(StripeService):
     def expire(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
@@ -253,6 +260,7 @@ class RequestedSessionService(StripeService):
     async def expire_async(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":

@@ -260,6 +260,7 @@ class InboundTransfer(
     def _cls_cancel(
         cls,
         inbound_transfer: str,
+        /,
         **params: Unpack["InboundTransferCancelParams"],
     ) -> "InboundTransfer":
         """
@@ -279,7 +280,9 @@ class InboundTransfer(
     @overload
     @staticmethod
     def cancel(
-        inbound_transfer: str, **params: Unpack["InboundTransferCancelParams"]
+        inbound_transfer: str,
+        /,
+        **params: Unpack["InboundTransferCancelParams"],
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -317,6 +320,7 @@ class InboundTransfer(
     async def _cls_cancel_async(
         cls,
         inbound_transfer: str,
+        /,
         **params: Unpack["InboundTransferCancelParams"],
     ) -> "InboundTransfer":
         """
@@ -336,7 +340,9 @@ class InboundTransfer(
     @overload
     @staticmethod
     async def cancel_async(
-        inbound_transfer: str, **params: Unpack["InboundTransferCancelParams"]
+        inbound_transfer: str,
+        /,
+        **params: Unpack["InboundTransferCancelParams"],
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -469,7 +475,7 @@ class InboundTransfer(
 
         @classmethod
         def _cls_fail(
-            cls, id: str, **params: Unpack["InboundTransferFailParams"]
+            cls, id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -488,7 +494,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         def fail(
-            id: str, **params: Unpack["InboundTransferFailParams"]
+            id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -524,7 +530,7 @@ class InboundTransfer(
 
         @classmethod
         async def _cls_fail_async(
-            cls, id: str, **params: Unpack["InboundTransferFailParams"]
+            cls, id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -543,7 +549,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         async def fail_async(
-            id: str, **params: Unpack["InboundTransferFailParams"]
+            id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -581,6 +587,7 @@ class InboundTransfer(
         def _cls_return_inbound_transfer(
             cls,
             id: str,
+            /,
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
@@ -601,6 +608,7 @@ class InboundTransfer(
         @staticmethod
         def return_inbound_transfer(
             id: str,
+            /,
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
@@ -641,6 +649,7 @@ class InboundTransfer(
         async def _cls_return_inbound_transfer_async(
             cls,
             id: str,
+            /,
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
@@ -661,6 +670,7 @@ class InboundTransfer(
         @staticmethod
         async def return_inbound_transfer_async(
             id: str,
+            /,
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
@@ -699,7 +709,7 @@ class InboundTransfer(
 
         @classmethod
         def _cls_succeed(
-            cls, id: str, **params: Unpack["InboundTransferSucceedParams"]
+            cls, id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -718,7 +728,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         def succeed(
-            id: str, **params: Unpack["InboundTransferSucceedParams"]
+            id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -754,7 +764,7 @@ class InboundTransfer(
 
         @classmethod
         async def _cls_succeed_async(
-            cls, id: str, **params: Unpack["InboundTransferSucceedParams"]
+            cls, id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -773,7 +783,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         async def succeed_async(
-            id: str, **params: Unpack["InboundTransferSucceedParams"]
+            id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.

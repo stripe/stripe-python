@@ -37,7 +37,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
     class Payment(StripeObject):
         charge: Optional[ExpandableField["Charge"]]
         """
-        ID of the successful charge for this payment when `type` is `charge`.Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
+        ID of the successful charge for this payment when `type` is `charge`. Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
         """
         payment_intent: Optional[ExpandableField["PaymentIntent"]]
         """

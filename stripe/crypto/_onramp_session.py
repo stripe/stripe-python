@@ -126,6 +126,7 @@ class OnrampSession(
                         "btc",
                         "eth",
                         "matic",
+                        "ripusd",
                         "sol",
                         "usdc",
                         "usdt",
@@ -146,6 +147,7 @@ class OnrampSession(
                     "btc",
                     "eth",
                     "matic",
+                    "ripusd",
                     "sol",
                     "usdc",
                     "usdt",
@@ -223,7 +225,9 @@ class OnrampSession(
         """
         The amount of fiat we intend to onramp - excluding fees
         """
-        source_currency: Optional[Union[Literal["eur", "gbp", "usd"], str]]
+        source_currency: Optional[
+            Union[Literal["cad", "cop", "eur", "gbp", "php", "usd"], str]
+        ]
         """
         A fiat currency code
         """
@@ -288,7 +292,7 @@ class OnrampSession(
 
     @classmethod
     def _cls_checkout(
-        cls, id: str, **params: Unpack["OnrampSessionCheckoutParams"]
+        cls, id: str, /, **params: Unpack["OnrampSessionCheckoutParams"]
     ) -> "OnrampSession":
         """
         Completes a headless CryptoOnrampSession.
@@ -309,7 +313,7 @@ class OnrampSession(
     @overload
     @staticmethod
     def checkout(
-        id: str, **params: Unpack["OnrampSessionCheckoutParams"]
+        id: str, /, **params: Unpack["OnrampSessionCheckoutParams"]
     ) -> "OnrampSession":
         """
         Completes a headless CryptoOnrampSession.
@@ -351,7 +355,7 @@ class OnrampSession(
 
     @classmethod
     async def _cls_checkout_async(
-        cls, id: str, **params: Unpack["OnrampSessionCheckoutParams"]
+        cls, id: str, /, **params: Unpack["OnrampSessionCheckoutParams"]
     ) -> "OnrampSession":
         """
         Completes a headless CryptoOnrampSession.
@@ -372,7 +376,7 @@ class OnrampSession(
     @overload
     @staticmethod
     async def checkout_async(
-        id: str, **params: Unpack["OnrampSessionCheckoutParams"]
+        id: str, /, **params: Unpack["OnrampSessionCheckoutParams"]
     ) -> "OnrampSession":
         """
         Completes a headless CryptoOnrampSession.
@@ -494,7 +498,7 @@ class OnrampSession(
 
     @classmethod
     def _cls_quote(
-        cls, id: str, **params: Unpack["OnrampSessionQuoteParams"]
+        cls, id: str, /, **params: Unpack["OnrampSessionQuoteParams"]
     ) -> "OnrampSession":
         """
         Refreshes an executable quote for a CryptoOnrampSession.
@@ -513,7 +517,7 @@ class OnrampSession(
     @overload
     @staticmethod
     def quote(
-        id: str, **params: Unpack["OnrampSessionQuoteParams"]
+        id: str, /, **params: Unpack["OnrampSessionQuoteParams"]
     ) -> "OnrampSession":
         """
         Refreshes an executable quote for a CryptoOnrampSession.
@@ -549,7 +553,7 @@ class OnrampSession(
 
     @classmethod
     async def _cls_quote_async(
-        cls, id: str, **params: Unpack["OnrampSessionQuoteParams"]
+        cls, id: str, /, **params: Unpack["OnrampSessionQuoteParams"]
     ) -> "OnrampSession":
         """
         Refreshes an executable quote for a CryptoOnrampSession.
@@ -568,7 +572,7 @@ class OnrampSession(
     @overload
     @staticmethod
     async def quote_async(
-        id: str, **params: Unpack["OnrampSessionQuoteParams"]
+        id: str, /, **params: Unpack["OnrampSessionQuoteParams"]
     ) -> "OnrampSession":
         """
         Refreshes an executable quote for a CryptoOnrampSession.

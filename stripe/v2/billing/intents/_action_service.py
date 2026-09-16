@@ -21,6 +21,7 @@ class ActionService(StripeService):
     def list(
         self,
         intent_id: str,
+        /,
         params: Optional["ActionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[IntentAction]":
@@ -43,6 +44,7 @@ class ActionService(StripeService):
     async def list_async(
         self,
         intent_id: str,
+        /,
         params: Optional["ActionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[IntentAction]":
@@ -66,6 +68,7 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         id: str,
+        /,
         params: Optional["ActionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "IntentAction":
@@ -90,6 +93,7 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         id: str,
+        /,
         params: Optional["ActionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "IntentAction":
