@@ -17,6 +17,7 @@ class PaymentIntentService(StripeService):
     def simulate_crypto_deposit(
         self,
         intent: str,
+        /,
         params: "PaymentIntentSimulateCryptoDepositParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -39,6 +40,7 @@ class PaymentIntentService(StripeService):
     async def simulate_crypto_deposit_async(
         self,
         intent: str,
+        /,
         params: "PaymentIntentSimulateCryptoDepositParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":

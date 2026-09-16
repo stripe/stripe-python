@@ -100,6 +100,7 @@ class FinancialAddressService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FinancialAddressRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddress":
@@ -122,6 +123,7 @@ class FinancialAddressService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FinancialAddressRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddress":

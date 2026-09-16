@@ -111,7 +111,7 @@ class Form(ListableAPIResource["Form"]):
         """
         type: Union[Literal["account", "external_reference"], str]
         """
-        Either `account` or `external_reference`.
+        Specifies the payee type.
         """
 
     class Us1099K(StripeObject):
@@ -221,7 +221,7 @@ class Form(ListableAPIResource["Form"]):
         return result
 
     @classmethod
-    def _cls_pdf(cls, id: str, **params: Unpack["FormPdfParams"]) -> Any:
+    def _cls_pdf(cls, id: str, /, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """
@@ -237,7 +237,7 @@ class Form(ListableAPIResource["Form"]):
 
     @overload
     @staticmethod
-    def pdf(id: str, **params: Unpack["FormPdfParams"]) -> Any:
+    def pdf(id: str, /, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """
@@ -271,7 +271,7 @@ class Form(ListableAPIResource["Form"]):
 
     @classmethod
     async def _cls_pdf_async(
-        cls, id: str, **params: Unpack["FormPdfParams"]
+        cls, id: str, /, **params: Unpack["FormPdfParams"]
     ) -> Any:
         """
         Download the PDF for a tax form.
@@ -288,7 +288,7 @@ class Form(ListableAPIResource["Form"]):
 
     @overload
     @staticmethod
-    async def pdf_async(id: str, **params: Unpack["FormPdfParams"]) -> Any:
+    async def pdf_async(id: str, /, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """

@@ -104,6 +104,7 @@ class LocationService(StripeService):
     def retrieve(
         self,
         location: str,
+        /,
         params: Optional["LocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
@@ -126,6 +127,7 @@ class LocationService(StripeService):
     async def retrieve_async(
         self,
         location: str,
+        /,
         params: Optional["LocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":

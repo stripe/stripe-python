@@ -101,6 +101,7 @@ class ProfileService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ProfileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Profile":
@@ -121,6 +122,7 @@ class ProfileService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ProfileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Profile":
@@ -141,6 +143,7 @@ class ProfileService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["ProfileUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Profile":
@@ -161,6 +164,7 @@ class ProfileService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["ProfileUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Profile":

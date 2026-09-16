@@ -23,6 +23,7 @@ class CouponService(StripeService):
     def delete(
         self,
         coupon: str,
+        /,
         params: Optional["CouponDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Coupon":
@@ -43,6 +44,7 @@ class CouponService(StripeService):
     async def delete_async(
         self,
         coupon: str,
+        /,
         params: Optional["CouponDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Coupon":
@@ -63,6 +65,7 @@ class CouponService(StripeService):
     def retrieve(
         self,
         coupon: str,
+        /,
         params: Optional["CouponRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Coupon":
@@ -83,6 +86,7 @@ class CouponService(StripeService):
     async def retrieve_async(
         self,
         coupon: str,
+        /,
         params: Optional["CouponRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Coupon":
@@ -103,6 +107,7 @@ class CouponService(StripeService):
     def update(
         self,
         coupon: str,
+        /,
         params: Optional["CouponUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Coupon":
@@ -123,6 +128,7 @@ class CouponService(StripeService):
     async def update_async(
         self,
         coupon: str,
+        /,
         params: Optional["CouponUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Coupon":
@@ -223,6 +229,7 @@ class CouponService(StripeService):
     def serialize_batch_delete(
         self,
         coupon: str,
+        /,
         params: Optional["CouponDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -247,6 +254,7 @@ class CouponService(StripeService):
     def serialize_batch_update(
         self,
         coupon: str,
+        /,
         params: Optional["CouponUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:

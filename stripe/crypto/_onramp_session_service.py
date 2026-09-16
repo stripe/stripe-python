@@ -114,6 +114,7 @@ class OnrampSessionService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OnrampSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OnrampSession":
@@ -134,6 +135,7 @@ class OnrampSessionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OnrampSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OnrampSession":
@@ -154,6 +156,7 @@ class OnrampSessionService(StripeService):
     def checkout(
         self,
         id: str,
+        /,
         params: Optional["OnrampSessionCheckoutParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OnrampSession":
@@ -178,6 +181,7 @@ class OnrampSessionService(StripeService):
     async def checkout_async(
         self,
         id: str,
+        /,
         params: Optional["OnrampSessionCheckoutParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OnrampSession":
@@ -202,6 +206,7 @@ class OnrampSessionService(StripeService):
     def quote(
         self,
         id: str,
+        /,
         params: Optional["OnrampSessionQuoteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OnrampSession":
@@ -224,6 +229,7 @@ class OnrampSessionService(StripeService):
     async def quote_async(
         self,
         id: str,
+        /,
         params: Optional["OnrampSessionQuoteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OnrampSession":

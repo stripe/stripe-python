@@ -19,7 +19,7 @@ from stripe.events import V1BillingMeterErrorReportTriggeredEventNotification
 
 app = Flask(__name__)
 api_key = os.environ.get("STRIPE_API_KEY", "")
-webhook_secret = os.environ.get("WEBHOOK_SECRET", "")
+webhook_secret = os.environ["WEBHOOK_SECRET"]
 
 # Webhooks can be delivered more than once, so we track ids we've already
 # processed. In production, back this with something durable and shared

@@ -172,6 +172,7 @@ class ContractService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["ContractDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -192,6 +193,7 @@ class ContractService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["ContractDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -212,6 +214,7 @@ class ContractService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ContractRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
@@ -232,6 +235,7 @@ class ContractService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ContractRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
@@ -252,6 +256,7 @@ class ContractService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["ContractUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
@@ -296,6 +301,7 @@ class ContractService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["ContractUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
@@ -340,6 +346,7 @@ class ContractService(StripeService):
     def activate(
         self,
         id: str,
+        /,
         params: Optional["ContractActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
@@ -362,6 +369,7 @@ class ContractService(StripeService):
     async def activate_async(
         self,
         id: str,
+        /,
         params: Optional["ContractActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
@@ -384,6 +392,7 @@ class ContractService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["ContractCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
@@ -404,6 +413,7 @@ class ContractService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["ContractCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":

@@ -40,6 +40,7 @@ class CustomerPaymentSourceService(StripeService):
     def list(
         self,
         customer: str,
+        /,
         params: Optional["CustomerPaymentSourceListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Union[Account, BankAccount, Card, Source]]":
@@ -62,6 +63,7 @@ class CustomerPaymentSourceService(StripeService):
     async def list_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerPaymentSourceListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Union[Account, BankAccount, Card, Source]]":
@@ -84,6 +86,7 @@ class CustomerPaymentSourceService(StripeService):
     def create(
         self,
         customer: str,
+        /,
         params: "CustomerPaymentSourceCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -110,6 +113,7 @@ class CustomerPaymentSourceService(StripeService):
     async def create_async(
         self,
         customer: str,
+        /,
         params: "CustomerPaymentSourceCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -137,6 +141,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -161,6 +166,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -185,6 +191,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -209,6 +216,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -233,6 +241,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -257,6 +266,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -281,6 +291,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceVerifyParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BankAccount":
@@ -305,6 +316,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceVerifyParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BankAccount":
@@ -328,6 +340,7 @@ class CustomerPaymentSourceService(StripeService):
     def serialize_batch_create(
         self,
         customer: str,
+        /,
         params: Optional["CustomerPaymentSourceCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -353,6 +366,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -378,6 +392,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -403,6 +418,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerPaymentSourceVerifyParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:

@@ -21,6 +21,7 @@ class SpendModifierRuleService(StripeService):
     def list(
         self,
         cadence_id: str,
+        /,
         params: Optional["SpendModifierRuleListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CadenceSpendModifier]":
@@ -43,6 +44,7 @@ class SpendModifierRuleService(StripeService):
     async def list_async(
         self,
         cadence_id: str,
+        /,
         params: Optional["SpendModifierRuleListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CadenceSpendModifier]":
@@ -66,6 +68,7 @@ class SpendModifierRuleService(StripeService):
         self,
         cadence_id: str,
         id: str,
+        /,
         params: Optional["SpendModifierRuleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CadenceSpendModifier":
@@ -90,6 +93,7 @@ class SpendModifierRuleService(StripeService):
         self,
         cadence_id: str,
         id: str,
+        /,
         params: Optional["SpendModifierRuleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CadenceSpendModifier":

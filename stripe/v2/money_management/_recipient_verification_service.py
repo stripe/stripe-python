@@ -63,6 +63,7 @@ class RecipientVerificationService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["RecipientVerificationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RecipientVerification":
@@ -85,6 +86,7 @@ class RecipientVerificationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["RecipientVerificationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RecipientVerification":
@@ -107,6 +109,7 @@ class RecipientVerificationService(StripeService):
     def acknowledge(
         self,
         id: str,
+        /,
         params: Optional["RecipientVerificationAcknowledgeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RecipientVerification":
@@ -129,6 +132,7 @@ class RecipientVerificationService(StripeService):
     async def acknowledge_async(
         self,
         id: str,
+        /,
         params: Optional["RecipientVerificationAcknowledgeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RecipientVerification":

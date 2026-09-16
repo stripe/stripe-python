@@ -142,7 +142,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_cancel(
-        cls, job: str, **params: Unpack["RedactionJobCancelParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -163,7 +163,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def cancel(
-        job: str, **params: Unpack["RedactionJobCancelParams"]
+        job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -205,7 +205,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, job: str, **params: Unpack["RedactionJobCancelParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -226,7 +226,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def cancel_async(
-        job: str, **params: Unpack["RedactionJobCancelParams"]
+        job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -400,7 +400,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_run(
-        cls, job: str, **params: Unpack["RedactionJobRunParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -423,7 +423,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def run(
-        job: str, **params: Unpack["RedactionJobRunParams"]
+        job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -469,7 +469,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_run_async(
-        cls, job: str, **params: Unpack["RedactionJobRunParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -492,7 +492,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def run_async(
-        job: str, **params: Unpack["RedactionJobRunParams"]
+        job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -540,7 +540,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_validate(
-        cls, job: str, **params: Unpack["RedactionJobValidateParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -563,7 +563,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def validate(
-        job: str, **params: Unpack["RedactionJobValidateParams"]
+        job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -611,7 +611,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_validate_async(
-        cls, job: str, **params: Unpack["RedactionJobValidateParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -634,7 +634,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def validate_async(
-        job: str, **params: Unpack["RedactionJobValidateParams"]
+        job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -684,6 +684,7 @@ class RedactionJob(
     def list_validation_errors(
         cls,
         job: str,
+        /,
         **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """
@@ -704,6 +705,7 @@ class RedactionJob(
     async def list_validation_errors_async(
         cls,
         job: str,
+        /,
         **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """

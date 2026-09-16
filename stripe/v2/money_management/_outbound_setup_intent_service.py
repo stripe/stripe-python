@@ -108,6 +108,7 @@ class OutboundSetupIntentService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OutboundSetupIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundSetupIntent":
@@ -130,6 +131,7 @@ class OutboundSetupIntentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundSetupIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundSetupIntent":
@@ -152,6 +154,7 @@ class OutboundSetupIntentService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["OutboundSetupIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundSetupIntent":
@@ -174,6 +177,7 @@ class OutboundSetupIntentService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundSetupIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundSetupIntent":
@@ -196,6 +200,7 @@ class OutboundSetupIntentService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["OutboundSetupIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundSetupIntent":
@@ -218,6 +223,7 @@ class OutboundSetupIntentService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundSetupIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundSetupIntent":

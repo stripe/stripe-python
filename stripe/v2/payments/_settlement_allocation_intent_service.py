@@ -143,6 +143,7 @@ class SettlementAllocationIntentService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
@@ -165,6 +166,7 @@ class SettlementAllocationIntentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
@@ -187,6 +189,7 @@ class SettlementAllocationIntentService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
@@ -209,6 +212,7 @@ class SettlementAllocationIntentService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
@@ -231,6 +235,7 @@ class SettlementAllocationIntentService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
@@ -253,6 +258,7 @@ class SettlementAllocationIntentService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
@@ -275,6 +281,7 @@ class SettlementAllocationIntentService(StripeService):
     def submit(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentSubmitParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
@@ -297,6 +304,7 @@ class SettlementAllocationIntentService(StripeService):
     async def submit_async(
         self,
         id: str,
+        /,
         params: Optional["SettlementAllocationIntentSubmitParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":

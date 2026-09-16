@@ -2970,13 +2970,13 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["PaymentIntentCreateParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataAuBecsDebit"
@@ -4474,7 +4474,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
     verification_method: NotRequired[
-        Literal["automatic", "payer_name_verification"]
+        "Literal['automatic', 'payer_name_verification']|str"
     ]
 
 

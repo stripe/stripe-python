@@ -87,6 +87,7 @@ class PaymentRecordService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PaymentRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
@@ -107,6 +108,7 @@ class PaymentRecordService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
@@ -171,6 +173,7 @@ class PaymentRecordService(StripeService):
     def report_dispute(
         self,
         id: str,
+        /,
         params: "PaymentRecordReportDisputeParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
@@ -194,6 +197,7 @@ class PaymentRecordService(StripeService):
     async def report_dispute_async(
         self,
         id: str,
+        /,
         params: "PaymentRecordReportDisputeParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
@@ -217,6 +221,7 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt(
         self,
         id: str,
+        /,
         params: "PaymentRecordReportPaymentAttemptParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
@@ -240,6 +245,7 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_async(
         self,
         id: str,
+        /,
         params: "PaymentRecordReportPaymentAttemptParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
@@ -263,6 +269,7 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt_canceled(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptCanceledParams"
         ] = None,
@@ -288,6 +295,7 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_canceled_async(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptCanceledParams"
         ] = None,
@@ -313,6 +321,7 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt_failed(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptFailedParams"
         ] = None,
@@ -338,6 +347,7 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_failed_async(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptFailedParams"
         ] = None,
@@ -363,6 +373,7 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt_guaranteed(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptGuaranteedParams"
         ] = None,
@@ -388,6 +399,7 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_guaranteed_async(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptGuaranteedParams"
         ] = None,
@@ -413,6 +425,7 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt_informational(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ] = None,
@@ -437,6 +450,7 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_informational_async(
         self,
         id: str,
+        /,
         params: Optional[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ] = None,
@@ -461,6 +475,7 @@ class PaymentRecordService(StripeService):
     def report_refund(
         self,
         id: str,
+        /,
         params: "PaymentRecordReportRefundParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
@@ -484,6 +499,7 @@ class PaymentRecordService(StripeService):
     async def report_refund_async(
         self,
         id: str,
+        /,
         params: "PaymentRecordReportRefundParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":

@@ -94,6 +94,7 @@ class FxQuoteService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FxQuoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FxQuote":
@@ -114,6 +115,7 @@ class FxQuoteService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FxQuoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FxQuote":

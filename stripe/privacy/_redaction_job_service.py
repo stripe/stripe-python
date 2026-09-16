@@ -144,6 +144,7 @@ class RedactionJobService(StripeService):
     def retrieve(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -166,6 +167,7 @@ class RedactionJobService(StripeService):
     async def retrieve_async(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -188,6 +190,7 @@ class RedactionJobService(StripeService):
     def update(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -212,6 +215,7 @@ class RedactionJobService(StripeService):
     async def update_async(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -236,6 +240,7 @@ class RedactionJobService(StripeService):
     def cancel(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -260,6 +265,7 @@ class RedactionJobService(StripeService):
     async def cancel_async(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -284,6 +290,7 @@ class RedactionJobService(StripeService):
     def run(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobRunParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -310,6 +317,7 @@ class RedactionJobService(StripeService):
     async def run_async(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobRunParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -336,6 +344,7 @@ class RedactionJobService(StripeService):
     def validate(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobValidateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":
@@ -362,6 +371,7 @@ class RedactionJobService(StripeService):
     async def validate_async(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobValidateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RedactionJob":

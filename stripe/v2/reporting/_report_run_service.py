@@ -64,6 +64,7 @@ class ReportRunService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ReportRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReportRun":
@@ -85,6 +86,7 @@ class ReportRunService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ReportRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReportRun":

@@ -121,6 +121,7 @@ class ManualRuleService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ManualRuleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ManualRule":
@@ -141,6 +142,7 @@ class ManualRuleService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ManualRuleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ManualRule":
@@ -161,6 +163,7 @@ class ManualRuleService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: "ManualRuleUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ManualRule":
@@ -188,6 +191,7 @@ class ManualRuleService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: "ManualRuleUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ManualRule":
@@ -215,6 +219,7 @@ class ManualRuleService(StripeService):
     def deactivate(
         self,
         id: str,
+        /,
         params: Optional["ManualRuleDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ManualRule":
@@ -237,6 +242,7 @@ class ManualRuleService(StripeService):
     async def deactivate_async(
         self,
         id: str,
+        /,
         params: Optional["ManualRuleDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ManualRule":

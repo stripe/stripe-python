@@ -133,6 +133,7 @@ class BillSettingService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["BillSettingRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BillSetting":
@@ -153,6 +154,7 @@ class BillSettingService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["BillSettingRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BillSetting":
@@ -173,6 +175,7 @@ class BillSettingService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["BillSettingUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BillSetting":
@@ -193,6 +196,7 @@ class BillSettingService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["BillSettingUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BillSetting":

@@ -18,6 +18,7 @@ class RequestedSessionOrderService(StripeService):
     def list(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionOrderListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Order]":
@@ -40,6 +41,7 @@ class RequestedSessionOrderService(StripeService):
     async def list_async(
         self,
         requested_session: str,
+        /,
         params: Optional["RequestedSessionOrderListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Order]":

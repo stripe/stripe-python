@@ -25,6 +25,7 @@ class FinancialAddressService(StripeService):
     def credit(
         self,
         id: str,
+        /,
         params: "FinancialAddressCreditParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddressCreditSimulation":
@@ -47,6 +48,7 @@ class FinancialAddressService(StripeService):
     async def credit_async(
         self,
         id: str,
+        /,
         params: "FinancialAddressCreditParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddressCreditSimulation":
@@ -69,6 +71,7 @@ class FinancialAddressService(StripeService):
     def generate_microdeposits(
         self,
         id: str,
+        /,
         params: Optional["FinancialAddressGenerateMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddressGeneratedMicrodeposits":
@@ -91,6 +94,7 @@ class FinancialAddressService(StripeService):
     async def generate_microdeposits_async(
         self,
         id: str,
+        /,
         params: Optional["FinancialAddressGenerateMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddressGeneratedMicrodeposits":

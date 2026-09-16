@@ -187,6 +187,7 @@ class PaymentIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -213,6 +214,7 @@ class PaymentIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -239,6 +241,7 @@ class PaymentIntentService(StripeService):
     def update(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -267,6 +270,7 @@ class PaymentIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -339,6 +343,7 @@ class PaymentIntentService(StripeService):
     def apply_customer_balance(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -361,6 +366,7 @@ class PaymentIntentService(StripeService):
     async def apply_customer_balance_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -383,6 +389,7 @@ class PaymentIntentService(StripeService):
     def cancel(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -409,6 +416,7 @@ class PaymentIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -435,6 +443,7 @@ class PaymentIntentService(StripeService):
     def capture(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -461,6 +470,7 @@ class PaymentIntentService(StripeService):
     async def capture_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -487,6 +497,7 @@ class PaymentIntentService(StripeService):
     def confirm(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -538,6 +549,7 @@ class PaymentIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -589,6 +601,7 @@ class PaymentIntentService(StripeService):
     def decrement_authorization(
         self,
         intent: str,
+        /,
         params: "PaymentIntentDecrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -626,6 +639,7 @@ class PaymentIntentService(StripeService):
     async def decrement_authorization_async(
         self,
         intent: str,
+        /,
         params: "PaymentIntentDecrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -663,6 +677,7 @@ class PaymentIntentService(StripeService):
     def increment_authorization(
         self,
         intent: str,
+        /,
         params: "PaymentIntentIncrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -710,6 +725,7 @@ class PaymentIntentService(StripeService):
     async def increment_authorization_async(
         self,
         intent: str,
+        /,
         params: "PaymentIntentIncrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -757,6 +773,7 @@ class PaymentIntentService(StripeService):
     def reauthorize(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentReauthorizeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -786,6 +803,7 @@ class PaymentIntentService(StripeService):
     async def reauthorize_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentReauthorizeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -815,6 +833,7 @@ class PaymentIntentService(StripeService):
     def update_crypto_refund_address(
         self,
         intent: str,
+        /,
         params: "PaymentIntentUpdateCryptoRefundAddressParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -837,6 +856,7 @@ class PaymentIntentService(StripeService):
     async def update_crypto_refund_address_async(
         self,
         intent: str,
+        /,
         params: "PaymentIntentUpdateCryptoRefundAddressParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -859,6 +879,7 @@ class PaymentIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -881,6 +902,7 @@ class PaymentIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
+        /,
         params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -903,6 +925,7 @@ class PaymentIntentService(StripeService):
     def trigger_action(
         self,
         intent: str,
+        /,
         params: "PaymentIntentTriggerActionParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
@@ -925,6 +948,7 @@ class PaymentIntentService(StripeService):
     async def trigger_action_async(
         self,
         intent: str,
+        /,
         params: "PaymentIntentTriggerActionParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":

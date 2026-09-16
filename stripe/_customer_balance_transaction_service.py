@@ -30,6 +30,7 @@ class CustomerBalanceTransactionService(StripeService):
     def list(
         self,
         customer: str,
+        /,
         params: Optional["CustomerBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerBalanceTransaction]":
@@ -52,6 +53,7 @@ class CustomerBalanceTransactionService(StripeService):
     async def list_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerBalanceTransaction]":
@@ -74,6 +76,7 @@ class CustomerBalanceTransactionService(StripeService):
     def create(
         self,
         customer: str,
+        /,
         params: "CustomerBalanceTransactionCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerBalanceTransaction":
@@ -96,6 +99,7 @@ class CustomerBalanceTransactionService(StripeService):
     async def create_async(
         self,
         customer: str,
+        /,
         params: "CustomerBalanceTransactionCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerBalanceTransaction":
@@ -119,6 +123,7 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
+        /,
         params: Optional["CustomerBalanceTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerBalanceTransaction":
@@ -143,6 +148,7 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
+        /,
         params: Optional["CustomerBalanceTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerBalanceTransaction":
@@ -167,6 +173,7 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
+        /,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerBalanceTransaction":
@@ -191,6 +198,7 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
+        /,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerBalanceTransaction":
@@ -214,6 +222,7 @@ class CustomerBalanceTransactionService(StripeService):
     def serialize_batch_create(
         self,
         customer: str,
+        /,
         params: Optional["CustomerBalanceTransactionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -239,6 +248,7 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
+        /,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:

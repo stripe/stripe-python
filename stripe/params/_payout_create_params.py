@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
-from typing_extensions import Literal, NotRequired
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PayoutCreateParams(RequestOptions):
@@ -39,6 +39,10 @@ class PayoutCreateParams(RequestOptions):
     """
     The ID of a v2 FinancialAccount to send funds to.
     """
+    payout_method_options: NotRequired["PayoutCreateParamsPayoutMethodOptions"]
+    """
+    Additional options that complement the payout_method. The keys in this dictionary identify the type of payout method the options apply to.
+    """
     source_type: NotRequired["Literal['bank_account', 'card', 'fpx']|str"]
     """
     The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
@@ -46,4 +50,20 @@ class PayoutCreateParams(RequestOptions):
     statement_descriptor: NotRequired[str]
     """
     A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all. For US ACH payouts, this maps to the ACH Company Entry Description field, which the NACHA standard limits to 10 characters. Stripe truncates descriptors longer than 10 characters for US ACH payouts.
+    """
+
+
+class PayoutCreateParamsPayoutMethodOptions(TypedDict):
+    financial_account: NotRequired[
+        "PayoutCreateParamsPayoutMethodOptionsFinancialAccount"
+    ]
+    """
+    Additional options for a Financial Account payout method. Only valid when payout_method is a Financial Account ID.
+    """
+
+
+class PayoutCreateParamsPayoutMethodOptionsFinancialAccount(TypedDict):
+    destination_currency: NotRequired[str]
+    """
+    Identifies the currency to credit in the destination Financial Account. Must be a currency supported by the target Financial Account. When omitted, the payout uses the currency parameter.
     """

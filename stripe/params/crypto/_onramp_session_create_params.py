@@ -30,6 +30,7 @@ class OnrampSessionCreateParams(RequestOptions):
                     "btc",
                     "eth",
                     "matic",
+                    "ripusd",
                     "sol",
                     "usdc",
                     "usdt",
@@ -47,7 +48,7 @@ class OnrampSessionCreateParams(RequestOptions):
     * When set, it must be a non-empty array where all values in the array are valid cryptocurrencies. You can use it to lock users to a specific cryptocurrency by passing a single value array. Users **cannot** override this parameter.
     """
     destination_currency: NotRequired[
-        "Literal['avax', 'btc', 'eth', 'matic', 'sol', 'usdc', 'usdt', 'wld', 'xlm']|str"
+        "Literal['avax', 'btc', 'eth', 'matic', 'ripusd', 'sol', 'usdc', 'usdt', 'wld', 'xlm']|str"
     ]
     """
     The default destination cryptocurrency.
@@ -123,7 +124,9 @@ class OnrampSessionCreateParams(RequestOptions):
     * When left null, a default value is computed if `destination_amount` is set.
     * When set, setting `source_amount` is mutually exclusive with setting `destination_amount` (only one or the other is supported). We don't support fractional pennies. If fractional minor units of a currency are passed in, it generates an error. Users can update the value in the onramp UI.
     """
-    source_currency: NotRequired["Literal['eur', 'gbp', 'usd']|str"]
+    source_currency: NotRequired[
+        "Literal['cad', 'cop', 'eur', 'gbp', 'php', 'usd']|str"
+    ]
     """
     The default source fiat currency for the onramp session.
 

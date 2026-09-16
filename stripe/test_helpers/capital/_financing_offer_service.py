@@ -58,6 +58,7 @@ class FinancingOfferService(StripeService):
     def refill(
         self,
         financing_offer: str,
+        /,
         params: "FinancingOfferRefillParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingOffer":
@@ -80,6 +81,7 @@ class FinancingOfferService(StripeService):
     async def refill_async(
         self,
         financing_offer: str,
+        /,
         params: "FinancingOfferRefillParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingOffer":

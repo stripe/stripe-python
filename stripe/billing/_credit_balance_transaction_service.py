@@ -61,6 +61,7 @@ class CreditBalanceTransactionService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditBalanceTransaction":
@@ -83,6 +84,7 @@ class CreditBalanceTransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditBalanceTransaction":

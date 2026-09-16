@@ -57,6 +57,7 @@ class CustomerService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":
@@ -77,6 +78,7 @@ class CustomerService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":

@@ -30,6 +30,7 @@ class PaymentLocationService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["PaymentLocationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocation":
@@ -50,6 +51,7 @@ class PaymentLocationService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentLocationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocation":
@@ -70,6 +72,7 @@ class PaymentLocationService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PaymentLocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocation":
@@ -90,6 +93,7 @@ class PaymentLocationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentLocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocation":
@@ -110,6 +114,7 @@ class PaymentLocationService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["PaymentLocationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocation":
@@ -130,6 +135,7 @@ class PaymentLocationService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentLocationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocation":

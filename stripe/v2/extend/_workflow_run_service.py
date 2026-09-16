@@ -59,6 +59,7 @@ class WorkflowRunService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["WorkflowRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "WorkflowRun":
@@ -79,6 +80,7 @@ class WorkflowRunService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["WorkflowRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "WorkflowRun":

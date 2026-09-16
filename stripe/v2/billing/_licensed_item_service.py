@@ -103,6 +103,7 @@ class LicensedItemService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["LicensedItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicensedItem":
@@ -123,6 +124,7 @@ class LicensedItemService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["LicensedItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicensedItem":
@@ -143,6 +145,7 @@ class LicensedItemService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["LicensedItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicensedItem":
@@ -163,6 +166,7 @@ class LicensedItemService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["LicensedItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicensedItem":

@@ -60,6 +60,7 @@ class InquiryService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["InquiryRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Inquiry":
@@ -80,6 +81,7 @@ class InquiryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["InquiryRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Inquiry":
@@ -100,6 +102,7 @@ class InquiryService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["InquiryUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Inquiry":
@@ -120,6 +123,7 @@ class InquiryService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["InquiryUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Inquiry":

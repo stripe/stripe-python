@@ -99,6 +99,7 @@ class ApiKeyService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":
@@ -119,6 +120,7 @@ class ApiKeyService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":
@@ -139,6 +141,7 @@ class ApiKeyService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":
@@ -159,6 +162,7 @@ class ApiKeyService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":
@@ -179,6 +183,7 @@ class ApiKeyService(StripeService):
     def expire(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":
@@ -199,6 +204,7 @@ class ApiKeyService(StripeService):
     async def expire_async(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":
@@ -219,6 +225,7 @@ class ApiKeyService(StripeService):
     def rotate(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyRotateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":
@@ -239,6 +246,7 @@ class ApiKeyService(StripeService):
     async def rotate_async(
         self,
         id: str,
+        /,
         params: Optional["ApiKeyRotateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApiKey":

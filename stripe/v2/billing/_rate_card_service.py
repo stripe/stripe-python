@@ -149,6 +149,7 @@ class RateCardService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["RateCardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCard":
@@ -169,6 +170,7 @@ class RateCardService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["RateCardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCard":
@@ -189,6 +191,7 @@ class RateCardService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["RateCardUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCard":
@@ -209,6 +212,7 @@ class RateCardService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["RateCardUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCard":
@@ -229,6 +233,7 @@ class RateCardService(StripeService):
     def modify_rates(
         self,
         id: str,
+        /,
         params: "RateCardModifyRatesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardVersion":
@@ -261,6 +266,7 @@ class RateCardService(StripeService):
     async def modify_rates_async(
         self,
         id: str,
+        /,
         params: "RateCardModifyRatesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardVersion":

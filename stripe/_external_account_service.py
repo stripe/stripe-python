@@ -32,6 +32,7 @@ class ExternalAccountService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["ExternalAccountDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -52,6 +53,7 @@ class ExternalAccountService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["ExternalAccountDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -72,6 +74,7 @@ class ExternalAccountService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ExternalAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -92,6 +95,7 @@ class ExternalAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ExternalAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -112,6 +116,7 @@ class ExternalAccountService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["ExternalAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -139,6 +144,7 @@ class ExternalAccountService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["ExternalAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":

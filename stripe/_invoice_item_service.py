@@ -31,6 +31,7 @@ class InvoiceItemService(StripeService):
     def delete(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
@@ -53,6 +54,7 @@ class InvoiceItemService(StripeService):
     async def delete_async(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
@@ -75,6 +77,7 @@ class InvoiceItemService(StripeService):
     def retrieve(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
@@ -97,6 +100,7 @@ class InvoiceItemService(StripeService):
     async def retrieve_async(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
@@ -119,6 +123,7 @@ class InvoiceItemService(StripeService):
     def update(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
@@ -141,6 +146,7 @@ class InvoiceItemService(StripeService):
     async def update_async(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
@@ -239,6 +245,7 @@ class InvoiceItemService(StripeService):
     def serialize_batch_delete(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -263,6 +270,7 @@ class InvoiceItemService(StripeService):
     def serialize_batch_update(
         self,
         invoiceitem: str,
+        /,
         params: Optional["InvoiceItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
