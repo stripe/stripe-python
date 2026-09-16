@@ -15,13 +15,11 @@ class FeeEntry(StripeObject):
     class Amount(StripeObject):
         currency: str
         """
-        A lowercase alpha3 currency code like "usd"
-        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+        A lowercase alpha3 currency code like "usd".
         """
         value: str
         """
-        In major units like "1.23" for 1.23 USD
-        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+        In major units like "1.23" for 1.23 USD.
         """
 
     class ChargedBy(StripeObject):
@@ -87,13 +85,11 @@ class FeeEntry(StripeObject):
         class Amount(StripeObject):
             currency: str
             """
-            A lowercase alpha3 currency code like "usd"
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            A lowercase alpha3 currency code like "usd".
             """
             value: str
             """
-            In major units like "1.23" for 1.23 USD
-            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            In major units like "1.23" for 1.23 USD.
             """
 
         amount: Amount

@@ -98,6 +98,7 @@ class ServiceActionService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ServiceActionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ServiceAction":
@@ -118,6 +119,7 @@ class ServiceActionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ServiceActionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ServiceAction":
@@ -138,6 +140,7 @@ class ServiceActionService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["ServiceActionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ServiceAction":
@@ -158,6 +161,7 @@ class ServiceActionService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["ServiceActionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ServiceAction":

@@ -58,6 +58,7 @@ class ConnectionSessionService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ConnectionSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ConnectionSession":
@@ -78,6 +79,7 @@ class ConnectionSessionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ConnectionSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ConnectionSession":

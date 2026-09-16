@@ -1585,6 +1585,7 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptions,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillie,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
@@ -1849,6 +1850,7 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptions as InvoiceModifyParamsPaymentSettingsPaymentMethodOptions,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillie,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
@@ -1951,6 +1953,7 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptions as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptions,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBacsDebit as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBacsDebit,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
@@ -4714,6 +4717,8 @@ if TYPE_CHECKING:
     )
     from stripe.params._payout_create_params import (
         PayoutCreateParams as PayoutCreateParams,
+        PayoutCreateParamsPayoutMethodOptions as PayoutCreateParamsPayoutMethodOptions,
+        PayoutCreateParamsPayoutMethodOptionsFinancialAccount as PayoutCreateParamsPayoutMethodOptionsFinancialAccount,
     )
     from stripe.params._payout_list_params import (
         PayoutListParams as PayoutListParams,
@@ -5849,6 +5854,7 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
@@ -5989,6 +5995,7 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
@@ -6343,6 +6350,7 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBacsDebit as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBacsDebit,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillie,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails,
@@ -11064,6 +11072,10 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
         "stripe.params._invoice_create_params",
         False,
@@ -11977,6 +11989,10 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact": (
         "stripe.params._invoice_modify_params",
         False,
@@ -12266,6 +12282,10 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBacsDebit": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -22473,6 +22493,14 @@ _import_map = {
     ),
     "PayoutCancelParams": ("stripe.params._payout_cancel_params", False),
     "PayoutCreateParams": ("stripe.params._payout_create_params", False),
+    "PayoutCreateParamsPayoutMethodOptions": (
+        "stripe.params._payout_create_params",
+        False,
+    ),
+    "PayoutCreateParamsPayoutMethodOptionsFinancialAccount": (
+        "stripe.params._payout_create_params",
+        False,
+    ),
     "PayoutListParams": ("stripe.params._payout_list_params", False),
     "PayoutListParamsArrivalDate": (
         "stripe.params._payout_list_params",
@@ -26028,6 +26056,10 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
         "stripe.params._subscription_create_params",
         False,
@@ -26505,6 +26537,10 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -27817,6 +27853,10 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBacsDebit": (
         "stripe.params._subscription_update_params",
         False,
     ),

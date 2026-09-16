@@ -17,6 +17,7 @@ class ReportService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ReportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Report":
@@ -39,6 +40,7 @@ class ReportService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ReportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Report":

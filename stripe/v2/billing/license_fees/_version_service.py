@@ -21,6 +21,7 @@ class VersionService(StripeService):
     def list(
         self,
         license_fee_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[LicenseFeeVersion]":
@@ -43,6 +44,7 @@ class VersionService(StripeService):
     async def list_async(
         self,
         license_fee_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[LicenseFeeVersion]":
@@ -66,6 +68,7 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicenseFeeVersion":
@@ -90,6 +93,7 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "LicenseFeeVersion":

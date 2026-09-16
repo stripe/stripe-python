@@ -17,6 +17,7 @@ class PaymentRetrySignalService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetrySignalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetrySignal":
@@ -39,6 +40,7 @@ class PaymentRetrySignalService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentRetrySignalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRetrySignal":

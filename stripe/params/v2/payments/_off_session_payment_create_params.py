@@ -9,7 +9,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class OffSessionPaymentCreateParams(TypedDict):
     amount: AmountParam
     """
-    The "presentment amount" to be collected from the customer.
+    Amount intended to be collected by this payment.
     """
     amount_details: NotRequired["OffSessionPaymentCreateParamsAmountDetails"]
     """
@@ -35,6 +35,12 @@ class OffSessionPaymentCreateParams(TypedDict):
     description: NotRequired[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    include: NotRequired[
+        List[Literal["latest_payment_attempt_record_details"]]
+    ]
+    """
+    Additional fields to include in the response.
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """

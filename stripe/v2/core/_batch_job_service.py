@@ -61,6 +61,7 @@ class BatchJobService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["BatchJobRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BatchJob":
@@ -81,6 +82,7 @@ class BatchJobService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["BatchJobRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BatchJob":
@@ -101,6 +103,7 @@ class BatchJobService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["BatchJobCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BatchJob":
@@ -121,6 +124,7 @@ class BatchJobService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["BatchJobCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BatchJob":

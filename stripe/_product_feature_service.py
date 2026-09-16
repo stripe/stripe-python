@@ -31,6 +31,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
+        /,
         params: Optional["ProductFeatureDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ProductFeature":
@@ -55,6 +56,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
+        /,
         params: Optional["ProductFeatureDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ProductFeature":
@@ -79,6 +81,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
+        /,
         params: Optional["ProductFeatureRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ProductFeature":
@@ -103,6 +106,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
+        /,
         params: Optional["ProductFeatureRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ProductFeature":
@@ -126,6 +130,7 @@ class ProductFeatureService(StripeService):
     def list(
         self,
         product: str,
+        /,
         params: Optional["ProductFeatureListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ProductFeature]":
@@ -148,6 +153,7 @@ class ProductFeatureService(StripeService):
     async def list_async(
         self,
         product: str,
+        /,
         params: Optional["ProductFeatureListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ProductFeature]":
@@ -170,6 +176,7 @@ class ProductFeatureService(StripeService):
     def create(
         self,
         product: str,
+        /,
         params: "ProductFeatureCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ProductFeature":
@@ -192,6 +199,7 @@ class ProductFeatureService(StripeService):
     async def create_async(
         self,
         product: str,
+        /,
         params: "ProductFeatureCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ProductFeature":
@@ -215,6 +223,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
+        /,
         params: Optional["ProductFeatureDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -239,6 +248,7 @@ class ProductFeatureService(StripeService):
     def serialize_batch_create(
         self,
         product: str,
+        /,
         params: Optional["ProductFeatureCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:

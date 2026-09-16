@@ -23,6 +23,21 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
         GbBankAccountRetrieveParams as GbBankAccountRetrieveParams,
     )
+    from stripe.params.v2.core.vault._network_token_create_from_credential_params import (
+        NetworkTokenCreateFromCredentialParams as NetworkTokenCreateFromCredentialParams,
+        NetworkTokenCreateFromCredentialParamsCard as NetworkTokenCreateFromCredentialParamsCard,
+    )
+    from stripe.params.v2.core.vault._network_token_create_params import (
+        NetworkTokenCreateParams as NetworkTokenCreateParams,
+        NetworkTokenCreateParamsCard as NetworkTokenCreateParamsCard,
+        NetworkTokenCreateParamsCardOwnerDetails as NetworkTokenCreateParamsCardOwnerDetails,
+    )
+    from stripe.params.v2.core.vault._network_token_generate_cryptogram_params import (
+        NetworkTokenGenerateCryptogramParams as NetworkTokenGenerateCryptogramParams,
+    )
+    from stripe.params.v2.core.vault._network_token_retrieve_params import (
+        NetworkTokenRetrieveParams as NetworkTokenRetrieveParams,
+    )
     from stripe.params.v2.core.vault._us_bank_account_archive_params import (
         UsBankAccountArchiveParams as UsBankAccountArchiveParams,
     )
@@ -73,6 +88,34 @@ _import_map = {
     ),
     "GbBankAccountRetrieveParams": (
         "stripe.params.v2.core.vault._gb_bank_account_retrieve_params",
+        False,
+    ),
+    "NetworkTokenCreateFromCredentialParams": (
+        "stripe.params.v2.core.vault._network_token_create_from_credential_params",
+        False,
+    ),
+    "NetworkTokenCreateFromCredentialParamsCard": (
+        "stripe.params.v2.core.vault._network_token_create_from_credential_params",
+        False,
+    ),
+    "NetworkTokenCreateParams": (
+        "stripe.params.v2.core.vault._network_token_create_params",
+        False,
+    ),
+    "NetworkTokenCreateParamsCard": (
+        "stripe.params.v2.core.vault._network_token_create_params",
+        False,
+    ),
+    "NetworkTokenCreateParamsCardOwnerDetails": (
+        "stripe.params.v2.core.vault._network_token_create_params",
+        False,
+    ),
+    "NetworkTokenGenerateCryptogramParams": (
+        "stripe.params.v2.core.vault._network_token_generate_cryptogram_params",
+        False,
+    ),
+    "NetworkTokenRetrieveParams": (
+        "stripe.params.v2.core.vault._network_token_retrieve_params",
         False,
     ),
     "UsBankAccountArchiveParams": (

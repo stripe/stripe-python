@@ -1555,7 +1555,7 @@ class Card(
 
         @classmethod
         def _cls_deliver_card(
-            cls, card: str, **params: Unpack["CardDeliverCardParams"]
+            cls, card: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1574,7 +1574,7 @@ class Card(
         @overload
         @staticmethod
         def deliver_card(
-            card: str, **params: Unpack["CardDeliverCardParams"]
+            card: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1610,7 +1610,7 @@ class Card(
 
         @classmethod
         async def _cls_deliver_card_async(
-            cls, card: str, **params: Unpack["CardDeliverCardParams"]
+            cls, card: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1629,7 +1629,7 @@ class Card(
         @overload
         @staticmethod
         async def deliver_card_async(
-            card: str, **params: Unpack["CardDeliverCardParams"]
+            card: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1665,7 +1665,7 @@ class Card(
 
         @classmethod
         def _cls_fail_card(
-            cls, card: str, **params: Unpack["CardFailCardParams"]
+            cls, card: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1684,7 +1684,7 @@ class Card(
         @overload
         @staticmethod
         def fail_card(
-            card: str, **params: Unpack["CardFailCardParams"]
+            card: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1718,7 +1718,7 @@ class Card(
 
         @classmethod
         async def _cls_fail_card_async(
-            cls, card: str, **params: Unpack["CardFailCardParams"]
+            cls, card: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1737,7 +1737,7 @@ class Card(
         @overload
         @staticmethod
         async def fail_card_async(
-            card: str, **params: Unpack["CardFailCardParams"]
+            card: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1773,7 +1773,7 @@ class Card(
 
         @classmethod
         def _cls_return_card(
-            cls, card: str, **params: Unpack["CardReturnCardParams"]
+            cls, card: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1792,7 +1792,7 @@ class Card(
         @overload
         @staticmethod
         def return_card(
-            card: str, **params: Unpack["CardReturnCardParams"]
+            card: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1828,7 +1828,7 @@ class Card(
 
         @classmethod
         async def _cls_return_card_async(
-            cls, card: str, **params: Unpack["CardReturnCardParams"]
+            cls, card: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1847,7 +1847,7 @@ class Card(
         @overload
         @staticmethod
         async def return_card_async(
-            card: str, **params: Unpack["CardReturnCardParams"]
+            card: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1883,7 +1883,7 @@ class Card(
 
         @classmethod
         def _cls_ship_card(
-            cls, card: str, **params: Unpack["CardShipCardParams"]
+            cls, card: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1902,7 +1902,7 @@ class Card(
         @overload
         @staticmethod
         def ship_card(
-            card: str, **params: Unpack["CardShipCardParams"]
+            card: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1936,7 +1936,7 @@ class Card(
 
         @classmethod
         async def _cls_ship_card_async(
-            cls, card: str, **params: Unpack["CardShipCardParams"]
+            cls, card: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1955,7 +1955,7 @@ class Card(
         @overload
         @staticmethod
         async def ship_card_async(
-            card: str, **params: Unpack["CardShipCardParams"]
+            card: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1991,7 +1991,7 @@ class Card(
 
         @classmethod
         def _cls_submit_card(
-            cls, card: str, **params: Unpack["CardSubmitCardParams"]
+            cls, card: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
@@ -2010,7 +2010,7 @@ class Card(
         @overload
         @staticmethod
         def submit_card(
-            card: str, **params: Unpack["CardSubmitCardParams"]
+            card: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
@@ -2046,7 +2046,7 @@ class Card(
 
         @classmethod
         async def _cls_submit_card_async(
-            cls, card: str, **params: Unpack["CardSubmitCardParams"]
+            cls, card: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
@@ -2065,7 +2065,7 @@ class Card(
         @overload
         @staticmethod
         async def submit_card_async(
-            card: str, **params: Unpack["CardSubmitCardParams"]
+            card: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.

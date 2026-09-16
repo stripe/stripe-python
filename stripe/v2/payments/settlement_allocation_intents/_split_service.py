@@ -29,6 +29,7 @@ class SplitService(StripeService):
     def list(
         self,
         settlement_allocation_intent_id: str,
+        /,
         params: Optional["SplitListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[SettlementAllocationIntentSplit]":
@@ -53,6 +54,7 @@ class SplitService(StripeService):
     async def list_async(
         self,
         settlement_allocation_intent_id: str,
+        /,
         params: Optional["SplitListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[SettlementAllocationIntentSplit]":
@@ -77,6 +79,7 @@ class SplitService(StripeService):
     def create(
         self,
         settlement_allocation_intent_id: str,
+        /,
         params: "SplitCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntentSplit":
@@ -101,6 +104,7 @@ class SplitService(StripeService):
     async def create_async(
         self,
         settlement_allocation_intent_id: str,
+        /,
         params: "SplitCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntentSplit":
@@ -126,6 +130,7 @@ class SplitService(StripeService):
         self,
         settlement_allocation_intent_id: str,
         id: str,
+        /,
         params: Optional["SplitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntentSplit":
@@ -152,6 +157,7 @@ class SplitService(StripeService):
         self,
         settlement_allocation_intent_id: str,
         id: str,
+        /,
         params: Optional["SplitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntentSplit":
@@ -178,6 +184,7 @@ class SplitService(StripeService):
         self,
         settlement_allocation_intent_id: str,
         id: str,
+        /,
         params: Optional["SplitCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntentSplit":
@@ -204,6 +211,7 @@ class SplitService(StripeService):
         self,
         settlement_allocation_intent_id: str,
         id: str,
+        /,
         params: Optional["SplitCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntentSplit":

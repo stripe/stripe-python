@@ -58,6 +58,7 @@ class AccountEvaluationService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AccountEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountEvaluation":
@@ -80,6 +81,7 @@ class AccountEvaluationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AccountEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountEvaluation":

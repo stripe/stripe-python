@@ -136,6 +136,7 @@ class CadenceService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CadenceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Cadence":
@@ -156,6 +157,7 @@ class CadenceService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CadenceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Cadence":
@@ -176,6 +178,7 @@ class CadenceService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["CadenceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Cadence":
@@ -196,6 +199,7 @@ class CadenceService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["CadenceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Cadence":
@@ -216,6 +220,7 @@ class CadenceService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["CadenceCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Cadence":
@@ -236,6 +241,7 @@ class CadenceService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["CadenceCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Cadence":

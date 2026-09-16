@@ -678,6 +678,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         def _cls_revoke(
             cls,
             shared_payment_granted_token: str,
+            /,
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
@@ -700,6 +701,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         @staticmethod
         def revoke(
             shared_payment_granted_token: str,
+            /,
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
@@ -740,6 +742,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         async def _cls_revoke_async(
             cls,
             shared_payment_granted_token: str,
+            /,
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
@@ -762,6 +765,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         @staticmethod
         async def revoke_async(
             shared_payment_granted_token: str,
+            /,
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """

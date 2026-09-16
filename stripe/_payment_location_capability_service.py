@@ -62,6 +62,7 @@ class PaymentLocationCapabilityService(StripeService):
     def retrieve(
         self,
         capability: str,
+        /,
         params: "PaymentLocationCapabilityRetrieveParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":
@@ -84,6 +85,7 @@ class PaymentLocationCapabilityService(StripeService):
     async def retrieve_async(
         self,
         capability: str,
+        /,
         params: "PaymentLocationCapabilityRetrieveParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":
@@ -106,6 +108,7 @@ class PaymentLocationCapabilityService(StripeService):
     def update(
         self,
         capability: str,
+        /,
         params: "PaymentLocationCapabilityUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":
@@ -128,6 +131,7 @@ class PaymentLocationCapabilityService(StripeService):
     async def update_async(
         self,
         capability: str,
+        /,
         params: "PaymentLocationCapabilityUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":

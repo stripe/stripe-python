@@ -211,6 +211,10 @@ class ContractCreateParamsOneTimeFee(TypedDict):
     """
     A user-provided lookup key.
     """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of key-value pairs that you can attach to an object.
+    """
     product: str
     """
     The id of the product for this fee.

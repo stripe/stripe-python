@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from stripe.v2.core.vault._gb_bank_account_service import (
         GbBankAccountService,
     )
+    from stripe.v2.core.vault._network_token_service import NetworkTokenService
     from stripe.v2.core.vault._us_bank_account_service import (
         UsBankAccountService,
     )
@@ -16,6 +17,10 @@ _subservices = {
     "gb_bank_accounts": [
         "stripe.v2.core.vault._gb_bank_account_service",
         "GbBankAccountService",
+    ],
+    "network_tokens": [
+        "stripe.v2.core.vault._network_token_service",
+        "NetworkTokenService",
     ],
     "us_bank_accounts": [
         "stripe.v2.core.vault._us_bank_account_service",
@@ -26,6 +31,7 @@ _subservices = {
 
 class VaultService(StripeService):
     gb_bank_accounts: "GbBankAccountService"
+    network_tokens: "NetworkTokenService"
     us_bank_accounts: "UsBankAccountService"
 
     def __init__(self, requestor):

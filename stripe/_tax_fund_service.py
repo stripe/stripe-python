@@ -55,6 +55,7 @@ class TaxFundService(StripeService):
     def retrieve(
         self,
         tax_fund: str,
+        /,
         params: Optional["TaxFundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxFund":
@@ -77,6 +78,7 @@ class TaxFundService(StripeService):
     async def retrieve_async(
         self,
         tax_fund: str,
+        /,
         params: Optional["TaxFundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxFund":

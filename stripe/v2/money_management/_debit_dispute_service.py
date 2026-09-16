@@ -100,6 +100,7 @@ class DebitDisputeService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["DebitDisputeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DebitDispute":
@@ -122,6 +123,7 @@ class DebitDisputeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["DebitDisputeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DebitDispute":

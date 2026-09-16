@@ -103,6 +103,7 @@ class OneTimeItemService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OneTimeItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OneTimeItem":
@@ -123,6 +124,7 @@ class OneTimeItemService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OneTimeItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OneTimeItem":
@@ -143,6 +145,7 @@ class OneTimeItemService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["OneTimeItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OneTimeItem":
@@ -163,6 +166,7 @@ class OneTimeItemService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["OneTimeItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OneTimeItem":

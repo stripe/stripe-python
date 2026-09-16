@@ -276,6 +276,10 @@ class InvalidPayoutMethodError(StripeError):
     pass
 
 
+class MerchantNotGatedError(StripeError):
+    pass
+
+
 class NonZeroBalanceError(StripeError):
     pass
 

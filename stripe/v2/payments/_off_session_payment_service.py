@@ -112,6 +112,7 @@ class OffSessionPaymentService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -134,6 +135,7 @@ class OffSessionPaymentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -156,6 +158,7 @@ class OffSessionPaymentService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -178,6 +181,7 @@ class OffSessionPaymentService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -200,6 +204,7 @@ class OffSessionPaymentService(StripeService):
     def capture(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -222,6 +227,7 @@ class OffSessionPaymentService(StripeService):
     async def capture_async(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -244,6 +250,7 @@ class OffSessionPaymentService(StripeService):
     def pause(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentPauseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -266,6 +273,7 @@ class OffSessionPaymentService(StripeService):
     async def pause_async(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentPauseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -288,6 +296,7 @@ class OffSessionPaymentService(StripeService):
     def resume(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentResumeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
@@ -310,6 +319,7 @@ class OffSessionPaymentService(StripeService):
     async def resume_async(
         self,
         id: str,
+        /,
         params: Optional["OffSessionPaymentResumeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":

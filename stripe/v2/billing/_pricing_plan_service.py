@@ -141,6 +141,7 @@ class PricingPlanService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlan":
@@ -161,6 +162,7 @@ class PricingPlanService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlan":
@@ -181,6 +183,7 @@ class PricingPlanService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlan":
@@ -201,6 +204,7 @@ class PricingPlanService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["PricingPlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlan":

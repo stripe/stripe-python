@@ -15,6 +15,7 @@ class PlanService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
@@ -35,6 +36,7 @@ class PlanService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":

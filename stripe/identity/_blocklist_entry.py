@@ -130,7 +130,7 @@ class BlocklistEntry(
 
     @classmethod
     def _cls_disable(
-        cls, id: str, **params: Unpack["BlocklistEntryDisableParams"]
+        cls, id: str, /, **params: Unpack["BlocklistEntryDisableParams"]
     ) -> "BlocklistEntry":
         """
         Disables a BlocklistEntry object.
@@ -155,7 +155,7 @@ class BlocklistEntry(
     @overload
     @staticmethod
     def disable(
-        id: str, **params: Unpack["BlocklistEntryDisableParams"]
+        id: str, /, **params: Unpack["BlocklistEntryDisableParams"]
     ) -> "BlocklistEntry":
         """
         Disables a BlocklistEntry object.
@@ -209,7 +209,7 @@ class BlocklistEntry(
 
     @classmethod
     async def _cls_disable_async(
-        cls, id: str, **params: Unpack["BlocklistEntryDisableParams"]
+        cls, id: str, /, **params: Unpack["BlocklistEntryDisableParams"]
     ) -> "BlocklistEntry":
         """
         Disables a BlocklistEntry object.
@@ -234,7 +234,7 @@ class BlocklistEntry(
     @overload
     @staticmethod
     async def disable_async(
-        id: str, **params: Unpack["BlocklistEntryDisableParams"]
+        id: str, /, **params: Unpack["BlocklistEntryDisableParams"]
     ) -> "BlocklistEntry":
         """
         Disables a BlocklistEntry object.

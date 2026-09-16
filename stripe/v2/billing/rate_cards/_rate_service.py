@@ -29,6 +29,7 @@ class RateService(StripeService):
     def list(
         self,
         rate_card_id: str,
+        /,
         params: Optional["RateListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardRate]":
@@ -51,6 +52,7 @@ class RateService(StripeService):
     async def list_async(
         self,
         rate_card_id: str,
+        /,
         params: Optional["RateListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardRate]":
@@ -73,6 +75,7 @@ class RateService(StripeService):
     def create(
         self,
         rate_card_id: str,
+        /,
         params: "RateCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":
@@ -102,6 +105,7 @@ class RateService(StripeService):
     async def create_async(
         self,
         rate_card_id: str,
+        /,
         params: "RateCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":
@@ -132,6 +136,7 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["RateDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -156,6 +161,7 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["RateDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -180,6 +186,7 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["RateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":
@@ -204,6 +211,7 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["RateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":

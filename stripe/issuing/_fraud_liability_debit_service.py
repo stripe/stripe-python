@@ -59,6 +59,7 @@ class FraudLiabilityDebitService(StripeService):
     def retrieve(
         self,
         fraud_liability_debit: str,
+        /,
         params: Optional["FraudLiabilityDebitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FraudLiabilityDebit":
@@ -81,6 +82,7 @@ class FraudLiabilityDebitService(StripeService):
     async def retrieve_async(
         self,
         fraud_liability_debit: str,
+        /,
         params: Optional["FraudLiabilityDebitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FraudLiabilityDebit":

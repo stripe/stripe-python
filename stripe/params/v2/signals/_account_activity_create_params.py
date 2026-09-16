@@ -21,6 +21,11 @@ class AccountActivityCreateParams(TypedDict):
     Details for the account restriction. Provide only when type is account_restricted. The activity
     requires an existing account_details.account or account_details.customer; inline data is unsupported.
     """
+    account_reviewed: NotRequired["AccountActivityCreateParamsAccountReviewed"]
+    """
+    Details for the account review. Provide only when type is account_reviewed. The activity
+    requires an existing account_details.account or account_details.customer; inline data is unsupported.
+    """
     account_suspended: NotRequired[
         "AccountActivityCreateParamsAccountSuspended"
     ]
@@ -59,6 +64,7 @@ class AccountActivityCreateParams(TypedDict):
     type: Union[
         Literal[
             "account_restricted",
+            "account_reviewed",
             "account_suspended",
             "login_attempt",
             "login_decision",
@@ -146,6 +152,13 @@ class AccountActivityCreateParamsAccountRestricted(TypedDict):
     reason: Union[Literal["abuse", "other"], str]
     """
     The reason the account or customer was restricted.
+    """
+
+
+class AccountActivityCreateParamsAccountReviewed(TypedDict):
+    outcome: Union[Literal["trusted"], str]
+    """
+    The outcome of the merchant review.
     """
 
 

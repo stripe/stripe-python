@@ -4,11 +4,13 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.apps._install import Install as Install
     from stripe.apps._secret import Secret as Secret
     from stripe.apps._secret_service import SecretService as SecretService
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "Install": ("stripe.apps._install", False),
     "Secret": ("stripe.apps._secret", False),
     "SecretService": ("stripe.apps._secret_service", False),
 }

@@ -23,6 +23,7 @@ class VersionService(StripeService):
     def list(
         self,
         collection_setting_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CollectionSettingVersion]":
@@ -45,6 +46,7 @@ class VersionService(StripeService):
     async def list_async(
         self,
         collection_setting_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CollectionSettingVersion]":
@@ -68,6 +70,7 @@ class VersionService(StripeService):
         self,
         collection_setting_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CollectionSettingVersion":
@@ -92,6 +95,7 @@ class VersionService(StripeService):
         self,
         collection_setting_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CollectionSettingVersion":

@@ -58,6 +58,10 @@ class InvoiceCreatePreviewParams(RequestOptions):
     """
     Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
     """
+    pricing_token: NotRequired[str]
+    """
+    A pricing token whose presentment currency and exchange rate are used to convert the amounts on the previewed invoice into the customer-facing presentment currency. When omitted, amounts are returned in the settlement currency.
+    """
     schedule: NotRequired[str]
     """
     The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
@@ -2700,13 +2704,13 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     price: NotRequired[str]
     """
-    The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     """
     price_data: NotRequired[
         "InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData"
     ]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     """
     quantity: NotRequired[int]
     """

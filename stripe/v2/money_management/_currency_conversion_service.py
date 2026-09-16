@@ -102,6 +102,7 @@ class CurrencyConversionService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CurrencyConversionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CurrencyConversion":
@@ -124,6 +125,7 @@ class CurrencyConversionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CurrencyConversionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CurrencyConversion":

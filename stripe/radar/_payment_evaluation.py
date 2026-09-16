@@ -531,6 +531,54 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         }
 
     class Signals(StripeObject):
+        class EarlyFraudWarning(StripeObject):
+            evaluated_at: int
+            """
+            The time when this signal was evaluated.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Risk level of this signal, based on the score.
+            """
+            score: float
+            """
+            Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+            """
+
+        class FraudulentDispute(StripeObject):
+            evaluated_at: int
+            """
+            The time when this signal was evaluated.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Risk level of this signal, based on the score.
+            """
+            score: float
+            """
+            Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+            """
+
         class FraudulentPayment(StripeObject):
             evaluated_at: int
             """
@@ -552,14 +600,26 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             score: float
             """
-            Score for this signal. Possible values for evaluated payments are between 0 and 100. The value is returned with two decimal places and higher scores indicate a higher likelihood of the signal being true. A score of -1 is returned when a model evaluation was not performed, such as requests from incomplete integrations.
+            Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
             """
 
+        early_fraud_warning: Optional[EarlyFraudWarning]
+        """
+        The likelihood that this `PaymentEvaluation` results in an early fraud warning.
+        """
+        fraudulent_dispute: Optional[FraudulentDispute]
+        """
+        The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.
+        """
         fraudulent_payment: FraudulentPayment
         """
         A payment evaluation signal with evaluated_at, risk_level, and score fields.
         """
-        _inner_class_types = {"fraudulent_payment": FraudulentPayment}
+        _inner_class_types = {
+            "early_fraud_warning": EarlyFraudWarning,
+            "fraudulent_dispute": FraudulentDispute,
+            "fraudulent_payment": FraudulentPayment,
+        }
 
     client_device_metadata_details: Optional[ClientDeviceMetadataDetails]
     """

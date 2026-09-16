@@ -21,6 +21,7 @@ class QuantityChangeService(StripeService):
         self,
         contract_id: str,
         pricing_line_id: str,
+        /,
         params: Optional[
             "QuantityChangeListContractPricingLineQuantityChangesParams"
         ] = None,
@@ -47,6 +48,7 @@ class QuantityChangeService(StripeService):
         self,
         contract_id: str,
         pricing_line_id: str,
+        /,
         params: Optional[
             "QuantityChangeListContractPricingLineQuantityChangesParams"
         ] = None,

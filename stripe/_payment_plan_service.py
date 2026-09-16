@@ -101,6 +101,7 @@ class PaymentPlanService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PaymentPlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentPlan":
@@ -121,6 +122,7 @@ class PaymentPlanService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentPlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentPlan":
@@ -141,6 +143,7 @@ class PaymentPlanService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["PaymentPlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentPlan":
@@ -161,6 +164,7 @@ class PaymentPlanService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentPlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentPlan":

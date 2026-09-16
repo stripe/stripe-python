@@ -66,7 +66,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_activate(
-        cls, gift_card: str, **params: Unpack["GiftCardActivateParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -85,7 +85,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def activate(
-        gift_card: str, **params: Unpack["GiftCardActivateParams"]
+        gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -121,7 +121,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_activate_async(
-        cls, gift_card: str, **params: Unpack["GiftCardActivateParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -140,7 +140,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def activate_async(
-        gift_card: str, **params: Unpack["GiftCardActivateParams"]
+        gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -176,7 +176,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_cashout(
-        cls, gift_card: str, **params: Unpack["GiftCardCashoutParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -195,7 +195,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def cashout(
-        gift_card: str, **params: Unpack["GiftCardCashoutParams"]
+        gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -231,7 +231,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_cashout_async(
-        cls, gift_card: str, **params: Unpack["GiftCardCashoutParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -250,7 +250,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def cashout_async(
-        gift_card: str, **params: Unpack["GiftCardCashoutParams"]
+        gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -286,7 +286,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_check_balance(
-        cls, gift_card: str, **params: Unpack["GiftCardCheckBalanceParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -305,7 +305,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def check_balance(
-        gift_card: str, **params: Unpack["GiftCardCheckBalanceParams"]
+        gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -341,7 +341,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_check_balance_async(
-        cls, gift_card: str, **params: Unpack["GiftCardCheckBalanceParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -360,7 +360,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def check_balance_async(
-        gift_card: str, **params: Unpack["GiftCardCheckBalanceParams"]
+        gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -426,7 +426,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_reload(
-        cls, gift_card: str, **params: Unpack["GiftCardReloadParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -445,7 +445,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def reload(
-        gift_card: str, **params: Unpack["GiftCardReloadParams"]
+        gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -481,7 +481,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_reload_async(
-        cls, gift_card: str, **params: Unpack["GiftCardReloadParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -500,7 +500,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def reload_async(
-        gift_card: str, **params: Unpack["GiftCardReloadParams"]
+        gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -558,7 +558,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_void_operation(
-        cls, gift_card: str, **params: Unpack["GiftCardVoidOperationParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.
@@ -577,7 +577,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def void_operation(
-        gift_card: str, **params: Unpack["GiftCardVoidOperationParams"]
+        gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.
@@ -613,7 +613,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_void_operation_async(
-        cls, gift_card: str, **params: Unpack["GiftCardVoidOperationParams"]
+        cls, gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.
@@ -632,7 +632,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def void_operation_async(
-        gift_card: str, **params: Unpack["GiftCardVoidOperationParams"]
+        gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.

@@ -89,6 +89,7 @@ class AccountTokenService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AccountTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountToken":
@@ -109,6 +110,7 @@ class AccountTokenService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AccountTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountToken":

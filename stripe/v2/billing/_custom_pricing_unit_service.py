@@ -103,6 +103,7 @@ class CustomPricingUnitService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CustomPricingUnitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomPricingUnit":
@@ -125,6 +126,7 @@ class CustomPricingUnitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CustomPricingUnitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomPricingUnit":
@@ -147,6 +149,7 @@ class CustomPricingUnitService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["CustomPricingUnitUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomPricingUnit":
@@ -169,6 +172,7 @@ class CustomPricingUnitService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["CustomPricingUnitUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomPricingUnit":

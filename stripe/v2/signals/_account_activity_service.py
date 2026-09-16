@@ -62,6 +62,7 @@ class AccountActivityService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -82,6 +83,7 @@ class AccountActivityService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -102,6 +104,7 @@ class AccountActivityService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountActivity":
@@ -122,6 +125,7 @@ class AccountActivityService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountActivity":

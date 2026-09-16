@@ -23,6 +23,7 @@ class CustomerEvaluationService(StripeService):
     def retrieve(
         self,
         customer_evaluation: str,
+        /,
         params: Optional["CustomerEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerEvaluation":
@@ -45,6 +46,7 @@ class CustomerEvaluationService(StripeService):
     async def retrieve_async(
         self,
         customer_evaluation: str,
+        /,
         params: Optional["CustomerEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerEvaluation":
@@ -105,6 +107,7 @@ class CustomerEvaluationService(StripeService):
     def update(
         self,
         customer_evaluation: str,
+        /,
         params: Optional["CustomerEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerEvaluation":
@@ -127,6 +130,7 @@ class CustomerEvaluationService(StripeService):
     async def update_async(
         self,
         customer_evaluation: str,
+        /,
         params: Optional["CustomerEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerEvaluation":

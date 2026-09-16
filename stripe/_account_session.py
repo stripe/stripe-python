@@ -424,17 +424,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
-        class NestingDemo(StripeObject):
-            class Features(StripeObject):
-                pass
-
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: Features
-            _inner_class_types = {"features": Features}
-
         class NetworkCostPassthroughReport(StripeObject):
             class Features(StripeObject):
                 pass
@@ -735,10 +724,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         instant_payouts_promotion: InstantPayoutsPromotion
         issuing_card: IssuingCard
         issuing_cards_list: IssuingCardsList
-        nesting_demo: Optional[NestingDemo]
-        """
-        Configuration for the [Nestingdemo](https://docs.stripe.com/connect/supported-embedded-components/nesting-demo/) embedded component.
-        """
         network_cost_passthrough_report: Optional[NetworkCostPassthroughReport]
         """
         Configuration for the [network cost passthrough report](https://docs.stripe.com/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
@@ -788,7 +773,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "instant_payouts_promotion": InstantPayoutsPromotion,
             "issuing_card": IssuingCard,
             "issuing_cards_list": IssuingCardsList,
-            "nesting_demo": NestingDemo,
             "network_cost_passthrough_report": NetworkCostPassthroughReport,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
@@ -837,7 +821,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",
@@ -853,7 +837,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",

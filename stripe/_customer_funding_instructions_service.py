@@ -20,6 +20,7 @@ class CustomerFundingInstructionsService(StripeService):
     def create(
         self,
         customer: str,
+        /,
         params: "CustomerFundingInstructionsCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FundingInstructions":
@@ -44,6 +45,7 @@ class CustomerFundingInstructionsService(StripeService):
     async def create_async(
         self,
         customer: str,
+        /,
         params: "CustomerFundingInstructionsCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FundingInstructions":
@@ -68,6 +70,7 @@ class CustomerFundingInstructionsService(StripeService):
     def serialize_batch_create_funding_instructions(
         self,
         customer: str,
+        /,
         params: Optional["CustomerFundingInstructionsCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:

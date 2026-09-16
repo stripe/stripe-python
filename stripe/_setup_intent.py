@@ -616,7 +616,7 @@ class SetupIntent(
 
             mandate_options: Optional[MandateOptions]
             verification_method: Optional[
-                Literal["automatic", "payer_name_verification"]
+                Union[Literal["automatic", "payer_name_verification"], str]
             ]
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -1365,7 +1365,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_cancel(
-        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1386,7 +1386,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def cancel(
-        intent: str, **params: Unpack["SetupIntentCancelParams"]
+        intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1428,7 +1428,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1449,7 +1449,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def cancel_async(
-        intent: str, **params: Unpack["SetupIntentCancelParams"]
+        intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1491,7 +1491,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_confirm(
-        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1523,7 +1523,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def confirm(
-        intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1598,7 +1598,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_confirm_async(
-        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1630,7 +1630,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def confirm_async(
-        intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1849,6 +1849,7 @@ class SetupIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
+        /,
         **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
@@ -1868,7 +1869,9 @@ class SetupIntent(
     @overload
     @staticmethod
     def verify_microdeposits(
-        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -1906,6 +1909,7 @@ class SetupIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
@@ -1925,7 +1929,9 @@ class SetupIntent(
     @overload
     @staticmethod
     async def verify_microdeposits_async(
-        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.

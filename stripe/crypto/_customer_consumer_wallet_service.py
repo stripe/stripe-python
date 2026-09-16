@@ -18,6 +18,7 @@ class CustomerConsumerWalletService(StripeService):
     def list(
         self,
         id: str,
+        /,
         params: Optional["CustomerConsumerWalletListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerConsumerWallet]":
@@ -40,6 +41,7 @@ class CustomerConsumerWalletService(StripeService):
     async def list_async(
         self,
         id: str,
+        /,
         params: Optional["CustomerConsumerWalletListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerConsumerWallet]":

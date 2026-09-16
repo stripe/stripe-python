@@ -17,6 +17,7 @@ class ReaderCollectedDataService(StripeService):
     def retrieve(
         self,
         reader_collected_data: str,
+        /,
         params: Optional["ReaderCollectedDataRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReaderCollectedData":
@@ -39,6 +40,7 @@ class ReaderCollectedDataService(StripeService):
     async def retrieve_async(
         self,
         reader_collected_data: str,
+        /,
         params: Optional["ReaderCollectedDataRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReaderCollectedData":

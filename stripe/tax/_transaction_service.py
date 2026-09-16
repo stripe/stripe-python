@@ -58,6 +58,7 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         transaction: str,
+        /,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Transaction":
@@ -80,6 +81,7 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         transaction: str,
+        /,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Transaction":

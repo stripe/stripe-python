@@ -62,6 +62,7 @@ class AccountNoticeService(StripeService):
     def retrieve(
         self,
         account_notice: str,
+        /,
         params: Optional["AccountNoticeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountNotice":
@@ -84,6 +85,7 @@ class AccountNoticeService(StripeService):
     async def retrieve_async(
         self,
         account_notice: str,
+        /,
         params: Optional["AccountNoticeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountNotice":
@@ -106,6 +108,7 @@ class AccountNoticeService(StripeService):
     def update(
         self,
         account_notice: str,
+        /,
         params: "AccountNoticeUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "AccountNotice":
@@ -128,6 +131,7 @@ class AccountNoticeService(StripeService):
     async def update_async(
         self,
         account_notice: str,
+        /,
         params: "AccountNoticeUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "AccountNotice":

@@ -25,6 +25,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "application": ("stripe._application", "Application"),
     "application_fee": ("stripe._application_fee", "ApplicationFee"),
     "fee_refund": ("stripe._application_fee_refund", "ApplicationFeeRefund"),
+    "apps.install": ("stripe.apps._install", "Install"),
     "apps.secret": ("stripe.apps._secret", "Secret"),
     "balance": ("stripe._balance", "Balance"),
     "balance_settings": ("stripe._balance_settings", "BalanceSettings"),
@@ -646,6 +647,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.core.vault.gb_bank_account": (
         "stripe.v2.core.vault._gb_bank_account",
         "GbBankAccount",
+    ),
+    "v2.core.vault.network_token": (
+        "stripe.v2.core.vault._network_token",
+        "NetworkToken",
     ),
     "v2.core.vault.us_bank_account": (
         "stripe.v2.core.vault._us_bank_account",

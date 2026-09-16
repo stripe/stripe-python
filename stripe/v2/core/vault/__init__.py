@@ -10,6 +10,12 @@ if TYPE_CHECKING:
     from stripe.v2.core.vault._gb_bank_account_service import (
         GbBankAccountService as GbBankAccountService,
     )
+    from stripe.v2.core.vault._network_token import (
+        NetworkToken as NetworkToken,
+    )
+    from stripe.v2.core.vault._network_token_service import (
+        NetworkTokenService as NetworkTokenService,
+    )
     from stripe.v2.core.vault._us_bank_account import (
         UsBankAccount as UsBankAccount,
     )
@@ -22,6 +28,11 @@ _import_map = {
     "GbBankAccount": ("stripe.v2.core.vault._gb_bank_account", False),
     "GbBankAccountService": (
         "stripe.v2.core.vault._gb_bank_account_service",
+        False,
+    ),
+    "NetworkToken": ("stripe.v2.core.vault._network_token", False),
+    "NetworkTokenService": (
+        "stripe.v2.core.vault._network_token_service",
         False,
     ),
     "UsBankAccount": ("stripe.v2.core.vault._us_bank_account", False),

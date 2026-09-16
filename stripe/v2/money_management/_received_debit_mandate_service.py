@@ -64,6 +64,7 @@ class ReceivedDebitMandateService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ReceivedDebitMandateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":
@@ -86,6 +87,7 @@ class ReceivedDebitMandateService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ReceivedDebitMandateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":
@@ -108,6 +110,7 @@ class ReceivedDebitMandateService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["ReceivedDebitMandateCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":
@@ -130,6 +133,7 @@ class ReceivedDebitMandateService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["ReceivedDebitMandateCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":

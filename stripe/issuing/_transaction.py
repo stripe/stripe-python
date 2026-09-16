@@ -855,7 +855,10 @@ class Transaction(
 
         @classmethod
         def _cls_refund(
-            cls, transaction: str, **params: Unpack["TransactionRefundParams"]
+            cls,
+            transaction: str,
+            /,
+            **params: Unpack["TransactionRefundParams"],
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -874,7 +877,7 @@ class Transaction(
         @overload
         @staticmethod
         def refund(
-            transaction: str, **params: Unpack["TransactionRefundParams"]
+            transaction: str, /, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -910,7 +913,10 @@ class Transaction(
 
         @classmethod
         async def _cls_refund_async(
-            cls, transaction: str, **params: Unpack["TransactionRefundParams"]
+            cls,
+            transaction: str,
+            /,
+            **params: Unpack["TransactionRefundParams"],
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -929,7 +935,7 @@ class Transaction(
         @overload
         @staticmethod
         async def refund_async(
-            transaction: str, **params: Unpack["TransactionRefundParams"]
+            transaction: str, /, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.

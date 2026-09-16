@@ -104,6 +104,7 @@ class DepositAddressService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["DepositAddressRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DepositAddress":
@@ -124,6 +125,7 @@ class DepositAddressService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["DepositAddressRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DepositAddress":

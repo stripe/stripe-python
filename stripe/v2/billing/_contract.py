@@ -129,6 +129,10 @@ class Contract(StripeObject):
             """
             The user-provided lookup key.
             """
+            metadata: Optional[UntypedStripeObject[str]]
+            """
+            Set of key-value pairs.
+            """
             product: str
             """
             The id of the product for this fee.

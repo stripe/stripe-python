@@ -658,6 +658,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def _cls_list_source_transactions(
         cls,
         source: str,
+        /,
         **params: Unpack["SourceListSourceTransactionsParams"],
     ) -> ListObject["SourceTransaction"]:
         """
@@ -677,7 +678,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     def list_source_transactions(
-        source: str, **params: Unpack["SourceListSourceTransactionsParams"]
+        source: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -715,6 +716,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     async def _cls_list_source_transactions_async(
         cls,
         source: str,
+        /,
         **params: Unpack["SourceListSourceTransactionsParams"],
     ) -> ListObject["SourceTransaction"]:
         """
@@ -734,7 +736,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     async def list_source_transactions_async(
-        source: str, **params: Unpack["SourceListSourceTransactionsParams"]
+        source: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -830,7 +832,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     def _cls_verify(
-        cls, source: str, **params: Unpack["SourceVerifyParams"]
+        cls, source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -849,7 +851,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     def verify(
-        source: str, **params: Unpack["SourceVerifyParams"]
+        source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -883,7 +885,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     async def _cls_verify_async(
-        cls, source: str, **params: Unpack["SourceVerifyParams"]
+        cls, source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -902,7 +904,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     async def verify_async(
-        source: str, **params: Unpack["SourceVerifyParams"]
+        source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.

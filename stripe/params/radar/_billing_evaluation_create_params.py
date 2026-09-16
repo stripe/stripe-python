@@ -49,7 +49,7 @@ class BillingEvaluationCreateParamsCustomerDetails(TypedDict):
     """
     data: NotRequired["BillingEvaluationCreateParamsCustomerDetailsData"]
     """
-    Attributes of the customer being evaluated. Supply these when the customer isn't represented by a Customer or an Account. If `customer` or `customer_account` is also supplied, the attributes on that object are used and these are ignored.
+    Attributes of the customer being evaluated. Exactly one of `customer`, `customer_account`, and `data` must be supplied: use `data` when the customer isn't represented by a Customer or an Account.
     """
 
 

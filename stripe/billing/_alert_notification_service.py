@@ -18,6 +18,7 @@ class AlertNotificationService(StripeService):
     def list(
         self,
         id: str,
+        /,
         params: "AlertNotificationListParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AlertNotification]":
@@ -40,6 +41,7 @@ class AlertNotificationService(StripeService):
     async def list_async(
         self,
         id: str,
+        /,
         params: "AlertNotificationListParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AlertNotification]":

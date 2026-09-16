@@ -56,8 +56,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._financial_address_create_params import (
         FinancialAddressCreateParams as FinancialAddressCreateParams,
-        FinancialAddressCreateParamsCryptoProperties as FinancialAddressCreateParamsCryptoProperties,
-        FinancialAddressCreateParamsSepaBankAccount as FinancialAddressCreateParamsSepaBankAccount,
+        FinancialAddressCreateParamsBankAccount as FinancialAddressCreateParamsBankAccount,
+        FinancialAddressCreateParamsCryptoWallet as FinancialAddressCreateParamsCryptoWallet,
     )
     from stripe.params.v2.money_management._financial_address_list_params import (
         FinancialAddressListParams as FinancialAddressListParams,
@@ -342,11 +342,11 @@ _import_map = {
         "stripe.params.v2.money_management._financial_address_create_params",
         False,
     ),
-    "FinancialAddressCreateParamsCryptoProperties": (
+    "FinancialAddressCreateParamsBankAccount": (
         "stripe.params.v2.money_management._financial_address_create_params",
         False,
     ),
-    "FinancialAddressCreateParamsSepaBankAccount": (
+    "FinancialAddressCreateParamsCryptoWallet": (
         "stripe.params.v2.money_management._financial_address_create_params",
         False,
     ),

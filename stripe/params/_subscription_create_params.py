@@ -869,6 +869,12 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice's PaymentIntent.
     """
+    bacs_debit: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit"
+    ]
+    """
+    This sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice's PaymentIntent.
+    """
     bancontact: NotRequired[
         "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact"
     ]
@@ -985,6 +991,18 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandat
     """
     Transaction type of the mandate.
     """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit(
+    TypedDict,
+):
+    debit_behavior: NotRequired[str]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+    verification_method: NotRequired[
+        "Literal['automatic', 'payer_name_verification']|str"
+    ]
 
 
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact(

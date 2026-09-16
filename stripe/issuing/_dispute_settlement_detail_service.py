@@ -61,6 +61,7 @@ class DisputeSettlementDetailService(StripeService):
     def retrieve(
         self,
         dispute_settlement_detail: str,
+        /,
         params: Optional["DisputeSettlementDetailRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DisputeSettlementDetail":
@@ -85,6 +86,7 @@ class DisputeSettlementDetailService(StripeService):
     async def retrieve_async(
         self,
         dispute_settlement_detail: str,
+        /,
         params: Optional["DisputeSettlementDetailRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DisputeSettlementDetail":
