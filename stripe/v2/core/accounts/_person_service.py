@@ -32,6 +32,7 @@ class PersonService(StripeService):
     def list(
         self,
         account_id: str,
+        /,
         params: Optional["PersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountPerson]":
@@ -54,6 +55,7 @@ class PersonService(StripeService):
     async def list_async(
         self,
         account_id: str,
+        /,
         params: Optional["PersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountPerson]":
@@ -76,6 +78,7 @@ class PersonService(StripeService):
     def create(
         self,
         account_id: str,
+        /,
         params: Optional["PersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -101,6 +104,7 @@ class PersonService(StripeService):
     async def create_async(
         self,
         account_id: str,
+        /,
         params: Optional["PersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -127,6 +131,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -151,6 +156,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -175,6 +181,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -199,6 +206,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -223,6 +231,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -250,6 +259,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":

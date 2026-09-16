@@ -139,6 +139,7 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
+        /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -161,6 +162,7 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
+        /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -183,6 +185,7 @@ class SessionService(StripeService):
     def update(
         self,
         session: str,
+        /,
         params: Optional["SessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -207,6 +210,7 @@ class SessionService(StripeService):
     async def update_async(
         self,
         session: str,
+        /,
         params: Optional["SessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -231,6 +235,7 @@ class SessionService(StripeService):
     def approve(
         self,
         session: str,
+        /,
         params: "SessionApproveParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -253,6 +258,7 @@ class SessionService(StripeService):
     async def approve_async(
         self,
         session: str,
+        /,
         params: "SessionApproveParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -275,6 +281,7 @@ class SessionService(StripeService):
     def expire(
         self,
         session: str,
+        /,
         params: Optional["SessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -299,6 +306,7 @@ class SessionService(StripeService):
     async def expire_async(
         self,
         session: str,
+        /,
         params: Optional["SessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":

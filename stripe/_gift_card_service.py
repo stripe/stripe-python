@@ -26,6 +26,7 @@ class GiftCardService(StripeService):
     def retrieve(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCard":
@@ -48,6 +49,7 @@ class GiftCardService(StripeService):
     async def retrieve_async(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCard":
@@ -108,6 +110,7 @@ class GiftCardService(StripeService):
     def activate(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -130,6 +133,7 @@ class GiftCardService(StripeService):
     async def activate_async(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -152,6 +156,7 @@ class GiftCardService(StripeService):
     def cashout(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardCashoutParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -174,6 +179,7 @@ class GiftCardService(StripeService):
     async def cashout_async(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardCashoutParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -196,6 +202,7 @@ class GiftCardService(StripeService):
     def check_balance(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardCheckBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -218,6 +225,7 @@ class GiftCardService(StripeService):
     async def check_balance_async(
         self,
         gift_card: str,
+        /,
         params: Optional["GiftCardCheckBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -240,6 +248,7 @@ class GiftCardService(StripeService):
     def reload(
         self,
         gift_card: str,
+        /,
         params: "GiftCardReloadParams",
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -262,6 +271,7 @@ class GiftCardService(StripeService):
     async def reload_async(
         self,
         gift_card: str,
+        /,
         params: "GiftCardReloadParams",
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -284,6 +294,7 @@ class GiftCardService(StripeService):
     def void_operation(
         self,
         gift_card: str,
+        /,
         params: "GiftCardVoidOperationParams",
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -306,6 +317,7 @@ class GiftCardService(StripeService):
     async def void_operation_async(
         self,
         gift_card: str,
+        /,
         params: "GiftCardVoidOperationParams",
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":

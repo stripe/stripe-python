@@ -102,6 +102,7 @@ class ChargeService(StripeService):
     def retrieve(
         self,
         charge: str,
+        /,
         params: Optional["ChargeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -122,6 +123,7 @@ class ChargeService(StripeService):
     async def retrieve_async(
         self,
         charge: str,
+        /,
         params: Optional["ChargeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -142,6 +144,7 @@ class ChargeService(StripeService):
     def update(
         self,
         charge: str,
+        /,
         params: Optional["ChargeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -162,6 +165,7 @@ class ChargeService(StripeService):
     async def update_async(
         self,
         charge: str,
+        /,
         params: Optional["ChargeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -226,6 +230,7 @@ class ChargeService(StripeService):
     def capture(
         self,
         charge: str,
+        /,
         params: Optional["ChargeCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -252,6 +257,7 @@ class ChargeService(StripeService):
     async def capture_async(
         self,
         charge: str,
+        /,
         params: Optional["ChargeCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":

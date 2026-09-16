@@ -57,6 +57,7 @@ class SupplierService(StripeService):
     def retrieve(
         self,
         supplier: str,
+        /,
         params: Optional["SupplierRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Supplier":
@@ -79,6 +80,7 @@ class SupplierService(StripeService):
     async def retrieve_async(
         self,
         supplier: str,
+        /,
         params: Optional["SupplierRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Supplier":

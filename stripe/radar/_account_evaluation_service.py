@@ -23,6 +23,7 @@ class AccountEvaluationService(StripeService):
     def retrieve(
         self,
         account_evaluation: str,
+        /,
         params: Optional["AccountEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountEvaluation":
@@ -45,6 +46,7 @@ class AccountEvaluationService(StripeService):
     async def retrieve_async(
         self,
         account_evaluation: str,
+        /,
         params: Optional["AccountEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountEvaluation":
@@ -105,6 +107,7 @@ class AccountEvaluationService(StripeService):
     def update(
         self,
         account_evaluation: str,
+        /,
         params: "AccountEvaluationUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "AccountEvaluation":
@@ -127,6 +130,7 @@ class AccountEvaluationService(StripeService):
     async def update_async(
         self,
         account_evaluation: str,
+        /,
         params: "AccountEvaluationUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "AccountEvaluation":

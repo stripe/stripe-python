@@ -17,6 +17,7 @@ class GiftCardOperationService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["GiftCardOperationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":
@@ -37,6 +38,7 @@ class GiftCardOperationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["GiftCardOperationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GiftCardOperation":

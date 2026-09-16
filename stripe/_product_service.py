@@ -52,6 +52,7 @@ class ProductService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["ProductDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":
@@ -72,6 +73,7 @@ class ProductService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["ProductDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":
@@ -92,6 +94,7 @@ class ProductService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":
@@ -112,6 +115,7 @@ class ProductService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":
@@ -132,6 +136,7 @@ class ProductService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["ProductUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":
@@ -152,6 +157,7 @@ class ProductService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["ProductUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":
@@ -292,6 +298,7 @@ class ProductService(StripeService):
     def serialize_batch_delete(
         self,
         id: str,
+        /,
         params: Optional["ProductDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
@@ -316,6 +323,7 @@ class ProductService(StripeService):
     def serialize_batch_update(
         self,
         id: str,
+        /,
         params: Optional["ProductUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:

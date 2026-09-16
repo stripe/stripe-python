@@ -18,6 +18,7 @@ class HistoryService(StripeService):
     def list(
         self,
         id: str,
+        /,
         params: Optional["HistoryListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AlertHistoryEntry]":
@@ -40,6 +41,7 @@ class HistoryService(StripeService):
     async def list_async(
         self,
         id: str,
+        /,
         params: Optional["HistoryListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AlertHistoryEntry]":

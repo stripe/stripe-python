@@ -136,7 +136,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     def _cls_approve(
-        cls, review: str, **params: Unpack["ReviewApproveParams"]
+        cls, review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -155,7 +155,7 @@ class Review(ListableAPIResource["Review"]):
     @overload
     @staticmethod
     def approve(
-        review: str, **params: Unpack["ReviewApproveParams"]
+        review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -189,7 +189,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     async def _cls_approve_async(
-        cls, review: str, **params: Unpack["ReviewApproveParams"]
+        cls, review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -208,7 +208,7 @@ class Review(ListableAPIResource["Review"]):
     @overload
     @staticmethod
     async def approve_async(
-        review: str, **params: Unpack["ReviewApproveParams"]
+        review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.

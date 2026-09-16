@@ -17,6 +17,7 @@ class AccountSignalsService(StripeService):
     def retrieve(
         self,
         account_id: str,
+        /,
         params: Optional["AccountSignalsRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSignals":
@@ -39,6 +40,7 @@ class AccountSignalsService(StripeService):
     async def retrieve_async(
         self,
         account_id: str,
+        /,
         params: Optional["AccountSignalsRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSignals":

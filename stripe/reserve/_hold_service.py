@@ -55,6 +55,7 @@ class HoldService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["HoldRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Hold":
@@ -75,6 +76,7 @@ class HoldService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["HoldRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Hold":

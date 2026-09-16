@@ -106,7 +106,7 @@ class FeedbackOption(
 
     @classmethod
     def _cls_deactivate(
-        cls, id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -125,7 +125,7 @@ class FeedbackOption(
     @overload
     @staticmethod
     def deactivate(
-        id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -161,7 +161,7 @@ class FeedbackOption(
 
     @classmethod
     async def _cls_deactivate_async(
-        cls, id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -180,7 +180,7 @@ class FeedbackOption(
     @overload
     @staticmethod
     async def deactivate_async(
-        id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.

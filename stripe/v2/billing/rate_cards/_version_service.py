@@ -21,6 +21,7 @@ class VersionService(StripeService):
     def list(
         self,
         rate_card_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardVersion]":
@@ -43,6 +44,7 @@ class VersionService(StripeService):
     async def list_async(
         self,
         rate_card_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardVersion]":
@@ -66,6 +68,7 @@ class VersionService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardVersion":
@@ -90,6 +93,7 @@ class VersionService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardVersion":

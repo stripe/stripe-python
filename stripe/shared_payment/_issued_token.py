@@ -340,6 +340,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     def _cls_revoke(
         cls,
         shared_payment_issued_token: str,
+        /,
         **params: Unpack["IssuedTokenRevokeParams"],
     ) -> "IssuedToken":
         """
@@ -362,6 +363,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     @staticmethod
     def revoke(
         shared_payment_issued_token: str,
+        /,
         **params: Unpack["IssuedTokenRevokeParams"],
     ) -> "IssuedToken":
         """
@@ -402,6 +404,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     async def _cls_revoke_async(
         cls,
         shared_payment_issued_token: str,
+        /,
         **params: Unpack["IssuedTokenRevokeParams"],
     ) -> "IssuedToken":
         """
@@ -424,6 +427,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     @staticmethod
     async def revoke_async(
         shared_payment_issued_token: str,
+        /,
         **params: Unpack["IssuedTokenRevokeParams"],
     ) -> "IssuedToken":
         """

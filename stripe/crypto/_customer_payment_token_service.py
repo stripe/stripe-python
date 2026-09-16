@@ -18,6 +18,7 @@ class CustomerPaymentTokenService(StripeService):
     def list(
         self,
         id: str,
+        /,
         params: Optional["CustomerPaymentTokenListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerPaymentToken]":
@@ -40,6 +41,7 @@ class CustomerPaymentTokenService(StripeService):
     async def list_async(
         self,
         id: str,
+        /,
         params: Optional["CustomerPaymentTokenListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerPaymentToken]":

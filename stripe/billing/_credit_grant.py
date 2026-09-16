@@ -263,7 +263,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_expire(
-        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -282,7 +282,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def expire(
-        id: str, **params: Unpack["CreditGrantExpireParams"]
+        id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -318,7 +318,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_expire_async(
-        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -337,7 +337,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def expire_async(
-        id: str, **params: Unpack["CreditGrantExpireParams"]
+        id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -469,7 +469,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_void_grant(
-        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -488,7 +488,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def void_grant(
-        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -524,7 +524,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_void_grant_async(
-        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -543,7 +543,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def void_grant_async(
-        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.

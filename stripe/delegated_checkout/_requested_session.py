@@ -862,6 +862,7 @@ class RequestedSession(
     def _cls_confirm(
         cls,
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionConfirmParams"],
     ) -> "RequestedSession":
         """
@@ -882,6 +883,7 @@ class RequestedSession(
     @staticmethod
     def confirm(
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionConfirmParams"],
     ) -> "RequestedSession":
         """
@@ -920,6 +922,7 @@ class RequestedSession(
     async def _cls_confirm_async(
         cls,
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionConfirmParams"],
     ) -> "RequestedSession":
         """
@@ -940,6 +943,7 @@ class RequestedSession(
     @staticmethod
     async def confirm_async(
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionConfirmParams"],
     ) -> "RequestedSession":
         """
@@ -1010,6 +1014,7 @@ class RequestedSession(
     def _cls_expire(
         cls,
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionExpireParams"],
     ) -> "RequestedSession":
         """
@@ -1030,6 +1035,7 @@ class RequestedSession(
     @staticmethod
     def expire(
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionExpireParams"],
     ) -> "RequestedSession":
         """
@@ -1068,6 +1074,7 @@ class RequestedSession(
     async def _cls_expire_async(
         cls,
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionExpireParams"],
     ) -> "RequestedSession":
         """
@@ -1088,6 +1095,7 @@ class RequestedSession(
     @staticmethod
     async def expire_async(
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionExpireParams"],
     ) -> "RequestedSession":
         """
@@ -1126,6 +1134,7 @@ class RequestedSession(
     def _cls_list_orders(
         cls,
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionListOrdersParams"],
     ) -> ListObject["Order"]:
         """
@@ -1146,6 +1155,7 @@ class RequestedSession(
     @staticmethod
     def list_orders(
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionListOrdersParams"],
     ) -> ListObject["Order"]:
         """
@@ -1184,6 +1194,7 @@ class RequestedSession(
     async def _cls_list_orders_async(
         cls,
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionListOrdersParams"],
     ) -> ListObject["Order"]:
         """
@@ -1204,6 +1215,7 @@ class RequestedSession(
     @staticmethod
     async def list_orders_async(
         requested_session: str,
+        /,
         **params: Unpack["RequestedSessionListOrdersParams"],
     ) -> ListObject["Order"]:
         """

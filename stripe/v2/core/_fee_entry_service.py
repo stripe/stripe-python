@@ -57,6 +57,7 @@ class FeeEntryService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FeeEntryRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeeEntry":
@@ -77,6 +78,7 @@ class FeeEntryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FeeEntryRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeeEntry":

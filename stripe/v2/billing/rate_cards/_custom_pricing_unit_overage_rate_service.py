@@ -30,6 +30,7 @@ class CustomPricingUnitOverageRateService(StripeService):
     def list(
         self,
         rate_card_id: str,
+        /,
         params: Optional["CustomPricingUnitOverageRateListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardCustomPricingUnitOverageRate]":
@@ -52,6 +53,7 @@ class CustomPricingUnitOverageRateService(StripeService):
     async def list_async(
         self,
         rate_card_id: str,
+        /,
         params: Optional["CustomPricingUnitOverageRateListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardCustomPricingUnitOverageRate]":
@@ -74,6 +76,7 @@ class CustomPricingUnitOverageRateService(StripeService):
     def create(
         self,
         rate_card_id: str,
+        /,
         params: "CustomPricingUnitOverageRateCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardCustomPricingUnitOverageRate":
@@ -96,6 +99,7 @@ class CustomPricingUnitOverageRateService(StripeService):
     async def create_async(
         self,
         rate_card_id: str,
+        /,
         params: "CustomPricingUnitOverageRateCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardCustomPricingUnitOverageRate":
@@ -119,6 +123,7 @@ class CustomPricingUnitOverageRateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["CustomPricingUnitOverageRateDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -143,6 +148,7 @@ class CustomPricingUnitOverageRateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["CustomPricingUnitOverageRateDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -167,6 +173,7 @@ class CustomPricingUnitOverageRateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["CustomPricingUnitOverageRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardCustomPricingUnitOverageRate":
@@ -191,6 +198,7 @@ class CustomPricingUnitOverageRateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
+        /,
         params: Optional["CustomPricingUnitOverageRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardCustomPricingUnitOverageRate":

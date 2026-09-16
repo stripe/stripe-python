@@ -62,6 +62,7 @@ class FinancingOfferService(StripeService):
     def retrieve(
         self,
         financing_offer: str,
+        /,
         params: Optional["FinancingOfferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingOffer":
@@ -84,6 +85,7 @@ class FinancingOfferService(StripeService):
     async def retrieve_async(
         self,
         financing_offer: str,
+        /,
         params: Optional["FinancingOfferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingOffer":
@@ -106,6 +108,7 @@ class FinancingOfferService(StripeService):
     def mark_delivered(
         self,
         financing_offer: str,
+        /,
         params: Optional["FinancingOfferMarkDeliveredParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingOffer":
@@ -129,6 +132,7 @@ class FinancingOfferService(StripeService):
     async def mark_delivered_async(
         self,
         financing_offer: str,
+        /,
         params: Optional["FinancingOfferMarkDeliveredParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingOffer":

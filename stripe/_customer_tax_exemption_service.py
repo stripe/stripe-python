@@ -28,6 +28,7 @@ class CustomerTaxExemptionService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxExemptionDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerTaxExemption":
@@ -52,6 +53,7 @@ class CustomerTaxExemptionService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxExemptionDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerTaxExemption":
@@ -76,6 +78,7 @@ class CustomerTaxExemptionService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxExemptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerTaxExemption":
@@ -100,6 +103,7 @@ class CustomerTaxExemptionService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxExemptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerTaxExemption":
@@ -123,6 +127,7 @@ class CustomerTaxExemptionService(StripeService):
     def list(
         self,
         customer: str,
+        /,
         params: Optional["CustomerTaxExemptionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerTaxExemption]":
@@ -145,6 +150,7 @@ class CustomerTaxExemptionService(StripeService):
     async def list_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerTaxExemptionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerTaxExemption]":
@@ -167,6 +173,7 @@ class CustomerTaxExemptionService(StripeService):
     def create(
         self,
         customer: str,
+        /,
         params: "CustomerTaxExemptionCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerTaxExemption":
@@ -189,6 +196,7 @@ class CustomerTaxExemptionService(StripeService):
     async def create_async(
         self,
         customer: str,
+        /,
         params: "CustomerTaxExemptionCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerTaxExemption":

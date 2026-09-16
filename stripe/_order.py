@@ -1253,7 +1253,7 @@ class Order(
 
     @classmethod
     def _cls_submit(
-        cls, id: str, **params: Unpack["OrderSubmitParams"]
+        cls, id: str, /, **params: Unpack["OrderSubmitParams"]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
@@ -1269,7 +1269,7 @@ class Order(
 
     @overload
     @staticmethod
-    def submit(id: str, **params: Unpack["OrderSubmitParams"]) -> "Order":
+    def submit(id: str, /, **params: Unpack["OrderSubmitParams"]) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
         """
@@ -1302,7 +1302,7 @@ class Order(
 
     @classmethod
     async def _cls_submit_async(
-        cls, id: str, **params: Unpack["OrderSubmitParams"]
+        cls, id: str, /, **params: Unpack["OrderSubmitParams"]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
@@ -1319,7 +1319,7 @@ class Order(
     @overload
     @staticmethod
     async def submit_async(
-        id: str, **params: Unpack["OrderSubmitParams"]
+        id: str, /, **params: Unpack["OrderSubmitParams"]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.

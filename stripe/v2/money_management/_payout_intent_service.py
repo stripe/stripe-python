@@ -112,6 +112,7 @@ class PayoutIntentService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -134,6 +135,7 @@ class PayoutIntentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -156,6 +158,7 @@ class PayoutIntentService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -178,6 +181,7 @@ class PayoutIntentService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -200,6 +204,7 @@ class PayoutIntentService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -222,6 +227,7 @@ class PayoutIntentService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -244,6 +250,7 @@ class PayoutIntentService(StripeService):
     def confirm(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -266,6 +273,7 @@ class PayoutIntentService(StripeService):
     async def confirm_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -288,6 +296,7 @@ class PayoutIntentService(StripeService):
     def fx_quote(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentFxQuoteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":
@@ -310,6 +319,7 @@ class PayoutIntentService(StripeService):
     async def fx_quote_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutIntentFxQuoteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutIntent":

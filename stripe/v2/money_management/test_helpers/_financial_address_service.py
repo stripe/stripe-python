@@ -19,6 +19,7 @@ class FinancialAddressService(StripeService):
     def debit(
         self,
         id: str,
+        /,
         params: "FinancialAddressDebitParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddressDebitSimulation":
@@ -41,6 +42,7 @@ class FinancialAddressService(StripeService):
     async def debit_async(
         self,
         id: str,
+        /,
         params: "FinancialAddressDebitParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAddressDebitSimulation":

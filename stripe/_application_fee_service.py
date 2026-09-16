@@ -91,6 +91,7 @@ class ApplicationFeeService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ApplicationFeeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApplicationFee":
@@ -111,6 +112,7 @@ class ApplicationFeeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ApplicationFeeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApplicationFee":

@@ -17,6 +17,7 @@ class OrderService(StripeService):
     def retrieve(
         self,
         order_id: str,
+        /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Order":
@@ -39,6 +40,7 @@ class OrderService(StripeService):
     async def retrieve_async(
         self,
         order_id: str,
+        /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Order":

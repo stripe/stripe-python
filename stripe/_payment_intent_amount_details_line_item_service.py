@@ -20,6 +20,7 @@ class PaymentIntentAmountDetailsLineItemService(StripeService):
     def list(
         self,
         intent: str,
+        /,
         params: Optional[
             "PaymentIntentAmountDetailsLineItemListParams"
         ] = None,
@@ -44,6 +45,7 @@ class PaymentIntentAmountDetailsLineItemService(StripeService):
     async def list_async(
         self,
         intent: str,
+        /,
         params: Optional[
             "PaymentIntentAmountDetailsLineItemListParams"
         ] = None,

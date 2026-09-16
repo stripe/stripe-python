@@ -29,6 +29,7 @@ class DisputeService(StripeService):
     def close(
         self,
         dispute: str,
+        /,
         params: "DisputeCloseParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -51,6 +52,7 @@ class DisputeService(StripeService):
     async def close_async(
         self,
         dispute: str,
+        /,
         params: "DisputeCloseParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -73,6 +75,7 @@ class DisputeService(StripeService):
     def provisional_credit(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeProvisionalCreditParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -95,6 +98,7 @@ class DisputeService(StripeService):
     async def provisional_credit_async(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeProvisionalCreditParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -117,6 +121,7 @@ class DisputeService(StripeService):
     def simulate_network_lifecycle_dispute_response(
         self,
         dispute: str,
+        /,
         params: "DisputeSimulateNetworkLifecycleDisputeResponseParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -139,6 +144,7 @@ class DisputeService(StripeService):
     async def simulate_network_lifecycle_dispute_response_async(
         self,
         dispute: str,
+        /,
         params: "DisputeSimulateNetworkLifecycleDisputeResponseParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -161,6 +167,7 @@ class DisputeService(StripeService):
     def simulate_network_lifecycle_pre_arbitration_response(
         self,
         dispute: str,
+        /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -183,6 +190,7 @@ class DisputeService(StripeService):
     async def simulate_network_lifecycle_pre_arbitration_response_async(
         self,
         dispute: str,
+        /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -205,6 +213,7 @@ class DisputeService(StripeService):
     def simulate_network_lifecycle_pre_arbitration_submission(
         self,
         dispute: str,
+        /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -227,6 +236,7 @@ class DisputeService(StripeService):
     async def simulate_network_lifecycle_pre_arbitration_submission_async(
         self,
         dispute: str,
+        /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":

@@ -500,7 +500,7 @@ class Refund(
 
     @classmethod
     def _cls_cancel(
-        cls, refund: str, **params: Unpack["RefundCancelParams"]
+        cls, refund: str, /, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -521,7 +521,7 @@ class Refund(
     @overload
     @staticmethod
     def cancel(
-        refund: str, **params: Unpack["RefundCancelParams"]
+        refund: str, /, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -561,7 +561,7 @@ class Refund(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, refund: str, **params: Unpack["RefundCancelParams"]
+        cls, refund: str, /, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -582,7 +582,7 @@ class Refund(
     @overload
     @staticmethod
     async def cancel_async(
-        refund: str, **params: Unpack["RefundCancelParams"]
+        refund: str, /, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -777,7 +777,7 @@ class Refund(
 
         @classmethod
         def _cls_expire(
-            cls, refund: str, **params: Unpack["RefundExpireParams"]
+            cls, refund: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -796,7 +796,7 @@ class Refund(
         @overload
         @staticmethod
         def expire(
-            refund: str, **params: Unpack["RefundExpireParams"]
+            refund: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -830,7 +830,7 @@ class Refund(
 
         @classmethod
         async def _cls_expire_async(
-            cls, refund: str, **params: Unpack["RefundExpireParams"]
+            cls, refund: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -849,7 +849,7 @@ class Refund(
         @overload
         @staticmethod
         async def expire_async(
-            refund: str, **params: Unpack["RefundExpireParams"]
+            refund: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.

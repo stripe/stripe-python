@@ -135,6 +135,7 @@ class AlertService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AlertRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -155,6 +156,7 @@ class AlertService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AlertRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -175,6 +177,7 @@ class AlertService(StripeService):
     def activate(
         self,
         id: str,
+        /,
         params: Optional["AlertActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -195,6 +198,7 @@ class AlertService(StripeService):
     async def activate_async(
         self,
         id: str,
+        /,
         params: Optional["AlertActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -215,6 +219,7 @@ class AlertService(StripeService):
     def archive(
         self,
         id: str,
+        /,
         params: Optional["AlertArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -235,6 +240,7 @@ class AlertService(StripeService):
     async def archive_async(
         self,
         id: str,
+        /,
         params: Optional["AlertArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -255,6 +261,7 @@ class AlertService(StripeService):
     def deactivate(
         self,
         id: str,
+        /,
         params: Optional["AlertDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":
@@ -277,6 +284,7 @@ class AlertService(StripeService):
     async def deactivate_async(
         self,
         id: str,
+        /,
         params: Optional["AlertDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Alert":

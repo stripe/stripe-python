@@ -63,6 +63,7 @@ class ClaimableSandboxService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ClaimableSandboxRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ClaimableSandbox":
@@ -85,6 +86,7 @@ class ClaimableSandboxService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ClaimableSandboxRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ClaimableSandbox":
@@ -107,6 +109,7 @@ class ClaimableSandboxService(StripeService):
     def renew_onboarding_link(
         self,
         id: str,
+        /,
         params: Optional["ClaimableSandboxRenewOnboardingLinkParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ClaimableSandbox":
@@ -130,6 +133,7 @@ class ClaimableSandboxService(StripeService):
     async def renew_onboarding_link_async(
         self,
         id: str,
+        /,
         params: Optional["ClaimableSandboxRenewOnboardingLinkParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ClaimableSandbox":

@@ -83,6 +83,7 @@ class PaymentAttemptRecordService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PaymentAttemptRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -103,6 +104,7 @@ class PaymentAttemptRecordService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PaymentAttemptRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -123,6 +125,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_authenticated(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional[
             "PaymentAttemptRecordReportAuthenticatedParams"
         ] = None,
@@ -147,6 +150,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_authenticated_async(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional[
             "PaymentAttemptRecordReportAuthenticatedParams"
         ] = None,
@@ -171,6 +175,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_authorized(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportAuthorizedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -193,6 +198,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_authorized_async(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportAuthorizedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -215,6 +221,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_canceled(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportCanceledParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -237,6 +244,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_canceled_async(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportCanceledParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -259,6 +267,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_early_fraud_warning(
         self,
         payment_attempt_record: str,
+        /,
         params: "PaymentAttemptRecordReportEarlyFraudWarningParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -281,6 +290,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_early_fraud_warning_async(
         self,
         payment_attempt_record: str,
+        /,
         params: "PaymentAttemptRecordReportEarlyFraudWarningParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -303,6 +313,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_failed(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportFailedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -325,6 +336,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_failed_async(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportFailedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -347,6 +359,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_guaranteed(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportGuaranteedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -369,6 +382,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_guaranteed_async(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional["PaymentAttemptRecordReportGuaranteedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -391,6 +405,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_informational(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional[
             "PaymentAttemptRecordReportInformationalParams"
         ] = None,
@@ -415,6 +430,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_informational_async(
         self,
         payment_attempt_record: str,
+        /,
         params: Optional[
             "PaymentAttemptRecordReportInformationalParams"
         ] = None,
@@ -439,6 +455,7 @@ class PaymentAttemptRecordService(StripeService):
     def report_refund(
         self,
         payment_attempt_record: str,
+        /,
         params: "PaymentAttemptRecordReportRefundParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":
@@ -461,6 +478,7 @@ class PaymentAttemptRecordService(StripeService):
     async def report_refund_async(
         self,
         payment_attempt_record: str,
+        /,
         params: "PaymentAttemptRecordReportRefundParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentAttemptRecord":

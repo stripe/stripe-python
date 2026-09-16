@@ -125,6 +125,7 @@ class BlocklistEntryService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["BlocklistEntryRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BlocklistEntry":
@@ -149,6 +150,7 @@ class BlocklistEntryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["BlocklistEntryRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BlocklistEntry":
@@ -173,6 +175,7 @@ class BlocklistEntryService(StripeService):
     def disable(
         self,
         id: str,
+        /,
         params: Optional["BlocklistEntryDisableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BlocklistEntry":
@@ -201,6 +204,7 @@ class BlocklistEntryService(StripeService):
     async def disable_async(
         self,
         id: str,
+        /,
         params: Optional["BlocklistEntryDisableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BlocklistEntry":

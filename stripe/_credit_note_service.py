@@ -172,6 +172,7 @@ class CreditNoteService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CreditNoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
@@ -192,6 +193,7 @@ class CreditNoteService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CreditNoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
@@ -212,6 +214,7 @@ class CreditNoteService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["CreditNoteUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
@@ -232,6 +235,7 @@ class CreditNoteService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["CreditNoteUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
@@ -290,6 +294,7 @@ class CreditNoteService(StripeService):
     def void_credit_note(
         self,
         id: str,
+        /,
         params: Optional["CreditNoteVoidCreditNoteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
@@ -310,6 +315,7 @@ class CreditNoteService(StripeService):
     async def void_credit_note_async(
         self,
         id: str,
+        /,
         params: Optional["CreditNoteVoidCreditNoteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":

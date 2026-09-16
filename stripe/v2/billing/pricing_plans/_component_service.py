@@ -31,6 +31,7 @@ class ComponentService(StripeService):
     def list(
         self,
         pricing_plan_id: str,
+        /,
         params: Optional["ComponentListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PricingPlanComponent]":
@@ -53,6 +54,7 @@ class ComponentService(StripeService):
     async def list_async(
         self,
         pricing_plan_id: str,
+        /,
         params: Optional["ComponentListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PricingPlanComponent]":
@@ -75,6 +77,7 @@ class ComponentService(StripeService):
     def create(
         self,
         pricing_plan_id: str,
+        /,
         params: "ComponentCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanComponent":
@@ -97,6 +100,7 @@ class ComponentService(StripeService):
     async def create_async(
         self,
         pricing_plan_id: str,
+        /,
         params: "ComponentCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanComponent":
@@ -120,6 +124,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
+        /,
         params: Optional["ComponentDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -144,6 +149,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
+        /,
         params: Optional["ComponentDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -168,6 +174,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
+        /,
         params: Optional["ComponentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanComponent":
@@ -192,6 +199,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
+        /,
         params: Optional["ComponentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanComponent":
@@ -216,6 +224,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
+        /,
         params: Optional["ComponentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanComponent":
@@ -240,6 +249,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
+        /,
         params: Optional["ComponentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PricingPlanComponent":

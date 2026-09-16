@@ -3585,7 +3585,7 @@ class PaymentIntent(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[
-                Literal["automatic", "payer_name_verification"]
+                Union[Literal["automatic", "payer_name_verification"], str]
             ]
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -5986,6 +5986,7 @@ class PaymentIntent(
     def _cls_apply_customer_balance(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
@@ -6006,6 +6007,7 @@ class PaymentIntent(
     @staticmethod
     def apply_customer_balance(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
@@ -6044,6 +6046,7 @@ class PaymentIntent(
     async def _cls_apply_customer_balance_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
@@ -6064,6 +6067,7 @@ class PaymentIntent(
     @staticmethod
     async def apply_customer_balance_async(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentApplyCustomerBalanceParams"],
     ) -> "PaymentIntent":
         """
@@ -6100,7 +6104,7 @@ class PaymentIntent(
 
     @classmethod
     def _cls_cancel(
-        cls, intent: str, **params: Unpack["PaymentIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentCancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -6123,7 +6127,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def cancel(
-        intent: str, **params: Unpack["PaymentIntentCancelParams"]
+        intent: str, /, **params: Unpack["PaymentIntentCancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -6171,7 +6175,7 @@ class PaymentIntent(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, intent: str, **params: Unpack["PaymentIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentCancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -6194,7 +6198,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     async def cancel_async(
-        intent: str, **params: Unpack["PaymentIntentCancelParams"]
+        intent: str, /, **params: Unpack["PaymentIntentCancelParams"]
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -6242,7 +6246,7 @@ class PaymentIntent(
 
     @classmethod
     def _cls_capture(
-        cls, intent: str, **params: Unpack["PaymentIntentCaptureParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentCaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -6265,7 +6269,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def capture(
-        intent: str, **params: Unpack["PaymentIntentCaptureParams"]
+        intent: str, /, **params: Unpack["PaymentIntentCaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -6313,7 +6317,7 @@ class PaymentIntent(
 
     @classmethod
     async def _cls_capture_async(
-        cls, intent: str, **params: Unpack["PaymentIntentCaptureParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentCaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -6336,7 +6340,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     async def capture_async(
-        intent: str, **params: Unpack["PaymentIntentCaptureParams"]
+        intent: str, /, **params: Unpack["PaymentIntentCaptureParams"]
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -6384,7 +6388,7 @@ class PaymentIntent(
 
     @classmethod
     def _cls_confirm(
-        cls, intent: str, **params: Unpack["PaymentIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -6432,7 +6436,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def confirm(
-        intent: str, **params: Unpack["PaymentIntentConfirmParams"]
+        intent: str, /, **params: Unpack["PaymentIntentConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -6555,7 +6559,7 @@ class PaymentIntent(
 
     @classmethod
     async def _cls_confirm_async(
-        cls, intent: str, **params: Unpack["PaymentIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -6603,7 +6607,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     async def confirm_async(
-        intent: str, **params: Unpack["PaymentIntentConfirmParams"]
+        intent: str, /, **params: Unpack["PaymentIntentConfirmParams"]
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -6778,6 +6782,7 @@ class PaymentIntent(
     def _cls_decrement_authorization(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -6813,6 +6818,7 @@ class PaymentIntent(
     @staticmethod
     def decrement_authorization(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -6896,6 +6902,7 @@ class PaymentIntent(
     async def _cls_decrement_authorization_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -6931,6 +6938,7 @@ class PaymentIntent(
     @staticmethod
     async def decrement_authorization_async(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -7014,6 +7022,7 @@ class PaymentIntent(
     def _cls_increment_authorization(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentIncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -7059,6 +7068,7 @@ class PaymentIntent(
     @staticmethod
     def increment_authorization(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentIncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -7172,6 +7182,7 @@ class PaymentIntent(
     async def _cls_increment_authorization_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentIncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -7217,6 +7228,7 @@ class PaymentIntent(
     @staticmethod
     async def increment_authorization_async(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentIncrementAuthorizationParams"],
     ) -> "PaymentIntent":
         """
@@ -7414,7 +7426,7 @@ class PaymentIntent(
 
     @classmethod
     def _cls_reauthorize(
-        cls, intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentReauthorizeParams"]
     ) -> "PaymentIntent":
         """
         Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
@@ -7440,7 +7452,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def reauthorize(
-        intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+        intent: str, /, **params: Unpack["PaymentIntentReauthorizeParams"]
     ) -> "PaymentIntent":
         """
         Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
@@ -7497,7 +7509,7 @@ class PaymentIntent(
 
     @classmethod
     async def _cls_reauthorize_async(
-        cls, intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+        cls, intent: str, /, **params: Unpack["PaymentIntentReauthorizeParams"]
     ) -> "PaymentIntent":
         """
         Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
@@ -7523,7 +7535,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     async def reauthorize_async(
-        intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+        intent: str, /, **params: Unpack["PaymentIntentReauthorizeParams"]
     ) -> "PaymentIntent":
         """
         Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
@@ -7610,7 +7622,10 @@ class PaymentIntent(
 
     @classmethod
     def _cls_trigger_action(
-        cls, intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+        cls,
+        intent: str,
+        /,
+        **params: Unpack["PaymentIntentTriggerActionParams"],
     ) -> "PaymentIntent":
         """
         Trigger an external action on a PaymentIntent.
@@ -7629,7 +7644,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     def trigger_action(
-        intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+        intent: str, /, **params: Unpack["PaymentIntentTriggerActionParams"]
     ) -> "PaymentIntent":
         """
         Trigger an external action on a PaymentIntent.
@@ -7665,7 +7680,10 @@ class PaymentIntent(
 
     @classmethod
     async def _cls_trigger_action_async(
-        cls, intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+        cls,
+        intent: str,
+        /,
+        **params: Unpack["PaymentIntentTriggerActionParams"],
     ) -> "PaymentIntent":
         """
         Trigger an external action on a PaymentIntent.
@@ -7684,7 +7702,7 @@ class PaymentIntent(
     @overload
     @staticmethod
     async def trigger_action_async(
-        intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+        intent: str, /, **params: Unpack["PaymentIntentTriggerActionParams"]
     ) -> "PaymentIntent":
         """
         Trigger an external action on a PaymentIntent.
@@ -7722,6 +7740,7 @@ class PaymentIntent(
     def _cls_update_crypto_refund_address(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
     ) -> "PaymentIntent":
         """
@@ -7742,6 +7761,7 @@ class PaymentIntent(
     @staticmethod
     def update_crypto_refund_address(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
     ) -> "PaymentIntent":
         """
@@ -7780,6 +7800,7 @@ class PaymentIntent(
     async def _cls_update_crypto_refund_address_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
     ) -> "PaymentIntent":
         """
@@ -7800,6 +7821,7 @@ class PaymentIntent(
     @staticmethod
     async def update_crypto_refund_address_async(
         intent: str,
+        /,
         **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
     ) -> "PaymentIntent":
         """
@@ -7838,6 +7860,7 @@ class PaymentIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentVerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
@@ -7857,7 +7880,9 @@ class PaymentIntent(
     @overload
     @staticmethod
     def verify_microdeposits(
-        intent: str, **params: Unpack["PaymentIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["PaymentIntentVerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -7895,6 +7920,7 @@ class PaymentIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentVerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
@@ -7914,7 +7940,9 @@ class PaymentIntent(
     @overload
     @staticmethod
     async def verify_microdeposits_async(
-        intent: str, **params: Unpack["PaymentIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["PaymentIntentVerifyMicrodepositsParams"],
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -7992,6 +8020,7 @@ class PaymentIntent(
     def list_amount_details_line_items(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentListAmountDetailsLineItemsParams"],
     ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
         """
@@ -8012,6 +8041,7 @@ class PaymentIntent(
     async def list_amount_details_line_items_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["PaymentIntentListAmountDetailsLineItemsParams"],
     ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
         """
@@ -8035,6 +8065,7 @@ class PaymentIntent(
         def _cls_simulate_crypto_deposit(
             cls,
             intent: str,
+            /,
             **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
         ) -> "PaymentIntent":
             """
@@ -8055,6 +8086,7 @@ class PaymentIntent(
         @staticmethod
         def simulate_crypto_deposit(
             intent: str,
+            /,
             **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
         ) -> "PaymentIntent":
             """
@@ -8093,6 +8125,7 @@ class PaymentIntent(
         async def _cls_simulate_crypto_deposit_async(
             cls,
             intent: str,
+            /,
             **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
         ) -> "PaymentIntent":
             """
@@ -8113,6 +8146,7 @@ class PaymentIntent(
         @staticmethod
         async def simulate_crypto_deposit_async(
             intent: str,
+            /,
             **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
         ) -> "PaymentIntent":
             """

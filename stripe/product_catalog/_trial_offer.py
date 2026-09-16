@@ -58,7 +58,7 @@ class TrialOffer(
             The new price to use at the end of the trial offer period.
             """
 
-        transition: Transition
+        transition: Optional[Transition]
         type: Union[Literal["transition"], str]
         """
         The type of behavior when the trial offer ends.

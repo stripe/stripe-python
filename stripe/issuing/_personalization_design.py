@@ -301,6 +301,7 @@ class PersonalizationDesign(
         def _cls_activate(
             cls,
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignActivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -323,6 +324,7 @@ class PersonalizationDesign(
         @staticmethod
         def activate(
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignActivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -363,6 +365,7 @@ class PersonalizationDesign(
         async def _cls_activate_async(
             cls,
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignActivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -385,6 +388,7 @@ class PersonalizationDesign(
         @staticmethod
         async def activate_async(
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignActivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -425,6 +429,7 @@ class PersonalizationDesign(
         def _cls_deactivate(
             cls,
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -447,6 +452,7 @@ class PersonalizationDesign(
         @staticmethod
         def deactivate(
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -487,6 +493,7 @@ class PersonalizationDesign(
         async def _cls_deactivate_async(
             cls,
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -509,6 +516,7 @@ class PersonalizationDesign(
         @staticmethod
         async def deactivate_async(
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
             """
@@ -549,6 +557,7 @@ class PersonalizationDesign(
         def _cls_reject(
             cls,
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignRejectParams"],
         ) -> "PersonalizationDesign":
             """
@@ -571,6 +580,7 @@ class PersonalizationDesign(
         @staticmethod
         def reject(
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignRejectParams"],
         ) -> "PersonalizationDesign":
             """
@@ -611,6 +621,7 @@ class PersonalizationDesign(
         async def _cls_reject_async(
             cls,
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignRejectParams"],
         ) -> "PersonalizationDesign":
             """
@@ -633,6 +644,7 @@ class PersonalizationDesign(
         @staticmethod
         async def reject_async(
             personalization_design: str,
+            /,
             **params: Unpack["PersonalizationDesignRejectParams"],
         ) -> "PersonalizationDesign":
             """

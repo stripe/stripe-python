@@ -508,6 +508,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductDeleteFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -529,6 +530,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductDeleteFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -550,6 +552,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductRetrieveFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -571,6 +574,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductRetrieveFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -589,7 +593,7 @@ class Product(
 
     @classmethod
     def list_features(
-        cls, product: str, **params: Unpack["ProductListFeaturesParams"]
+        cls, product: str, /, **params: Unpack["ProductListFeaturesParams"]
     ) -> ListObject["ProductFeature"]:
         """
         Retrieve a list of features for a product
@@ -607,7 +611,7 @@ class Product(
 
     @classmethod
     async def list_features_async(
-        cls, product: str, **params: Unpack["ProductListFeaturesParams"]
+        cls, product: str, /, **params: Unpack["ProductListFeaturesParams"]
     ) -> ListObject["ProductFeature"]:
         """
         Retrieve a list of features for a product
@@ -625,7 +629,7 @@ class Product(
 
     @classmethod
     def create_feature(
-        cls, product: str, **params: Unpack["ProductCreateFeatureParams"]
+        cls, product: str, /, **params: Unpack["ProductCreateFeatureParams"]
     ) -> "ProductFeature":
         """
         Creates a product_feature, which represents a feature attachment to a product
@@ -643,7 +647,7 @@ class Product(
 
     @classmethod
     async def create_feature_async(
-        cls, product: str, **params: Unpack["ProductCreateFeatureParams"]
+        cls, product: str, /, **params: Unpack["ProductCreateFeatureParams"]
     ) -> "ProductFeature":
         """
         Creates a product_feature, which represents a feature attachment to a product
