@@ -1,0 +1,171 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional, Union
+from typing_extensions import Literal
+
+
+class EventDestination(StripeObject):
+    """
+    Set up an event destination to receive events from Stripe across multiple destination types, including [webhook endpoints](https://docs.stripe.com/webhooks) and [Amazon EventBridge](https://docs.stripe.com/event-destinations/eventbridge). Event destinations support receiving [thin events](https://docs.stripe.com/api/v2/events) and [snapshot events](https://docs.stripe.com/api/events).
+    """
+
+    OBJECT_NAME: ClassVar[Literal["v2.core.event_destination"]] = (
+        "v2.core.event_destination"
+    )
+
+    class AmazonEventbridge(StripeObject):
+        aws_account_id: str
+        """
+        The AWS account ID.
+        """
+        aws_event_source_arn: str
+        """
+        The ARN of the AWS event source.
+        """
+        aws_event_source_status: Literal[
+            "active", "deleted", "pending", "unknown"
+        ]
+        """
+        The state of the AWS event source.
+        """
+
+    class AzureEventGrid(StripeObject):
+        azure_partner_topic_name: str
+        """
+        The name of the Azure partner topic.
+        """
+        azure_partner_topic_status: Union[
+            Literal["activated", "deleted", "never_activated", "unknown"], str
+        ]
+        """
+        The status of the Azure partner topic.
+        """
+        azure_region: str
+        """
+        The Azure region.
+        """
+        azure_resource_group_name: str
+        """
+        The name of the Azure resource group.
+        """
+        azure_subscription_id: str
+        """
+        The Azure subscription ID.
+        """
+
+    class StatusDetails(StripeObject):
+        class Disabled(StripeObject):
+            reason: Union[
+                Literal[
+                    "no_aws_event_source_exists",
+                    "no_azure_partner_topic_exists",
+                    "user",
+                ],
+                str,
+            ]
+            """
+            Reason event destination has been disabled.
+            """
+
+        disabled: Optional[Disabled]
+        """
+        Details about why the event destination has been disabled.
+        """
+        _inner_class_types = {"disabled": Disabled}
+
+    class WebhookEndpoint(StripeObject):
+        signing_secret: Optional[str]
+        """
+        The signing secret of the webhook endpoint, only includable on creation.
+        """
+        url: Optional[str]
+        """
+        The URL of the webhook endpoint, includable.
+        """
+
+    amazon_eventbridge: Optional[AmazonEventbridge]
+    """
+    Amazon EventBridge configuration.
+    """
+    azure_event_grid: Optional[AzureEventGrid]
+    """
+    Azure Event Grid configuration.
+    """
+    created: str
+    """
+    Time at which the object was created.
+    """
+    description: str
+    """
+    An optional description of what the event destination is used for.
+    """
+    enabled_events: List[str]
+    """
+    The list of events to enable for this endpoint.
+    """
+    event_payload: Literal["snapshot", "thin"]
+    """
+    Payload type of events being subscribed to.
+    """
+    events_from: Optional[List[str]]
+    """
+    Specifies which accounts' events route to this destination.
+    `@self`: Receive events from the account that owns the event destination.
+    `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+    `@organization_members`: Receive events from accounts directly linked to the organization.
+    `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
+    """
+    id: str
+    """
+    Unique identifier for the object.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    metadata: Optional[UntypedStripeObject[str]]
+    """
+    Metadata.
+    """
+    name: str
+    """
+    Event destination name.
+    """
+    object: Literal["v2.core.event_destination"]
+    """
+    String representing the object's type. Objects of the same type share the same value of the object field.
+    """
+    snapshot_api_version: Optional[str]
+    """
+    If using the snapshot event payload, the API version events are rendered as.
+    """
+    status: Literal["disabled", "enabled"]
+    """
+    Status. It can be set to either enabled or disabled.
+    """
+    status_details: Optional[StatusDetails]
+    """
+    Additional information about event destination status.
+    """
+    type: Union[
+        Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"],
+        str,
+    ]
+    """
+    Event destination type.
+    """
+    updated: str
+    """
+    Time at which the object was last updated.
+    """
+    webhook_endpoint: Optional[WebhookEndpoint]
+    """
+    Webhook endpoint configuration.
+    """
+    _inner_class_types = {
+        "amazon_eventbridge": AmazonEventbridge,
+        "azure_event_grid": AzureEventGrid,
+        "status_details": StatusDetails,
+        "webhook_endpoint": WebhookEndpoint,
+    }

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
+from stripe._stripe_object import UntypedStripeObject
 from stripe._transfer import Transfer
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -14,7 +15,7 @@ if TYPE_CHECKING:
 
 class Reversal(UpdateableAPIResource["Reversal"]):
     """
-    [Stripe Connect](https://stripe.com/docs/connect) platforms can reverse transfers made to a
+    [Stripe Connect](https://docs.stripe.com/connect) platforms can reverse transfers made to a
     connected account, either entirely or partially, and can also specify whether
     to refund any related application fees. Transfer reversals add to the
     platform's balance and subtract from the destination account's balance.
@@ -22,11 +23,11 @@ class Reversal(UpdateableAPIResource["Reversal"]):
     Reversing a transfer that was made for a [destination
     charge](https://docs.stripe.com/docs/connect/destination-charges) is allowed only up to the amount of
     the charge. It is possible to reverse a
-    [transfer_group](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
+    [transfer_group](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options)
     transfer only if the destination account has enough balance to cover the
     reversal.
 
-    Related guide: [Reverse transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#reverse-transfers)
+    Related guide: [Reverse transfers](https://docs.stripe.com/connect/separate-charges-and-transfers#reverse-transfers)
     """
 
     OBJECT_NAME: ClassVar[Literal["transfer_reversal"]] = "transfer_reversal"
@@ -54,9 +55,9 @@ class Reversal(UpdateableAPIResource["Reversal"]):
     """
     Unique identifier for the object.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["transfer_reversal"]
     """

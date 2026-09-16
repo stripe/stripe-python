@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
 class FundingInstructions(StripeObject):
     """
-    Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) that is
+    Each customer has a [`balance`](https://docs.stripe.com/api/customers/object#customer_object-balance) that is
     automatically applied to future invoices and payments using the `customer_balance` payment method.
     Customers can fund this balance by initiating a bank transfer to any account in the
     `financial_addresses` field.
-    Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
+    Related guide: [Customer balance funding instructions](https://docs.stripe.com/payments/customer-balance/funding-instructions)
     """
 
     OBJECT_NAME: ClassVar[Literal["funding_instructions"]] = (
@@ -32,11 +32,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -44,7 +44,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -58,11 +58,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -70,7 +70,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -112,11 +112,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -124,7 +124,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -138,11 +138,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -150,7 +150,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -188,11 +188,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -200,7 +200,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -214,11 +214,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -226,7 +226,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -260,11 +260,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -272,7 +272,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -286,11 +286,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -298,7 +298,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -336,11 +336,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -348,7 +348,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -362,11 +362,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -374,7 +374,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -416,11 +416,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -428,7 +428,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -442,11 +442,11 @@ class FundingInstructions(StripeObject):
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -454,7 +454,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -510,15 +510,19 @@ class FundingInstructions(StripeObject):
             """
             supported_networks: Optional[
                 List[
-                    Literal[
-                        "ach",
-                        "bacs",
-                        "domestic_wire_us",
-                        "fps",
-                        "sepa",
-                        "spei",
-                        "swift",
-                        "zengin",
+                    Union[
+                        Literal[
+                            "ach",
+                            "bacs",
+                            "chaps",
+                            "domestic_wire_us",
+                            "fps",
+                            "sepa",
+                            "spei",
+                            "swift",
+                            "zengin",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -529,8 +533,9 @@ class FundingInstructions(StripeObject):
             """
             SWIFT Records contain U.S. bank account details per the SWIFT format.
             """
-            type: Literal[
-                "aba", "iban", "sort_code", "spei", "swift", "zengin"
+            type: Union[
+                Literal["aba", "iban", "sort_code", "spei", "swift", "zengin"],
+                str,
             ]
             """
             The type of financial address
@@ -556,7 +561,7 @@ class FundingInstructions(StripeObject):
         """
         A list of financial addresses that can be used to fund a particular balance
         """
-        type: Literal["eu_bank_transfer", "jp_bank_transfer"]
+        type: Union[Literal["eu_bank_transfer", "jp_bank_transfer"], str]
         """
         The bank_transfer type
         """
@@ -573,7 +578,7 @@ class FundingInstructions(StripeObject):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     object: Literal["funding_instructions"]
     """

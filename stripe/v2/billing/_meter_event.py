@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar
 from typing_extensions import Literal
 
 
 class MeterEvent(StripeObject):
     """
-    Fix me empty_doc_string.
+    A Meter Event is a usage record that captures billable activity for usage-based billing. Meter Events contain an event name, timestamp, and payload with customer mapping and usage value, enabling accurate usage tracking and billing.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.billing.meter_event"]] = (
@@ -33,11 +33,12 @@ class MeterEvent(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    payload: Dict[str, str]
+    payload: UntypedStripeObject[str]
     """
     The payload of the event. This must contain the fields corresponding to a meter's
     `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
-    `value_settings.event_payload_key` (default is `value`). Read more about the payload.
+    `value_settings.event_payload_key` (default is `value`). Read more about
+    the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides)..
     """
     timestamp: str
     """

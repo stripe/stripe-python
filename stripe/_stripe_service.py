@@ -9,7 +9,9 @@ from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions
 from stripe._base_address import BaseAddress
 
-from typing import Any, Mapping, Optional
+from typing import Any, Dict, Mapping, Optional
+
+from stripe._encode import _coerce_v2_params, _SchemaNode
 
 
 class StripeService(object):
@@ -26,7 +28,10 @@ class StripeService(object):
         options: Optional[RequestOptions] = None,
         *,
         base_address: BaseAddress,
+        _param_encodings: Optional[Dict[str, _SchemaNode]] = None,
     ) -> StripeObject:
+        if _param_encodings:
+            params = _coerce_v2_params(params, _param_encodings)
         return self._requestor.request(
             method,
             url,
@@ -44,7 +49,10 @@ class StripeService(object):
         options: Optional[RequestOptions] = None,
         *,
         base_address: BaseAddress,
+        _param_encodings: Optional[Dict[str, _SchemaNode]] = None,
     ) -> StripeObject:
+        if _param_encodings:
+            params = _coerce_v2_params(params, _param_encodings)
         return await self._requestor.request_async(
             method,
             url,

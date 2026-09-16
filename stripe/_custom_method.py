@@ -1,10 +1,11 @@
 from typing import Optional
 from stripe import _util
 from urllib.parse import quote_plus
+from typing_extensions import deprecated
 
 
 # TODO(major): 1704.
-@_util.deprecated(
+@deprecated(
     "the custom_method class decorator will be removed in a future version of stripe-python. Define custom methods directly and use StripeObject._static_request within."
 )
 def custom_method(

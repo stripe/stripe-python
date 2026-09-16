@@ -2,9 +2,16 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.reporting._report_type_list_params import (
+        ReportTypeListParams,
+    )
+    from stripe.params.reporting._report_type_retrieve_params import (
+        ReportTypeRetrieveParams,
+    )
 
 
 class ReportType(ListableAPIResource["ReportType"]):
@@ -12,29 +19,16 @@ class ReportType(ListableAPIResource["ReportType"]):
     The Report Type resource corresponds to a particular type of report, such as
     the "Activity summary" or "Itemized payouts" reports. These objects are
     identified by an ID belonging to a set of enumerated values. See
-    [API Access to Reports documentation](https://stripe.com/docs/reporting/statements/api)
+    [API Access to Reports documentation](https://docs.stripe.com/reporting/statements/api)
     for those Report Type IDs, along with required and optional parameters.
 
     Note that certain report types can only be run based on your live-mode data (not test-mode
-    data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
+    data), and will error when queried without a [live-mode API key](https://docs.stripe.com/keys#test-live-modes).
     """
 
     OBJECT_NAME: ClassVar[Literal["reporting.report_type"]] = (
         "reporting.report_type"
     )
-
-    class ListParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     data_available_end: int
     """
     Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
@@ -49,11 +43,11 @@ class ReportType(ListableAPIResource["ReportType"]):
     """
     id: str
     """
-    The [ID of the Report Type](https://stripe.com/docs/reporting/statements/api#available-report-types), such as `balance.summary.1`.
+    The [ID of the Report Type](https://docs.stripe.com/reporting/statements/api#available-report-types), such as `balance.summary.1`.
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     name: str
     """
@@ -74,7 +68,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["ReportType.ListParams"]
+        cls, **params: Unpack["ReportTypeListParams"]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.
@@ -94,7 +88,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ReportType.ListParams"]
+        cls, **params: Unpack["ReportTypeListParams"]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.
@@ -114,7 +108,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReportTypeRetrieveParams"]
     ) -> "ReportType":
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
@@ -125,7 +119,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReportTypeRetrieveParams"]
     ) -> "ReportType":
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)

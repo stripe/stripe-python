@@ -1,13 +1,80 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._api_mode import ApiMode
-from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe.billing._meter import Meter
-from stripe.v2._event import Event
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from stripe._util import get_api_mode
+from stripe.v2.core._event import Event, EventNotification, RelatedObject
+from typing import Any, Dict, List, Optional, Union, cast
+from typing_extensions import Literal, TYPE_CHECKING, override
+
+if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
+    from stripe._stripe_client import StripeClient
+    from stripe.billing._meter import Meter
+
+
+class V1BillingMeterErrorReportTriggeredEventNotification(EventNotification):
+    LOOKUP_TYPE = "v1.billing.meter.error_report_triggered"
+    type: Literal["v1.billing.meter.error_report_triggered"]
+    related_object: RelatedObject
+
+    def __init__(
+        self, parsed_body: Dict[str, Any], client: "StripeClient"
+    ) -> None:
+        super().__init__(
+            parsed_body,
+            client,
+        )
+        self.related_object = RelatedObject(parsed_body["related_object"])
+
+    @override
+    def fetch_event(self) -> "V1BillingMeterErrorReportTriggeredEvent":
+        return cast(
+            "V1BillingMeterErrorReportTriggeredEvent",
+            super().fetch_event(),
+        )
+
+    def fetch_related_object(self) -> "Meter":
+        response = self._client.raw_request(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
+            usage=["fetch_related_object"],
+        )
+        return cast(
+            "Meter",
+            self._client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
+            ),
+        )
+
+    @override
+    async def fetch_event_async(
+        self,
+    ) -> "V1BillingMeterErrorReportTriggeredEvent":
+        return cast(
+            "V1BillingMeterErrorReportTriggeredEvent",
+            await super().fetch_event_async(),
+        )
+
+    async def fetch_related_object_async(self) -> "Meter":
+        response = await self._client.raw_request_async(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
+            usage=["fetch_related_object"],
+        )
+        return cast(
+            "Meter",
+            self._client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
+            ),
+        )
 
 
 class V1BillingMeterErrorReportTriggeredEvent(Event):
@@ -34,16 +101,20 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
                     """
                     _inner_class_types = {"request": Request}
 
-                code: Literal[
-                    "archived_meter",
-                    "meter_event_customer_not_found",
-                    "meter_event_dimension_count_too_high",
-                    "meter_event_invalid_value",
-                    "meter_event_no_customer_defined",
-                    "missing_dimension_payload_keys",
-                    "no_meter",
-                    "timestamp_in_future",
-                    "timestamp_too_far_in_past",
+                code: Union[
+                    Literal[
+                        "archived_meter",
+                        "meter_event_customer_not_found",
+                        "meter_event_dimension_count_too_high",
+                        "meter_event_invalid_value",
+                        "meter_event_no_customer_defined",
+                        "meter_event_value_too_many_digits",
+                        "missing_dimension_payload_keys",
+                        "no_meter",
+                        "timestamp_in_future",
+                        "timestamp_too_far_in_past",
+                    ],
+                    str,
                 ]
                 """
                 Open Enum.
@@ -134,16 +205,19 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> Meter:
+    def fetch_related_object(self) -> "Meter":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            Meter,
+            "Meter",
             self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_account": self.context},
+                options={
+                    "stripe_context": self.context,
+                    "headers": {"Stripe-Request-Trigger": f"event={self.id}"},
+                },
             ),
         )

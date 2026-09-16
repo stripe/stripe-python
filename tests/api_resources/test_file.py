@@ -3,6 +3,8 @@ import tempfile
 import pytest
 
 import stripe
+from stripe._multipart_data_generator import MultipartDataGenerator
+from stripe._util import convert_to_stripe_object
 
 
 TEST_RESOURCE_ID = "file_123"
@@ -30,9 +32,13 @@ class TestFile(object):
         )
         assert isinstance(resource, stripe.File)
 
-    def test_is_creatable(self, setup_upload_api_base, http_client_mock):
-        stripe.multipart_data_generator.MultipartDataGenerator._initialize_boundary = (
-            lambda self: 1234567890
+    def test_is_creatable(
+        self, setup_upload_api_base, http_client_mock, monkeypatch
+    ):
+        monkeypatch.setattr(
+            MultipartDataGenerator,
+            "_initialize_boundary",
+            lambda self: "abc123",
         )
         test_file = tempfile.TemporaryFile()
         resource = stripe.File.create(
@@ -44,7 +50,7 @@ class TestFile(object):
             "post",
             path="/v1/files",
             api_base=stripe.upload_api_base,
-            content_type="multipart/form-data; boundary=1234567890",
+            content_type="multipart/form-data; boundary=abc123",
         )
         assert isinstance(resource, stripe.File)
 
@@ -79,13 +85,11 @@ class TestFile(object):
         )
 
     def test_deserializes_from_file(self):
-        obj = stripe.util.convert_to_stripe_object(
-            {"object": "file"}, api_mode="V1"
-        )
+        obj = convert_to_stripe_object({"object": "file"}, api_mode="V1")
         assert isinstance(obj, stripe.File)
 
     def test_deserializes_from_file_upload(self):
-        obj = stripe.util.convert_to_stripe_object(
+        obj = convert_to_stripe_object(
             {"object": "file_upload"}, api_mode="V1"
         )
         assert isinstance(obj, stripe.File)

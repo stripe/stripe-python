@@ -3,24 +3,21 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, List, Optional, Union, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
     from stripe._file import File
     from stripe._payment_intent import PaymentIntent
+    from stripe.params._dispute_close_params import DisputeCloseParams
+    from stripe.params._dispute_list_params import DisputeListParams
+    from stripe.params._dispute_modify_params import DisputeModifyParams
+    from stripe.params._dispute_retrieve_params import DisputeRetrieveParams
 
 
 class Dispute(
@@ -31,13 +28,19 @@ class Dispute(
     When this happens, you have the opportunity to respond to the dispute with
     evidence that shows that the charge is legitimate.
 
-    Related guide: [Disputes and fraud](https://stripe.com/docs/disputes)
+    Related guide: [Disputes and fraud](https://docs.stripe.com/disputes)
     """
 
     OBJECT_NAME: ClassVar[Literal["dispute"]] = "dispute"
 
     class Evidence(StripeObject):
         class EnhancedEvidence(StripeObject):
+            class MastercardCompliance(StripeObject):
+                fee_acknowledged: bool
+                """
+                A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
+                """
+
             class VisaCompellingEvidence3(StripeObject):
                 class DisputedTransaction(StripeObject):
                     class ShippingAddress(StripeObject):
@@ -51,11 +54,11 @@ class Dispute(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -63,7 +66,7 @@ class Dispute(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     customer_account_id: Optional[str]
@@ -87,7 +90,7 @@ class Dispute(
                     The IP address that the customer used when making the purchase.
                     """
                     merchandise_or_services: Optional[
-                        Literal["merchandise", "services"]
+                        Union[Literal["merchandise", "services"], str]
                     ]
                     """
                     Categorization of disputed payment.
@@ -114,11 +117,11 @@ class Dispute(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -126,7 +129,7 @@ class Dispute(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     charge: str
@@ -182,9 +185,11 @@ class Dispute(
                 A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
                 """
 
+            mastercard_compliance: Optional[MastercardCompliance]
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
             visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
+                "mastercard_compliance": MastercardCompliance,
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
                 "visa_compliance": VisaCompliance,
             }
@@ -302,37 +307,54 @@ class Dispute(
 
     class EvidenceDetails(StripeObject):
         class EnhancedEligibility(StripeObject):
+            class MastercardCompliance(StripeObject):
+                status: Literal[
+                    "fee_acknowledged", "requires_fee_acknowledgement"
+                ]
+                """
+                Mastercard compliance eligibility status.
+                """
+
             class VisaCompellingEvidence3(StripeObject):
                 required_actions: List[
-                    Literal[
-                        "missing_customer_identifiers",
-                        "missing_disputed_transaction_description",
-                        "missing_merchandise_or_services",
-                        "missing_prior_undisputed_transaction_description",
-                        "missing_prior_undisputed_transactions",
+                    Union[
+                        Literal[
+                            "missing_customer_identifiers",
+                            "missing_disputed_transaction_description",
+                            "missing_merchandise_or_services",
+                            "missing_prior_undisputed_transaction_description",
+                            "missing_prior_undisputed_transactions",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
                 """
-                status: Literal[
-                    "not_qualified", "qualified", "requires_action"
+                status: Union[
+                    Literal["not_qualified", "qualified", "requires_action"],
+                    str,
                 ]
                 """
                 Visa Compelling Evidence 3.0 eligibility status.
                 """
 
             class VisaCompliance(StripeObject):
-                status: Literal[
-                    "fee_acknowledged", "requires_fee_acknowledgement"
+                status: Union[
+                    Literal[
+                        "fee_acknowledged", "requires_fee_acknowledgement"
+                    ],
+                    str,
                 ]
                 """
                 Visa compliance eligibility status.
                 """
 
+            mastercard_compliance: Optional[MastercardCompliance]
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
             visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
+                "mastercard_compliance": MastercardCompliance,
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
                 "visa_compliance": VisaCompliance,
             }
@@ -358,7 +380,7 @@ class Dispute(
 
     class PaymentMethodDetails(StripeObject):
         class AmazonPay(StripeObject):
-            dispute_type: Optional[Literal["chargeback", "claim"]]
+            dispute_type: Optional[Union[Literal["chargeback", "claim"], str]]
             """
             The AmazonPay dispute type, chargeback or claim
             """
@@ -368,9 +390,22 @@ class Dispute(
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
-            case_type: Literal["chargeback", "compliance", "inquiry"]
+            case_type: Union[
+                Literal[
+                    "block",
+                    "chargeback",
+                    "compliance",
+                    "inquiry",
+                    "resolution",
+                ],
+                str,
+            ]
             """
             The type of dispute opened. Different case types may have varying fees and financial impact.
+            """
+            network: str
+            """
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             network_reason_code: Optional[str]
             """
@@ -378,6 +413,10 @@ class Dispute(
             """
 
         class Klarna(StripeObject):
+            chargeback_loss_reason_code: Optional[str]
+            """
+            Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+            """
             reason_code: Optional[str]
             """
             The reason for the dispute as defined by Klarna
@@ -397,7 +436,7 @@ class Dispute(
         card: Optional[Card]
         klarna: Optional[Klarna]
         paypal: Optional[Paypal]
-        type: Literal["amazon_pay", "card", "klarna", "paypal"]
+        type: Union[Literal["amazon_pay", "card", "klarna", "paypal"], str]
         """
         Payment method type.
         """
@@ -407,372 +446,6 @@ class Dispute(
             "klarna": Klarna,
             "paypal": Paypal,
         }
-
-    class CloseParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(RequestOptions):
-        charge: NotRequired[str]
-        """
-        Only return disputes associated to the charge specified by this charge ID.
-        """
-        created: NotRequired["Dispute.ListParamsCreated|int"]
-        """
-        Only return disputes that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        payment_intent: NotRequired[str]
-        """
-        Only return disputes associated to the PaymentIntent specified by this PaymentIntent ID.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ModifyParams(RequestOptions):
-        evidence: NotRequired["Dispute.ModifyParamsEvidence"]
-        """
-        Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        submit: NotRequired[bool]
-        """
-        Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
-        """
-
-    class ModifyParamsEvidence(TypedDict):
-        access_activity_log: NotRequired[str]
-        """
-        Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity. Has a maximum character count of 20,000.
-        """
-        billing_address: NotRequired[str]
-        """
-        The billing address provided by the customer.
-        """
-        cancellation_policy: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
-        """
-        cancellation_policy_disclosure: NotRequired[str]
-        """
-        An explanation of how and when the customer was shown your refund policy prior to purchase. Has a maximum character count of 20,000.
-        """
-        cancellation_rebuttal: NotRequired[str]
-        """
-        A justification for why the customer's subscription was not canceled. Has a maximum character count of 20,000.
-        """
-        customer_communication: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service.
-        """
-        customer_email_address: NotRequired[str]
-        """
-        The email address of the customer.
-        """
-        customer_name: NotRequired[str]
-        """
-        The name of the customer.
-        """
-        customer_purchase_ip: NotRequired[str]
-        """
-        The IP address that the customer used when making the purchase.
-        """
-        customer_signature: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature.
-        """
-        duplicate_charge_documentation: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate.
-        """
-        duplicate_charge_explanation: NotRequired[str]
-        """
-        An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate. Has a maximum character count of 20,000.
-        """
-        duplicate_charge_id: NotRequired[str]
-        """
-        The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge.
-        """
-        enhanced_evidence: NotRequired[
-            "Literal['']|Dispute.ModifyParamsEvidenceEnhancedEvidence"
-        ]
-        """
-        Additional evidence for qualifying evidence programs.
-        """
-        product_description: NotRequired[str]
-        """
-        A description of the product or service that was sold. Has a maximum character count of 20,000.
-        """
-        receipt: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge.
-        """
-        refund_policy: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer.
-        """
-        refund_policy_disclosure: NotRequired[str]
-        """
-        Documentation demonstrating that the customer was shown your refund policy prior to purchase. Has a maximum character count of 20,000.
-        """
-        refund_refusal_explanation: NotRequired[str]
-        """
-        A justification for why the customer is not entitled to a refund. Has a maximum character count of 20,000.
-        """
-        service_date: NotRequired[str]
-        """
-        The date on which the customer received or began receiving the purchased service, in a clear human-readable format.
-        """
-        service_documentation: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement.
-        """
-        shipping_address: NotRequired[str]
-        """
-        The address to which a physical product was shipped. You should try to include as complete address information as possible.
-        """
-        shipping_carrier: NotRequired[str]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. If multiple carriers were used for this purchase, please separate them with commas.
-        """
-        shipping_date: NotRequired[str]
-        """
-        The date on which a physical product began its route to the shipping address, in a clear human-readable format.
-        """
-        shipping_documentation: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible.
-        """
-        shipping_tracking_number: NotRequired[str]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        """
-        uncategorized_file: NotRequired[str]
-        """
-        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements.
-        """
-        uncategorized_text: NotRequired[str]
-        """
-        Any additional evidence or statements. Has a maximum character count of 20,000.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidence(TypedDict):
-        visa_compelling_evidence_3: NotRequired[
-            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3"
-        ]
-        """
-        Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
-        """
-        visa_compliance: NotRequired[
-            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompliance"
-        ]
-        """
-        Evidence provided for Visa compliance evidence submission.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3(
-        TypedDict,
-    ):
-        disputed_transaction: NotRequired[
-            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction"
-        ]
-        """
-        Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission.
-        """
-        prior_undisputed_transactions: NotRequired[
-            List[
-                "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransaction"
-            ]
-        ]
-        """
-        List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction(
-        TypedDict,
-    ):
-        customer_account_id: NotRequired["Literal['']|str"]
-        """
-        User Account ID used to log into business platform. Must be recognizable by the user.
-        """
-        customer_device_fingerprint: NotRequired["Literal['']|str"]
-        """
-        Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
-        """
-        customer_device_id: NotRequired["Literal['']|str"]
-        """
-        Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
-        """
-        customer_email_address: NotRequired["Literal['']|str"]
-        """
-        The email address of the customer.
-        """
-        customer_purchase_ip: NotRequired["Literal['']|str"]
-        """
-        The IP address that the customer used when making the purchase.
-        """
-        merchandise_or_services: NotRequired[
-            Literal["merchandise", "services"]
-        ]
-        """
-        Categorization of disputed payment.
-        """
-        product_description: NotRequired["Literal['']|str"]
-        """
-        A description of the product or service that was sold.
-        """
-        shipping_address: NotRequired[
-            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress"
-        ]
-        """
-        The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress(
-        TypedDict,
-    ):
-        city: NotRequired["Literal['']|str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["Literal['']|str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["Literal['']|str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["Literal['']|str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["Literal['']|str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["Literal['']|str"]
-        """
-        State, county, province, or region.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransaction(
-        TypedDict,
-    ):
-        charge: str
-        """
-        Stripe charge ID for the Visa Compelling Evidence 3.0 eligible prior charge.
-        """
-        customer_account_id: NotRequired["Literal['']|str"]
-        """
-        User Account ID used to log into business platform. Must be recognizable by the user.
-        """
-        customer_device_fingerprint: NotRequired["Literal['']|str"]
-        """
-        Unique identifier of the cardholder's device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters.
-        """
-        customer_device_id: NotRequired["Literal['']|str"]
-        """
-        Unique identifier of the cardholder's device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters.
-        """
-        customer_email_address: NotRequired["Literal['']|str"]
-        """
-        The email address of the customer.
-        """
-        customer_purchase_ip: NotRequired["Literal['']|str"]
-        """
-        The IP address that the customer used when making the purchase.
-        """
-        product_description: NotRequired["Literal['']|str"]
-        """
-        A description of the product or service that was sold.
-        """
-        shipping_address: NotRequired[
-            "Dispute.ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransactionShippingAddress"
-        ]
-        """
-        The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3PriorUndisputedTransactionShippingAddress(
-        TypedDict,
-    ):
-        city: NotRequired["Literal['']|str"]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired["Literal['']|str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired["Literal['']|str"]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired["Literal['']|str"]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired["Literal['']|str"]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired["Literal['']|str"]
-        """
-        State, county, province, or region.
-        """
-
-    class ModifyParamsEvidenceEnhancedEvidenceVisaCompliance(TypedDict):
-        fee_acknowledged: NotRequired[bool]
-        """
-        A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
 
     amount: int
     """
@@ -795,7 +468,14 @@ class Dispute(
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     enhanced_eligibility_types: List[
-        Literal["visa_compelling_evidence_3", "visa_compliance"]
+        Union[
+            Literal[
+                "mastercard_compliance",
+                "visa_compelling_evidence_3",
+                "visa_compliance",
+            ],
+            str,
+        ]
     ]
     """
     List of eligibility types that are included in `enhanced_evidence`.
@@ -812,11 +492,11 @@ class Dispute(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     network_reason_code: Optional[str]
     """
@@ -833,27 +513,31 @@ class Dispute(
     payment_method_details: Optional[PaymentMethodDetails]
     reason: str
     """
-    Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
+    Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://docs.stripe.com/disputes/categories).
     """
-    status: Literal[
-        "lost",
-        "needs_response",
-        "under_review",
-        "warning_closed",
-        "warning_needs_response",
-        "warning_under_review",
-        "won",
+    status: Union[
+        Literal[
+            "lost",
+            "needs_response",
+            "prevented",
+            "under_review",
+            "warning_closed",
+            "warning_needs_response",
+            "warning_under_review",
+            "won",
+        ],
+        str,
     ]
     """
-    Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
+    The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     """
 
     @classmethod
     def _cls_close(
-        cls, dispute: str, **params: Unpack["Dispute.CloseParams"]
+        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -871,19 +555,19 @@ class Dispute(
     @overload
     @staticmethod
     def close(
-        dispute: str, **params: Unpack["Dispute.CloseParams"]
+        dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
         ...
 
     @overload
-    def close(self, **params: Unpack["Dispute.CloseParams"]) -> "Dispute":
+    def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -891,10 +575,10 @@ class Dispute(
 
     @class_method_variant("_cls_close")
     def close(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Dispute.CloseParams"]
+        self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -903,7 +587,7 @@ class Dispute(
             self._request(
                 "post",
                 "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(self.get("id"))
+                    dispute=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -911,10 +595,10 @@ class Dispute(
 
     @classmethod
     async def _cls_close_async(
-        cls, dispute: str, **params: Unpack["Dispute.CloseParams"]
+        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -932,10 +616,10 @@ class Dispute(
     @overload
     @staticmethod
     async def close_async(
-        dispute: str, **params: Unpack["Dispute.CloseParams"]
+        dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -943,10 +627,10 @@ class Dispute(
 
     @overload
     async def close_async(
-        self, **params: Unpack["Dispute.CloseParams"]
+        self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -954,10 +638,10 @@ class Dispute(
 
     @class_method_variant("_cls_close_async")
     async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Dispute.CloseParams"]
+        self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -966,7 +650,7 @@ class Dispute(
             await self._request_async(
                 "post",
                 "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(self.get("id"))
+                    dispute=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -974,7 +658,7 @@ class Dispute(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Dispute.ListParams"]
+        cls, **params: Unpack["DisputeListParams"]
     ) -> ListObject["Dispute"]:
         """
         Returns a list of your disputes.
@@ -994,7 +678,7 @@ class Dispute(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Dispute.ListParams"]
+        cls, **params: Unpack["DisputeListParams"]
     ) -> ListObject["Dispute"]:
         """
         Returns a list of your disputes.
@@ -1014,7 +698,7 @@ class Dispute(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+        cls, id: str, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -1033,7 +717,7 @@ class Dispute(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+        cls, id: str, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -1052,7 +736,7 @@ class Dispute(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
+        cls, id: str, **params: Unpack["DisputeRetrieveParams"]
     ) -> "Dispute":
         """
         Retrieves the dispute with the given ID.
@@ -1063,7 +747,7 @@ class Dispute(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
+        cls, id: str, **params: Unpack["DisputeRetrieveParams"]
     ) -> "Dispute":
         """
         Retrieves the dispute with the given ID.

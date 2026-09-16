@@ -5,16 +5,18 @@ from stripe._customer import Customer
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from stripe._verify_mixin import VerifyMixin
-from typing import ClassVar, Dict, List, Optional, Union, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._card import Card
+    from stripe.params._bank_account_delete_params import (
+        BankAccountDeleteParams,
+    )
 
 
 class BankAccount(
@@ -37,6 +39,7 @@ class BankAccount(
     class FutureRequirements(StripeObject):
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -79,6 +82,7 @@ class BankAccount(
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -147,7 +151,7 @@ class BankAccount(
 
         currently_due: Optional[List[str]]
         """
-        Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
         """
         errors: Optional[List[Error]]
         """
@@ -155,17 +159,18 @@ class BankAccount(
         """
         past_due: Optional[List[str]]
         """
-        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+        Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
         """
         pending_verification: Optional[List[str]]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"errors": Error}
 
     class Requirements(StripeObject):
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -208,6 +213,7 @@ class BankAccount(
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -276,7 +282,7 @@ class BankAccount(
 
         currently_due: Optional[List[str]]
         """
-        Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
         """
         errors: Optional[List[Error]]
         """
@@ -284,16 +290,13 @@ class BankAccount(
         """
         past_due: Optional[List[str]]
         """
-        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+        Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
         """
         pending_verification: Optional[List[str]]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"errors": Error}
-
-    class DeleteParams(RequestOptions):
-        pass
 
     account: Optional[ExpandableField["Account"]]
     """
@@ -311,7 +314,9 @@ class BankAccount(
     """
     The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
     """
-    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
+    available_payout_methods: Optional[
+        List[Union[Literal["instant", "standard"], str]]
+    ]
     """
     A set of available payout methods for this bank account. Only values from this set should be passed as the `method` when creating a payout.
     """
@@ -345,7 +350,7 @@ class BankAccount(
     """
     future_requirements: Optional[FutureRequirements]
     """
-    Information about the [upcoming new requirements for the bank account](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
+    Information about the [upcoming new requirements for the bank account](https://docs.stripe.com/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     """
     id: str
     """
@@ -355,9 +360,9 @@ class BankAccount(
     """
     The last four digits of the bank account number.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["bank_account"]
     """
@@ -373,14 +378,14 @@ class BankAccount(
     """
     status: str
     """
-    For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn't enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If a payout sent to this bank account fails, we'll set the status to `errored` and will not continue to send [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) until the bank details are updated.
+    For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, `tokenized_account_number_deactivated` or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn't enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If the status is `tokenized_account_number_deactivated`, the account utilizes a tokenized account number which has been deactivated due to expiration or revocation. This account will need to be reverified to continue using it for money movement. If a payout sent to this bank account fails, we'll set the status to `errored` and will not continue to send [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) until the bank details are updated.
 
-    For external accounts, possible values are `new`, `errored` and `verification_failed`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
+    For external accounts, possible values are `new`, `errored`, `verification_failed`, and `tokenized_account_number_deactivated`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
     """
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        cls, sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -398,7 +403,7 @@ class BankAccount(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -407,7 +412,7 @@ class BankAccount(
 
     @overload
     def delete(
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -416,7 +421,7 @@ class BankAccount(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -429,7 +434,7 @@ class BankAccount(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        cls, sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -447,7 +452,7 @@ class BankAccount(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -456,7 +461,7 @@ class BankAccount(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -465,7 +470,7 @@ class BankAccount(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.

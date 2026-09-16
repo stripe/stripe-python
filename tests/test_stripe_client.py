@@ -2,11 +2,12 @@ from __future__ import absolute_import, division, print_function
 import stripe
 import pytest
 
-from stripe.v2._event import Event
+from stripe.v2.core._event import Event
 from stripe._http_client import new_default_http_client
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
 )
+from stripe._error import AuthenticationError
 
 
 class TestStripeClient(object):
@@ -59,7 +60,7 @@ class TestStripeClient(object):
         assert isinstance(event, V1BillingMeterErrorReportTriggeredEvent)
 
     def test_no_api_key(self):
-        with pytest.raises(stripe.error.AuthenticationError):
+        with pytest.raises(AuthenticationError):
             stripe.StripeClient(None)  # type: ignore
 
     def test_http_client_and_options_overlap(self):

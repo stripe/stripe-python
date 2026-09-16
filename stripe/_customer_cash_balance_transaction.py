@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -27,17 +27,17 @@ class CustomerCashBalanceTransaction(StripeObject):
     class AdjustedForOverdraft(StripeObject):
         balance_transaction: ExpandableField["BalanceTransaction"]
         """
-        The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
+        The [Balance Transaction](https://docs.stripe.com/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance.
         """
         linked_transaction: ExpandableField["CustomerCashBalanceTransaction"]
         """
-        The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
+        The [Cash Balance Transaction](https://docs.stripe.com/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds.
         """
 
     class AppliedToPayment(StripeObject):
         payment_intent: ExpandableField["PaymentIntent"]
         """
-        The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to.
+        The [Payment Intent](https://docs.stripe.com/api/payment_intents/object) that funds were applied to.
         """
 
     class Funded(StripeObject):
@@ -85,7 +85,9 @@ class CustomerCashBalanceTransaction(StripeObject):
                 """
 
             class UsBankTransfer(StripeObject):
-                network: Optional[Literal["ach", "domestic_wire_us", "swift"]]
+                network: Optional[
+                    Union[Literal["ach", "domestic_wire_us", "swift"], str]
+                ]
                 """
                 The banking network used for this funding.
                 """
@@ -101,12 +103,15 @@ class CustomerCashBalanceTransaction(StripeObject):
             """
             The user-supplied reference field on the bank transfer.
             """
-            type: Literal[
-                "eu_bank_transfer",
-                "gb_bank_transfer",
-                "jp_bank_transfer",
-                "mx_bank_transfer",
-                "us_bank_transfer",
+            type: Union[
+                Literal[
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                    "us_bank_transfer",
+                ],
+                str,
             ]
             """
             The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
@@ -125,19 +130,19 @@ class CustomerCashBalanceTransaction(StripeObject):
     class RefundedFromPayment(StripeObject):
         refund: ExpandableField["Refund"]
         """
-        The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
+        The [Refund](https://docs.stripe.com/api/refunds/object) that moved these funds into the customer's cash balance.
         """
 
     class TransferredToBalance(StripeObject):
         balance_transaction: ExpandableField["BalanceTransaction"]
         """
-        The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
+        The [Balance Transaction](https://docs.stripe.com/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
         """
 
     class UnappliedFromPayment(StripeObject):
         payment_intent: ExpandableField["PaymentIntent"]
         """
-        The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were unapplied from.
+        The [Payment Intent](https://docs.stripe.com/api/payment_intents/object) that funds were unapplied from.
         """
 
     adjusted_for_overdraft: Optional[AdjustedForOverdraft]
@@ -154,9 +159,13 @@ class CustomerCashBalanceTransaction(StripeObject):
     """
     The customer whose available cash balance changed as a result of this transaction.
     """
+    customer_account: Optional[str]
+    """
+    The ID of an Account representing a customer whose available cash balance changed as a result of this transaction.
+    """
     ending_balance: int
     """
-    The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     funded: Optional[Funded]
     id: str
@@ -165,11 +174,11 @@ class CustomerCashBalanceTransaction(StripeObject):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     net_amount: int
     """
-    The amount by which the cash balance changed, represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
+    The amount by which the cash balance changed, represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance.
     """
     object: Literal["customer_cash_balance_transaction"]
     """
@@ -177,19 +186,22 @@ class CustomerCashBalanceTransaction(StripeObject):
     """
     refunded_from_payment: Optional[RefundedFromPayment]
     transferred_to_balance: Optional[TransferredToBalance]
-    type: Literal[
-        "adjusted_for_overdraft",
-        "applied_to_payment",
-        "funded",
-        "funding_reversed",
-        "refunded_from_payment",
-        "return_canceled",
-        "return_initiated",
-        "transferred_to_balance",
-        "unapplied_from_payment",
+    type: Union[
+        Literal[
+            "adjusted_for_overdraft",
+            "applied_to_payment",
+            "funded",
+            "funding_reversed",
+            "refunded_from_payment",
+            "return_canceled",
+            "return_initiated",
+            "transferred_to_balance",
+            "unapplied_from_payment",
+        ],
+        str,
     ]
     """
-    The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
+    The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://docs.stripe.com/payments/customer-balance#types) to learn more about these types.
     """
     unapplied_from_payment: Optional[UnappliedFromPayment]
     _inner_class_types = {

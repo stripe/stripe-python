@@ -54,7 +54,7 @@ class TestAccount(object):
         http_client_mock.stub_request(
             "post",
             path="/v1/accounts/%s" % TEST_RESOURCE_ID,
-            rbody=json.dumps(account.to_dict_recursive()),
+            rbody=json.dumps(account._to_dict_recursive()),
         )
         resource = account.save()
         http_client_mock.assert_requested(

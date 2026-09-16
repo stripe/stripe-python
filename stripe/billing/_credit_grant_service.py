@@ -1,169 +1,45 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.billing._credit_grant import CreditGrant
-from typing import Dict, List, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.billing._credit_grant import CreditGrant
+    from stripe.params.billing._credit_grant_create_params import (
+        CreditGrantCreateParams,
+    )
+    from stripe.params.billing._credit_grant_expire_params import (
+        CreditGrantExpireParams,
+    )
+    from stripe.params.billing._credit_grant_list_params import (
+        CreditGrantListParams,
+    )
+    from stripe.params.billing._credit_grant_retrieve_params import (
+        CreditGrantRetrieveParams,
+    )
+    from stripe.params.billing._credit_grant_update_params import (
+        CreditGrantUpdateParams,
+    )
+    from stripe.params.billing._credit_grant_void_grant_params import (
+        CreditGrantVoidGrantParams,
+    )
 
 
 class CreditGrantService(StripeService):
-    class CreateParams(TypedDict):
-        amount: "CreditGrantService.CreateParamsAmount"
-        """
-        Amount of this credit grant.
-        """
-        applicability_config: (
-            "CreditGrantService.CreateParamsApplicabilityConfig"
-        )
-        """
-        Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
-        """
-        category: Literal["paid", "promotional"]
-        """
-        The category of this credit grant.
-        """
-        customer: str
-        """
-        ID of the customer to receive the billing credits.
-        """
-        effective_at: NotRequired[int]
-        """
-        The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired[int]
-        """
-        The time when the billing credits expire. If not specified, the billing credits don't expire.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
-        """
-        name: NotRequired[str]
-        """
-        A descriptive name shown in the Dashboard.
-        """
-        priority: NotRequired[int]
-        """
-        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-        """
-
-    class CreateParamsAmount(TypedDict):
-        monetary: NotRequired["CreditGrantService.CreateParamsAmountMonetary"]
-        """
-        The monetary amount.
-        """
-        type: Literal["monetary"]
-        """
-        The type of this amount. We currently only support `monetary` billing credits.
-        """
-
-    class CreateParamsAmountMonetary(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
-        """
-        value: int
-        """
-        A positive integer representing the amount of the credit grant.
-        """
-
-    class CreateParamsApplicabilityConfig(TypedDict):
-        scope: "CreditGrantService.CreateParamsApplicabilityConfigScope"
-        """
-        Specify the scope of this applicability config.
-        """
-
-    class CreateParamsApplicabilityConfigScope(TypedDict):
-        price_type: NotRequired[Literal["metered"]]
-        """
-        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
-        """
-        prices: NotRequired[
-            List[
-                "CreditGrantService.CreateParamsApplicabilityConfigScopePrice"
-            ]
-        ]
-        """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
-        """
-
-    class CreateParamsApplicabilityConfigScopePrice(TypedDict):
-        id: str
-        """
-        The price ID this credit grant should apply to.
-        """
-
-    class ExpireParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(TypedDict):
-        customer: NotRequired[str]
-        """
-        Only return credit grants for this customer.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired["Literal['']|int"]
-        """
-        The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
-        """
-
-    class VoidGrantParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: "CreditGrantService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[CreditGrant]:
+        params: Optional["CreditGrantListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditGrant]":
         """
         Retrieve a list of credit grants.
         """
         return cast(
-            ListObject[CreditGrant],
+            "ListObject[CreditGrant]",
             self._request(
                 "get",
                 "/v1/billing/credit_grants",
@@ -175,14 +51,14 @@ class CreditGrantService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditGrantService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[CreditGrant]:
+        params: Optional["CreditGrantListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditGrant]":
         """
         Retrieve a list of credit grants.
         """
         return cast(
-            ListObject[CreditGrant],
+            "ListObject[CreditGrant]",
             await self._request_async(
                 "get",
                 "/v1/billing/credit_grants",
@@ -194,14 +70,14 @@ class CreditGrantService(StripeService):
 
     def create(
         self,
-        params: "CreditGrantService.CreateParams",
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: "CreditGrantCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Creates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants",
@@ -213,14 +89,14 @@ class CreditGrantService(StripeService):
 
     async def create_async(
         self,
-        params: "CreditGrantService.CreateParams",
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: "CreditGrantCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Creates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants",
@@ -233,14 +109,14 @@ class CreditGrantService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CreditGrantService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Retrieves a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "get",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -253,14 +129,14 @@ class CreditGrantService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CreditGrantService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Retrieves a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "get",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -273,14 +149,14 @@ class CreditGrantService(StripeService):
     def update(
         self,
         id: str,
-        params: "CreditGrantService.UpdateParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Updates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -293,14 +169,14 @@ class CreditGrantService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "CreditGrantService.UpdateParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Updates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -313,14 +189,14 @@ class CreditGrantService(StripeService):
     def expire(
         self,
         id: str,
-        params: "CreditGrantService.ExpireParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantExpireParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Expires a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}/expire".format(
@@ -335,14 +211,14 @@ class CreditGrantService(StripeService):
     async def expire_async(
         self,
         id: str,
-        params: "CreditGrantService.ExpireParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantExpireParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Expires a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}/expire".format(
@@ -357,14 +233,14 @@ class CreditGrantService(StripeService):
     def void_grant(
         self,
         id: str,
-        params: "CreditGrantService.VoidGrantParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantVoidGrantParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Voids a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}/void".format(
@@ -379,14 +255,14 @@ class CreditGrantService(StripeService):
     async def void_grant_async(
         self,
         id: str,
-        params: "CreditGrantService.VoidGrantParams" = {},
-        options: RequestOptions = {},
-    ) -> CreditGrant:
+        params: Optional["CreditGrantVoidGrantParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Voids a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}/void".format(

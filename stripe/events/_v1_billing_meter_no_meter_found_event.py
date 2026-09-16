@@ -1,12 +1,33 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._api_mode import ApiMode
-from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe.v2._event import Event
-from typing import Any, Dict, List, Optional
-from typing_extensions import Literal
+from stripe.v2.core._event import Event, EventNotification
+from typing import Any, Dict, List, Optional, Union, cast
+from typing_extensions import Literal, TYPE_CHECKING, override
+
+if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
+
+
+class V1BillingMeterNoMeterFoundEventNotification(EventNotification):
+    LOOKUP_TYPE = "v1.billing.meter.no_meter_found"
+    type: Literal["v1.billing.meter.no_meter_found"]
+
+    @override
+    def fetch_event(self) -> "V1BillingMeterNoMeterFoundEvent":
+        return cast(
+            "V1BillingMeterNoMeterFoundEvent",
+            super().fetch_event(),
+        )
+
+    @override
+    async def fetch_event_async(self) -> "V1BillingMeterNoMeterFoundEvent":
+        return cast(
+            "V1BillingMeterNoMeterFoundEvent",
+            await super().fetch_event_async(),
+        )
 
 
 class V1BillingMeterNoMeterFoundEvent(Event):
@@ -33,16 +54,20 @@ class V1BillingMeterNoMeterFoundEvent(Event):
                     """
                     _inner_class_types = {"request": Request}
 
-                code: Literal[
-                    "archived_meter",
-                    "meter_event_customer_not_found",
-                    "meter_event_dimension_count_too_high",
-                    "meter_event_invalid_value",
-                    "meter_event_no_customer_defined",
-                    "missing_dimension_payload_keys",
-                    "no_meter",
-                    "timestamp_in_future",
-                    "timestamp_too_far_in_past",
+                code: Union[
+                    Literal[
+                        "archived_meter",
+                        "meter_event_customer_not_found",
+                        "meter_event_dimension_count_too_high",
+                        "meter_event_invalid_value",
+                        "meter_event_no_customer_defined",
+                        "meter_event_value_too_many_digits",
+                        "missing_dimension_payload_keys",
+                        "no_meter",
+                        "timestamp_in_future",
+                        "timestamp_too_far_in_past",
+                    ],
+                    str,
                 ]
                 """
                 Open Enum.

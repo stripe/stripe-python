@@ -1,8 +1,9 @@
-import stripe
+from stripe._createable_api_resource import CreateableAPIResource
+from stripe._charge import Charge
 
 
 class TestCreateableAPIResource(object):
-    class MyCreatable(stripe.api_resources.abstract.CreateableAPIResource):
+    class MyCreatable(CreateableAPIResource):
         OBJECT_NAME = "mycreatable"
 
     def test_create(self, http_client_mock):
@@ -18,7 +19,7 @@ class TestCreateableAPIResource(object):
         http_client_mock.assert_requested(
             "post", path="/v1/mycreatables", post_data=""
         )
-        assert isinstance(res, stripe.Charge)
+        assert isinstance(res, Charge)
         assert res.foo == "bar"
 
         assert res.last_response is not None
@@ -40,5 +41,5 @@ class TestCreateableAPIResource(object):
             post_data="",
             idempotency_key="foo",
         )
-        assert isinstance(res, stripe.Charge)
+        assert isinstance(res, Charge)
         assert res.foo == "bar"

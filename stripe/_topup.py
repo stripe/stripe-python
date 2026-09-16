@@ -4,21 +4,21 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, Union, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
+    from stripe._payment_method import PaymentMethod
     from stripe._source import Source
+    from stripe.params._topup_cancel_params import TopupCancelParams
+    from stripe.params._topup_create_params import TopupCreateParams
+    from stripe.params._topup_list_params import TopupListParams
+    from stripe.params._topup_modify_params import TopupModifyParams
+    from stripe.params._topup_retrieve_params import TopupRetrieveParams
 
 
 class Topup(
@@ -31,138 +31,23 @@ class Topup(
     individual top-ups, as well as list all top-ups. Top-ups are identified by a
     unique, random ID.
 
-    Related guide: [Topping up your platform account](https://stripe.com/docs/connect/top-ups)
+    Related guide: [Topping up your platform account](https://docs.stripe.com/connect/top-ups)
     """
 
     OBJECT_NAME: ClassVar[Literal["topup"]] = "topup"
 
-    class CancelParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
+    class PaymentMethodOptions(StripeObject):
+        class UsBankAccount(StripeObject):
+            network: Literal["ach"]
+            """
+            The US bank transfer network used for this top-up. The default is `ach`.
+            """
 
-    class CreateParams(RequestOptions):
-        amount: int
+        us_bank_account: Optional[UsBankAccount]
         """
-        A positive integer representing how much to transfer.
+        If this top-up is to be used with a `us_bank_account` payment method, this sub-hash contains configuration for it.
         """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        source: NotRequired[str]
-        """
-        The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)).
-        """
-        statement_descriptor: NotRequired[str]
-        """
-        Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters.
-        """
-        transfer_group: NotRequired[str]
-        """
-        A string that identifies this top-up as part of a group.
-        """
-
-    class ListParams(RequestOptions):
-        amount: NotRequired["Topup.ListParamsAmount|int"]
-        """
-        A positive integer representing how much to transfer.
-        """
-        created: NotRequired["Topup.ListParamsCreated|int"]
-        """
-        A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[
-            Literal["canceled", "failed", "pending", "succeeded"]
-        ]
-        """
-        Only return top-ups that have the given status. One of `canceled`, `failed`, `pending` or `succeeded`.
-        """
-
-    class ListParamsAmount(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ModifyParams(RequestOptions):
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
+        _inner_class_types = {"us_bank_account": UsBankAccount}
 
     amount: int
     """
@@ -190,7 +75,7 @@ class Topup(
     """
     failure_code: Optional[str]
     """
-    Error code explaining reason for top-up failure if available (see [the errors section](https://stripe.com/docs/api#errors) for a list of codes).
+    Error code explaining reason for top-up failure if available (see [the errors section](https://docs.stripe.com/api/errors) for a list of codes).
     """
     failure_message: Optional[str]
     """
@@ -200,17 +85,29 @@ class Topup(
     """
     Unique identifier for the object.
     """
+    initiated_by: Optional[Union[Literal["stripe", "user"], str]]
+    """
+    Indicates whether the top-up was initiated by Stripe or by the user.
+    """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["topup"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    payment_method: Optional[ExpandableField["PaymentMethod"]]
+    """
+    The ID of a PaymentMethod representing the payment method used for the top-up. A PaymentMethod of type `us_bank_account` can be used.
+    """
+    payment_method_options: Optional[PaymentMethodOptions]
+    """
+    Payment-method-specific configuration for this top-up.
     """
     source: Optional["Source"]
     """
@@ -220,7 +117,9 @@ class Topup(
     """
     Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter.
     """
-    status: Literal["canceled", "failed", "pending", "reversed", "succeeded"]
+    status: Union[
+        Literal["canceled", "failed", "pending", "reversed", "succeeded"], str
+    ]
     """
     The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`.
     """
@@ -231,7 +130,7 @@ class Topup(
 
     @classmethod
     def _cls_cancel(
-        cls, topup: str, **params: Unpack["Topup.CancelParams"]
+        cls, topup: str, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -247,14 +146,14 @@ class Topup(
 
     @overload
     @staticmethod
-    def cancel(topup: str, **params: Unpack["Topup.CancelParams"]) -> "Topup":
+    def cancel(topup: str, **params: Unpack["TopupCancelParams"]) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
         ...
 
     @overload
-    def cancel(self, **params: Unpack["Topup.CancelParams"]) -> "Topup":
+    def cancel(self, **params: Unpack["TopupCancelParams"]) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
@@ -262,7 +161,7 @@ class Topup(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Topup.CancelParams"]
+        self, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -272,7 +171,7 @@ class Topup(
             self._request(
                 "post",
                 "/v1/topups/{topup}/cancel".format(
-                    topup=sanitize_id(self.get("id"))
+                    topup=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -280,7 +179,7 @@ class Topup(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, topup: str, **params: Unpack["Topup.CancelParams"]
+        cls, topup: str, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -297,7 +196,7 @@ class Topup(
     @overload
     @staticmethod
     async def cancel_async(
-        topup: str, **params: Unpack["Topup.CancelParams"]
+        topup: str, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -306,7 +205,7 @@ class Topup(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["Topup.CancelParams"]
+        self, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -315,7 +214,7 @@ class Topup(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Topup.CancelParams"]
+        self, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -325,14 +224,14 @@ class Topup(
             await self._request_async(
                 "post",
                 "/v1/topups/{topup}/cancel".format(
-                    topup=sanitize_id(self.get("id"))
+                    topup=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    def create(cls, **params: Unpack["Topup.CreateParams"]) -> "Topup":
+    def create(cls, **params: Unpack["TopupCreateParams"]) -> "Topup":
         """
         Top up the balance of an account
         """
@@ -347,7 +246,7 @@ class Topup(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Topup.CreateParams"]
+        cls, **params: Unpack["TopupCreateParams"]
     ) -> "Topup":
         """
         Top up the balance of an account
@@ -362,7 +261,7 @@ class Topup(
         )
 
     @classmethod
-    def list(cls, **params: Unpack["Topup.ListParams"]) -> ListObject["Topup"]:
+    def list(cls, **params: Unpack["TopupListParams"]) -> ListObject["Topup"]:
         """
         Returns a list of top-ups.
         """
@@ -381,7 +280,7 @@ class Topup(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Topup.ListParams"]
+        cls, **params: Unpack["TopupListParams"]
     ) -> ListObject["Topup"]:
         """
         Returns a list of top-ups.
@@ -400,9 +299,7 @@ class Topup(
         return result
 
     @classmethod
-    def modify(
-        cls, id: str, **params: Unpack["Topup.ModifyParams"]
-    ) -> "Topup":
+    def modify(cls, id: str, **params: Unpack["TopupModifyParams"]) -> "Topup":
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
         """
@@ -418,7 +315,7 @@ class Topup(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Topup.ModifyParams"]
+        cls, id: str, **params: Unpack["TopupModifyParams"]
     ) -> "Topup":
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
@@ -435,7 +332,7 @@ class Topup(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Topup.RetrieveParams"]
+        cls, id: str, **params: Unpack["TopupRetrieveParams"]
     ) -> "Topup":
         """
         Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
@@ -446,7 +343,7 @@ class Topup(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Topup.RetrieveParams"]
+        cls, id: str, **params: Unpack["TopupRetrieveParams"]
     ) -> "Topup":
         """
         Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
@@ -454,3 +351,5 @@ class Topup(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"payment_method_options": PaymentMethodOptions}

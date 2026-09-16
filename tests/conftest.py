@@ -9,6 +9,7 @@ import requests
 
 from tests.stripe_mock import StripeMock
 from tests.http_client_mock import HTTPClientMock
+from stripe._http_client import new_default_http_client
 
 
 pytest_plugins = ("anyio",)
@@ -23,7 +24,8 @@ if StripeMock.start():
 else:
     MOCK_PORT = os.environ.get("STRIPE_MOCK_PORT", 12111)
 
-MOCK_API_BASE = "http://localhost:%s" % MOCK_PORT
+MOCK_HOST = os.environ.get("STRIPE_MOCK_HOST", "localhost")
+MOCK_API_BASE = f"http://{MOCK_HOST}:{MOCK_PORT}"
 MOCK_API_KEY = "sk_test_123"
 
 
@@ -35,12 +37,10 @@ def stop_stripe_mock():
 def pytest_configure(config):
     if not config.getoption("--nomock"):
         try:
-            requests.get("http://localhost:%s/" % MOCK_PORT)
+            requests.get(f"http://{MOCK_HOST}:{MOCK_PORT}/")
         except Exception:
             sys.exit(
-                "Couldn't reach stripe-mock at `localhost:%s`. Is "
-                "it running? Please see README for setup instructions."
-                % MOCK_PORT
+                f"Couldn't reach stripe-mock at `{MOCK_HOST}:{MOCK_PORT}`. Is it running? Please see README for setup instructions."
             )
 
 
@@ -70,7 +70,7 @@ def setup_stripe():
         "client_id": stripe.client_id,
         "default_http_client": stripe.default_http_client,
     }
-    http_client = stripe.http_client.new_default_http_client()
+    http_client = new_default_http_client()
     stripe.api_base = MOCK_API_BASE
     stripe.upload_api_base = MOCK_API_BASE
     stripe.api_key = MOCK_API_KEY

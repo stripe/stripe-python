@@ -1,31 +1,28 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._mandate import Mandate
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._mandate import Mandate
+    from stripe._request_options import RequestOptions
+    from stripe.params._mandate_retrieve_params import MandateRetrieveParams
 
 
 class MandateService(StripeService):
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def retrieve(
         self,
         mandate: str,
-        params: "MandateService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> Mandate:
+        params: Optional["MandateRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Mandate":
         """
         Retrieves a Mandate object.
         """
         return cast(
-            Mandate,
+            "Mandate",
             self._request(
                 "get",
                 "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
@@ -38,14 +35,14 @@ class MandateService(StripeService):
     async def retrieve_async(
         self,
         mandate: str,
-        params: "MandateService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> Mandate:
+        params: Optional["MandateRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Mandate":
         """
         Retrieves a Mandate object.
         """
         return cast(
-            Mandate,
+            "Mandate",
             await self._request_async(
                 "get",
                 "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),

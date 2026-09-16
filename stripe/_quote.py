@@ -4,18 +4,11 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import Any, ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import Any, ClassVar, List, Optional, Union, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -27,6 +20,22 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_rate import TaxRate
+    from stripe.params._quote_accept_params import QuoteAcceptParams
+    from stripe.params._quote_cancel_params import QuoteCancelParams
+    from stripe.params._quote_create_params import QuoteCreateParams
+    from stripe.params._quote_finalize_quote_params import (
+        QuoteFinalizeQuoteParams,
+    )
+    from stripe.params._quote_list_computed_upfront_line_items_params import (
+        QuoteListComputedUpfrontLineItemsParams,
+    )
+    from stripe.params._quote_list_line_items_params import (
+        QuoteListLineItemsParams,
+    )
+    from stripe.params._quote_list_params import QuoteListParams
+    from stripe.params._quote_modify_params import QuoteModifyParams
+    from stripe.params._quote_pdf_params import QuotePdfParams
+    from stripe.params._quote_retrieve_params import QuoteRetrieveParams
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -48,7 +57,7 @@ class Quote(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Union[Literal["account", "self"], str]
             """
             Type of the account referenced.
             """
@@ -66,7 +75,9 @@ class Quote(
         The tax provider powering automatic tax.
         """
         status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
+            Union[
+                Literal["complete", "failed", "requires_location_inputs"], str
+            ]
         ]
         """
         The status of the most recent automated tax calculation for this quote.
@@ -84,10 +95,10 @@ class Quote(
                         """
                         discount: "DiscountResource"
                         """
-                        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
                         It contains information about when the discount began, when it will end, and what it is applied to.
 
-                        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                        Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
                         """
 
                     class Tax(StripeObject):
@@ -102,22 +113,25 @@ class Quote(
                         Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
+                            Union[
+                                Literal[
+                                    "customer_exempt",
+                                    "not_collecting",
+                                    "not_subject_to_tax",
+                                    "not_supported",
+                                    "portion_product_exempt",
+                                    "portion_reduced_rated",
+                                    "portion_standard_rated",
+                                    "product_exempt",
+                                    "product_exempt_holiday",
+                                    "proportionally_rated",
+                                    "reduced_rated",
+                                    "reverse_charge",
+                                    "standard_rated",
+                                    "taxable_basis_reduced",
+                                    "zero_rated",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -161,7 +175,7 @@ class Quote(
             """
             Total after discounts and taxes are applied.
             """
-            interval: Literal["day", "month", "week", "year"]
+            interval: Union[Literal["day", "month", "week", "year"], str]
             """
             The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
             """
@@ -182,10 +196,10 @@ class Quote(
                         """
                         discount: "DiscountResource"
                         """
-                        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
                         It contains information about when the discount began, when it will end, and what it is applied to.
 
-                        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                        Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
                         """
 
                     class Tax(StripeObject):
@@ -200,22 +214,25 @@ class Quote(
                         Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
+                            Union[
+                                Literal[
+                                    "customer_exempt",
+                                    "not_collecting",
+                                    "not_subject_to_tax",
+                                    "not_supported",
+                                    "portion_product_exempt",
+                                    "portion_reduced_rated",
+                                    "portion_standard_rated",
+                                    "product_exempt",
+                                    "product_exempt_holiday",
+                                    "proportionally_rated",
+                                    "reduced_rated",
+                                    "reverse_charge",
+                                    "standard_rated",
+                                    "taxable_basis_reduced",
+                                    "zero_rated",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -284,22 +301,44 @@ class Quote(
         """
 
     class InvoiceSettings(StripeObject):
+        class CustomField(StripeObject):
+            name: str
+            """
+            The name of the custom field.
+            """
+            value: str
+            """
+            The value of the custom field.
+            """
+
         class Issuer(StripeObject):
             account: Optional[ExpandableField["Account"]]
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Union[Literal["account", "self"], str]
             """
             Type of the account referenced.
             """
 
+        custom_fields: Optional[List[CustomField]]
+        """
+        A list of up to 4 custom fields to be displayed on the invoice.
+        """
         days_until_due: Optional[int]
         """
         Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
         """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        footer: Optional[str]
+        """
+        Footer to be displayed on the invoice.
+        """
         issuer: Issuer
-        _inner_class_types = {"issuer": Issuer}
+        _inner_class_types = {"custom_fields": CustomField, "issuer": Issuer}
 
     class StatusTransitions(StripeObject):
         accepted_at: Optional[int]
@@ -317,10 +356,20 @@ class Quote(
 
     class SubscriptionData(StripeObject):
         class BillingMode(StripeObject):
-            type: Literal["classic", "flexible"]
+            class Flexible(StripeObject):
+                proration_discounts: Optional[
+                    Union[Literal["included", "itemized"], str]
+                ]
+                """
+                Controls how invoices and invoice items display proration amounts and discount amounts.
+                """
+
+            flexible: Optional[Flexible]
+            type: Union[Literal["classic", "flexible"], str]
             """
             Controls how prorations and invoices for subscriptions are calculated and orchestrated.
             """
+            _inner_class_types = {"flexible": Flexible}
 
         billing_mode: BillingMode
         """
@@ -334,9 +383,9 @@ class Quote(
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
         """
-        metadata: Optional[Dict[str, str]]
+        metadata: Optional[UntypedStripeObject[str]]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
         trial_period_days: Optional[int]
         """
@@ -353,10 +402,10 @@ class Quote(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
-                Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
                 """
 
             class Tax(StripeObject):
@@ -371,22 +420,25 @@ class Quote(
                 Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
-                    Literal[
-                        "customer_exempt",
-                        "not_collecting",
-                        "not_subject_to_tax",
-                        "not_supported",
-                        "portion_product_exempt",
-                        "portion_reduced_rated",
-                        "portion_standard_rated",
-                        "product_exempt",
-                        "product_exempt_holiday",
-                        "proportionally_rated",
-                        "reduced_rated",
-                        "reverse_charge",
-                        "standard_rated",
-                        "taxable_basis_reduced",
-                        "zero_rated",
+                    Union[
+                        Literal[
+                            "customer_exempt",
+                            "not_collecting",
+                            "not_subject_to_tax",
+                            "not_supported",
+                            "portion_product_exempt",
+                            "portion_reduced_rated",
+                            "portion_standard_rated",
+                            "product_exempt",
+                            "product_exempt_holiday",
+                            "proportionally_rated",
+                            "reduced_rated",
+                            "reverse_charge",
+                            "standard_rated",
+                            "taxable_basis_reduced",
+                            "zero_rated",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -436,624 +488,6 @@ class Quote(
         The account where funds from the payment will be transferred to upon payment success.
         """
 
-    class AcceptParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CancelParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(RequestOptions):
-        application_fee_amount: NotRequired["Literal['']|int"]
-        """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
-        """
-        application_fee_percent: NotRequired["Literal['']|float"]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
-        """
-        automatic_tax: NotRequired["Quote.CreateParamsAutomaticTax"]
-        """
-        Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
-        """
-        collection_method: NotRequired[
-            Literal["charge_automatically", "send_invoice"]
-        ]
-        """
-        Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
-        """
-        customer: NotRequired[str]
-        """
-        The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
-        """
-        default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates that will apply to any line item that does not have `tax_rates` set.
-        """
-        description: NotRequired["Literal['']|str"]
-        """
-        A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
-        """
-        discounts: NotRequired["Literal['']|List[Quote.CreateParamsDiscount]"]
-        """
-        The discounts applied to the quote.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired[int]
-        """
-        A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch. If no value is passed, the default expiration date configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
-        """
-        footer: NotRequired["Literal['']|str"]
-        """
-        A footer that will be displayed on the quote PDF. If no value is passed, the default footer configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
-        """
-        from_quote: NotRequired["Quote.CreateParamsFromQuote"]
-        """
-        Clone an existing quote. The new quote will be created in `status=draft`. When using this parameter, you cannot specify any other parameters except for `expires_at`.
-        """
-        header: NotRequired["Literal['']|str"]
-        """
-        A header that will be displayed on the quote PDF. If no value is passed, the default header configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
-        """
-        invoice_settings: NotRequired["Quote.CreateParamsInvoiceSettings"]
-        """
-        All invoices will be billed using the specified settings.
-        """
-        line_items: NotRequired[List["Quote.CreateParamsLineItem"]]
-        """
-        A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        on_behalf_of: NotRequired["Literal['']|str"]
-        """
-        The account on behalf of which to charge.
-        """
-        subscription_data: NotRequired["Quote.CreateParamsSubscriptionData"]
-        """
-        When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
-        """
-        test_clock: NotRequired[str]
-        """
-        ID of the test clock to attach to the quote.
-        """
-        transfer_data: NotRequired[
-            "Literal['']|Quote.CreateParamsTransferData"
-        ]
-        """
-        The data with which to automatically create a Transfer for each of the invoices.
-        """
-
-    class CreateParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Controls whether Stripe will automatically compute tax on the resulting invoices or subscriptions as well as the quote itself.
-        """
-        liability: NotRequired["Quote.CreateParamsAutomaticTaxLiability"]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class CreateParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class CreateParamsFromQuote(TypedDict):
-        is_revision: NotRequired[bool]
-        """
-        Whether this quote is a revision of the previous quote.
-        """
-        quote: str
-        """
-        The `id` of the quote that will be cloned.
-        """
-
-    class CreateParamsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[int]
-        """
-        Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
-        """
-        issuer: NotRequired["Quote.CreateParamsInvoiceSettingsIssuer"]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-
-    class CreateParamsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class CreateParamsLineItem(TypedDict):
-        discounts: NotRequired[
-            "Literal['']|List[Quote.CreateParamsLineItemDiscount]"
-        ]
-        """
-        The discounts applied to this line item.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
-        price_data: NotRequired["Quote.CreateParamsLineItemPriceData"]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        The quantity of the line item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
-        """
-
-    class CreateParamsLineItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class CreateParamsLineItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
-        """
-        recurring: NotRequired["Quote.CreateParamsLineItemPriceDataRecurring"]
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class CreateParamsLineItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class CreateParamsSubscriptionData(TypedDict):
-        billing_mode: NotRequired[
-            "Quote.CreateParamsSubscriptionDataBillingMode"
-        ]
-        """
-        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-        """
-        description: NotRequired[str]
-        """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
-        """
-        effective_date: NotRequired[
-            "Literal['']|Literal['current_period_end']|int"
-        ]
-        """
-        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
-        """
-        trial_period_days: NotRequired["Literal['']|int"]
-        """
-        Integer representing the number of trial period days before the customer is charged for the first time.
-        """
-
-    class CreateParamsSubscriptionDataBillingMode(TypedDict):
-        type: Literal["classic", "flexible"]
-        """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
-        """
-
-    class CreateParamsTransferData(TypedDict):
-        amount: NotRequired[int]
-        """
-        The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
-        """
-        amount_percent: NotRequired[float]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.
-        """
-        destination: str
-        """
-        ID of an existing, connected Stripe account.
-        """
-
-    class FinalizeQuoteParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired[int]
-        """
-        A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
-        """
-
-    class ListComputedUpfrontLineItemsParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParams(RequestOptions):
-        customer: NotRequired[str]
-        """
-        The ID of the customer whose quotes will be retrieved.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["accepted", "canceled", "draft", "open"]]
-        """
-        The status of the quote.
-        """
-        test_clock: NotRequired[str]
-        """
-        Provides a list of quotes that are associated with the specified test clock. The response will not include quotes with test clocks if this and the customer parameter is not set.
-        """
-
-    class ModifyParams(RequestOptions):
-        application_fee_amount: NotRequired["Literal['']|int"]
-        """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
-        """
-        application_fee_percent: NotRequired["Literal['']|float"]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
-        """
-        automatic_tax: NotRequired["Quote.ModifyParamsAutomaticTax"]
-        """
-        Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
-        """
-        collection_method: NotRequired[
-            Literal["charge_automatically", "send_invoice"]
-        ]
-        """
-        Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
-        """
-        customer: NotRequired[str]
-        """
-        The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
-        """
-        default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates that will apply to any line item that does not have `tax_rates` set.
-        """
-        description: NotRequired["Literal['']|str"]
-        """
-        A description that will be displayed on the quote PDF.
-        """
-        discounts: NotRequired["Literal['']|List[Quote.ModifyParamsDiscount]"]
-        """
-        The discounts applied to the quote.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired[int]
-        """
-        A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
-        """
-        footer: NotRequired["Literal['']|str"]
-        """
-        A footer that will be displayed on the quote PDF.
-        """
-        header: NotRequired["Literal['']|str"]
-        """
-        A header that will be displayed on the quote PDF.
-        """
-        invoice_settings: NotRequired["Quote.ModifyParamsInvoiceSettings"]
-        """
-        All invoices will be billed using the specified settings.
-        """
-        line_items: NotRequired[List["Quote.ModifyParamsLineItem"]]
-        """
-        A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        on_behalf_of: NotRequired["Literal['']|str"]
-        """
-        The account on behalf of which to charge.
-        """
-        subscription_data: NotRequired["Quote.ModifyParamsSubscriptionData"]
-        """
-        When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
-        """
-        transfer_data: NotRequired[
-            "Literal['']|Quote.ModifyParamsTransferData"
-        ]
-        """
-        The data with which to automatically create a Transfer for each of the invoices.
-        """
-
-    class ModifyParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Controls whether Stripe will automatically compute tax on the resulting invoices or subscriptions as well as the quote itself.
-        """
-        liability: NotRequired["Quote.ModifyParamsAutomaticTaxLiability"]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class ModifyParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class ModifyParamsDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class ModifyParamsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[int]
-        """
-        Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
-        """
-        issuer: NotRequired["Quote.ModifyParamsInvoiceSettingsIssuer"]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-
-    class ModifyParamsInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class ModifyParamsLineItem(TypedDict):
-        discounts: NotRequired[
-            "Literal['']|List[Quote.ModifyParamsLineItemDiscount]"
-        ]
-        """
-        The discounts applied to this line item.
-        """
-        id: NotRequired[str]
-        """
-        The ID of an existing line item on the quote.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
-        price_data: NotRequired["Quote.ModifyParamsLineItemPriceData"]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        The quantity of the line item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates which apply to the line item. When set, the `default_tax_rates` on the quote do not apply to this line item.
-        """
-
-    class ModifyParamsLineItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class ModifyParamsLineItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
-        """
-        recurring: NotRequired["Quote.ModifyParamsLineItemPriceDataRecurring"]
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class ModifyParamsLineItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class ModifyParamsSubscriptionData(TypedDict):
-        description: NotRequired["Literal['']|str"]
-        """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
-        """
-        effective_date: NotRequired[
-            "Literal['']|Literal['current_period_end']|int"
-        ]
-        """
-        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
-        """
-        trial_period_days: NotRequired["Literal['']|int"]
-        """
-        Integer representing the number of trial period days before the customer is charged for the first time.
-        """
-
-    class ModifyParamsTransferData(TypedDict):
-        amount: NotRequired[int]
-        """
-        The amount that will be transferred automatically when the invoice is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
-        """
-        amount_percent: NotRequired[float]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. There must be at least 1 line item with a recurring price to use this field.
-        """
-        destination: str
-        """
-        ID of an existing, connected Stripe account.
-        """
-
-    class PdfParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     amount_subtotal: int
     """
     Total before any discounts or taxes are applied.
@@ -1075,7 +509,9 @@ class Quote(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote.
     """
     automatic_tax: AutomaticTax
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
     """
@@ -1090,7 +526,11 @@ class Quote(
     """
     customer: Optional[ExpandableField["Customer"]]
     """
-    The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+    The customer who received this quote. A customer is required to finalize the quote. Once specified, you can't change it.
+    """
+    customer_account: Optional[str]
+    """
+    The account representing the customer who received this quote. A customer or account is required to finalize the quote. Once specified, you can't change it.
     """
     default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     """
@@ -1114,7 +554,7 @@ class Quote(
     """
     from_quote: Optional[FromQuote]
     """
-    Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details.
+    Details of the quote that was cloned. See the [cloning documentation](https://docs.stripe.com/quotes/clone) for more details.
     """
     header: Optional[str]
     """
@@ -1135,15 +575,15 @@ class Quote(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     number: Optional[str]
     """
-    A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize).
+    A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://docs.stripe.com/quotes/overview#finalize).
     """
     object: Literal["quote"]
     """
@@ -1153,7 +593,7 @@ class Quote(
     """
     The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     """
-    status: Literal["accepted", "canceled", "draft", "open"]
+    status: Union[Literal["accepted", "canceled", "draft", "open"], str]
     """
     The status of the quote.
     """
@@ -1179,7 +619,7 @@ class Quote(
 
     @classmethod
     def _cls_accept(
-        cls, quote: str, **params: Unpack["Quote.AcceptParams"]
+        cls, quote: str, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1195,14 +635,14 @@ class Quote(
 
     @overload
     @staticmethod
-    def accept(quote: str, **params: Unpack["Quote.AcceptParams"]) -> "Quote":
+    def accept(quote: str, **params: Unpack["QuoteAcceptParams"]) -> "Quote":
         """
         Accepts the specified quote.
         """
         ...
 
     @overload
-    def accept(self, **params: Unpack["Quote.AcceptParams"]) -> "Quote":
+    def accept(self, **params: Unpack["QuoteAcceptParams"]) -> "Quote":
         """
         Accepts the specified quote.
         """
@@ -1210,7 +650,7 @@ class Quote(
 
     @class_method_variant("_cls_accept")
     def accept(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.AcceptParams"]
+        self, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1220,7 +660,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/accept".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1228,7 +668,7 @@ class Quote(
 
     @classmethod
     async def _cls_accept_async(
-        cls, quote: str, **params: Unpack["Quote.AcceptParams"]
+        cls, quote: str, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1245,7 +685,7 @@ class Quote(
     @overload
     @staticmethod
     async def accept_async(
-        quote: str, **params: Unpack["Quote.AcceptParams"]
+        quote: str, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1254,7 +694,7 @@ class Quote(
 
     @overload
     async def accept_async(
-        self, **params: Unpack["Quote.AcceptParams"]
+        self, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1263,7 +703,7 @@ class Quote(
 
     @class_method_variant("_cls_accept_async")
     async def accept_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.AcceptParams"]
+        self, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1273,7 +713,7 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/accept".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1281,7 +721,7 @@ class Quote(
 
     @classmethod
     def _cls_cancel(
-        cls, quote: str, **params: Unpack["Quote.CancelParams"]
+        cls, quote: str, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1297,14 +737,14 @@ class Quote(
 
     @overload
     @staticmethod
-    def cancel(quote: str, **params: Unpack["Quote.CancelParams"]) -> "Quote":
+    def cancel(quote: str, **params: Unpack["QuoteCancelParams"]) -> "Quote":
         """
         Cancels the quote.
         """
         ...
 
     @overload
-    def cancel(self, **params: Unpack["Quote.CancelParams"]) -> "Quote":
+    def cancel(self, **params: Unpack["QuoteCancelParams"]) -> "Quote":
         """
         Cancels the quote.
         """
@@ -1312,7 +752,7 @@ class Quote(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.CancelParams"]
+        self, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1322,7 +762,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1330,7 +770,7 @@ class Quote(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, quote: str, **params: Unpack["Quote.CancelParams"]
+        cls, quote: str, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1347,7 +787,7 @@ class Quote(
     @overload
     @staticmethod
     async def cancel_async(
-        quote: str, **params: Unpack["Quote.CancelParams"]
+        quote: str, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1356,7 +796,7 @@ class Quote(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["Quote.CancelParams"]
+        self, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1365,7 +805,7 @@ class Quote(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.CancelParams"]
+        self, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1375,14 +815,14 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    def create(cls, **params: Unpack["Quote.CreateParams"]) -> "Quote":
+    def create(cls, **params: Unpack["QuoteCreateParams"]) -> "Quote":
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
         """
@@ -1397,7 +837,7 @@ class Quote(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Quote.CreateParams"]
+        cls, **params: Unpack["QuoteCreateParams"]
     ) -> "Quote":
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
@@ -1413,7 +853,7 @@ class Quote(
 
     @classmethod
     def _cls_finalize_quote(
-        cls, quote: str, **params: Unpack["Quote.FinalizeQuoteParams"]
+        cls, quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1430,7 +870,7 @@ class Quote(
     @overload
     @staticmethod
     def finalize_quote(
-        quote: str, **params: Unpack["Quote.FinalizeQuoteParams"]
+        quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1439,7 +879,7 @@ class Quote(
 
     @overload
     def finalize_quote(
-        self, **params: Unpack["Quote.FinalizeQuoteParams"]
+        self, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1448,7 +888,7 @@ class Quote(
 
     @class_method_variant("_cls_finalize_quote")
     def finalize_quote(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.FinalizeQuoteParams"]
+        self, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1458,7 +898,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1466,7 +906,7 @@ class Quote(
 
     @classmethod
     async def _cls_finalize_quote_async(
-        cls, quote: str, **params: Unpack["Quote.FinalizeQuoteParams"]
+        cls, quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1483,7 +923,7 @@ class Quote(
     @overload
     @staticmethod
     async def finalize_quote_async(
-        quote: str, **params: Unpack["Quote.FinalizeQuoteParams"]
+        quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1492,7 +932,7 @@ class Quote(
 
     @overload
     async def finalize_quote_async(
-        self, **params: Unpack["Quote.FinalizeQuoteParams"]
+        self, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1501,7 +941,7 @@ class Quote(
 
     @class_method_variant("_cls_finalize_quote_async")
     async def finalize_quote_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.FinalizeQuoteParams"]
+        self, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1511,14 +951,14 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    def list(cls, **params: Unpack["Quote.ListParams"]) -> ListObject["Quote"]:
+    def list(cls, **params: Unpack["QuoteListParams"]) -> ListObject["Quote"]:
         """
         Returns a list of your quotes.
         """
@@ -1537,7 +977,7 @@ class Quote(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Quote.ListParams"]
+        cls, **params: Unpack["QuoteListParams"]
     ) -> ListObject["Quote"]:
         """
         Returns a list of your quotes.
@@ -1559,7 +999,7 @@ class Quote(
     def _cls_list_computed_upfront_line_items(
         cls,
         quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
+        **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1578,8 +1018,7 @@ class Quote(
     @overload
     @staticmethod
     def list_computed_upfront_line_items(
-        quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
+        quote: str, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1588,7 +1027,7 @@ class Quote(
 
     @overload
     def list_computed_upfront_line_items(
-        self, **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        self, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1597,7 +1036,7 @@ class Quote(
 
     @class_method_variant("_cls_list_computed_upfront_line_items")
     def list_computed_upfront_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        self, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1607,7 +1046,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1617,7 +1056,7 @@ class Quote(
     async def _cls_list_computed_upfront_line_items_async(
         cls,
         quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
+        **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1636,8 +1075,7 @@ class Quote(
     @overload
     @staticmethod
     async def list_computed_upfront_line_items_async(
-        quote: str,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"],
+        quote: str, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1646,7 +1084,7 @@ class Quote(
 
     @overload
     async def list_computed_upfront_line_items_async(
-        self, **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        self, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1655,7 +1093,7 @@ class Quote(
 
     @class_method_variant("_cls_list_computed_upfront_line_items_async")
     async def list_computed_upfront_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        self, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1665,7 +1103,7 @@ class Quote(
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1673,7 +1111,7 @@ class Quote(
 
     @classmethod
     def _cls_list_line_items(
-        cls, quote: str, **params: Unpack["Quote.ListLineItemsParams"]
+        cls, quote: str, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1692,7 +1130,7 @@ class Quote(
     @overload
     @staticmethod
     def list_line_items(
-        quote: str, **params: Unpack["Quote.ListLineItemsParams"]
+        quote: str, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1701,7 +1139,7 @@ class Quote(
 
     @overload
     def list_line_items(
-        self, **params: Unpack["Quote.ListLineItemsParams"]
+        self, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1710,7 +1148,7 @@ class Quote(
 
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.ListLineItemsParams"]
+        self, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1720,7 +1158,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1728,7 +1166,7 @@ class Quote(
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls, quote: str, **params: Unpack["Quote.ListLineItemsParams"]
+        cls, quote: str, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1747,7 +1185,7 @@ class Quote(
     @overload
     @staticmethod
     async def list_line_items_async(
-        quote: str, **params: Unpack["Quote.ListLineItemsParams"]
+        quote: str, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1756,7 +1194,7 @@ class Quote(
 
     @overload
     async def list_line_items_async(
-        self, **params: Unpack["Quote.ListLineItemsParams"]
+        self, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1765,7 +1203,7 @@ class Quote(
 
     @class_method_variant("_cls_list_line_items_async")
     async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.ListLineItemsParams"]
+        self, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1775,16 +1213,14 @@ class Quote(
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    def modify(
-        cls, id: str, **params: Unpack["Quote.ModifyParams"]
-    ) -> "Quote":
+    def modify(cls, id: str, **params: Unpack["QuoteModifyParams"]) -> "Quote":
         """
         A quote models prices and services for a customer.
         """
@@ -1800,7 +1236,7 @@ class Quote(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Quote.ModifyParams"]
+        cls, id: str, **params: Unpack["QuoteModifyParams"]
     ) -> "Quote":
         """
         A quote models prices and services for a customer.
@@ -1816,7 +1252,7 @@ class Quote(
         )
 
     @classmethod
-    def _cls_pdf(cls, quote: str, **params: Unpack["Quote.PdfParams"]) -> Any:
+    def _cls_pdf(cls, quote: str, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -1832,14 +1268,14 @@ class Quote(
 
     @overload
     @staticmethod
-    def pdf(quote: str, **params: Unpack["Quote.PdfParams"]) -> Any:
+    def pdf(quote: str, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         ...
 
     @overload
-    def pdf(self, **params: Unpack["Quote.PdfParams"]) -> Any:
+    def pdf(self, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -1847,7 +1283,7 @@ class Quote(
 
     @class_method_variant("_cls_pdf")
     def pdf(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.PdfParams"]
+        self, **params: Unpack["QuotePdfParams"]
     ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
@@ -1857,7 +1293,7 @@ class Quote(
             self._request_stream(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
@@ -1866,7 +1302,7 @@ class Quote(
 
     @classmethod
     async def _cls_pdf_async(
-        cls, quote: str, **params: Unpack["Quote.PdfParams"]
+        cls, quote: str, **params: Unpack["QuotePdfParams"]
     ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
@@ -1883,16 +1319,14 @@ class Quote(
 
     @overload
     @staticmethod
-    async def pdf_async(
-        quote: str, **params: Unpack["Quote.PdfParams"]
-    ) -> Any:
+    async def pdf_async(quote: str, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
         ...
 
     @overload
-    async def pdf_async(self, **params: Unpack["Quote.PdfParams"]) -> Any:
+    async def pdf_async(self, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -1900,7 +1334,7 @@ class Quote(
 
     @class_method_variant("_cls_pdf_async")
     async def pdf_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Quote.PdfParams"]
+        self, **params: Unpack["QuotePdfParams"]
     ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
@@ -1910,7 +1344,7 @@ class Quote(
             await self._request_stream_async(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
@@ -1919,7 +1353,7 @@ class Quote(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Quote.RetrieveParams"]
+        cls, id: str, **params: Unpack["QuoteRetrieveParams"]
     ) -> "Quote":
         """
         Retrieves the quote with the given ID.
@@ -1930,7 +1364,7 @@ class Quote(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Quote.RetrieveParams"]
+        cls, id: str, **params: Unpack["QuoteRetrieveParams"]
     ) -> "Quote":
         """
         Retrieves the quote with the given ID.

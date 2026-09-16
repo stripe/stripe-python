@@ -1,6 +1,5 @@
-# Used for global variables
-import stripe  # noqa: IMP101
 from stripe._error import StripeError
+from stripe._error_object import OAuthErrorObject
 
 
 class OAuthError(StripeError):
@@ -21,9 +20,11 @@ class OAuthError(StripeError):
         if self.json_body is None:
             return None
 
-        return stripe.error_object.OAuthErrorObject._construct_from(  # pyright: ignore
-            values=self.json_body,
-            requestor=stripe._APIRequestor._global_instance(),
+        from stripe._api_requestor import _APIRequestor
+
+        return OAuthErrorObject._construct_from(
+            values=self.json_body,  # type: ignore
+            requestor=_APIRequestor._global_instance(),
             api_mode="V1",
         )
 

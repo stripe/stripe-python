@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -47,7 +48,7 @@ class CreditNoteLineItem(StripeObject):
         """
         The discount that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount"]
+        type: Union[Literal["credit_balance_transaction", "discount"], str]
         """
         Type of the pretax credit amount referenced.
         """
@@ -55,12 +56,15 @@ class CreditNoteLineItem(StripeObject):
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
             tax_rate: str
+            """
+            ID of the tax rate
+            """
 
         amount: int
         """
         The amount of the tax, in cents (or local equivalent).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Whether this tax is inclusive or exclusive.
         """
@@ -68,23 +72,26 @@ class CreditNoteLineItem(StripeObject):
         """
         Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_available",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_available",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -125,7 +132,11 @@ class CreditNoteLineItem(StripeObject):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
+    metadata: Optional[UntypedStripeObject[str]]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["credit_note_line_item"]
     """
@@ -147,7 +158,7 @@ class CreditNoteLineItem(StripeObject):
     """
     The tax information of the line item.
     """
-    type: Literal["custom_line_item", "invoice_line_item"]
+    type: Union[Literal["custom_line_item", "invoice_line_item"], str]
     """
     The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
     """
@@ -155,7 +166,7 @@ class CreditNoteLineItem(StripeObject):
     """
     The cost of each unit of product being credited.
     """
-    unit_amount_decimal: Optional[str]
+    unit_amount_decimal: Optional[Decimal]
     """
     Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     """
@@ -164,3 +175,4 @@ class CreditNoteLineItem(StripeObject):
         "pretax_credit_amounts": PretaxCreditAmount,
         "taxes": Tax,
     }
+    _field_encodings = {"unit_amount_decimal": "decimal_string"}

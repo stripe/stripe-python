@@ -5,22 +5,19 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, Union, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
     from stripe._application import Application
     from stripe._customer import Customer
+    from stripe.params._tax_id_create_params import TaxIdCreateParams
+    from stripe.params._tax_id_delete_params import TaxIdDeleteParams
+    from stripe.params._tax_id_list_params import TaxIdListParams
+    from stripe.params._tax_id_retrieve_params import TaxIdRetrieveParams
 
 
 class TaxId(
@@ -29,10 +26,10 @@ class TaxId(
     ListableAPIResource["TaxId"],
 ):
     """
-    You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers) or account.
+    You can add one or multiple tax IDs to a [customer](https://docs.stripe.com/api/customers) or account.
     Customer and account tax IDs get displayed on related invoices and credit notes.
 
-    Related guides: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids), [Account tax IDs](https://stripe.com/docs/invoicing/connect#account-tax-ids)
+    Related guides: [Customer tax identification numbers](https://docs.stripe.com/billing/taxes/tax-ids), [Account tax IDs](https://docs.stripe.com/invoicing/connect#account-tax-ids)
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_id"]] = "tax_id"
@@ -50,13 +47,19 @@ class TaxId(
         """
         The customer being referenced when `type` is `customer`.
         """
-        type: Literal["account", "application", "customer", "self"]
+        customer_account: Optional[str]
+        """
+        The Account representing the customer being referenced when `type` is `customer`.
+        """
+        type: Union[Literal["account", "application", "customer", "self"], str]
         """
         Type of owner referenced.
         """
 
     class Verification(StripeObject):
-        status: Literal["pending", "unavailable", "unverified", "verified"]
+        status: Union[
+            Literal["pending", "unavailable", "unverified", "verified"], str
+        ]
         """
         Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
         """
@@ -69,16 +72,44 @@ class TaxId(
         Verified name.
         """
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        owner: NotRequired["TaxId.CreateParamsOwner"]
-        """
-        The account or customer the tax ID belongs to. Defaults to `owner[type]=self`.
-        """
-        type: Literal[
+    country: Optional[str]
+    """
+    Two-letter ISO code representing the country of the tax ID.
+    """
+    created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
+    customer: Optional[ExpandableField["Customer"]]
+    """
+    ID of the customer.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the Account representing the customer.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
+    id: str
+    """
+    Unique identifier for the object.
+    """
+    livemode: bool
+    """
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
+    object: Literal["tax_id"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
+    owner: Optional[Owner]
+    """
+    The account or customer the tax ID belongs to.
+    """
+    type: Union[
+        Literal[
             "ad_nrt",
             "ae_trn",
             "al_tin",
@@ -124,16 +155,20 @@ class TaxId(
             "et_tin",
             "eu_oss_vat",
             "eu_vat",
+            "fo_vat",
             "gb_vat",
             "ge_vat",
+            "gi_tin",
             "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
+            "ic_nif",
             "id_npwp",
             "il_vat",
             "in_gst",
             "is_vat",
+            "it_cf",
             "jp_cn",
             "jp_rn",
             "jp_trn",
@@ -145,6 +180,7 @@ class TaxId(
             "la_tin",
             "li_uid",
             "li_vat",
+            "lk_vat",
             "ma_vat",
             "md_vat",
             "me_pib",
@@ -162,6 +198,8 @@ class TaxId(
             "om_vat",
             "pe_ruc",
             "ph_tin",
+            "pl_nip",
+            "py_ruc",
             "ro_tin",
             "rs_pib",
             "ru_inn",
@@ -180,6 +218,7 @@ class TaxId(
             "tz_vat",
             "ua_vat",
             "ug_tin",
+            "unknown",
             "us_ein",
             "uy_ruc",
             "uz_tin",
@@ -189,221 +228,11 @@ class TaxId(
             "za_vat",
             "zm_tin",
             "zw_tin",
-        ]
-        """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
-        """
-        value: str
-        """
-        Value of the tax ID.
-        """
-
-    class CreateParamsOwner(TypedDict):
-        account: NotRequired[str]
-        """
-        Account the tax ID belongs to. Required when `type=account`
-        """
-        customer: NotRequired[str]
-        """
-        Customer the tax ID belongs to. Required when `type=customer`
-        """
-        type: Literal["account", "application", "customer", "self"]
-        """
-        Type of owner referenced.
-        """
-
-    class DeleteParams(RequestOptions):
-        pass
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        owner: NotRequired["TaxId.ListParamsOwner"]
-        """
-        The account or customer the tax ID belongs to. Defaults to `owner[type]=self`.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsOwner(TypedDict):
-        account: NotRequired[str]
-        """
-        Account the tax ID belongs to. Required when `type=account`
-        """
-        customer: NotRequired[str]
-        """
-        Customer the tax ID belongs to. Required when `type=customer`
-        """
-        type: Literal["account", "application", "customer", "self"]
-        """
-        Type of owner referenced.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    country: Optional[str]
-    """
-    Two-letter ISO code representing the country of the tax ID.
-    """
-    created: int
-    """
-    Time at which the object was created. Measured in seconds since the Unix epoch.
-    """
-    customer: Optional[ExpandableField["Customer"]]
-    """
-    ID of the customer.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
-    id: str
-    """
-    Unique identifier for the object.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    """
-    object: Literal["tax_id"]
-    """
-    String representing the object's type. Objects of the same type share the same value.
-    """
-    owner: Optional[Owner]
-    """
-    The account or customer the tax ID belongs to.
-    """
-    type: Literal[
-        "ad_nrt",
-        "ae_trn",
-        "al_tin",
-        "am_tin",
-        "ao_tin",
-        "ar_cuit",
-        "au_abn",
-        "au_arn",
-        "aw_tin",
-        "az_tin",
-        "ba_tin",
-        "bb_tin",
-        "bd_bin",
-        "bf_ifu",
-        "bg_uic",
-        "bh_vat",
-        "bj_ifu",
-        "bo_tin",
-        "br_cnpj",
-        "br_cpf",
-        "bs_tin",
-        "by_tin",
-        "ca_bn",
-        "ca_gst_hst",
-        "ca_pst_bc",
-        "ca_pst_mb",
-        "ca_pst_sk",
-        "ca_qst",
-        "cd_nif",
-        "ch_uid",
-        "ch_vat",
-        "cl_tin",
-        "cm_niu",
-        "cn_tin",
-        "co_nit",
-        "cr_tin",
-        "cv_nif",
-        "de_stn",
-        "do_rcn",
-        "ec_ruc",
-        "eg_tin",
-        "es_cif",
-        "et_tin",
-        "eu_oss_vat",
-        "eu_vat",
-        "gb_vat",
-        "ge_vat",
-        "gn_nif",
-        "hk_br",
-        "hr_oib",
-        "hu_tin",
-        "id_npwp",
-        "il_vat",
-        "in_gst",
-        "is_vat",
-        "jp_cn",
-        "jp_rn",
-        "jp_trn",
-        "ke_pin",
-        "kg_tin",
-        "kh_tin",
-        "kr_brn",
-        "kz_bin",
-        "la_tin",
-        "li_uid",
-        "li_vat",
-        "ma_vat",
-        "md_vat",
-        "me_pib",
-        "mk_vat",
-        "mr_nif",
-        "mx_rfc",
-        "my_frp",
-        "my_itn",
-        "my_sst",
-        "ng_tin",
-        "no_vat",
-        "no_voec",
-        "np_pan",
-        "nz_gst",
-        "om_vat",
-        "pe_ruc",
-        "ph_tin",
-        "ro_tin",
-        "rs_pib",
-        "ru_inn",
-        "ru_kpp",
-        "sa_vat",
-        "sg_gst",
-        "sg_uen",
-        "si_tin",
-        "sn_ninea",
-        "sr_fin",
-        "sv_nit",
-        "th_vat",
-        "tj_tin",
-        "tr_tin",
-        "tw_vat",
-        "tz_vat",
-        "ua_vat",
-        "ug_tin",
-        "unknown",
-        "us_ein",
-        "uy_ruc",
-        "uz_tin",
-        "uz_vat",
-        "ve_rif",
-        "vn_tin",
-        "za_vat",
-        "zm_tin",
-        "zw_tin",
+        ],
+        str,
     ]
     """
-    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`. Note that some legacy tax IDs have type `unknown`
+    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`. Note that some legacy tax IDs have type `unknown`
     """
     value: str
     """
@@ -415,7 +244,7 @@ class TaxId(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["TaxId.CreateParams"]) -> "TaxId":
+    def create(cls, **params: Unpack["TaxIdCreateParams"]) -> "TaxId":
         """
         Creates a new account or customer tax_id object.
         """
@@ -430,7 +259,7 @@ class TaxId(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["TaxId.CreateParams"]
+        cls, **params: Unpack["TaxIdCreateParams"]
     ) -> "TaxId":
         """
         Creates a new account or customer tax_id object.
@@ -446,7 +275,7 @@ class TaxId(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["TaxId.DeleteParams"]
+        cls, sid: str, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -463,14 +292,14 @@ class TaxId(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["TaxId.DeleteParams"]) -> "TaxId":
+    def delete(sid: str, **params: Unpack["TaxIdDeleteParams"]) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
         """
         ...
 
     @overload
-    def delete(self, **params: Unpack["TaxId.DeleteParams"]) -> "TaxId":
+    def delete(self, **params: Unpack["TaxIdDeleteParams"]) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
         """
@@ -478,7 +307,7 @@ class TaxId(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TaxId.DeleteParams"]
+        self, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -491,7 +320,7 @@ class TaxId(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["TaxId.DeleteParams"]
+        cls, sid: str, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -509,7 +338,7 @@ class TaxId(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["TaxId.DeleteParams"]
+        sid: str, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -518,7 +347,7 @@ class TaxId(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["TaxId.DeleteParams"]
+        self, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -527,7 +356,7 @@ class TaxId(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TaxId.DeleteParams"]
+        self, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -539,7 +368,7 @@ class TaxId(
         )
 
     @classmethod
-    def list(cls, **params: Unpack["TaxId.ListParams"]) -> ListObject["TaxId"]:
+    def list(cls, **params: Unpack["TaxIdListParams"]) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs.
         """
@@ -558,7 +387,7 @@ class TaxId(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["TaxId.ListParams"]
+        cls, **params: Unpack["TaxIdListParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs.
@@ -578,7 +407,7 @@ class TaxId(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["TaxId.RetrieveParams"]
+        cls, id: str, **params: Unpack["TaxIdRetrieveParams"]
     ) -> "TaxId":
         """
         Retrieves an account or customer tax_id object.
@@ -589,7 +418,7 @@ class TaxId(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["TaxId.RetrieveParams"]
+        cls, id: str, **params: Unpack["TaxIdRetrieveParams"]
     ) -> "TaxId":
         """
         Retrieves an account or customer tax_id object.

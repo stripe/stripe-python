@@ -3,26 +3,27 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, Union, cast
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.treasury._received_debit_create_params import (
+        ReceivedDebitCreateParams,
+    )
+    from stripe.params.treasury._received_debit_list_params import (
+        ReceivedDebitListParams,
+    )
+    from stripe.params.treasury._received_debit_retrieve_params import (
+        ReceivedDebitRetrieveParams,
+    )
     from stripe.treasury._transaction import Transaction
 
 
 class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
-    ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
+    ReceivedDebits represent funds pulled from a [FinancialAccount](https://api.stripe.com#financial_accounts). These are not initiated from the FinancialAccount.
     """
 
     OBJECT_NAME: ClassVar[Literal["treasury.received_debit"]] = (
@@ -42,11 +43,11 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -54,7 +55,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
                 """
                 state: Optional[str]
                 """
-                State, county, province, or region.
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
             address: Address
@@ -100,14 +101,17 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         financial_account: Optional[FinancialAccount]
         issuing_card: Optional[str]
         """
-        Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID.
+        Set when `type` is `issuing_card`. This is an [Issuing Card](https://api.stripe.com#issuing_cards) ID.
         """
-        type: Literal[
-            "balance",
-            "financial_account",
-            "issuing_card",
-            "stripe",
-            "us_bank_account",
+        type: Union[
+            Literal[
+                "balance",
+                "financial_account",
+                "issuing_card",
+                "stripe",
+                "us_bank_account",
+            ],
+            str,
         ]
         """
         Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
@@ -130,15 +134,19 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         issuing_authorization: Optional[str]
         """
-        Set if the ReceivedDebit was created due to an [Issuing Authorization](https://stripe.com/docs/api#issuing_authorizations) object.
+        Set if the ReceivedDebit was created due to an [Issuing Authorization](https://api.stripe.com#issuing_authorizations) object.
         """
         issuing_transaction: Optional[str]
         """
-        Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://stripe.com/docs/api#issuing_disputes) object.
+        Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://api.stripe.com#issuing_disputes) object.
         """
         payout: Optional[str]
         """
-        Set if the ReceivedDebit was created due to a [Payout](https://stripe.com/docs/api#payouts) object.
+        Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
+        """
+        topup: Optional[str]
+        """
+        Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
         """
 
     class ReversalDetails(StripeObject):
@@ -147,106 +155,19 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         Time before which a ReceivedDebit can be reversed.
         """
         restricted_reason: Optional[
-            Literal[
-                "already_reversed",
-                "deadline_passed",
-                "network_restricted",
-                "other",
-                "source_flow_restricted",
+            Union[
+                Literal[
+                    "already_reversed",
+                    "deadline_passed",
+                    "network_restricted",
+                    "other",
+                    "source_flow_restricted",
+                ],
+                str,
             ]
         ]
         """
         Set if a ReceivedDebit can't be reversed.
-        """
-
-    class CreateParams(RequestOptions):
-        amount: int
-        """
-        Amount (in cents) to be transferred.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        The FinancialAccount to pull funds from.
-        """
-        initiating_payment_method_details: NotRequired[
-            "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetails"
-        ]
-        """
-        Initiating payment method details for the object.
-        """
-        network: Literal["ach"]
-        """
-        Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
-        """
-
-    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
-        type: Literal["us_bank_account"]
-        """
-        The source type.
-        """
-        us_bank_account: NotRequired[
-            "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
-        ]
-        """
-        Optional fields for `us_bank_account`.
-        """
-
-    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
-        account_holder_name: NotRequired[str]
-        """
-        The bank account holder's name.
-        """
-        account_number: NotRequired[str]
-        """
-        The bank account number.
-        """
-        routing_number: NotRequired[str]
-        """
-        The bank account's routing number.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        The FinancialAccount that funds were pulled from.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["failed", "succeeded"]]
-        """
-        Only return ReceivedDebits that have the given status: `succeeded` or `failed`.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     amount: int
@@ -266,12 +187,15 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     failure_code: Optional[
-        Literal[
-            "account_closed",
-            "account_frozen",
-            "insufficient_funds",
-            "international_transaction",
-            "other",
+        Union[
+            Literal[
+                "account_closed",
+                "account_frozen",
+                "insufficient_funds",
+                "international_transaction",
+                "other",
+            ],
+            str,
         ]
     ]
     """
@@ -283,7 +207,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     hosted_regulatory_receipt_url: Optional[str]
     """
-    A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    A [hosted transaction receipt](https://docs.stripe.com/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
     """
     id: str
     """
@@ -293,9 +217,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     linked_flows: LinkedFlows
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Literal["ach", "card", "stripe"]
+    network: Union[Literal["ach", "card", "stripe"], str]
     """
     The network used for the ReceivedDebit.
     """
@@ -307,7 +231,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     Details describing when a ReceivedDebit might be reversed.
     """
-    status: Literal["failed", "succeeded"]
+    status: Union[Literal["failed", "succeeded"], str]
     """
     Status of the ReceivedDebit. ReceivedDebits are created with a status of either `succeeded` (approved) or `failed` (declined). The failure reason can be found under the `failure_code`.
     """
@@ -318,7 +242,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["ReceivedDebit.ListParams"]
+        cls, **params: Unpack["ReceivedDebitListParams"]
     ) -> ListObject["ReceivedDebit"]:
         """
         Returns a list of ReceivedDebits.
@@ -338,7 +262,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ReceivedDebit.ListParams"]
+        cls, **params: Unpack["ReceivedDebitListParams"]
     ) -> ListObject["ReceivedDebit"]:
         """
         Returns a list of ReceivedDebits.
@@ -358,7 +282,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReceivedDebit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedDebitRetrieveParams"]
     ) -> "ReceivedDebit":
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
@@ -369,7 +293,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReceivedDebit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedDebitRetrieveParams"]
     ) -> "ReceivedDebit":
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
@@ -383,7 +307,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
         @classmethod
         def create(
-            cls, **params: Unpack["ReceivedDebit.CreateParams"]
+            cls, **params: Unpack["ReceivedDebitCreateParams"]
         ) -> "ReceivedDebit":
             """
             Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
@@ -399,7 +323,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
         @classmethod
         async def create_async(
-            cls, **params: Unpack["ReceivedDebit.CreateParams"]
+            cls, **params: Unpack["ReceivedDebitCreateParams"]
         ) -> "ReceivedDebit":
             """
             Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.

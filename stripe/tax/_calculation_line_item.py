@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -20,7 +20,9 @@ class CalculationLineItem(StripeObject):
             """
             A human-readable name for the jurisdiction imposing the tax.
             """
-            level: Literal["city", "country", "county", "district", "state"]
+            level: Union[
+                Literal["city", "country", "county", "district", "state"], str
+            ]
             """
             Indicates the level of the jurisdiction imposing the tax.
             """
@@ -38,21 +40,26 @@ class CalculationLineItem(StripeObject):
             """
             The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
             """
-            tax_type: Literal[
-                "amusement_tax",
-                "communications_tax",
-                "gst",
-                "hst",
-                "igst",
-                "jct",
-                "lease_tax",
-                "pst",
-                "qst",
-                "retail_delivery_fee",
-                "rst",
-                "sales_tax",
-                "service_tax",
-                "vat",
+            tax_type: Union[
+                Literal[
+                    "amusement_tax",
+                    "communications_tax",
+                    "gst",
+                    "hst",
+                    "igst",
+                    "jct",
+                    "lease_tax",
+                    "mass_transit_parking_tax",
+                    "parking_tax",
+                    "pst",
+                    "qst",
+                    "retail_delivery_fee",
+                    "rst",
+                    "sales_tax",
+                    "service_tax",
+                    "vat",
+                ],
+                str,
             ]
             """
             The tax type, such as `vat` or `sales_tax`.
@@ -60,10 +67,10 @@ class CalculationLineItem(StripeObject):
 
         amount: int
         """
-        The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
         jurisdiction: Jurisdiction
-        sourcing: Literal["destination", "origin"]
+        sourcing: Union[Literal["destination", "origin"], str]
         """
         Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
         """
@@ -71,29 +78,32 @@ class CalculationLineItem(StripeObject):
         """
         Details regarding the rate for this tax. This field will be `null` when the tax is not imposed, for example if the product is exempt from tax.
         """
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
         """
         taxable_amount: int
         """
-        The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
         _inner_class_types = {
             "jurisdiction": Jurisdiction,
@@ -102,11 +112,11 @@ class CalculationLineItem(StripeObject):
 
     amount: int
     """
-    The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+    The line item amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
     """
     amount_tax: int
     """
-    The amount of tax calculated for this line item, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The amount of tax calculated for this line item, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
     id: str
     """
@@ -114,11 +124,11 @@ class CalculationLineItem(StripeObject):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["tax.calculation_line_item"]
     """
@@ -126,7 +136,7 @@ class CalculationLineItem(StripeObject):
     """
     product: Optional[str]
     """
-    The ID of an existing [Product](https://stripe.com/docs/api/products/object).
+    The ID of an existing [Product](https://docs.stripe.com/api/products/object).
     """
     quantity: int
     """
@@ -136,7 +146,7 @@ class CalculationLineItem(StripeObject):
     """
     A custom identifier for this line item.
     """
-    tax_behavior: Literal["exclusive", "inclusive"]
+    tax_behavior: Union[Literal["exclusive", "inclusive"], str]
     """
     Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
     """
@@ -146,6 +156,6 @@ class CalculationLineItem(StripeObject):
     """
     tax_code: str
     """
-    The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for this resource.
+    The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for this resource.
     """
     _inner_class_types = {"tax_breakdown": TaxBreakdown}

@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._balance_retrieve_params import BalanceRetrieveParams
 
 
 class Balance(SingletonAPIResource["Balance"]):
@@ -12,14 +14,9 @@ class Balance(SingletonAPIResource["Balance"]):
     This is an object representing your Stripe balance. You can retrieve it to see
     the balance currently on your Stripe account.
 
-    You can also retrieve the balance history, which contains a list of
-    [transactions](https://stripe.com/docs/reporting/balance-transaction-types) that contributed to the balance
-    (charges, payouts, and so forth).
+    The top-level `available` and `pending` comprise your "payments balance."
 
-    The available and pending amounts for each currency are broken down further by
-    payment source types.
-
-    Related guide: [Understanding Connect account balances](https://stripe.com/docs/connect/account-balances)
+    Related guide: [Balances and settlement time](https://docs.stripe.com/payments/balances), [Understanding Connect account balances](https://docs.stripe.com/connect/account-balances)
     """
 
     OBJECT_NAME: ClassVar[Literal["balance"]] = "balance"
@@ -257,15 +254,9 @@ class Balance(SingletonAPIResource["Balance"]):
         """
         _inner_class_types = {"available": Available, "pending": Pending}
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     available: List[Available]
     """
-    Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
+    Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://api.stripe.com#transfers) or [Payouts API](https://api.stripe.com#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     """
     connect_reserved: Optional[List[ConnectReserved]]
     """
@@ -278,7 +269,7 @@ class Balance(SingletonAPIResource["Balance"]):
     issuing: Optional[Issuing]
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     object: Literal["balance"]
     """
@@ -291,7 +282,7 @@ class Balance(SingletonAPIResource["Balance"]):
     refund_and_dispute_prefunding: Optional[RefundAndDisputePrefunding]
 
     @classmethod
-    def retrieve(cls, **params: Unpack["Balance.RetrieveParams"]) -> "Balance":
+    def retrieve(cls, **params: Unpack["BalanceRetrieveParams"]) -> "Balance":
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.
          For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
@@ -302,7 +293,7 @@ class Balance(SingletonAPIResource["Balance"]):
 
     @classmethod
     async def retrieve_async(
-        cls, **params: Unpack["Balance.RetrieveParams"]
+        cls, **params: Unpack["BalanceRetrieveParams"]
     ) -> "Balance":
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.

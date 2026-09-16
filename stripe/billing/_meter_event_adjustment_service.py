@@ -1,47 +1,28 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.billing._meter_event_adjustment import MeterEventAdjustment
-from typing import List, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
+    from stripe.billing._meter_event_adjustment import MeterEventAdjustment
+    from stripe.params.billing._meter_event_adjustment_create_params import (
+        MeterEventAdjustmentCreateParams,
+    )
 
 
 class MeterEventAdjustmentService(StripeService):
-    class CreateParams(TypedDict):
-        cancel: NotRequired["MeterEventAdjustmentService.CreateParamsCancel"]
-        """
-        Specifies which event to cancel.
-        """
-        event_name: str
-        """
-        The name of the meter event. Corresponds with the `event_name` field on a meter.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        type: Literal["cancel"]
-        """
-        Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
-        """
-
-    class CreateParamsCancel(TypedDict):
-        identifier: NotRequired[str]
-        """
-        Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
-        """
-
     def create(
         self,
-        params: "MeterEventAdjustmentService.CreateParams",
-        options: RequestOptions = {},
-    ) -> MeterEventAdjustment:
+        params: "MeterEventAdjustmentCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "MeterEventAdjustment":
         """
         Creates a billing meter event adjustment.
         """
         return cast(
-            MeterEventAdjustment,
+            "MeterEventAdjustment",
             self._request(
                 "post",
                 "/v1/billing/meter_event_adjustments",
@@ -53,14 +34,14 @@ class MeterEventAdjustmentService(StripeService):
 
     async def create_async(
         self,
-        params: "MeterEventAdjustmentService.CreateParams",
-        options: RequestOptions = {},
-    ) -> MeterEventAdjustment:
+        params: "MeterEventAdjustmentCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "MeterEventAdjustment":
         """
         Creates a billing meter event adjustment.
         """
         return cast(
-            MeterEventAdjustment,
+            "MeterEventAdjustment",
             await self._request_async(
                 "post",
                 "/v1/billing/meter_event_adjustments",

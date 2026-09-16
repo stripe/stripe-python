@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -17,6 +17,11 @@ class LineItem(StripeObject):
 
     OBJECT_NAME: ClassVar[Literal["item"]] = "item"
 
+    class AdjustableQuantity(StripeObject):
+        enabled: bool
+        maximum: Optional[int]
+        minimum: Optional[int]
+
     class Discount(StripeObject):
         amount: int
         """
@@ -24,10 +29,10 @@ class LineItem(StripeObject):
         """
         discount: "DiscountResource"
         """
-        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
         It contains information about when the discount began, when it will end, and what it is applied to.
 
-        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+        Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
         """
 
     class Tax(StripeObject):
@@ -42,22 +47,25 @@ class LineItem(StripeObject):
         Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
         """
         taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
+            Union[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ],
+                str,
             ]
         ]
         """
@@ -68,6 +76,7 @@ class LineItem(StripeObject):
         The amount on which tax is calculated, in cents (or local equivalent).
         """
 
+    adjustable_quantity: Optional[AdjustableQuantity]
     amount_discount: int
     """
     Total discount amount applied. If no discounts were applied, defaults to 0.
@@ -100,6 +109,10 @@ class LineItem(StripeObject):
     """
     Unique identifier for the object.
     """
+    metadata: Optional[UntypedStripeObject[str]]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["item"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -116,4 +129,8 @@ class LineItem(StripeObject):
     """
     The taxes applied to the line item.
     """
-    _inner_class_types = {"discounts": Discount, "taxes": Tax}
+    _inner_class_types = {
+        "adjustable_quantity": AdjustableQuantity,
+        "discounts": Discount,
+        "taxes": Tax,
+    }

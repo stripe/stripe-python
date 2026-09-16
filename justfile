@@ -3,33 +3,43 @@ set quiet
 import? '../sdk-codegen/utils.just'
 
 VENV_NAME := ".venv"
+VENV_BIN := if os() == "windows" { VENV_NAME / "Scripts" } else { VENV_NAME / "bin" }
 
-export PATH := `pwd` / VENV_NAME / "bin:" + env('PATH')
+export PATH := `pwd` / VENV_BIN + ":" + env('PATH')
 
 _default:
     just --list --unsorted
 
+# ⭐ run format, lint, typecheck, and tests to prepare for CI
+prepare: format lint typecheck test
+
 # ⭐ run all unit tests
+[positional-arguments]
 test *args: install-test-deps
     # configured in pyproject.toml
-    pytest {{ args }}
+    pytest "$@"
+
+# run a single test by name
+test-one test_name: install-test-deps
+    # don't use all cores, there's a spin up time to that and we're only using one test
+    pytest -k "{{ test_name }}" -n 0
 
 # ⭐ check for potential mistakes
 lint: install-dev-deps
-    python -m flake8 --show-source stripe tests setup.py
+    python -m flake8 --show-source stripe tests
 
-# verify types. optional argument to test as of a specific minor python version (e.g. `8` to test `python 3.8`); otherwise uses current version
-typecheck minor_py_version="": install-test-deps install-dev-deps
+# verify types using current python version
+typecheck: install-test-deps install-dev-deps
     # suppress version update warnings
-    PYRIGHT_PYTHON_IGNORE_WARNINGS=1 pyright {{ if minor_py_version == "" { "" } else { "--pythonversion 3." + minor_py_version } }}
+    PYRIGHT_PYTHON_IGNORE_WARNINGS=1 pyright
 
 # ⭐ format all code
 format: install-dev-deps
-    ruff format . --quiet
+    ruff format . > /dev/null
 
 # verify formatting, but don't modify files
 format-check: install-dev-deps
-    ruff format . --check  --quiet
+    ruff format . --check > /dev/null
 
 # remove venv & build artifacts
 clean:
@@ -40,6 +50,7 @@ reset: clean && venv
 
 # build the package for upload
 build: install-build-deps
+    rm -rf dist
     python -m build
     python -m twine check dist/*
 
@@ -64,12 +75,15 @@ install group: venv
     # always log deps in CI, but don't do it locally
     python -I -m pip install -r deps/{{ group }}-requirements.txt --disable-pip-version-check {{ if env("CI", "") == "true" {""} else if is_dependency() == "true" {"--quiet"} else {""} }}
 
+update-certs:
+    curl -o stripe/data/ca-certificates.crt https://curl.se/ca/cacert.pem
+
 # create a virtualenv if it doesn't exist; always installs the local package
 [private]
 venv:
     [ -d {{ VENV_NAME }} ] || ( \
         python -m venv {{ VENV_NAME }} && \
-        {{ VENV_NAME }}/bin/python -I -m pip install -e . --quiet --disable-pip-version-check \
+        {{ VENV_BIN }}/python -I -m pip install -e . --quiet --disable-pip-version-check \
     )
 
 # called by tooling
@@ -77,3 +91,22 @@ venv:
 update-version version:
     echo "{{ version }}" > VERSION
     perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "{{ version }}"|' stripe/_version.py
+    perl -pi -e 's|^version = "[.\d\w]+"|version = "{{ version }}"|' pyproject.toml
+
+
+[private]
+profile-imports name:
+    python -X importtime stripe/main.py 2> {{ name }}.txt
+    tuna {{ name }}.txt
+
+[private]
+profile name:
+    python -m cProfile -o {{ name }}.prof stripe/main.py
+    tuna {{ name }}.prof
+
+# ⭐ print the API version this SDK pins and the lowest runtime it supports
+print-version-info:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "pinned-api-version: $(rg -N --color never -m1 -o '[0-9]{4}-[0-9]{2}-[0-9]{2}[.\w-]*' stripe/_api_version.py)"
+    echo "minimum-runtime-version: $(rg -N --color never -o 'requires-python = ">=([^"]+)"' --replace '$1' pyproject.toml)"

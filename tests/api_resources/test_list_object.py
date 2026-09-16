@@ -3,6 +3,9 @@ import json
 import pytest
 
 import stripe
+from stripe._util import convert_to_stripe_object
+from stripe._stripe_object import StripeObject
+from tests.http_client_mock import HTTPClientMock
 
 
 class TestListObject(object):
@@ -95,15 +98,13 @@ class TestListObject(object):
 
     def test_iter(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(arr, api_mode="V1")
+        expected = convert_to_stripe_object(arr, api_mode="V1")
         lo = stripe.ListObject.construct_from({"data": arr}, None)
         assert list(lo) == expected
 
     def test_iter_reversed(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(
-            list(reversed(arr)), api_mode="V1"
-        )
+        expected = convert_to_stripe_object(list(reversed(arr)), api_mode="V1")
         lo = stripe.ListObject.construct_from({"data": arr}, None)
         assert list(reversed(lo)) == expected
 
@@ -242,11 +243,9 @@ class TestListObject(object):
         empty = stripe.ListObject.construct_from(
             {"object": "list", "data": []}, "mykey"
         )
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            {"nested": empty}, "mykey"
-        )
+        obj = StripeObject.construct_from({"nested": empty}, "mykey")
         serialized = str(obj)
-        deserialized = stripe.stripe_object.StripeObject.construct_from(
+        deserialized = StripeObject.construct_from(
             json.loads(serialized), "mykey"
         )
         assert deserialized.nested == empty
@@ -303,6 +302,38 @@ class TestAutoPaging:
             self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
         )
         lo._retrieve_params = {"foo": "bar", "ending_before": "pm_127"}
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_123", "pm_124"], False)
+            ),
+        )
+
+        seen = [item["id"] for item in lo.auto_paging_iter()]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+        )
+
+        assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]
+
+    def test_iter_reverse_none_starting_after(self, http_client_mock):
+        """Test that if `starting_after` is present in the retrieve params, but is
+        `None`, that reverse pagination still occurs as expected.
+        """
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
+        )
+        lo._retrieve_params = {
+            "foo": "bar",
+            "ending_before": "pm_127",
+            "starting_after": None,
+        }
 
         http_client_mock.stub_request(
             "get",
@@ -492,6 +523,115 @@ class TestAutoPaging:
 
     #     assert seen == ["prod_001", "prod_002"]
 
+    def test_iter_with_stripe_account(self, http_client_mock: HTTPClientMock):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers",
+            rbody='{"object": "list", "data": [{"id": "cus_001", "object": "customer"}], "url": "/v1/customers", "has_more": true}',
+        )
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers",
+            query_string="starting_after=cus_001",
+            rbody='{"object": "list", "data": [{"id": "cus_002", "object": "customer"}], "url": "/v1/customers", "has_more": false}',
+        )
+
+        cu_list = stripe.Customer.list(
+            api_key="org_key_abc",
+            stripe_account="ctx_123",
+        )
+
+        customers = [item.id for item in cu_list.auto_paging_iter()]
+        assert customers == ["cus_001", "cus_002"]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            api_key="org_key_abc",
+            stripe_account="ctx_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            query_string="starting_after=cus_001",
+            api_key="org_key_abc",
+            stripe_account="ctx_123",
+        )
+
+    def test_iter_with_stripe_context(self, http_client_mock: HTTPClientMock):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers",
+            rbody='{"object": "list", "data": [{"id": "cus_001", "object": "customer"}], "url": "/v1/customers", "has_more": true}',
+        )
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers",
+            query_string="starting_after=cus_001",
+            rbody='{"object": "list", "data": [{"id": "cus_002", "object": "customer"}], "url": "/v1/customers", "has_more": false}',
+        )
+
+        cu_list = stripe.Customer.list(
+            api_key="org_key_abc",
+            stripe_context="ctx_123",
+        )
+
+        customers = [item.id for item in cu_list.auto_paging_iter()]
+        assert customers == ["cus_001", "cus_002"]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            api_key="org_key_abc",
+            stripe_context="ctx_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            query_string="starting_after=cus_001",
+            api_key="org_key_abc",
+            stripe_context="ctx_123",
+        )
+
+    def test_iter_with_stripe_context_client(
+        self, http_client_mock: HTTPClientMock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers",
+            rbody='{"object": "list", "data": [{"id": "cus_001", "object": "customer"}], "url": "/v1/customers", "has_more": true}',
+        )
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers",
+            query_string="starting_after=cus_001",
+            rbody='{"object": "list", "data": [{"id": "cus_002", "object": "customer"}], "url": "/v1/customers", "has_more": false}',
+        )
+
+        client = stripe.StripeClient(
+            "org_key_abc", http_client=http_client_mock.get_mock_http_client()
+        )
+        cu_list = client.v1.customers.list(
+            options={"stripe_context": "ctx_123"}
+        )
+
+        customers = [item.id for item in cu_list.auto_paging_iter()]
+        assert customers == ["cus_001", "cus_002"]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            api_key="org_key_abc",
+            stripe_context="ctx_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            query_string="starting_after=cus_001",
+            api_key="org_key_abc",
+            stripe_context="ctx_123",
+        )
+
 
 class TestAutoPagingAsync:
     @staticmethod
@@ -547,6 +687,39 @@ class TestAutoPagingAsync:
             self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
         )
         lo._retrieve_params = {"foo": "bar", "ending_before": "pm_127"}
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_123", "pm_124"], False)
+            ),
+        )
+
+        seen = [item["id"] async for item in lo.auto_paging_iter()]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+        )
+
+        assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]
+
+    @pytest.mark.anyio
+    async def test_iter_reverse_none_starting_after(self, http_client_mock):
+        """Test that if `starting_after` is present in the retrieve params, but is
+        `None`, that reverse pagination still occurs as expected.
+        """
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
+        )
+        lo._retrieve_params = {
+            "foo": "bar",
+            "ending_before": "pm_127",
+            "starting_after": None,
+        }
 
         http_client_mock.stub_request(
             "get",

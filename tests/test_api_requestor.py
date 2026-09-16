@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 import tempfile
 import uuid
 from collections import OrderedDict
@@ -9,7 +10,7 @@ import pytest
 import urllib3
 
 import stripe
-from stripe import util
+import io
 from stripe._api_requestor import _api_encode, _APIRequestor
 from stripe._customer import Customer
 from stripe._request_options import RequestOptions
@@ -22,8 +23,13 @@ from stripe._stripe_response import (
     StripeStreamResponse,
     StripeStreamResponseAsync,
 )
+from stripe._util import (
+    validate_path,
+    _convert_to_stripe_object,
+)
 from stripe.v2._deleted_object import DeletedObject
 from tests.http_client_mock import HTTPClientMock
+from tests.test_webhook import generate_header
 
 VALID_API_METHODS = ("get", "post", "delete")
 
@@ -174,10 +180,16 @@ class TestAPIRequestor(object):
             urlencode(expectation).replace("%5B", "[").replace("%5D", "]")
         )
         http_client_mock.stub_request(
-            "get", query_string=query_string, rbody="{}", rcode=200
+            "get",
+            path=self.v1_path,
+            query_string=query_string,
+            rbody="{}",
+            rcode=200,
         )
 
-        requestor.request("get", "", self.ENCODE_INPUTS, base_address="api")
+        requestor.request(
+            "get", self.v1_path, self.ENCODE_INPUTS, base_address="api"
+        )
 
         http_client_mock.assert_requested("get", query_string=query_string)
 
@@ -220,7 +232,7 @@ class TestAPIRequestor(object):
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
-        encoded = list(_api_encode(params, "V1"))
+        encoded = list(_api_encode(params))
         key, value = encoded[0]
 
         assert key == "foo[0][bar]"
@@ -237,7 +249,7 @@ class TestAPIRequestor(object):
                 ]
             )
         }
-        encoded = list(_api_encode(params, "V1"))
+        encoded = list(_api_encode(params))
 
         assert encoded[0][0] == "ordered[one]"
         assert encoded[1][0] == "ordered[two]"
@@ -246,10 +258,11 @@ class TestAPIRequestor(object):
         assert encoded[4][0] == "ordered[nested][b]"
 
     def test_url_construction(self, requestor, http_client_mock):
+        # Paths must be origin-relative -- see validate_path.
         CASES = (
-            (f"{stripe.api_base}?foo=bar", "", {"foo": "bar"}),
-            (f"{stripe.api_base}?foo=bar", "?", {"foo": "bar"}),
-            (stripe.api_base, "", {}),
+            (f"{stripe.api_base}/v1/foo?foo=bar", "/v1/foo", {"foo": "bar"}),
+            (f"{stripe.api_base}/v1/foo?foo=bar", "/v1/foo?", {"foo": "bar"}),
+            (f"{stripe.api_base}/v1/foo", "/v1/foo", {}),
             (
                 f"{stripe.api_base}/%20spaced?baz=5&foo=bar%24",
                 "/%20spaced?foo=bar%24",
@@ -257,8 +270,8 @@ class TestAPIRequestor(object):
             ),
             # duplicate query params keys should be deduped
             (
-                f"{stripe.api_base}?foo=bar",
-                "?foo=bar",
+                f"{stripe.api_base}/v1/foo?foo=bar",
+                "/v1/foo?foo=bar",
                 {"foo": "bar"},
             ),
         )
@@ -296,7 +309,7 @@ class TestAPIRequestor(object):
             http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
 
-            assert resp == {}
+            assert resp.to_dict() == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_async(self, requestor, http_client_mock):
@@ -320,7 +333,7 @@ class TestAPIRequestor(object):
             http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
 
-            assert resp == {}
+            assert resp.to_dict() == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_streaming_response_async(
@@ -363,7 +376,7 @@ class TestAPIRequestor(object):
             http_client_mock.stub_request(
                 meth,
                 path=self.v1_path,
-                rbody=util.io.BytesIO(b"thisisdata"),
+                rbody=io.BytesIO(b"thisisdata"),
                 rcode=200,
             )
 
@@ -415,7 +428,7 @@ class TestAPIRequestor(object):
             )
             assert isinstance(resp, StripeObject)
 
-            assert resp == {"foo": "bar", "baz": 6}
+            assert resp.to_dict() == {"foo": "bar", "baz": 6}
 
             if method == "post":
                 http_client_mock.assert_requested(
@@ -443,7 +456,7 @@ class TestAPIRequestor(object):
                 method,
                 path=self.v1_path,
                 query_string=encoded if method != "post" else "",
-                rbody=util.io.BytesIO(b'{"foo": "bar", "baz": 6}'),
+                rbody=io.BytesIO(b'{"foo": "bar", "baz": 6}'),
                 rcode=200,
             )
 
@@ -572,7 +585,9 @@ class TestAPIRequestor(object):
 
     def test_uses_instance_key(self, requestor, http_client_mock):
         key = "fookey"
-        requestor = requestor._replace_options(RequestOptions(api_key=key))
+        requestor = requestor._new_requestor_with_options(
+            RequestOptions(api_key=key)
+        )
 
         http_client_mock.stub_request(
             "get", path=self.v1_path, rbody="{}", rcode=200
@@ -585,7 +600,7 @@ class TestAPIRequestor(object):
 
     def test_uses_instance_account(self, requestor, http_client_mock):
         account = "acct_foo"
-        requestor = requestor._replace_options(
+        requestor = requestor._new_requestor_with_options(
             RequestOptions(stripe_account=account)
         )
 
@@ -610,7 +625,7 @@ class TestAPIRequestor(object):
         in the generated fetch_related_object doesn't actually send the null header
         """
         account = None
-        requestor = requestor._replace_options(
+        requestor = requestor._new_requestor_with_options(
             RequestOptions(stripe_account=account)
         )
 
@@ -653,9 +668,7 @@ class TestAPIRequestor(object):
     def test_sets_default_http_client(self, mocker):
         assert not stripe.default_http_client
 
-        _APIRequestor(
-            client=mocker.Mock(stripe.http_client.HTTPClient)
-        )._get_http_client()
+        _APIRequestor(client=mocker.Mock(stripe.HTTPClient))._get_http_client()
 
         # default_http_client is not populated if a client is provided
         assert not stripe.default_http_client
@@ -671,7 +684,8 @@ class TestAPIRequestor(object):
         # the newly created client is reused
         assert stripe.default_http_client == new_default_client
 
-    def test_uses_app_info(self, requestor, http_client_mock):
+    def test_uses_app_info(self, requestor, mocker, http_client_mock):
+        mocker.patch.object(_APIRequestor, "_detect_ai_agent", return_value="")
         try:
             old = stripe.app_info
             stripe.set_app_info(
@@ -707,7 +721,67 @@ class TestAPIRequestor(object):
         finally:
             stripe.app_info = old
 
+    def test_detect_ai_agent(self):
+        assert (
+            _APIRequestor._detect_ai_agent({"CLAUDECODE": "1"})
+            == "claude_code"
+        )
+
+    def test_detect_ai_agent_no_env_vars(self):
+        assert _APIRequestor._detect_ai_agent({}) == ""
+
+    def test_detect_ai_agent_first_match_wins(self):
+        assert (
+            _APIRequestor._detect_ai_agent(
+                {"CURSOR_AGENT": "1", "OPENCODE": "1"}
+            )
+            == "cursor"
+        )
+
+    def test_ai_agent_included_in_request_headers(
+        self, requestor, mocker, http_client_mock
+    ):
+        mocker.patch.object(
+            _APIRequestor, "_detect_ai_agent", return_value="cursor"
+        )
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        ua = last_call.get_raw_header("User-Agent")
+        assert ua.endswith(" AIAgent/cursor")
+        client_ua = json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
+        )
+        assert client_ua["ai_agent"] == "cursor"
+
     def test_handles_failed_platform_call(
+        self, requestor, mocker, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+
+        def fail():
+            raise RuntimeError
+
+        mocker.patch("platform.platform", side_effect=fail)
+
+        stripe.enable_telemetry = True
+        requestor.request("get", self.v1_path, {}, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        last_call.assert_method("get")
+        assert (
+            json.loads(last_call.get_raw_header("X-Stripe-Client-User-Agent"))[
+                "platform"
+            ]
+            == "(disabled)"
+        )
+
+    def test_platform_only_used_with_telemetry(
         self, requestor, mocker, http_client_mock
     ):
         http_client_mock.stub_request(
@@ -723,12 +797,44 @@ class TestAPIRequestor(object):
 
         last_call = http_client_mock.get_last_call()
         last_call.assert_method("get")
-        assert (
-            json.loads(last_call.get_raw_header("X-Stripe-Client-User-Agent"))[
-                "platform"
-            ]
-            == "(disabled)"
+        assert "platform" not in json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
         )
+
+    def test_telemetry_id_field_is_hex(
+        self, requestor, mocker, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+        mocker.patch("stripe.enable_telemetry", True)
+        mocker.patch(
+            "stripe._telemetry_id.get_telemetry_id",
+            return_value="abcdef1234567890abcdef1234567890",
+        )
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        client_ua = json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
+        )
+        assert "telemetry_id" in client_ua
+        assert re.fullmatch(r"[0-9a-f]{32}", client_ua["telemetry_id"])
+
+    def test_telemetry_id_absent_when_telemetry_disabled(
+        self, requestor, mocker, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+        mocker.patch("stripe.enable_telemetry", False)
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        client_ua = json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
+        )
+        assert "telemetry_id" not in client_ua
 
     def test_uses_given_idempotency_key(self, requestor, http_client_mock):
         method = "post"
@@ -790,7 +896,7 @@ class TestAPIRequestor(object):
     def test_fails_without_api_key(self, requestor):
         stripe.api_key = None
 
-        with pytest.raises(stripe.error.AuthenticationError):
+        with pytest.raises(stripe.AuthenticationError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_invalid_request_error_404(self, requestor, http_client_mock):
@@ -798,7 +904,7 @@ class TestAPIRequestor(object):
             "get", path=self.v1_path, rbody='{"error": {}}', rcode=404
         )
 
-        with pytest.raises(stripe.error.InvalidRequestError):
+        with pytest.raises(stripe.InvalidRequestError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_invalid_request_error_400(self, requestor, http_client_mock):
@@ -806,7 +912,7 @@ class TestAPIRequestor(object):
             "get", path=self.v1_path, rbody='{"error": {}}', rcode=400
         )
 
-        with pytest.raises(stripe.error.InvalidRequestError):
+        with pytest.raises(stripe.InvalidRequestError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_idempotency_error(self, requestor, http_client_mock):
@@ -817,7 +923,7 @@ class TestAPIRequestor(object):
             rcode=400,
         )
 
-        with pytest.raises(stripe.error.IdempotencyError):
+        with pytest.raises(stripe.IdempotencyError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_authentication_error(self, requestor, http_client_mock):
@@ -825,7 +931,7 @@ class TestAPIRequestor(object):
             "get", path=self.v1_path, rbody='{"error": {}}', rcode=401
         )
 
-        with pytest.raises(stripe.error.AuthenticationError):
+        with pytest.raises(stripe.AuthenticationError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_permissions_error(self, requestor, http_client_mock):
@@ -833,7 +939,7 @@ class TestAPIRequestor(object):
             "get", path=self.v1_path, rbody='{"error": {}}', rcode=403
         )
 
-        with pytest.raises(stripe.error.PermissionError):
+        with pytest.raises(stripe.PermissionError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_card_error(self, requestor, http_client_mock):
@@ -844,7 +950,7 @@ class TestAPIRequestor(object):
             rcode=402,
         )
 
-        with pytest.raises(stripe.error.CardError) as excinfo:
+        with pytest.raises(stripe.CardError) as excinfo:
             requestor.request("get", self.v1_path, {}, base_address="api")
         assert excinfo.value.code == "invalid_expiry_year"
 
@@ -853,7 +959,7 @@ class TestAPIRequestor(object):
             "get", path=self.v1_path, rbody='{"error": {}}', rcode=429
         )
 
-        with pytest.raises(stripe.error.RateLimitError):
+        with pytest.raises(stripe.RateLimitError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_old_rate_limit_error(self, requestor, http_client_mock):
@@ -867,7 +973,7 @@ class TestAPIRequestor(object):
             rcode=400,
         )
 
-        with pytest.raises(stripe.error.RateLimitError):
+        with pytest.raises(stripe.RateLimitError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_server_error(self, requestor, http_client_mock):
@@ -875,7 +981,7 @@ class TestAPIRequestor(object):
             "get", path=self.v1_path, rbody='{"error": {}}', rcode=500
         )
 
-        with pytest.raises(stripe.error.APIError):
+        with pytest.raises(stripe.APIError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_invalid_json(self, requestor, http_client_mock):
@@ -883,12 +989,12 @@ class TestAPIRequestor(object):
             "get", path=self.v1_path, rbody="{", rcode=200
         )
 
-        with pytest.raises(stripe.error.APIError):
+        with pytest.raises(stripe.APIError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
     def test_invalid_method(self, requestor):
-        with pytest.raises(stripe.error.APIConnectionError):
-            requestor.request("foo", "bar", base_address="api")
+        with pytest.raises(stripe.APIConnectionError):
+            requestor.request("foo", self.v1_path, base_address="api")
 
     def test_oauth_invalid_requestor_error(self, requestor, http_client_mock):
         http_client_mock.stub_request(
@@ -929,7 +1035,7 @@ class TestAPIRequestor(object):
         http_client_mock.stub_request(
             "get",
             path=self.v1_path,
-            rbody=util.io.BytesIO(b'{"error": "invalid_grant"}'),
+            rbody=io.BytesIO(b'{"error": "invalid_grant"}'),
             rcode=400,
         )
 
@@ -946,7 +1052,7 @@ class TestAPIRequestor(object):
             "get",
             path=self.v1_path,
             rbody=urllib3.response.HTTPResponse(
-                body=util.io.BytesIO(b'{"error": "invalid_grant"}'),
+                body=io.BytesIO(b'{"error": "invalid_grant"}'),
                 preload_content=False,
             ),
             rcode=400,
@@ -954,6 +1060,72 @@ class TestAPIRequestor(object):
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request_stream(
+                "get", self.v1_path, {}, base_address="api"
+            )
+
+    def test_stripe_notice_header_emits_warning(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+            rheaders={"Stripe-Notice": "test notice value"},
+        )
+
+        with pytest.warns(UserWarning, match="test notice value"):
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+    @pytest.mark.anyio
+    async def test_stripe_notice_header_emits_warning_async(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+            rheaders={"Stripe-Notice": "test notice value"},
+        )
+
+        with pytest.warns(UserWarning, match="test notice value"):
+            await requestor.request_async(
+                "get", self.v1_path, {}, base_address="api"
+            )
+
+    def test_no_stripe_notice_header_emits_no_warning(
+        self, requestor, http_client_mock
+    ):
+        import warnings
+
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+        )
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+    @pytest.mark.anyio
+    async def test_no_stripe_notice_header_emits_no_warning_async(
+        self, requestor, http_client_mock
+    ):
+        import warnings
+
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+        )
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            await requestor.request_async(
                 "get", self.v1_path, {}, base_address="api"
             )
 
@@ -974,6 +1146,124 @@ class TestAPIRequestor(object):
             base_address="api",
         )
         assert supplied_headers["Content-Type"] == "multipart/form-data"
+
+    ORIGIN_RELATIVE_PATHS = [
+        "/v1/customers/cus_123",
+        "/v1/customers",
+        "/v2/core/accounts?page=page_123&limit=2",
+        # "@" is legal inside a path or query string -- it only opens an
+        # authority when it precedes the first "/".
+        "/v1/customers?email=user%40example.com",
+        "/v1/invoices/in_123@456",
+        # A backslash does not open an authority: the "/" already closed it.
+        "/v1/\\evil.example",
+    ]
+
+    HOSTILE_PATHS = [
+        # Concatenated onto a base address with no trailing slash, each of these
+        # moves the request's authority off api.stripe.com.
+        "@evil.example/v1/leak",
+        ":pw@evil.example/v1/leak",
+        ":80@evil.example/v1/leak",
+        # Extends the host into an attacker-owned subdomain
+        # (api.stripe.com.evil.example), which has a valid certificate.
+        ".evil.example/v1/leak",
+        "-evil.example/v1/leak",
+        "https://evil.example/v1/leak",
+        "//evil.example/v1/leak",
+        "",
+        "v1/customers",
+    ]
+
+    @pytest.mark.parametrize("path", ORIGIN_RELATIVE_PATHS)
+    def test_accepts_origin_relative_path(self, path):
+        validate_path(path)
+
+    @pytest.mark.parametrize("path", HOSTILE_PATHS)
+    def test_rejects_hostile_path(self, path):
+        with pytest.raises(ValueError):
+            validate_path(path)
+
+    @pytest.mark.parametrize("path", HOSTILE_PATHS)
+    def test_request_rejects_hostile_path_without_issuing_request(
+        self, path, requestor, http_client_mock
+    ):
+        with pytest.raises(ValueError):
+            requestor.request("get", path, base_address="api")
+
+        http_client_mock.assert_no_request()
+
+    def test_raw_request_rejects_hostile_path_without_issuing_request(
+        self, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+
+        with pytest.raises(ValueError):
+            client.raw_request("get", "@evil.example/v1/leak")
+
+        http_client_mock.assert_no_request()
+
+    def test_fetch_related_object_rejects_hostile_url_without_issuing_request(
+        self, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+        payload = json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v2.core.account.created",
+                "created": "2026-01-01T00:00:00Z",
+                "related_object": {
+                    "id": "acct_123",
+                    "type": "account",
+                    "url": "@evil.example/v1/leak",
+                },
+            }
+        )
+        secret = "whsec_test_secret"
+        header = generate_header(payload=payload, secret=secret)
+
+        notification = client.parse_event_notification(payload, header, secret)
+
+        with pytest.raises(ValueError):
+            notification.fetch_related_object()
+
+        http_client_mock.assert_no_request()
+
+    def test_v1_payload_does_not_produce_v2_list_object(self, requestor):
+        # A signature-verified v1 webhook body is attacker-shaped. Without the
+        # api_mode gate, `lines` here became an auto-paginating v2 collection
+        # whose next_page_url chose the host of the next authenticated request.
+        obj = _convert_to_stripe_object(
+            resp={
+                "id": "in_123",
+                "object": "invoice",
+                "lines": {
+                    "data": [{"id": "il_123"}],
+                    "next_page_url": "@evil.example/v1/leak",
+                },
+            },
+            requestor=requestor,
+            api_mode="V1",
+        )
+
+        assert not isinstance(obj["lines"], stripe.v2.ListObject)
+
+    def test_v2_response_still_produces_v2_list_object(self, requestor):
+        obj = _convert_to_stripe_object(
+            resp={
+                "data": [{"id": "acct_123"}],
+                "next_page_url": "/v2/core/accounts?page=page_123",
+            },
+            requestor=requestor,
+            api_mode="V2",
+        )
+
+        assert isinstance(obj, stripe.v2.ListObject)
 
 
 class TestDefaultClient(object):

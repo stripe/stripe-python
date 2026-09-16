@@ -1,0 +1,1526 @@
+import anyio
+import json
+import pytest
+from typing import Optional
+from unittest.mock import AsyncMock, Mock
+
+from stripe import SignatureVerificationError, StripeClient
+from stripe._event_notification_handler import (
+    AsyncStripeEventNotificationHandler,
+    AsyncStripeEventNotificationHandlerWithoutVerification,
+    StripeEventNotificationHandler,
+    StripeEventNotificationHandlerWithoutVerification,
+    UnhandledNotificationDetails,
+)
+from stripe._stripe_context import StripeContext
+from stripe.events._v1_billing_meter_error_report_triggered_event import (
+    V1BillingMeterErrorReportTriggeredEventNotification,
+)
+from stripe.events._v2_core_account_created_event import (
+    V2CoreAccountCreatedEventNotification,
+)
+from stripe.v2.core._event import EventNotification, UnknownEventNotification
+from tests.http_client_mock import HTTPClientMock
+from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
+
+
+class TestEventNotificationHandler:
+    @pytest.fixture(scope="function")
+    def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
+        return StripeClient(
+            api_key="sk_test_1234",
+            stripe_context=StripeContext.parse("original_context_123"),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+    @pytest.fixture(scope="function")
+    def fallback_callback(self) -> Mock:
+        """Mock handler for unhandled events"""
+        return Mock()
+
+    @pytest.fixture(scope="function")
+    def event_handler(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> StripeEventNotificationHandler:
+        return StripeEventNotificationHandler(
+            client=stripe_client,
+            webhook_secret=DUMMY_WEBHOOK_SECRET,
+            fallback_callback=fallback_callback,
+        )
+
+    @pytest.fixture(scope="function")
+    def v1_billing_meter_payload(self) -> str:
+        """A payload for v1.billing.meter.error_report_triggered event"""
+        return json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.billing.meter.error_report_triggered",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_456",
+                "related_object": {
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
+                },
+            }
+        )
+
+    @pytest.fixture(scope="function")
+    def v2_account_created_payload(self) -> str:
+        """A payload for v2.core.account.created event with None context"""
+        return json.dumps(
+            {
+                "id": "evt_789",
+                "object": "v2.core.event",
+                "type": "v2.core.account.created",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": None,
+                "related_object": {
+                    "id": "acct_abc",
+                    "type": "account",
+                    "url": "/v2/core/accounts/acct_abc",
+                },
+            }
+        )
+
+    @pytest.fixture(scope="function")
+    def unknown_event_payload(self) -> str:
+        """A payload for an unknown event type (llama.created)"""
+        return json.dumps(
+            {
+                "id": "evt_unknown",
+                "object": "v2.core.event",
+                "type": "llama.created",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_unknown",
+                "related_object": {
+                    "id": "llama_123",
+                    "type": "llama",
+                    "url": "/v1/llamas/llama_123",
+                },
+            }
+        )
+
+    def test_routes_event_to_registered_handler(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Test that a registered event type is routed to the correct handler"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_called_once()
+
+        call_args = handler.call_args[0]
+        assert isinstance(
+            call_args[0], V1BillingMeterErrorReportTriggeredEventNotification
+        )
+
+        fallback_callback.assert_not_called()
+
+    def test_routes_different_events_to_correct_handlers(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        v2_account_created_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Test that different event types route to their respective handlers"""
+        billing_handler = Mock()
+        account_handler = Mock()
+
+        event_handler.on_v1_billing_meter_error_report_triggered(
+            billing_handler
+        )
+        event_handler.on_v2_core_account_created(account_handler)
+
+        sig_header1 = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header1)
+
+        sig_header2 = generate_header(payload=v2_account_created_payload)
+        event_handler.handle(v2_account_created_payload, sig_header2)
+
+        billing_handler.assert_called_once()
+        account_handler.assert_called_once()
+
+        assert isinstance(
+            billing_handler.call_args[0][0],
+            V1BillingMeterErrorReportTriggeredEventNotification,
+        )
+        assert isinstance(
+            account_handler.call_args[0][0],
+            V2CoreAccountCreatedEventNotification,
+        )
+
+        fallback_callback.assert_not_called()
+
+    def test_handler_receives_correct_runtime_type(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Test that handlers receive the correctly typed event notification"""
+        received_event: Optional[EventNotification] = None
+        received_client: Optional[StripeClient] = None
+
+        def handler(
+            event: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            nonlocal received_event, received_client
+            received_event = event
+            received_client = client
+
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert isinstance(
+            received_event, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert received_event.type == "v1.billing.meter.error_report_triggered"
+        assert received_event.id == "evt_123"
+        assert received_event.related_object.id == "mtr_123"
+        assert isinstance(received_client, StripeClient)
+
+    def test_cannot_register_handler_after_handling(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Test that registering handlers after handle() raises RuntimeError"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new callbacks after an event has been handled",
+        ):
+            event_handler.on_v2_core_account_created(Mock())
+
+    def test_failed_parse_still_prevents_registration(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Attempting to handle an event locks registration even if the parse fails"""
+        with pytest.raises(SignatureVerificationError):
+            event_handler.handle(v1_billing_meter_payload, "t=1,v1=not-a-sig")
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new callbacks after an event has been handled",
+        ):
+            event_handler.on_v2_core_account_created(Mock())
+
+    def test_cannot_register_duplicate_handler(
+        self, event_handler: StripeEventNotificationHandler
+    ) -> None:
+        """Test that registering the same event type twice raises ValueError"""
+        handler1 = Mock()
+        handler2 = Mock()
+
+        event_handler.on_v1_billing_meter_error_report_triggered(handler1)
+
+        with pytest.raises(
+            ValueError,
+            match='Callback for event type "v1.billing.meter.error_report_triggered" is already registered',
+        ):
+            event_handler.on_v1_billing_meter_error_report_triggered(handler2)
+
+    def test_handler_uses_event_stripe_context(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        """Test that the handler receives a client with stripe_context from the event"""
+        received_context: Optional[StripeContext | str] = None
+
+        def handler(
+            event: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert str(received_context) == "event_context_456"
+
+    def test_stripe_context_restored_after_handler_success(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        """Test that the original stripe_context is restored after successful handler execution"""
+
+        def handler(
+            event: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            assert (
+                str(client._requestor._options.stripe_context)
+                == "event_context_456"
+            )
+
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    def test_stripe_context_restored_after_handler_error(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        """Test that the original stripe_context is restored even when handler raises an exception"""
+
+        def handler(
+            event: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            assert (
+                str(client._requestor._options.stripe_context)
+                == "event_context_456"
+            )
+            raise RuntimeError("Handler error!")
+
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+
+        with pytest.raises(RuntimeError, match="Handler error!"):
+            event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    def test_stripe_context_set_to_none_when_event_has_no_context(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v2_account_created_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        """Test that stripe_context is set to None when event context is None"""
+        received_context: Optional[StripeContext | str] = None
+
+        def handler(
+            event: V2CoreAccountCreatedEventNotification, client: StripeClient
+        ) -> None:
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+
+        event_handler.on_v2_core_account_created(handler)
+
+        # Verify we're working with StripeContext instances
+        assert isinstance(
+            stripe_client._requestor._options.stripe_context, StripeContext
+        )
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+        sig_header = generate_header(payload=v2_account_created_payload)
+        event_handler.handle(v2_account_created_payload, sig_header)
+
+        assert received_context is None
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    def test_unknown_event_routes_to_on_unhandled(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        unknown_event_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Test that events without SDK types route to on_unhandled handler"""
+        sig_header = generate_header(payload=unknown_event_payload)
+
+        event_handler.handle(unknown_event_payload, sig_header)
+
+        fallback_callback.assert_called_once()
+
+        call_args = fallback_callback.call_args[0]
+        event_notif = call_args[0]
+        client = call_args[1]
+        info = call_args[2]
+
+        assert isinstance(event_notif, UnknownEventNotification)
+        assert event_notif.type == "llama.created"
+        assert isinstance(client, StripeClient)
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is False
+
+    def test_known_unregistered_event_routes_to_on_unhandled(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Test that known event types without a registered handler route to on_unhandled"""
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        fallback_callback.assert_called_once()
+
+        call_args = fallback_callback.call_args[0]
+        event_notif = call_args[0]
+        client = call_args[1]
+        info = call_args[2]
+
+        assert isinstance(
+            event_notif, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert event_notif.type == "v1.billing.meter.error_report_triggered"
+        assert isinstance(client, StripeClient)
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is True
+
+    def test_registered_event_does_not_call_on_unhandled(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Test that registered events don't trigger on_unhandled"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_called_once()
+        fallback_callback.assert_not_called()
+
+    def test_handler_client_retains_configuration(
+        self,
+        http_client_mock: HTTPClientMock,
+        fallback_callback: Mock,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Test that the client passed to handlers retains all configuration except stripe_context"""
+        api_key = "sk_test_custom_key"
+        original_context = "original_context_xyz"
+
+        client = StripeClient(
+            api_key=api_key,
+            stripe_context=StripeContext.parse(original_context),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        notif_handler = StripeEventNotificationHandler(
+            client=client,
+            webhook_secret=DUMMY_WEBHOOK_SECRET,
+            fallback_callback=fallback_callback,
+        )
+
+        received_api_key: Optional[str] = None
+        received_context: Optional[StripeContext | str] = None
+
+        def handler(
+            event: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            nonlocal received_api_key, received_context
+            received_api_key = client._requestor.api_key
+            received_context = client._requestor._options.stripe_context
+
+        notif_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        notif_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert received_api_key == api_key
+        assert str(received_context) == "event_context_456"
+        assert (
+            str(client._requestor._options.stripe_context) == original_context
+        )
+
+    def test_on_unhandled_receives_correct_info_for_unknown(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        unknown_event_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Test that on_unhandled receives correct UnhandledNotificationDetails for unknown events"""
+        sig_header = generate_header(payload=unknown_event_payload)
+
+        event_handler.handle(unknown_event_payload, sig_header)
+
+        fallback_callback.assert_called_once()
+        info = fallback_callback.call_args[0][2]
+
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is False
+
+    def test_on_unhandled_receives_correct_info_for_known_unregistered(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Test that on_unhandled receives correct UnhandledNotificationDetails for known unregistered events"""
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        fallback_callback.assert_called_once()
+        info = fallback_callback.call_args[0][2]
+
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is True
+
+    def test_validates_webhook_signature(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Test that invalid webhook signatures are rejected"""
+        from stripe._error import SignatureVerificationError
+
+        with pytest.raises(SignatureVerificationError):
+            event_handler.handle(v1_billing_meter_payload, "invalid_signature")
+
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    def test_handles_binary_webhook_body(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        """The body can arrive as bytes or a bytearray, which is how many frameworks expose it"""
+        callback = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(encode(v1_billing_meter_payload), sig_header)
+
+        callback.assert_called_once()
+
+    @pytest.mark.parametrize("sig_header", [None, ""])
+    def test_rejects_missing_sig_header(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        sig_header: Optional[str],
+    ) -> None:
+        """A missing header (a common integration mistake) gets its own error message"""
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No Stripe-Signature header value was provided",
+        ):
+            event_handler.handle(v1_billing_meter_payload, sig_header)
+
+    def test_registered_event_types_empty(
+        self, event_handler: StripeEventNotificationHandler
+    ) -> None:
+        """Test that registered_event_types returns empty list when no handlers are registered"""
+        assert event_handler.registered_event_types == []
+
+    def test_registered_event_types_single(
+        self, event_handler: StripeEventNotificationHandler
+    ) -> None:
+        """Test that registered_event_types returns a single event type"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        assert event_handler.registered_event_types == [
+            "v1.billing.meter.error_report_triggered"
+        ]
+
+    def test_registered_event_types_multiple_alphabetized(
+        self, event_handler: StripeEventNotificationHandler
+    ) -> None:
+        """Test that registered_event_types returns multiple event types in alphabetical order"""
+        handler = Mock()
+
+        # Register in non-alphabetical order
+        event_handler.on_v2_core_account_updated(handler)
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+        event_handler.on_v2_core_account_created(handler)
+
+        expected = [
+            "v1.billing.meter.error_report_triggered",
+            "v2.core.account.created",
+            "v2.core.account.updated",
+        ]
+
+        assert event_handler.registered_event_types == expected
+
+    def test_can_call_wrapped_functions(
+        self, event_handler: StripeEventNotificationHandler
+    ):
+        @event_handler.on_v1_billing_meter_error_report_triggered  # type: ignore
+        def rand_int(notif, client):
+            """cool docstring"""
+            return 4
+
+        assert rand_int(None, None) == 4  # type: ignore
+
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: Mock,
+        webhook_secret: Optional[str],
+    ) -> None:
+        """`webhook_secret` is typed as optional for web framework ergonomics, but a missing one is still an error"""
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            StripeEventNotificationHandler(
+                client=stripe_client,
+                webhook_secret=webhook_secret,
+                fallback_callback=fallback_callback,
+            )
+
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_client_factory_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: Mock,
+        webhook_secret: Optional[str],
+    ) -> None:
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            stripe_client.notification_handler(
+                webhook_secret, fallback_callback
+            )
+
+    def test_no_pre_handle_hook_registered_handler_still_runs(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """Regression: with no pre_handle hook registered, behavior is unchanged"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_called_once()
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_returning_true_runs_before_handler(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """A pre_handle hook that returns True runs first, then the handler runs"""
+        call_order: list[str] = []
+
+        @event_handler.pre_handle
+        def pre_handle(event, client) -> bool:
+            call_order.append("pre_handle")
+            return True
+
+        @event_handler.on_v1_billing_meter_error_report_triggered
+        def handler(event, client) -> None:
+            call_order.append("handler")
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert call_order == ["pre_handle", "handler"]
+
+    def test_pre_handle_returning_false_skips_registered_handler(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook that returns False prevents the registered handler from running"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+        event_handler.pre_handle(lambda event, client: False)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_not_called()
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_returning_false_skips_fallback_for_unregistered_event(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook that returns False also prevents the fallback callback
+        from running for an unregistered (or unknown) event type"""
+        event_handler.pre_handle(lambda event, client: False)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_receives_context_scoped_client(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        """The client passed to pre_handle has the event's context, and the
+        handler's own client is left unmutated"""
+        received_context: Optional[StripeContext | str] = None
+
+        @event_handler.pre_handle
+        def pre_handle(event, client) -> bool:
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+            return True
+
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        assert str(received_context) == "event_context_456"
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    def test_pre_handle_raising_propagates_and_prevents_callbacks(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """An exception raised from pre_handle propagates out of handle() and
+        no callback runs"""
+        handler = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(handler)
+
+        def pre_handle(event, client) -> bool:
+            raise RuntimeError("pre_handle blew up!")
+
+        event_handler.pre_handle(pre_handle)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        with pytest.raises(RuntimeError, match="pre_handle blew up!"):
+            event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        handler.assert_not_called()
+        fallback_callback.assert_not_called()
+
+    def test_cannot_register_pre_handle_after_handling(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """Registering pre_handle after .handle() has been called raises RuntimeError"""
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        event_handler.handle(v1_billing_meter_payload, sig_header)
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new callbacks after an event has been handled",
+        ):
+            event_handler.pre_handle(lambda event, client: True)
+
+    def test_cannot_register_duplicate_pre_handle(
+        self, event_handler: StripeEventNotificationHandler
+    ) -> None:
+        """Registering a second pre_handle hook raises ValueError"""
+        event_handler.pre_handle(lambda event, client: True)
+
+        with pytest.raises(
+            ValueError, match="A pre_handle callback is already registered"
+        ):
+            event_handler.pre_handle(lambda event, client: True)
+
+    def test_pre_handle_works_as_a_decorator(
+        self, event_handler: StripeEventNotificationHandler
+    ):
+        @event_handler.pre_handle  # type: ignore
+        def rand_int(notif, client):
+            """cool docstring"""
+            return 4
+
+        assert rand_int(None, None) == 4  # type: ignore
+
+
+class TestEventNotificationHandlerWithoutVerification:
+    @pytest.fixture(scope="function")
+    def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
+        return StripeClient(
+            api_key="sk_test_1234",
+            stripe_context=StripeContext.parse("original_context_123"),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+    @pytest.fixture(scope="function")
+    def fallback_callback(self) -> Mock:
+        return Mock()
+
+    @pytest.fixture(scope="function")
+    def handler_without_verification(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> StripeEventNotificationHandlerWithoutVerification:
+        return StripeEventNotificationHandler.without_verification(
+            client=stripe_client,
+            fallback_callback=fallback_callback,
+        )
+
+    @pytest.fixture(scope="function")
+    def v1_billing_meter_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.billing.meter.error_report_triggered",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_456",
+                "related_object": {
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
+                },
+            }
+        )
+
+    @pytest.fixture(scope="function")
+    def unknown_event_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_unknown",
+                "object": "v2.core.event",
+                "type": "llama.created",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_unknown",
+                "related_object": {
+                    "id": "llama_123",
+                    "type": "llama",
+                    "url": "/v1/llamas/llama_123",
+                },
+            }
+        )
+
+    def test_routes_event_to_registered_handler(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        handler.assert_called_once()
+        call_args = handler.call_args[0]
+        assert isinstance(
+            call_args[0], V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        fallback_callback.assert_not_called()
+
+    def test_handle_takes_single_argument(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+
+        # No signature needed - just the payload
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        handler.assert_called_once()
+
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    def test_handles_binary_webhook_body(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+
+        handler_without_verification.handle(encode(v1_billing_meter_payload))
+
+        handler.assert_called_once()
+
+    def test_fallback_receives_unregistered_events(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        fallback_callback.assert_called_once()
+        info = fallback_callback.call_args[0][2]
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is True
+
+    def test_unknown_event_has_is_known_event_type_false(
+        self,
+        handler_without_verification,
+        unknown_event_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        handler_without_verification.handle(unknown_event_payload)
+
+        fallback_callback.assert_called_once()
+        info = fallback_callback.call_args[0][2]
+        assert info.is_known_event_type is False
+
+    def test_context_propagation(
+        self,
+        handler_without_verification,
+        v1_billing_meter_payload: str,
+        stripe_client: StripeClient,
+    ) -> None:
+        received_context = None
+
+        def handler(event, client):
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        assert str(received_context) == "event_context_456"
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    def test_static_factory(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> None:
+        handler = StripeEventNotificationHandler.without_verification(
+            stripe_client, fallback_callback
+        )
+        assert isinstance(
+            handler, StripeEventNotificationHandlerWithoutVerification
+        )
+
+    def test_failed_parse_still_prevents_registration(
+        self,
+        handler_without_verification: StripeEventNotificationHandlerWithoutVerification,
+    ) -> None:
+        """Attempting to handle an event locks registration even if the parse fails"""
+        with pytest.raises(ValueError):
+            handler_without_verification.handle("not json")
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new callbacks after an event has been handled",
+        ):
+            handler_without_verification.on_v2_core_account_created(Mock())
+
+    def test_handlers_are_siblings_not_subclasses(self) -> None:
+        """
+        Neither handler is substitutable for the other, so neither should be a
+        subclass of the other. Each defines its own `handle` over a shared base.
+        """
+        assert not issubclass(
+            StripeEventNotificationHandler,
+            StripeEventNotificationHandlerWithoutVerification,
+        )
+        assert not issubclass(
+            StripeEventNotificationHandlerWithoutVerification,
+            StripeEventNotificationHandler,
+        )
+
+    def test_client_factory(
+        self, stripe_client: StripeClient, fallback_callback: Mock
+    ) -> None:
+        handler = stripe_client.notification_handler_without_verification(
+            fallback_callback
+        )
+        assert handler is not None
+        assert hasattr(handler, "handle")
+
+    def test_handles_cloud_provider_envelope(
+        self,
+        handler_without_verification,
+    ) -> None:
+        """Test that events wrapped in cloud provider envelopes are parsed correctly"""
+        inner_payload = {
+            "id": "evt_123",
+            "object": "v2.core.event",
+            "type": "v1.billing.meter.error_report_triggered",
+            "livemode": False,
+            "created": "2022-02-15T00:27:45.330Z",
+            "context": "event_context_456",
+            "related_object": {
+                "id": "mtr_123",
+                "type": "billing.meter",
+                "url": "/v1/billing/meters/mtr_123",
+            },
+        }
+        # AWS EventBridge envelope
+        eventbridge_payload = json.dumps(
+            {
+                "version": "0",
+                "id": "abc-123",
+                "source": "aws.partner/stripe.com/ed_xxx",
+                "detail-type": "event",
+                "detail": inner_payload,
+            }
+        )
+
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+        handler_without_verification.handle(eventbridge_payload)
+
+        handler.assert_called_once()
+        call_args = handler.call_args[0]
+        assert isinstance(
+            call_args[0], V1BillingMeterErrorReportTriggeredEventNotification
+        )
+
+    def test_pre_handle_gates_registered_handler(
+        self,
+        handler_without_verification: StripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook returning False also gates the without-verification
+        handler, preventing the registered handler from running"""
+        handler = Mock()
+        handler_without_verification.on_v1_billing_meter_error_report_triggered(
+            handler
+        )
+        handler_without_verification.pre_handle(lambda event, client: False)
+
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        handler.assert_not_called()
+        fallback_callback.assert_not_called()
+
+    def test_pre_handle_gates_fallback(
+        self,
+        handler_without_verification: StripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        fallback_callback: Mock,
+    ) -> None:
+        """A pre_handle hook returning False also prevents the fallback
+        callback from running on the without-verification handler"""
+        handler_without_verification.pre_handle(lambda event, client: False)
+
+        handler_without_verification.handle(v1_billing_meter_payload)
+
+        fallback_callback.assert_not_called()
+
+
+class TestAsyncEventNotificationHandler:
+    @pytest.fixture(scope="function")
+    def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
+        return StripeClient(
+            api_key="sk_test_1234",
+            stripe_context=StripeContext.parse("original_context_123"),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+    @pytest.fixture(scope="function")
+    def fallback_callback(self) -> AsyncMock:
+        return AsyncMock()
+
+    @pytest.fixture(scope="function")
+    def event_handler(
+        self, stripe_client: StripeClient, fallback_callback: AsyncMock
+    ) -> AsyncStripeEventNotificationHandler:
+        return AsyncStripeEventNotificationHandler(
+            client=stripe_client,
+            webhook_secret=DUMMY_WEBHOOK_SECRET,
+            fallback_callback=fallback_callback,
+        )
+
+    @pytest.fixture(scope="function")
+    def v1_billing_meter_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.billing.meter.error_report_triggered",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_456",
+                "related_object": {
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
+                },
+            }
+        )
+
+    @pytest.fixture(scope="function")
+    def unknown_event_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_unknown",
+                "object": "v2.core.event",
+                "type": "llama.created",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_unknown",
+                "related_object": {
+                    "id": "llama_123",
+                    "type": "llama",
+                    "url": "/v1/llamas/llama_123",
+                },
+            }
+        )
+
+    @pytest.mark.anyio
+    async def test_routes_event_to_registered_async_callback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        """An `async def` callback is actually awaited, not discarded"""
+        received: Optional[EventNotification] = None
+
+        async def callback(
+            notif: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            nonlocal received
+            received = notif
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert isinstance(
+            received, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert received.id == "evt_123"
+        fallback_callback.assert_not_called()
+
+    @pytest.mark.anyio
+    async def test_handle_async_awaits_callback_across_a_yield(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        """A callback that yields to the event loop still completes before handle_async returns"""
+        finished = False
+
+        async def callback(notif, client) -> None:
+            nonlocal finished
+            await anyio.sleep(0)
+            finished = True
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert finished
+
+    @pytest.mark.anyio
+    async def test_async_pre_handle_runs_before_callback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        order = []
+
+        async def hook(notif, client) -> bool:
+            await anyio.sleep(0)
+            order.append("pre_handle")
+            return True
+
+        async def callback(notif, client) -> None:
+            order.append("callback")
+
+        event_handler.pre_handle(hook)
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert order == ["pre_handle", "callback"]
+
+    @pytest.mark.anyio
+    async def test_async_pre_handle_returning_false_stops_callback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        callback = AsyncMock()
+
+        async def hook(notif, client) -> bool:
+            await anyio.sleep(0)
+            return False
+
+        event_handler.pre_handle(hook)
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        callback.assert_not_called()
+
+    @pytest.mark.anyio
+    async def test_async_pre_handle_returning_false_stops_fallback(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        unknown_event_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        """Returning False gates the fallback too, not just registered callbacks"""
+
+        async def hook(notif, client) -> bool:
+            return False
+
+        event_handler.pre_handle(hook)
+
+        sig_header = generate_header(payload=unknown_event_payload)
+        await event_handler.handle_async(unknown_event_payload, sig_header)
+
+        fallback_callback.assert_not_called()
+
+    @pytest.mark.anyio
+    async def test_fallback_is_awaited_for_unknown_event(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        unknown_event_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        sig_header = generate_header(payload=unknown_event_payload)
+        await event_handler.handle_async(unknown_event_payload, sig_header)
+
+        fallback_callback.assert_awaited_once()
+        notif, _client, details = fallback_callback.call_args[0]
+        assert isinstance(notif, UnknownEventNotification)
+        assert isinstance(details, UnhandledNotificationDetails)
+        assert details.is_known_event_type is False
+
+    @pytest.mark.anyio
+    async def test_callback_receives_event_scoped_client(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        stripe_client: StripeClient,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        received_context = None
+
+        async def callback(notif, client: StripeClient) -> None:
+            nonlocal received_context
+            received_context = client._requestor._options.stripe_context
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        assert str(received_context) == "event_context_456"
+        # the handler's own client is untouched
+        assert (
+            str(stripe_client._requestor._options.stripe_context)
+            == "original_context_123"
+        )
+
+    @pytest.mark.anyio
+    async def test_raising_callback_propagates(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        async def callback(notif, client) -> None:
+            raise RuntimeError("boom")
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        with pytest.raises(RuntimeError, match="boom"):
+            await event_handler.handle_async(
+                v1_billing_meter_payload, sig_header
+            )
+
+    @pytest.mark.anyio
+    async def test_cannot_register_after_handling(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(v1_billing_meter_payload, sig_header)
+
+        with pytest.raises(
+            RuntimeError,
+            match="Cannot register new callbacks after an event has been handled",
+        ):
+            event_handler.on_v2_core_account_created(AsyncMock())
+
+    def test_cannot_register_duplicate_callback(
+        self, event_handler: AsyncStripeEventNotificationHandler
+    ) -> None:
+        event_handler.on_v1_billing_meter_error_report_triggered(AsyncMock())
+
+        with pytest.raises(
+            ValueError,
+            match='Callback for event type "v1.billing.meter.error_report_triggered" is already registered',
+        ):
+            event_handler.on_v1_billing_meter_error_report_triggered(
+                AsyncMock()
+            )
+
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: AsyncMock,
+        webhook_secret: Optional[str],
+    ) -> None:
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            AsyncStripeEventNotificationHandler(
+                client=stripe_client,
+                webhook_secret=webhook_secret,
+                fallback_callback=fallback_callback,
+            )
+
+    @pytest.mark.parametrize("webhook_secret", [None, ""])
+    def test_client_factory_rejects_missing_webhook_secret(
+        self,
+        stripe_client: StripeClient,
+        fallback_callback: AsyncMock,
+        webhook_secret: Optional[str],
+    ) -> None:
+        with pytest.raises(
+            ValueError, match="webhook_secret must be a non-empty string"
+        ):
+            stripe_client.async_notification_handler(
+                webhook_secret, fallback_callback
+            )
+
+    @pytest.mark.anyio
+    async def test_validates_webhook_signature(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        with pytest.raises(SignatureVerificationError):
+            await event_handler.handle_async(
+                v1_billing_meter_payload, "t=1,v1=not-a-sig"
+            )
+
+    @pytest.mark.anyio
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    async def test_handles_binary_webhook_body(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        callback = AsyncMock()
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        await event_handler.handle_async(
+            encode(v1_billing_meter_payload), sig_header
+        )
+
+        callback.assert_called_once()
+
+    @pytest.mark.anyio
+    @pytest.mark.parametrize("sig_header", [None, ""])
+    async def test_rejects_missing_sig_header(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        sig_header: Optional[str],
+    ) -> None:
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No Stripe-Signature header value was provided",
+        ):
+            await event_handler.handle_async(
+                v1_billing_meter_payload, sig_header
+            )
+
+
+class TestAsyncEventNotificationHandlerWithoutVerification:
+    @pytest.fixture(scope="function")
+    def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
+        return StripeClient(
+            api_key="sk_test_1234",
+            stripe_context=StripeContext.parse("original_context_123"),
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+    @pytest.fixture(scope="function")
+    def fallback_callback(self) -> AsyncMock:
+        return AsyncMock()
+
+    @pytest.fixture(scope="function")
+    def handler(
+        self, stripe_client: StripeClient, fallback_callback: AsyncMock
+    ) -> AsyncStripeEventNotificationHandlerWithoutVerification:
+        return AsyncStripeEventNotificationHandler.without_verification(
+            client=stripe_client,
+            fallback_callback=fallback_callback,
+        )
+
+    @pytest.fixture(scope="function")
+    def v1_billing_meter_payload(self) -> str:
+        return json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.billing.meter.error_report_triggered",
+                "livemode": False,
+                "created": "2022-02-15T00:27:45.330Z",
+                "context": "event_context_456",
+                "related_object": {
+                    "id": "mtr_123",
+                    "type": "billing.meter",
+                    "url": "/v1/billing/meters/mtr_123",
+                },
+            }
+        )
+
+    def test_is_not_a_subclass_of_the_verifying_handler(self) -> None:
+        """The two are siblings, so neither exposes the other's handle signature"""
+        assert not issubclass(
+            AsyncStripeEventNotificationHandlerWithoutVerification,
+            AsyncStripeEventNotificationHandler,
+        )
+
+    @pytest.mark.anyio
+    async def test_handles_without_a_signature(
+        self,
+        handler: AsyncStripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        received = None
+
+        async def callback(notif, client) -> None:
+            nonlocal received
+            await anyio.sleep(0)
+            received = notif
+
+        handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        await handler.handle_async(v1_billing_meter_payload)
+
+        assert isinstance(
+            received, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+
+    @pytest.mark.anyio
+    @pytest.mark.parametrize(
+        "encode",
+        [lambda p: p.encode("utf-8"), lambda p: bytearray(p, "utf-8")],
+        ids=["bytes", "bytearray"],
+    )
+    async def test_handles_binary_webhook_body(
+        self,
+        handler: AsyncStripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        encode,
+    ) -> None:
+        callback = AsyncMock()
+        handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        await handler.handle_async(encode(v1_billing_meter_payload))
+
+        callback.assert_called_once()
+
+    @pytest.mark.anyio
+    async def test_pre_handle_gates_handling(
+        self,
+        handler: AsyncStripeEventNotificationHandlerWithoutVerification,
+        v1_billing_meter_payload: str,
+        fallback_callback: AsyncMock,
+    ) -> None:
+        callback = AsyncMock()
+
+        async def hook(notif, client) -> bool:
+            return False
+
+        handler.pre_handle(hook)
+        handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        await handler.handle_async(v1_billing_meter_payload)
+
+        callback.assert_not_called()
+        fallback_callback.assert_not_called()

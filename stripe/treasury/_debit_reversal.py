@@ -4,12 +4,20 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional, Union, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.treasury._debit_reversal_create_params import (
+        DebitReversalCreateParams,
+    )
+    from stripe.params.treasury._debit_reversal_list_params import (
+        DebitReversalListParams,
+    )
+    from stripe.params.treasury._debit_reversal_retrieve_params import (
+        DebitReversalRetrieveParams,
+    )
     from stripe.treasury._transaction import Transaction
 
 
@@ -18,7 +26,7 @@ class DebitReversal(
     ListableAPIResource["DebitReversal"],
 ):
     """
-    You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
+    You can reverse some [ReceivedDebits](https://api.stripe.com#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
     """
 
     OBJECT_NAME: ClassVar[Literal["treasury.debit_reversal"]] = (
@@ -35,60 +43,6 @@ class DebitReversal(
         completed_at: Optional[int]
         """
         Timestamp describing when the DebitReversal changed status to `completed`.
-        """
-
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        received_debit: str
-        """
-        The ReceivedDebit to reverse.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        Returns objects associated with this FinancialAccount.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        received_debit: NotRequired[str]
-        """
-        Only return DebitReversals for the ReceivedDebit ID.
-        """
-        resolution: NotRequired[Literal["lost", "won"]]
-        """
-        Only return DebitReversals for a given resolution.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["canceled", "completed", "processing"]]
-        """
-        Only return DebitReversals for a given status.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     amount: int
@@ -109,7 +63,7 @@ class DebitReversal(
     """
     hosted_regulatory_receipt_url: Optional[str]
     """
-    A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    A [hosted transaction receipt](https://docs.stripe.com/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
     """
     id: str
     """
@@ -121,13 +75,13 @@ class DebitReversal(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    network: Literal["ach", "card"]
+    network: Union[Literal["ach", "card"], str]
     """
     The rails used to reverse the funds.
     """
@@ -139,7 +93,7 @@ class DebitReversal(
     """
     The ReceivedDebit being reversed.
     """
-    status: Literal["failed", "processing", "succeeded"]
+    status: Union[Literal["failed", "processing", "succeeded"], str]
     """
     Status of the DebitReversal
     """
@@ -151,7 +105,7 @@ class DebitReversal(
 
     @classmethod
     def create(
-        cls, **params: Unpack["DebitReversal.CreateParams"]
+        cls, **params: Unpack["DebitReversalCreateParams"]
     ) -> "DebitReversal":
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
@@ -167,7 +121,7 @@ class DebitReversal(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["DebitReversal.CreateParams"]
+        cls, **params: Unpack["DebitReversalCreateParams"]
     ) -> "DebitReversal":
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
@@ -183,7 +137,7 @@ class DebitReversal(
 
     @classmethod
     def list(
-        cls, **params: Unpack["DebitReversal.ListParams"]
+        cls, **params: Unpack["DebitReversalListParams"]
     ) -> ListObject["DebitReversal"]:
         """
         Returns a list of DebitReversals.
@@ -203,7 +157,7 @@ class DebitReversal(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["DebitReversal.ListParams"]
+        cls, **params: Unpack["DebitReversalListParams"]
     ) -> ListObject["DebitReversal"]:
         """
         Returns a list of DebitReversals.
@@ -223,7 +177,7 @@ class DebitReversal(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["DebitReversal.RetrieveParams"]
+        cls, id: str, **params: Unpack["DebitReversalRetrieveParams"]
     ) -> "DebitReversal":
         """
         Retrieves a DebitReversal object.
@@ -234,7 +188,7 @@ class DebitReversal(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["DebitReversal.RetrieveParams"]
+        cls, id: str, **params: Unpack["DebitReversalRetrieveParams"]
     ) -> "DebitReversal":
         """
         Retrieves a DebitReversal object.

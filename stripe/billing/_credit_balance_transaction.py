@@ -3,14 +3,19 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing import ClassVar, Optional, Union
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._invoice import Invoice
     from stripe.billing._credit_grant import CreditGrant
+    from stripe.params.billing._credit_balance_transaction_list_params import (
+        CreditBalanceTransactionListParams,
+    )
+    from stripe.params.billing._credit_balance_transaction_retrieve_params import (
+        CreditBalanceTransactionRetrieveParams,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -64,7 +69,10 @@ class CreditBalanceTransaction(
         """
         Details of the invoice to which the reinstated credits were originally applied. Only present if `type` is `credits_application_invoice_voided`.
         """
-        type: Literal["credits_application_invoice_voided", "credits_granted"]
+        type: Union[
+            Literal["credits_application_invoice_voided", "credits_granted"],
+            str,
+        ]
         """
         The type of credit transaction.
         """
@@ -110,7 +118,10 @@ class CreditBalanceTransaction(
         """
         Details of how the billing credits were applied to an invoice. Only present if `type` is `credits_applied`.
         """
-        type: Literal["credits_applied", "credits_expired", "credits_voided"]
+        type: Union[
+            Literal["credits_applied", "credits_expired", "credits_voided"],
+            str,
+        ]
         """
         The type of debit transaction.
         """
@@ -118,38 +129,6 @@ class CreditBalanceTransaction(
             "amount": Amount,
             "credits_applied": CreditsApplied,
         }
-
-    class ListParams(RequestOptions):
-        credit_grant: NotRequired[str]
-        """
-        The credit grant for which to fetch credit balance transactions.
-        """
-        customer: str
-        """
-        The customer for which to fetch credit balance transactions.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
 
     created: int
     """
@@ -177,7 +156,7 @@ class CreditBalanceTransaction(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     object: Literal["billing.credit_balance_transaction"]
     """
@@ -187,14 +166,14 @@ class CreditBalanceTransaction(
     """
     ID of the test clock this credit balance transaction belongs to.
     """
-    type: Optional[Literal["credit", "debit"]]
+    type: Optional[Union[Literal["credit", "debit"], str]]
     """
     The type of credit balance transaction (credit or debit).
     """
 
     @classmethod
     def list(
-        cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
+        cls, **params: Unpack["CreditBalanceTransactionListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
         Retrieve a list of credit balance transactions.
@@ -214,7 +193,7 @@ class CreditBalanceTransaction(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
+        cls, **params: Unpack["CreditBalanceTransactionListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
         Retrieve a list of credit balance transactions.
@@ -236,7 +215,7 @@ class CreditBalanceTransaction(
     def retrieve(
         cls,
         id: str,
-        **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
+        **params: Unpack["CreditBalanceTransactionRetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
         Retrieves a credit balance transaction.
@@ -249,7 +228,7 @@ class CreditBalanceTransaction(
     async def retrieve_async(
         cls,
         id: str,
-        **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
+        **params: Unpack["CreditBalanceTransactionRetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
         Retrieves a credit balance transaction.

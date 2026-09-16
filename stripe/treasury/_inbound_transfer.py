@@ -4,22 +4,35 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, Union, cast, overload
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
+    from stripe.params.treasury._inbound_transfer_cancel_params import (
+        InboundTransferCancelParams,
+    )
+    from stripe.params.treasury._inbound_transfer_create_params import (
+        InboundTransferCreateParams,
+    )
+    from stripe.params.treasury._inbound_transfer_fail_params import (
+        InboundTransferFailParams,
+    )
+    from stripe.params.treasury._inbound_transfer_list_params import (
+        InboundTransferListParams,
+    )
+    from stripe.params.treasury._inbound_transfer_retrieve_params import (
+        InboundTransferRetrieveParams,
+    )
+    from stripe.params.treasury._inbound_transfer_return_inbound_transfer_params import (
+        InboundTransferReturnInboundTransferParams,
+    )
+    from stripe.params.treasury._inbound_transfer_succeed_params import (
+        InboundTransferSucceedParams,
+    )
     from stripe.treasury._transaction import Transaction
 
 
@@ -28,7 +41,7 @@ class InboundTransfer(
     ListableAPIResource["InboundTransfer"],
 ):
     """
-    Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+    Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
 
     Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     """
@@ -38,20 +51,23 @@ class InboundTransfer(
     )
 
     class FailureDetails(StripeObject):
-        code: Literal[
-            "account_closed",
-            "account_frozen",
-            "bank_account_restricted",
-            "bank_ownership_changed",
-            "debit_not_authorized",
-            "incorrect_account_holder_address",
-            "incorrect_account_holder_name",
-            "incorrect_account_holder_tax_id",
-            "insufficient_funds",
-            "invalid_account_number",
-            "invalid_currency",
-            "no_account",
-            "other",
+        code: Union[
+            Literal[
+                "account_closed",
+                "account_frozen",
+                "bank_account_restricted",
+                "bank_ownership_changed",
+                "debit_not_authorized",
+                "incorrect_account_holder_address",
+                "incorrect_account_holder_name",
+                "incorrect_account_holder_tax_id",
+                "insufficient_funds",
+                "invalid_account_number",
+                "invalid_currency",
+                "no_account",
+                "other",
+            ],
+            str,
         ]
         """
         Reason for the failure.
@@ -76,11 +92,11 @@ class InboundTransfer(
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -88,7 +104,7 @@ class InboundTransfer(
                 """
                 state: Optional[str]
                 """
-                State, county, province, or region.
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
             address: Address
@@ -103,11 +119,13 @@ class InboundTransfer(
             _inner_class_types = {"address": Address}
 
         class UsBankAccount(StripeObject):
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             Account holder type: individual or company.
             """
-            account_type: Optional[Literal["checking", "savings"]]
+            account_type: Optional[Union[Literal["checking", "savings"], str]]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
@@ -129,7 +147,7 @@ class InboundTransfer(
             """
             network: Literal["ach"]
             """
-            The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+            The network rails used. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
             """
             routing_number: Optional[str]
             """
@@ -159,126 +177,6 @@ class InboundTransfer(
         succeeded_at: Optional[int]
         """
         Timestamp describing when an InboundTransfer changed status to `succeeded`.
-        """
-
-    class CancelParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(RequestOptions):
-        amount: int
-        """
-        Amount (in cents) to be transferred.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        The FinancialAccount to send funds to.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        origin_payment_method: str
-        """
-        The origin payment method to be debited for the InboundTransfer.
-        """
-        statement_descriptor: NotRequired[str]
-        """
-        The complete description that appears on your customers' statements. Maximum 10 characters.
-        """
-
-    class FailParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        failure_details: NotRequired[
-            "InboundTransfer.FailParamsFailureDetails"
-        ]
-        """
-        Details about a failed InboundTransfer.
-        """
-
-    class FailParamsFailureDetails(TypedDict):
-        code: NotRequired[
-            Literal[
-                "account_closed",
-                "account_frozen",
-                "bank_account_restricted",
-                "bank_ownership_changed",
-                "debit_not_authorized",
-                "incorrect_account_holder_address",
-                "incorrect_account_holder_name",
-                "incorrect_account_holder_tax_id",
-                "insufficient_funds",
-                "invalid_account_number",
-                "invalid_currency",
-                "no_account",
-                "other",
-            ]
-        ]
-        """
-        Reason for the failure.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        Returns objects associated with this FinancialAccount.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[
-            Literal["canceled", "failed", "processing", "succeeded"]
-        ]
-        """
-        Only return InboundTransfers that have the given status: `processing`, `succeeded`, `failed` or `canceled`.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ReturnInboundTransferParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class SucceedParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     amount: int
@@ -311,7 +209,7 @@ class InboundTransfer(
     """
     hosted_regulatory_receipt_url: Optional[str]
     """
-    A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    A [hosted transaction receipt](https://docs.stripe.com/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
     """
     id: str
     """
@@ -320,11 +218,11 @@ class InboundTransfer(
     linked_flows: LinkedFlows
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["treasury.inbound_transfer"]
     """
@@ -346,7 +244,9 @@ class InboundTransfer(
     """
     Statement descriptor shown when funds are debited from the source. Not all payment networks support `statement_descriptor`.
     """
-    status: Literal["canceled", "failed", "processing", "succeeded"]
+    status: Union[
+        Literal["canceled", "failed", "processing", "succeeded"], str
+    ]
     """
     Status of the InboundTransfer: `processing`, `succeeded`, `failed`, and `canceled`. An InboundTransfer is `processing` if it is created and pending. The status changes to `succeeded` once the funds have been "confirmed" and a `transaction` is created and posted. The status changes to `failed` if the transfer fails.
     """
@@ -360,7 +260,7 @@ class InboundTransfer(
     def _cls_cancel(
         cls,
         inbound_transfer: str,
-        **params: Unpack["InboundTransfer.CancelParams"],
+        **params: Unpack["InboundTransferCancelParams"],
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -379,7 +279,7 @@ class InboundTransfer(
     @overload
     @staticmethod
     def cancel(
-        inbound_transfer: str, **params: Unpack["InboundTransfer.CancelParams"]
+        inbound_transfer: str, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -388,7 +288,7 @@ class InboundTransfer(
 
     @overload
     def cancel(
-        self, **params: Unpack["InboundTransfer.CancelParams"]
+        self, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -397,7 +297,7 @@ class InboundTransfer(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InboundTransfer.CancelParams"]
+        self, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -407,7 +307,7 @@ class InboundTransfer(
             self._request(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(self.get("id"))
+                    inbound_transfer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -417,7 +317,7 @@ class InboundTransfer(
     async def _cls_cancel_async(
         cls,
         inbound_transfer: str,
-        **params: Unpack["InboundTransfer.CancelParams"],
+        **params: Unpack["InboundTransferCancelParams"],
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -436,7 +336,7 @@ class InboundTransfer(
     @overload
     @staticmethod
     async def cancel_async(
-        inbound_transfer: str, **params: Unpack["InboundTransfer.CancelParams"]
+        inbound_transfer: str, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -445,7 +345,7 @@ class InboundTransfer(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["InboundTransfer.CancelParams"]
+        self, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -454,7 +354,7 @@ class InboundTransfer(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InboundTransfer.CancelParams"]
+        self, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -464,7 +364,7 @@ class InboundTransfer(
             await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(self.get("id"))
+                    inbound_transfer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -472,7 +372,7 @@ class InboundTransfer(
 
     @classmethod
     def create(
-        cls, **params: Unpack["InboundTransfer.CreateParams"]
+        cls, **params: Unpack["InboundTransferCreateParams"]
     ) -> "InboundTransfer":
         """
         Creates an InboundTransfer.
@@ -488,7 +388,7 @@ class InboundTransfer(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["InboundTransfer.CreateParams"]
+        cls, **params: Unpack["InboundTransferCreateParams"]
     ) -> "InboundTransfer":
         """
         Creates an InboundTransfer.
@@ -504,7 +404,7 @@ class InboundTransfer(
 
     @classmethod
     def list(
-        cls, **params: Unpack["InboundTransfer.ListParams"]
+        cls, **params: Unpack["InboundTransferListParams"]
     ) -> ListObject["InboundTransfer"]:
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
@@ -524,7 +424,7 @@ class InboundTransfer(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["InboundTransfer.ListParams"]
+        cls, **params: Unpack["InboundTransferListParams"]
     ) -> ListObject["InboundTransfer"]:
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
@@ -544,7 +444,7 @@ class InboundTransfer(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["InboundTransfer.RetrieveParams"]
+        cls, id: str, **params: Unpack["InboundTransferRetrieveParams"]
     ) -> "InboundTransfer":
         """
         Retrieves the details of an existing InboundTransfer.
@@ -555,7 +455,7 @@ class InboundTransfer(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["InboundTransfer.RetrieveParams"]
+        cls, id: str, **params: Unpack["InboundTransferRetrieveParams"]
     ) -> "InboundTransfer":
         """
         Retrieves the details of an existing InboundTransfer.
@@ -569,7 +469,7 @@ class InboundTransfer(
 
         @classmethod
         def _cls_fail(
-            cls, id: str, **params: Unpack["InboundTransfer.FailParams"]
+            cls, id: str, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -588,7 +488,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         def fail(
-            id: str, **params: Unpack["InboundTransfer.FailParams"]
+            id: str, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -597,7 +497,7 @@ class InboundTransfer(
 
         @overload
         def fail(
-            self, **params: Unpack["InboundTransfer.FailParams"]
+            self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -606,7 +506,7 @@ class InboundTransfer(
 
         @class_method_variant("_cls_fail")
         def fail(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["InboundTransfer.FailParams"]
+            self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -616,7 +516,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -624,7 +524,7 @@ class InboundTransfer(
 
         @classmethod
         async def _cls_fail_async(
-            cls, id: str, **params: Unpack["InboundTransfer.FailParams"]
+            cls, id: str, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -643,7 +543,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         async def fail_async(
-            id: str, **params: Unpack["InboundTransfer.FailParams"]
+            id: str, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -652,7 +552,7 @@ class InboundTransfer(
 
         @overload
         async def fail_async(
-            self, **params: Unpack["InboundTransfer.FailParams"]
+            self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -661,7 +561,7 @@ class InboundTransfer(
 
         @class_method_variant("_cls_fail_async")
         async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["InboundTransfer.FailParams"]
+            self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -671,7 +571,7 @@ class InboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -681,7 +581,7 @@ class InboundTransfer(
         def _cls_return_inbound_transfer(
             cls,
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -701,7 +601,7 @@ class InboundTransfer(
         @staticmethod
         def return_inbound_transfer(
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -711,7 +611,7 @@ class InboundTransfer(
         @overload
         def return_inbound_transfer(
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -721,7 +621,7 @@ class InboundTransfer(
         @class_method_variant("_cls_return_inbound_transfer")
         def return_inbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -731,7 +631,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -741,7 +641,7 @@ class InboundTransfer(
         async def _cls_return_inbound_transfer_async(
             cls,
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -761,7 +661,7 @@ class InboundTransfer(
         @staticmethod
         async def return_inbound_transfer_async(
             id: str,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -771,7 +671,7 @@ class InboundTransfer(
         @overload
         async def return_inbound_transfer_async(
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -781,7 +681,7 @@ class InboundTransfer(
         @class_method_variant("_cls_return_inbound_transfer_async")
         async def return_inbound_transfer_async(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"],
+            **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
             Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -791,7 +691,7 @@ class InboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -799,7 +699,7 @@ class InboundTransfer(
 
         @classmethod
         def _cls_succeed(
-            cls, id: str, **params: Unpack["InboundTransfer.SucceedParams"]
+            cls, id: str, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -818,7 +718,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         def succeed(
-            id: str, **params: Unpack["InboundTransfer.SucceedParams"]
+            id: str, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -827,7 +727,7 @@ class InboundTransfer(
 
         @overload
         def succeed(
-            self, **params: Unpack["InboundTransfer.SucceedParams"]
+            self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -836,7 +736,7 @@ class InboundTransfer(
 
         @class_method_variant("_cls_succeed")
         def succeed(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["InboundTransfer.SucceedParams"]
+            self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -846,7 +746,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -854,7 +754,7 @@ class InboundTransfer(
 
         @classmethod
         async def _cls_succeed_async(
-            cls, id: str, **params: Unpack["InboundTransfer.SucceedParams"]
+            cls, id: str, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -873,7 +773,7 @@ class InboundTransfer(
         @overload
         @staticmethod
         async def succeed_async(
-            id: str, **params: Unpack["InboundTransfer.SucceedParams"]
+            id: str, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -882,7 +782,7 @@ class InboundTransfer(
 
         @overload
         async def succeed_async(
-            self, **params: Unpack["InboundTransfer.SucceedParams"]
+            self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -891,7 +791,7 @@ class InboundTransfer(
 
         @class_method_variant("_cls_succeed_async")
         async def succeed_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["InboundTransfer.SucceedParams"]
+            self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
             Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -901,7 +801,7 @@ class InboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

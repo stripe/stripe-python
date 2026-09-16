@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - beta
+      - private-preview
       - sdk-release/**
       - feature/**
     tags:
@@ -14,21 +15,28 @@ on:
     branches:
       - master
       - beta
+      - private-preview
       - sdk-release/**
       - feature/**
+
+permissions: {}
 
 jobs:
   lint:
     name: Static Checks
     runs-on: "ubuntu-24.04"
+    permissions:
+      contents: read
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
-      - name: Set up Python 3
-        uses: actions/setup-python@v4
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          python-version: "3.10"
-      - name: check examples w/ mypy (against python@3.10)
+          persist-credentials: false
+      - name: Set up Python 3
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+      - name: check examples w/ mypy (against python@3.13)
         run: just typecheck-examples
       # skip deps on all these since mypy installed everything
       - name: check linting
@@ -37,23 +45,25 @@ jobs:
         run: just --no-deps format-check
       # pyright depends on node, which it handles and installs for itself as needed
       # we _could_ run setup-node to make it available for it if we're having reliability problems
-      - name: check types (all Python versions)
-        run: |
-          set -eox
-
-          for minor in {6..12}; do
-            just --no-deps typecheck $minor
-          done
+      - name: check types
+        # only check against a modern version- unit tests will catch syntax errors on older versions
+        # this isn't user facing, this is just checking that our code is internally consistent
+        # e.g. a bug here wouldn't cause user CI to fail since the issue is internal to our codebase
+        run: just --no-deps typecheck
 
   build:
     name: Build
     runs-on: "ubuntu-24.04"
+    permissions:
+      contents: read
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python 3
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.10"
 
@@ -62,88 +72,79 @@ jobs:
           just build
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: dist
           path: dist/
 
   test:
-    # Specific ubuntu version to support python 3.7 testing
-    # see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877 for list of supported versions
-    # move to ubuntu-latest when we drop 3.7
-    runs-on: ubuntu-22.04
+    name: Test (${{ matrix.python_version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - "ubuntu-24.04"
         python_version:
-          - "3.7"
-          - "3.8"
+          # The last ~5 versions, once we're on schedule
+          # https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy
+          # https://endoflife.date/python
           - "3.9"
           - "3.10"
           - "3.11"
           - "3.12"
-          - "pypy-3.7"
-          - "pypy-3.8"
+          - "3.13"
+          - "3.14"
           - "pypy-3.9"
           - "pypy-3.10"
-    name: Test (${{ matrix.python_version }})
+          - "pypy-3.11"
+        include:
+          - os: windows-latest
+            # use any modern-ish version
+            python_version: "3.14"
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python_version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python_version }}
       - uses: stripe/openapi/actions/stripe-mock@master
 
       - name: "run tests"
         run: just test
+        env:
+          # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
+          STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
 
   publish:
     name: Publish
     if: >-
       ((github.event_name == 'workflow_dispatch') || (github.event_name == 'push')) &&
-      startsWith(github.ref, 'refs/tags/v') &&
-      endsWith(github.actor, '-stripe')
+      startsWith(github.ref, 'refs/tags/v')
     needs: [build, test, lint]
     runs-on: "ubuntu-24.04"
+    environment: publish
+    permissions:
+      contents: read
+      id-token: write
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        # v8 errors on an artifact digest mismatch; v4 only warned. A mismatch
+        # means the artifact `test` gated on isn't the one reaching PyPI, so
+        # failing is right — set `digest-mismatch: warn` if it ever misfires.
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: dist
           path: dist
-      - name: Set up Python 3
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Configure GPG Key
-        run: |
-          set -ex
-          echo $GPG_SIGNING_PRIVKEY | base64 --decode | gpg --import --batch --yes --pinentry-mode loopback --passphrase "$GPG_SIGNING_PASSPHRASE"
-        env:
-          GPG_SIGNING_PRIVKEY: ${{ secrets.GPG_SIGNING_PRIVKEY }}
-          GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
-      - name: Install tools
-        run: just install-build-deps
       - name: Publish packages to PyPI
-        # could probably move this into a just recipe too?
-        run: |
-          set -ex
-          source .venv/bin/activate
-          export VERSION=$(cat VERSION)
-          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION.tar.gz
-          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py2.py3-none-any.whl
-
-          python -m twine upload --verbose dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py2.py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py2.py3-none-any.whl.asc
-        env:
-          GPG_SIGNING_KEYID: ${{ secrets.GPG_SIGNING_KEYID }}
-          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-          GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: dist/
       - uses: stripe/openapi/actions/notify-release@master
         if: always()
         with:

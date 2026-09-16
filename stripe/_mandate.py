@@ -2,13 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing import ClassVar, List, Optional, Union
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
+    from stripe.params._mandate_retrieve_params import MandateRetrieveParams
 
 
 class Mandate(APIResource["Mandate"]):
@@ -38,18 +38,27 @@ class Mandate(APIResource["Mandate"]):
         """
         offline: Optional[Offline]
         online: Optional[Online]
-        type: Literal["offline", "online"]
+        type: Union[Literal["offline", "online"], str]
         """
         The mandate includes the type of customer acceptance information, such as: `online` or `offline`.
         """
         _inner_class_types = {"offline": Offline, "online": Online}
 
     class MultiUse(StripeObject):
-        pass
+        amount: Optional[int]
+        """
+        The amount of the payment on a multi use mandate.
+        """
+        currency: Optional[str]
+        """
+        The currency of the payment on a multi use mandate.
+        """
 
     class PaymentMethodDetails(StripeObject):
         class AcssDebit(StripeObject):
-            default_for: Optional[List[Literal["invoice", "subscription"]]]
+            default_for: Optional[
+                List[Union[Literal["invoice", "subscription"], str]]
+            ]
             """
             List of Stripe products where this mandate can be selected automatically.
             """
@@ -57,11 +66,13 @@ class Mandate(APIResource["Mandate"]):
             """
             Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
             """
-            payment_schedule: Literal["combined", "interval", "sporadic"]
+            payment_schedule: Union[
+                Literal["combined", "interval", "sporadic"], str
+            ]
             """
             Payment schedule for the mandate.
             """
-            transaction_type: Literal["business", "personal"]
+            transaction_type: Union[Literal["business", "personal"], str]
             """
             Transaction type of the mandate.
             """
@@ -76,8 +87,12 @@ class Mandate(APIResource["Mandate"]):
             """
 
         class BacsDebit(StripeObject):
-            network_status: Literal[
-                "accepted", "pending", "refused", "revoked"
+            display_name: Optional[str]
+            """
+            The display name for the account on this mandate.
+            """
+            network_status: Union[
+                Literal["accepted", "pending", "refused", "revoked"], str
             ]
             """
             The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`.
@@ -87,16 +102,23 @@ class Mandate(APIResource["Mandate"]):
             The unique reference identifying the mandate on the Bacs network.
             """
             revocation_reason: Optional[
-                Literal[
-                    "account_closed",
-                    "bank_account_restricted",
-                    "bank_ownership_changed",
-                    "could_not_process",
-                    "debit_not_authorized",
+                Union[
+                    Literal[
+                        "account_closed",
+                        "bank_account_restricted",
+                        "bank_ownership_changed",
+                        "could_not_process",
+                        "debit_not_authorized",
+                    ],
+                    str,
                 ]
             ]
             """
             When the mandate is revoked on the Bacs network this field displays the reason for the revocation.
+            """
+            service_user_number: Optional[str]
+            """
+            The service user number for the account on this mandate.
             """
             url: str
             """
@@ -137,6 +159,104 @@ class Mandate(APIResource["Mandate"]):
             PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
             """
 
+        class Payto(StripeObject):
+            amount: Optional[int]
+            """
+            Amount that will be collected. It is required when `amount_type` is `fixed`.
+            """
+            amount_type: Union[Literal["fixed", "maximum"], str]
+            """
+            The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+            """
+            end_date: Optional[str]
+            """
+            Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+            """
+            payment_schedule: Union[
+                Literal[
+                    "adhoc",
+                    "annual",
+                    "daily",
+                    "fortnightly",
+                    "monthly",
+                    "quarterly",
+                    "semi_annual",
+                    "weekly",
+                ],
+                str,
+            ]
+            """
+            The periodicity at which payments will be collected. Defaults to `adhoc`.
+            """
+            payments_per_period: Optional[int]
+            """
+            The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+            """
+            purpose: Optional[
+                Union[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ],
+                    str,
+                ]
+            ]
+            """
+            The purpose for which payments are made. Has a default value based on your merchant category code.
+            """
+            start_date: Optional[str]
+            """
+            Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+            """
+
+        class Pix(StripeObject):
+            amount_includes_iof: Optional[
+                Union[Literal["always", "never"], str]
+            ]
+            """
+            Determines if the amount includes the IOF tax.
+            """
+            amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
+            """
+            Type of amount.
+            """
+            end_date: Optional[str]
+            """
+            Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            """
+            payment_schedule: Optional[
+                Union[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ],
+                    str,
+                ]
+            ]
+            """
+            Schedule at which the future payments will be charged.
+            """
+            reference: Optional[str]
+            """
+            Subscription name displayed to buyers in their bank app.
+            """
+            start_date: Optional[str]
+            """
+            Start date of the mandate, in `YYYY-MM-DD`.
+            """
+
         class RevolutPay(StripeObject):
             pass
 
@@ -148,6 +268,27 @@ class Mandate(APIResource["Mandate"]):
             url: str
             """
             The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
+            """
+
+        class Twint(StripeObject):
+            pass
+
+        class Upi(StripeObject):
+            amount: Optional[int]
+            """
+            Amount to be charged for future payments.
+            """
+            amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
+            """
+            One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            """
+            description: Optional[str]
+            """
+            A description of the mandate or subscription that is meant to be displayed to the customer.
+            """
+            end_date: Optional[int]
+            """
+            End date of the mandate or subscription.
             """
 
         class UsBankAccount(StripeObject):
@@ -169,12 +310,16 @@ class Mandate(APIResource["Mandate"]):
         naver_pay: Optional[NaverPay]
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
+        pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
+        twint: Optional[Twint]
         type: str
         """
         This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
         """
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
@@ -190,8 +335,12 @@ class Mandate(APIResource["Mandate"]):
             "naver_pay": NaverPay,
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
+            "payto": Payto,
+            "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
+            "twint": Twint,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
         }
 
@@ -205,12 +354,6 @@ class Mandate(APIResource["Mandate"]):
         The currency of the payment on a single use mandate.
         """
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     customer_acceptance: CustomerAcceptance
     id: str
     """
@@ -218,7 +361,7 @@ class Mandate(APIResource["Mandate"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     multi_use: Optional[MultiUse]
     object: Literal["mandate"]
@@ -235,18 +378,18 @@ class Mandate(APIResource["Mandate"]):
     """
     payment_method_details: PaymentMethodDetails
     single_use: Optional[SingleUse]
-    status: Literal["active", "inactive", "pending"]
+    status: Union[Literal["active", "inactive", "pending"], str]
     """
     The mandate status indicates whether or not you can use it to initiate a payment.
     """
-    type: Literal["multi_use", "single_use"]
+    type: Union[Literal["multi_use", "single_use"], str]
     """
     The type of the mandate.
     """
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.
@@ -257,7 +400,7 @@ class Mandate(APIResource["Mandate"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.

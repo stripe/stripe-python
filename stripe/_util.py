@@ -1,19 +1,16 @@
 import functools
 import hmac
-import io  # noqa: F401
 import logging
 import sys
 import os
 import re
-import warnings
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import parse_qsl, quote_plus  # noqa: F401
+from urllib.parse import quote_plus, urlsplit
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
-    Callable,
     TypeVar,
     Union,
     overload,
@@ -24,7 +21,6 @@ from typing import (
     Optional,
     Mapping,
 )
-import typing_extensions
 
 
 # Used for global variables
@@ -38,65 +34,6 @@ if TYPE_CHECKING:
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
 logger: logging.Logger = logging.getLogger("stripe")
-
-if TYPE_CHECKING:
-    deprecated = typing_extensions.deprecated
-else:
-    _T = TypeVar("_T")
-
-    # Copied from python/typing_extensions, as this was added in typing_extensions 4.5.0 which is incompatible with
-    # python 3.6. We still need `deprecated = typing_extensions.deprecated` in addition to this fallback, as
-    # IDEs (pylance) specially detect references to symbols defined in `typing_extensions`
-    #
-    # https://github.com/python/typing_extensions/blob/5d20e9eed31de88667542ba5a6f66e6dc439b681/src/typing_extensions.py#L2289-L2370
-    def deprecated(
-        __msg: str,
-        *,
-        category: Optional[Type[Warning]] = DeprecationWarning,
-        stacklevel: int = 1,
-    ) -> Callable[[_T], _T]:
-        def decorator(__arg: _T) -> _T:
-            if category is None:
-                __arg.__deprecated__ = __msg
-                return __arg
-            elif isinstance(__arg, type):
-                original_new = __arg.__new__
-                has_init = __arg.__init__ is not object.__init__
-
-                @functools.wraps(original_new)
-                def __new__(cls, *args, **kwargs):
-                    warnings.warn(
-                        __msg, category=category, stacklevel=stacklevel + 1
-                    )
-                    if original_new is not object.__new__:
-                        return original_new(cls, *args, **kwargs)
-                    # Mirrors a similar check in object.__new__.
-                    elif not has_init and (args or kwargs):
-                        raise TypeError(f"{cls.__name__}() takes no arguments")
-                    else:
-                        return original_new(cls)
-
-                __arg.__new__ = staticmethod(__new__)
-                __arg.__deprecated__ = __new__.__deprecated__ = __msg
-                return __arg
-            elif callable(__arg):
-
-                @functools.wraps(__arg)
-                def wrapper(*args, **kwargs):
-                    warnings.warn(
-                        __msg, category=category, stacklevel=stacklevel + 1
-                    )
-                    return __arg(*args, **kwargs)
-
-                __arg.__deprecated__ = wrapper.__deprecated__ = __msg
-                return wrapper
-            else:
-                raise TypeError(
-                    "@deprecated decorator with non-None category must be applied to "
-                    f"a class or callable, not {__arg!r}"
-                )
-
-        return decorator
 
 
 def is_appengine_dev():
@@ -190,24 +127,6 @@ else:
             for x, y in zip(val1, val2):
                 result |= ord(cast(str, x)) ^ ord(cast(str, y))
         return result == 0
-
-
-def get_thin_event_classes():
-    from stripe.events._event_classes import THIN_EVENT_CLASSES
-
-    return THIN_EVENT_CLASSES
-
-
-def get_object_classes(api_mode):
-    # This is here to avoid a circular dependency
-    if api_mode == "V2":
-        from stripe._object_classes import V2_OBJECT_CLASSES
-
-        return V2_OBJECT_CLASSES
-
-    from stripe._object_classes import OBJECT_CLASSES
-
-    return OBJECT_CLASSES
 
 
 Resp = Union["StripeResponse", Dict[str, Any], List["Resp"]]
@@ -321,7 +240,7 @@ def _convert_to_stripe_object(
             )
             for i in resp
         ]
-    elif isinstance(resp, dict) and not isinstance(resp, StripeObject):
+    elif isinstance(resp, dict):
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
@@ -331,18 +250,22 @@ def _convert_to_stripe_object(
 
                 klass = DeletedObject
             elif api_mode == "V2" and klass_name == "v2.core.event":
-                event_name = resp.get("type", "")
-                klass = get_thin_event_classes().get(
-                    event_name, stripe.StripeObject
-                )
+                from stripe.events._event_classes import get_v2_event_class
+
+                event_type = resp.get("type", "")
+                klass = get_v2_event_class(event_type)
             else:
-                klass = get_object_classes(api_mode).get(
-                    klass_name, stripe.StripeObject
-                )
+                from stripe._object_classes import get_object_class
+
+                klass = get_object_class(api_mode, klass_name)
         # TODO: this is a horrible hack. The API needs
         # to return something for `object` here.
-
-        elif "data" in resp and "next_page_url" in resp:
+        #
+        # Gated on V2: this runs recursively over every nested value, so without
+        # the mode check any nested map in a v1 payload carrying `data` and
+        # `next_page_url` becomes an auto-paginating v2 collection. A malicious webhook
+        # could potentially choose the host of a subsequent authenticated request.
+        elif api_mode == "V2" and "data" in resp and "next_page_url" in resp:
             klass = stripe.v2.ListObject
         elif klass_ is not None:
             klass = klass_
@@ -383,11 +306,12 @@ def convert_to_dict(obj):
 
     :returns: The StripeObject as a dict.
     """
+    from stripe._stripe_object import StripeObject
+
     if isinstance(obj, list):
         return [convert_to_dict(i) for i in obj]
-    # This works by virtue of the fact that StripeObjects _are_ dicts. The dict
-    # comprehension returns a regular dict and recursively applies the
-    # conversion to each value.
+    elif isinstance(obj, StripeObject):
+        return {k: convert_to_dict(v) for k, v in obj._data.items()}
     elif isinstance(obj, dict):
         return {k: convert_to_dict(v) for k, v in obj.items()}
     else:
@@ -426,9 +350,39 @@ def sanitize_id(id):
     return quotedId
 
 
-def get_api_mode(url):
+def validate_path(path: str) -> None:
+    """
+    Assert that a request path is origin-relative: that it begins with a single
+    "/" and carries no scheme, authority or userinfo.
+
+    The absolute URL is built by concatenating a base address onto this path, and
+    no base address ends in a slash. A path like "@evil.example/v1/x" or
+    ".evil.example/v1/x" would modify the resulting host and direct the request
+    (including the API key) to a non-Stripe host.
+
+    Because some relative urls arrive from potentially untrusted sources (like
+    webhook bodies), we have to be a little defensive.
+
+    So, we require that a path starts with a leading slash and that urlsplit
+    finds no scheme or authority in it.
+    """
+    if not path.startswith("/") or path.startswith("//"):
+        raise ValueError(
+            f'Request path must be a string beginning with a single "/", got: {path!r}'
+        )
+
+    parts = urlsplit(path)
+    if parts.scheme or parts.netloc:
+        raise ValueError(
+            f"Request path may not contain a scheme or authority, got: {path!r}"
+        )
+
+
+def get_api_mode(url: str) -> ApiMode:
     if url.startswith("/v2"):
         return "V2"
+
+    # if urls aren't explicitly marked as v1, they're assumed to be v1
     else:
         return "V1"
 
@@ -467,3 +421,20 @@ class class_method_variant(object):
                 return class_method(*args, **kwargs)
 
         return _wrapper
+
+
+# If we detect environment variables that indicate we're running in a Claude Code
+# session, emit a hint to the parent process so it can load the plugin.
+# https://code.claude.com/docs/en/plugin-hints
+def claude_code_hint_line() -> str:
+    return '<claude-code-hint v="1" type="plugin" value="stripe@claude-plugins-official" />\n'
+
+
+def _emit_claude_code_hint() -> None:
+    try:
+        if os.environ.get("CLAUDECODE") or os.environ.get(
+            "CLAUDE_CODE_CHILD_SESSION"
+        ):
+            sys.stderr.write(claude_code_hint_line())
+    except Exception:
+        pass

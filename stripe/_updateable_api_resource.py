@@ -3,6 +3,7 @@ from stripe._api_resource import APIResource
 from urllib.parse import quote_plus
 from typing import TypeVar, cast
 from stripe._stripe_object import StripeObject
+from typing_extensions import deprecated
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -13,7 +14,7 @@ class UpdateableAPIResource(APIResource[T]):
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(T, cls._static_request("post", url, params=params))
 
-    @_util.deprecated(
+    @deprecated(
         "The `save` method is deprecated and will be removed in a future major version of the library. Use the class method `modify` on the resource instead."
     )
     def save(self, idempotency_key=None):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -18,11 +18,11 @@ class TransactionLineItem(StripeObject):
 
     amount: int
     """
-    The line item amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+    The line item amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
     """
     amount_tax: int
     """
-    The amount of tax calculated for this line item, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The amount of tax calculated for this line item, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
     id: str
     """
@@ -30,11 +30,11 @@ class TransactionLineItem(StripeObject):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["tax.transaction_line_item"]
     """
@@ -42,7 +42,7 @@ class TransactionLineItem(StripeObject):
     """
     product: Optional[str]
     """
-    The ID of an existing [Product](https://stripe.com/docs/api/products/object).
+    The ID of an existing [Product](https://docs.stripe.com/api/products/object).
     """
     quantity: int
     """
@@ -56,15 +56,15 @@ class TransactionLineItem(StripeObject):
     """
     If `type=reversal`, contains information about what was reversed.
     """
-    tax_behavior: Literal["exclusive", "inclusive"]
+    tax_behavior: Union[Literal["exclusive", "inclusive"], str]
     """
     Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
     """
     tax_code: str
     """
-    The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for this resource.
+    The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for this resource.
     """
-    type: Literal["reversal", "transaction"]
+    type: Union[Literal["reversal", "transaction"], str]
     """
     If `reversal`, this line item reverses an earlier transaction.
     """

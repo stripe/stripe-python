@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar
+from typing import ClassVar, Union
 from typing_extensions import Literal
 
 
 class MeterEventAdjustment(StripeObject):
+    """
+    A Meter Event Adjustment is used to cancel or modify previously recorded meter events. Meter Event Adjustments allow you to correct billing data by canceling individual events or event ranges, with tracking of adjustment status and creation time.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.meter_event_adjustment"]] = (
         "v2.billing.meter_event_adjustment"
     )
@@ -13,7 +17,7 @@ class MeterEventAdjustment(StripeObject):
     class Cancel(StripeObject):
         identifier: str
         """
-        Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
+        The identifier that was originally assigned to the meter event. You can only cancel events within 24 hours of Stripe receiving them.
         """
 
     cancel: Cancel
@@ -30,7 +34,7 @@ class MeterEventAdjustment(StripeObject):
     """
     id: str
     """
-    The unique id of this meter event adjustment.
+    The unique ID of this meter event adjustment.
     """
     livemode: bool
     """
@@ -40,12 +44,12 @@ class MeterEventAdjustment(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    status: Literal["complete", "pending"]
+    status: Union[Literal["complete", "pending"], str]
     """
     Open Enum. The meter event adjustment's status.
     """
     type: Literal["cancel"]
     """
-    Open Enum. Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
+    Open Enum. Specifies the type of cancellation. Currently supports canceling a single event.
     """
     _inner_class_types = {"cancel": Cancel}

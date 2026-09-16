@@ -1,87 +1,42 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._payment_method_domain import PaymentMethodDomain
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._payment_method_domain import PaymentMethodDomain
+    from stripe._request_options import RequestOptions
+    from stripe.params._payment_method_domain_create_params import (
+        PaymentMethodDomainCreateParams,
+    )
+    from stripe.params._payment_method_domain_list_params import (
+        PaymentMethodDomainListParams,
+    )
+    from stripe.params._payment_method_domain_retrieve_params import (
+        PaymentMethodDomainRetrieveParams,
+    )
+    from stripe.params._payment_method_domain_update_params import (
+        PaymentMethodDomainUpdateParams,
+    )
+    from stripe.params._payment_method_domain_validate_params import (
+        PaymentMethodDomainValidateParams,
+    )
 
 
 class PaymentMethodDomainService(StripeService):
-    class CreateParams(TypedDict):
-        domain_name: str
-        """
-        The domain name that this payment method domain object represents.
-        """
-        enabled: NotRequired[bool]
-        """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(TypedDict):
-        domain_name: NotRequired[str]
-        """
-        The domain name that this payment method domain object represents.
-        """
-        enabled: NotRequired[bool]
-        """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements or Embedded Checkout
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        enabled: NotRequired[bool]
-        """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ValidateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: "PaymentMethodDomainService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[PaymentMethodDomain]:
+        params: Optional["PaymentMethodDomainListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentMethodDomain]":
         """
         Lists the details of existing payment method domains.
         """
         return cast(
-            ListObject[PaymentMethodDomain],
+            "ListObject[PaymentMethodDomain]",
             self._request(
                 "get",
                 "/v1/payment_method_domains",
@@ -93,14 +48,14 @@ class PaymentMethodDomainService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodDomainService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[PaymentMethodDomain]:
+        params: Optional["PaymentMethodDomainListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentMethodDomain]":
         """
         Lists the details of existing payment method domains.
         """
         return cast(
-            ListObject[PaymentMethodDomain],
+            "ListObject[PaymentMethodDomain]",
             await self._request_async(
                 "get",
                 "/v1/payment_method_domains",
@@ -112,14 +67,14 @@ class PaymentMethodDomainService(StripeService):
 
     def create(
         self,
-        params: "PaymentMethodDomainService.CreateParams",
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: "PaymentMethodDomainCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Creates a payment method domain.
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             self._request(
                 "post",
                 "/v1/payment_method_domains",
@@ -131,14 +86,14 @@ class PaymentMethodDomainService(StripeService):
 
     async def create_async(
         self,
-        params: "PaymentMethodDomainService.CreateParams",
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: "PaymentMethodDomainCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Creates a payment method domain.
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             await self._request_async(
                 "post",
                 "/v1/payment_method_domains",
@@ -151,14 +106,14 @@ class PaymentMethodDomainService(StripeService):
     def retrieve(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: Optional["PaymentMethodDomainRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Retrieves the details of an existing payment method domain.
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             self._request(
                 "get",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
@@ -173,14 +128,14 @@ class PaymentMethodDomainService(StripeService):
     async def retrieve_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: Optional["PaymentMethodDomainRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Retrieves the details of an existing payment method domain.
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             await self._request_async(
                 "get",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
@@ -195,14 +150,14 @@ class PaymentMethodDomainService(StripeService):
     def update(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.UpdateParams" = {},
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: Optional["PaymentMethodDomainUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Updates an existing payment method domain.
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             self._request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
@@ -217,14 +172,14 @@ class PaymentMethodDomainService(StripeService):
     async def update_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.UpdateParams" = {},
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: Optional["PaymentMethodDomainUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Updates an existing payment method domain.
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             await self._request_async(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}".format(
@@ -239,9 +194,9 @@ class PaymentMethodDomainService(StripeService):
     def validate(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.ValidateParams" = {},
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: Optional["PaymentMethodDomainValidateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
         The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
@@ -251,7 +206,7 @@ class PaymentMethodDomainService(StripeService):
         Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             self._request(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(
@@ -266,9 +221,9 @@ class PaymentMethodDomainService(StripeService):
     async def validate_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.ValidateParams" = {},
-        options: RequestOptions = {},
-    ) -> PaymentMethodDomain:
+        params: Optional["PaymentMethodDomainValidateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
         The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
@@ -278,7 +233,7 @@ class PaymentMethodDomainService(StripeService):
         Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         return cast(
-            PaymentMethodDomain,
+            "PaymentMethodDomain",
             await self._request_async(
                 "post",
                 "/v1/payment_method_domains/{payment_method_domain}/validate".format(

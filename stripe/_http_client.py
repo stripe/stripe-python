@@ -1,5 +1,4 @@
 from io import BytesIO
-import sys
 import textwrap
 import email
 import time
@@ -32,6 +31,7 @@ from typing import (
     AsyncIterable,
 )
 from typing_extensions import (
+    TYPE_CHECKING,
     Literal,
     NoReturn,
     TypedDict,
@@ -39,78 +39,25 @@ from typing_extensions import (
     Never,
 )
 
+if TYPE_CHECKING:
+    from urllib.parse import ParseResult
 
-# The precedence of HTTP libraries is
-# - Urlfetch (this is provided by Google App Engine, so if it's present you probably want it)
-# - Requests (popular library, the top priority for all environments outside Google App Engine, but not always present)
-# - Pycurl (another library, not always present, not as preferred as Requests but at least it verifies SSL certs)
-# - urllib2 with a warning (basically always present, fallback if needed)
-try:
-    import urllib.request as urllibrequest
-    import urllib.error as urlliberror
-except ImportError:
-    # Try to load in urllib2, but don't sweat it if it's not available.
-    pass
-
-try:
-    import pycurl  # pyright: ignore
-except ImportError:
-    pycurl = None
-
-try:
-    import httpx
-    import anyio
-    from httpx import Timeout as HTTPXTimeout
-    from httpx import Client as HTTPXClientType
-except ImportError:
-    httpx = None
-    anyio = None
-
-try:
-    import aiohttp
-    from aiohttp import ClientTimeout as AIOHTTPTimeout
-    from aiohttp import StreamReader as AIOHTTPStreamReader
-except ImportError:
-    aiohttp = None
-
-try:
-    import requests
-    from requests import Session as RequestsSession
-except ImportError:
-    requests = None
-else:
     try:
-        # Require version 0.8.8, but don't want to depend on distutils
-        version: str
-        version = requests.__version__
-        major: int
-        minor: int
-        patch: int
-        major, minor, patch = [int(i) for i in version.split(".")]
-    except Exception:
-        # Probably some new-fangled version, so it should support verify
+        from requests import Session as RequestsSession
+    except ImportError:
         pass
-    else:
-        if (major, minor, patch) < (0, 8, 8):
-            sys.stderr.write(
-                "Warning: the Stripe library requires that your Python "
-                '"requests" library be newer than version 0.8.8, but your '
-                '"requests" library is version %s. Stripe will fall back to '
-                "an alternate HTTP library so everything should work. We "
-                'recommend upgrading your "requests" library. If you have any '
-                "questions, please contact support@stripe.com. (HINT: running "
-                '"pip install -U requests" should upgrade your requests '
-                "library to the latest version.)" % (version,)
-            )
-            requests = None
 
-try:
-    from google.appengine.api import urlfetch  # pyright: ignore
-except ImportError:
-    urlfetch = None
+    try:
+        from httpx import Timeout as HTTPXTimeout
+        from httpx import Client as HTTPXClientType
+    except ImportError:
+        pass
 
-# proxy support for the pycurl client
-from urllib.parse import urlparse, ParseResult
+    try:
+        from aiohttp import ClientTimeout as AIOHTTPTimeout
+        from aiohttp import StreamReader as AIOHTTPStreamReader
+    except ImportError:
+        pass
 
 
 def _now_ms():
@@ -118,30 +65,18 @@ def _now_ms():
 
 
 def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
-    if urlfetch:
-        impl = UrlFetchClient
-    elif requests:
-        impl = RequestsClient
-    elif pycurl:
-        impl = PycurlClient
-    else:
-        impl = Urllib2Client
-
-    return impl(*args, **kwargs)
+    return _default_sync_client(*args, **kwargs)
 
 
 def new_http_client_async_fallback(*args: Any, **kwargs: Any) -> "HTTPClient":
-    if httpx:
-        impl = HTTPXClient
-    elif aiohttp:
-        impl = AIOHTTPClient
-    else:
-        impl = NoImportFoundAsyncClient
-
-    return impl(*args, **kwargs)
+    return _default_async_client(*args, **kwargs)
 
 
 class HTTPClient(object):
+    """
+    Base HTTP client that custom clients can inherit from.
+    """
+
     name: ClassVar[str]
 
     class _Proxy(TypedDict):
@@ -150,7 +85,6 @@ class HTTPClient(object):
 
     MAX_DELAY = 5
     INITIAL_DELAY = 0.5
-    MAX_RETRY_AFTER = 60
     _proxy: Optional[_Proxy]
     _verify_ssl_certs: bool
 
@@ -159,11 +93,12 @@ class HTTPClient(object):
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, _Proxy]] = None,
         async_fallback_client: Optional["HTTPClient"] = None,
+        _lib=None,  # used for internal unit testing
     ):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
             if isinstance(proxy, str):
-                proxy = {"http": proxy, "https": proxy}
+                proxy = HTTPClient._Proxy(http=proxy, https=proxy)
             if not isinstance(proxy, dict):  # pyright: ignore[reportUnnecessaryIsInstance]
                 raise ValueError(
                     "Proxy(ies) must be specified as either a string "
@@ -226,23 +161,7 @@ class HTTPClient(object):
 
         return False
 
-    def _retry_after_header(
-        self, response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None
-    ):
-        if response is None:
-            return None
-        _, _, rheaders = response
-
-        try:
-            return int(rheaders["retry-after"])
-        except (KeyError, ValueError):
-            return None
-
-    def _sleep_time_seconds(
-        self,
-        num_retries: int,
-        response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None,
-    ) -> float:
+    def _sleep_time_seconds(self, num_retries: int) -> float:
         """
         Apply exponential backoff with initial_network_retry_delay on the number of num_retries so far as inputs.
         Do not allow the number to exceed `max_network_retry_delay`.
@@ -256,11 +175,6 @@ class HTTPClient(object):
 
         # But never sleep less than the base sleep seconds.
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
-
-        # And never sleep less than the time the API asks us to wait, assuming it's a reasonable ask.
-        retry_after = self._retry_after_header(response) or 0
-        if retry_after <= HTTPClient.MAX_RETRY_AFTER:
-            sleep_seconds = max(retry_after, sleep_seconds)
 
         return sleep_seconds
 
@@ -375,7 +289,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries, response)
+                sleep_time = self._sleep_time_seconds(num_retries)
                 _util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
@@ -533,7 +447,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries, response)
+                sleep_time = self._sleep_time_seconds(num_retries)
                 _util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
@@ -600,6 +514,7 @@ class RequestsClient(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
         **kwargs,
     ):
         super(RequestsClient, self).__init__(
@@ -610,8 +525,12 @@ class RequestsClient(HTTPClient):
         self._session = session
         self._timeout = timeout
 
-        assert requests is not None
-        self.requests = requests
+        if _lib is None:
+            import requests
+
+            _lib = requests
+
+        self.requests = _lib
 
     def request(
         self,
@@ -785,6 +704,7 @@ class UrlFetchClient(HTTPClient):
         proxy: Optional[HTTPClient._Proxy] = None,
         deadline: int = 55,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
     ):
         super(UrlFetchClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
@@ -798,7 +718,7 @@ class UrlFetchClient(HTTPClient):
             raise ValueError(
                 "No proxy support in urlfetch library. "
                 "Set stripe.default_http_client to either RequestsClient, "
-                "PycurlClient, or Urllib2Client instance to use a proxy."
+                "PycurlClient, or UrllibClient instance to use a proxy."
             )
 
         self._verify_ssl_certs = verify_ssl_certs
@@ -806,8 +726,12 @@ class UrlFetchClient(HTTPClient):
         # to 55 seconds to allow for a slow Stripe
         self._deadline = deadline
 
-        assert urlfetch is not None
-        self.urlfetch = urlfetch
+        if _lib is None:
+            from google.appengine.api import urlfetch  # pyright: ignore
+
+            _lib = urlfetch
+
+        self.urlfetch = _lib
 
     def request(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
@@ -868,7 +792,7 @@ class UrlFetchClient(HTTPClient):
 
         if is_streaming:
             # This doesn't really stream.
-            content = _util.io.BytesIO(str.encode(result.content))
+            content = BytesIO(str.encode(result.content))
         else:
             content = result.content
 
@@ -903,15 +827,10 @@ class UrlFetchClient(HTTPClient):
         pass
 
 
-class _Proxy(TypedDict):
-    http: Optional[ParseResult]
-    https: Optional[ParseResult]
-
-
 class PycurlClient(HTTPClient):
     class _ParsedProxy(TypedDict, total=False):
-        http: Optional[ParseResult]
-        https: Optional[ParseResult]
+        http: Optional["ParseResult"]
+        https: Optional["ParseResult"]
 
     name = "pycurl"
     _parsed_proxy: Optional[_ParsedProxy]
@@ -921,6 +840,7 @@ class PycurlClient(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[HTTPClient._Proxy] = None,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
     ):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
@@ -928,15 +848,21 @@ class PycurlClient(HTTPClient):
             async_fallback_client=async_fallback_client,
         )
 
-        assert pycurl is not None
-        self.pycurl = pycurl
+        if _lib is None:
+            import pycurl  # pyright: ignore[reportMissingModuleSource]
+
+            _lib = pycurl
+
+        self.pycurl = _lib
         # Initialize this within the object so that we can reuse connections.
-        self._curl = pycurl.Curl()
+        self._curl = _lib.Curl()
 
         self._parsed_proxy = {}
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
+            from urllib.parse import urlparse
+
             proxy_ = self._proxy
             for scheme, value in proxy_.items():
                 # In general, TypedDict.items() gives you (key: str, value: object)
@@ -992,8 +918,8 @@ class PycurlClient(HTTPClient):
         post_data,
         is_streaming,
     ) -> Tuple[Union[str, BytesIO], int, Mapping[str, str]]:
-        b = _util.io.BytesIO()
-        rheaders = _util.io.BytesIO()
+        b = BytesIO()
+        rheaders = BytesIO()
 
         # Pycurl's design is a little weird: although we set per-request
         # options on this object, it's also capable of maintaining established
@@ -1091,7 +1017,7 @@ class PycurlClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
         raise APIConnectionError(msg, should_retry=should_retry) from e
 
-    def _get_proxy(self, url) -> Optional[ParseResult]:
+    def _get_proxy(self, url) -> Optional["ParseResult"]:
         if self._parsed_proxy:
             proxy = self._parsed_proxy
             scheme = url.split(":")[0] if url else None
@@ -1103,7 +1029,7 @@ class PycurlClient(HTTPClient):
         pass
 
 
-class Urllib2Client(HTTPClient):
+class UrllibClient(HTTPClient):
     name = "urllib.request"
 
     def __init__(
@@ -1111,21 +1037,33 @@ class Urllib2Client(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[HTTPClient._Proxy] = None,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
     ):
-        super(Urllib2Client, self).__init__(
+        super(UrllibClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
             proxy=proxy,
             async_fallback_client=async_fallback_client,
         )
+
+        if _lib is None:
+            import urllib.request as urllibrequest
+
+            _lib = urllibrequest
+        self.urllibrequest = _lib
+
+        import urllib.error as urlliberror
+
+        self.urlliberror = urlliberror
+
         # prepare and cache proxy tied opener here
         self._opener = None
         if self._proxy:
             # We have to cast _Proxy to Dict[str, str] because pyright is not smart enough to
             # realize that all the value types are str.
-            proxy_handler = urllibrequest.ProxyHandler(
+            proxy_handler = self.urllibrequest.ProxyHandler(
                 cast(Dict[str, str], self._proxy)
             )
-            self._opener = urllibrequest.build_opener(proxy_handler)
+            self._opener = self.urllibrequest.build_opener(proxy_handler)
 
     def request(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
@@ -1172,7 +1110,7 @@ class Urllib2Client(HTTPClient):
         if isinstance(post_data, str):
             post_data = post_data.encode("utf-8")
 
-        req = urllibrequest.Request(
+        req = self.urllibrequest.Request(
             url, post_data, cast(MutableMapping[str, str], headers)
         )
 
@@ -1185,7 +1123,7 @@ class Urllib2Client(HTTPClient):
             response = (
                 self._opener.open(req)
                 if self._opener
-                else urllibrequest.urlopen(req)
+                else self.urllibrequest.urlopen(req)
             )
 
             if is_streaming:
@@ -1195,11 +1133,11 @@ class Urllib2Client(HTTPClient):
 
             rcode = response.code
             headers = dict(response.info())
-        except urlliberror.HTTPError as e:
+        except self.urlliberror.HTTPError as e:
             rcode = e.code
             rcontent = e.read()
             headers = dict(e.info())
-        except (urlliberror.URLError, ValueError) as e:
+        except (self.urlliberror.URLError, ValueError) as e:
             self._handle_request_error(e)
         lh = dict((k.lower(), v) for k, v in iter(dict(headers).items()))
         return rcontent, rcode, lh
@@ -1225,21 +1163,19 @@ class HTTPXClient(HTTPClient):
         self,
         timeout: Optional[Union[float, "HTTPXTimeout"]] = 80,
         allow_sync_methods=False,
+        _lib=None,  # used for internal unit testing
         **kwargs,
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
-        if httpx is None:
-            raise ImportError(
-                "Unexpected: tried to initialize HTTPXClient but the httpx module is not present."
-            )
+        if _lib is None:
+            import httpx
 
-        if anyio is None:
-            raise ImportError(
-                "Unexpected: tried to initialize HTTPXClient but the anyio module is not present."
-            )
+            _lib = httpx
+        self.httpx = _lib
 
-        self.httpx = httpx
+        import anyio
+
         self.anyio = anyio
 
         kwargs = {}
@@ -1250,10 +1186,10 @@ class HTTPXClient(HTTPClient):
         else:
             kwargs["verify"] = False
 
-        self._client_async = httpx.AsyncClient(**kwargs)
+        self._client_async = self.httpx.AsyncClient(**kwargs)
         self._client = None
         if allow_sync_methods:
-            self._client = httpx.Client(**kwargs)
+            self._client = self.httpx.Client(**kwargs)
         self._timeout = timeout
 
     def sleep_async(self, secs):
@@ -1385,33 +1321,50 @@ class AIOHTTPClient(HTTPClient):
     name = "aiohttp"
 
     def __init__(
-        self, timeout: Optional[Union[float, "AIOHTTPTimeout"]] = 80, **kwargs
+        self,
+        timeout: Optional[Union[float, "AIOHTTPTimeout"]] = 80,
+        _lib=None,  # used for internal unit testing
+        session=None,
+        connector=None,
+        **kwargs,
     ):
         super(AIOHTTPClient, self).__init__(**kwargs)
 
-        if aiohttp is None:
-            raise ImportError(
-                "Unexpected: tried to initialize AIOHTTPClient but the aiohttp module is not present."
-            )
+        if _lib is None:
+            import aiohttp
+
+            _lib = aiohttp
+
+        self.aiohttp = _lib
 
         self._timeout = timeout
+        self._user_session = session
+        self._user_connector = connector
+        self._internally_managed_session = session is None
         self._cached_session = None
 
     @property
     def _session(self):
-        assert aiohttp is not None
-
         if self._cached_session is None:
-            kwargs = {}
-            if self._verify_ssl_certs:
-                ssl_context = ssl.create_default_context(
-                    cafile=stripe.ca_bundle_path
-                )
-                kwargs["connector"] = aiohttp.TCPConnector(ssl=ssl_context)
+            if self._user_session:
+                self._cached_session = self._user_session
             else:
-                kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
+                kwargs = {}
+                if self._user_connector:
+                    kwargs["connector"] = self._user_connector
+                elif self._verify_ssl_certs:
+                    ssl_context = ssl.create_default_context(
+                        cafile=stripe.ca_bundle_path
+                    )
+                    kwargs["connector"] = self.aiohttp.TCPConnector(
+                        ssl=ssl_context
+                    )
+                else:
+                    kwargs["connector"] = self.aiohttp.TCPConnector(
+                        verify_ssl=False
+                    )
 
-            self._cached_session = aiohttp.ClientSession(**kwargs)
+                self._cached_session = self.aiohttp.ClientSession(**kwargs)
 
         return self._cached_session
 
@@ -1494,7 +1447,8 @@ class AIOHTTPClient(HTTPClient):
         pass
 
     async def close_async(self):
-        await self._session.close()
+        if self._internally_managed_session:
+            await self._session.close()
 
 
 class NoImportFoundAsyncClient(HTTPClient):
@@ -1524,3 +1478,76 @@ class NoImportFoundAsyncClient(HTTPClient):
 
     async def close_async(self):
         self.raise_async_client_import_error()
+
+
+# --- Client resolution ---
+# Detect available HTTP libraries at module load time so the expensive imports
+# (e.g. requests, httpx) happen during Python's init phase rather than when
+# StripeClient() is constructed. This matters in environments like AWS Lambda
+# where module loading has a generous timeout (10s) but handler invocation
+# does not (often 3s).
+#
+# Sync client precedence:
+#   1. Urlfetch (Google App Engine — if present, you probably want it)
+#   2. Requests (popular, top priority outside GAE)
+#   3. Pycurl (verifies SSL certs, but less preferred than Requests)
+#   4. urllib (stdlib fallback, basically always present)
+#
+# Async client precedence:
+#   1. httpx + anyio (both required)
+#   2. aiohttp
+#   3. NoImportFoundAsyncClient (raises on use)
+#
+# To add a new client: define the class above, then add it to the appropriate
+# cascade below. The resolved class is stored directly — new_default_http_client()
+# and new_http_client_async_fallback() just call it.
+
+
+def _resolve_sync_client():
+    try:
+        from google.appengine.api import urlfetch  # type: ignore # noqa: F401
+
+        return UrlFetchClient
+    except ImportError:
+        pass
+
+    try:
+        import requests  # noqa: F401
+
+        return RequestsClient
+    except ImportError:
+        pass
+
+    try:
+        import pycurl  # type: ignore # noqa: F401
+
+        return PycurlClient
+    except ImportError:
+        pass
+
+    return UrllibClient
+
+
+def _resolve_async_client():
+    try:
+        import httpx  # noqa: F401
+        import anyio  # noqa: F401
+
+        return HTTPXClient
+    except ImportError:
+        pass
+
+    try:
+        import aiohttp  # noqa: F401
+
+        return AIOHTTPClient
+    except ImportError:
+        pass
+
+    return NoImportFoundAsyncClient
+
+
+# Called at module load time so HTTP library imports happen during Python's init
+# phase rather than inside StripeClient.__init__().
+_default_sync_client = _resolve_sync_client()
+_default_async_client = _resolve_async_client()

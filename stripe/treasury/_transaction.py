@@ -2,19 +2,18 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, Union
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.issuing._authorization import Authorization
+    from stripe.params.treasury._transaction_list_params import (
+        TransactionListParams,
+    )
+    from stripe.params.treasury._transaction_retrieve_params import (
+        TransactionRetrieveParams,
+    )
     from stripe.treasury._credit_reversal import CreditReversal
     from stripe.treasury._debit_reversal import DebitReversal
     from stripe.treasury._inbound_transfer import InboundTransfer
@@ -27,7 +26,7 @@ if TYPE_CHECKING:
 
 class Transaction(ListableAPIResource["Transaction"]):
     """
-    Transactions represent changes to a [FinancialAccount's](https://stripe.com/docs/api#financial_accounts) balance.
+    Transactions represent changes to a [FinancialAccount's](https://api.stripe.com#financial_accounts) balance.
     """
 
     OBJECT_NAME: ClassVar[Literal["treasury.transaction"]] = (
@@ -51,29 +50,29 @@ class Transaction(ListableAPIResource["Transaction"]):
     class FlowDetails(StripeObject):
         credit_reversal: Optional["CreditReversal"]
         """
-        You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
+        You can reverse some [ReceivedCredits](https://api.stripe.com#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
         """
         debit_reversal: Optional["DebitReversal"]
         """
-        You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
+        You can reverse some [ReceivedDebits](https://api.stripe.com#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
         """
         inbound_transfer: Optional["InboundTransfer"]
         """
-        Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+        Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
 
         Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
         """
         issuing_authorization: Optional["Authorization"]
         """
-        When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
-        object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
+        When an [issued card](https://docs.stripe.com/issuing) is used to make a purchase, an Issuing `Authorization`
+        object is created. [Authorizations](https://docs.stripe.com/issuing/purchases/authorizations) must be approved for the
         purchase to be completed successfully.
 
-        Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
+        Related guide: [Issued card authorizations](https://docs.stripe.com/issuing/purchases/authorizations)
         """
         outbound_payment: Optional["OutboundPayment"]
         """
-        Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
+        Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://api.stripe.com#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://api.stripe.com#outbound_transfers).
 
         Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
 
@@ -81,7 +80,7 @@ class Transaction(ListableAPIResource["Transaction"]):
         """
         outbound_transfer: Optional["OutboundTransfer"]
         """
-        Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
+        Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://api.stripe.com#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://api.stripe.com#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
 
         Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
 
@@ -89,22 +88,25 @@ class Transaction(ListableAPIResource["Transaction"]):
         """
         received_credit: Optional["ReceivedCredit"]
         """
-        ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
+        ReceivedCredits represent funds sent to a [FinancialAccount](https://api.stripe.com#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
         """
         received_debit: Optional["ReceivedDebit"]
         """
-        ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
+        ReceivedDebits represent funds pulled from a [FinancialAccount](https://api.stripe.com#financial_accounts). These are not initiated from the FinancialAccount.
         """
-        type: Literal[
-            "credit_reversal",
-            "debit_reversal",
-            "inbound_transfer",
-            "issuing_authorization",
-            "other",
-            "outbound_payment",
-            "outbound_transfer",
-            "received_credit",
-            "received_debit",
+        type: Union[
+            Literal[
+                "credit_reversal",
+                "debit_reversal",
+                "inbound_transfer",
+                "issuing_authorization",
+                "other",
+                "outbound_payment",
+                "outbound_transfer",
+                "received_credit",
+                "received_debit",
+            ],
+            str,
         ]
         """
         Type of the flow that created the Transaction. Set to the same value as `flow_type`.
@@ -118,96 +120,6 @@ class Transaction(ListableAPIResource["Transaction"]):
         void_at: Optional[int]
         """
         Timestamp describing when the Transaction changed status to `void`.
-        """
-
-    class ListParams(RequestOptions):
-        created: NotRequired["Transaction.ListParamsCreated|int"]
-        """
-        Only return Transactions that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        Returns objects associated with this FinancialAccount.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        order_by: NotRequired[Literal["created", "posted_at"]]
-        """
-        The results are in reverse chronological order by `created` or `posted_at`. The default is `created`.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["open", "posted", "void"]]
-        """
-        Only return Transactions that have the given status: `open`, `posted`, or `void`.
-        """
-        status_transitions: NotRequired[
-            "Transaction.ListParamsStatusTransitions"
-        ]
-        """
-        A filter for the `status_transitions.posted_at` timestamp. When using this filter, `status=posted` and `order_by=posted_at` must also be specified.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsStatusTransitions(TypedDict):
-        posted_at: NotRequired[
-            "Transaction.ListParamsStatusTransitionsPostedAt|int"
-        ]
-        """
-        Returns Transactions with `posted_at` within the specified range.
-        """
-
-    class ListParamsStatusTransitionsPostedAt(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     amount: int
@@ -246,16 +158,19 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     Details of the flow that created the Transaction.
     """
-    flow_type: Literal[
-        "credit_reversal",
-        "debit_reversal",
-        "inbound_transfer",
-        "issuing_authorization",
-        "other",
-        "outbound_payment",
-        "outbound_transfer",
-        "received_credit",
-        "received_debit",
+    flow_type: Union[
+        Literal[
+            "credit_reversal",
+            "debit_reversal",
+            "inbound_transfer",
+            "issuing_authorization",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "received_credit",
+            "received_debit",
+        ],
+        str,
     ]
     """
     Type of the flow that created the Transaction.
@@ -266,13 +181,13 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     object: Literal["treasury.transaction"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["open", "posted", "void"]
+    status: Union[Literal["open", "posted", "void"], str]
     """
     Status of the Transaction.
     """
@@ -280,7 +195,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["Transaction.ListParams"]
+        cls, **params: Unpack["TransactionListParams"]
     ) -> ListObject["Transaction"]:
         """
         Retrieves a list of Transaction objects.
@@ -300,7 +215,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Transaction.ListParams"]
+        cls, **params: Unpack["TransactionListParams"]
     ) -> ListObject["Transaction"]:
         """
         Retrieves a list of Transaction objects.
@@ -320,7 +235,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves the details of an existing Transaction.
@@ -331,7 +246,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves the details of an existing Transaction.

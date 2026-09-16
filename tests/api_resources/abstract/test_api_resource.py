@@ -1,6 +1,10 @@
+from unittest import mock
 import pytest
 
 import stripe
+from stripe._util import convert_to_stripe_object
+from stripe._stripe_object import StripeObject
+from stripe._error import InvalidRequestError
 
 
 class TestAPIResource(object):
@@ -94,12 +98,12 @@ class TestAPIResource(object):
             "alist": [{"object": "customer", "name": "chilango"}],
         }
 
-        converted = stripe.util.convert_to_stripe_object(
+        converted = convert_to_stripe_object(
             sample, "akey", None, None, api_mode="V1"
         )
 
         # Types
-        assert isinstance(converted, stripe.stripe_object.StripeObject)
+        assert isinstance(converted, StripeObject)
         assert isinstance(converted.adict, stripe.Charge)
         assert len(converted.alist) == 1
         assert isinstance(converted.alist[0], stripe.Customer)
@@ -115,7 +119,7 @@ class TestAPIResource(object):
 
     def test_raise_on_incorrect_id_type(self):
         for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
-            with pytest.raises(stripe.error.InvalidRequestError):
+            with pytest.raises(InvalidRequestError):
                 self.MyResource.retrieve(obj)
 
     def test_class_methods_use_global_options(self, http_client_mock):
@@ -228,10 +232,11 @@ class TestAPIResource(object):
             stripe_account="foo",
         )
 
-    def test_class_method_forwards_options(self, http_client_mock):
-        from stripe._object_classes import OBJECT_CLASSES
-
-        OBJECT_CLASSES["myresource"] = self.MyDeletableResource
+    @mock.patch("stripe._object_classes.get_object_class")
+    def test_class_method_forwards_options(
+        self, mock_get_object_class, http_client_mock
+    ):
+        mock_get_object_class.return_value = self.MyDeletableResource
 
         http_client_mock.stub_request(
             "post",
@@ -265,8 +270,6 @@ class TestAPIResource(object):
             stripe_version="2023-01-01",
             stripe_account="foo",
         )
-
-        del OBJECT_CLASSES["myresource"]
 
     def test_instance_method_forwards_options(self, http_client_mock):
         http_client_mock.stub_request(

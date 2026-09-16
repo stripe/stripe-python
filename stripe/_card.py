@@ -5,15 +5,15 @@ from stripe._customer import Customer
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, Union, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
+    from stripe.params._card_delete_params import CardDeleteParams
 
 
 class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
@@ -22,7 +22,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     later. You can also store multiple debit cards on a recipient in order to
     transfer to those cards later.
 
-    Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
+    Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
     """
 
     OBJECT_NAME: ClassVar[Literal["card"]] = "card"
@@ -32,9 +32,6 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         """
         The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
         """
-
-    class DeleteParams(RequestOptions):
-        pass
 
     account: Optional[ExpandableField["Account"]]
     address_city: Optional[str]
@@ -69,17 +66,21 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     """
-    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: Optional[
+        Union[Literal["always", "limited", "unspecified"], str]
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """
-    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
+    available_payout_methods: Optional[
+        List[Union[Literal["instant", "standard"], str]]
+    ]
     """
     A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     """
     brand: str
     """
-    Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+    Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     """
     country: Optional[str]
     """
@@ -147,9 +148,9 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     The last four digits of the card.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     name: Optional[str]
     """
@@ -160,7 +161,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    regulated_status: Optional[Literal["regulated", "unregulated"]]
+    regulated_status: Optional[Union[Literal["regulated", "unregulated"], str]]
     """
     Status of a card based on the card issuer.
     """
@@ -175,7 +176,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["Card.DeleteParams"]
+        cls, sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -193,7 +194,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["Card.DeleteParams"]
+        sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -202,7 +203,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @overload
     def delete(
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -211,7 +212,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -224,7 +225,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["Card.DeleteParams"]
+        cls, sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -242,7 +243,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["Card.DeleteParams"]
+        sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -251,7 +252,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @overload
     async def delete_async(
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -260,7 +261,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.

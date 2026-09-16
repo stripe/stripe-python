@@ -1,116 +1,39 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.treasury._outbound_transfer import OutboundTransfer
-from typing import List, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
+    from stripe.params.test_helpers.treasury._outbound_transfer_fail_params import (
+        OutboundTransferFailParams,
+    )
+    from stripe.params.test_helpers.treasury._outbound_transfer_post_params import (
+        OutboundTransferPostParams,
+    )
+    from stripe.params.test_helpers.treasury._outbound_transfer_return_outbound_transfer_params import (
+        OutboundTransferReturnOutboundTransferParams,
+    )
+    from stripe.params.test_helpers.treasury._outbound_transfer_update_params import (
+        OutboundTransferUpdateParams,
+    )
+    from stripe.treasury._outbound_transfer import OutboundTransfer
 
 
 class OutboundTransferService(StripeService):
-    class FailParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class PostParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ReturnOutboundTransferParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        returned_details: NotRequired[
-            "OutboundTransferService.ReturnOutboundTransferParamsReturnedDetails"
-        ]
-        """
-        Details about a returned OutboundTransfer.
-        """
-
-    class ReturnOutboundTransferParamsReturnedDetails(TypedDict):
-        code: NotRequired[
-            Literal[
-                "account_closed",
-                "account_frozen",
-                "bank_account_restricted",
-                "bank_ownership_changed",
-                "declined",
-                "incorrect_account_holder_name",
-                "invalid_account_number",
-                "invalid_currency",
-                "no_account",
-                "other",
-            ]
-        ]
-        """
-        Reason for the return.
-        """
-
-    class UpdateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        tracking_details: "OutboundTransferService.UpdateParamsTrackingDetails"
-        """
-        Details about network-specific tracking information.
-        """
-
-    class UpdateParamsTrackingDetails(TypedDict):
-        ach: NotRequired[
-            "OutboundTransferService.UpdateParamsTrackingDetailsAch"
-        ]
-        """
-        ACH network tracking details.
-        """
-        type: Literal["ach", "us_domestic_wire"]
-        """
-        The US bank account network used to send funds.
-        """
-        us_domestic_wire: NotRequired[
-            "OutboundTransferService.UpdateParamsTrackingDetailsUsDomesticWire"
-        ]
-        """
-        US domestic wire network tracking details.
-        """
-
-    class UpdateParamsTrackingDetailsAch(TypedDict):
-        trace_id: str
-        """
-        ACH trace ID for funds sent over the `ach` network.
-        """
-
-    class UpdateParamsTrackingDetailsUsDomesticWire(TypedDict):
-        chips: NotRequired[str]
-        """
-        CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
-        """
-        imad: NotRequired[str]
-        """
-        IMAD for funds sent over the `us_domestic_wire` network.
-        """
-        omad: NotRequired[str]
-        """
-        OMAD for funds sent over the `us_domestic_wire` network.
-        """
-
     def update(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.UpdateParams",
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: "OutboundTransferUpdateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
@@ -125,14 +48,14 @@ class OutboundTransferService(StripeService):
     async def update_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.UpdateParams",
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: "OutboundTransferUpdateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
@@ -147,14 +70,14 @@ class OutboundTransferService(StripeService):
     def fail(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.FailParams" = {},
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: Optional["OutboundTransferFailParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
@@ -169,14 +92,14 @@ class OutboundTransferService(StripeService):
     async def fail_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.FailParams" = {},
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: Optional["OutboundTransferFailParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
@@ -191,14 +114,14 @@ class OutboundTransferService(StripeService):
     def post(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.PostParams" = {},
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: Optional["OutboundTransferPostParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
@@ -213,14 +136,14 @@ class OutboundTransferService(StripeService):
     async def post_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.PostParams" = {},
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: Optional["OutboundTransferPostParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
@@ -235,14 +158,16 @@ class OutboundTransferService(StripeService):
     def return_outbound_transfer(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.ReturnOutboundTransferParams" = {},
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: Optional[
+            "OutboundTransferReturnOutboundTransferParams"
+        ] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
@@ -257,14 +182,16 @@ class OutboundTransferService(StripeService):
     async def return_outbound_transfer_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.ReturnOutboundTransferParams" = {},
-        options: RequestOptions = {},
-    ) -> OutboundTransfer:
+        params: Optional[
+            "OutboundTransferReturnOutboundTransferParams"
+        ] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundTransfer":
         """
         Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(

@@ -3,21 +3,17 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, Union, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._payment_intent import PaymentIntent
+    from stripe.params._review_approve_params import ReviewApproveParams
+    from stripe.params._review_list_params import ReviewListParams
+    from stripe.params._review_retrieve_params import ReviewRetrieveParams
 
 
 class Review(ListableAPIResource["Review"]):
@@ -25,7 +21,7 @@ class Review(ListableAPIResource["Review"]):
     Reviews can be used to supplement automated fraud detection with human expertise.
 
     Learn more about [Radar](https://docs.stripe.com/radar) and reviewing payments
-    [here](https://stripe.com/docs/radar/reviews).
+    [here](https://docs.stripe.com/radar/reviews).
     """
 
     OBJECT_NAME: ClassVar[Literal["review"]] = "review"
@@ -70,58 +66,6 @@ class Review(ListableAPIResource["Review"]):
         The version for the browser session (e.g., `61.0.3163.100`).
         """
 
-    class ApproveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(RequestOptions):
-        created: NotRequired["Review.ListParamsCreated|int"]
-        """
-        Only return reviews that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     billing_zip: Optional[str]
     """
     The ZIP or postal code of the card used, if applicable.
@@ -132,9 +76,11 @@ class Review(ListableAPIResource["Review"]):
     """
     closed_reason: Optional[
         Literal[
+            "acknowledged",
             "approved",
             "canceled",
             "disputed",
+            "payment_never_settled",
             "redacted",
             "refunded",
             "refunded_as_fraud",
@@ -161,7 +107,7 @@ class Review(ListableAPIResource["Review"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     object: Literal["review"]
     """
@@ -171,7 +117,7 @@ class Review(ListableAPIResource["Review"]):
     """
     If `true`, the review needs action.
     """
-    opened_reason: Literal["manual", "rule"]
+    opened_reason: Union[Literal["manual", "rule"], str]
     """
     The reason the review was opened. One of `rule` or `manual`.
     """
@@ -190,7 +136,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     def _cls_approve(
-        cls, review: str, **params: Unpack["Review.ApproveParams"]
+        cls, review: str, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -209,7 +155,7 @@ class Review(ListableAPIResource["Review"]):
     @overload
     @staticmethod
     def approve(
-        review: str, **params: Unpack["Review.ApproveParams"]
+        review: str, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -217,7 +163,7 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @overload
-    def approve(self, **params: Unpack["Review.ApproveParams"]) -> "Review":
+    def approve(self, **params: Unpack["ReviewApproveParams"]) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
@@ -225,7 +171,7 @@ class Review(ListableAPIResource["Review"]):
 
     @class_method_variant("_cls_approve")
     def approve(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Review.ApproveParams"]
+        self, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -235,7 +181,7 @@ class Review(ListableAPIResource["Review"]):
             self._request(
                 "post",
                 "/v1/reviews/{review}/approve".format(
-                    review=sanitize_id(self.get("id"))
+                    review=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -243,7 +189,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     async def _cls_approve_async(
-        cls, review: str, **params: Unpack["Review.ApproveParams"]
+        cls, review: str, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -262,7 +208,7 @@ class Review(ListableAPIResource["Review"]):
     @overload
     @staticmethod
     async def approve_async(
-        review: str, **params: Unpack["Review.ApproveParams"]
+        review: str, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -271,7 +217,7 @@ class Review(ListableAPIResource["Review"]):
 
     @overload
     async def approve_async(
-        self, **params: Unpack["Review.ApproveParams"]
+        self, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -280,7 +226,7 @@ class Review(ListableAPIResource["Review"]):
 
     @class_method_variant("_cls_approve_async")
     async def approve_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Review.ApproveParams"]
+        self, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -290,7 +236,7 @@ class Review(ListableAPIResource["Review"]):
             await self._request_async(
                 "post",
                 "/v1/reviews/{review}/approve".format(
-                    review=sanitize_id(self.get("id"))
+                    review=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -298,7 +244,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["Review.ListParams"]
+        cls, **params: Unpack["ReviewListParams"]
     ) -> ListObject["Review"]:
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -318,7 +264,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Review.ListParams"]
+        cls, **params: Unpack["ReviewListParams"]
     ) -> ListObject["Review"]:
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -338,7 +284,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Review.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReviewRetrieveParams"]
     ) -> "Review":
         """
         Retrieves a Review object.
@@ -349,7 +295,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Review.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReviewRetrieveParams"]
     ) -> "Review":
         """
         Retrieves a Review object.
