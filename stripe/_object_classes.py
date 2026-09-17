@@ -226,7 +226,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._reserve_transaction",
         "ReserveTransaction",
     ),
-    "transfer_reversal": ("stripe._reversal", "Reversal"),
+    "transfer_reversal": ("stripe._transfer_reversal", "TransferReversal"),
     "review": ("stripe._review", "Review"),
     "setup_attempt": ("stripe._setup_attempt", "SetupAttempt"),
     "setup_intent": ("stripe._setup_intent", "SetupIntent"),

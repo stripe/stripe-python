@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from stripe._refund import Refund
 
 
-class Reversal(UpdateableAPIResource["Reversal"]):
+class TransferReversal(UpdateableAPIResource["TransferReversal"]):
     """
     [Stripe Connect](https://docs.stripe.com/connect) platforms can reverse transfers made to a
     connected account, either entirely or partially, and can also specify whether
