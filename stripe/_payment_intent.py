@@ -4,7 +4,6 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
@@ -75,7 +74,6 @@ if TYPE_CHECKING:
     )
 
 
-@nested_resource_class_methods("amount_details_line_item")
 class PaymentIntent(
     CreateableAPIResource["PaymentIntent"],
     ListableAPIResource["PaymentIntent"],

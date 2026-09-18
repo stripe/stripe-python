@@ -3,7 +3,6 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Optional, Union, cast, overload
@@ -38,7 +37,6 @@ if TYPE_CHECKING:
     )
 
 
-@nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME: ClassVar[Literal["application_fee"]] = "application_fee"
 

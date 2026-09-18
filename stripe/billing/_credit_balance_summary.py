@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
-from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     )
 
 
-class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
+class CreditBalanceSummary(APIResource["CreditBalanceSummary"]):
     """
     Indicates the billing credit balance for billing credits granted to a customer.
     """
@@ -118,5 +118,8 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
     @classmethod
     def class_url(cls):
         return "/v1/billing/credit_balance_summary"
+
+    def instance_url(self):
+        return self.class_url()
 
     _inner_class_types = {"balances": Balance}

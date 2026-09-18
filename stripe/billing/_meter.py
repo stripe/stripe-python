@@ -3,7 +3,6 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
@@ -29,7 +28,6 @@ if TYPE_CHECKING:
     )
 
 
-@nested_resource_class_methods("event_summary")
 class Meter(
     CreateableAPIResource["Meter"],
     ListableAPIResource["Meter"],

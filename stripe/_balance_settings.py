@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from typing import ClassVar, List, Optional, Union, cast
@@ -15,10 +14,7 @@ if TYPE_CHECKING:
     )
 
 
-class BalanceSettings(
-    SingletonAPIResource["BalanceSettings"],
-    UpdateableAPIResource["BalanceSettings"],
-):
+class BalanceSettings(UpdateableAPIResource["BalanceSettings"]):
     """
     Options for customizing account balances and payout settings for a Stripe platform's connected accounts.
     """
@@ -210,5 +206,8 @@ class BalanceSettings(
     @classmethod
     def class_url(cls):
         return "/v1/balance_settings"
+
+    def instance_url(self):
+        return self.class_url()
 
     _inner_class_types = {"payments": Payments}
