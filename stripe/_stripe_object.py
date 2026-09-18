@@ -7,7 +7,6 @@ from typing_extensions import (
     Type,
     Literal,
     Self,
-    deprecated,
 )
 from typing import (
     Any,
@@ -447,23 +446,6 @@ class StripeObject:
             self._data[k] = obj
 
         self._previous = values
-
-    @deprecated("This will be removed in a future version of stripe-python.")
-    def request(
-        self,
-        method: Literal["get", "post", "delete"],
-        url: str,
-        params: Optional[Dict[str, Any]] = None,
-        *,
-        base_address: BaseAddress = "api",
-    ) -> "StripeObject":
-        return StripeObject._request(
-            self,
-            method,
-            url,
-            params=params,
-            base_address=base_address,
-        )
 
     def _request(
         self,
