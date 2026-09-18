@@ -1,6 +1,6 @@
 ---
 title: Remove unneeded Python resource helpers
-pr_url: https://github.com/stripe/stripe-python/pull/1921
+pr_url: https://github.com/stripe/stripe-python/pull/1922
 semver_level: major
 jira_tickets_closed:
 - DEVSDK-1704
