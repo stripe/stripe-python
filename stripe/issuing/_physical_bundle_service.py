@@ -59,6 +59,7 @@ class PhysicalBundleService(StripeService):
     def retrieve(
         self,
         physical_bundle: str,
+        /,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PhysicalBundle":
@@ -81,6 +82,7 @@ class PhysicalBundleService(StripeService):
     async def retrieve_async(
         self,
         physical_bundle: str,
+        /,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PhysicalBundle":

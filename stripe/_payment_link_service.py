@@ -133,6 +133,7 @@ class PaymentLinkService(StripeService):
     def retrieve(
         self,
         payment_link: str,
+        /,
         params: Optional["PaymentLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
@@ -155,6 +156,7 @@ class PaymentLinkService(StripeService):
     async def retrieve_async(
         self,
         payment_link: str,
+        /,
         params: Optional["PaymentLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
@@ -177,6 +179,7 @@ class PaymentLinkService(StripeService):
     def update(
         self,
         payment_link: str,
+        /,
         params: Optional["PaymentLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
@@ -199,6 +202,7 @@ class PaymentLinkService(StripeService):
     async def update_async(
         self,
         payment_link: str,
+        /,
         params: Optional["PaymentLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":

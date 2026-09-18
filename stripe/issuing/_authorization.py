@@ -653,7 +653,10 @@ class Authorization(
 
     @classmethod
     def _cls_approve(
-        cls, authorization: str, **params: Unpack["AuthorizationApproveParams"]
+        cls,
+        authorization: str,
+        /,
+        **params: Unpack["AuthorizationApproveParams"],
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -673,7 +676,7 @@ class Authorization(
     @overload
     @staticmethod
     def approve(
-        authorization: str, **params: Unpack["AuthorizationApproveParams"]
+        authorization: str, /, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -712,7 +715,10 @@ class Authorization(
 
     @classmethod
     async def _cls_approve_async(
-        cls, authorization: str, **params: Unpack["AuthorizationApproveParams"]
+        cls,
+        authorization: str,
+        /,
+        **params: Unpack["AuthorizationApproveParams"],
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -732,7 +738,7 @@ class Authorization(
     @overload
     @staticmethod
     async def approve_async(
-        authorization: str, **params: Unpack["AuthorizationApproveParams"]
+        authorization: str, /, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -771,7 +777,10 @@ class Authorization(
 
     @classmethod
     def _cls_decline(
-        cls, authorization: str, **params: Unpack["AuthorizationDeclineParams"]
+        cls,
+        authorization: str,
+        /,
+        **params: Unpack["AuthorizationDeclineParams"],
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -791,7 +800,7 @@ class Authorization(
     @overload
     @staticmethod
     def decline(
-        authorization: str, **params: Unpack["AuthorizationDeclineParams"]
+        authorization: str, /, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -830,7 +839,10 @@ class Authorization(
 
     @classmethod
     async def _cls_decline_async(
-        cls, authorization: str, **params: Unpack["AuthorizationDeclineParams"]
+        cls,
+        authorization: str,
+        /,
+        **params: Unpack["AuthorizationDeclineParams"],
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -850,7 +862,7 @@ class Authorization(
     @overload
     @staticmethod
     async def decline_async(
-        authorization: str, **params: Unpack["AuthorizationDeclineParams"]
+        authorization: str, /, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -990,6 +1002,7 @@ class Authorization(
         def _cls_capture(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationCaptureParams"],
         ) -> "Authorization":
             """
@@ -1009,7 +1022,9 @@ class Authorization(
         @overload
         @staticmethod
         def capture(
-            authorization: str, **params: Unpack["AuthorizationCaptureParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationCaptureParams"],
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -1049,6 +1064,7 @@ class Authorization(
         async def _cls_capture_async(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationCaptureParams"],
         ) -> "Authorization":
             """
@@ -1068,7 +1084,9 @@ class Authorization(
         @overload
         @staticmethod
         async def capture_async(
-            authorization: str, **params: Unpack["AuthorizationCaptureParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationCaptureParams"],
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -1140,6 +1158,7 @@ class Authorization(
         def _cls_expire(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationExpireParams"],
         ) -> "Authorization":
             """
@@ -1159,7 +1178,9 @@ class Authorization(
         @overload
         @staticmethod
         def expire(
-            authorization: str, **params: Unpack["AuthorizationExpireParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationExpireParams"],
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -1199,6 +1220,7 @@ class Authorization(
         async def _cls_expire_async(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationExpireParams"],
         ) -> "Authorization":
             """
@@ -1218,7 +1240,9 @@ class Authorization(
         @overload
         @staticmethod
         async def expire_async(
-            authorization: str, **params: Unpack["AuthorizationExpireParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationExpireParams"],
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -1258,6 +1282,7 @@ class Authorization(
         def _cls_finalize_amount(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationFinalizeAmountParams"],
         ) -> "Authorization":
             """
@@ -1278,6 +1303,7 @@ class Authorization(
         @staticmethod
         def finalize_amount(
             authorization: str,
+            /,
             **params: Unpack["AuthorizationFinalizeAmountParams"],
         ) -> "Authorization":
             """
@@ -1318,6 +1344,7 @@ class Authorization(
         async def _cls_finalize_amount_async(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationFinalizeAmountParams"],
         ) -> "Authorization":
             """
@@ -1338,6 +1365,7 @@ class Authorization(
         @staticmethod
         async def finalize_amount_async(
             authorization: str,
+            /,
             **params: Unpack["AuthorizationFinalizeAmountParams"],
         ) -> "Authorization":
             """
@@ -1378,6 +1406,7 @@ class Authorization(
         def _cls_increment(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationIncrementParams"],
         ) -> "Authorization":
             """
@@ -1398,6 +1427,7 @@ class Authorization(
         @staticmethod
         def increment(
             authorization: str,
+            /,
             **params: Unpack["AuthorizationIncrementParams"],
         ) -> "Authorization":
             """
@@ -1438,6 +1468,7 @@ class Authorization(
         async def _cls_increment_async(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationIncrementParams"],
         ) -> "Authorization":
             """
@@ -1458,6 +1489,7 @@ class Authorization(
         @staticmethod
         async def increment_async(
             authorization: str,
+            /,
             **params: Unpack["AuthorizationIncrementParams"],
         ) -> "Authorization":
             """
@@ -1498,6 +1530,7 @@ class Authorization(
         def _cls_respond(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationRespondParams"],
         ) -> "Authorization":
             """
@@ -1517,7 +1550,9 @@ class Authorization(
         @overload
         @staticmethod
         def respond(
-            authorization: str, **params: Unpack["AuthorizationRespondParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationRespondParams"],
         ) -> "Authorization":
             """
             Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -1557,6 +1592,7 @@ class Authorization(
         async def _cls_respond_async(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationRespondParams"],
         ) -> "Authorization":
             """
@@ -1576,7 +1612,9 @@ class Authorization(
         @overload
         @staticmethod
         async def respond_async(
-            authorization: str, **params: Unpack["AuthorizationRespondParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationRespondParams"],
         ) -> "Authorization":
             """
             Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -1616,6 +1654,7 @@ class Authorization(
         def _cls_reverse(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationReverseParams"],
         ) -> "Authorization":
             """
@@ -1635,7 +1674,9 @@ class Authorization(
         @overload
         @staticmethod
         def reverse(
-            authorization: str, **params: Unpack["AuthorizationReverseParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationReverseParams"],
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -1675,6 +1716,7 @@ class Authorization(
         async def _cls_reverse_async(
             cls,
             authorization: str,
+            /,
             **params: Unpack["AuthorizationReverseParams"],
         ) -> "Authorization":
             """
@@ -1694,7 +1736,9 @@ class Authorization(
         @overload
         @staticmethod
         async def reverse_async(
-            authorization: str, **params: Unpack["AuthorizationReverseParams"]
+            authorization: str,
+            /,
+            **params: Unpack["AuthorizationReverseParams"],
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.

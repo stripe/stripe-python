@@ -70,6 +70,7 @@ class InvoiceRenderingTemplate(
     def _cls_archive(
         cls,
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateArchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """
@@ -90,6 +91,7 @@ class InvoiceRenderingTemplate(
     @staticmethod
     def archive(
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateArchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """
@@ -128,6 +130,7 @@ class InvoiceRenderingTemplate(
     async def _cls_archive_async(
         cls,
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateArchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """
@@ -148,6 +151,7 @@ class InvoiceRenderingTemplate(
     @staticmethod
     async def archive_async(
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateArchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """
@@ -252,6 +256,7 @@ class InvoiceRenderingTemplate(
     def _cls_unarchive(
         cls,
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateUnarchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """
@@ -272,6 +277,7 @@ class InvoiceRenderingTemplate(
     @staticmethod
     def unarchive(
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateUnarchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """
@@ -310,6 +316,7 @@ class InvoiceRenderingTemplate(
     async def _cls_unarchive_async(
         cls,
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateUnarchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """
@@ -330,6 +337,7 @@ class InvoiceRenderingTemplate(
     @staticmethod
     async def unarchive_async(
         template: str,
+        /,
         **params: Unpack["InvoiceRenderingTemplateUnarchiveParams"],
     ) -> "InvoiceRenderingTemplate":
         """

@@ -18,6 +18,7 @@ class MeterEventSummaryService(StripeService):
     def list(
         self,
         id: str,
+        /,
         params: "MeterEventSummaryListParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[MeterEventSummary]":
@@ -40,6 +41,7 @@ class MeterEventSummaryService(StripeService):
     async def list_async(
         self,
         id: str,
+        /,
         params: "MeterEventSummaryListParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[MeterEventSummary]":

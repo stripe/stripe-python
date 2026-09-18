@@ -116,6 +116,7 @@ class RefundService(StripeService):
     def retrieve(
         self,
         refund: str,
+        /,
         params: Optional["RefundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":
@@ -136,6 +137,7 @@ class RefundService(StripeService):
     async def retrieve_async(
         self,
         refund: str,
+        /,
         params: Optional["RefundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":
@@ -156,6 +158,7 @@ class RefundService(StripeService):
     def update(
         self,
         refund: str,
+        /,
         params: Optional["RefundUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":
@@ -178,6 +181,7 @@ class RefundService(StripeService):
     async def update_async(
         self,
         refund: str,
+        /,
         params: Optional["RefundUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":
@@ -200,6 +204,7 @@ class RefundService(StripeService):
     def cancel(
         self,
         refund: str,
+        /,
         params: Optional["RefundCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":
@@ -224,6 +229,7 @@ class RefundService(StripeService):
     async def cancel_async(
         self,
         refund: str,
+        /,
         params: Optional["RefundCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":
