@@ -326,6 +326,7 @@ class PaymentMethodDomain(
     def _cls_validate(
         cls,
         payment_method_domain: str,
+        /,
         **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """
@@ -351,6 +352,7 @@ class PaymentMethodDomain(
     @staticmethod
     def validate(
         payment_method_domain: str,
+        /,
         **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """
@@ -404,6 +406,7 @@ class PaymentMethodDomain(
     async def _cls_validate_async(
         cls,
         payment_method_domain: str,
+        /,
         **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """
@@ -429,6 +432,7 @@ class PaymentMethodDomain(
     @staticmethod
     async def validate_async(
         payment_method_domain: str,
+        /,
         **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """

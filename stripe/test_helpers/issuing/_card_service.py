@@ -29,6 +29,7 @@ class CardService(StripeService):
     def deliver_card(
         self,
         card: str,
+        /,
         params: Optional["CardDeliverCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -51,6 +52,7 @@ class CardService(StripeService):
     async def deliver_card_async(
         self,
         card: str,
+        /,
         params: Optional["CardDeliverCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -73,6 +75,7 @@ class CardService(StripeService):
     def fail_card(
         self,
         card: str,
+        /,
         params: Optional["CardFailCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -95,6 +98,7 @@ class CardService(StripeService):
     async def fail_card_async(
         self,
         card: str,
+        /,
         params: Optional["CardFailCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -117,6 +121,7 @@ class CardService(StripeService):
     def return_card(
         self,
         card: str,
+        /,
         params: Optional["CardReturnCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -139,6 +144,7 @@ class CardService(StripeService):
     async def return_card_async(
         self,
         card: str,
+        /,
         params: Optional["CardReturnCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -161,6 +167,7 @@ class CardService(StripeService):
     def ship_card(
         self,
         card: str,
+        /,
         params: Optional["CardShipCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -183,6 +190,7 @@ class CardService(StripeService):
     async def ship_card_async(
         self,
         card: str,
+        /,
         params: Optional["CardShipCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -205,6 +213,7 @@ class CardService(StripeService):
     def submit_card(
         self,
         card: str,
+        /,
         params: Optional["CardSubmitCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -227,6 +236,7 @@ class CardService(StripeService):
     async def submit_card_async(
         self,
         card: str,
+        /,
         params: Optional["CardSubmitCardParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":

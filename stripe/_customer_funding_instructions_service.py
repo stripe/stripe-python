@@ -17,6 +17,7 @@ class CustomerFundingInstructionsService(StripeService):
     def create(
         self,
         customer: str,
+        /,
         params: "CustomerFundingInstructionsCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FundingInstructions":
@@ -41,6 +42,7 @@ class CustomerFundingInstructionsService(StripeService):
     async def create_async(
         self,
         customer: str,
+        /,
         params: "CustomerFundingInstructionsCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "FundingInstructions":

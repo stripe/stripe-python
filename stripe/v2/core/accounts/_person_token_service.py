@@ -21,6 +21,7 @@ class PersonTokenService(StripeService):
     def create(
         self,
         account_id: str,
+        /,
         params: Optional["PersonTokenCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":
@@ -47,6 +48,7 @@ class PersonTokenService(StripeService):
     async def create_async(
         self,
         account_id: str,
+        /,
         params: Optional["PersonTokenCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":
@@ -74,6 +76,7 @@ class PersonTokenService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":
@@ -98,6 +101,7 @@ class PersonTokenService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":
