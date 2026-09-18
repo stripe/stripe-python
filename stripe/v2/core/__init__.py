@@ -4,6 +4,7 @@ from typing_extensions import TYPE_CHECKING
 from stripe.v2.core._event import (
     EventNotification as EventNotification,
     RelatedObject as RelatedObject,
+    RelatedSingletonObject as RelatedSingletonObject,
     Reason as Reason,
     ReasonRequest as ReasonRequest,
 )
