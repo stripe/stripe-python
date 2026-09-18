@@ -18,6 +18,7 @@ class CreditNoteLineItemService(StripeService):
     def list(
         self,
         credit_note: str,
+        /,
         params: Optional["CreditNoteLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditNoteLineItem]":
@@ -40,6 +41,7 @@ class CreditNoteLineItemService(StripeService):
     async def list_async(
         self,
         credit_note: str,
+        /,
         params: Optional["CreditNoteLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditNoteLineItem]":

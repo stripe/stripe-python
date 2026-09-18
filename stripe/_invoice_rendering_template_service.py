@@ -65,6 +65,7 @@ class InvoiceRenderingTemplateService(StripeService):
     def retrieve(
         self,
         template: str,
+        /,
         params: Optional["InvoiceRenderingTemplateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceRenderingTemplate":
@@ -87,6 +88,7 @@ class InvoiceRenderingTemplateService(StripeService):
     async def retrieve_async(
         self,
         template: str,
+        /,
         params: Optional["InvoiceRenderingTemplateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceRenderingTemplate":
@@ -109,6 +111,7 @@ class InvoiceRenderingTemplateService(StripeService):
     def archive(
         self,
         template: str,
+        /,
         params: Optional["InvoiceRenderingTemplateArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceRenderingTemplate":
@@ -131,6 +134,7 @@ class InvoiceRenderingTemplateService(StripeService):
     async def archive_async(
         self,
         template: str,
+        /,
         params: Optional["InvoiceRenderingTemplateArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceRenderingTemplate":
@@ -153,6 +157,7 @@ class InvoiceRenderingTemplateService(StripeService):
     def unarchive(
         self,
         template: str,
+        /,
         params: Optional["InvoiceRenderingTemplateUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceRenderingTemplate":
@@ -175,6 +180,7 @@ class InvoiceRenderingTemplateService(StripeService):
     async def unarchive_async(
         self,
         template: str,
+        /,
         params: Optional["InvoiceRenderingTemplateUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceRenderingTemplate":

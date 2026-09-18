@@ -872,7 +872,7 @@ class Session(
             """
 
         class Alipay(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1817,7 +1817,7 @@ class Session(
             """
             The client type that the end customer will pay from
             """
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2761,7 +2761,7 @@ class Session(
 
     @classmethod
     def _cls_expire(
-        cls, session: str, **params: Unpack["SessionExpireParams"]
+        cls, session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2782,7 +2782,7 @@ class Session(
     @overload
     @staticmethod
     def expire(
-        session: str, **params: Unpack["SessionExpireParams"]
+        session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2822,7 +2822,7 @@ class Session(
 
     @classmethod
     async def _cls_expire_async(
-        cls, session: str, **params: Unpack["SessionExpireParams"]
+        cls, session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2843,7 +2843,7 @@ class Session(
     @overload
     @staticmethod
     async def expire_async(
-        session: str, **params: Unpack["SessionExpireParams"]
+        session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2925,7 +2925,7 @@ class Session(
 
     @classmethod
     def _cls_list_line_items(
-        cls, session: str, **params: Unpack["SessionListLineItemsParams"]
+        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2944,7 +2944,7 @@ class Session(
     @overload
     @staticmethod
     def list_line_items(
-        session: str, **params: Unpack["SessionListLineItemsParams"]
+        session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2980,7 +2980,7 @@ class Session(
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls, session: str, **params: Unpack["SessionListLineItemsParams"]
+        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2999,7 +2999,7 @@ class Session(
     @overload
     @staticmethod
     async def list_line_items_async(
-        session: str, **params: Unpack["SessionListLineItemsParams"]
+        session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

@@ -26,6 +26,7 @@ class OutboundTransferService(StripeService):
     def update(
         self,
         outbound_transfer: str,
+        /,
         params: "OutboundTransferUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -48,6 +49,7 @@ class OutboundTransferService(StripeService):
     async def update_async(
         self,
         outbound_transfer: str,
+        /,
         params: "OutboundTransferUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -70,6 +72,7 @@ class OutboundTransferService(StripeService):
     def fail(
         self,
         outbound_transfer: str,
+        /,
         params: Optional["OutboundTransferFailParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -92,6 +95,7 @@ class OutboundTransferService(StripeService):
     async def fail_async(
         self,
         outbound_transfer: str,
+        /,
         params: Optional["OutboundTransferFailParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -114,6 +118,7 @@ class OutboundTransferService(StripeService):
     def post(
         self,
         outbound_transfer: str,
+        /,
         params: Optional["OutboundTransferPostParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -136,6 +141,7 @@ class OutboundTransferService(StripeService):
     async def post_async(
         self,
         outbound_transfer: str,
+        /,
         params: Optional["OutboundTransferPostParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -158,6 +164,7 @@ class OutboundTransferService(StripeService):
     def return_outbound_transfer(
         self,
         outbound_transfer: str,
+        /,
         params: Optional[
             "OutboundTransferReturnOutboundTransferParams"
         ] = None,
@@ -182,6 +189,7 @@ class OutboundTransferService(StripeService):
     async def return_outbound_transfer_async(
         self,
         outbound_transfer: str,
+        /,
         params: Optional[
             "OutboundTransferReturnOutboundTransferParams"
         ] = None,
