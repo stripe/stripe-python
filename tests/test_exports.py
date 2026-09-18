@@ -58,7 +58,6 @@ def test_can_import_event_notification_members() -> None:
 def test_can_import_abstract() -> None:
     from stripe import (
         APIResource,  # pyright: ignore[reportUnusedImport]
-        SingletonAPIResource,  # pyright: ignore[reportUnusedImport]
         CreateableAPIResource,  # pyright: ignore[reportUnusedImport]
         UpdateableAPIResource,  # pyright: ignore[reportUnusedImport]
         DeletableAPIResource,  # pyright: ignore[reportUnusedImport]
@@ -67,7 +66,6 @@ def test_can_import_abstract() -> None:
         VerifyMixin,  # pyright: ignore[reportUnusedImport]
         APIResourceTestHelpers,  # pyright: ignore[reportUnusedImport]
         custom_method,  # pyright: ignore[reportDeprecated, reportUnusedImport]
-        nested_resource_class_methods,  # pyright: ignore[reportUnusedImport]
     )
 
 

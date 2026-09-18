@@ -365,9 +365,6 @@ if TYPE_CHECKING:
     from stripe._login_link import LoginLink as LoginLink
     from stripe._mandate import Mandate as Mandate
     from stripe._mandate_service import MandateService as MandateService
-    from stripe._nested_resource_class_methods import (
-        nested_resource_class_methods as nested_resource_class_methods,
-    )
     from stripe._oauth import OAuth as OAuth
     from stripe._oauth_service import OAuthService as OAuthService
     from stripe._payment_attempt_record import (
@@ -469,9 +466,6 @@ if TYPE_CHECKING:
         ShippingRateService as ShippingRateService,
     )
     from stripe._sigma_service import SigmaService as SigmaService
-    from stripe._singleton_api_resource import (
-        SingletonAPIResource as SingletonAPIResource,
-    )
     from stripe._source import Source as Source
     from stripe._source_mandate_notification import (
         SourceMandateNotification as SourceMandateNotification,
@@ -764,10 +758,6 @@ _import_map = {
     "LoginLink": ("stripe._login_link", False),
     "Mandate": ("stripe._mandate", False),
     "MandateService": ("stripe._mandate_service", False),
-    "nested_resource_class_methods": (
-        "stripe._nested_resource_class_methods",
-        False,
-    ),
     "OAuth": ("stripe._oauth", False),
     "OAuthService": ("stripe._oauth_service", False),
     "PaymentAttemptRecord": ("stripe._payment_attempt_record", False),
@@ -847,7 +837,6 @@ _import_map = {
     "ShippingRate": ("stripe._shipping_rate", False),
     "ShippingRateService": ("stripe._shipping_rate_service", False),
     "SigmaService": ("stripe._sigma_service", False),
-    "SingletonAPIResource": ("stripe._singleton_api_resource", False),
     "Source": ("stripe._source", False),
     "SourceMandateNotification": (
         "stripe._source_mandate_notification",

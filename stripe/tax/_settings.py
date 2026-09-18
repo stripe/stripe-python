@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from typing import ClassVar, List, Optional, Union, cast
@@ -13,10 +12,7 @@ if TYPE_CHECKING:
     )
 
 
-class Settings(
-    SingletonAPIResource["Settings"],
-    UpdateableAPIResource["Settings"],
-):
+class Settings(UpdateableAPIResource["Settings"]):
     """
     You can use Tax `Settings` to manage configurations used by Stripe Tax calculations.
 
@@ -161,6 +157,9 @@ class Settings(
     @classmethod
     def class_url(cls):
         return "/v1/tax/settings"
+
+    def instance_url(self):
+        return self.class_url()
 
     _inner_class_types = {
         "defaults": Defaults,

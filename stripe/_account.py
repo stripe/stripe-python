@@ -5,7 +5,6 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._oauth import OAuth
 from stripe._person import Person
 from stripe._stripe_object import StripeObject, UntypedStripeObject
@@ -71,10 +70,6 @@ if TYPE_CHECKING:
     from stripe.params._account_unreject_params import AccountUnrejectParams
 
 
-@nested_resource_class_methods("capability")
-@nested_resource_class_methods("external_account")
-@nested_resource_class_methods("login_link")
-@nested_resource_class_methods("person")
 class Account(
     CreateableAPIResource["Account"],
     DeletableAPIResource["Account"],

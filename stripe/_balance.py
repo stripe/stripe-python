@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._singleton_api_resource import SingletonAPIResource
+from stripe._api_resource import APIResource
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from stripe.params._balance_retrieve_params import BalanceRetrieveParams
 
 
-class Balance(SingletonAPIResource["Balance"]):
+class Balance(APIResource["Balance"]):
     """
     This is an object representing your Stripe balance. You can retrieve it to see
     the balance currently on your Stripe account.
@@ -306,6 +306,9 @@ class Balance(SingletonAPIResource["Balance"]):
     @classmethod
     def class_url(cls):
         return "/v1/balance"
+
+    def instance_url(self):
+        return self.class_url()
 
     _inner_class_types = {
         "available": Available,
