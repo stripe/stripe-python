@@ -68,6 +68,7 @@ class AuthorizationService(StripeService):
     def retrieve(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -90,6 +91,7 @@ class AuthorizationService(StripeService):
     async def retrieve_async(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -112,6 +114,7 @@ class AuthorizationService(StripeService):
     def update(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -134,6 +137,7 @@ class AuthorizationService(StripeService):
     async def update_async(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -156,6 +160,7 @@ class AuthorizationService(StripeService):
     def approve(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationApproveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -179,6 +184,7 @@ class AuthorizationService(StripeService):
     async def approve_async(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationApproveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -202,6 +208,7 @@ class AuthorizationService(StripeService):
     def decline(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationDeclineParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -225,6 +232,7 @@ class AuthorizationService(StripeService):
     async def decline_async(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationDeclineParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
