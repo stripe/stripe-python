@@ -2210,7 +2210,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVer
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2223,7 +2223,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense(
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2236,7 +2236,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumOfAsso
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2249,7 +2249,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyMinisterialDecre
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2262,7 +2262,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyRegistrationVeri
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2275,7 +2275,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerificatio
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2288,7 +2288,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification(
     """
     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
     """
-    type: Literal["front_back"]
+    type: Union[Literal["front_back"], str]
     """
     The format of the verification document. Currently supports `front_back` only.
     """
@@ -2314,7 +2314,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2333,7 +2333,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
     """
     Person that is signing the document.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2361,7 +2361,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
     """
     Person that is signing the document.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2865,7 +2865,7 @@ class AccountCreateParamsIdentityIndividualDocumentsCompanyAuthorization(
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2876,7 +2876,7 @@ class AccountCreateParamsIdentityIndividualDocumentsPassport(TypedDict):
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -2889,7 +2889,7 @@ class AccountCreateParamsIdentityIndividualDocumentsPrimaryVerification(
     """
     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
     """
-    type: Literal["front_back"]
+    type: Union[Literal["front_back"], str]
     """
     The format of the verification document. Currently supports `front_back` only.
     """
@@ -2915,7 +2915,7 @@ class AccountCreateParamsIdentityIndividualDocumentsSecondaryVerification(
     """
     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
     """
-    type: Literal["front_back"]
+    type: Union[Literal["front_back"], str]
     """
     The format of the verification document. Currently supports `front_back` only.
     """
@@ -2939,7 +2939,7 @@ class AccountCreateParamsIdentityIndividualDocumentsVisa(TypedDict):
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
