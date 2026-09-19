@@ -1166,7 +1166,7 @@ class Registration(
             """
 
         class Th(StripeObject):
-            type: Literal["simplified"]
+            type: Union[Literal["simplified"], str]
             """
             Type of registration in `country`.
             """
