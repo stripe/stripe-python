@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class AccountInferredBalanceService(StripeService):
     def list(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountInferredBalanceListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -31,8 +31,8 @@ class AccountInferredBalanceService(StripeService):
             "ListObject[AccountInferredBalance]",
             self._request(
                 "get",
-                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/inferred_balances".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -42,7 +42,7 @@ class AccountInferredBalanceService(StripeService):
 
     async def list_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountInferredBalanceListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -54,8 +54,8 @@ class AccountInferredBalanceService(StripeService):
             "ListObject[AccountInferredBalance]",
             await self._request_async(
                 "get",
-                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/inferred_balances".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

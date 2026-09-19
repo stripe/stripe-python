@@ -521,10 +521,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def _cls_list_line_items(
-        cls,
-        transaction: str,
-        /,
-        **params: Unpack["TransactionListLineItemsParams"],
+        cls, id: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -533,8 +530,8 @@ class Transaction(APIResource["Transaction"]):
             ListObject["TransactionLineItem"],
             cls._static_request(
                 "get",
-                "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(transaction)
+                "/v1/tax/transactions/{id}/line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -543,7 +540,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     def list_line_items(
-        transaction: str, /, **params: Unpack["TransactionListLineItemsParams"]
+        id: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -570,8 +567,8 @@ class Transaction(APIResource["Transaction"]):
             ListObject["TransactionLineItem"],
             self._request(
                 "get",
-                "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(self._data.get("id"))
+                "/v1/tax/transactions/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -579,10 +576,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls,
-        transaction: str,
-        /,
-        **params: Unpack["TransactionListLineItemsParams"],
+        cls, id: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -591,8 +585,8 @@ class Transaction(APIResource["Transaction"]):
             ListObject["TransactionLineItem"],
             await cls._static_request_async(
                 "get",
-                "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(transaction)
+                "/v1/tax/transactions/{id}/line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -601,7 +595,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     async def list_line_items_async(
-        transaction: str, /, **params: Unpack["TransactionListLineItemsParams"]
+        id: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -628,8 +622,8 @@ class Transaction(APIResource["Transaction"]):
             ListObject["TransactionLineItem"],
             await self._request_async(
                 "get",
-                "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(self._data.get("id"))
+                "/v1/tax/transactions/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

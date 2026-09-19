@@ -27,7 +27,7 @@ if TYPE_CHECKING:
 class LocationService(StripeService):
     def delete(
         self,
-        location: str,
+        id: str,
         /,
         params: Optional["LocationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -39,9 +39,7 @@ class LocationService(StripeService):
             "Location",
             self._request(
                 "delete",
-                "/v1/terminal/locations/{location}".format(
-                    location=sanitize_id(location),
-                ),
+                "/v1/terminal/locations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -50,7 +48,7 @@ class LocationService(StripeService):
 
     async def delete_async(
         self,
-        location: str,
+        id: str,
         /,
         params: Optional["LocationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -62,9 +60,7 @@ class LocationService(StripeService):
             "Location",
             await self._request_async(
                 "delete",
-                "/v1/terminal/locations/{location}".format(
-                    location=sanitize_id(location),
-                ),
+                "/v1/terminal/locations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -73,7 +69,7 @@ class LocationService(StripeService):
 
     def retrieve(
         self,
-        location: str,
+        id: str,
         /,
         params: Optional["LocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -85,9 +81,7 @@ class LocationService(StripeService):
             "Location",
             self._request(
                 "get",
-                "/v1/terminal/locations/{location}".format(
-                    location=sanitize_id(location),
-                ),
+                "/v1/terminal/locations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -96,7 +90,7 @@ class LocationService(StripeService):
 
     async def retrieve_async(
         self,
-        location: str,
+        id: str,
         /,
         params: Optional["LocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -108,9 +102,7 @@ class LocationService(StripeService):
             "Location",
             await self._request_async(
                 "get",
-                "/v1/terminal/locations/{location}".format(
-                    location=sanitize_id(location),
-                ),
+                "/v1/terminal/locations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -119,7 +111,7 @@ class LocationService(StripeService):
 
     def update(
         self,
-        location: str,
+        id: str,
         /,
         params: Optional["LocationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -131,9 +123,7 @@ class LocationService(StripeService):
             "Location",
             self._request(
                 "post",
-                "/v1/terminal/locations/{location}".format(
-                    location=sanitize_id(location),
-                ),
+                "/v1/terminal/locations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -142,7 +132,7 @@ class LocationService(StripeService):
 
     async def update_async(
         self,
-        location: str,
+        id: str,
         /,
         params: Optional["LocationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -154,9 +144,7 @@ class LocationService(StripeService):
             "Location",
             await self._request_async(
                 "post",
-                "/v1/terminal/locations/{location}".format(
-                    location=sanitize_id(location),
-                ),
+                "/v1/terminal/locations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

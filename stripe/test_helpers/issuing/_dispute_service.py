@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 class DisputeService(StripeService):
     def close(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeCloseParams",
         options: Optional["RequestOptions"] = None,
@@ -40,8 +40,8 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/close".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -51,7 +51,7 @@ class DisputeService(StripeService):
 
     async def close_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeCloseParams",
         options: Optional["RequestOptions"] = None,
@@ -63,8 +63,8 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/close".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -74,7 +74,7 @@ class DisputeService(StripeService):
 
     def provisional_credit(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeProvisionalCreditParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -86,8 +86,8 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/provisional_credit".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -97,7 +97,7 @@ class DisputeService(StripeService):
 
     async def provisional_credit_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeProvisionalCreditParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -109,8 +109,8 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/provisional_credit".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -120,7 +120,7 @@ class DisputeService(StripeService):
 
     def simulate_network_lifecycle_dispute_response(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeSimulateNetworkLifecycleDisputeResponseParams",
         options: Optional["RequestOptions"] = None,
@@ -132,8 +132,8 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_dispute_response".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -143,7 +143,7 @@ class DisputeService(StripeService):
 
     async def simulate_network_lifecycle_dispute_response_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeSimulateNetworkLifecycleDisputeResponseParams",
         options: Optional["RequestOptions"] = None,
@@ -155,8 +155,8 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_dispute_response".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -166,7 +166,7 @@ class DisputeService(StripeService):
 
     def simulate_network_lifecycle_pre_arbitration_response(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams",
         options: Optional["RequestOptions"] = None,
@@ -178,8 +178,8 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_response".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_response".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -189,7 +189,7 @@ class DisputeService(StripeService):
 
     async def simulate_network_lifecycle_pre_arbitration_response_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams",
         options: Optional["RequestOptions"] = None,
@@ -201,8 +201,8 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_response".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_response".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -212,7 +212,7 @@ class DisputeService(StripeService):
 
     def simulate_network_lifecycle_pre_arbitration_submission(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams",
         options: Optional["RequestOptions"] = None,
@@ -224,8 +224,8 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -235,7 +235,7 @@ class DisputeService(StripeService):
 
     async def simulate_network_lifecycle_pre_arbitration_submission_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams",
         options: Optional["RequestOptions"] = None,
@@ -247,8 +247,8 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
-                    dispute=sanitize_id(dispute),
+                "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

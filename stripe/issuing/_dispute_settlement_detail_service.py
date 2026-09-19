@@ -60,7 +60,7 @@ class DisputeSettlementDetailService(StripeService):
 
     def retrieve(
         self,
-        dispute_settlement_detail: str,
+        id: str,
         /,
         params: Optional["DisputeSettlementDetailRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -72,10 +72,8 @@ class DisputeSettlementDetailService(StripeService):
             "DisputeSettlementDetail",
             self._request(
                 "get",
-                "/v1/issuing/dispute_settlement_details/{dispute_settlement_detail}".format(
-                    dispute_settlement_detail=sanitize_id(
-                        dispute_settlement_detail
-                    ),
+                "/v1/issuing/dispute_settlement_details/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -85,7 +83,7 @@ class DisputeSettlementDetailService(StripeService):
 
     async def retrieve_async(
         self,
-        dispute_settlement_detail: str,
+        id: str,
         /,
         params: Optional["DisputeSettlementDetailRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -97,10 +95,8 @@ class DisputeSettlementDetailService(StripeService):
             "DisputeSettlementDetail",
             await self._request_async(
                 "get",
-                "/v1/issuing/dispute_settlement_details/{dispute_settlement_detail}".format(
-                    dispute_settlement_detail=sanitize_id(
-                        dispute_settlement_detail
-                    ),
+                "/v1/issuing/dispute_settlement_details/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

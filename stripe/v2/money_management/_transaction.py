@@ -240,6 +240,7 @@ class Transaction(StripeObject):
             "connect_collection_transfer",
             "connect_reserved_funds",
             "contribution",
+            "crypto_wallet_export",
             "currency_conversion",
             "debit_dispute",
             "dispute",

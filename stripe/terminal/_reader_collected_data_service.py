@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class ReaderCollectedDataService(StripeService):
     def retrieve(
         self,
-        reader_collected_data: str,
+        id: str,
         /,
         params: Optional["ReaderCollectedDataRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,8 +28,8 @@ class ReaderCollectedDataService(StripeService):
             "ReaderCollectedData",
             self._request(
                 "get",
-                "/v1/terminal/reader_collected_data/{reader_collected_data}".format(
-                    reader_collected_data=sanitize_id(reader_collected_data),
+                "/v1/terminal/reader_collected_data/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -39,7 +39,7 @@ class ReaderCollectedDataService(StripeService):
 
     async def retrieve_async(
         self,
-        reader_collected_data: str,
+        id: str,
         /,
         params: Optional["ReaderCollectedDataRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,8 +51,8 @@ class ReaderCollectedDataService(StripeService):
             "ReaderCollectedData",
             await self._request_async(
                 "get",
-                "/v1/terminal/reader_collected_data/{reader_collected_data}".format(
-                    reader_collected_data=sanitize_id(reader_collected_data),
+                "/v1/terminal/reader_collected_data/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

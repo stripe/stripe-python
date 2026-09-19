@@ -99,7 +99,7 @@ class PriceService(StripeService):
 
     def retrieve(
         self,
-        price: str,
+        id: str,
         /,
         params: Optional["PriceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -111,7 +111,7 @@ class PriceService(StripeService):
             "Price",
             self._request(
                 "get",
-                "/v1/prices/{price}".format(price=sanitize_id(price)),
+                "/v1/prices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -120,7 +120,7 @@ class PriceService(StripeService):
 
     async def retrieve_async(
         self,
-        price: str,
+        id: str,
         /,
         params: Optional["PriceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -132,7 +132,7 @@ class PriceService(StripeService):
             "Price",
             await self._request_async(
                 "get",
-                "/v1/prices/{price}".format(price=sanitize_id(price)),
+                "/v1/prices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -141,7 +141,7 @@ class PriceService(StripeService):
 
     def update(
         self,
-        price: str,
+        id: str,
         /,
         params: Optional["PriceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -153,7 +153,7 @@ class PriceService(StripeService):
             "Price",
             self._request(
                 "post",
-                "/v1/prices/{price}".format(price=sanitize_id(price)),
+                "/v1/prices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -162,7 +162,7 @@ class PriceService(StripeService):
 
     async def update_async(
         self,
-        price: str,
+        id: str,
         /,
         params: Optional["PriceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -174,7 +174,7 @@ class PriceService(StripeService):
             "Price",
             await self._request_async(
                 "post",
-                "/v1/prices/{price}".format(price=sanitize_id(price)),
+                "/v1/prices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -249,7 +249,7 @@ class PriceService(StripeService):
 
     def serialize_batch_update(
         self,
-        price: str,
+        id: str,
         /,
         params: Optional["PriceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -264,7 +264,7 @@ class PriceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"price": price},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

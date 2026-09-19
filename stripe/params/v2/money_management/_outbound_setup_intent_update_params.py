@@ -32,6 +32,7 @@ class OutboundSetupIntentUpdateParamsPayoutMethodData(TypedDict):
     """
     type: Union[
         Literal[
+            "apple_pay",
             "bank_account",
             "card",
             "crypto_wallet",

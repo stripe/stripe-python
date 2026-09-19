@@ -77,7 +77,7 @@ class AccountService(StripeService):
 
     def delete(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -95,7 +95,7 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "delete",
-                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                "/v1/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -104,7 +104,7 @@ class AccountService(StripeService):
 
     async def delete_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -122,7 +122,7 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "delete",
-                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                "/v1/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -131,7 +131,7 @@ class AccountService(StripeService):
 
     def retrieve(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -143,7 +143,7 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "get",
-                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                "/v1/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -152,7 +152,7 @@ class AccountService(StripeService):
 
     async def retrieve_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -164,7 +164,7 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                "/v1/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -173,7 +173,7 @@ class AccountService(StripeService):
 
     def update(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -197,7 +197,7 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "post",
-                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                "/v1/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -206,7 +206,7 @@ class AccountService(StripeService):
 
     async def update_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -230,7 +230,7 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}".format(account=sanitize_id(account)),
+                "/v1/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -363,7 +363,7 @@ class AccountService(StripeService):
 
     def reject(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountRejectParams",
         options: Optional["RequestOptions"] = None,
@@ -377,9 +377,7 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/reject".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -388,7 +386,7 @@ class AccountService(StripeService):
 
     async def reject_async(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountRejectParams",
         options: Optional["RequestOptions"] = None,
@@ -402,9 +400,7 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/reject".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -413,7 +409,7 @@ class AccountService(StripeService):
 
     def unreject(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountUnrejectParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -429,9 +425,7 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "post",
-                "/v1/accounts/{account}/unreject".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/unreject".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -440,7 +434,7 @@ class AccountService(StripeService):
 
     async def unreject_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountUnrejectParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -456,9 +450,7 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/unreject".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/unreject".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -467,7 +459,7 @@ class AccountService(StripeService):
 
     def serialize_batch_delete(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -482,7 +474,7 @@ class AccountService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"account": account},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -492,7 +484,7 @@ class AccountService(StripeService):
 
     def serialize_batch_update(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -507,7 +499,7 @@ class AccountService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"account": account},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

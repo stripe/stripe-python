@@ -97,7 +97,7 @@ class ChargeService(StripeService):
 
     def retrieve(
         self,
-        charge: str,
+        id: str,
         /,
         params: Optional["ChargeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -109,7 +109,7 @@ class ChargeService(StripeService):
             "Charge",
             self._request(
                 "get",
-                "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
+                "/v1/charges/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -118,7 +118,7 @@ class ChargeService(StripeService):
 
     async def retrieve_async(
         self,
-        charge: str,
+        id: str,
         /,
         params: Optional["ChargeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -130,7 +130,7 @@ class ChargeService(StripeService):
             "Charge",
             await self._request_async(
                 "get",
-                "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
+                "/v1/charges/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -139,7 +139,7 @@ class ChargeService(StripeService):
 
     def update(
         self,
-        charge: str,
+        id: str,
         /,
         params: Optional["ChargeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -151,7 +151,7 @@ class ChargeService(StripeService):
             "Charge",
             self._request(
                 "post",
-                "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
+                "/v1/charges/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -160,7 +160,7 @@ class ChargeService(StripeService):
 
     async def update_async(
         self,
-        charge: str,
+        id: str,
         /,
         params: Optional["ChargeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -172,7 +172,7 @@ class ChargeService(StripeService):
             "Charge",
             await self._request_async(
                 "post",
-                "/v1/charges/{charge}".format(charge=sanitize_id(charge)),
+                "/v1/charges/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -225,7 +225,7 @@ class ChargeService(StripeService):
 
     def capture(
         self,
-        charge: str,
+        id: str,
         /,
         params: Optional["ChargeCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -237,9 +237,7 @@ class ChargeService(StripeService):
             "Charge",
             self._request(
                 "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(charge),
-                ),
+                "/v1/charges/{id}/capture".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -248,7 +246,7 @@ class ChargeService(StripeService):
 
     async def capture_async(
         self,
-        charge: str,
+        id: str,
         /,
         params: Optional["ChargeCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -260,9 +258,7 @@ class ChargeService(StripeService):
             "Charge",
             await self._request_async(
                 "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(charge),
-                ),
+                "/v1/charges/{id}/capture".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

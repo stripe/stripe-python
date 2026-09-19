@@ -1838,10 +1838,7 @@ class PaymentMethod(
 
     @classmethod
     def _cls_attach(
-        cls,
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodAttachParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1862,9 +1859,7 @@ class PaymentMethod(
             "PaymentMethod",
             cls._static_request(
                 "post",
-                "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(payment_method)
-                ),
+                "/v1/payment_methods/{id}/attach".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1872,7 +1867,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def attach(
-        payment_method: str, /, **params: Unpack["PaymentMethodAttachParams"]
+        id: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1935,8 +1930,8 @@ class PaymentMethod(
             "PaymentMethod",
             self._request(
                 "post",
-                "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(self._data.get("id"))
+                "/v1/payment_methods/{id}/attach".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1944,10 +1939,7 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_attach_async(
-        cls,
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodAttachParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1968,9 +1960,7 @@ class PaymentMethod(
             "PaymentMethod",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(payment_method)
-                ),
+                "/v1/payment_methods/{id}/attach".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1978,7 +1968,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def attach_async(
-        payment_method: str, /, **params: Unpack["PaymentMethodAttachParams"]
+        id: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2041,8 +2031,8 @@ class PaymentMethod(
             "PaymentMethod",
             await self._request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(self._data.get("id"))
+                "/v1/payment_methods/{id}/attach".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2050,10 +2040,7 @@ class PaymentMethod(
 
     @classmethod
     def _cls_check_balance(
-        cls,
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodCheckBalanceParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
         Retrieves a PaymentMethod's Balance.
@@ -2062,8 +2049,8 @@ class PaymentMethod(
             "PaymentMethodBalance",
             cls._static_request(
                 "post",
-                "/v1/payment_methods/{payment_method}/check_balance".format(
-                    payment_method=sanitize_id(payment_method)
+                "/v1/payment_methods/{id}/check_balance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2072,9 +2059,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def check_balance(
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodCheckBalanceParams"],
+        id: str, /, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
         Retrieves a PaymentMethod's Balance.
@@ -2101,8 +2086,8 @@ class PaymentMethod(
             "PaymentMethodBalance",
             self._request(
                 "post",
-                "/v1/payment_methods/{payment_method}/check_balance".format(
-                    payment_method=sanitize_id(self._data.get("id"))
+                "/v1/payment_methods/{id}/check_balance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2110,10 +2095,7 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_check_balance_async(
-        cls,
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodCheckBalanceParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
         Retrieves a PaymentMethod's Balance.
@@ -2122,8 +2104,8 @@ class PaymentMethod(
             "PaymentMethodBalance",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/check_balance".format(
-                    payment_method=sanitize_id(payment_method)
+                "/v1/payment_methods/{id}/check_balance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2132,9 +2114,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def check_balance_async(
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodCheckBalanceParams"],
+        id: str, /, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
         Retrieves a PaymentMethod's Balance.
@@ -2161,8 +2141,8 @@ class PaymentMethod(
             "PaymentMethodBalance",
             await self._request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/check_balance".format(
-                    payment_method=sanitize_id(self._data.get("id"))
+                "/v1/payment_methods/{id}/check_balance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2206,10 +2186,7 @@ class PaymentMethod(
 
     @classmethod
     def _cls_detach(
-        cls,
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodDetachParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -2218,9 +2195,7 @@ class PaymentMethod(
             "PaymentMethod",
             cls._static_request(
                 "post",
-                "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(payment_method)
-                ),
+                "/v1/payment_methods/{id}/detach".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2228,7 +2203,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def detach(
-        payment_method: str, /, **params: Unpack["PaymentMethodDetachParams"]
+        id: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -2255,8 +2230,8 @@ class PaymentMethod(
             "PaymentMethod",
             self._request(
                 "post",
-                "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(self._data.get("id"))
+                "/v1/payment_methods/{id}/detach".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2264,10 +2239,7 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_detach_async(
-        cls,
-        payment_method: str,
-        /,
-        **params: Unpack["PaymentMethodDetachParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -2276,9 +2248,7 @@ class PaymentMethod(
             "PaymentMethod",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(payment_method)
-                ),
+                "/v1/payment_methods/{id}/detach".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2286,7 +2256,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def detach_async(
-        payment_method: str, /, **params: Unpack["PaymentMethodDetachParams"]
+        id: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -2313,8 +2283,8 @@ class PaymentMethod(
             "PaymentMethod",
             await self._request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(self._data.get("id"))
+                "/v1/payment_methods/{id}/detach".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

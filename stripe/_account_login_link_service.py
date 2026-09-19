@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class AccountLoginLinkService(StripeService):
     def create(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountLoginLinkCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -30,9 +30,7 @@ class AccountLoginLinkService(StripeService):
             "LoginLink",
             self._request(
                 "post",
-                "/v1/accounts/{account}/login_links".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/login_links".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -41,7 +39,7 @@ class AccountLoginLinkService(StripeService):
 
     async def create_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountLoginLinkCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -55,9 +53,7 @@ class AccountLoginLinkService(StripeService):
             "LoginLink",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/login_links".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/login_links".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -656,10 +656,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     def _cls_list_source_transactions(
-        cls,
-        source: str,
-        /,
-        **params: Unpack["SourceListSourceTransactionsParams"],
+        cls, id: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -668,8 +665,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ListObject["SourceTransaction"],
             cls._static_request(
                 "get",
-                "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(source)
+                "/v1/sources/{id}/source_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -678,7 +675,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     def list_source_transactions(
-        source: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
+        id: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -705,8 +702,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ListObject["SourceTransaction"],
             self._request(
                 "get",
-                "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(self._data.get("id"))
+                "/v1/sources/{id}/source_transactions".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -714,10 +711,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     async def _cls_list_source_transactions_async(
-        cls,
-        source: str,
-        /,
-        **params: Unpack["SourceListSourceTransactionsParams"],
+        cls, id: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -726,8 +720,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ListObject["SourceTransaction"],
             await cls._static_request_async(
                 "get",
-                "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(source)
+                "/v1/sources/{id}/source_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -736,7 +730,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     async def list_source_transactions_async(
-        source: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
+        id: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -763,8 +757,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ListObject["SourceTransaction"],
             await self._request_async(
                 "get",
-                "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(self._data.get("id"))
+                "/v1/sources/{id}/source_transactions".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -832,7 +826,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     def _cls_verify(
-        cls, source: str, /, **params: Unpack["SourceVerifyParams"]
+        cls, id: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -841,18 +835,14 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             "Source",
             cls._static_request(
                 "post",
-                "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(source)
-                ),
+                "/v1/sources/{id}/verify".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def verify(
-        source: str, /, **params: Unpack["SourceVerifyParams"]
-    ) -> "Source":
+    def verify(id: str, /, **params: Unpack["SourceVerifyParams"]) -> "Source":
         """
         Verify a given source.
         """
@@ -876,8 +866,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             "Source",
             self._request(
                 "post",
-                "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(self._data.get("id"))
+                "/v1/sources/{id}/verify".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -885,7 +875,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     async def _cls_verify_async(
-        cls, source: str, /, **params: Unpack["SourceVerifyParams"]
+        cls, id: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -894,9 +884,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             "Source",
             await cls._static_request_async(
                 "post",
-                "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(source)
-                ),
+                "/v1/sources/{id}/verify".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -904,7 +892,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     async def verify_async(
-        source: str, /, **params: Unpack["SourceVerifyParams"]
+        id: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -931,8 +919,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             "Source",
             await self._request_async(
                 "post",
-                "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(self._data.get("id"))
+                "/v1/sources/{id}/verify".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

@@ -118,7 +118,7 @@ class RefundService(StripeService):
 
     def retrieve(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -130,7 +130,7 @@ class RefundService(StripeService):
             "Refund",
             self._request(
                 "get",
-                "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
+                "/v1/refunds/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -139,7 +139,7 @@ class RefundService(StripeService):
 
     async def retrieve_async(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -151,7 +151,7 @@ class RefundService(StripeService):
             "Refund",
             await self._request_async(
                 "get",
-                "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
+                "/v1/refunds/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -160,7 +160,7 @@ class RefundService(StripeService):
 
     def update(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -174,7 +174,7 @@ class RefundService(StripeService):
             "Refund",
             self._request(
                 "post",
-                "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
+                "/v1/refunds/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -183,7 +183,7 @@ class RefundService(StripeService):
 
     async def update_async(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -197,7 +197,7 @@ class RefundService(StripeService):
             "Refund",
             await self._request_async(
                 "post",
-                "/v1/refunds/{refund}".format(refund=sanitize_id(refund)),
+                "/v1/refunds/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -206,7 +206,7 @@ class RefundService(StripeService):
 
     def cancel(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -220,9 +220,7 @@ class RefundService(StripeService):
             "Refund",
             self._request(
                 "post",
-                "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(refund),
-                ),
+                "/v1/refunds/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -231,7 +229,7 @@ class RefundService(StripeService):
 
     async def cancel_async(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -245,9 +243,7 @@ class RefundService(StripeService):
             "Refund",
             await self._request_async(
                 "post",
-                "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(refund),
-                ),
+                "/v1/refunds/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -278,7 +274,7 @@ class RefundService(StripeService):
 
     def serialize_batch_cancel(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -293,7 +289,7 @@ class RefundService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"refund": refund},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

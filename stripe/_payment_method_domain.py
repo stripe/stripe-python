@@ -324,10 +324,7 @@ class PaymentMethodDomain(
 
     @classmethod
     def _cls_validate(
-        cls,
-        payment_method_domain: str,
-        /,
-        **params: Unpack["PaymentMethodDomainValidateParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -341,8 +338,8 @@ class PaymentMethodDomain(
             "PaymentMethodDomain",
             cls._static_request(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(payment_method_domain)
+                "/v1/payment_method_domains/{id}/validate".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -351,9 +348,7 @@ class PaymentMethodDomain(
     @overload
     @staticmethod
     def validate(
-        payment_method_domain: str,
-        /,
-        **params: Unpack["PaymentMethodDomainValidateParams"],
+        id: str, /, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -395,8 +390,8 @@ class PaymentMethodDomain(
             "PaymentMethodDomain",
             self._request(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(self._data.get("id"))
+                "/v1/payment_method_domains/{id}/validate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -404,10 +399,7 @@ class PaymentMethodDomain(
 
     @classmethod
     async def _cls_validate_async(
-        cls,
-        payment_method_domain: str,
-        /,
-        **params: Unpack["PaymentMethodDomainValidateParams"],
+        cls, id: str, /, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -421,8 +413,8 @@ class PaymentMethodDomain(
             "PaymentMethodDomain",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(payment_method_domain)
+                "/v1/payment_method_domains/{id}/validate".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -431,9 +423,7 @@ class PaymentMethodDomain(
     @overload
     @staticmethod
     async def validate_async(
-        payment_method_domain: str,
-        /,
-        **params: Unpack["PaymentMethodDomainValidateParams"],
+        id: str, /, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -475,8 +465,8 @@ class PaymentMethodDomain(
             "PaymentMethodDomain",
             await self._request_async(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(self._data.get("id"))
+                "/v1/payment_method_domains/{id}/validate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

@@ -105,7 +105,7 @@ class PaymentMethodDomainService(StripeService):
 
     def retrieve(
         self,
-        payment_method_domain: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDomainRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -117,9 +117,7 @@ class PaymentMethodDomainService(StripeService):
             "PaymentMethodDomain",
             self._request(
                 "get",
-                "/v1/payment_method_domains/{payment_method_domain}".format(
-                    payment_method_domain=sanitize_id(payment_method_domain),
-                ),
+                "/v1/payment_method_domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -128,7 +126,7 @@ class PaymentMethodDomainService(StripeService):
 
     async def retrieve_async(
         self,
-        payment_method_domain: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDomainRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -140,9 +138,7 @@ class PaymentMethodDomainService(StripeService):
             "PaymentMethodDomain",
             await self._request_async(
                 "get",
-                "/v1/payment_method_domains/{payment_method_domain}".format(
-                    payment_method_domain=sanitize_id(payment_method_domain),
-                ),
+                "/v1/payment_method_domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -151,7 +147,7 @@ class PaymentMethodDomainService(StripeService):
 
     def update(
         self,
-        payment_method_domain: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDomainUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -163,9 +159,7 @@ class PaymentMethodDomainService(StripeService):
             "PaymentMethodDomain",
             self._request(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}".format(
-                    payment_method_domain=sanitize_id(payment_method_domain),
-                ),
+                "/v1/payment_method_domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -174,7 +168,7 @@ class PaymentMethodDomainService(StripeService):
 
     async def update_async(
         self,
-        payment_method_domain: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDomainUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -186,9 +180,7 @@ class PaymentMethodDomainService(StripeService):
             "PaymentMethodDomain",
             await self._request_async(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}".format(
-                    payment_method_domain=sanitize_id(payment_method_domain),
-                ),
+                "/v1/payment_method_domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -197,7 +189,7 @@ class PaymentMethodDomainService(StripeService):
 
     def validate(
         self,
-        payment_method_domain: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDomainValidateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -214,8 +206,8 @@ class PaymentMethodDomainService(StripeService):
             "PaymentMethodDomain",
             self._request(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(payment_method_domain),
+                "/v1/payment_method_domains/{id}/validate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -225,7 +217,7 @@ class PaymentMethodDomainService(StripeService):
 
     async def validate_async(
         self,
-        payment_method_domain: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDomainValidateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -242,8 +234,8 @@ class PaymentMethodDomainService(StripeService):
             "PaymentMethodDomain",
             await self._request_async(
                 "post",
-                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                    payment_method_domain=sanitize_id(payment_method_domain),
+                "/v1/payment_method_domains/{id}/validate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

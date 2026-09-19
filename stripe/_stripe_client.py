@@ -375,7 +375,6 @@ class StripeClient(object):
         """
         return StripeClient(
             api_key=self._requestor.api_key,  # type: ignore
-            stripe_account=self._requestor._options.stripe_account,
             stripe_context=stripe_context,
             stripe_version=self._requestor._options.stripe_version,
             base_addresses=self._requestor._options.base_addresses,

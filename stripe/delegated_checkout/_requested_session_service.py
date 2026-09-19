@@ -60,7 +60,7 @@ class RequestedSessionService(StripeService):
 
     def retrieve(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -72,8 +72,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             self._request(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -83,7 +83,7 @@ class RequestedSessionService(StripeService):
 
     async def retrieve_async(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -95,8 +95,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             await self._request_async(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -106,7 +106,7 @@ class RequestedSessionService(StripeService):
 
     def update(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -118,8 +118,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             self._request(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -129,7 +129,7 @@ class RequestedSessionService(StripeService):
 
     async def update_async(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -141,8 +141,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             await self._request_async(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -190,7 +190,7 @@ class RequestedSessionService(StripeService):
 
     def confirm(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -202,8 +202,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             self._request(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}/confirm".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -213,7 +213,7 @@ class RequestedSessionService(StripeService):
 
     async def confirm_async(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -225,8 +225,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             await self._request_async(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}/confirm".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -236,7 +236,7 @@ class RequestedSessionService(StripeService):
 
     def expire(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -248,8 +248,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             self._request(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}/expire".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -259,7 +259,7 @@ class RequestedSessionService(StripeService):
 
     async def expire_async(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -271,8 +271,8 @@ class RequestedSessionService(StripeService):
             "RequestedSession",
             await self._request_async(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}/expire".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

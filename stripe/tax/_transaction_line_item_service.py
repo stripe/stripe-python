@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class TransactionLineItemService(StripeService):
     def list(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,8 +29,8 @@ class TransactionLineItemService(StripeService):
             "ListObject[TransactionLineItem]",
             self._request(
                 "get",
-                "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(transaction),
+                "/v1/tax/transactions/{id}/line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -40,7 +40,7 @@ class TransactionLineItemService(StripeService):
 
     async def list_async(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,8 +52,8 @@ class TransactionLineItemService(StripeService):
             "ListObject[TransactionLineItem]",
             await self._request_async(
                 "get",
-                "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(transaction),
+                "/v1/tax/transactions/{id}/line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

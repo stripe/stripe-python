@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class SessionLineItemService(StripeService):
     def list(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,8 +29,8 @@ class SessionLineItemService(StripeService):
             "ListObject[LineItem]",
             self._request(
                 "get",
-                "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(session),
+                "/v1/checkout/sessions/{id}/line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -40,7 +40,7 @@ class SessionLineItemService(StripeService):
 
     async def list_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,8 +52,8 @@ class SessionLineItemService(StripeService):
             "ListObject[LineItem]",
             await self._request_async(
                 "get",
-                "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(session),
+                "/v1/checkout/sessions/{id}/line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

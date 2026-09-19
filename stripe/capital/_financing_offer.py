@@ -54,6 +54,10 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         Populated when the `product_type` of the `financingoffer` is `refill`.
         Represents the discount amount on remaining premium for the existing loan at payout time.
         """
+        total_due_amount: Optional[int]
+        """
+        Total amount due for the financing independent of what's already been paid, in minor units. For example, 100 USD is represented as 10000.
+        """
         withhold_rate: float
         """
         Per-transaction rate at which Stripe withholds funds to repay the financing.
@@ -239,10 +243,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     def _cls_mark_delivered(
-        cls,
-        financing_offer: str,
-        /,
-        **params: Unpack["FinancingOfferMarkDeliveredParams"],
+        cls, id: str, /, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -252,8 +253,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             "FinancingOffer",
             cls._static_request(
                 "post",
-                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                    financing_offer=sanitize_id(financing_offer)
+                "/v1/capital/financing_offers/{id}/mark_delivered".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -262,9 +263,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @overload
     @staticmethod
     def mark_delivered(
-        financing_offer: str,
-        /,
-        **params: Unpack["FinancingOfferMarkDeliveredParams"],
+        id: str, /, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -294,8 +293,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             "FinancingOffer",
             self._request(
                 "post",
-                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                    financing_offer=sanitize_id(self._data.get("id"))
+                "/v1/capital/financing_offers/{id}/mark_delivered".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -303,10 +302,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     async def _cls_mark_delivered_async(
-        cls,
-        financing_offer: str,
-        /,
-        **params: Unpack["FinancingOfferMarkDeliveredParams"],
+        cls, id: str, /, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -316,8 +312,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             "FinancingOffer",
             await cls._static_request_async(
                 "post",
-                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                    financing_offer=sanitize_id(financing_offer)
+                "/v1/capital/financing_offers/{id}/mark_delivered".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -326,9 +322,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @overload
     @staticmethod
     async def mark_delivered_async(
-        financing_offer: str,
-        /,
-        **params: Unpack["FinancingOfferMarkDeliveredParams"],
+        id: str, /, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -358,8 +352,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             "FinancingOffer",
             await self._request_async(
                 "post",
-                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                    financing_offer=sanitize_id(self._data.get("id"))
+                "/v1/capital/financing_offers/{id}/mark_delivered".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -424,10 +418,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
         @classmethod
         def _cls_refill(
-            cls,
-            financing_offer: str,
-            /,
-            **params: Unpack["FinancingOfferRefillParams"],
+            cls, id: str, /, **params: Unpack["FinancingOfferRefillParams"]
         ) -> "FinancingOffer":
             """
             Refills a test financing offer for a connected account.
@@ -436,8 +427,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
                 "FinancingOffer",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
-                        financing_offer=sanitize_id(financing_offer)
+                    "/v1/test_helpers/capital/financing_offers/{id}/refill".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -446,9 +437,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         @overload
         @staticmethod
         def refill(
-            financing_offer: str,
-            /,
-            **params: Unpack["FinancingOfferRefillParams"],
+            id: str, /, **params: Unpack["FinancingOfferRefillParams"]
         ) -> "FinancingOffer":
             """
             Refills a test financing offer for a connected account.
@@ -475,10 +464,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
                 "FinancingOffer",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
-                        financing_offer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/capital/financing_offers/{id}/refill".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -486,10 +473,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
         @classmethod
         async def _cls_refill_async(
-            cls,
-            financing_offer: str,
-            /,
-            **params: Unpack["FinancingOfferRefillParams"],
+            cls, id: str, /, **params: Unpack["FinancingOfferRefillParams"]
         ) -> "FinancingOffer":
             """
             Refills a test financing offer for a connected account.
@@ -498,8 +482,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
                 "FinancingOffer",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
-                        financing_offer=sanitize_id(financing_offer)
+                    "/v1/test_helpers/capital/financing_offers/{id}/refill".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -508,9 +492,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         @overload
         @staticmethod
         async def refill_async(
-            financing_offer: str,
-            /,
-            **params: Unpack["FinancingOfferRefillParams"],
+            id: str, /, **params: Unpack["FinancingOfferRefillParams"]
         ) -> "FinancingOffer":
             """
             Refills a test financing offer for a connected account.
@@ -537,10 +519,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
                 "FinancingOffer",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
-                        financing_offer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/capital/financing_offers/{id}/refill".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

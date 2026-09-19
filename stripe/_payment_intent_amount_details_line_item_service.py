@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class PaymentIntentAmountDetailsLineItemService(StripeService):
     def list(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional[
             "PaymentIntentAmountDetailsLineItemListParams"
@@ -33,8 +33,8 @@ class PaymentIntentAmountDetailsLineItemService(StripeService):
             "ListObject[PaymentIntentAmountDetailsLineItem]",
             self._request(
                 "get",
-                "/v1/payment_intents/{intent}/amount_details_line_items".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/amount_details_line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -44,7 +44,7 @@ class PaymentIntentAmountDetailsLineItemService(StripeService):
 
     async def list_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional[
             "PaymentIntentAmountDetailsLineItemListParams"
@@ -58,8 +58,8 @@ class PaymentIntentAmountDetailsLineItemService(StripeService):
             "ListObject[PaymentIntentAmountDetailsLineItem]",
             await self._request_async(
                 "get",
-                "/v1/payment_intents/{intent}/amount_details_line_items".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/amount_details_line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

@@ -10,6 +10,7 @@ class AccountRetrieveParams(TypedDict):
             Literal[
                 "configuration.card_creator",
                 "configuration.customer",
+                "configuration.developer",
                 "configuration.merchant",
                 "configuration.recipient",
                 "configuration.money_manager",

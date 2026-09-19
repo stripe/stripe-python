@@ -1555,7 +1555,7 @@ class Card(
 
         @classmethod
         def _cls_deliver_card(
-            cls, card: str, /, **params: Unpack["CardDeliverCardParams"]
+            cls, id: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1564,8 +1564,8 @@ class Card(
                 "Card",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/deliver".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1574,7 +1574,7 @@ class Card(
         @overload
         @staticmethod
         def deliver_card(
-            card: str, /, **params: Unpack["CardDeliverCardParams"]
+            id: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1601,8 +1601,8 @@ class Card(
                 "Card",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/deliver".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1610,7 +1610,7 @@ class Card(
 
         @classmethod
         async def _cls_deliver_card_async(
-            cls, card: str, /, **params: Unpack["CardDeliverCardParams"]
+            cls, id: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1619,8 +1619,8 @@ class Card(
                 "Card",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/deliver".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1629,7 +1629,7 @@ class Card(
         @overload
         @staticmethod
         async def deliver_card_async(
-            card: str, /, **params: Unpack["CardDeliverCardParams"]
+            id: str, /, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to delivered.
@@ -1656,8 +1656,8 @@ class Card(
                 "Card",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/deliver".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1665,7 +1665,7 @@ class Card(
 
         @classmethod
         def _cls_fail_card(
-            cls, card: str, /, **params: Unpack["CardFailCardParams"]
+            cls, id: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1674,8 +1674,8 @@ class Card(
                 "Card",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/fail".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1684,7 +1684,7 @@ class Card(
         @overload
         @staticmethod
         def fail_card(
-            card: str, /, **params: Unpack["CardFailCardParams"]
+            id: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1709,8 +1709,8 @@ class Card(
                 "Card",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/fail".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1718,7 +1718,7 @@ class Card(
 
         @classmethod
         async def _cls_fail_card_async(
-            cls, card: str, /, **params: Unpack["CardFailCardParams"]
+            cls, id: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1727,8 +1727,8 @@ class Card(
                 "Card",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/fail".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1737,7 +1737,7 @@ class Card(
         @overload
         @staticmethod
         async def fail_card_async(
-            card: str, /, **params: Unpack["CardFailCardParams"]
+            id: str, /, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
@@ -1764,8 +1764,8 @@ class Card(
                 "Card",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/fail".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1773,7 +1773,7 @@ class Card(
 
         @classmethod
         def _cls_return_card(
-            cls, card: str, /, **params: Unpack["CardReturnCardParams"]
+            cls, id: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1782,8 +1782,8 @@ class Card(
                 "Card",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/return".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1792,7 +1792,7 @@ class Card(
         @overload
         @staticmethod
         def return_card(
-            card: str, /, **params: Unpack["CardReturnCardParams"]
+            id: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1819,8 +1819,8 @@ class Card(
                 "Card",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/return".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1828,7 +1828,7 @@ class Card(
 
         @classmethod
         async def _cls_return_card_async(
-            cls, card: str, /, **params: Unpack["CardReturnCardParams"]
+            cls, id: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1837,8 +1837,8 @@ class Card(
                 "Card",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/return".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1847,7 +1847,7 @@ class Card(
         @overload
         @staticmethod
         async def return_card_async(
-            card: str, /, **params: Unpack["CardReturnCardParams"]
+            id: str, /, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to returned.
@@ -1874,8 +1874,8 @@ class Card(
                 "Card",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/return".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1883,7 +1883,7 @@ class Card(
 
         @classmethod
         def _cls_ship_card(
-            cls, card: str, /, **params: Unpack["CardShipCardParams"]
+            cls, id: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1892,8 +1892,8 @@ class Card(
                 "Card",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/ship".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1902,7 +1902,7 @@ class Card(
         @overload
         @staticmethod
         def ship_card(
-            card: str, /, **params: Unpack["CardShipCardParams"]
+            id: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1927,8 +1927,8 @@ class Card(
                 "Card",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/ship".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1936,7 +1936,7 @@ class Card(
 
         @classmethod
         async def _cls_ship_card_async(
-            cls, card: str, /, **params: Unpack["CardShipCardParams"]
+            cls, id: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1945,8 +1945,8 @@ class Card(
                 "Card",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/ship".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1955,7 +1955,7 @@ class Card(
         @overload
         @staticmethod
         async def ship_card_async(
-            card: str, /, **params: Unpack["CardShipCardParams"]
+            id: str, /, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
@@ -1982,8 +1982,8 @@ class Card(
                 "Card",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/ship".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1991,7 +1991,7 @@ class Card(
 
         @classmethod
         def _cls_submit_card(
-            cls, card: str, /, **params: Unpack["CardSubmitCardParams"]
+            cls, id: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
@@ -2000,8 +2000,8 @@ class Card(
                 "Card",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/submit".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2010,7 +2010,7 @@ class Card(
         @overload
         @staticmethod
         def submit_card(
-            card: str, /, **params: Unpack["CardSubmitCardParams"]
+            id: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
@@ -2037,8 +2037,8 @@ class Card(
                 "Card",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/submit".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2046,7 +2046,7 @@ class Card(
 
         @classmethod
         async def _cls_submit_card_async(
-            cls, card: str, /, **params: Unpack["CardSubmitCardParams"]
+            cls, id: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
@@ -2055,8 +2055,8 @@ class Card(
                 "Card",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                        card=sanitize_id(card)
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/submit".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2065,7 +2065,7 @@ class Card(
         @overload
         @staticmethod
         async def submit_card_async(
-            card: str, /, **params: Unpack["CardSubmitCardParams"]
+            id: str, /, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
@@ -2092,8 +2092,8 @@ class Card(
                 "Card",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                        card=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/cards/{id}/shipping/submit".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

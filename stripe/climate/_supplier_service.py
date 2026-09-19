@@ -56,7 +56,7 @@ class SupplierService(StripeService):
 
     def retrieve(
         self,
-        supplier: str,
+        id: str,
         /,
         params: Optional["SupplierRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -68,9 +68,7 @@ class SupplierService(StripeService):
             "Supplier",
             self._request(
                 "get",
-                "/v1/climate/suppliers/{supplier}".format(
-                    supplier=sanitize_id(supplier),
-                ),
+                "/v1/climate/suppliers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -79,7 +77,7 @@ class SupplierService(StripeService):
 
     async def retrieve_async(
         self,
-        supplier: str,
+        id: str,
         /,
         params: Optional["SupplierRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -91,9 +89,7 @@ class SupplierService(StripeService):
             "Supplier",
             await self._request_async(
                 "get",
-                "/v1/climate/suppliers/{supplier}".format(
-                    supplier=sanitize_id(supplier),
-                ),
+                "/v1/climate/suppliers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

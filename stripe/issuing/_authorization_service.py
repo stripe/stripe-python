@@ -67,7 +67,7 @@ class AuthorizationService(StripeService):
 
     def retrieve(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -79,9 +79,7 @@ class AuthorizationService(StripeService):
             "Authorization",
             self._request(
                 "get",
-                "/v1/issuing/authorizations/{authorization}".format(
-                    authorization=sanitize_id(authorization),
-                ),
+                "/v1/issuing/authorizations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -90,7 +88,7 @@ class AuthorizationService(StripeService):
 
     async def retrieve_async(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -102,9 +100,7 @@ class AuthorizationService(StripeService):
             "Authorization",
             await self._request_async(
                 "get",
-                "/v1/issuing/authorizations/{authorization}".format(
-                    authorization=sanitize_id(authorization),
-                ),
+                "/v1/issuing/authorizations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -113,7 +109,7 @@ class AuthorizationService(StripeService):
 
     def update(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -125,9 +121,7 @@ class AuthorizationService(StripeService):
             "Authorization",
             self._request(
                 "post",
-                "/v1/issuing/authorizations/{authorization}".format(
-                    authorization=sanitize_id(authorization),
-                ),
+                "/v1/issuing/authorizations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -136,7 +130,7 @@ class AuthorizationService(StripeService):
 
     async def update_async(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -148,9 +142,7 @@ class AuthorizationService(StripeService):
             "Authorization",
             await self._request_async(
                 "post",
-                "/v1/issuing/authorizations/{authorization}".format(
-                    authorization=sanitize_id(authorization),
-                ),
+                "/v1/issuing/authorizations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -159,7 +151,7 @@ class AuthorizationService(StripeService):
 
     def approve(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationApproveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -172,8 +164,8 @@ class AuthorizationService(StripeService):
             "Authorization",
             self._request(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(authorization),
+                "/v1/issuing/authorizations/{id}/approve".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -183,7 +175,7 @@ class AuthorizationService(StripeService):
 
     async def approve_async(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationApproveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -196,8 +188,8 @@ class AuthorizationService(StripeService):
             "Authorization",
             await self._request_async(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(authorization),
+                "/v1/issuing/authorizations/{id}/approve".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -207,7 +199,7 @@ class AuthorizationService(StripeService):
 
     def decline(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationDeclineParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -220,8 +212,8 @@ class AuthorizationService(StripeService):
             "Authorization",
             self._request(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(authorization),
+                "/v1/issuing/authorizations/{id}/decline".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -231,7 +223,7 @@ class AuthorizationService(StripeService):
 
     async def decline_async(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationDeclineParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -244,8 +236,8 @@ class AuthorizationService(StripeService):
             "Authorization",
             await self._request_async(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(authorization),
+                "/v1/issuing/authorizations/{id}/decline".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

@@ -99,7 +99,7 @@ class ReportRunService(StripeService):
 
     def retrieve(
         self,
-        report_run: str,
+        id: str,
         /,
         params: Optional["ReportRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -111,9 +111,7 @@ class ReportRunService(StripeService):
             "ReportRun",
             self._request(
                 "get",
-                "/v1/reporting/report_runs/{report_run}".format(
-                    report_run=sanitize_id(report_run),
-                ),
+                "/v1/reporting/report_runs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,7 +120,7 @@ class ReportRunService(StripeService):
 
     async def retrieve_async(
         self,
-        report_run: str,
+        id: str,
         /,
         params: Optional["ReportRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -134,9 +132,7 @@ class ReportRunService(StripeService):
             "ReportRun",
             await self._request_async(
                 "get",
-                "/v1/reporting/report_runs/{report_run}".format(
-                    report_run=sanitize_id(report_run),
-                ),
+                "/v1/reporting/report_runs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

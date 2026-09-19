@@ -710,7 +710,7 @@ class CreditNote(
 
     @classmethod
     def list_lines(
-        cls, credit_note: str, /, **params: Unpack["CreditNoteListLinesParams"]
+        cls, id: str, /, **params: Unpack["CreditNoteListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -719,16 +719,14 @@ class CreditNote(
             ListObject["CreditNoteLineItem"],
             cls._static_request(
                 "get",
-                "/v1/credit_notes/{credit_note}/lines".format(
-                    credit_note=sanitize_id(credit_note)
-                ),
+                "/v1/credit_notes/{id}/lines".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_lines_async(
-        cls, credit_note: str, /, **params: Unpack["CreditNoteListLinesParams"]
+        cls, id: str, /, **params: Unpack["CreditNoteListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -737,9 +735,7 @@ class CreditNote(
             ListObject["CreditNoteLineItem"],
             await cls._static_request_async(
                 "get",
-                "/v1/credit_notes/{credit_note}/lines".format(
-                    credit_note=sanitize_id(credit_note)
-                ),
+                "/v1/credit_notes/{id}/lines".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

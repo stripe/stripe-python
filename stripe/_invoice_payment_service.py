@@ -58,7 +58,7 @@ class InvoicePaymentService(StripeService):
 
     def retrieve(
         self,
-        invoice_payment: str,
+        id: str,
         /,
         params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,9 +70,7 @@ class InvoicePaymentService(StripeService):
             "InvoicePayment",
             self._request(
                 "get",
-                "/v1/invoice_payments/{invoice_payment}".format(
-                    invoice_payment=sanitize_id(invoice_payment),
-                ),
+                "/v1/invoice_payments/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -81,7 +79,7 @@ class InvoicePaymentService(StripeService):
 
     async def retrieve_async(
         self,
-        invoice_payment: str,
+        id: str,
         /,
         params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,9 +91,7 @@ class InvoicePaymentService(StripeService):
             "InvoicePayment",
             await self._request_async(
                 "get",
-                "/v1/invoice_payments/{invoice_payment}".format(
-                    invoice_payment=sanitize_id(invoice_payment),
-                ),
+                "/v1/invoice_payments/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

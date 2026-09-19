@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 class GiftCardService(StripeService):
     def retrieve(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -37,9 +37,7 @@ class GiftCardService(StripeService):
             "GiftCard",
             self._request(
                 "get",
-                "/v1/gift_cards/{gift_card}".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -48,7 +46,7 @@ class GiftCardService(StripeService):
 
     async def retrieve_async(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -60,9 +58,7 @@ class GiftCardService(StripeService):
             "GiftCard",
             await self._request_async(
                 "get",
-                "/v1/gift_cards/{gift_card}".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -109,7 +105,7 @@ class GiftCardService(StripeService):
 
     def activate(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -121,9 +117,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/activate".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/activate".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -132,7 +126,7 @@ class GiftCardService(StripeService):
 
     async def activate_async(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -144,9 +138,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/activate".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/activate".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -155,7 +147,7 @@ class GiftCardService(StripeService):
 
     def cashout(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardCashoutParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -167,9 +159,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/cashout".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/cashout".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -178,7 +168,7 @@ class GiftCardService(StripeService):
 
     async def cashout_async(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardCashoutParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -190,9 +180,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/cashout".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/cashout".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -201,7 +189,7 @@ class GiftCardService(StripeService):
 
     def check_balance(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardCheckBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -213,9 +201,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/check_balance".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/check_balance".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -224,7 +210,7 @@ class GiftCardService(StripeService):
 
     async def check_balance_async(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: Optional["GiftCardCheckBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -236,9 +222,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/check_balance".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/check_balance".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -247,7 +231,7 @@ class GiftCardService(StripeService):
 
     def reload(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: "GiftCardReloadParams",
         options: Optional["RequestOptions"] = None,
@@ -259,9 +243,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/reload".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/reload".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -270,7 +252,7 @@ class GiftCardService(StripeService):
 
     async def reload_async(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: "GiftCardReloadParams",
         options: Optional["RequestOptions"] = None,
@@ -282,9 +264,7 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/reload".format(
-                    gift_card=sanitize_id(gift_card),
-                ),
+                "/v1/gift_cards/{id}/reload".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -293,7 +273,7 @@ class GiftCardService(StripeService):
 
     def void_operation(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: "GiftCardVoidOperationParams",
         options: Optional["RequestOptions"] = None,
@@ -305,8 +285,8 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/void_operation".format(
-                    gift_card=sanitize_id(gift_card),
+                "/v1/gift_cards/{id}/void_operation".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,
@@ -316,7 +296,7 @@ class GiftCardService(StripeService):
 
     async def void_operation_async(
         self,
-        gift_card: str,
+        id: str,
         /,
         params: "GiftCardVoidOperationParams",
         options: Optional["RequestOptions"] = None,
@@ -328,8 +308,8 @@ class GiftCardService(StripeService):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/void_operation".format(
-                    gift_card=sanitize_id(gift_card),
+                "/v1/gift_cards/{id}/void_operation".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,

@@ -81,6 +81,11 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtectionsPspMigration as AccountCreateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtectionsPspMigration,
         AccountCreateParamsConfigurationCustomerShipping as AccountCreateParamsConfigurationCustomerShipping,
         AccountCreateParamsConfigurationCustomerShippingAddress as AccountCreateParamsConfigurationCustomerShippingAddress,
+        AccountCreateParamsConfigurationDeveloper as AccountCreateParamsConfigurationDeveloper,
+        AccountCreateParamsConfigurationDeveloperCapabilities as AccountCreateParamsConfigurationDeveloperCapabilities,
+        AccountCreateParamsConfigurationDeveloperCapabilitiesProjects as AccountCreateParamsConfigurationDeveloperCapabilitiesProjects,
+        AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtections as AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtections,
+        AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration as AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchant as AccountCreateParamsConfigurationMerchant,
         AccountCreateParamsConfigurationMerchantBacsDebitPayments as AccountCreateParamsConfigurationMerchantBacsDebitPayments,
         AccountCreateParamsConfigurationMerchantBranding as AccountCreateParamsConfigurationMerchantBranding,
@@ -693,6 +698,11 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtectionsPspMigration as AccountUpdateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtectionsPspMigration,
         AccountUpdateParamsConfigurationCustomerShipping as AccountUpdateParamsConfigurationCustomerShipping,
         AccountUpdateParamsConfigurationCustomerShippingAddress as AccountUpdateParamsConfigurationCustomerShippingAddress,
+        AccountUpdateParamsConfigurationDeveloper as AccountUpdateParamsConfigurationDeveloper,
+        AccountUpdateParamsConfigurationDeveloperCapabilities as AccountUpdateParamsConfigurationDeveloperCapabilities,
+        AccountUpdateParamsConfigurationDeveloperCapabilitiesProjects as AccountUpdateParamsConfigurationDeveloperCapabilitiesProjects,
+        AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtections as AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtections,
+        AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration as AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchant as AccountUpdateParamsConfigurationMerchant,
         AccountUpdateParamsConfigurationMerchantBacsDebitPayments as AccountUpdateParamsConfigurationMerchantBacsDebitPayments,
         AccountUpdateParamsConfigurationMerchantBranding as AccountUpdateParamsConfigurationMerchantBranding,
@@ -1493,6 +1503,26 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationCustomerShippingAddress": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationDeveloper": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationDeveloperCapabilities": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationDeveloperCapabilitiesProjects": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -3882,6 +3912,26 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationCustomerShippingAddress": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationDeveloper": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationDeveloperCapabilities": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationDeveloperCapabilitiesProjects": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

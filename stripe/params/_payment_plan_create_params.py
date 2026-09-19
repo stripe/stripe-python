@@ -46,7 +46,7 @@ class PaymentPlanCreateParamsCollectsOnInvoiceDetails(TypedDict):
 class PaymentPlanCreateParamsSchedule(TypedDict):
     amounts_due: "PaymentPlanCreateParamsScheduleAmountsDue"
     """
-    Required when type is 'amounts_due'.
+    Required when type is 'amounts_due'. Must contain at least 2 installment entries.
     """
     type: Literal["amounts_due"]
     """
@@ -57,7 +57,7 @@ class PaymentPlanCreateParamsSchedule(TypedDict):
 class PaymentPlanCreateParamsScheduleAmountsDue(TypedDict):
     amounts: List["PaymentPlanCreateParamsScheduleAmountsDueAmount"]
     """
-    The list of installment entries.
+    The list of installment entries. Must contain at least 2 entries.
     """
 
 

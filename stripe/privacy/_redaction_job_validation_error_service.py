@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class RedactionJobValidationErrorService(StripeService):
     def list(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobValidationErrorListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -31,8 +31,8 @@ class RedactionJobValidationErrorService(StripeService):
             "ListObject[RedactionJobValidationError]",
             self._request(
                 "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/validation_errors".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -42,7 +42,7 @@ class RedactionJobValidationErrorService(StripeService):
 
     async def list_async(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobValidationErrorListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -54,8 +54,8 @@ class RedactionJobValidationErrorService(StripeService):
             "ListObject[RedactionJobValidationError]",
             await self._request_async(
                 "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/validation_errors".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

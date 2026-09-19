@@ -43,6 +43,7 @@ class V2CoreAccountLinkReturnedEvent(Event):
             Union[
                 Literal[
                     "customer",
+                    "developer",
                     "merchant",
                     "money_manager",
                     "recipient",

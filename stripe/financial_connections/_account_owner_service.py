@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class AccountOwnerService(StripeService):
     def list(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountOwnerListParams",
         options: Optional["RequestOptions"] = None,
@@ -29,8 +29,8 @@ class AccountOwnerService(StripeService):
             "ListObject[AccountOwner]",
             self._request(
                 "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/owners".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -40,7 +40,7 @@ class AccountOwnerService(StripeService):
 
     async def list_async(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountOwnerListParams",
         options: Optional["RequestOptions"] = None,
@@ -52,8 +52,8 @@ class AccountOwnerService(StripeService):
             "ListObject[AccountOwner]",
             await self._request_async(
                 "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/owners".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

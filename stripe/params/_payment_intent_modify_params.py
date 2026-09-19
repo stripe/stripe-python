@@ -31,6 +31,7 @@ class PaymentIntentModifyParams(RequestOptions):
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -51,6 +52,7 @@ class PaymentIntentModifyParams(RequestOptions):
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -150,7 +152,7 @@ class PaymentIntentModifyParams(RequestOptions):
 
     Payment methods attached to other Customers cannot be used with this PaymentIntent.
 
-    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     """
     customer_account: NotRequired[str]
     """
@@ -158,7 +160,7 @@ class PaymentIntentModifyParams(RequestOptions):
 
     Payment methods attached to other Accounts cannot be used with this PaymentIntent.
 
-    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     """
     description: NotRequired[str]
     """
@@ -463,13 +465,39 @@ class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardFlee
 ):
     product_type: Union[
         Literal[
+            "additive_dosage",
+            "additized_diesel_2",
+            "additized_diesel_3",
             "air_conditioning_service",
+            "air_filter",
             "alcohol",
+            "antifreeze",
+            "automotive_merchandise",
             "aviation_fuel_premium",
             "aviation_fuel_regular",
+            "batteries",
+            "biodiesel_b1",
+            "biodiesel_b10",
+            "biodiesel_b100",
+            "biodiesel_b11",
+            "biodiesel_b15",
+            "biodiesel_b2",
+            "biodiesel_b20",
+            "biodiesel_b5",
+            "biodiesel_b75",
+            "biodiesel_b99",
+            "blended_diesel_1_and_2",
+            "body_work",
+            "brake_fluid",
+            "brake_service",
             "car_care_detailing",
+            "car_wash",
             "compressed_natural_gas",
+            "def_at_pump",
             "deli",
+            "e85",
+            "engine_service",
+            "ethanol_e16_to_e84",
             "ev_battery_exchanges",
             "ev_charging_fee",
             "evc_level_1",
@@ -477,40 +505,135 @@ class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardFlee
             "evc_level_3",
             "evc_level_4",
             "evc_level_5",
+            "exhaust_service",
+            "federal_tire_excise_tax",
             "food_service",
+            "fuel_additive_treatment",
+            "fuel_system",
             "green_gasoline_mid_plus",
             "green_gasoline_premium_super",
             "green_gasoline_regular",
             "grocery",
+            "heating_oil",
+            "hoses",
+            "hydrogen_h35",
+            "hydrogen_h70",
+            "inspection",
+            "kerosene_low_sulfur",
+            "kerosene_low_sulfur_non_taxable",
+            "kerosene_ultra_low_sulfur",
+            "kerosene_ultra_low_sulfur_non_taxable",
+            "labor",
+            "lamps",
             "liquid_natural_gas",
             "liquid_propane_gas",
             "lodging",
+            "low_octane_unleaded",
+            "lube",
             "marine_diesel",
             "marine_fuel",
+            "marine_fuel_1",
+            "marine_fuel_2",
+            "marine_fuel_3",
+            "marine_fuel_4",
+            "marine_fuel_5",
+            "marine_other",
             "merchandise",
             "mid_plus",
+            "mid_plus_2",
+            "mid_plus_2_10",
+            "mid_plus_2_e15",
+            "mid_plus_2_reformulated",
+            "mid_plus_e10",
+            "mid_plus_e15",
             "mid_plus_ethanol",
+            "mid_plus_reformulated",
             "miscellaneous_aviation_products_services",
             "miscellaneous_fuel",
             "miscellaneous_marine_products_services",
             "miscellaneous_vehicle_products_services",
+            "motor_oil",
+            "off_road_b1",
+            "off_road_b10",
+            "off_road_b100",
+            "off_road_b11",
+            "off_road_b15",
+            "off_road_b2",
+            "off_road_b20",
+            "off_road_b5",
+            "off_road_b75",
+            "off_road_b99",
+            "off_road_biodiesel",
+            "off_road_diesel_1",
+            "off_road_diesel_2",
+            "off_road_mid_plus",
+            "off_road_mid_plus_2",
+            "off_road_premium_diesel_1",
+            "off_road_premium_diesel_2",
+            "off_road_premium_super",
+            "off_road_premium_super_2",
+            "off_road_regular",
+            "off_road_renewable_diesel_b6_to_b20",
+            "off_road_renewable_diesel_r95",
+            "oil_change",
+            "oil_filter",
+            "other_lubricants",
             "packaged_beverage",
             "premium_diesel",
+            "premium_diesel_2",
+            "premium_diesel_b20_plus",
+            "premium_diesel_under_b20",
             "premium_super",
+            "premium_super_2",
+            "premium_super_2_10",
+            "premium_super_2_e15",
+            "premium_super_2_reformulated",
+            "premium_super_e10",
+            "premium_super_e15",
             "premium_super_ethanol",
+            "premium_super_reformulated",
             "preventative_maintenance",
+            "racing_fuel",
+            "recreational_fuel_90_octane",
             "regular",
             "regular_diesel",
+            "regular_diesel_2",
+            "regular_e10",
+            "regular_e15",
             "regular_ethanol",
+            "regular_reformulated",
+            "renewable_diesel_b6_to_b20",
+            "renewable_diesel_r95",
             "repairs",
+            "road_service",
+            "rv_dump_fee",
+            "scales",
             "self_service_car_wash",
+            "service_package",
             "shower",
             "store_service",
+            "synthetic_oil",
+            "tire_related",
+            "tire_repair",
+            "tire_rotation",
+            "tires",
             "tobacco",
+            "toll_payments",
+            "towing",
+            "trailer_wash",
+            "transmission_service",
+            "truck_tank_cleaning",
             "vehicle_accessories",
+            "vehicle_glass",
             "vehicle_parking",
             "vehicle_parts",
+            "vehicle_prep",
+            "vehicle_rental",
+            "vehicle_work_order",
             "wash_out",
+            "washer_fluid",
+            "white_gas",
+            "wipers",
         ],
         str,
     ]
@@ -3055,6 +3178,10 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    sequra: NotRequired["PaymentIntentModifyParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
     shared_payment_granted_token: NotRequired[str]
     """
     ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -3616,6 +3743,10 @@ class PaymentIntentModifyParamsPaymentMethodDataSepaDebit(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodDataSequra(TypedDict):
+    pass
+
+
 class PaymentIntentModifyParamsPaymentMethodDataShopeepay(TypedDict):
     pass
 
@@ -4038,6 +4169,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
     """
+    sequra: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsSequra"
+    ]
+    """
+    If this is a `sequra` PaymentMethod, this sub-hash contains details about the SeQura payment method options.
+    """
     shopeepay: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsShopeepay"
     ]
@@ -4439,7 +4576,15 @@ class PaymentIntentModifyParamsPaymentMethodOptionsBlik(TypedDict):
     """
     The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
     """
-    setup_future_usage: NotRequired["Literal['']|Literal['none']"]
+    mandate_options: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']|str"
+    ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4450,6 +4595,15 @@ class PaymentIntentModifyParamsPaymentMethodOptionsBlik(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsBlikMandateOptions(
+    TypedDict,
+):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
     """
 
 
@@ -4585,6 +4739,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     """
     When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
     """
+    setup_credential_usage: NotRequired[
+        "Literal['recurring', 'unscheduled']|str"
+    ]
+    """
+    Set to indicate the future transaction type usage for the card being set up.
+    """
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
@@ -4612,6 +4772,18 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     ]
     """
     Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
+    """
+    stored_credential_usage: NotRequired[
+        "Literal['recurring', 'unscheduled']|str"
+    ]
+    """
+    Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
+
+     When making an off session payment with a previously saved card (that was saved with a SetupIntent or with a PaymentIntent with `setup_future_usage`), set this parameter to indicate the type of transaction.
+
+     You can set this parameter at any time before or during PaymentIntent confirmation, and confirm this PaymentIntent with `off_session=true`.
+
+     Note that this parameter is currently unsupported with the `setup_future_usage` parameter.
     """
     three_d_secure: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecure"
@@ -6850,14 +7022,6 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaypalLineItemTax(
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsPaypay(TypedDict):
-    capture_method: NotRequired["Literal['']|Literal['manual']"]
-    """
-    Controls when the funds are captured from the customer's account.
-
-    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
-
-    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-    """
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
@@ -7143,6 +7307,29 @@ class PaymentIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(
     reference_prefix: NotRequired["Literal['']|str"]
     """
     Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsSequra(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
 
 

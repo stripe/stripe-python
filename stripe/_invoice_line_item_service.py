@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 class InvoiceLineItemService(StripeService):
     def list(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -35,9 +35,7 @@ class InvoiceLineItemService(StripeService):
             "ListObject[InvoiceLineItem]",
             self._request(
                 "get",
-                "/v1/invoices/{invoice}/lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -46,7 +44,7 @@ class InvoiceLineItemService(StripeService):
 
     async def list_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -58,9 +56,7 @@ class InvoiceLineItemService(StripeService):
             "ListObject[InvoiceLineItem]",
             await self._request_async(
                 "get",
-                "/v1/invoices/{invoice}/lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -69,8 +65,8 @@ class InvoiceLineItemService(StripeService):
 
     def update(
         self,
-        invoice: str,
-        line_item_id: str,
+        invoice_id: str,
+        id: str,
         /,
         params: Optional["InvoiceLineItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -85,9 +81,9 @@ class InvoiceLineItemService(StripeService):
             "InvoiceLineItem",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/lines/{line_item_id}".format(
-                    invoice=sanitize_id(invoice),
-                    line_item_id=sanitize_id(line_item_id),
+                "/v1/invoices/{invoice_id}/lines/{id}".format(
+                    invoice_id=sanitize_id(invoice_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -97,8 +93,8 @@ class InvoiceLineItemService(StripeService):
 
     async def update_async(
         self,
-        invoice: str,
-        line_item_id: str,
+        invoice_id: str,
+        id: str,
         /,
         params: Optional["InvoiceLineItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -113,9 +109,9 @@ class InvoiceLineItemService(StripeService):
             "InvoiceLineItem",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/lines/{line_item_id}".format(
-                    invoice=sanitize_id(invoice),
-                    line_item_id=sanitize_id(line_item_id),
+                "/v1/invoices/{invoice_id}/lines/{id}".format(
+                    invoice_id=sanitize_id(invoice_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -125,8 +121,8 @@ class InvoiceLineItemService(StripeService):
 
     def serialize_batch_update(
         self,
-        invoice: str,
-        line_item_id: str,
+        invoice_id: str,
+        id: str,
         /,
         params: Optional["InvoiceLineItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -141,7 +137,7 @@ class InvoiceLineItemService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice, "line_item_id": line_item_id},
+            "path_params": {"invoice_id": invoice_id, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

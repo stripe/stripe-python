@@ -162,7 +162,7 @@ class QuoteService(StripeService):
 
     def retrieve(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -174,7 +174,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "get",
-                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -183,7 +183,7 @@ class QuoteService(StripeService):
 
     async def retrieve_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -195,7 +195,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -204,7 +204,7 @@ class QuoteService(StripeService):
 
     def update(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -216,7 +216,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -225,7 +225,7 @@ class QuoteService(StripeService):
 
     async def update_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -237,7 +237,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -246,7 +246,7 @@ class QuoteService(StripeService):
 
     def accept(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteAcceptParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -258,7 +258,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/accept".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -267,7 +267,7 @@ class QuoteService(StripeService):
 
     async def accept_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteAcceptParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -279,7 +279,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/accept".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -288,7 +288,7 @@ class QuoteService(StripeService):
 
     def cancel(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -300,7 +300,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -309,7 +309,7 @@ class QuoteService(StripeService):
 
     async def cancel_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -321,7 +321,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -330,7 +330,7 @@ class QuoteService(StripeService):
 
     def finalize_quote(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteFinalizeQuoteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -342,7 +342,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/finalize".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -351,7 +351,7 @@ class QuoteService(StripeService):
 
     async def finalize_quote_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteFinalizeQuoteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -363,7 +363,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/finalize".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -372,7 +372,7 @@ class QuoteService(StripeService):
 
     def mark_draft(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteMarkDraftParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -384,9 +384,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/mark_draft".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -395,7 +393,7 @@ class QuoteService(StripeService):
 
     async def mark_draft_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteMarkDraftParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -407,9 +405,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/mark_draft".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -418,7 +414,7 @@ class QuoteService(StripeService):
 
     def mark_stale(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteMarkStaleParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -430,9 +426,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/mark_stale".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -441,7 +435,7 @@ class QuoteService(StripeService):
 
     async def mark_stale_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteMarkStaleParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -453,9 +447,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/mark_stale".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -464,7 +456,7 @@ class QuoteService(StripeService):
 
     def reestimate(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteReestimateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -476,9 +468,7 @@ class QuoteService(StripeService):
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/reestimate".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -487,7 +477,7 @@ class QuoteService(StripeService):
 
     async def reestimate_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteReestimateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -499,9 +489,7 @@ class QuoteService(StripeService):
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/reestimate".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -510,7 +498,7 @@ class QuoteService(StripeService):
 
     def pdf(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuotePdfParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -522,7 +510,7 @@ class QuoteService(StripeService):
             "Any",
             self._request_stream(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/pdf".format(id=sanitize_id(id)),
                 base_address="files",
                 params=params,
                 options=options,
@@ -531,7 +519,7 @@ class QuoteService(StripeService):
 
     async def pdf_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuotePdfParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -543,7 +531,7 @@ class QuoteService(StripeService):
             "Any",
             await self._request_stream_async(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/pdf".format(id=sanitize_id(id)),
                 base_address="files",
                 params=params,
                 options=options,
@@ -552,8 +540,8 @@ class QuoteService(StripeService):
 
     def list_preview_invoice_lines(
         self,
-        quote: str,
-        preview_invoice: str,
+        quote_id: str,
+        id: str,
         /,
         params: Optional["QuoteListPreviewInvoiceLinesParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -565,9 +553,9 @@ class QuoteService(StripeService):
             "ListObject[InvoiceLineItem]",
             self._request(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(quote),
-                    preview_invoice=sanitize_id(preview_invoice),
+                "/v1/quotes/{quote_id}/preview_invoices/{id}/lines".format(
+                    quote_id=sanitize_id(quote_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -577,8 +565,8 @@ class QuoteService(StripeService):
 
     async def list_preview_invoice_lines_async(
         self,
-        quote: str,
-        preview_invoice: str,
+        quote_id: str,
+        id: str,
         /,
         params: Optional["QuoteListPreviewInvoiceLinesParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -590,9 +578,9 @@ class QuoteService(StripeService):
             "ListObject[InvoiceLineItem]",
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(quote),
-                    preview_invoice=sanitize_id(preview_invoice),
+                "/v1/quotes/{quote_id}/preview_invoices/{id}/lines".format(
+                    quote_id=sanitize_id(quote_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

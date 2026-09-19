@@ -42,7 +42,7 @@ class Dispute(
                 """
                 supporting_files: Optional[List[str]]
                 """
-                One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+                One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
                 """
 
             card: Optional[Card]
@@ -586,7 +586,7 @@ class Dispute(
 
     @classmethod
     def _cls_close(
-        cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
+        cls, id: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -597,18 +597,14 @@ class Dispute(
             "Dispute",
             cls._static_request(
                 "post",
-                "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(dispute)
-                ),
+                "/v1/disputes/{id}/close".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def close(
-        dispute: str, /, **params: Unpack["DisputeCloseParams"]
-    ) -> "Dispute":
+    def close(id: str, /, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
@@ -638,8 +634,8 @@ class Dispute(
             "Dispute",
             self._request(
                 "post",
-                "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(self._data.get("id"))
+                "/v1/disputes/{id}/close".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -647,7 +643,7 @@ class Dispute(
 
     @classmethod
     async def _cls_close_async(
-        cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
+        cls, id: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -658,9 +654,7 @@ class Dispute(
             "Dispute",
             await cls._static_request_async(
                 "post",
-                "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(dispute)
-                ),
+                "/v1/disputes/{id}/close".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -668,7 +662,7 @@ class Dispute(
     @overload
     @staticmethod
     async def close_async(
-        dispute: str, /, **params: Unpack["DisputeCloseParams"]
+        id: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -701,8 +695,8 @@ class Dispute(
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(self._data.get("id"))
+                "/v1/disputes/{id}/close".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

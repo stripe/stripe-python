@@ -103,7 +103,7 @@ class FileService(StripeService):
 
     def retrieve(
         self,
-        file: str,
+        id: str,
         /,
         params: Optional["FileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -115,7 +115,7 @@ class FileService(StripeService):
             "File",
             self._request(
                 "get",
-                "/v1/files/{file}".format(file=sanitize_id(file)),
+                "/v1/files/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -124,7 +124,7 @@ class FileService(StripeService):
 
     async def retrieve_async(
         self,
-        file: str,
+        id: str,
         /,
         params: Optional["FileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -136,7 +136,7 @@ class FileService(StripeService):
             "File",
             await self._request_async(
                 "get",
-                "/v1/files/{file}".format(file=sanitize_id(file)),
+                "/v1/files/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -110,7 +110,7 @@ class AccountService(StripeService):
 
     def retrieve(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -122,8 +122,8 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "get",
-                "/v1/financial_connections/accounts/{account}".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -133,7 +133,7 @@ class AccountService(StripeService):
 
     async def retrieve_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -145,8 +145,8 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "get",
-                "/v1/financial_connections/accounts/{account}".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -156,7 +156,7 @@ class AccountService(StripeService):
 
     def disconnect(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountDisconnectParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -168,8 +168,8 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/disconnect".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -179,7 +179,7 @@ class AccountService(StripeService):
 
     async def disconnect_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountDisconnectParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -191,8 +191,8 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/disconnect".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -202,7 +202,7 @@ class AccountService(StripeService):
 
     def refresh(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountRefreshParams",
         options: Optional["RequestOptions"] = None,
@@ -214,8 +214,8 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/refresh".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -225,7 +225,7 @@ class AccountService(StripeService):
 
     async def refresh_async(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountRefreshParams",
         options: Optional["RequestOptions"] = None,
@@ -237,8 +237,8 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/refresh".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -248,7 +248,7 @@ class AccountService(StripeService):
 
     def subscribe(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountSubscribeParams",
         options: Optional["RequestOptions"] = None,
@@ -260,8 +260,8 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/subscribe".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -271,7 +271,7 @@ class AccountService(StripeService):
 
     async def subscribe_async(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountSubscribeParams",
         options: Optional["RequestOptions"] = None,
@@ -283,8 +283,8 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/subscribe".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -294,7 +294,7 @@ class AccountService(StripeService):
 
     def unsubscribe(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountUnsubscribeParams",
         options: Optional["RequestOptions"] = None,
@@ -306,8 +306,8 @@ class AccountService(StripeService):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/unsubscribe".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -317,7 +317,7 @@ class AccountService(StripeService):
 
     async def unsubscribe_async(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountUnsubscribeParams",
         options: Optional["RequestOptions"] = None,
@@ -329,8 +329,8 @@ class AccountService(StripeService):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(account),
+                "/v1/financial_connections/accounts/{id}/unsubscribe".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

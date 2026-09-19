@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class QuotePreviewSubscriptionScheduleService(StripeService):
     def list(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuotePreviewSubscriptionScheduleListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -31,8 +31,8 @@ class QuotePreviewSubscriptionScheduleService(StripeService):
             "ListObject[QuotePreviewSubscriptionSchedule]",
             self._request(
                 "get",
-                "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                    quote=sanitize_id(quote),
+                "/v1/quotes/{id}/preview_subscription_schedules".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -42,7 +42,7 @@ class QuotePreviewSubscriptionScheduleService(StripeService):
 
     async def list_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuotePreviewSubscriptionScheduleListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -54,8 +54,8 @@ class QuotePreviewSubscriptionScheduleService(StripeService):
             "ListObject[QuotePreviewSubscriptionSchedule]",
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                    quote=sanitize_id(quote),
+                "/v1/quotes/{id}/preview_subscription_schedules".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 class CustomerTaxIdService(StripeService):
     def delete(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxIdDeleteParams"] = None,
@@ -42,8 +42,8 @@ class CustomerTaxIdService(StripeService):
             "TaxId",
             self._request(
                 "delete",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -54,7 +54,7 @@ class CustomerTaxIdService(StripeService):
 
     async def delete_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxIdDeleteParams"] = None,
@@ -67,8 +67,8 @@ class CustomerTaxIdService(StripeService):
             "TaxId",
             await self._request_async(
                 "delete",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -79,7 +79,7 @@ class CustomerTaxIdService(StripeService):
 
     def retrieve(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxIdRetrieveParams"] = None,
@@ -92,8 +92,8 @@ class CustomerTaxIdService(StripeService):
             "TaxId",
             self._request(
                 "get",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -104,7 +104,7 @@ class CustomerTaxIdService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxIdRetrieveParams"] = None,
@@ -117,8 +117,8 @@ class CustomerTaxIdService(StripeService):
             "TaxId",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -129,7 +129,7 @@ class CustomerTaxIdService(StripeService):
 
     def list(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerTaxIdListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -141,9 +141,7 @@ class CustomerTaxIdService(StripeService):
             "ListObject[TaxId]",
             self._request(
                 "get",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -152,7 +150,7 @@ class CustomerTaxIdService(StripeService):
 
     async def list_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerTaxIdListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -164,9 +162,7 @@ class CustomerTaxIdService(StripeService):
             "ListObject[TaxId]",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -175,7 +171,7 @@ class CustomerTaxIdService(StripeService):
 
     def create(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerTaxIdCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -187,9 +183,7 @@ class CustomerTaxIdService(StripeService):
             "TaxId",
             self._request(
                 "post",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -198,7 +192,7 @@ class CustomerTaxIdService(StripeService):
 
     async def create_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerTaxIdCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -210,9 +204,7 @@ class CustomerTaxIdService(StripeService):
             "TaxId",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -221,7 +213,7 @@ class CustomerTaxIdService(StripeService):
 
     def serialize_batch_delete(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxIdDeleteParams"] = None,
@@ -237,7 +229,7 @@ class CustomerTaxIdService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer, "id": id},
+            "path_params": {"customer_id": customer_id, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -247,7 +239,7 @@ class CustomerTaxIdService(StripeService):
 
     def serialize_batch_create_for_customer(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerTaxIdCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -262,7 +254,7 @@ class CustomerTaxIdService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

@@ -119,7 +119,7 @@ class PaymentMethodService(StripeService):
 
     def retrieve(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -131,9 +131,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             self._request(
                 "get",
-                "/v1/payment_methods/{payment_method}".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -142,7 +140,7 @@ class PaymentMethodService(StripeService):
 
     async def retrieve_async(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -154,9 +152,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             await self._request_async(
                 "get",
-                "/v1/payment_methods/{payment_method}".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -165,7 +161,7 @@ class PaymentMethodService(StripeService):
 
     def update(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -177,9 +173,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             self._request(
                 "post",
-                "/v1/payment_methods/{payment_method}".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -188,7 +182,7 @@ class PaymentMethodService(StripeService):
 
     async def update_async(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -200,9 +194,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             await self._request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -211,7 +203,7 @@ class PaymentMethodService(StripeService):
 
     def attach(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodAttachParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -235,9 +227,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             self._request(
                 "post",
-                "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}/attach".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -246,7 +236,7 @@ class PaymentMethodService(StripeService):
 
     async def attach_async(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodAttachParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -270,9 +260,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             await self._request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}/attach".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -281,7 +269,7 @@ class PaymentMethodService(StripeService):
 
     def check_balance(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodCheckBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -293,8 +281,8 @@ class PaymentMethodService(StripeService):
             "PaymentMethodBalance",
             self._request(
                 "post",
-                "/v1/payment_methods/{payment_method}/check_balance".format(
-                    payment_method=sanitize_id(payment_method),
+                "/v1/payment_methods/{id}/check_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -304,7 +292,7 @@ class PaymentMethodService(StripeService):
 
     async def check_balance_async(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodCheckBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -316,8 +304,8 @@ class PaymentMethodService(StripeService):
             "PaymentMethodBalance",
             await self._request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/check_balance".format(
-                    payment_method=sanitize_id(payment_method),
+                "/v1/payment_methods/{id}/check_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -327,7 +315,7 @@ class PaymentMethodService(StripeService):
 
     def detach(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDetachParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -339,9 +327,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             self._request(
                 "post",
-                "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}/detach".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -350,7 +336,7 @@ class PaymentMethodService(StripeService):
 
     async def detach_async(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodDetachParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -362,9 +348,7 @@ class PaymentMethodService(StripeService):
             "PaymentMethod",
             await self._request_async(
                 "post",
-                "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(payment_method),
-                ),
+                "/v1/payment_methods/{id}/detach".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -373,7 +357,7 @@ class PaymentMethodService(StripeService):
 
     def serialize_batch_attach(
         self,
-        payment_method: str,
+        id: str,
         /,
         params: Optional["PaymentMethodAttachParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -388,7 +372,7 @@ class PaymentMethodService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"payment_method": payment_method},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

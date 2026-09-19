@@ -29,8 +29,8 @@ if TYPE_CHECKING:
 class AccountPersonService(StripeService):
     def delete(
         self,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountPersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -42,9 +42,9 @@ class AccountPersonService(StripeService):
             "Person",
             self._request(
                 "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account),
-                    person=sanitize_id(person),
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -54,8 +54,8 @@ class AccountPersonService(StripeService):
 
     async def delete_async(
         self,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountPersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -67,9 +67,9 @@ class AccountPersonService(StripeService):
             "Person",
             await self._request_async(
                 "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account),
-                    person=sanitize_id(person),
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -79,8 +79,8 @@ class AccountPersonService(StripeService):
 
     def retrieve(
         self,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountPersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -92,9 +92,9 @@ class AccountPersonService(StripeService):
             "Person",
             self._request(
                 "get",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account),
-                    person=sanitize_id(person),
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -104,8 +104,8 @@ class AccountPersonService(StripeService):
 
     async def retrieve_async(
         self,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountPersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -117,9 +117,9 @@ class AccountPersonService(StripeService):
             "Person",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account),
-                    person=sanitize_id(person),
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -129,8 +129,8 @@ class AccountPersonService(StripeService):
 
     def update(
         self,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountPersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -142,9 +142,9 @@ class AccountPersonService(StripeService):
             "Person",
             self._request(
                 "post",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account),
-                    person=sanitize_id(person),
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -154,8 +154,8 @@ class AccountPersonService(StripeService):
 
     async def update_async(
         self,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountPersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -167,9 +167,9 @@ class AccountPersonService(StripeService):
             "Person",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account),
-                    person=sanitize_id(person),
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -179,7 +179,7 @@ class AccountPersonService(StripeService):
 
     def list(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountPersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -191,9 +191,7 @@ class AccountPersonService(StripeService):
             "ListObject[Person]",
             self._request(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -202,7 +200,7 @@ class AccountPersonService(StripeService):
 
     async def list_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountPersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -214,9 +212,7 @@ class AccountPersonService(StripeService):
             "ListObject[Person]",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -225,7 +221,7 @@ class AccountPersonService(StripeService):
 
     def create(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountPersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -237,9 +233,7 @@ class AccountPersonService(StripeService):
             "Person",
             self._request(
                 "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -248,7 +242,7 @@ class AccountPersonService(StripeService):
 
     async def create_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountPersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -260,9 +254,7 @@ class AccountPersonService(StripeService):
             "Person",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

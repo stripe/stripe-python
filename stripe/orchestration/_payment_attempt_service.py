@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class PaymentAttemptService(StripeService):
     def retrieve(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,8 +28,8 @@ class PaymentAttemptService(StripeService):
             "PaymentAttempt",
             self._request(
                 "get",
-                "/v1/orchestration/payment_attempts/{payment_attempt_record}".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/orchestration/payment_attempts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -39,7 +39,7 @@ class PaymentAttemptService(StripeService):
 
     async def retrieve_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,8 +51,8 @@ class PaymentAttemptService(StripeService):
             "PaymentAttempt",
             await self._request_async(
                 "get",
-                "/v1/orchestration/payment_attempts/{payment_attempt_record}".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/orchestration/payment_attempts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

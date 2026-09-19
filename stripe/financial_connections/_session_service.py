@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class SessionService(StripeService):
     def retrieve(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -31,8 +31,8 @@ class SessionService(StripeService):
             "Session",
             self._request(
                 "get",
-                "/v1/financial_connections/sessions/{session}".format(
-                    session=sanitize_id(session),
+                "/v1/financial_connections/sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -42,7 +42,7 @@ class SessionService(StripeService):
 
     async def retrieve_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -54,8 +54,8 @@ class SessionService(StripeService):
             "Session",
             await self._request_async(
                 "get",
-                "/v1/financial_connections/sessions/{session}".format(
-                    session=sanitize_id(session),
+                "/v1/financial_connections/sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

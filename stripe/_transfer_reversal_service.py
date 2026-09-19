@@ -118,7 +118,7 @@ class TransferReversalService(StripeService):
 
     def retrieve(
         self,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         params: Optional["TransferReversalRetrieveParams"] = None,
@@ -131,8 +131,8 @@ class TransferReversalService(StripeService):
             "Reversal",
             self._request(
                 "get",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer),
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -143,7 +143,7 @@ class TransferReversalService(StripeService):
 
     async def retrieve_async(
         self,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         params: Optional["TransferReversalRetrieveParams"] = None,
@@ -156,8 +156,8 @@ class TransferReversalService(StripeService):
             "Reversal",
             await self._request_async(
                 "get",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer),
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -168,7 +168,7 @@ class TransferReversalService(StripeService):
 
     def update(
         self,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         params: Optional["TransferReversalUpdateParams"] = None,
@@ -183,8 +183,8 @@ class TransferReversalService(StripeService):
             "Reversal",
             self._request(
                 "post",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer),
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -195,7 +195,7 @@ class TransferReversalService(StripeService):
 
     async def update_async(
         self,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         params: Optional["TransferReversalUpdateParams"] = None,
@@ -210,8 +210,8 @@ class TransferReversalService(StripeService):
             "Reversal",
             await self._request_async(
                 "post",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer),
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",

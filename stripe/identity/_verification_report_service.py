@@ -58,7 +58,7 @@ class VerificationReportService(StripeService):
 
     def retrieve(
         self,
-        report: str,
+        id: str,
         /,
         params: Optional["VerificationReportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,8 +70,8 @@ class VerificationReportService(StripeService):
             "VerificationReport",
             self._request(
                 "get",
-                "/v1/identity/verification_reports/{report}".format(
-                    report=sanitize_id(report),
+                "/v1/identity/verification_reports/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -81,7 +81,7 @@ class VerificationReportService(StripeService):
 
     async def retrieve_async(
         self,
-        report: str,
+        id: str,
         /,
         params: Optional["VerificationReportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,8 +93,8 @@ class VerificationReportService(StripeService):
             "VerificationReport",
             await self._request_async(
                 "get",
-                "/v1/identity/verification_reports/{report}".format(
-                    report=sanitize_id(report),
+                "/v1/identity/verification_reports/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

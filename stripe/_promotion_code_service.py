@@ -105,7 +105,7 @@ class PromotionCodeService(StripeService):
 
     def retrieve(
         self,
-        promotion_code: str,
+        id: str,
         /,
         params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -117,9 +117,7 @@ class PromotionCodeService(StripeService):
             "PromotionCode",
             self._request(
                 "get",
-                "/v1/promotion_codes/{promotion_code}".format(
-                    promotion_code=sanitize_id(promotion_code),
-                ),
+                "/v1/promotion_codes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -128,7 +126,7 @@ class PromotionCodeService(StripeService):
 
     async def retrieve_async(
         self,
-        promotion_code: str,
+        id: str,
         /,
         params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -140,9 +138,7 @@ class PromotionCodeService(StripeService):
             "PromotionCode",
             await self._request_async(
                 "get",
-                "/v1/promotion_codes/{promotion_code}".format(
-                    promotion_code=sanitize_id(promotion_code),
-                ),
+                "/v1/promotion_codes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -151,7 +147,7 @@ class PromotionCodeService(StripeService):
 
     def update(
         self,
-        promotion_code: str,
+        id: str,
         /,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -163,9 +159,7 @@ class PromotionCodeService(StripeService):
             "PromotionCode",
             self._request(
                 "post",
-                "/v1/promotion_codes/{promotion_code}".format(
-                    promotion_code=sanitize_id(promotion_code),
-                ),
+                "/v1/promotion_codes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -174,7 +168,7 @@ class PromotionCodeService(StripeService):
 
     async def update_async(
         self,
-        promotion_code: str,
+        id: str,
         /,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -186,9 +180,7 @@ class PromotionCodeService(StripeService):
             "PromotionCode",
             await self._request_async(
                 "post",
-                "/v1/promotion_codes/{promotion_code}".format(
-                    promotion_code=sanitize_id(promotion_code),
-                ),
+                "/v1/promotion_codes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -219,7 +211,7 @@ class PromotionCodeService(StripeService):
 
     def serialize_batch_update(
         self,
-        promotion_code: str,
+        id: str,
         /,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -234,7 +226,7 @@ class PromotionCodeService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"promotion_code": promotion_code},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

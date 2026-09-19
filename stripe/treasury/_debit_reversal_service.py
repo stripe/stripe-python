@@ -99,7 +99,7 @@ class DebitReversalService(StripeService):
 
     def retrieve(
         self,
-        debit_reversal: str,
+        id: str,
         /,
         params: Optional["DebitReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -111,9 +111,7 @@ class DebitReversalService(StripeService):
             "DebitReversal",
             self._request(
                 "get",
-                "/v1/treasury/debit_reversals/{debit_reversal}".format(
-                    debit_reversal=sanitize_id(debit_reversal),
-                ),
+                "/v1/treasury/debit_reversals/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,7 +120,7 @@ class DebitReversalService(StripeService):
 
     async def retrieve_async(
         self,
-        debit_reversal: str,
+        id: str,
         /,
         params: Optional["DebitReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -134,9 +132,7 @@ class DebitReversalService(StripeService):
             "DebitReversal",
             await self._request_async(
                 "get",
-                "/v1/treasury/debit_reversals/{debit_reversal}".format(
-                    debit_reversal=sanitize_id(debit_reversal),
-                ),
+                "/v1/treasury/debit_reversals/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

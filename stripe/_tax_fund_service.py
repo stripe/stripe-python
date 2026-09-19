@@ -54,7 +54,7 @@ class TaxFundService(StripeService):
 
     def retrieve(
         self,
-        tax_fund: str,
+        id: str,
         /,
         params: Optional["TaxFundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -66,9 +66,7 @@ class TaxFundService(StripeService):
             "TaxFund",
             self._request(
                 "get",
-                "/v1/tax_funds/{tax_fund}".format(
-                    tax_fund=sanitize_id(tax_fund),
-                ),
+                "/v1/tax_funds/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -77,7 +75,7 @@ class TaxFundService(StripeService):
 
     async def retrieve_async(
         self,
-        tax_fund: str,
+        id: str,
         /,
         params: Optional["TaxFundRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -89,9 +87,7 @@ class TaxFundService(StripeService):
             "TaxFund",
             await self._request_async(
                 "get",
-                "/v1/tax_funds/{tax_fund}".format(
-                    tax_fund=sanitize_id(tax_fund),
-                ),
+                "/v1/tax_funds/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

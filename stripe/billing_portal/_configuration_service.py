@@ -102,7 +102,7 @@ class ConfigurationService(StripeService):
 
     def retrieve(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["ConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -114,8 +114,8 @@ class ConfigurationService(StripeService):
             "Configuration",
             self._request(
                 "get",
-                "/v1/billing_portal/configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/billing_portal/configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -125,7 +125,7 @@ class ConfigurationService(StripeService):
 
     async def retrieve_async(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["ConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,8 +137,8 @@ class ConfigurationService(StripeService):
             "Configuration",
             await self._request_async(
                 "get",
-                "/v1/billing_portal/configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/billing_portal/configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -148,7 +148,7 @@ class ConfigurationService(StripeService):
 
     def update(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["ConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -160,8 +160,8 @@ class ConfigurationService(StripeService):
             "Configuration",
             self._request(
                 "post",
-                "/v1/billing_portal/configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/billing_portal/configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -171,7 +171,7 @@ class ConfigurationService(StripeService):
 
     async def update_async(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["ConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -183,8 +183,8 @@ class ConfigurationService(StripeService):
             "Configuration",
             await self._request_async(
                 "post",
-                "/v1/billing_portal/configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/billing_portal/configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

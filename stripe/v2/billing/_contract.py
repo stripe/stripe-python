@@ -105,6 +105,24 @@ class Contract(StripeObject):
             "collection_settings_details": CollectionSettingsDetails,
         }
 
+    class CollectionStatusTransitions(StripeObject):
+        blocked_at: Optional[str]
+        """
+        The timestamp when the contract's collection status transitioned to blocked.
+        """
+        current_at: Optional[str]
+        """
+        The timestamp when the contract's collection status transitioned to current.
+        """
+        past_due_at: Optional[str]
+        """
+        The timestamp when the contract's collection status transitioned to past due.
+        """
+        unpaid_at: Optional[str]
+        """
+        The timestamp when the contract's collection status transitioned to unpaid.
+        """
+
     class OneTimeFees(StripeObject):
         class Data(StripeObject):
             class BillAt(StripeObject):
@@ -175,7 +193,7 @@ class Contract(StripeObject):
                                 The timestamp when the item starts.
                                 """
 
-                            ends_at: EndsAt
+                            ends_at: Optional[EndsAt]
                             """
                             Timestamp when this override ends.
                             """
@@ -252,7 +270,7 @@ class Contract(StripeObject):
                 The timestamp when the item starts.
                 """
 
-            ends_at: EndsAt
+            ends_at: Optional[EndsAt]
             """
             Timestamp when the pricing line ends.
             """
@@ -327,7 +345,7 @@ class Contract(StripeObject):
                 The timestamp when the item starts.
                 """
 
-            ends_at: EndsAt
+            ends_at: Optional[EndsAt]
             """
             Resolved timestamp when the pricing override ends.
             """
@@ -393,6 +411,16 @@ class Contract(StripeObject):
     """
     The billing settings.
     """
+    collection_status: Union[
+        Literal["blocked", "current", "past_due", "unpaid"], str
+    ]
+    """
+    The collection status of the contract that indicates whether there are any outstanding invoices for the contract.
+    """
+    collection_status_transitions: CollectionStatusTransitions
+    """
+    Historical timestamps of when the contract's collection status transitioned into each status.
+    """
     contract_number: str
     """
     A unique user-provided contract number e.g. C-2026-0001.
@@ -448,6 +476,7 @@ class Contract(StripeObject):
     _inner_class_types = {
         "billing_cycle_anchor": BillingCycleAnchor,
         "billing_settings": BillingSettings,
+        "collection_status_transitions": CollectionStatusTransitions,
         "one_time_fees": OneTimeFees,
         "pricing_lines": PricingLines,
         "pricing_overrides": PricingOverrides,

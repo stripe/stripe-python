@@ -59,7 +59,7 @@ class DisputeService(StripeService):
 
     def retrieve(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -71,7 +71,7 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "get",
-                "/v1/disputes/{dispute}".format(dispute=sanitize_id(dispute)),
+                "/v1/disputes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -80,7 +80,7 @@ class DisputeService(StripeService):
 
     async def retrieve_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -92,7 +92,7 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "get",
-                "/v1/disputes/{dispute}".format(dispute=sanitize_id(dispute)),
+                "/v1/disputes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -101,7 +101,7 @@ class DisputeService(StripeService):
 
     def update(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -115,7 +115,7 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "post",
-                "/v1/disputes/{dispute}".format(dispute=sanitize_id(dispute)),
+                "/v1/disputes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -124,7 +124,7 @@ class DisputeService(StripeService):
 
     async def update_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -138,7 +138,7 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/disputes/{dispute}".format(dispute=sanitize_id(dispute)),
+                "/v1/disputes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -147,7 +147,7 @@ class DisputeService(StripeService):
 
     def close(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -161,9 +161,7 @@ class DisputeService(StripeService):
             "Dispute",
             self._request(
                 "post",
-                "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(dispute),
-                ),
+                "/v1/disputes/{id}/close".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -172,7 +170,7 @@ class DisputeService(StripeService):
 
     async def close_async(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -186,9 +184,7 @@ class DisputeService(StripeService):
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(dispute),
-                ),
+                "/v1/disputes/{id}/close".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -197,7 +193,7 @@ class DisputeService(StripeService):
 
     def serialize_batch_close(
         self,
-        dispute: str,
+        id: str,
         /,
         params: Optional["DisputeCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -212,7 +208,7 @@ class DisputeService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"dispute": dispute},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

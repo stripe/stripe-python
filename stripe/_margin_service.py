@@ -94,7 +94,7 @@ class MarginService(StripeService):
 
     def retrieve(
         self,
-        margin: str,
+        id: str,
         /,
         params: Optional["MarginRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -106,9 +106,7 @@ class MarginService(StripeService):
             "Margin",
             self._request(
                 "get",
-                "/v1/billing/margins/{margin}".format(
-                    margin=sanitize_id(margin),
-                ),
+                "/v1/billing/margins/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -117,7 +115,7 @@ class MarginService(StripeService):
 
     async def retrieve_async(
         self,
-        margin: str,
+        id: str,
         /,
         params: Optional["MarginRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -129,9 +127,7 @@ class MarginService(StripeService):
             "Margin",
             await self._request_async(
                 "get",
-                "/v1/billing/margins/{margin}".format(
-                    margin=sanitize_id(margin),
-                ),
+                "/v1/billing/margins/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -140,7 +136,7 @@ class MarginService(StripeService):
 
     def update(
         self,
-        margin: str,
+        id: str,
         /,
         params: Optional["MarginUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -152,9 +148,7 @@ class MarginService(StripeService):
             "Margin",
             self._request(
                 "post",
-                "/v1/billing/margins/{margin}".format(
-                    margin=sanitize_id(margin),
-                ),
+                "/v1/billing/margins/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -163,7 +157,7 @@ class MarginService(StripeService):
 
     async def update_async(
         self,
-        margin: str,
+        id: str,
         /,
         params: Optional["MarginUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -175,9 +169,7 @@ class MarginService(StripeService):
             "Margin",
             await self._request_async(
                 "post",
-                "/v1/billing/margins/{margin}".format(
-                    margin=sanitize_id(margin),
-                ),
+                "/v1/billing/margins/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class IssuedTokenService(StripeService):
     def retrieve(
         self,
-        shared_payment_issued_token: str,
+        id: str,
         /,
         params: Optional["IssuedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,10 +34,8 @@ class IssuedTokenService(StripeService):
             "IssuedToken",
             self._request(
                 "get",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}".format(
-                    shared_payment_issued_token=sanitize_id(
-                        shared_payment_issued_token
-                    ),
+                "/v1/shared_payment/issued_tokens/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -47,7 +45,7 @@ class IssuedTokenService(StripeService):
 
     async def retrieve_async(
         self,
-        shared_payment_issued_token: str,
+        id: str,
         /,
         params: Optional["IssuedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -59,10 +57,8 @@ class IssuedTokenService(StripeService):
             "IssuedToken",
             await self._request_async(
                 "get",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}".format(
-                    shared_payment_issued_token=sanitize_id(
-                        shared_payment_issued_token
-                    ),
+                "/v1/shared_payment/issued_tokens/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -110,7 +106,7 @@ class IssuedTokenService(StripeService):
 
     def revoke(
         self,
-        shared_payment_issued_token: str,
+        id: str,
         /,
         params: Optional["IssuedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -122,10 +118,8 @@ class IssuedTokenService(StripeService):
             "IssuedToken",
             self._request(
                 "post",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
-                    shared_payment_issued_token=sanitize_id(
-                        shared_payment_issued_token
-                    ),
+                "/v1/shared_payment/issued_tokens/{id}/revoke".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -135,7 +129,7 @@ class IssuedTokenService(StripeService):
 
     async def revoke_async(
         self,
-        shared_payment_issued_token: str,
+        id: str,
         /,
         params: Optional["IssuedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -147,10 +141,8 @@ class IssuedTokenService(StripeService):
             "IssuedToken",
             await self._request_async(
                 "post",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
-                    shared_payment_issued_token=sanitize_id(
-                        shared_payment_issued_token
-                    ),
+                "/v1/shared_payment/issued_tokens/{id}/revoke".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

@@ -18,12 +18,12 @@ class Install(StripeObject):
         purpose: Optional[str]
 
     class ContentSecurityPolicyGranted(StripeObject):
-        connect_src: Optional[List[str]]
-        image_src: Optional[List[str]]
+        connect_src: List[str]
+        image_src: List[str]
 
     class ContentSecurityPolicyPending(StripeObject):
-        connect_src: Optional[List[str]]
-        image_src: Optional[List[str]]
+        connect_src: List[str]
+        image_src: List[str]
 
     account: str
     """

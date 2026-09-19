@@ -380,7 +380,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     def retrieve_refund(
         cls,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         **params: Unpack["ApplicationFeeRetrieveRefundParams"],
@@ -392,8 +392,8 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             "ApplicationFeeRefund",
             cls._static_request(
                 "get",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee), id=sanitize_id(id)
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -402,7 +402,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     async def retrieve_refund_async(
         cls,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         **params: Unpack["ApplicationFeeRetrieveRefundParams"],
@@ -414,8 +414,8 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             "ApplicationFeeRefund",
             await cls._static_request_async(
                 "get",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee), id=sanitize_id(id)
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -424,7 +424,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     def modify_refund(
         cls,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         **params: Unpack["ApplicationFeeModifyRefundParams"],
@@ -438,8 +438,8 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             "ApplicationFeeRefund",
             cls._static_request(
                 "post",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee), id=sanitize_id(id)
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -448,7 +448,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     async def modify_refund_async(
         cls,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         **params: Unpack["ApplicationFeeModifyRefundParams"],
@@ -462,8 +462,8 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             "ApplicationFeeRefund",
             await cls._static_request_async(
                 "post",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee), id=sanitize_id(id)
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),

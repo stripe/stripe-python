@@ -102,7 +102,7 @@ class PersonalizationDesignService(StripeService):
 
     def retrieve(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -114,8 +114,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             self._request(
                 "get",
-                "/v1/issuing/personalization_designs/{personalization_design}".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/issuing/personalization_designs/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -125,7 +125,7 @@ class PersonalizationDesignService(StripeService):
 
     async def retrieve_async(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,8 +137,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             await self._request_async(
                 "get",
-                "/v1/issuing/personalization_designs/{personalization_design}".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/issuing/personalization_designs/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -148,7 +148,7 @@ class PersonalizationDesignService(StripeService):
 
     def update(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -160,8 +160,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             self._request(
                 "post",
-                "/v1/issuing/personalization_designs/{personalization_design}".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/issuing/personalization_designs/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -171,7 +171,7 @@ class PersonalizationDesignService(StripeService):
 
     async def update_async(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -183,8 +183,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             await self._request_async(
                 "post",
-                "/v1/issuing/personalization_designs/{personalization_design}".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/issuing/personalization_designs/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

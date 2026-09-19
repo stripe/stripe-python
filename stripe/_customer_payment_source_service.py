@@ -39,7 +39,7 @@ if TYPE_CHECKING:
 class CustomerPaymentSourceService(StripeService):
     def list(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerPaymentSourceListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,9 +51,7 @@ class CustomerPaymentSourceService(StripeService):
             "ListObject[Union[Account, BankAccount, Card, Source]]",
             self._request(
                 "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -62,7 +60,7 @@ class CustomerPaymentSourceService(StripeService):
 
     async def list_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerPaymentSourceListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -74,9 +72,7 @@ class CustomerPaymentSourceService(StripeService):
             "ListObject[Union[Account, BankAccount, Card, Source]]",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -85,7 +81,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def create(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerPaymentSourceCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -101,9 +97,7 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             self._request(
                 "post",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -112,7 +106,7 @@ class CustomerPaymentSourceService(StripeService):
 
     async def create_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerPaymentSourceCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -128,9 +122,7 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -139,7 +131,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def retrieve(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceRetrieveParams"] = None,
@@ -152,8 +144,8 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             self._request(
                 "get",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -164,7 +156,7 @@ class CustomerPaymentSourceService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceRetrieveParams"] = None,
@@ -177,8 +169,8 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -189,7 +181,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def update(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceUpdateParams"] = None,
@@ -202,8 +194,8 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             self._request(
                 "post",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -214,7 +206,7 @@ class CustomerPaymentSourceService(StripeService):
 
     async def update_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceUpdateParams"] = None,
@@ -227,8 +219,8 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -239,7 +231,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def delete(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceDeleteParams"] = None,
@@ -252,8 +244,8 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             self._request(
                 "delete",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -264,7 +256,7 @@ class CustomerPaymentSourceService(StripeService):
 
     async def delete_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceDeleteParams"] = None,
@@ -277,8 +269,8 @@ class CustomerPaymentSourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             await self._request_async(
                 "delete",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -289,7 +281,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def verify(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceVerifyParams"] = None,
@@ -302,8 +294,8 @@ class CustomerPaymentSourceService(StripeService):
             "BankAccount",
             self._request(
                 "post",
-                "/v1/customers/{customer}/sources/{id}/verify".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}/verify".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -314,7 +306,7 @@ class CustomerPaymentSourceService(StripeService):
 
     async def verify_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceVerifyParams"] = None,
@@ -327,8 +319,8 @@ class CustomerPaymentSourceService(StripeService):
             "BankAccount",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/sources/{id}/verify".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}/verify".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -339,7 +331,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def serialize_batch_create(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerPaymentSourceCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -354,7 +346,7 @@ class CustomerPaymentSourceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -364,7 +356,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def serialize_batch_update(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceUpdateParams"] = None,
@@ -380,7 +372,7 @@ class CustomerPaymentSourceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer, "id": id},
+            "path_params": {"customer_id": customer_id, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -390,7 +382,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def serialize_batch_delete(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceDeleteParams"] = None,
@@ -406,7 +398,7 @@ class CustomerPaymentSourceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer, "id": id},
+            "path_params": {"customer_id": customer_id, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -416,7 +408,7 @@ class CustomerPaymentSourceService(StripeService):
 
     def serialize_batch_verify(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerPaymentSourceVerifyParams"] = None,
@@ -432,7 +424,7 @@ class CustomerPaymentSourceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer, "id": id},
+            "path_params": {"customer_id": customer_id, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

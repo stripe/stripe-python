@@ -147,7 +147,7 @@ class Quote(
                         """
                         discount: "DiscountResource"
                         """
-                        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                        A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                         It contains information about when the discount began, when it will end, and what it is applied to.
 
                         Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -248,7 +248,7 @@ class Quote(
                         """
                         discount: "DiscountResource"
                         """
-                        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                        A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                         It contains information about when the discount began, when it will end, and what it is applied to.
 
                         Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -1162,7 +1162,7 @@ class Quote(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
                 Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -1404,7 +1404,7 @@ class Quote(
 
     @classmethod
     def _cls_accept(
-        cls, quote: str, /, **params: Unpack["QuoteAcceptParams"]
+        cls, id: str, /, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1413,16 +1413,14 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/accept".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def accept(
-        quote: str, /, **params: Unpack["QuoteAcceptParams"]
-    ) -> "Quote":
+    def accept(id: str, /, **params: Unpack["QuoteAcceptParams"]) -> "Quote":
         """
         Accepts the specified quote.
         """
@@ -1446,8 +1444,8 @@ class Quote(
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/accept".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/accept".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1455,7 +1453,7 @@ class Quote(
 
     @classmethod
     async def _cls_accept_async(
-        cls, quote: str, /, **params: Unpack["QuoteAcceptParams"]
+        cls, id: str, /, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1464,7 +1462,7 @@ class Quote(
             "Quote",
             await cls._static_request_async(
                 "post",
-                "/v1/quotes/{quote}/accept".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/accept".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1472,7 +1470,7 @@ class Quote(
     @overload
     @staticmethod
     async def accept_async(
-        quote: str, /, **params: Unpack["QuoteAcceptParams"]
+        id: str, /, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -1499,8 +1497,8 @@ class Quote(
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/accept".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/accept".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1508,7 +1506,7 @@ class Quote(
 
     @classmethod
     def _cls_cancel(
-        cls, quote: str, /, **params: Unpack["QuoteCancelParams"]
+        cls, id: str, /, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1517,16 +1515,14 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        quote: str, /, **params: Unpack["QuoteCancelParams"]
-    ) -> "Quote":
+    def cancel(id: str, /, **params: Unpack["QuoteCancelParams"]) -> "Quote":
         """
         Cancels the quote.
         """
@@ -1550,8 +1546,8 @@ class Quote(
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1559,7 +1555,7 @@ class Quote(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, quote: str, /, **params: Unpack["QuoteCancelParams"]
+        cls, id: str, /, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1568,7 +1564,7 @@ class Quote(
             "Quote",
             await cls._static_request_async(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1576,7 +1572,7 @@ class Quote(
     @overload
     @staticmethod
     async def cancel_async(
-        quote: str, /, **params: Unpack["QuoteCancelParams"]
+        id: str, /, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -1603,8 +1599,8 @@ class Quote(
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/cancel".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1642,7 +1638,7 @@ class Quote(
 
     @classmethod
     def _cls_finalize_quote(
-        cls, quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
+        cls, id: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1651,7 +1647,7 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/finalize".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1659,7 +1655,7 @@ class Quote(
     @overload
     @staticmethod
     def finalize_quote(
-        quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
+        id: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1686,8 +1682,8 @@ class Quote(
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/finalize".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1695,7 +1691,7 @@ class Quote(
 
     @classmethod
     async def _cls_finalize_quote_async(
-        cls, quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
+        cls, id: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1704,7 +1700,7 @@ class Quote(
             "Quote",
             await cls._static_request_async(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/finalize".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1712,7 +1708,7 @@ class Quote(
     @overload
     @staticmethod
     async def finalize_quote_async(
-        quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
+        id: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -1739,8 +1735,8 @@ class Quote(
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/finalize".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/finalize".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1787,7 +1783,7 @@ class Quote(
     @classmethod
     def _cls_list_computed_upfront_line_items(
         cls,
-        quote: str,
+        id: str,
         /,
         **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
@@ -1798,8 +1794,8 @@ class Quote(
             ListObject["LineItem"],
             cls._static_request(
                 "get",
-                "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(quote)
+                "/v1/quotes/{id}/computed_upfront_line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1808,9 +1804,7 @@ class Quote(
     @overload
     @staticmethod
     def list_computed_upfront_line_items(
-        quote: str,
-        /,
-        **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
+        id: str, /, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1837,8 +1831,8 @@ class Quote(
             ListObject["LineItem"],
             self._request(
                 "get",
-                "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/computed_upfront_line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1847,7 +1841,7 @@ class Quote(
     @classmethod
     async def _cls_list_computed_upfront_line_items_async(
         cls,
-        quote: str,
+        id: str,
         /,
         **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
@@ -1858,8 +1852,8 @@ class Quote(
             ListObject["LineItem"],
             await cls._static_request_async(
                 "get",
-                "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(quote)
+                "/v1/quotes/{id}/computed_upfront_line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1868,9 +1862,7 @@ class Quote(
     @overload
     @staticmethod
     async def list_computed_upfront_line_items_async(
-        quote: str,
-        /,
-        **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
+        id: str, /, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1897,8 +1889,8 @@ class Quote(
             ListObject["LineItem"],
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/computed_upfront_line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1906,7 +1898,7 @@ class Quote(
 
     @classmethod
     def _cls_list_line_items(
-        cls, quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
+        cls, id: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1915,9 +1907,7 @@ class Quote(
             ListObject["LineItem"],
             cls._static_request(
                 "get",
-                "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/line_items".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1925,7 +1915,7 @@ class Quote(
     @overload
     @staticmethod
     def list_line_items(
-        quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
+        id: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1952,8 +1942,8 @@ class Quote(
             ListObject["LineItem"],
             self._request(
                 "get",
-                "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1961,7 +1951,7 @@ class Quote(
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls, quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
+        cls, id: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1970,9 +1960,7 @@ class Quote(
             ListObject["LineItem"],
             await cls._static_request_async(
                 "get",
-                "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/line_items".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1980,7 +1968,7 @@ class Quote(
     @overload
     @staticmethod
     async def list_line_items_async(
-        quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
+        id: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2007,8 +1995,8 @@ class Quote(
             ListObject["LineItem"],
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2016,7 +2004,7 @@ class Quote(
 
     @classmethod
     def _cls_list_lines(
-        cls, quote: str, /, **params: Unpack["QuoteListLinesParams"]
+        cls, id: str, /, **params: Unpack["QuoteListLinesParams"]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -2025,7 +2013,7 @@ class Quote(
             ListObject["QuoteLine"],
             cls._static_request(
                 "get",
-                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/lines".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2033,7 +2021,7 @@ class Quote(
     @overload
     @staticmethod
     def list_lines(
-        quote: str, /, **params: Unpack["QuoteListLinesParams"]
+        id: str, /, **params: Unpack["QuoteListLinesParams"]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -2060,8 +2048,8 @@ class Quote(
             ListObject["QuoteLine"],
             self._request(
                 "get",
-                "/v1/quotes/{quote}/lines".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/lines".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2069,7 +2057,7 @@ class Quote(
 
     @classmethod
     async def _cls_list_lines_async(
-        cls, quote: str, /, **params: Unpack["QuoteListLinesParams"]
+        cls, id: str, /, **params: Unpack["QuoteListLinesParams"]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -2078,7 +2066,7 @@ class Quote(
             ListObject["QuoteLine"],
             await cls._static_request_async(
                 "get",
-                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/lines".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2086,7 +2074,7 @@ class Quote(
     @overload
     @staticmethod
     async def list_lines_async(
-        quote: str, /, **params: Unpack["QuoteListLinesParams"]
+        id: str, /, **params: Unpack["QuoteListLinesParams"]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -2113,8 +2101,8 @@ class Quote(
             ListObject["QuoteLine"],
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/lines".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/lines".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2123,8 +2111,8 @@ class Quote(
     @classmethod
     def _cls_list_preview_invoice_lines(
         cls,
-        quote: str,
-        preview_invoice: str,
+        quote_id: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2135,9 +2123,8 @@ class Quote(
             ListObject["InvoiceLineItem"],
             cls._static_request(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(quote),
-                    preview_invoice=sanitize_id(preview_invoice),
+                "/v1/quotes/{quote_id}/preview_invoices/{id}/lines".format(
+                    quote_id=sanitize_id(quote_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2146,8 +2133,8 @@ class Quote(
     @overload
     @staticmethod
     def list_preview_invoice_lines(
-        quote: str,
-        preview_invoice: str,
+        quote_id: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2159,7 +2146,7 @@ class Quote(
     @overload
     def list_preview_invoice_lines(
         self,
-        preview_invoice: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2171,7 +2158,7 @@ class Quote(
     @class_method_variant("_cls_list_preview_invoice_lines")
     def list_preview_invoice_lines(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        preview_invoice: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2182,9 +2169,9 @@ class Quote(
             ListObject["InvoiceLineItem"],
             self._request(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(self._data.get("id")),
-                    preview_invoice=sanitize_id(preview_invoice),
+                "/v1/quotes/{quote_id}/preview_invoices/{id}/lines".format(
+                    quote_id=sanitize_id(self._data.get("id")),
+                    id=sanitize_id(id),
                 ),
                 params=params,
             ),
@@ -2193,8 +2180,8 @@ class Quote(
     @classmethod
     async def _cls_list_preview_invoice_lines_async(
         cls,
-        quote: str,
-        preview_invoice: str,
+        quote_id: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2205,9 +2192,8 @@ class Quote(
             ListObject["InvoiceLineItem"],
             await cls._static_request_async(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(quote),
-                    preview_invoice=sanitize_id(preview_invoice),
+                "/v1/quotes/{quote_id}/preview_invoices/{id}/lines".format(
+                    quote_id=sanitize_id(quote_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2216,8 +2202,8 @@ class Quote(
     @overload
     @staticmethod
     async def list_preview_invoice_lines_async(
-        quote: str,
-        preview_invoice: str,
+        quote_id: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2229,7 +2215,7 @@ class Quote(
     @overload
     async def list_preview_invoice_lines_async(
         self,
-        preview_invoice: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2241,7 +2227,7 @@ class Quote(
     @class_method_variant("_cls_list_preview_invoice_lines_async")
     async def list_preview_invoice_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        preview_invoice: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
     ) -> ListObject["InvoiceLineItem"]:
@@ -2252,9 +2238,9 @@ class Quote(
             ListObject["InvoiceLineItem"],
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(self._data.get("id")),
-                    preview_invoice=sanitize_id(preview_invoice),
+                "/v1/quotes/{quote_id}/preview_invoices/{id}/lines".format(
+                    quote_id=sanitize_id(self._data.get("id")),
+                    id=sanitize_id(id),
                 ),
                 params=params,
             ),
@@ -2262,7 +2248,7 @@ class Quote(
 
     @classmethod
     def _cls_mark_draft(
-        cls, quote: str, /, **params: Unpack["QuoteMarkDraftParams"]
+        cls, id: str, /, **params: Unpack["QuoteMarkDraftParams"]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -2271,9 +2257,7 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/mark_draft".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2281,7 +2265,7 @@ class Quote(
     @overload
     @staticmethod
     def mark_draft(
-        quote: str, /, **params: Unpack["QuoteMarkDraftParams"]
+        id: str, /, **params: Unpack["QuoteMarkDraftParams"]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -2306,8 +2290,8 @@ class Quote(
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/mark_draft".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2315,7 +2299,7 @@ class Quote(
 
     @classmethod
     async def _cls_mark_draft_async(
-        cls, quote: str, /, **params: Unpack["QuoteMarkDraftParams"]
+        cls, id: str, /, **params: Unpack["QuoteMarkDraftParams"]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -2324,9 +2308,7 @@ class Quote(
             "Quote",
             await cls._static_request_async(
                 "post",
-                "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/mark_draft".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2334,7 +2316,7 @@ class Quote(
     @overload
     @staticmethod
     async def mark_draft_async(
-        quote: str, /, **params: Unpack["QuoteMarkDraftParams"]
+        id: str, /, **params: Unpack["QuoteMarkDraftParams"]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -2361,8 +2343,8 @@ class Quote(
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/mark_draft".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2370,7 +2352,7 @@ class Quote(
 
     @classmethod
     def _cls_mark_stale(
-        cls, quote: str, /, **params: Unpack["QuoteMarkStaleParams"]
+        cls, id: str, /, **params: Unpack["QuoteMarkStaleParams"]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -2379,9 +2361,7 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/mark_stale".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2389,7 +2369,7 @@ class Quote(
     @overload
     @staticmethod
     def mark_stale(
-        quote: str, /, **params: Unpack["QuoteMarkStaleParams"]
+        id: str, /, **params: Unpack["QuoteMarkStaleParams"]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -2414,8 +2394,8 @@ class Quote(
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/mark_stale".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2423,7 +2403,7 @@ class Quote(
 
     @classmethod
     async def _cls_mark_stale_async(
-        cls, quote: str, /, **params: Unpack["QuoteMarkStaleParams"]
+        cls, id: str, /, **params: Unpack["QuoteMarkStaleParams"]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -2432,9 +2412,7 @@ class Quote(
             "Quote",
             await cls._static_request_async(
                 "post",
-                "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/mark_stale".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2442,7 +2420,7 @@ class Quote(
     @overload
     @staticmethod
     async def mark_stale_async(
-        quote: str, /, **params: Unpack["QuoteMarkStaleParams"]
+        id: str, /, **params: Unpack["QuoteMarkStaleParams"]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -2469,8 +2447,8 @@ class Quote(
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/mark_stale".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2509,9 +2487,7 @@ class Quote(
         )
 
     @classmethod
-    def _cls_pdf(
-        cls, quote: str, /, **params: Unpack["QuotePdfParams"]
-    ) -> Any:
+    def _cls_pdf(cls, id: str, /, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -2519,7 +2495,7 @@ class Quote(
             Any,
             cls._static_request_stream(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/pdf".format(id=sanitize_id(id)),
                 params=params,
                 base_address="files",
             ),
@@ -2527,7 +2503,7 @@ class Quote(
 
     @overload
     @staticmethod
-    def pdf(quote: str, /, **params: Unpack["QuotePdfParams"]) -> Any:
+    def pdf(id: str, /, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -2551,8 +2527,8 @@ class Quote(
             Any,
             self._request_stream(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/pdf".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
@@ -2561,7 +2537,7 @@ class Quote(
 
     @classmethod
     async def _cls_pdf_async(
-        cls, quote: str, /, **params: Unpack["QuotePdfParams"]
+        cls, id: str, /, **params: Unpack["QuotePdfParams"]
     ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
@@ -2570,7 +2546,7 @@ class Quote(
             Any,
             await cls._static_request_stream_async(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/pdf".format(id=sanitize_id(id)),
                 params=params,
                 base_address="files",
             ),
@@ -2578,9 +2554,7 @@ class Quote(
 
     @overload
     @staticmethod
-    async def pdf_async(
-        quote: str, /, **params: Unpack["QuotePdfParams"]
-    ) -> Any:
+    async def pdf_async(id: str, /, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -2604,8 +2578,8 @@ class Quote(
             Any,
             await self._request_stream_async(
                 "get",
-                "/v1/quotes/{quote}/pdf".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/pdf".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
@@ -2614,7 +2588,7 @@ class Quote(
 
     @classmethod
     def _cls_reestimate(
-        cls, quote: str, /, **params: Unpack["QuoteReestimateParams"]
+        cls, id: str, /, **params: Unpack["QuoteReestimateParams"]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -2623,9 +2597,7 @@ class Quote(
             "Quote",
             cls._static_request(
                 "post",
-                "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/reestimate".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2633,7 +2605,7 @@ class Quote(
     @overload
     @staticmethod
     def reestimate(
-        quote: str, /, **params: Unpack["QuoteReestimateParams"]
+        id: str, /, **params: Unpack["QuoteReestimateParams"]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -2658,8 +2630,8 @@ class Quote(
             "Quote",
             self._request(
                 "post",
-                "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/reestimate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2667,7 +2639,7 @@ class Quote(
 
     @classmethod
     async def _cls_reestimate_async(
-        cls, quote: str, /, **params: Unpack["QuoteReestimateParams"]
+        cls, id: str, /, **params: Unpack["QuoteReestimateParams"]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -2676,9 +2648,7 @@ class Quote(
             "Quote",
             await cls._static_request_async(
                 "post",
-                "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/reestimate".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2686,7 +2656,7 @@ class Quote(
     @overload
     @staticmethod
     async def reestimate_async(
-        quote: str, /, **params: Unpack["QuoteReestimateParams"]
+        id: str, /, **params: Unpack["QuoteReestimateParams"]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -2713,8 +2683,8 @@ class Quote(
             "Quote",
             await self._request_async(
                 "post",
-                "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(self._data.get("id"))
+                "/v1/quotes/{id}/reestimate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2744,7 +2714,7 @@ class Quote(
 
     @classmethod
     def list_preview_invoices(
-        cls, quote: str, /, **params: Unpack["QuoteListPreviewInvoicesParams"]
+        cls, id: str, /, **params: Unpack["QuoteListPreviewInvoicesParams"]
     ) -> ListObject["QuotePreviewInvoice"]:
         """
         Preview the invoices that would be generated by accepting the quote.
@@ -2753,16 +2723,14 @@ class Quote(
             ListObject["QuotePreviewInvoice"],
             cls._static_request(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/preview_invoices".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_preview_invoices_async(
-        cls, quote: str, /, **params: Unpack["QuoteListPreviewInvoicesParams"]
+        cls, id: str, /, **params: Unpack["QuoteListPreviewInvoicesParams"]
     ) -> ListObject["QuotePreviewInvoice"]:
         """
         Preview the invoices that would be generated by accepting the quote.
@@ -2771,9 +2739,7 @@ class Quote(
             ListObject["QuotePreviewInvoice"],
             await cls._static_request_async(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices".format(
-                    quote=sanitize_id(quote)
-                ),
+                "/v1/quotes/{id}/preview_invoices".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2781,7 +2747,7 @@ class Quote(
     @classmethod
     def list_preview_subscription_schedules(
         cls,
-        quote: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewSubscriptionSchedulesParams"],
     ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
@@ -2792,8 +2758,8 @@ class Quote(
             ListObject["QuotePreviewSubscriptionSchedule"],
             cls._static_request(
                 "get",
-                "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                    quote=sanitize_id(quote)
+                "/v1/quotes/{id}/preview_subscription_schedules".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2802,7 +2768,7 @@ class Quote(
     @classmethod
     async def list_preview_subscription_schedules_async(
         cls,
-        quote: str,
+        id: str,
         /,
         **params: Unpack["QuoteListPreviewSubscriptionSchedulesParams"],
     ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
@@ -2813,8 +2779,8 @@ class Quote(
             ListObject["QuotePreviewSubscriptionSchedule"],
             await cls._static_request_async(
                 "get",
-                "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                    quote=sanitize_id(quote)
+                "/v1/quotes/{id}/preview_subscription_schedules".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),

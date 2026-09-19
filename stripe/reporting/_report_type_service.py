@@ -58,7 +58,7 @@ class ReportTypeService(StripeService):
 
     def retrieve(
         self,
-        report_type: str,
+        id: str,
         /,
         params: Optional["ReportTypeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,9 +70,7 @@ class ReportTypeService(StripeService):
             "ReportType",
             self._request(
                 "get",
-                "/v1/reporting/report_types/{report_type}".format(
-                    report_type=sanitize_id(report_type),
-                ),
+                "/v1/reporting/report_types/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -81,7 +79,7 @@ class ReportTypeService(StripeService):
 
     async def retrieve_async(
         self,
-        report_type: str,
+        id: str,
         /,
         params: Optional["ReportTypeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,9 +91,7 @@ class ReportTypeService(StripeService):
             "ReportType",
             await self._request_async(
                 "get",
-                "/v1/reporting/report_types/{report_type}".format(
-                    report_type=sanitize_id(report_type),
-                ),
+                "/v1/reporting/report_types/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

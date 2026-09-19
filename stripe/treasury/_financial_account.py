@@ -266,10 +266,7 @@ class FinancialAccount(
 
     @classmethod
     def _cls_close(
-        cls,
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountCloseParams"],
+        cls, id: str, /, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -278,8 +275,8 @@ class FinancialAccount(
             "FinancialAccount",
             cls._static_request(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(financial_account)
+                "/v1/treasury/financial_accounts/{id}/close".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -288,9 +285,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     def close(
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountCloseParams"],
+        id: str, /, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -317,8 +312,8 @@ class FinancialAccount(
             "FinancialAccount",
             self._request(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(self._data.get("id"))
+                "/v1/treasury/financial_accounts/{id}/close".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -326,10 +321,7 @@ class FinancialAccount(
 
     @classmethod
     async def _cls_close_async(
-        cls,
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountCloseParams"],
+        cls, id: str, /, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -338,8 +330,8 @@ class FinancialAccount(
             "FinancialAccount",
             await cls._static_request_async(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(financial_account)
+                "/v1/treasury/financial_accounts/{id}/close".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -348,9 +340,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     async def close_async(
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountCloseParams"],
+        id: str, /, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -377,8 +367,8 @@ class FinancialAccount(
             "FinancialAccount",
             await self._request_async(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(self._data.get("id"))
+                "/v1/treasury/financial_accounts/{id}/close".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -515,7 +505,7 @@ class FinancialAccount(
     @classmethod
     def _cls_retrieve_features(
         cls,
-        financial_account: str,
+        id: str,
         /,
         **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
@@ -526,8 +516,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             cls._static_request(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account)
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -536,9 +526,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     def retrieve_features(
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
+        id: str, /, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -565,8 +553,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             self._request(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self._data.get("id"))
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -575,7 +563,7 @@ class FinancialAccount(
     @classmethod
     async def _cls_retrieve_features_async(
         cls,
-        financial_account: str,
+        id: str,
         /,
         **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
@@ -586,8 +574,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             await cls._static_request_async(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account)
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -596,9 +584,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     async def retrieve_features_async(
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
+        id: str, /, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -625,8 +611,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             await self._request_async(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self._data.get("id"))
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -635,7 +621,7 @@ class FinancialAccount(
     @classmethod
     def _cls_update_features(
         cls,
-        financial_account: str,
+        id: str,
         /,
         **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
@@ -646,8 +632,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             cls._static_request(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account)
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -656,9 +642,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     def update_features(
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
+        id: str, /, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -685,8 +669,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             self._request(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self._data.get("id"))
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -695,7 +679,7 @@ class FinancialAccount(
     @classmethod
     async def _cls_update_features_async(
         cls,
-        financial_account: str,
+        id: str,
         /,
         **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
@@ -706,8 +690,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             await cls._static_request_async(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account)
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -716,9 +700,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     async def update_features_async(
-        financial_account: str,
-        /,
-        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
+        id: str, /, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -745,8 +727,8 @@ class FinancialAccount(
             "FinancialAccountFeatures",
             await self._request_async(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self._data.get("id"))
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

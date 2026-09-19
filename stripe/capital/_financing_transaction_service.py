@@ -60,7 +60,7 @@ class FinancingTransactionService(StripeService):
 
     def retrieve(
         self,
-        financing_transaction: str,
+        id: str,
         /,
         params: Optional["FinancingTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -72,8 +72,8 @@ class FinancingTransactionService(StripeService):
             "FinancingTransaction",
             self._request(
                 "get",
-                "/v1/capital/financing_transactions/{financing_transaction}".format(
-                    financing_transaction=sanitize_id(financing_transaction),
+                "/v1/capital/financing_transactions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -83,7 +83,7 @@ class FinancingTransactionService(StripeService):
 
     async def retrieve_async(
         self,
-        financing_transaction: str,
+        id: str,
         /,
         params: Optional["FinancingTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -95,8 +95,8 @@ class FinancingTransactionService(StripeService):
             "FinancingTransaction",
             await self._request_async(
                 "get",
-                "/v1/capital/financing_transactions/{financing_transaction}".format(
-                    financing_transaction=sanitize_id(financing_transaction),
+                "/v1/capital/financing_transactions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

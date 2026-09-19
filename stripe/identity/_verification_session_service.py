@@ -120,7 +120,7 @@ class VerificationSessionService(StripeService):
 
     def retrieve(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -135,8 +135,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             self._request(
                 "get",
-                "/v1/identity/verification_sessions/{session}".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -146,7 +146,7 @@ class VerificationSessionService(StripeService):
 
     async def retrieve_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -161,8 +161,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             await self._request_async(
                 "get",
-                "/v1/identity/verification_sessions/{session}".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -172,7 +172,7 @@ class VerificationSessionService(StripeService):
 
     def update(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -187,8 +187,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             self._request(
                 "post",
-                "/v1/identity/verification_sessions/{session}".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -198,7 +198,7 @@ class VerificationSessionService(StripeService):
 
     async def update_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -213,8 +213,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             await self._request_async(
                 "post",
-                "/v1/identity/verification_sessions/{session}".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -224,7 +224,7 @@ class VerificationSessionService(StripeService):
 
     def cancel(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -238,8 +238,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             self._request(
                 "post",
-                "/v1/identity/verification_sessions/{session}/cancel".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -249,7 +249,7 @@ class VerificationSessionService(StripeService):
 
     async def cancel_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -263,8 +263,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             await self._request_async(
                 "post",
-                "/v1/identity/verification_sessions/{session}/cancel".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -274,7 +274,7 @@ class VerificationSessionService(StripeService):
 
     def redact(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionRedactParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -304,8 +304,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             self._request(
                 "post",
-                "/v1/identity/verification_sessions/{session}/redact".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}/redact".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -315,7 +315,7 @@ class VerificationSessionService(StripeService):
 
     async def redact_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["VerificationSessionRedactParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -345,8 +345,8 @@ class VerificationSessionService(StripeService):
             "VerificationSession",
             await self._request_async(
                 "post",
-                "/v1/identity/verification_sessions/{session}/redact".format(
-                    session=sanitize_id(session),
+                "/v1/identity/verification_sessions/{id}/redact".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

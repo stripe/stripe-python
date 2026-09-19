@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class ConfirmationTokenService(StripeService):
     def retrieve(
         self,
-        confirmation_token: str,
+        id: str,
         /,
         params: Optional["ConfirmationTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,9 +28,7 @@ class ConfirmationTokenService(StripeService):
             "ConfirmationToken",
             self._request(
                 "get",
-                "/v1/confirmation_tokens/{confirmation_token}".format(
-                    confirmation_token=sanitize_id(confirmation_token),
-                ),
+                "/v1/confirmation_tokens/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -39,7 +37,7 @@ class ConfirmationTokenService(StripeService):
 
     async def retrieve_async(
         self,
-        confirmation_token: str,
+        id: str,
         /,
         params: Optional["ConfirmationTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,9 +49,7 @@ class ConfirmationTokenService(StripeService):
             "ConfirmationToken",
             await self._request_async(
                 "get",
-                "/v1/confirmation_tokens/{confirmation_token}".format(
-                    confirmation_token=sanitize_id(confirmation_token),
-                ),
+                "/v1/confirmation_tokens/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

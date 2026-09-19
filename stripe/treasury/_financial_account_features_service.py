@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 class FinancialAccountFeaturesService(StripeService):
     def update(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountFeaturesUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -33,8 +33,8 @@ class FinancialAccountFeaturesService(StripeService):
             "FinancialAccountFeatures",
             self._request(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -44,7 +44,7 @@ class FinancialAccountFeaturesService(StripeService):
 
     async def update_async(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountFeaturesUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -56,8 +56,8 @@ class FinancialAccountFeaturesService(StripeService):
             "FinancialAccountFeatures",
             await self._request_async(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -67,7 +67,7 @@ class FinancialAccountFeaturesService(StripeService):
 
     def retrieve(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountFeaturesRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -79,8 +79,8 @@ class FinancialAccountFeaturesService(StripeService):
             "FinancialAccountFeatures",
             self._request(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -90,7 +90,7 @@ class FinancialAccountFeaturesService(StripeService):
 
     async def retrieve_async(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountFeaturesRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -102,8 +102,8 @@ class FinancialAccountFeaturesService(StripeService):
             "FinancialAccountFeatures",
             await self._request_async(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}/features".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

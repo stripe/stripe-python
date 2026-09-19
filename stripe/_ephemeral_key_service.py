@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class EphemeralKeyService(StripeService):
     def delete(
         self,
-        key: str,
+        id: str,
         /,
         params: Optional["EphemeralKeyDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -31,7 +31,7 @@ class EphemeralKeyService(StripeService):
             "EphemeralKey",
             self._request(
                 "delete",
-                "/v1/ephemeral_keys/{key}".format(key=sanitize_id(key)),
+                "/v1/ephemeral_keys/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -40,7 +40,7 @@ class EphemeralKeyService(StripeService):
 
     async def delete_async(
         self,
-        key: str,
+        id: str,
         /,
         params: Optional["EphemeralKeyDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,7 +52,7 @@ class EphemeralKeyService(StripeService):
             "EphemeralKey",
             await self._request_async(
                 "delete",
-                "/v1/ephemeral_keys/{key}".format(key=sanitize_id(key)),
+                "/v1/ephemeral_keys/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -338,10 +338,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
 
     @classmethod
     def _cls_revoke(
-        cls,
-        shared_payment_issued_token: str,
-        /,
-        **params: Unpack["IssuedTokenRevokeParams"],
+        cls, id: str, /, **params: Unpack["IssuedTokenRevokeParams"]
     ) -> "IssuedToken":
         """
         Revokes a SharedPaymentIssuedToken
@@ -350,10 +347,8 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
             "IssuedToken",
             cls._static_request(
                 "post",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
-                    shared_payment_issued_token=sanitize_id(
-                        shared_payment_issued_token
-                    )
+                "/v1/shared_payment/issued_tokens/{id}/revoke".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -362,9 +357,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     @overload
     @staticmethod
     def revoke(
-        shared_payment_issued_token: str,
-        /,
-        **params: Unpack["IssuedTokenRevokeParams"],
+        id: str, /, **params: Unpack["IssuedTokenRevokeParams"]
     ) -> "IssuedToken":
         """
         Revokes a SharedPaymentIssuedToken
@@ -391,10 +384,8 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
             "IssuedToken",
             self._request(
                 "post",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
-                    shared_payment_issued_token=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/shared_payment/issued_tokens/{id}/revoke".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -402,10 +393,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
 
     @classmethod
     async def _cls_revoke_async(
-        cls,
-        shared_payment_issued_token: str,
-        /,
-        **params: Unpack["IssuedTokenRevokeParams"],
+        cls, id: str, /, **params: Unpack["IssuedTokenRevokeParams"]
     ) -> "IssuedToken":
         """
         Revokes a SharedPaymentIssuedToken
@@ -414,10 +402,8 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
             "IssuedToken",
             await cls._static_request_async(
                 "post",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
-                    shared_payment_issued_token=sanitize_id(
-                        shared_payment_issued_token
-                    )
+                "/v1/shared_payment/issued_tokens/{id}/revoke".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -426,9 +412,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     @overload
     @staticmethod
     async def revoke_async(
-        shared_payment_issued_token: str,
-        /,
-        **params: Unpack["IssuedTokenRevokeParams"],
+        id: str, /, **params: Unpack["IssuedTokenRevokeParams"]
     ) -> "IssuedToken":
         """
         Revokes a SharedPaymentIssuedToken
@@ -455,10 +439,8 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
             "IssuedToken",
             await self._request_async(
                 "post",
-                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
-                    shared_payment_issued_token=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/shared_payment/issued_tokens/{id}/revoke".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

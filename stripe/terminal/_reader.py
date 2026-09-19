@@ -392,7 +392,7 @@ class Reader(
             """
             A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
             For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-            Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+            Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
             Create a SetupIntent when you're ready to collect your customer's payment credentials.
             Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -403,9 +403,9 @@ class Reader(
             For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
             [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
             to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-            If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+            If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
             it automatically attaches the resulting payment method to that Customer after successful setup.
-            We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+            We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
             PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
             By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -1085,7 +1085,7 @@ class Reader(
 
     @classmethod
     def _cls_activate_gift_card(
-        cls, reader: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
+        cls, id: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card activation flow on a Reader and optionally sets its balance.
@@ -1094,8 +1094,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/activate_gift_card".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/activate_gift_card".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1104,7 +1104,7 @@ class Reader(
     @overload
     @staticmethod
     def activate_gift_card(
-        reader: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
+        id: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card activation flow on a Reader and optionally sets its balance.
@@ -1131,8 +1131,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/activate_gift_card".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/activate_gift_card".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1140,7 +1140,7 @@ class Reader(
 
     @classmethod
     async def _cls_activate_gift_card_async(
-        cls, reader: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
+        cls, id: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card activation flow on a Reader and optionally sets its balance.
@@ -1149,8 +1149,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/activate_gift_card".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/activate_gift_card".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1159,7 +1159,7 @@ class Reader(
     @overload
     @staticmethod
     async def activate_gift_card_async(
-        reader: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
+        id: str, /, **params: Unpack["ReaderActivateGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card activation flow on a Reader and optionally sets its balance.
@@ -1186,8 +1186,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/activate_gift_card".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/activate_gift_card".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1195,7 +1195,7 @@ class Reader(
 
     @classmethod
     def _cls_cancel_action(
-        cls, reader: str, /, **params: Unpack["ReaderCancelActionParams"]
+        cls, id: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1204,8 +1204,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/cancel_action".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1214,7 +1214,7 @@ class Reader(
     @overload
     @staticmethod
     def cancel_action(
-        reader: str, /, **params: Unpack["ReaderCancelActionParams"]
+        id: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1241,8 +1241,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/cancel_action".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1250,7 +1250,7 @@ class Reader(
 
     @classmethod
     async def _cls_cancel_action_async(
-        cls, reader: str, /, **params: Unpack["ReaderCancelActionParams"]
+        cls, id: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1259,8 +1259,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/cancel_action".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1269,7 +1269,7 @@ class Reader(
     @overload
     @staticmethod
     async def cancel_action_async(
-        reader: str, /, **params: Unpack["ReaderCancelActionParams"]
+        id: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1296,8 +1296,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/cancel_action".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1305,7 +1305,7 @@ class Reader(
 
     @classmethod
     def _cls_cashout_gift_card(
-        cls, reader: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
+        cls, id: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
@@ -1314,8 +1314,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/cashout_gift_card".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1324,7 +1324,7 @@ class Reader(
     @overload
     @staticmethod
     def cashout_gift_card(
-        reader: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
+        id: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
@@ -1351,8 +1351,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/cashout_gift_card".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1360,7 +1360,7 @@ class Reader(
 
     @classmethod
     async def _cls_cashout_gift_card_async(
-        cls, reader: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
+        cls, id: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
@@ -1369,8 +1369,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/cashout_gift_card".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1379,7 +1379,7 @@ class Reader(
     @overload
     @staticmethod
     async def cashout_gift_card_async(
-        reader: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
+        id: str, /, **params: Unpack["ReaderCashoutGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
@@ -1406,8 +1406,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/cashout_gift_card".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1415,10 +1415,7 @@ class Reader(
 
     @classmethod
     def _cls_check_gift_card_balance(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderCheckGiftCardBalanceParams"],
+        cls, id: str, /, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
     ) -> "Reader":
         """
         Initiates a gift card balance check flow on a Reader.
@@ -1427,8 +1424,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/check_gift_card_balance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1437,7 +1434,7 @@ class Reader(
     @overload
     @staticmethod
     def check_gift_card_balance(
-        reader: str, /, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+        id: str, /, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
     ) -> "Reader":
         """
         Initiates a gift card balance check flow on a Reader.
@@ -1464,8 +1461,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/check_gift_card_balance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1473,10 +1470,7 @@ class Reader(
 
     @classmethod
     async def _cls_check_gift_card_balance_async(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderCheckGiftCardBalanceParams"],
+        cls, id: str, /, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
     ) -> "Reader":
         """
         Initiates a gift card balance check flow on a Reader.
@@ -1485,8 +1479,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/check_gift_card_balance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1495,7 +1489,7 @@ class Reader(
     @overload
     @staticmethod
     async def check_gift_card_balance_async(
-        reader: str, /, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+        id: str, /, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
     ) -> "Reader":
         """
         Initiates a gift card balance check flow on a Reader.
@@ -1522,8 +1516,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/check_gift_card_balance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1531,7 +1525,7 @@ class Reader(
 
     @classmethod
     def _cls_collect_inputs(
-        cls, reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
+        cls, id: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1540,8 +1534,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/collect_inputs".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1550,7 +1544,7 @@ class Reader(
     @overload
     @staticmethod
     def collect_inputs(
-        reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
+        id: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1577,8 +1571,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/collect_inputs".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1586,7 +1580,7 @@ class Reader(
 
     @classmethod
     async def _cls_collect_inputs_async(
-        cls, reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
+        cls, id: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1595,8 +1589,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/collect_inputs".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1605,7 +1599,7 @@ class Reader(
     @overload
     @staticmethod
     async def collect_inputs_async(
-        reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
+        id: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1632,8 +1626,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/collect_inputs".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1641,10 +1635,7 @@ class Reader(
 
     @classmethod
     def _cls_collect_payment_method(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderCollectPaymentMethodParams"],
+        cls, id: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1653,8 +1644,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/collect_payment_method".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1663,7 +1654,7 @@ class Reader(
     @overload
     @staticmethod
     def collect_payment_method(
-        reader: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        id: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1690,8 +1681,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/collect_payment_method".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1699,10 +1690,7 @@ class Reader(
 
     @classmethod
     async def _cls_collect_payment_method_async(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderCollectPaymentMethodParams"],
+        cls, id: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1711,8 +1699,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/collect_payment_method".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1721,7 +1709,7 @@ class Reader(
     @overload
     @staticmethod
     async def collect_payment_method_async(
-        reader: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        id: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1748,8 +1736,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/collect_payment_method".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1757,10 +1745,7 @@ class Reader(
 
     @classmethod
     def _cls_confirm_payment_intent(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderConfirmPaymentIntentParams"],
+        cls, id: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1769,8 +1754,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/confirm_payment_intent".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1779,7 +1764,7 @@ class Reader(
     @overload
     @staticmethod
     def confirm_payment_intent(
-        reader: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        id: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1806,8 +1791,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/confirm_payment_intent".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1815,10 +1800,7 @@ class Reader(
 
     @classmethod
     async def _cls_confirm_payment_intent_async(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderConfirmPaymentIntentParams"],
+        cls, id: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1827,8 +1809,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/confirm_payment_intent".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1837,7 +1819,7 @@ class Reader(
     @overload
     @staticmethod
     async def confirm_payment_intent_async(
-        reader: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        id: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1864,8 +1846,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/confirm_payment_intent".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2071,10 +2053,7 @@ class Reader(
 
     @classmethod
     def _cls_process_payment_intent(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderProcessPaymentIntentParams"],
+        cls, id: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -2083,8 +2062,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/process_payment_intent".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2093,7 +2072,7 @@ class Reader(
     @overload
     @staticmethod
     def process_payment_intent(
-        reader: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        id: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -2120,8 +2099,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/process_payment_intent".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2129,10 +2108,7 @@ class Reader(
 
     @classmethod
     async def _cls_process_payment_intent_async(
-        cls,
-        reader: str,
-        /,
-        **params: Unpack["ReaderProcessPaymentIntentParams"],
+        cls, id: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -2141,8 +2117,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/process_payment_intent".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2151,7 +2127,7 @@ class Reader(
     @overload
     @staticmethod
     async def process_payment_intent_async(
-        reader: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        id: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -2178,8 +2154,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/process_payment_intent".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2187,7 +2163,7 @@ class Reader(
 
     @classmethod
     def _cls_process_setup_intent(
-        cls, reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
+        cls, id: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -2196,8 +2172,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/process_setup_intent".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2206,7 +2182,7 @@ class Reader(
     @overload
     @staticmethod
     def process_setup_intent(
-        reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
+        id: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -2233,8 +2209,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/process_setup_intent".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2242,7 +2218,7 @@ class Reader(
 
     @classmethod
     async def _cls_process_setup_intent_async(
-        cls, reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
+        cls, id: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -2251,8 +2227,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/process_setup_intent".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2261,7 +2237,7 @@ class Reader(
     @overload
     @staticmethod
     async def process_setup_intent_async(
-        reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
+        id: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -2288,8 +2264,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/process_setup_intent".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2297,7 +2273,7 @@ class Reader(
 
     @classmethod
     def _cls_refund_payment(
-        cls, reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
+        cls, id: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -2306,8 +2282,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/refund_payment".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2316,7 +2292,7 @@ class Reader(
     @overload
     @staticmethod
     def refund_payment(
-        reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
+        id: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -2343,8 +2319,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/refund_payment".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2352,7 +2328,7 @@ class Reader(
 
     @classmethod
     async def _cls_refund_payment_async(
-        cls, reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
+        cls, id: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -2361,8 +2337,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/refund_payment".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2371,7 +2347,7 @@ class Reader(
     @overload
     @staticmethod
     async def refund_payment_async(
-        reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
+        id: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -2398,8 +2374,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/refund_payment".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2407,7 +2383,7 @@ class Reader(
 
     @classmethod
     def _cls_reload_gift_card(
-        cls, reader: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
+        cls, id: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
@@ -2416,8 +2392,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/reload_gift_card".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/reload_gift_card".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2426,7 +2402,7 @@ class Reader(
     @overload
     @staticmethod
     def reload_gift_card(
-        reader: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
+        id: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
@@ -2453,8 +2429,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/reload_gift_card".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/reload_gift_card".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2462,7 +2438,7 @@ class Reader(
 
     @classmethod
     async def _cls_reload_gift_card_async(
-        cls, reader: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
+        cls, id: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
@@ -2471,8 +2447,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/reload_gift_card".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/reload_gift_card".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2481,7 +2457,7 @@ class Reader(
     @overload
     @staticmethod
     async def reload_gift_card_async(
-        reader: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
+        id: str, /, **params: Unpack["ReaderReloadGiftCardParams"]
     ) -> "Reader":
         """
         Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
@@ -2508,8 +2484,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/reload_gift_card".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/reload_gift_card".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2539,7 +2515,7 @@ class Reader(
 
     @classmethod
     def _cls_set_reader_display(
-        cls, reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
+        cls, id: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2548,8 +2524,8 @@ class Reader(
             "Reader",
             cls._static_request(
                 "post",
-                "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/set_reader_display".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2558,7 +2534,7 @@ class Reader(
     @overload
     @staticmethod
     def set_reader_display(
-        reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
+        id: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2585,8 +2561,8 @@ class Reader(
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/set_reader_display".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2594,7 +2570,7 @@ class Reader(
 
     @classmethod
     async def _cls_set_reader_display_async(
-        cls, reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
+        cls, id: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2603,8 +2579,8 @@ class Reader(
             "Reader",
             await cls._static_request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(reader)
+                "/v1/terminal/readers/{id}/set_reader_display".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2613,7 +2589,7 @@ class Reader(
     @overload
     @staticmethod
     async def set_reader_display_async(
-        reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
+        id: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2640,8 +2616,8 @@ class Reader(
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(self._data.get("id"))
+                "/v1/terminal/readers/{id}/set_reader_display".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2653,7 +2629,7 @@ class Reader(
         @classmethod
         def _cls_present_payment_method(
             cls,
-            reader: str,
+            id: str,
             /,
             **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
@@ -2664,8 +2640,8 @@ class Reader(
                 "Reader",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=sanitize_id(reader)
+                    "/v1/test_helpers/terminal/readers/{id}/present_payment_method".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2674,9 +2650,7 @@ class Reader(
         @overload
         @staticmethod
         def present_payment_method(
-            reader: str,
-            /,
-            **params: Unpack["ReaderPresentPaymentMethodParams"],
+            id: str, /, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -2703,8 +2677,8 @@ class Reader(
                 "Reader",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/terminal/readers/{id}/present_payment_method".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2713,7 +2687,7 @@ class Reader(
         @classmethod
         async def _cls_present_payment_method_async(
             cls,
-            reader: str,
+            id: str,
             /,
             **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
@@ -2724,8 +2698,8 @@ class Reader(
                 "Reader",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=sanitize_id(reader)
+                    "/v1/test_helpers/terminal/readers/{id}/present_payment_method".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2734,9 +2708,7 @@ class Reader(
         @overload
         @staticmethod
         async def present_payment_method_async(
-            reader: str,
-            /,
-            **params: Unpack["ReaderPresentPaymentMethodParams"],
+            id: str, /, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -2763,8 +2735,8 @@ class Reader(
                 "Reader",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/terminal/readers/{id}/present_payment_method".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2773,7 +2745,7 @@ class Reader(
         @classmethod
         def _cls_succeed_input_collection(
             cls,
-            reader: str,
+            id: str,
             /,
             **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
@@ -2784,8 +2756,8 @@ class Reader(
                 "Reader",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                        reader=sanitize_id(reader)
+                    "/v1/test_helpers/terminal/readers/{id}/succeed_input_collection".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2794,9 +2766,7 @@ class Reader(
         @overload
         @staticmethod
         def succeed_input_collection(
-            reader: str,
-            /,
-            **params: Unpack["ReaderSucceedInputCollectionParams"],
+            id: str, /, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
             Use this endpoint to trigger a successful input collection on a simulated reader.
@@ -2823,8 +2793,8 @@ class Reader(
                 "Reader",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                        reader=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/terminal/readers/{id}/succeed_input_collection".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2833,7 +2803,7 @@ class Reader(
         @classmethod
         async def _cls_succeed_input_collection_async(
             cls,
-            reader: str,
+            id: str,
             /,
             **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
@@ -2844,8 +2814,8 @@ class Reader(
                 "Reader",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                        reader=sanitize_id(reader)
+                    "/v1/test_helpers/terminal/readers/{id}/succeed_input_collection".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2854,9 +2824,7 @@ class Reader(
         @overload
         @staticmethod
         async def succeed_input_collection_async(
-            reader: str,
-            /,
-            **params: Unpack["ReaderSucceedInputCollectionParams"],
+            id: str, /, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
             Use this endpoint to trigger a successful input collection on a simulated reader.
@@ -2883,8 +2851,8 @@ class Reader(
                 "Reader",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                        reader=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/terminal/readers/{id}/succeed_input_collection".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2893,7 +2861,7 @@ class Reader(
         @classmethod
         def _cls_timeout_input_collection(
             cls,
-            reader: str,
+            id: str,
             /,
             **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
@@ -2904,8 +2872,8 @@ class Reader(
                 "Reader",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                        reader=sanitize_id(reader)
+                    "/v1/test_helpers/terminal/readers/{id}/timeout_input_collection".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2914,9 +2882,7 @@ class Reader(
         @overload
         @staticmethod
         def timeout_input_collection(
-            reader: str,
-            /,
-            **params: Unpack["ReaderTimeoutInputCollectionParams"],
+            id: str, /, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """
             Use this endpoint to complete an input collection with a timeout error on a simulated reader.
@@ -2943,8 +2909,8 @@ class Reader(
                 "Reader",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                        reader=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/terminal/readers/{id}/timeout_input_collection".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2953,7 +2919,7 @@ class Reader(
         @classmethod
         async def _cls_timeout_input_collection_async(
             cls,
-            reader: str,
+            id: str,
             /,
             **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
@@ -2964,8 +2930,8 @@ class Reader(
                 "Reader",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                        reader=sanitize_id(reader)
+                    "/v1/test_helpers/terminal/readers/{id}/timeout_input_collection".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2974,9 +2940,7 @@ class Reader(
         @overload
         @staticmethod
         async def timeout_input_collection_async(
-            reader: str,
-            /,
-            **params: Unpack["ReaderTimeoutInputCollectionParams"],
+            id: str, /, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """
             Use this endpoint to complete an input collection with a timeout error on a simulated reader.
@@ -3003,8 +2967,8 @@ class Reader(
                 "Reader",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                        reader=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/terminal/readers/{id}/timeout_input_collection".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

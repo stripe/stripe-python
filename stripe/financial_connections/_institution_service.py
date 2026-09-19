@@ -58,7 +58,7 @@ class InstitutionService(StripeService):
 
     def retrieve(
         self,
-        institution: str,
+        id: str,
         /,
         params: Optional["InstitutionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,8 +70,8 @@ class InstitutionService(StripeService):
             "Institution",
             self._request(
                 "get",
-                "/v1/financial_connections/institutions/{institution}".format(
-                    institution=sanitize_id(institution),
+                "/v1/financial_connections/institutions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -81,7 +81,7 @@ class InstitutionService(StripeService):
 
     async def retrieve_async(
         self,
-        institution: str,
+        id: str,
         /,
         params: Optional["InstitutionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,8 +93,8 @@ class InstitutionService(StripeService):
             "Institution",
             await self._request_async(
                 "get",
-                "/v1/financial_connections/institutions/{institution}".format(
-                    institution=sanitize_id(institution),
+                "/v1/financial_connections/institutions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

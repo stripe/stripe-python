@@ -58,7 +58,7 @@ class Product(
     """
     Products describe the specific goods or services you offer to your customers.
     For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
-    They can be used in conjunction with [Prices](https://api.stripe.com#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
+    They can be used in conjunction with [Prices](https://docs.stripe.com/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
 
     Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription),
     [share a Payment Link](https://docs.stripe.com/payment-links),
@@ -151,7 +151,7 @@ class Product(
     class TaxDetails(StripeObject):
         performance_location: Optional[str]
         """
-        The performance location.
+        The ID of a tax location with type `performance`, representing where the performance takes place.
         """
         tax_code: Optional[str]
         """
@@ -506,7 +506,7 @@ class Product(
     @classmethod
     def delete_feature(
         cls,
-        product: str,
+        product_id: str,
         id: str,
         /,
         **params: Unpack["ProductDeleteFeatureParams"],
@@ -518,8 +518,8 @@ class Product(
             "ProductFeature",
             cls._static_request(
                 "delete",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product), id=sanitize_id(id)
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -528,7 +528,7 @@ class Product(
     @classmethod
     async def delete_feature_async(
         cls,
-        product: str,
+        product_id: str,
         id: str,
         /,
         **params: Unpack["ProductDeleteFeatureParams"],
@@ -540,8 +540,8 @@ class Product(
             "ProductFeature",
             await cls._static_request_async(
                 "delete",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product), id=sanitize_id(id)
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -550,7 +550,7 @@ class Product(
     @classmethod
     def retrieve_feature(
         cls,
-        product: str,
+        product_id: str,
         id: str,
         /,
         **params: Unpack["ProductRetrieveFeatureParams"],
@@ -562,8 +562,8 @@ class Product(
             "ProductFeature",
             cls._static_request(
                 "get",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product), id=sanitize_id(id)
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -572,7 +572,7 @@ class Product(
     @classmethod
     async def retrieve_feature_async(
         cls,
-        product: str,
+        product_id: str,
         id: str,
         /,
         **params: Unpack["ProductRetrieveFeatureParams"],
@@ -584,8 +584,8 @@ class Product(
             "ProductFeature",
             await cls._static_request_async(
                 "get",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product), id=sanitize_id(id)
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -593,7 +593,7 @@ class Product(
 
     @classmethod
     def list_features(
-        cls, product: str, /, **params: Unpack["ProductListFeaturesParams"]
+        cls, id: str, /, **params: Unpack["ProductListFeaturesParams"]
     ) -> ListObject["ProductFeature"]:
         """
         Retrieve a list of features for a product
@@ -602,16 +602,14 @@ class Product(
             ListObject["ProductFeature"],
             cls._static_request(
                 "get",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product)
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_features_async(
-        cls, product: str, /, **params: Unpack["ProductListFeaturesParams"]
+        cls, id: str, /, **params: Unpack["ProductListFeaturesParams"]
     ) -> ListObject["ProductFeature"]:
         """
         Retrieve a list of features for a product
@@ -620,16 +618,14 @@ class Product(
             ListObject["ProductFeature"],
             await cls._static_request_async(
                 "get",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product)
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def create_feature(
-        cls, product: str, /, **params: Unpack["ProductCreateFeatureParams"]
+        cls, id: str, /, **params: Unpack["ProductCreateFeatureParams"]
     ) -> "ProductFeature":
         """
         Creates a product_feature, which represents a feature attachment to a product
@@ -638,16 +634,14 @@ class Product(
             "ProductFeature",
             cls._static_request(
                 "post",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product)
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def create_feature_async(
-        cls, product: str, /, **params: Unpack["ProductCreateFeatureParams"]
+        cls, id: str, /, **params: Unpack["ProductCreateFeatureParams"]
     ) -> "ProductFeature":
         """
         Creates a product_feature, which represents a feature attachment to a product
@@ -656,9 +650,7 @@ class Product(
             "ProductFeature",
             await cls._static_request_async(
                 "post",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product)
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

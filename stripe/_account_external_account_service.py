@@ -31,7 +31,7 @@ if TYPE_CHECKING:
 class AccountExternalAccountService(StripeService):
     def delete(
         self,
-        account: str,
+        account_id: str,
         id: str,
         /,
         params: Optional["AccountExternalAccountDeleteParams"] = None,
@@ -44,8 +44,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             self._request(
                 "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -56,7 +56,7 @@ class AccountExternalAccountService(StripeService):
 
     async def delete_async(
         self,
-        account: str,
+        account_id: str,
         id: str,
         /,
         params: Optional["AccountExternalAccountDeleteParams"] = None,
@@ -69,8 +69,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             await self._request_async(
                 "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -81,7 +81,7 @@ class AccountExternalAccountService(StripeService):
 
     def retrieve(
         self,
-        account: str,
+        account_id: str,
         id: str,
         /,
         params: Optional["AccountExternalAccountRetrieveParams"] = None,
@@ -94,8 +94,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             self._request(
                 "get",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -106,7 +106,7 @@ class AccountExternalAccountService(StripeService):
 
     async def retrieve_async(
         self,
-        account: str,
+        account_id: str,
         id: str,
         /,
         params: Optional["AccountExternalAccountRetrieveParams"] = None,
@@ -119,8 +119,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -131,7 +131,7 @@ class AccountExternalAccountService(StripeService):
 
     def update(
         self,
-        account: str,
+        account_id: str,
         id: str,
         /,
         params: Optional["AccountExternalAccountUpdateParams"] = None,
@@ -151,8 +151,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             self._request(
                 "post",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -163,7 +163,7 @@ class AccountExternalAccountService(StripeService):
 
     async def update_async(
         self,
-        account: str,
+        account_id: str,
         id: str,
         /,
         params: Optional["AccountExternalAccountUpdateParams"] = None,
@@ -183,8 +183,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -195,7 +195,7 @@ class AccountExternalAccountService(StripeService):
 
     def list(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountExternalAccountListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -207,8 +207,8 @@ class AccountExternalAccountService(StripeService):
             "ListObject[Union[BankAccount, Card]]",
             self._request(
                 "get",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -218,7 +218,7 @@ class AccountExternalAccountService(StripeService):
 
     async def list_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountExternalAccountListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -230,8 +230,8 @@ class AccountExternalAccountService(StripeService):
             "ListObject[Union[BankAccount, Card]]",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -241,7 +241,7 @@ class AccountExternalAccountService(StripeService):
 
     def create(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountExternalAccountCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -253,8 +253,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             self._request(
                 "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -264,7 +264,7 @@ class AccountExternalAccountService(StripeService):
 
     async def create_async(
         self,
-        account: str,
+        id: str,
         /,
         params: "AccountExternalAccountCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -276,8 +276,8 @@ class AccountExternalAccountService(StripeService):
             "Union[BankAccount, Card]",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account),
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

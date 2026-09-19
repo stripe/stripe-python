@@ -47,7 +47,7 @@ class Transfer(
 
     Before April 6, 2017, transfers also represented movement of funds from a
     Stripe account to a card or bank account. This behavior has since been split
-    out into a [Payout](https://api.stripe.com#payout_object) object, with corresponding payout endpoints. For more
+    out into a [Payout](https://docs.stripe.com/api#payout_object) object, with corresponding payout endpoints. For more
     information, read about the
     [transfer/payout split](https://docs.stripe.com/transfer-payout-split).
 
@@ -335,7 +335,7 @@ class Transfer(
     @classmethod
     def retrieve_reversal(
         cls,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         **params: Unpack["TransferRetrieveReversalParams"],
@@ -347,8 +347,8 @@ class Transfer(
             "Reversal",
             cls._static_request(
                 "get",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer), id=sanitize_id(id)
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -357,7 +357,7 @@ class Transfer(
     @classmethod
     async def retrieve_reversal_async(
         cls,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         **params: Unpack["TransferRetrieveReversalParams"],
@@ -369,8 +369,8 @@ class Transfer(
             "Reversal",
             await cls._static_request_async(
                 "get",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer), id=sanitize_id(id)
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -379,7 +379,7 @@ class Transfer(
     @classmethod
     def modify_reversal(
         cls,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         **params: Unpack["TransferModifyReversalParams"],
@@ -393,8 +393,8 @@ class Transfer(
             "Reversal",
             cls._static_request(
                 "post",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer), id=sanitize_id(id)
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -403,7 +403,7 @@ class Transfer(
     @classmethod
     async def modify_reversal_async(
         cls,
-        transfer: str,
+        transfer_id: str,
         id: str,
         /,
         **params: Unpack["TransferModifyReversalParams"],
@@ -417,8 +417,8 @@ class Transfer(
             "Reversal",
             await cls._static_request_async(
                 "post",
-                "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=sanitize_id(transfer), id=sanitize_id(id)
+                "/v1/transfers/{transfer_id}/reversals/{id}".format(
+                    transfer_id=sanitize_id(transfer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),

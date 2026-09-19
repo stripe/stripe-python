@@ -186,7 +186,7 @@ class PaymentIntentService(StripeService):
 
     def retrieve(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -202,9 +202,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "get",
-                "/v1/payment_intents/{intent}".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -213,7 +211,7 @@ class PaymentIntentService(StripeService):
 
     async def retrieve_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -229,9 +227,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "get",
-                "/v1/payment_intents/{intent}".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -240,7 +236,7 @@ class PaymentIntentService(StripeService):
 
     def update(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -258,9 +254,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -269,7 +263,7 @@ class PaymentIntentService(StripeService):
 
     async def update_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -287,9 +281,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -342,7 +334,7 @@ class PaymentIntentService(StripeService):
 
     def apply_customer_balance(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -354,8 +346,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/apply_customer_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -365,7 +357,7 @@ class PaymentIntentService(StripeService):
 
     async def apply_customer_balance_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -377,8 +369,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/apply_customer_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -388,7 +380,7 @@ class PaymentIntentService(StripeService):
 
     def cancel(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -404,9 +396,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/cancel".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -415,7 +405,7 @@ class PaymentIntentService(StripeService):
 
     async def cancel_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -431,9 +421,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/cancel".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -442,7 +430,7 @@ class PaymentIntentService(StripeService):
 
     def capture(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -458,9 +446,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/capture".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}/capture".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -469,7 +455,7 @@ class PaymentIntentService(StripeService):
 
     async def capture_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -485,9 +471,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/capture".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}/capture".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -496,7 +480,7 @@ class PaymentIntentService(StripeService):
 
     def confirm(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -537,9 +521,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/confirm".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}/confirm".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -548,7 +530,7 @@ class PaymentIntentService(StripeService):
 
     async def confirm_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -589,9 +571,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/confirm".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/payment_intents/{id}/confirm".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -600,7 +580,7 @@ class PaymentIntentService(StripeService):
 
     def decrement_authorization(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentDecrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
@@ -627,8 +607,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/decrement_authorization".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/decrement_authorization".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -638,7 +618,7 @@ class PaymentIntentService(StripeService):
 
     async def decrement_authorization_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentDecrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
@@ -665,8 +645,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/decrement_authorization".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/decrement_authorization".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -676,7 +656,7 @@ class PaymentIntentService(StripeService):
 
     def increment_authorization(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentIncrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
@@ -713,8 +693,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/increment_authorization".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -724,7 +704,7 @@ class PaymentIntentService(StripeService):
 
     async def increment_authorization_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentIncrementAuthorizationParams",
         options: Optional["RequestOptions"] = None,
@@ -761,8 +741,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/increment_authorization".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -772,7 +752,7 @@ class PaymentIntentService(StripeService):
 
     def reauthorize(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentReauthorizeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -791,8 +771,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/reauthorize".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/reauthorize".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -802,7 +782,7 @@ class PaymentIntentService(StripeService):
 
     async def reauthorize_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentReauthorizeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -821,8 +801,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/reauthorize".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/reauthorize".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -832,7 +812,7 @@ class PaymentIntentService(StripeService):
 
     def update_crypto_refund_address(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentUpdateCryptoRefundAddressParams",
         options: Optional["RequestOptions"] = None,
@@ -844,8 +824,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/update_crypto_refund_address".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -855,7 +835,7 @@ class PaymentIntentService(StripeService):
 
     async def update_crypto_refund_address_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentUpdateCryptoRefundAddressParams",
         options: Optional["RequestOptions"] = None,
@@ -867,8 +847,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/update_crypto_refund_address".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -878,7 +858,7 @@ class PaymentIntentService(StripeService):
 
     def verify_microdeposits(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -890,8 +870,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/verify_microdeposits".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -901,7 +881,7 @@ class PaymentIntentService(StripeService):
 
     async def verify_microdeposits_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -913,8 +893,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=sanitize_id(intent),
+                "/v1/payment_intents/{id}/verify_microdeposits".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -924,7 +904,7 @@ class PaymentIntentService(StripeService):
 
     def trigger_action(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentTriggerActionParams",
         options: Optional["RequestOptions"] = None,
@@ -936,8 +916,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/test/payment_intents/{intent}/trigger_action".format(
-                    intent=sanitize_id(intent),
+                "/v1/test/payment_intents/{id}/trigger_action".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -947,7 +927,7 @@ class PaymentIntentService(StripeService):
 
     async def trigger_action_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentTriggerActionParams",
         options: Optional["RequestOptions"] = None,
@@ -959,8 +939,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/test/payment_intents/{intent}/trigger_action".format(
-                    intent=sanitize_id(intent),
+                "/v1/test/payment_intents/{id}/trigger_action".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

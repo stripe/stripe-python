@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class TransactionService(StripeService):
     def refund(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionRefundParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,8 +34,8 @@ class TransactionService(StripeService):
             "Transaction",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                    transaction=sanitize_id(transaction),
+                "/v1/test_helpers/issuing/transactions/{id}/refund".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -45,7 +45,7 @@ class TransactionService(StripeService):
 
     async def refund_async(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionRefundParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -57,8 +57,8 @@ class TransactionService(StripeService):
             "Transaction",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                    transaction=sanitize_id(transaction),
+                "/v1/test_helpers/issuing/transactions/{id}/refund".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

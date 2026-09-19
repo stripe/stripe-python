@@ -584,10 +584,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     @classmethod
     def _cls_list_line_items(
-        cls,
-        calculation: str,
-        /,
-        **params: Unpack["CalculationListLineItemsParams"],
+        cls, id: str, /, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
@@ -596,8 +593,8 @@ class Calculation(CreateableAPIResource["Calculation"]):
             ListObject["CalculationLineItem"],
             cls._static_request(
                 "get",
-                "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(calculation)
+                "/v1/tax/calculations/{id}/line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -606,7 +603,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     @overload
     @staticmethod
     def list_line_items(
-        calculation: str, /, **params: Unpack["CalculationListLineItemsParams"]
+        id: str, /, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
@@ -633,8 +630,8 @@ class Calculation(CreateableAPIResource["Calculation"]):
             ListObject["CalculationLineItem"],
             self._request(
                 "get",
-                "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(self._data.get("id"))
+                "/v1/tax/calculations/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -642,10 +639,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls,
-        calculation: str,
-        /,
-        **params: Unpack["CalculationListLineItemsParams"],
+        cls, id: str, /, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
@@ -654,8 +648,8 @@ class Calculation(CreateableAPIResource["Calculation"]):
             ListObject["CalculationLineItem"],
             await cls._static_request_async(
                 "get",
-                "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(calculation)
+                "/v1/tax/calculations/{id}/line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -664,7 +658,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     @overload
     @staticmethod
     async def list_line_items_async(
-        calculation: str, /, **params: Unpack["CalculationListLineItemsParams"]
+        id: str, /, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
@@ -691,8 +685,8 @@ class Calculation(CreateableAPIResource["Calculation"]):
             ListObject["CalculationLineItem"],
             await self._request_async(
                 "get",
-                "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(self._data.get("id"))
+                "/v1/tax/calculations/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

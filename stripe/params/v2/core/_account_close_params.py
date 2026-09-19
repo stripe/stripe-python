@@ -10,6 +10,7 @@ class AccountCloseParams(TypedDict):
             Literal[
                 "card_creator",
                 "customer",
+                "developer",
                 "merchant",
                 "recipient",
                 "money_manager",

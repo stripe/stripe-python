@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 class ApplicationFeeRefundService(StripeService):
     def retrieve(
         self,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         params: Optional["ApplicationFeeRefundRetrieveParams"] = None,
@@ -39,8 +39,8 @@ class ApplicationFeeRefundService(StripeService):
             "ApplicationFeeRefund",
             self._request(
                 "get",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee),
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -51,7 +51,7 @@ class ApplicationFeeRefundService(StripeService):
 
     async def retrieve_async(
         self,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         params: Optional["ApplicationFeeRefundRetrieveParams"] = None,
@@ -64,8 +64,8 @@ class ApplicationFeeRefundService(StripeService):
             "ApplicationFeeRefund",
             await self._request_async(
                 "get",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee),
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -76,7 +76,7 @@ class ApplicationFeeRefundService(StripeService):
 
     def update(
         self,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         params: Optional["ApplicationFeeRefundUpdateParams"] = None,
@@ -91,8 +91,8 @@ class ApplicationFeeRefundService(StripeService):
             "ApplicationFeeRefund",
             self._request(
                 "post",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee),
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -103,7 +103,7 @@ class ApplicationFeeRefundService(StripeService):
 
     async def update_async(
         self,
-        fee: str,
+        fee_id: str,
         id: str,
         /,
         params: Optional["ApplicationFeeRefundUpdateParams"] = None,
@@ -118,8 +118,8 @@ class ApplicationFeeRefundService(StripeService):
             "ApplicationFeeRefund",
             await self._request_async(
                 "post",
-                "/v1/application_fees/{fee}/refunds/{id}".format(
-                    fee=sanitize_id(fee),
+                "/v1/application_fees/{fee_id}/refunds/{id}".format(
+                    fee_id=sanitize_id(fee_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",

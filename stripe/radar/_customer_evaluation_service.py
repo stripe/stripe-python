@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class CustomerEvaluationService(StripeService):
     def retrieve(
         self,
-        customer_evaluation: str,
+        id: str,
         /,
         params: Optional["CustomerEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,8 +34,8 @@ class CustomerEvaluationService(StripeService):
             "CustomerEvaluation",
             self._request(
                 "get",
-                "/v1/radar/customer_evaluations/{customer_evaluation}".format(
-                    customer_evaluation=sanitize_id(customer_evaluation),
+                "/v1/radar/customer_evaluations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -45,7 +45,7 @@ class CustomerEvaluationService(StripeService):
 
     async def retrieve_async(
         self,
-        customer_evaluation: str,
+        id: str,
         /,
         params: Optional["CustomerEvaluationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -57,8 +57,8 @@ class CustomerEvaluationService(StripeService):
             "CustomerEvaluation",
             await self._request_async(
                 "get",
-                "/v1/radar/customer_evaluations/{customer_evaluation}".format(
-                    customer_evaluation=sanitize_id(customer_evaluation),
+                "/v1/radar/customer_evaluations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -106,7 +106,7 @@ class CustomerEvaluationService(StripeService):
 
     def update(
         self,
-        customer_evaluation: str,
+        id: str,
         /,
         params: Optional["CustomerEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -118,8 +118,8 @@ class CustomerEvaluationService(StripeService):
             "CustomerEvaluation",
             self._request(
                 "post",
-                "/v1/radar/customer_evaluations/{customer_evaluation}/report".format(
-                    customer_evaluation=sanitize_id(customer_evaluation),
+                "/v1/radar/customer_evaluations/{id}/report".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -129,7 +129,7 @@ class CustomerEvaluationService(StripeService):
 
     async def update_async(
         self,
-        customer_evaluation: str,
+        id: str,
         /,
         params: Optional["CustomerEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -141,8 +141,8 @@ class CustomerEvaluationService(StripeService):
             "CustomerEvaluation",
             await self._request_async(
                 "post",
-                "/v1/radar/customer_evaluations/{customer_evaluation}/report".format(
-                    customer_evaluation=sanitize_id(customer_evaluation),
+                "/v1/radar/customer_evaluations/{id}/report".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

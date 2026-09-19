@@ -58,7 +58,7 @@ class ScheduledQueryRunService(StripeService):
 
     def retrieve(
         self,
-        scheduled_query_run: str,
+        id: str,
         /,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,8 +70,8 @@ class ScheduledQueryRunService(StripeService):
             "ScheduledQueryRun",
             self._request(
                 "get",
-                "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
-                    scheduled_query_run=sanitize_id(scheduled_query_run),
+                "/v1/sigma/scheduled_query_runs/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -81,7 +81,7 @@ class ScheduledQueryRunService(StripeService):
 
     async def retrieve_async(
         self,
-        scheduled_query_run: str,
+        id: str,
         /,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,8 +93,8 @@ class ScheduledQueryRunService(StripeService):
             "ScheduledQueryRun",
             await self._request_async(
                 "get",
-                "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
-                    scheduled_query_run=sanitize_id(scheduled_query_run),
+                "/v1/sigma/scheduled_query_runs/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

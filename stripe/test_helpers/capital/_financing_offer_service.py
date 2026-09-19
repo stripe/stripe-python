@@ -57,7 +57,7 @@ class FinancingOfferService(StripeService):
 
     def refill(
         self,
-        financing_offer: str,
+        id: str,
         /,
         params: "FinancingOfferRefillParams",
         options: Optional["RequestOptions"] = None,
@@ -69,8 +69,8 @@ class FinancingOfferService(StripeService):
             "FinancingOffer",
             self._request(
                 "post",
-                "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
-                    financing_offer=sanitize_id(financing_offer),
+                "/v1/test_helpers/capital/financing_offers/{id}/refill".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -80,7 +80,7 @@ class FinancingOfferService(StripeService):
 
     async def refill_async(
         self,
-        financing_offer: str,
+        id: str,
         /,
         params: "FinancingOfferRefillParams",
         options: Optional["RequestOptions"] = None,
@@ -92,8 +92,8 @@ class FinancingOfferService(StripeService):
             "FinancingOffer",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
-                    financing_offer=sanitize_id(financing_offer),
+                "/v1/test_helpers/capital/financing_offers/{id}/refill".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

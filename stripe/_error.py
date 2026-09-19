@@ -296,6 +296,10 @@ class RecipientNotNotifiableError(StripeError):
     pass
 
 
+class ServiceUnavailableError(StripeError):
+    pass
+
+
 class TemporarySessionExpiredError(StripeError):
     pass
 

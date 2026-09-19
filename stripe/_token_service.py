@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class TokenService(StripeService):
     def retrieve(
         self,
-        token: str,
+        id: str,
         /,
         params: Optional["TokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -27,7 +27,7 @@ class TokenService(StripeService):
             "Token",
             self._request(
                 "get",
-                "/v1/tokens/{token}".format(token=sanitize_id(token)),
+                "/v1/tokens/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -36,7 +36,7 @@ class TokenService(StripeService):
 
     async def retrieve_async(
         self,
-        token: str,
+        id: str,
         /,
         params: Optional["TokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -48,7 +48,7 @@ class TokenService(StripeService):
             "Token",
             await self._request_async(
                 "get",
-                "/v1/tokens/{token}".format(token=sanitize_id(token)),
+                "/v1/tokens/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

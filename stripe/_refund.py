@@ -500,7 +500,7 @@ class Refund(
 
     @classmethod
     def _cls_cancel(
-        cls, refund: str, /, **params: Unpack["RefundCancelParams"]
+        cls, id: str, /, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -511,18 +511,14 @@ class Refund(
             "Refund",
             cls._static_request(
                 "post",
-                "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(refund)
-                ),
+                "/v1/refunds/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        refund: str, /, **params: Unpack["RefundCancelParams"]
-    ) -> "Refund":
+    def cancel(id: str, /, **params: Unpack["RefundCancelParams"]) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
 
@@ -552,8 +548,8 @@ class Refund(
             "Refund",
             self._request(
                 "post",
-                "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(self._data.get("id"))
+                "/v1/refunds/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -561,7 +557,7 @@ class Refund(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, refund: str, /, **params: Unpack["RefundCancelParams"]
+        cls, id: str, /, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -572,9 +568,7 @@ class Refund(
             "Refund",
             await cls._static_request_async(
                 "post",
-                "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(refund)
-                ),
+                "/v1/refunds/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -582,7 +576,7 @@ class Refund(
     @overload
     @staticmethod
     async def cancel_async(
-        refund: str, /, **params: Unpack["RefundCancelParams"]
+        id: str, /, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
@@ -615,8 +609,8 @@ class Refund(
             "Refund",
             await self._request_async(
                 "post",
-                "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(self._data.get("id"))
+                "/v1/refunds/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -777,7 +771,7 @@ class Refund(
 
         @classmethod
         def _cls_expire(
-            cls, refund: str, /, **params: Unpack["RefundExpireParams"]
+            cls, id: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -786,8 +780,8 @@ class Refund(
                 "Refund",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=sanitize_id(refund)
+                    "/v1/test_helpers/refunds/{id}/expire".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -796,7 +790,7 @@ class Refund(
         @overload
         @staticmethod
         def expire(
-            refund: str, /, **params: Unpack["RefundExpireParams"]
+            id: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -821,8 +815,8 @@ class Refund(
                 "Refund",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/refunds/{id}/expire".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -830,7 +824,7 @@ class Refund(
 
         @classmethod
         async def _cls_expire_async(
-            cls, refund: str, /, **params: Unpack["RefundExpireParams"]
+            cls, id: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -839,8 +833,8 @@ class Refund(
                 "Refund",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=sanitize_id(refund)
+                    "/v1/test_helpers/refunds/{id}/expire".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -849,7 +843,7 @@ class Refund(
         @overload
         @staticmethod
         async def expire_async(
-            refund: str, /, **params: Unpack["RefundExpireParams"]
+            id: str, /, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """
             Expire a refund with a status of requires_action.
@@ -876,8 +870,8 @@ class Refund(
                 "Refund",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/refunds/{id}/expire".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

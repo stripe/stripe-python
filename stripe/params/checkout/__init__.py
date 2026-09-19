@@ -7,6 +7,8 @@ if TYPE_CHECKING:
     from stripe.params.checkout._session_approve_params import (
         SessionApproveParams as SessionApproveParams,
         SessionApproveParamsPaymentIntentData as SessionApproveParamsPaymentIntentData,
+        SessionApproveParamsPaymentMethodOptions as SessionApproveParamsPaymentMethodOptions,
+        SessionApproveParamsPaymentMethodOptionsCard as SessionApproveParamsPaymentMethodOptionsCard,
         SessionApproveParamsSubscriptionData as SessionApproveParamsSubscriptionData,
     )
     from stripe.params.checkout._session_create_params import (
@@ -258,6 +260,14 @@ _import_map = {
         False,
     ),
     "SessionApproveParamsPaymentIntentData": (
+        "stripe.params.checkout._session_approve_params",
+        False,
+    ),
+    "SessionApproveParamsPaymentMethodOptions": (
+        "stripe.params.checkout._session_approve_params",
+        False,
+    ),
+    "SessionApproveParamsPaymentMethodOptionsCard": (
         "stripe.params.checkout._session_approve_params",
         False,
     ),

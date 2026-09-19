@@ -102,7 +102,7 @@ class CardholderService(StripeService):
 
     def retrieve(
         self,
-        cardholder: str,
+        id: str,
         /,
         params: Optional["CardholderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -114,9 +114,7 @@ class CardholderService(StripeService):
             "Cardholder",
             self._request(
                 "get",
-                "/v1/issuing/cardholders/{cardholder}".format(
-                    cardholder=sanitize_id(cardholder),
-                ),
+                "/v1/issuing/cardholders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -125,7 +123,7 @@ class CardholderService(StripeService):
 
     async def retrieve_async(
         self,
-        cardholder: str,
+        id: str,
         /,
         params: Optional["CardholderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,9 +135,7 @@ class CardholderService(StripeService):
             "Cardholder",
             await self._request_async(
                 "get",
-                "/v1/issuing/cardholders/{cardholder}".format(
-                    cardholder=sanitize_id(cardholder),
-                ),
+                "/v1/issuing/cardholders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -148,7 +144,7 @@ class CardholderService(StripeService):
 
     def update(
         self,
-        cardholder: str,
+        id: str,
         /,
         params: Optional["CardholderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -160,9 +156,7 @@ class CardholderService(StripeService):
             "Cardholder",
             self._request(
                 "post",
-                "/v1/issuing/cardholders/{cardholder}".format(
-                    cardholder=sanitize_id(cardholder),
-                ),
+                "/v1/issuing/cardholders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -171,7 +165,7 @@ class CardholderService(StripeService):
 
     async def update_async(
         self,
-        cardholder: str,
+        id: str,
         /,
         params: Optional["CardholderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -183,9 +177,7 @@ class CardholderService(StripeService):
             "Cardholder",
             await self._request_async(
                 "post",
-                "/v1/issuing/cardholders/{cardholder}".format(
-                    cardholder=sanitize_id(cardholder),
-                ),
+                "/v1/issuing/cardholders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

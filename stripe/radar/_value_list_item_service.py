@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 class ValueListItemService(StripeService):
     def delete(
         self,
-        item: str,
+        id: str,
         /,
         params: Optional["ValueListItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -41,9 +41,7 @@ class ValueListItemService(StripeService):
             "ValueListItem",
             self._request(
                 "delete",
-                "/v1/radar/value_list_items/{item}".format(
-                    item=sanitize_id(item),
-                ),
+                "/v1/radar/value_list_items/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -52,7 +50,7 @@ class ValueListItemService(StripeService):
 
     async def delete_async(
         self,
-        item: str,
+        id: str,
         /,
         params: Optional["ValueListItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -64,9 +62,7 @@ class ValueListItemService(StripeService):
             "ValueListItem",
             await self._request_async(
                 "delete",
-                "/v1/radar/value_list_items/{item}".format(
-                    item=sanitize_id(item),
-                ),
+                "/v1/radar/value_list_items/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -75,7 +71,7 @@ class ValueListItemService(StripeService):
 
     def retrieve(
         self,
-        item: str,
+        id: str,
         /,
         params: Optional["ValueListItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -87,9 +83,7 @@ class ValueListItemService(StripeService):
             "ValueListItem",
             self._request(
                 "get",
-                "/v1/radar/value_list_items/{item}".format(
-                    item=sanitize_id(item),
-                ),
+                "/v1/radar/value_list_items/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -98,7 +92,7 @@ class ValueListItemService(StripeService):
 
     async def retrieve_async(
         self,
-        item: str,
+        id: str,
         /,
         params: Optional["ValueListItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -110,9 +104,7 @@ class ValueListItemService(StripeService):
             "ValueListItem",
             await self._request_async(
                 "get",
-                "/v1/radar/value_list_items/{item}".format(
-                    item=sanitize_id(item),
-                ),
+                "/v1/radar/value_list_items/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

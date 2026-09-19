@@ -99,7 +99,7 @@ class CreditReversalService(StripeService):
 
     def retrieve(
         self,
-        credit_reversal: str,
+        id: str,
         /,
         params: Optional["CreditReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -111,8 +111,8 @@ class CreditReversalService(StripeService):
             "CreditReversal",
             self._request(
                 "get",
-                "/v1/treasury/credit_reversals/{credit_reversal}".format(
-                    credit_reversal=sanitize_id(credit_reversal),
+                "/v1/treasury/credit_reversals/{id}".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,
@@ -122,7 +122,7 @@ class CreditReversalService(StripeService):
 
     async def retrieve_async(
         self,
-        credit_reversal: str,
+        id: str,
         /,
         params: Optional["CreditReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -134,8 +134,8 @@ class CreditReversalService(StripeService):
             "CreditReversal",
             await self._request_async(
                 "get",
-                "/v1/treasury/credit_reversals/{credit_reversal}".format(
-                    credit_reversal=sanitize_id(credit_reversal),
+                "/v1/treasury/credit_reversals/{id}".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,

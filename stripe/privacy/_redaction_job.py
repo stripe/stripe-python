@@ -142,7 +142,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_cancel(
-        cls, job: str, /, **params: Unpack["RedactionJobCancelParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -153,8 +153,8 @@ class RedactionJob(
             "RedactionJob",
             cls._static_request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -163,7 +163,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def cancel(
-        job: str, /, **params: Unpack["RedactionJobCancelParams"]
+        id: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -196,8 +196,8 @@ class RedactionJob(
             "RedactionJob",
             self._request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(self._data.get("id"))
+                "/v1/privacy/redaction_jobs/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -205,7 +205,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, job: str, /, **params: Unpack["RedactionJobCancelParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -216,8 +216,8 @@ class RedactionJob(
             "RedactionJob",
             await cls._static_request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -226,7 +226,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def cancel_async(
-        job: str, /, **params: Unpack["RedactionJobCancelParams"]
+        id: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -259,8 +259,8 @@ class RedactionJob(
             "RedactionJob",
             await self._request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(self._data.get("id"))
+                "/v1/privacy/redaction_jobs/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -400,7 +400,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_run(
-        cls, job: str, /, **params: Unpack["RedactionJobRunParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -413,8 +413,8 @@ class RedactionJob(
             "RedactionJob",
             cls._static_request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/run".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -423,7 +423,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def run(
-        job: str, /, **params: Unpack["RedactionJobRunParams"]
+        id: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -460,8 +460,8 @@ class RedactionJob(
             "RedactionJob",
             self._request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(self._data.get("id"))
+                "/v1/privacy/redaction_jobs/{id}/run".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -469,7 +469,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_run_async(
-        cls, job: str, /, **params: Unpack["RedactionJobRunParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -482,8 +482,8 @@ class RedactionJob(
             "RedactionJob",
             await cls._static_request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/run".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -492,7 +492,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def run_async(
-        job: str, /, **params: Unpack["RedactionJobRunParams"]
+        id: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -531,8 +531,8 @@ class RedactionJob(
             "RedactionJob",
             await self._request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(self._data.get("id"))
+                "/v1/privacy/redaction_jobs/{id}/run".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -540,7 +540,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_validate(
-        cls, job: str, /, **params: Unpack["RedactionJobValidateParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -553,8 +553,8 @@ class RedactionJob(
             "RedactionJob",
             cls._static_request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/validate".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -563,7 +563,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def validate(
-        job: str, /, **params: Unpack["RedactionJobValidateParams"]
+        id: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -602,8 +602,8 @@ class RedactionJob(
             "RedactionJob",
             self._request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(self._data.get("id"))
+                "/v1/privacy/redaction_jobs/{id}/validate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -611,7 +611,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_validate_async(
-        cls, job: str, /, **params: Unpack["RedactionJobValidateParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -624,8 +624,8 @@ class RedactionJob(
             "RedactionJob",
             await cls._static_request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/validate".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -634,7 +634,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def validate_async(
-        job: str, /, **params: Unpack["RedactionJobValidateParams"]
+        id: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -673,8 +673,8 @@ class RedactionJob(
             "RedactionJob",
             await self._request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(self._data.get("id"))
+                "/v1/privacy/redaction_jobs/{id}/validate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -683,7 +683,7 @@ class RedactionJob(
     @classmethod
     def list_validation_errors(
         cls,
-        job: str,
+        id: str,
         /,
         **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
@@ -694,8 +694,8 @@ class RedactionJob(
             ListObject["RedactionJobValidationError"],
             cls._static_request(
                 "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/validation_errors".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -704,7 +704,7 @@ class RedactionJob(
     @classmethod
     async def list_validation_errors_async(
         cls,
-        job: str,
+        id: str,
         /,
         **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
@@ -715,8 +715,8 @@ class RedactionJob(
             ListObject["RedactionJobValidationError"],
             await cls._static_request_async(
                 "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors".format(
-                    job=sanitize_id(job)
+                "/v1/privacy/redaction_jobs/{id}/validation_errors".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),

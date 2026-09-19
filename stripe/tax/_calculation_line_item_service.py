@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class CalculationLineItemService(StripeService):
     def list(
         self,
-        calculation: str,
+        id: str,
         /,
         params: Optional["CalculationLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,8 +29,8 @@ class CalculationLineItemService(StripeService):
             "ListObject[CalculationLineItem]",
             self._request(
                 "get",
-                "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(calculation),
+                "/v1/tax/calculations/{id}/line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -40,7 +40,7 @@ class CalculationLineItemService(StripeService):
 
     async def list_async(
         self,
-        calculation: str,
+        id: str,
         /,
         params: Optional["CalculationLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,8 +52,8 @@ class CalculationLineItemService(StripeService):
             "ListObject[CalculationLineItem]",
             await self._request_async(
                 "get",
-                "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(calculation),
+                "/v1/tax/calculations/{id}/line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

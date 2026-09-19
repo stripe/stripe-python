@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class PaymentLinkLineItemService(StripeService):
     def list(
         self,
-        payment_link: str,
+        id: str,
         /,
         params: Optional["PaymentLinkLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,9 +29,7 @@ class PaymentLinkLineItemService(StripeService):
             "ListObject[LineItem]",
             self._request(
                 "get",
-                "/v1/payment_links/{payment_link}/line_items".format(
-                    payment_link=sanitize_id(payment_link),
-                ),
+                "/v1/payment_links/{id}/line_items".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -40,7 +38,7 @@ class PaymentLinkLineItemService(StripeService):
 
     async def list_async(
         self,
-        payment_link: str,
+        id: str,
         /,
         params: Optional["PaymentLinkLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,9 +50,7 @@ class PaymentLinkLineItemService(StripeService):
             "ListObject[LineItem]",
             await self._request_async(
                 "get",
-                "/v1/payment_links/{payment_link}/line_items".format(
-                    payment_link=sanitize_id(payment_link),
-                ),
+                "/v1/payment_links/{id}/line_items".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

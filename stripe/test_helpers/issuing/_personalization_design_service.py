@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class PersonalizationDesignService(StripeService):
     def activate(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,8 +34,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/test_helpers/issuing/personalization_designs/{id}/activate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -45,7 +45,7 @@ class PersonalizationDesignService(StripeService):
 
     async def activate_async(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -57,8 +57,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/test_helpers/issuing/personalization_designs/{id}/activate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -68,7 +68,7 @@ class PersonalizationDesignService(StripeService):
 
     def deactivate(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -80,8 +80,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/test_helpers/issuing/personalization_designs/{id}/deactivate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -91,7 +91,7 @@ class PersonalizationDesignService(StripeService):
 
     async def deactivate_async(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -103,8 +103,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/test_helpers/issuing/personalization_designs/{id}/deactivate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -114,7 +114,7 @@ class PersonalizationDesignService(StripeService):
 
     def reject(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: "PersonalizationDesignRejectParams",
         options: Optional["RequestOptions"] = None,
@@ -126,8 +126,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/test_helpers/issuing/personalization_designs/{id}/reject".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -137,7 +137,7 @@ class PersonalizationDesignService(StripeService):
 
     async def reject_async(
         self,
-        personalization_design: str,
+        id: str,
         /,
         params: "PersonalizationDesignRejectParams",
         options: Optional["RequestOptions"] = None,
@@ -149,8 +149,8 @@ class PersonalizationDesignService(StripeService):
             "PersonalizationDesign",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                    personalization_design=sanitize_id(personalization_design),
+                "/v1/test_helpers/issuing/personalization_designs/{id}/reject".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

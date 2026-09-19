@@ -137,7 +137,7 @@ class FinancialAccountService(StripeService):
 
     def retrieve(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -149,8 +149,8 @@ class FinancialAccountService(StripeService):
             "FinancialAccount",
             self._request(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -160,7 +160,7 @@ class FinancialAccountService(StripeService):
 
     async def retrieve_async(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -172,8 +172,8 @@ class FinancialAccountService(StripeService):
             "FinancialAccount",
             await self._request_async(
                 "get",
-                "/v1/treasury/financial_accounts/{financial_account}".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -183,7 +183,7 @@ class FinancialAccountService(StripeService):
 
     def update(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -195,8 +195,8 @@ class FinancialAccountService(StripeService):
             "FinancialAccount",
             self._request(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -206,7 +206,7 @@ class FinancialAccountService(StripeService):
 
     async def update_async(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -218,8 +218,8 @@ class FinancialAccountService(StripeService):
             "FinancialAccount",
             await self._request_async(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -229,7 +229,7 @@ class FinancialAccountService(StripeService):
 
     def close(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -241,8 +241,8 @@ class FinancialAccountService(StripeService):
             "FinancialAccount",
             self._request(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}/close".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -252,7 +252,7 @@ class FinancialAccountService(StripeService):
 
     async def close_async(
         self,
-        financial_account: str,
+        id: str,
         /,
         params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -264,8 +264,8 @@ class FinancialAccountService(StripeService):
             "FinancialAccount",
             await self._request_async(
                 "post",
-                "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(financial_account),
+                "/v1/treasury/financial_accounts/{id}/close".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

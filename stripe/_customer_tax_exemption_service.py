@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 class CustomerTaxExemptionService(StripeService):
     def delete(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxExemptionDeleteParams"] = None,
@@ -39,8 +39,8 @@ class CustomerTaxExemptionService(StripeService):
             "CustomerTaxExemption",
             self._request(
                 "delete",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -51,7 +51,7 @@ class CustomerTaxExemptionService(StripeService):
 
     async def delete_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxExemptionDeleteParams"] = None,
@@ -64,8 +64,8 @@ class CustomerTaxExemptionService(StripeService):
             "CustomerTaxExemption",
             await self._request_async(
                 "delete",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -76,7 +76,7 @@ class CustomerTaxExemptionService(StripeService):
 
     def retrieve(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxExemptionRetrieveParams"] = None,
@@ -89,8 +89,8 @@ class CustomerTaxExemptionService(StripeService):
             "CustomerTaxExemption",
             self._request(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -101,7 +101,7 @@ class CustomerTaxExemptionService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["CustomerTaxExemptionRetrieveParams"] = None,
@@ -114,8 +114,8 @@ class CustomerTaxExemptionService(StripeService):
             "CustomerTaxExemption",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -126,7 +126,7 @@ class CustomerTaxExemptionService(StripeService):
 
     def list(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerTaxExemptionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -138,9 +138,7 @@ class CustomerTaxExemptionService(StripeService):
             "ListObject[CustomerTaxExemption]",
             self._request(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -149,7 +147,7 @@ class CustomerTaxExemptionService(StripeService):
 
     async def list_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerTaxExemptionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -161,9 +159,7 @@ class CustomerTaxExemptionService(StripeService):
             "ListObject[CustomerTaxExemption]",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -172,7 +168,7 @@ class CustomerTaxExemptionService(StripeService):
 
     def create(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerTaxExemptionCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -184,9 +180,7 @@ class CustomerTaxExemptionService(StripeService):
             "CustomerTaxExemption",
             self._request(
                 "post",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -195,7 +189,7 @@ class CustomerTaxExemptionService(StripeService):
 
     async def create_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerTaxExemptionCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -207,9 +201,7 @@ class CustomerTaxExemptionService(StripeService):
             "CustomerTaxExemption",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

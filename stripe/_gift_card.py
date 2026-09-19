@@ -66,7 +66,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_activate(
-        cls, gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
+        cls, id: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -75,9 +75,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             cls._static_request(
                 "post",
-                "/v1/gift_cards/{gift_card}/activate".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/activate".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -85,7 +83,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def activate(
-        gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
+        id: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -112,8 +110,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/activate".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/activate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -121,7 +119,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_activate_async(
-        cls, gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
+        cls, id: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -130,9 +128,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await cls._static_request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/activate".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/activate".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -140,7 +136,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def activate_async(
-        gift_card: str, /, **params: Unpack["GiftCardActivateParams"]
+        id: str, /, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
         Activates a third-party gift card and optionally sets its balance.
@@ -167,8 +163,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/activate".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/activate".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -176,7 +172,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_cashout(
-        cls, gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
+        cls, id: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -185,9 +181,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             cls._static_request(
                 "post",
-                "/v1/gift_cards/{gift_card}/cashout".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/cashout".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -195,7 +189,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def cashout(
-        gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
+        id: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -222,8 +216,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/cashout".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/cashout".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -231,7 +225,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_cashout_async(
-        cls, gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
+        cls, id: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -240,9 +234,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await cls._static_request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/cashout".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/cashout".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -250,7 +242,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def cashout_async(
-        gift_card: str, /, **params: Unpack["GiftCardCashoutParams"]
+        id: str, /, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
         Cashout a third-party gift card by zeroing its balance.
@@ -277,8 +269,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/cashout".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/cashout".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -286,7 +278,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_check_balance(
-        cls, gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
+        cls, id: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -295,9 +287,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             cls._static_request(
                 "post",
-                "/v1/gift_cards/{gift_card}/check_balance".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/check_balance".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -305,7 +295,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def check_balance(
-        gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
+        id: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -332,8 +322,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/check_balance".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/check_balance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -341,7 +331,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_check_balance_async(
-        cls, gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
+        cls, id: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -350,9 +340,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await cls._static_request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/check_balance".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/check_balance".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -360,7 +348,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def check_balance_async(
-        gift_card: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
+        id: str, /, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
         Checks the balance of a third-party gift card.
@@ -387,8 +375,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/check_balance".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/check_balance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -426,7 +414,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_reload(
-        cls, gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
+        cls, id: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -435,9 +423,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             cls._static_request(
                 "post",
-                "/v1/gift_cards/{gift_card}/reload".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/reload".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -445,7 +431,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def reload(
-        gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
+        id: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -472,8 +458,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/reload".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/reload".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -481,7 +467,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_reload_async(
-        cls, gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
+        cls, id: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -490,9 +476,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await cls._static_request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/reload".format(
-                    gift_card=sanitize_id(gift_card)
-                ),
+                "/v1/gift_cards/{id}/reload".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -500,7 +484,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def reload_async(
-        gift_card: str, /, **params: Unpack["GiftCardReloadParams"]
+        id: str, /, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
         Reloads a third-party gift card by adding the specified amount to its balance.
@@ -527,8 +511,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/reload".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/reload".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -558,7 +542,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     def _cls_void_operation(
-        cls, gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
+        cls, id: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.
@@ -567,8 +551,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             cls._static_request(
                 "post",
-                "/v1/gift_cards/{gift_card}/void_operation".format(
-                    gift_card=sanitize_id(gift_card)
+                "/v1/gift_cards/{id}/void_operation".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -577,7 +561,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     def void_operation(
-        gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
+        id: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.
@@ -604,8 +588,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             self._request(
                 "post",
-                "/v1/gift_cards/{gift_card}/void_operation".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/void_operation".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -613,7 +597,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
 
     @classmethod
     async def _cls_void_operation_async(
-        cls, gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
+        cls, id: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.
@@ -622,8 +606,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await cls._static_request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/void_operation".format(
-                    gift_card=sanitize_id(gift_card)
+                "/v1/gift_cards/{id}/void_operation".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -632,7 +616,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     @overload
     @staticmethod
     async def void_operation_async(
-        gift_card: str, /, **params: Unpack["GiftCardVoidOperationParams"]
+        id: str, /, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
         Voids a previously performed gift card operation.
@@ -659,8 +643,8 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
             "GiftCardOperation",
             await self._request_async(
                 "post",
-                "/v1/gift_cards/{gift_card}/void_operation".format(
-                    gift_card=sanitize_id(self._data.get("id"))
+                "/v1/gift_cards/{id}/void_operation".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

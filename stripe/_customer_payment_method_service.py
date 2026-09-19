@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 class CustomerPaymentMethodService(StripeService):
     def list(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerPaymentMethodListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -32,8 +32,8 @@ class CustomerPaymentMethodService(StripeService):
             "ListObject[PaymentMethod]",
             self._request(
                 "get",
-                "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/payment_methods".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,
@@ -43,7 +43,7 @@ class CustomerPaymentMethodService(StripeService):
 
     async def list_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerPaymentMethodListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -55,8 +55,8 @@ class CustomerPaymentMethodService(StripeService):
             "ListObject[PaymentMethod]",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/payment_methods".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,
@@ -66,8 +66,8 @@ class CustomerPaymentMethodService(StripeService):
 
     def retrieve(
         self,
-        customer: str,
-        payment_method: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional["CustomerPaymentMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -79,9 +79,9 @@ class CustomerPaymentMethodService(StripeService):
             "PaymentMethod",
             self._request(
                 "get",
-                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(customer),
-                    payment_method=sanitize_id(payment_method),
+                "/v1/customers/{customer_id}/payment_methods/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -91,8 +91,8 @@ class CustomerPaymentMethodService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
-        payment_method: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional["CustomerPaymentMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -104,9 +104,9 @@ class CustomerPaymentMethodService(StripeService):
             "PaymentMethod",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(customer),
-                    payment_method=sanitize_id(payment_method),
+                "/v1/customers/{customer_id}/payment_methods/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

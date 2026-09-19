@@ -130,7 +130,7 @@ class Topup(
 
     @classmethod
     def _cls_cancel(
-        cls, topup: str, /, **params: Unpack["TopupCancelParams"]
+        cls, id: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -139,16 +139,14 @@ class Topup(
             "Topup",
             cls._static_request(
                 "post",
-                "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        topup: str, /, **params: Unpack["TopupCancelParams"]
-    ) -> "Topup":
+    def cancel(id: str, /, **params: Unpack["TopupCancelParams"]) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
@@ -172,8 +170,8 @@ class Topup(
             "Topup",
             self._request(
                 "post",
-                "/v1/topups/{topup}/cancel".format(
-                    topup=sanitize_id(self._data.get("id"))
+                "/v1/topups/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -181,7 +179,7 @@ class Topup(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, topup: str, /, **params: Unpack["TopupCancelParams"]
+        cls, id: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -190,7 +188,7 @@ class Topup(
             "Topup",
             await cls._static_request_async(
                 "post",
-                "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -198,7 +196,7 @@ class Topup(
     @overload
     @staticmethod
     async def cancel_async(
-        topup: str, /, **params: Unpack["TopupCancelParams"]
+        id: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -225,8 +223,8 @@ class Topup(
             "Topup",
             await self._request_async(
                 "post",
-                "/v1/topups/{topup}/cancel".format(
-                    topup=sanitize_id(self._data.get("id"))
+                "/v1/topups/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

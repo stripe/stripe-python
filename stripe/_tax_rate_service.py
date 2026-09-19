@@ -97,7 +97,7 @@ class TaxRateService(StripeService):
 
     def retrieve(
         self,
-        tax_rate: str,
+        id: str,
         /,
         params: Optional["TaxRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -109,9 +109,7 @@ class TaxRateService(StripeService):
             "TaxRate",
             self._request(
                 "get",
-                "/v1/tax_rates/{tax_rate}".format(
-                    tax_rate=sanitize_id(tax_rate),
-                ),
+                "/v1/tax_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -120,7 +118,7 @@ class TaxRateService(StripeService):
 
     async def retrieve_async(
         self,
-        tax_rate: str,
+        id: str,
         /,
         params: Optional["TaxRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -132,9 +130,7 @@ class TaxRateService(StripeService):
             "TaxRate",
             await self._request_async(
                 "get",
-                "/v1/tax_rates/{tax_rate}".format(
-                    tax_rate=sanitize_id(tax_rate),
-                ),
+                "/v1/tax_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -143,7 +139,7 @@ class TaxRateService(StripeService):
 
     def update(
         self,
-        tax_rate: str,
+        id: str,
         /,
         params: Optional["TaxRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -155,9 +151,7 @@ class TaxRateService(StripeService):
             "TaxRate",
             self._request(
                 "post",
-                "/v1/tax_rates/{tax_rate}".format(
-                    tax_rate=sanitize_id(tax_rate),
-                ),
+                "/v1/tax_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -166,7 +160,7 @@ class TaxRateService(StripeService):
 
     async def update_async(
         self,
-        tax_rate: str,
+        id: str,
         /,
         params: Optional["TaxRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -178,9 +172,7 @@ class TaxRateService(StripeService):
             "TaxRate",
             await self._request_async(
                 "post",
-                "/v1/tax_rates/{tax_rate}".format(
-                    tax_rate=sanitize_id(tax_rate),
-                ),
+                "/v1/tax_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -211,7 +203,7 @@ class TaxRateService(StripeService):
 
     def serialize_batch_update(
         self,
-        tax_rate: str,
+        id: str,
         /,
         params: Optional["TaxRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -226,7 +218,7 @@ class TaxRateService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"tax_rate": tax_rate},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

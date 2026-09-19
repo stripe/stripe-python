@@ -27,6 +27,10 @@ class InvoiceItemUpdateParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
+    invoicing_rules: NotRequired[Literal[""]]
+    """
+    Pass an empty string to remove previously-defined invoicing rules. Setting invoicing rules is not supported.
+    """
     margins: NotRequired["Literal['']|List[str]"]
     """
     The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.

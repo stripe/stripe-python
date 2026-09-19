@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 class ProductFeatureService(StripeService):
     def delete(
         self,
-        product: str,
+        product_id: str,
         id: str,
         /,
         params: Optional["ProductFeatureDeleteParams"] = None,
@@ -42,8 +42,8 @@ class ProductFeatureService(StripeService):
             "ProductFeature",
             self._request(
                 "delete",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product),
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -54,7 +54,7 @@ class ProductFeatureService(StripeService):
 
     async def delete_async(
         self,
-        product: str,
+        product_id: str,
         id: str,
         /,
         params: Optional["ProductFeatureDeleteParams"] = None,
@@ -67,8 +67,8 @@ class ProductFeatureService(StripeService):
             "ProductFeature",
             await self._request_async(
                 "delete",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product),
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -79,7 +79,7 @@ class ProductFeatureService(StripeService):
 
     def retrieve(
         self,
-        product: str,
+        product_id: str,
         id: str,
         /,
         params: Optional["ProductFeatureRetrieveParams"] = None,
@@ -92,8 +92,8 @@ class ProductFeatureService(StripeService):
             "ProductFeature",
             self._request(
                 "get",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product),
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -104,7 +104,7 @@ class ProductFeatureService(StripeService):
 
     async def retrieve_async(
         self,
-        product: str,
+        product_id: str,
         id: str,
         /,
         params: Optional["ProductFeatureRetrieveParams"] = None,
@@ -117,8 +117,8 @@ class ProductFeatureService(StripeService):
             "ProductFeature",
             await self._request_async(
                 "get",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product),
+                "/v1/products/{product_id}/features/{id}".format(
+                    product_id=sanitize_id(product_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -129,7 +129,7 @@ class ProductFeatureService(StripeService):
 
     def list(
         self,
-        product: str,
+        id: str,
         /,
         params: Optional["ProductFeatureListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -141,9 +141,7 @@ class ProductFeatureService(StripeService):
             "ListObject[ProductFeature]",
             self._request(
                 "get",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product),
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -152,7 +150,7 @@ class ProductFeatureService(StripeService):
 
     async def list_async(
         self,
-        product: str,
+        id: str,
         /,
         params: Optional["ProductFeatureListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -164,9 +162,7 @@ class ProductFeatureService(StripeService):
             "ListObject[ProductFeature]",
             await self._request_async(
                 "get",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product),
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -175,7 +171,7 @@ class ProductFeatureService(StripeService):
 
     def create(
         self,
-        product: str,
+        id: str,
         /,
         params: "ProductFeatureCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -187,9 +183,7 @@ class ProductFeatureService(StripeService):
             "ProductFeature",
             self._request(
                 "post",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product),
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -198,7 +192,7 @@ class ProductFeatureService(StripeService):
 
     async def create_async(
         self,
-        product: str,
+        id: str,
         /,
         params: "ProductFeatureCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -210,9 +204,7 @@ class ProductFeatureService(StripeService):
             "ProductFeature",
             await self._request_async(
                 "post",
-                "/v1/products/{product}/features".format(
-                    product=sanitize_id(product),
-                ),
+                "/v1/products/{id}/features".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -221,7 +213,7 @@ class ProductFeatureService(StripeService):
 
     def serialize_batch_delete(
         self,
-        product: str,
+        product_id: str,
         id: str,
         /,
         params: Optional["ProductFeatureDeleteParams"] = None,
@@ -237,7 +229,7 @@ class ProductFeatureService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"product": product, "id": id},
+            "path_params": {"product_id": product_id, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -247,7 +239,7 @@ class ProductFeatureService(StripeService):
 
     def serialize_batch_create(
         self,
-        product: str,
+        id: str,
         /,
         params: Optional["ProductFeatureCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -262,7 +254,7 @@ class ProductFeatureService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"product": product},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

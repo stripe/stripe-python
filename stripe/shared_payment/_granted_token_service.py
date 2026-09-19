@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class GrantedTokenService(StripeService):
     def retrieve(
         self,
-        shared_payment_granted_token: str,
+        id: str,
         /,
         params: Optional["GrantedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,10 +28,8 @@ class GrantedTokenService(StripeService):
             "GrantedToken",
             self._request(
                 "get",
-                "/v1/shared_payment/granted_tokens/{shared_payment_granted_token}".format(
-                    shared_payment_granted_token=sanitize_id(
-                        shared_payment_granted_token
-                    ),
+                "/v1/shared_payment/granted_tokens/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -41,7 +39,7 @@ class GrantedTokenService(StripeService):
 
     async def retrieve_async(
         self,
-        shared_payment_granted_token: str,
+        id: str,
         /,
         params: Optional["GrantedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -53,10 +51,8 @@ class GrantedTokenService(StripeService):
             "GrantedToken",
             await self._request_async(
                 "get",
-                "/v1/shared_payment/granted_tokens/{shared_payment_granted_token}".format(
-                    shared_payment_granted_token=sanitize_id(
-                        shared_payment_granted_token
-                    ),
+                "/v1/shared_payment/granted_tokens/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

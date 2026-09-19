@@ -94,7 +94,7 @@ class CardService(StripeService):
 
     def retrieve(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -106,7 +106,7 @@ class CardService(StripeService):
             "Card",
             self._request(
                 "get",
-                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                "/v1/issuing/cards/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -115,7 +115,7 @@ class CardService(StripeService):
 
     async def retrieve_async(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -127,7 +127,7 @@ class CardService(StripeService):
             "Card",
             await self._request_async(
                 "get",
-                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                "/v1/issuing/cards/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -136,7 +136,7 @@ class CardService(StripeService):
 
     def update(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -148,7 +148,7 @@ class CardService(StripeService):
             "Card",
             self._request(
                 "post",
-                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                "/v1/issuing/cards/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -157,7 +157,7 @@ class CardService(StripeService):
 
     async def update_async(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -169,7 +169,7 @@ class CardService(StripeService):
             "Card",
             await self._request_async(
                 "post",
-                "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
+                "/v1/issuing/cards/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
