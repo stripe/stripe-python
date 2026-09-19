@@ -7,11 +7,18 @@ if TYPE_CHECKING:
     from stripe.v2.money_management.financial_accounts._statement_service import (
         StatementService as StatementService,
     )
+    from stripe.v2.money_management.financial_accounts._wallet_export_service import (
+        WalletExportService as WalletExportService,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
     "StatementService": (
         "stripe.v2.money_management.financial_accounts._statement_service",
+        False,
+    ),
+    "WalletExportService": (
+        "stripe.v2.money_management.financial_accounts._wallet_export_service",
         False,
     ),
 }

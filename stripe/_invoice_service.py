@@ -83,7 +83,7 @@ class InvoiceService(StripeService):
 
     def delete(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -95,7 +95,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "delete",
-                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                "/v1/invoices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -104,7 +104,7 @@ class InvoiceService(StripeService):
 
     async def delete_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -116,7 +116,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "delete",
-                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                "/v1/invoices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -125,7 +125,7 @@ class InvoiceService(StripeService):
 
     def retrieve(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,7 +137,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "get",
-                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                "/v1/invoices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -146,7 +146,7 @@ class InvoiceService(StripeService):
 
     async def retrieve_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -158,7 +158,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "get",
-                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                "/v1/invoices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -167,7 +167,7 @@ class InvoiceService(StripeService):
 
     def update(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -185,7 +185,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                "/v1/invoices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -194,7 +194,7 @@ class InvoiceService(StripeService):
 
     async def update_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -212,7 +212,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}".format(invoice=sanitize_id(invoice)),
+                "/v1/invoices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -341,7 +341,7 @@ class InvoiceService(StripeService):
 
     def add_lines(
         self,
-        invoice: str,
+        id: str,
         /,
         params: "InvoiceAddLinesParams",
         options: Optional["RequestOptions"] = None,
@@ -353,9 +353,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/add_lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/add_lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -364,7 +362,7 @@ class InvoiceService(StripeService):
 
     async def add_lines_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: "InvoiceAddLinesParams",
         options: Optional["RequestOptions"] = None,
@@ -376,9 +374,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/add_lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/add_lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -387,7 +383,7 @@ class InvoiceService(StripeService):
 
     def attach_payment(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceAttachPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -408,9 +404,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/attach_payment".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/attach_payment".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -419,7 +413,7 @@ class InvoiceService(StripeService):
 
     async def attach_payment_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceAttachPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -440,9 +434,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/attach_payment".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/attach_payment".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -451,7 +443,7 @@ class InvoiceService(StripeService):
 
     def detach_payment(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceDetachPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -463,9 +455,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/detach_payment".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/detach_payment".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -474,7 +464,7 @@ class InvoiceService(StripeService):
 
     async def detach_payment_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceDetachPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -486,9 +476,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/detach_payment".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/detach_payment".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -497,7 +485,7 @@ class InvoiceService(StripeService):
 
     def finalize_invoice(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceFinalizeInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -509,9 +497,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/finalize".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/finalize".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -520,7 +506,7 @@ class InvoiceService(StripeService):
 
     async def finalize_invoice_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceFinalizeInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -532,9 +518,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/finalize".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/finalize".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -543,7 +527,7 @@ class InvoiceService(StripeService):
 
     def mark_uncollectible(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceMarkUncollectibleParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -555,8 +539,8 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=sanitize_id(invoice),
+                "/v1/invoices/{id}/mark_uncollectible".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -566,7 +550,7 @@ class InvoiceService(StripeService):
 
     async def mark_uncollectible_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceMarkUncollectibleParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -578,8 +562,8 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=sanitize_id(invoice),
+                "/v1/invoices/{id}/mark_uncollectible".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -589,7 +573,7 @@ class InvoiceService(StripeService):
 
     def pay(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoicePayParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -601,9 +585,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/pay".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/pay".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -612,7 +594,7 @@ class InvoiceService(StripeService):
 
     async def pay_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoicePayParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -624,9 +606,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/pay".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/pay".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -635,7 +615,7 @@ class InvoiceService(StripeService):
 
     def remove_lines(
         self,
-        invoice: str,
+        id: str,
         /,
         params: "InvoiceRemoveLinesParams",
         options: Optional["RequestOptions"] = None,
@@ -647,9 +627,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/remove_lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/remove_lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -658,7 +636,7 @@ class InvoiceService(StripeService):
 
     async def remove_lines_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: "InvoiceRemoveLinesParams",
         options: Optional["RequestOptions"] = None,
@@ -670,9 +648,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/remove_lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/remove_lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -681,7 +657,7 @@ class InvoiceService(StripeService):
 
     def send_invoice(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceSendInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -695,9 +671,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/send".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/send".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -706,7 +680,7 @@ class InvoiceService(StripeService):
 
     async def send_invoice_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceSendInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -720,9 +694,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/send".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/send".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -731,7 +703,7 @@ class InvoiceService(StripeService):
 
     def update_lines(
         self,
-        invoice: str,
+        id: str,
         /,
         params: "InvoiceUpdateLinesParams",
         options: Optional["RequestOptions"] = None,
@@ -743,9 +715,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/update_lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/update_lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -754,7 +724,7 @@ class InvoiceService(StripeService):
 
     async def update_lines_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: "InvoiceUpdateLinesParams",
         options: Optional["RequestOptions"] = None,
@@ -766,9 +736,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/update_lines".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/update_lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -777,7 +745,7 @@ class InvoiceService(StripeService):
 
     def void_invoice(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceVoidInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -791,9 +759,7 @@ class InvoiceService(StripeService):
             "Invoice",
             self._request(
                 "post",
-                "/v1/invoices/{invoice}/void".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/void".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -802,7 +768,7 @@ class InvoiceService(StripeService):
 
     async def void_invoice_async(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceVoidInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -816,9 +782,7 @@ class InvoiceService(StripeService):
             "Invoice",
             await self._request_async(
                 "post",
-                "/v1/invoices/{invoice}/void".format(
-                    invoice=sanitize_id(invoice),
-                ),
+                "/v1/invoices/{id}/void".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -881,7 +845,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_delete(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -896,7 +860,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -906,7 +870,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_update(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -921,7 +885,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -953,7 +917,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_add_lines(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceAddLinesParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -968,7 +932,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -978,7 +942,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_finalize_invoice(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceFinalizeInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -993,7 +957,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -1003,7 +967,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_mark_uncollectible(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceMarkUncollectibleParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -1018,7 +982,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -1028,7 +992,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_pay(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoicePayParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -1043,7 +1007,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -1053,7 +1017,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_remove_lines(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceRemoveLinesParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -1068,7 +1032,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -1078,7 +1042,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_send_invoice(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceSendInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -1093,7 +1057,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -1103,7 +1067,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_update_lines(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceUpdateLinesParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -1118,7 +1082,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -1128,7 +1092,7 @@ class InvoiceService(StripeService):
 
     def serialize_batch_void_invoice(
         self,
-        invoice: str,
+        id: str,
         /,
         params: Optional["InvoiceVoidInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -1143,7 +1107,7 @@ class InvoiceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoice": invoice},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

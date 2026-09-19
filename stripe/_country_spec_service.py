@@ -56,7 +56,7 @@ class CountrySpecService(StripeService):
 
     def retrieve(
         self,
-        country: str,
+        id: str,
         /,
         params: Optional["CountrySpecRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -68,9 +68,7 @@ class CountrySpecService(StripeService):
             "CountrySpec",
             self._request(
                 "get",
-                "/v1/country_specs/{country}".format(
-                    country=sanitize_id(country),
-                ),
+                "/v1/country_specs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -79,7 +77,7 @@ class CountrySpecService(StripeService):
 
     async def retrieve_async(
         self,
-        country: str,
+        id: str,
         /,
         params: Optional["CountrySpecRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -91,9 +89,7 @@ class CountrySpecService(StripeService):
             "CountrySpec",
             await self._request_async(
                 "get",
-                "/v1/country_specs/{country}".format(
-                    country=sanitize_id(country),
-                ),
+                "/v1/country_specs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class CustomerFundingInstructionsService(StripeService):
     def create(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerFundingInstructionsCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -33,8 +33,8 @@ class CustomerFundingInstructionsService(StripeService):
             "FundingInstructions",
             self._request(
                 "post",
-                "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/funding_instructions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -44,7 +44,7 @@ class CustomerFundingInstructionsService(StripeService):
 
     async def create_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerFundingInstructionsCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -58,8 +58,8 @@ class CustomerFundingInstructionsService(StripeService):
             "FundingInstructions",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/funding_instructions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -69,7 +69,7 @@ class CustomerFundingInstructionsService(StripeService):
 
     def serialize_batch_create_funding_instructions(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerFundingInstructionsCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -84,7 +84,7 @@ class CustomerFundingInstructionsService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

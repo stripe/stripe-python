@@ -676,10 +676,7 @@ class GrantedToken(APIResource["GrantedToken"]):
 
         @classmethod
         def _cls_revoke(
-            cls,
-            shared_payment_granted_token: str,
-            /,
-            **params: Unpack["GrantedTokenRevokeParams"],
+            cls, id: str, /, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -688,10 +685,8 @@ class GrantedToken(APIResource["GrantedToken"]):
                 "GrantedToken",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
-                        shared_payment_granted_token=sanitize_id(
-                            shared_payment_granted_token
-                        )
+                    "/v1/test_helpers/shared_payment/granted_tokens/{id}/revoke".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -700,9 +695,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         @overload
         @staticmethod
         def revoke(
-            shared_payment_granted_token: str,
-            /,
-            **params: Unpack["GrantedTokenRevokeParams"],
+            id: str, /, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -729,10 +722,8 @@ class GrantedToken(APIResource["GrantedToken"]):
                 "GrantedToken",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
-                        shared_payment_granted_token=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/shared_payment/granted_tokens/{id}/revoke".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -740,10 +731,7 @@ class GrantedToken(APIResource["GrantedToken"]):
 
         @classmethod
         async def _cls_revoke_async(
-            cls,
-            shared_payment_granted_token: str,
-            /,
-            **params: Unpack["GrantedTokenRevokeParams"],
+            cls, id: str, /, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -752,10 +740,8 @@ class GrantedToken(APIResource["GrantedToken"]):
                 "GrantedToken",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
-                        shared_payment_granted_token=sanitize_id(
-                            shared_payment_granted_token
-                        )
+                    "/v1/test_helpers/shared_payment/granted_tokens/{id}/revoke".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -764,9 +750,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         @overload
         @staticmethod
         async def revoke_async(
-            shared_payment_granted_token: str,
-            /,
-            **params: Unpack["GrantedTokenRevokeParams"],
+            id: str, /, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -793,10 +777,8 @@ class GrantedToken(APIResource["GrantedToken"]):
                 "GrantedToken",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
-                        shared_payment_granted_token=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/shared_payment/granted_tokens/{id}/revoke".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

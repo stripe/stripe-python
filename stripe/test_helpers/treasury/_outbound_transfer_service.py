@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 class OutboundTransferService(StripeService):
     def update(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: "OutboundTransferUpdateParams",
         options: Optional["RequestOptions"] = None,
@@ -37,8 +37,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             self._request(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -48,7 +48,7 @@ class OutboundTransferService(StripeService):
 
     async def update_async(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: "OutboundTransferUpdateParams",
         options: Optional["RequestOptions"] = None,
@@ -60,8 +60,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -71,7 +71,7 @@ class OutboundTransferService(StripeService):
 
     def fail(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferFailParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -83,8 +83,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             self._request(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}/fail".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -94,7 +94,7 @@ class OutboundTransferService(StripeService):
 
     async def fail_async(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferFailParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -106,8 +106,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}/fail".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -117,7 +117,7 @@ class OutboundTransferService(StripeService):
 
     def post(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferPostParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -129,8 +129,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             self._request(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}/post".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -140,7 +140,7 @@ class OutboundTransferService(StripeService):
 
     async def post_async(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferPostParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -152,8 +152,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}/post".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -163,7 +163,7 @@ class OutboundTransferService(StripeService):
 
     def return_outbound_transfer(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional[
             "OutboundTransferReturnOutboundTransferParams"
@@ -177,8 +177,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             self._request(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}/return".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -188,7 +188,7 @@ class OutboundTransferService(StripeService):
 
     async def return_outbound_transfer_async(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional[
             "OutboundTransferReturnOutboundTransferParams"
@@ -202,8 +202,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/test_helpers/treasury/outbound_transfers/{id}/return".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

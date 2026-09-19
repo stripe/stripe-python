@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class RefundService(StripeService):
     def expire(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,8 +28,8 @@ class RefundService(StripeService):
             "Refund",
             self._request(
                 "post",
-                "/v1/test_helpers/refunds/{refund}/expire".format(
-                    refund=sanitize_id(refund),
+                "/v1/test_helpers/refunds/{id}/expire".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -39,7 +39,7 @@ class RefundService(StripeService):
 
     async def expire_async(
         self,
-        refund: str,
+        id: str,
         /,
         params: Optional["RefundExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,8 +51,8 @@ class RefundService(StripeService):
             "Refund",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/refunds/{refund}/expire".format(
-                    refund=sanitize_id(refund),
+                "/v1/test_helpers/refunds/{id}/expire".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

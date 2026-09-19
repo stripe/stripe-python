@@ -38,7 +38,7 @@ class Event(ListableAPIResource["Event"]):
     class Data(StripeObject):
         object: UntypedStripeObject[Any]
         """
-        Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://api.stripe.com#invoice_object) as the value of the object key.
+        Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://docs.stripe.com/api#invoice_object) as the value of the object key.
         """
         previous_attributes: Optional[UntypedStripeObject[Any]]
         """
@@ -153,6 +153,9 @@ class Event(ListableAPIResource["Event"]):
         "application_fee.created",
         "application_fee.refund.updated",
         "application_fee.refunded",
+        "apps.install.created",
+        "apps.install.deleted",
+        "apps.install.updated",
         "balance.available",
         "balance_settings.updated",
         "billing.alert.recovered",

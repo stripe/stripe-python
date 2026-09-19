@@ -114,7 +114,7 @@ class SubscriptionScheduleService(StripeService):
 
     def retrieve(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -126,9 +126,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             self._request(
                 "get",
-                "/v1/subscription_schedules/{schedule}".format(
-                    schedule=sanitize_id(schedule),
-                ),
+                "/v1/subscription_schedules/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -137,7 +135,7 @@ class SubscriptionScheduleService(StripeService):
 
     async def retrieve_async(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -149,9 +147,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             await self._request_async(
                 "get",
-                "/v1/subscription_schedules/{schedule}".format(
-                    schedule=sanitize_id(schedule),
-                ),
+                "/v1/subscription_schedules/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -160,7 +156,7 @@ class SubscriptionScheduleService(StripeService):
 
     def update(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -172,9 +168,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             self._request(
                 "post",
-                "/v1/subscription_schedules/{schedule}".format(
-                    schedule=sanitize_id(schedule),
-                ),
+                "/v1/subscription_schedules/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -183,7 +177,7 @@ class SubscriptionScheduleService(StripeService):
 
     async def update_async(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -195,9 +189,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             await self._request_async(
                 "post",
-                "/v1/subscription_schedules/{schedule}".format(
-                    schedule=sanitize_id(schedule),
-                ),
+                "/v1/subscription_schedules/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -206,7 +198,7 @@ class SubscriptionScheduleService(StripeService):
 
     def amend(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleAmendParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -218,8 +210,8 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             self._request(
                 "post",
-                "/v1/subscription_schedules/{schedule}/amend".format(
-                    schedule=sanitize_id(schedule),
+                "/v1/subscription_schedules/{id}/amend".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -229,7 +221,7 @@ class SubscriptionScheduleService(StripeService):
 
     async def amend_async(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleAmendParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -241,8 +233,8 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             await self._request_async(
                 "post",
-                "/v1/subscription_schedules/{schedule}/amend".format(
-                    schedule=sanitize_id(schedule),
+                "/v1/subscription_schedules/{id}/amend".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -252,7 +244,7 @@ class SubscriptionScheduleService(StripeService):
 
     def cancel(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -264,8 +256,8 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             self._request(
                 "post",
-                "/v1/subscription_schedules/{schedule}/cancel".format(
-                    schedule=sanitize_id(schedule),
+                "/v1/subscription_schedules/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -275,7 +267,7 @@ class SubscriptionScheduleService(StripeService):
 
     async def cancel_async(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -287,8 +279,8 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             await self._request_async(
                 "post",
-                "/v1/subscription_schedules/{schedule}/cancel".format(
-                    schedule=sanitize_id(schedule),
+                "/v1/subscription_schedules/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -298,7 +290,7 @@ class SubscriptionScheduleService(StripeService):
 
     def release(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleReleaseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -310,8 +302,8 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             self._request(
                 "post",
-                "/v1/subscription_schedules/{schedule}/release".format(
-                    schedule=sanitize_id(schedule),
+                "/v1/subscription_schedules/{id}/release".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -321,7 +313,7 @@ class SubscriptionScheduleService(StripeService):
 
     async def release_async(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleReleaseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -333,8 +325,8 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionSchedule",
             await self._request_async(
                 "post",
-                "/v1/subscription_schedules/{schedule}/release".format(
-                    schedule=sanitize_id(schedule),
+                "/v1/subscription_schedules/{id}/release".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -366,7 +358,7 @@ class SubscriptionScheduleService(StripeService):
 
     def serialize_batch_update(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -381,7 +373,7 @@ class SubscriptionScheduleService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"schedule": schedule},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -391,7 +383,7 @@ class SubscriptionScheduleService(StripeService):
 
     def serialize_batch_cancel(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -406,7 +398,7 @@ class SubscriptionScheduleService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"schedule": schedule},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -416,7 +408,7 @@ class SubscriptionScheduleService(StripeService):
 
     def serialize_batch_release(
         self,
-        schedule: str,
+        id: str,
         /,
         params: Optional["SubscriptionScheduleReleaseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -431,7 +423,7 @@ class SubscriptionScheduleService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"schedule": schedule},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

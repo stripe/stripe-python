@@ -115,7 +115,7 @@ class SetupIntentService(StripeService):
 
     def retrieve(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -131,9 +131,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             self._request(
                 "get",
-                "/v1/setup_intents/{intent}".format(
-                    intent=sanitize_id(intent)
-                ),
+                "/v1/setup_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -142,7 +140,7 @@ class SetupIntentService(StripeService):
 
     async def retrieve_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -158,9 +156,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             await self._request_async(
                 "get",
-                "/v1/setup_intents/{intent}".format(
-                    intent=sanitize_id(intent)
-                ),
+                "/v1/setup_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -169,7 +165,7 @@ class SetupIntentService(StripeService):
 
     def update(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -181,9 +177,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             self._request(
                 "post",
-                "/v1/setup_intents/{intent}".format(
-                    intent=sanitize_id(intent)
-                ),
+                "/v1/setup_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -192,7 +186,7 @@ class SetupIntentService(StripeService):
 
     async def update_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -204,9 +198,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             await self._request_async(
                 "post",
-                "/v1/setup_intents/{intent}".format(
-                    intent=sanitize_id(intent)
-                ),
+                "/v1/setup_intents/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -215,7 +207,7 @@ class SetupIntentService(StripeService):
 
     def cancel(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -229,9 +221,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             self._request(
                 "post",
-                "/v1/setup_intents/{intent}/cancel".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/setup_intents/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -240,7 +230,7 @@ class SetupIntentService(StripeService):
 
     async def cancel_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -254,9 +244,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             await self._request_async(
                 "post",
-                "/v1/setup_intents/{intent}/cancel".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/setup_intents/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -265,7 +253,7 @@ class SetupIntentService(StripeService):
 
     def confirm(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -290,9 +278,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             self._request(
                 "post",
-                "/v1/setup_intents/{intent}/confirm".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/setup_intents/{id}/confirm".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -301,7 +287,7 @@ class SetupIntentService(StripeService):
 
     async def confirm_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentConfirmParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -326,9 +312,7 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             await self._request_async(
                 "post",
-                "/v1/setup_intents/{intent}/confirm".format(
-                    intent=sanitize_id(intent),
-                ),
+                "/v1/setup_intents/{id}/confirm".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -337,7 +321,7 @@ class SetupIntentService(StripeService):
 
     def verify_microdeposits(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -349,8 +333,8 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             self._request(
                 "post",
-                "/v1/setup_intents/{intent}/verify_microdeposits".format(
-                    intent=sanitize_id(intent),
+                "/v1/setup_intents/{id}/verify_microdeposits".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -360,7 +344,7 @@ class SetupIntentService(StripeService):
 
     async def verify_microdeposits_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -372,8 +356,8 @@ class SetupIntentService(StripeService):
             "SetupIntent",
             await self._request_async(
                 "post",
-                "/v1/setup_intents/{intent}/verify_microdeposits".format(
-                    intent=sanitize_id(intent),
+                "/v1/setup_intents/{id}/verify_microdeposits".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

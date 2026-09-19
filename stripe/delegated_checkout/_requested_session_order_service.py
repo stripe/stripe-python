@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class RequestedSessionOrderService(StripeService):
     def list(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionOrderListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,8 +29,8 @@ class RequestedSessionOrderService(StripeService):
             "ListObject[Order]",
             self._request(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}/orders".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -40,7 +40,7 @@ class RequestedSessionOrderService(StripeService):
 
     async def list_async(
         self,
-        requested_session: str,
+        id: str,
         /,
         params: Optional["RequestedSessionOrderListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,8 +52,8 @@ class RequestedSessionOrderService(StripeService):
             "ListObject[Order]",
             await self._request_async(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
-                    requested_session=sanitize_id(requested_session),
+                "/v1/delegated_checkout/requested_sessions/{id}/orders".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

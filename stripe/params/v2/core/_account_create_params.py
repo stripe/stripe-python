@@ -45,6 +45,7 @@ class AccountCreateParams(TypedDict):
             Literal[
                 "configuration.card_creator",
                 "configuration.customer",
+                "configuration.developer",
                 "configuration.merchant",
                 "configuration.recipient",
                 "configuration.money_manager",
@@ -72,6 +73,10 @@ class AccountCreateParamsConfiguration(TypedDict):
     customer: NotRequired["AccountCreateParamsConfigurationCustomer"]
     """
     The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
+    """
+    developer: NotRequired["AccountCreateParamsConfigurationDeveloper"]
+    """
+    The Developer Configuration allows the Account to use developer tooling.
     """
     merchant: NotRequired["AccountCreateParamsConfigurationMerchant"]
     """
@@ -953,6 +958,55 @@ class AccountCreateParamsConfigurationCustomerShippingAddress(TypedDict):
     state: NotRequired[str]
     """
     State, county, province, or region.
+    """
+
+
+class AccountCreateParamsConfigurationDeveloper(TypedDict):
+    capabilities: NotRequired[
+        "AccountCreateParamsConfigurationDeveloperCapabilities"
+    ]
+    """
+    Capabilities to request on the Developer Configuration.
+    """
+
+
+class AccountCreateParamsConfigurationDeveloperCapabilities(TypedDict):
+    projects: NotRequired[
+        "AccountCreateParamsConfigurationDeveloperCapabilitiesProjects"
+    ]
+    """
+    Requests access to Stripe developer tooling.
+    """
+
+
+class AccountCreateParamsConfigurationDeveloperCapabilitiesProjects(TypedDict):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 

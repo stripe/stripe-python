@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class PaymentIntentService(StripeService):
     def simulate_crypto_deposit(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentSimulateCryptoDepositParams",
         options: Optional["RequestOptions"] = None,
@@ -28,8 +28,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             self._request(
                 "post",
-                "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
-                    intent=sanitize_id(intent),
+                "/v1/test_helpers/payment_intents/{id}/simulate_crypto_deposit".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -39,7 +39,7 @@ class PaymentIntentService(StripeService):
 
     async def simulate_crypto_deposit_async(
         self,
-        intent: str,
+        id: str,
         /,
         params: "PaymentIntentSimulateCryptoDepositParams",
         options: Optional["RequestOptions"] = None,
@@ -51,8 +51,8 @@ class PaymentIntentService(StripeService):
             "PaymentIntent",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
-                    intent=sanitize_id(intent),
+                "/v1/test_helpers/payment_intents/{id}/simulate_crypto_deposit".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

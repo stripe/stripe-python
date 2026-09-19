@@ -143,7 +143,7 @@ class RedactionJobService(StripeService):
 
     def retrieve(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -155,9 +155,7 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             self._request(
                 "get",
-                "/v1/privacy/redaction_jobs/{job}".format(
-                    job=sanitize_id(job)
-                ),
+                "/v1/privacy/redaction_jobs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -166,7 +164,7 @@ class RedactionJobService(StripeService):
 
     async def retrieve_async(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -178,9 +176,7 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             await self._request_async(
                 "get",
-                "/v1/privacy/redaction_jobs/{job}".format(
-                    job=sanitize_id(job)
-                ),
+                "/v1/privacy/redaction_jobs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -189,7 +185,7 @@ class RedactionJobService(StripeService):
 
     def update(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -203,9 +199,7 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             self._request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}".format(
-                    job=sanitize_id(job)
-                ),
+                "/v1/privacy/redaction_jobs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -214,7 +208,7 @@ class RedactionJobService(StripeService):
 
     async def update_async(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -228,9 +222,7 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             await self._request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}".format(
-                    job=sanitize_id(job)
-                ),
+                "/v1/privacy/redaction_jobs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -239,7 +231,7 @@ class RedactionJobService(StripeService):
 
     def cancel(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -253,8 +245,8 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             self._request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -264,7 +256,7 @@ class RedactionJobService(StripeService):
 
     async def cancel_async(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -278,8 +270,8 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             await self._request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -289,7 +281,7 @@ class RedactionJobService(StripeService):
 
     def run(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobRunParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -305,8 +297,8 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             self._request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/run".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -316,7 +308,7 @@ class RedactionJobService(StripeService):
 
     async def run_async(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobRunParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -332,8 +324,8 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             await self._request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/run".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -343,7 +335,7 @@ class RedactionJobService(StripeService):
 
     def validate(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobValidateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -359,8 +351,8 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             self._request(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/validate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -370,7 +362,7 @@ class RedactionJobService(StripeService):
 
     async def validate_async(
         self,
-        job: str,
+        id: str,
         /,
         params: Optional["RedactionJobValidateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -386,8 +378,8 @@ class RedactionJobService(StripeService):
             "RedactionJob",
             await self._request_async(
                 "post",
-                "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(job),
+                "/v1/privacy/redaction_jobs/{id}/validate".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

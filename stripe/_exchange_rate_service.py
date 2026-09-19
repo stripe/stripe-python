@@ -60,7 +60,7 @@ class ExchangeRateService(StripeService):
 
     def retrieve(
         self,
-        rate_id: str,
+        id: str,
         /,
         params: Optional["ExchangeRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -74,9 +74,7 @@ class ExchangeRateService(StripeService):
             "ExchangeRate",
             self._request(
                 "get",
-                "/v1/exchange_rates/{rate_id}".format(
-                    rate_id=sanitize_id(rate_id),
-                ),
+                "/v1/exchange_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -85,7 +83,7 @@ class ExchangeRateService(StripeService):
 
     async def retrieve_async(
         self,
-        rate_id: str,
+        id: str,
         /,
         params: Optional["ExchangeRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -99,9 +97,7 @@ class ExchangeRateService(StripeService):
             "ExchangeRate",
             await self._request_async(
                 "get",
-                "/v1/exchange_rates/{rate_id}".format(
-                    rate_id=sanitize_id(rate_id),
-                ),
+                "/v1/exchange_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

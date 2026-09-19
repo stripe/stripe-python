@@ -44,7 +44,7 @@ class OutboundTransfer(
     ListableAPIResource["OutboundTransfer"],
 ):
     """
-    Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://api.stripe.com#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://api.stripe.com#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
+    Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://docs.stripe.com/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
 
     Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
 
@@ -324,10 +324,7 @@ class OutboundTransfer(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        outbound_transfer: str,
-        /,
-        **params: Unpack["OutboundTransferCancelParams"],
+        cls, id: str, /, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -336,8 +333,8 @@ class OutboundTransfer(
             "OutboundTransfer",
             cls._static_request(
                 "post",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(outbound_transfer)
+                "/v1/treasury/outbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -346,9 +343,7 @@ class OutboundTransfer(
     @overload
     @staticmethod
     def cancel(
-        outbound_transfer: str,
-        /,
-        **params: Unpack["OutboundTransferCancelParams"],
+        id: str, /, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -375,8 +370,8 @@ class OutboundTransfer(
             "OutboundTransfer",
             self._request(
                 "post",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(self._data.get("id"))
+                "/v1/treasury/outbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -384,10 +379,7 @@ class OutboundTransfer(
 
     @classmethod
     async def _cls_cancel_async(
-        cls,
-        outbound_transfer: str,
-        /,
-        **params: Unpack["OutboundTransferCancelParams"],
+        cls, id: str, /, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -396,8 +388,8 @@ class OutboundTransfer(
             "OutboundTransfer",
             await cls._static_request_async(
                 "post",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(outbound_transfer)
+                "/v1/treasury/outbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -406,9 +398,7 @@ class OutboundTransfer(
     @overload
     @staticmethod
     async def cancel_async(
-        outbound_transfer: str,
-        /,
-        **params: Unpack["OutboundTransferCancelParams"],
+        id: str, /, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -435,8 +425,8 @@ class OutboundTransfer(
             "OutboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(self._data.get("id"))
+                "/v1/treasury/outbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -541,10 +531,7 @@ class OutboundTransfer(
 
         @classmethod
         def _cls_fail(
-            cls,
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferFailParams"],
+            cls, id: str, /, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -553,8 +540,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/fail".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -563,9 +550,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         def fail(
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferFailParams"],
+            id: str, /, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -592,10 +577,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/fail".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -603,10 +586,7 @@ class OutboundTransfer(
 
         @classmethod
         async def _cls_fail_async(
-            cls,
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferFailParams"],
+            cls, id: str, /, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -615,8 +595,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/fail".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -625,9 +605,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         async def fail_async(
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferFailParams"],
+            id: str, /, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -654,10 +632,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/fail".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -665,10 +641,7 @@ class OutboundTransfer(
 
         @classmethod
         def _cls_post(
-            cls,
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferPostParams"],
+            cls, id: str, /, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -677,8 +650,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/post".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -687,9 +660,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         def post(
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferPostParams"],
+            id: str, /, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -716,10 +687,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/post".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -727,10 +696,7 @@ class OutboundTransfer(
 
         @classmethod
         async def _cls_post_async(
-            cls,
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferPostParams"],
+            cls, id: str, /, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -739,8 +705,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/post".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -749,9 +715,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         async def post_async(
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferPostParams"],
+            id: str, /, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -778,10 +742,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/post".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -790,7 +752,7 @@ class OutboundTransfer(
         @classmethod
         def _cls_return_outbound_transfer(
             cls,
-            outbound_transfer: str,
+            id: str,
             /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -801,8 +763,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/return".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -811,7 +773,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         def return_outbound_transfer(
-            outbound_transfer: str,
+            id: str,
             /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -842,10 +804,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/return".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -854,7 +814,7 @@ class OutboundTransfer(
         @classmethod
         async def _cls_return_outbound_transfer_async(
             cls,
-            outbound_transfer: str,
+            id: str,
             /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -865,8 +825,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/return".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -875,7 +835,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         async def return_outbound_transfer_async(
-            outbound_transfer: str,
+            id: str,
             /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -906,10 +866,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}/return".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -917,10 +875,7 @@ class OutboundTransfer(
 
         @classmethod
         def _cls_update(
-            cls,
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferUpdateParams"],
+            cls, id: str, /, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -929,8 +884,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -939,9 +894,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         def update(
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferUpdateParams"],
+            id: str, /, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -968,10 +921,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -979,10 +930,7 @@ class OutboundTransfer(
 
         @classmethod
         async def _cls_update_async(
-            cls,
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferUpdateParams"],
+            cls, id: str, /, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -991,8 +939,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                        outbound_transfer=sanitize_id(outbound_transfer)
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1001,9 +949,7 @@ class OutboundTransfer(
         @overload
         @staticmethod
         async def update_async(
-            outbound_transfer: str,
-            /,
-            **params: Unpack["OutboundTransferUpdateParams"],
+            id: str, /, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1030,10 +976,8 @@ class OutboundTransfer(
                 "OutboundTransfer",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                        outbound_transfer=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/treasury/outbound_transfers/{id}".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

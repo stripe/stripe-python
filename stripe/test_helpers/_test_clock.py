@@ -92,7 +92,7 @@ class TestClock(
 
     @classmethod
     def _cls_advance(
-        cls, test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
+        cls, id: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -101,8 +101,8 @@ class TestClock(
             "TestClock",
             cls._static_request(
                 "post",
-                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=sanitize_id(test_clock)
+                "/v1/test_helpers/test_clocks/{id}/advance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -111,7 +111,7 @@ class TestClock(
     @overload
     @staticmethod
     def advance(
-        test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
+        id: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -138,8 +138,8 @@ class TestClock(
             "TestClock",
             self._request(
                 "post",
-                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=sanitize_id(self._data.get("id"))
+                "/v1/test_helpers/test_clocks/{id}/advance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -147,7 +147,7 @@ class TestClock(
 
     @classmethod
     async def _cls_advance_async(
-        cls, test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
+        cls, id: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -156,8 +156,8 @@ class TestClock(
             "TestClock",
             await cls._static_request_async(
                 "post",
-                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=sanitize_id(test_clock)
+                "/v1/test_helpers/test_clocks/{id}/advance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -166,7 +166,7 @@ class TestClock(
     @overload
     @staticmethod
     async def advance_async(
-        test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
+        id: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -193,8 +193,8 @@ class TestClock(
             "TestClock",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=sanitize_id(self._data.get("id"))
+                "/v1/test_helpers/test_clocks/{id}/advance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

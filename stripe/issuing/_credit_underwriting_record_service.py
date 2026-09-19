@@ -75,7 +75,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     def retrieve(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: Optional["CreditUnderwritingRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -87,10 +87,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             self._request(
                 "get",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -100,7 +98,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     async def retrieve_async(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: Optional["CreditUnderwritingRecordRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -112,10 +110,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             await self._request_async(
                 "get",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -125,7 +121,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     def correct(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: Optional["CreditUnderwritingRecordCorrectParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,10 +133,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             self._request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}/correct".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -150,7 +144,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     async def correct_async(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: Optional["CreditUnderwritingRecordCorrectParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -162,10 +156,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             await self._request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}/correct".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -175,7 +167,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     def report_decision(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: "CreditUnderwritingRecordReportDecisionParams",
         options: Optional["RequestOptions"] = None,
@@ -187,10 +179,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             self._request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}/report_decision".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -200,7 +190,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     async def report_decision_async(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: "CreditUnderwritingRecordReportDecisionParams",
         options: Optional["RequestOptions"] = None,
@@ -212,10 +202,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             await self._request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}/report_decision".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -225,7 +213,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     def report_offer_acceptance(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: Optional[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
@@ -239,10 +227,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             self._request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}/report_offer_acceptance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -252,7 +238,7 @@ class CreditUnderwritingRecordService(StripeService):
 
     async def report_offer_acceptance_async(
         self,
-        credit_underwriting_record: str,
+        id: str,
         /,
         params: Optional[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
@@ -266,10 +252,8 @@ class CreditUnderwritingRecordService(StripeService):
             "CreditUnderwritingRecord",
             await self._request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    ),
+                "/v1/issuing/credit_underwriting_records/{id}/report_offer_acceptance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

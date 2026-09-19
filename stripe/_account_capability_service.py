@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 class AccountCapabilityService(StripeService):
     def list(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountCapabilityListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -35,9 +35,7 @@ class AccountCapabilityService(StripeService):
             "ListObject[Capability]",
             self._request(
                 "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/capabilities".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -46,7 +44,7 @@ class AccountCapabilityService(StripeService):
 
     async def list_async(
         self,
-        account: str,
+        id: str,
         /,
         params: Optional["AccountCapabilityListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -58,9 +56,7 @@ class AccountCapabilityService(StripeService):
             "ListObject[Capability]",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account),
-                ),
+                "/v1/accounts/{id}/capabilities".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -69,8 +65,8 @@ class AccountCapabilityService(StripeService):
 
     def retrieve(
         self,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountCapabilityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -82,9 +78,9 @@ class AccountCapabilityService(StripeService):
             "Capability",
             self._request(
                 "get",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -94,8 +90,8 @@ class AccountCapabilityService(StripeService):
 
     async def retrieve_async(
         self,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountCapabilityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -107,9 +103,9 @@ class AccountCapabilityService(StripeService):
             "Capability",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -119,8 +115,8 @@ class AccountCapabilityService(StripeService):
 
     def update(
         self,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountCapabilityUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -132,9 +128,9 @@ class AccountCapabilityService(StripeService):
             "Capability",
             self._request(
                 "post",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -144,8 +140,8 @@ class AccountCapabilityService(StripeService):
 
     async def update_async(
         self,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         params: Optional["AccountCapabilityUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -157,9 +153,9 @@ class AccountCapabilityService(StripeService):
             "Capability",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

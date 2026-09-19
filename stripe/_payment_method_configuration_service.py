@@ -102,7 +102,7 @@ class PaymentMethodConfigurationService(StripeService):
 
     def retrieve(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["PaymentMethodConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -114,8 +114,8 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfiguration",
             self._request(
                 "get",
-                "/v1/payment_method_configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/payment_method_configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -125,7 +125,7 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def retrieve_async(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["PaymentMethodConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,8 +137,8 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfiguration",
             await self._request_async(
                 "get",
-                "/v1/payment_method_configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/payment_method_configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -148,7 +148,7 @@ class PaymentMethodConfigurationService(StripeService):
 
     def update(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["PaymentMethodConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -160,8 +160,8 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfiguration",
             self._request(
                 "post",
-                "/v1/payment_method_configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/payment_method_configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -171,7 +171,7 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def update_async(
         self,
-        configuration: str,
+        id: str,
         /,
         params: Optional["PaymentMethodConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -183,8 +183,8 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfiguration",
             await self._request_async(
                 "post",
-                "/v1/payment_method_configurations/{configuration}".format(
-                    configuration=sanitize_id(configuration),
+                "/v1/payment_method_configurations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

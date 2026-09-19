@@ -43,6 +43,7 @@ if TYPE_CHECKING:
         FinancialAccountCreateParams as FinancialAccountCreateParams,
         FinancialAccountCreateParamsSavings as FinancialAccountCreateParamsSavings,
         FinancialAccountCreateParamsStorage as FinancialAccountCreateParamsStorage,
+        FinancialAccountCreateParamsStorageCrypto as FinancialAccountCreateParamsStorageCrypto,
     )
     from stripe.params.v2.money_management._financial_account_list_params import (
         FinancialAccountListParams as FinancialAccountListParams,
@@ -52,7 +53,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._financial_account_update_params import (
         FinancialAccountUpdateParams as FinancialAccountUpdateParams,
+        FinancialAccountUpdateParamsForwardingSettings as FinancialAccountUpdateParamsForwardingSettings,
         FinancialAccountUpdateParamsStorage as FinancialAccountUpdateParamsStorage,
+        FinancialAccountUpdateParamsStorageCrypto as FinancialAccountUpdateParamsStorageCrypto,
     )
     from stripe.params.v2.money_management._financial_address_create_params import (
         FinancialAddressCreateParams as FinancialAddressCreateParams,
@@ -116,6 +119,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._outbound_setup_intent_create_params import (
         OutboundSetupIntentCreateParams as OutboundSetupIntentCreateParams,
         OutboundSetupIntentCreateParamsPayoutMethodData as OutboundSetupIntentCreateParamsPayoutMethodData,
+        OutboundSetupIntentCreateParamsPayoutMethodDataApplePay as OutboundSetupIntentCreateParamsPayoutMethodDataApplePay,
         OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount as OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount,
         OutboundSetupIntentCreateParamsPayoutMethodDataCard as OutboundSetupIntentCreateParamsPayoutMethodDataCard,
         OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet as OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet,
@@ -322,6 +326,10 @@ _import_map = {
         "stripe.params.v2.money_management._financial_account_create_params",
         False,
     ),
+    "FinancialAccountCreateParamsStorageCrypto": (
+        "stripe.params.v2.money_management._financial_account_create_params",
+        False,
+    ),
     "FinancialAccountListParams": (
         "stripe.params.v2.money_management._financial_account_list_params",
         False,
@@ -334,7 +342,15 @@ _import_map = {
         "stripe.params.v2.money_management._financial_account_update_params",
         False,
     ),
+    "FinancialAccountUpdateParamsForwardingSettings": (
+        "stripe.params.v2.money_management._financial_account_update_params",
+        False,
+    ),
     "FinancialAccountUpdateParamsStorage": (
+        "stripe.params.v2.money_management._financial_account_update_params",
+        False,
+    ),
+    "FinancialAccountUpdateParamsStorageCrypto": (
         "stripe.params.v2.money_management._financial_account_update_params",
         False,
     ),
@@ -475,6 +491,10 @@ _import_map = {
         False,
     ),
     "OutboundSetupIntentCreateParamsPayoutMethodData": (
+        "stripe.params.v2.money_management._outbound_setup_intent_create_params",
+        False,
+    ),
+    "OutboundSetupIntentCreateParamsPayoutMethodDataApplePay": (
         "stripe.params.v2.money_management._outbound_setup_intent_create_params",
         False,
     ),

@@ -181,7 +181,7 @@ class Order(
 
     @classmethod
     def _cls_cancel(
-        cls, order: str, /, **params: Unpack["OrderCancelParams"]
+        cls, id: str, /, **params: Unpack["OrderCancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
@@ -193,18 +193,14 @@ class Order(
             "Order",
             cls._static_request(
                 "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(order)
-                ),
+                "/v1/climate/orders/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @overload
     @staticmethod
-    def cancel(
-        order: str, /, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
+    def cancel(id: str, /, **params: Unpack["OrderCancelParams"]) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
@@ -237,8 +233,8 @@ class Order(
             "Order",
             self._request(
                 "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(self._data.get("id"))
+                "/v1/climate/orders/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -246,7 +242,7 @@ class Order(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, order: str, /, **params: Unpack["OrderCancelParams"]
+        cls, id: str, /, **params: Unpack["OrderCancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
@@ -258,9 +254,7 @@ class Order(
             "Order",
             await cls._static_request_async(
                 "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(order)
-                ),
+                "/v1/climate/orders/{id}/cancel".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -268,7 +262,7 @@ class Order(
     @overload
     @staticmethod
     async def cancel_async(
-        order: str, /, **params: Unpack["OrderCancelParams"]
+        id: str, /, **params: Unpack["OrderCancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
@@ -304,8 +298,8 @@ class Order(
             "Order",
             await self._request_async(
                 "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(self._data.get("id"))
+                "/v1/climate/orders/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

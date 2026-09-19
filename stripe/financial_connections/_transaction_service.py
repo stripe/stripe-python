@@ -58,7 +58,7 @@ class TransactionService(StripeService):
 
     def retrieve(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,8 +70,8 @@ class TransactionService(StripeService):
             "Transaction",
             self._request(
                 "get",
-                "/v1/financial_connections/transactions/{transaction}".format(
-                    transaction=sanitize_id(transaction),
+                "/v1/financial_connections/transactions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -81,7 +81,7 @@ class TransactionService(StripeService):
 
     async def retrieve_async(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,8 +93,8 @@ class TransactionService(StripeService):
             "Transaction",
             await self._request_async(
                 "get",
-                "/v1/financial_connections/transactions/{transaction}".format(
-                    transaction=sanitize_id(transaction),
+                "/v1/financial_connections/transactions/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

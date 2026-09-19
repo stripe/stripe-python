@@ -735,7 +735,7 @@ class Dispute(
 
     @classmethod
     def _cls_submit(
-        cls, dispute: str, /, **params: Unpack["DisputeSubmitParams"]
+        cls, id: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -744,9 +744,7 @@ class Dispute(
             "Dispute",
             cls._static_request(
                 "post",
-                "/v1/issuing/disputes/{dispute}/submit".format(
-                    dispute=sanitize_id(dispute)
-                ),
+                "/v1/issuing/disputes/{id}/submit".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -754,7 +752,7 @@ class Dispute(
     @overload
     @staticmethod
     def submit(
-        dispute: str, /, **params: Unpack["DisputeSubmitParams"]
+        id: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -779,8 +777,8 @@ class Dispute(
             "Dispute",
             self._request(
                 "post",
-                "/v1/issuing/disputes/{dispute}/submit".format(
-                    dispute=sanitize_id(self._data.get("id"))
+                "/v1/issuing/disputes/{id}/submit".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -788,7 +786,7 @@ class Dispute(
 
     @classmethod
     async def _cls_submit_async(
-        cls, dispute: str, /, **params: Unpack["DisputeSubmitParams"]
+        cls, id: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -797,9 +795,7 @@ class Dispute(
             "Dispute",
             await cls._static_request_async(
                 "post",
-                "/v1/issuing/disputes/{dispute}/submit".format(
-                    dispute=sanitize_id(dispute)
-                ),
+                "/v1/issuing/disputes/{id}/submit".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -807,7 +803,7 @@ class Dispute(
     @overload
     @staticmethod
     async def submit_async(
-        dispute: str, /, **params: Unpack["DisputeSubmitParams"]
+        id: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -834,8 +830,8 @@ class Dispute(
             "Dispute",
             await self._request_async(
                 "post",
-                "/v1/issuing/disputes/{dispute}/submit".format(
-                    dispute=sanitize_id(self._data.get("id"))
+                "/v1/issuing/disputes/{id}/submit".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -846,7 +842,7 @@ class Dispute(
 
         @classmethod
         def _cls_close(
-            cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
+            cls, id: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -855,8 +851,8 @@ class Dispute(
                 "Dispute",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/close".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -865,7 +861,7 @@ class Dispute(
         @overload
         @staticmethod
         def close(
-            dispute: str, /, **params: Unpack["DisputeCloseParams"]
+            id: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -890,8 +886,8 @@ class Dispute(
                 "Dispute",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/close".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -899,7 +895,7 @@ class Dispute(
 
         @classmethod
         async def _cls_close_async(
-            cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
+            cls, id: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -908,8 +904,8 @@ class Dispute(
                 "Dispute",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/close".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -918,7 +914,7 @@ class Dispute(
         @overload
         @staticmethod
         async def close_async(
-            dispute: str, /, **params: Unpack["DisputeCloseParams"]
+            id: str, /, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
@@ -945,8 +941,8 @@ class Dispute(
                 "Dispute",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/close".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -954,10 +950,7 @@ class Dispute(
 
         @classmethod
         def _cls_provisional_credit(
-            cls,
-            dispute: str,
-            /,
-            **params: Unpack["DisputeProvisionalCreditParams"],
+            cls, id: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
             Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
@@ -966,8 +959,8 @@ class Dispute(
                 "Dispute",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/provisional_credit".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -976,7 +969,7 @@ class Dispute(
         @overload
         @staticmethod
         def provisional_credit(
-            dispute: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
+            id: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
             Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
@@ -1003,8 +996,8 @@ class Dispute(
                 "Dispute",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/provisional_credit".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1012,10 +1005,7 @@ class Dispute(
 
         @classmethod
         async def _cls_provisional_credit_async(
-            cls,
-            dispute: str,
-            /,
-            **params: Unpack["DisputeProvisionalCreditParams"],
+            cls, id: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
             Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
@@ -1024,8 +1014,8 @@ class Dispute(
                 "Dispute",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/provisional_credit".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1034,7 +1024,7 @@ class Dispute(
         @overload
         @staticmethod
         async def provisional_credit_async(
-            dispute: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
+            id: str, /, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
             Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
@@ -1061,8 +1051,8 @@ class Dispute(
                 "Dispute",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/provisional_credit".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1071,7 +1061,7 @@ class Dispute(
         @classmethod
         def _cls_simulate_network_lifecycle_dispute_response(
             cls,
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
@@ -1084,8 +1074,8 @@ class Dispute(
                 "Dispute",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_dispute_response".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1094,7 +1084,7 @@ class Dispute(
         @overload
         @staticmethod
         def simulate_network_lifecycle_dispute_response(
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
@@ -1133,8 +1123,8 @@ class Dispute(
                 "Dispute",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_dispute_response".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1143,7 +1133,7 @@ class Dispute(
         @classmethod
         async def _cls_simulate_network_lifecycle_dispute_response_async(
             cls,
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
@@ -1156,8 +1146,8 @@ class Dispute(
                 "Dispute",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_dispute_response".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1166,7 +1156,7 @@ class Dispute(
         @overload
         @staticmethod
         async def simulate_network_lifecycle_dispute_response_async(
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
@@ -1205,8 +1195,8 @@ class Dispute(
                 "Dispute",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_dispute_response".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1215,7 +1205,7 @@ class Dispute(
         @classmethod
         def _cls_simulate_network_lifecycle_pre_arbitration_response(
             cls,
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
@@ -1228,8 +1218,8 @@ class Dispute(
                 "Dispute",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_response".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_response".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1238,7 +1228,7 @@ class Dispute(
         @overload
         @staticmethod
         def simulate_network_lifecycle_pre_arbitration_response(
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
@@ -1277,8 +1267,8 @@ class Dispute(
                 "Dispute",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_response".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_response".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1287,7 +1277,7 @@ class Dispute(
         @classmethod
         async def _cls_simulate_network_lifecycle_pre_arbitration_response_async(
             cls,
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
@@ -1300,8 +1290,8 @@ class Dispute(
                 "Dispute",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_response".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_response".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1310,7 +1300,7 @@ class Dispute(
         @overload
         @staticmethod
         async def simulate_network_lifecycle_pre_arbitration_response_async(
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
@@ -1349,8 +1339,8 @@ class Dispute(
                 "Dispute",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_response".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_response".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1359,7 +1349,7 @@ class Dispute(
         @classmethod
         def _cls_simulate_network_lifecycle_pre_arbitration_submission(
             cls,
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
@@ -1372,8 +1362,8 @@ class Dispute(
                 "Dispute",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1382,7 +1372,7 @@ class Dispute(
         @overload
         @staticmethod
         def simulate_network_lifecycle_pre_arbitration_submission(
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
@@ -1421,8 +1411,8 @@ class Dispute(
                 "Dispute",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1431,7 +1421,7 @@ class Dispute(
         @classmethod
         async def _cls_simulate_network_lifecycle_pre_arbitration_submission_async(
             cls,
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
@@ -1444,8 +1434,8 @@ class Dispute(
                 "Dispute",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
-                        dispute=sanitize_id(dispute)
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -1454,7 +1444,7 @@ class Dispute(
         @overload
         @staticmethod
         async def simulate_network_lifecycle_pre_arbitration_submission_async(
-            dispute: str,
+            id: str,
             /,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
@@ -1493,8 +1483,8 @@ class Dispute(
                 "Dispute",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
-                        dispute=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/disputes/{id}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

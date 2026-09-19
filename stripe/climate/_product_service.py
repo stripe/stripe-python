@@ -56,7 +56,7 @@ class ProductService(StripeService):
 
     def retrieve(
         self,
-        product: str,
+        id: str,
         /,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -68,9 +68,7 @@ class ProductService(StripeService):
             "Product",
             self._request(
                 "get",
-                "/v1/climate/products/{product}".format(
-                    product=sanitize_id(product),
-                ),
+                "/v1/climate/products/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -79,7 +77,7 @@ class ProductService(StripeService):
 
     async def retrieve_async(
         self,
-        product: str,
+        id: str,
         /,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -91,9 +89,7 @@ class ProductService(StripeService):
             "Product",
             await self._request_async(
                 "get",
-                "/v1/climate/products/{product}".format(
-                    product=sanitize_id(product),
-                ),
+                "/v1/climate/products/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

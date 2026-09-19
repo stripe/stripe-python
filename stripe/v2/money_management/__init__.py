@@ -33,6 +33,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._financial_account_statement import (
         FinancialAccountStatement as FinancialAccountStatement,
     )
+    from stripe.v2.money_management._financial_account_wallet_export import (
+        FinancialAccountWalletExport as FinancialAccountWalletExport,
+    )
+    from stripe.v2.money_management._financial_account_wallet_export_credentials import (
+        FinancialAccountWalletExportCredentials as FinancialAccountWalletExportCredentials,
+    )
     from stripe.v2.money_management._financial_address import (
         FinancialAddress as FinancialAddress,
     )
@@ -165,6 +171,14 @@ _import_map = {
     ),
     "FinancialAccountStatement": (
         "stripe.v2.money_management._financial_account_statement",
+        False,
+    ),
+    "FinancialAccountWalletExport": (
+        "stripe.v2.money_management._financial_account_wallet_export",
+        False,
+    ),
+    "FinancialAccountWalletExportCredentials": (
+        "stripe.v2.money_management._financial_account_wallet_export_credentials",
         False,
     ),
     "FinancialAddress": (

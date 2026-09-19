@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class CustomerCashBalanceTransactionService(StripeService):
     def list(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerCashBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,8 +34,8 @@ class CustomerCashBalanceTransactionService(StripeService):
             "ListObject[CustomerCashBalanceTransaction]",
             self._request(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/cash_balance_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -45,7 +45,7 @@ class CustomerCashBalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerCashBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -57,8 +57,8 @@ class CustomerCashBalanceTransactionService(StripeService):
             "ListObject[CustomerCashBalanceTransaction]",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/cash_balance_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -68,8 +68,8 @@ class CustomerCashBalanceTransactionService(StripeService):
 
     def retrieve(
         self,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional[
             "CustomerCashBalanceTransactionRetrieveParams"
@@ -83,9 +83,9 @@ class CustomerCashBalanceTransactionService(StripeService):
             "CustomerCashBalanceTransaction",
             self._request(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/cash_balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -95,8 +95,8 @@ class CustomerCashBalanceTransactionService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional[
             "CustomerCashBalanceTransactionRetrieveParams"
@@ -110,9 +110,9 @@ class CustomerCashBalanceTransactionService(StripeService):
             "CustomerCashBalanceTransaction",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/cash_balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

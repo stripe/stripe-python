@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 class InvoiceItemService(StripeService):
     def delete(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -42,9 +42,7 @@ class InvoiceItemService(StripeService):
             "InvoiceItem",
             self._request(
                 "delete",
-                "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=sanitize_id(invoiceitem),
-                ),
+                "/v1/invoiceitems/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -53,7 +51,7 @@ class InvoiceItemService(StripeService):
 
     async def delete_async(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -65,9 +63,7 @@ class InvoiceItemService(StripeService):
             "InvoiceItem",
             await self._request_async(
                 "delete",
-                "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=sanitize_id(invoiceitem),
-                ),
+                "/v1/invoiceitems/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -76,7 +72,7 @@ class InvoiceItemService(StripeService):
 
     def retrieve(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -88,9 +84,7 @@ class InvoiceItemService(StripeService):
             "InvoiceItem",
             self._request(
                 "get",
-                "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=sanitize_id(invoiceitem),
-                ),
+                "/v1/invoiceitems/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -99,7 +93,7 @@ class InvoiceItemService(StripeService):
 
     async def retrieve_async(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -111,9 +105,7 @@ class InvoiceItemService(StripeService):
             "InvoiceItem",
             await self._request_async(
                 "get",
-                "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=sanitize_id(invoiceitem),
-                ),
+                "/v1/invoiceitems/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,7 +114,7 @@ class InvoiceItemService(StripeService):
 
     def update(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -134,9 +126,7 @@ class InvoiceItemService(StripeService):
             "InvoiceItem",
             self._request(
                 "post",
-                "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=sanitize_id(invoiceitem),
-                ),
+                "/v1/invoiceitems/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -145,7 +135,7 @@ class InvoiceItemService(StripeService):
 
     async def update_async(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -157,9 +147,7 @@ class InvoiceItemService(StripeService):
             "InvoiceItem",
             await self._request_async(
                 "post",
-                "/v1/invoiceitems/{invoiceitem}".format(
-                    invoiceitem=sanitize_id(invoiceitem),
-                ),
+                "/v1/invoiceitems/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -244,7 +232,7 @@ class InvoiceItemService(StripeService):
 
     def serialize_batch_delete(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -259,7 +247,7 @@ class InvoiceItemService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoiceitem": invoiceitem},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -269,7 +257,7 @@ class InvoiceItemService(StripeService):
 
     def serialize_batch_update(
         self,
-        invoiceitem: str,
+        id: str,
         /,
         params: Optional["InvoiceItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -284,7 +272,7 @@ class InvoiceItemService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"invoiceitem": invoiceitem},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

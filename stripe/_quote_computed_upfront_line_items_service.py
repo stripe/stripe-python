@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class QuoteComputedUpfrontLineItemsService(StripeService):
     def list(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteComputedUpfrontLineItemsListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,8 +29,8 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
             "ListObject[LineItem]",
             self._request(
                 "get",
-                "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(quote),
+                "/v1/quotes/{id}/computed_upfront_line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -40,7 +40,7 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
 
     async def list_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteComputedUpfrontLineItemsListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,8 +52,8 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
             "ListObject[LineItem]",
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(quote),
+                "/v1/quotes/{id}/computed_upfront_line_items".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

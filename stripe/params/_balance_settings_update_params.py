@@ -65,6 +65,10 @@ class BalanceSettingsUpdateParamsPaymentsPayouts(TypedDict):
 class BalanceSettingsUpdateParamsPaymentsPayoutsAutomaticTransferRulesByCurrency(
     TypedDict,
 ):
+    destination_currency: NotRequired[str]
+    """
+    The currency of the FinancialAccount balance that receives the automatic transfer. If specified, funds are converted from the source currency before transfer.
+    """
     payout_method: str
     """
     The ID of the FinancialAccount that funds will be transferred to during automatic transfers.

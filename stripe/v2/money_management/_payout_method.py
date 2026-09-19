@@ -24,6 +24,33 @@ class PayoutMethod(StripeObject):
         The type of the alternative reference (e.g., external_account for V1 external accounts).
         """
 
+    class ApplePay(StripeObject):
+        dynamic_last4: str
+        """
+        The last four digits of the device account number (DPAN).
+        """
+        exp_month: str
+        """
+        The month the card expires.
+        """
+        exp_year: str
+        """
+        The year the card expires.
+        """
+        fingerprint: str
+        """
+        Uniquely identifies this particular Apple-Pay-registered DPAN (Device PAN). Refer to
+        https://support.stripe.com/questions/how-do-card-numbers-work-with-apple-pay-and-google-pay-and-what-is-dynamic-last4 for more info on DPANs.
+        """
+        last4: str
+        """
+        The last 4 digits of the card number.
+        """
+        supported_currencies: List[str]
+        """
+        The list of currencies supported by this card.
+        """
+
     class BankAccount(StripeObject):
         archived: bool
         """
@@ -158,6 +185,10 @@ class PayoutMethod(StripeObject):
     """
     The alternative reference for this payout method, if it's a projected payout method.
     """
+    apple_pay: Optional[ApplePay]
+    """
+    The PayoutMethodApplePay object details.
+    """
     available_payout_speeds: List[Literal["instant", "standard"]]
     """
     A set of available payout speeds for this payout method.
@@ -205,6 +236,7 @@ class PayoutMethod(StripeObject):
     """
     type: Union[
         Literal[
+            "apple_pay",
             "bank_account",
             "card",
             "crypto_wallet",
@@ -221,6 +253,7 @@ class PayoutMethod(StripeObject):
     """
     _inner_class_types = {
         "alternative_reference": AlternativeReference,
+        "apple_pay": ApplePay,
         "bank_account": BankAccount,
         "card": Card,
         "crypto_wallet": CryptoWallet,

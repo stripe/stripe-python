@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class CouponService(StripeService):
     def delete(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,7 +34,7 @@ class CouponService(StripeService):
             "Coupon",
             self._request(
                 "delete",
-                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                "/v1/coupons/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -43,7 +43,7 @@ class CouponService(StripeService):
 
     async def delete_async(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -55,7 +55,7 @@ class CouponService(StripeService):
             "Coupon",
             await self._request_async(
                 "delete",
-                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                "/v1/coupons/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -64,7 +64,7 @@ class CouponService(StripeService):
 
     def retrieve(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -76,7 +76,7 @@ class CouponService(StripeService):
             "Coupon",
             self._request(
                 "get",
-                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                "/v1/coupons/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -85,7 +85,7 @@ class CouponService(StripeService):
 
     async def retrieve_async(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -97,7 +97,7 @@ class CouponService(StripeService):
             "Coupon",
             await self._request_async(
                 "get",
-                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                "/v1/coupons/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -106,7 +106,7 @@ class CouponService(StripeService):
 
     def update(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -118,7 +118,7 @@ class CouponService(StripeService):
             "Coupon",
             self._request(
                 "post",
-                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                "/v1/coupons/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -127,7 +127,7 @@ class CouponService(StripeService):
 
     async def update_async(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -139,7 +139,7 @@ class CouponService(StripeService):
             "Coupon",
             await self._request_async(
                 "post",
-                "/v1/coupons/{coupon}".format(coupon=sanitize_id(coupon)),
+                "/v1/coupons/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -228,7 +228,7 @@ class CouponService(StripeService):
 
     def serialize_batch_delete(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -243,7 +243,7 @@ class CouponService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"coupon": coupon},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -253,7 +253,7 @@ class CouponService(StripeService):
 
     def serialize_batch_update(
         self,
-        coupon: str,
+        id: str,
         /,
         params: Optional["CouponUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -268,7 +268,7 @@ class CouponService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"coupon": coupon},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

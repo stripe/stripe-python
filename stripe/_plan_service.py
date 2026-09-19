@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class PlanService(StripeService):
     def delete(
         self,
-        plan: str,
+        id: str,
         /,
         params: Optional["PlanDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -31,7 +31,7 @@ class PlanService(StripeService):
             "Plan",
             self._request(
                 "delete",
-                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                "/v1/plans/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -40,7 +40,7 @@ class PlanService(StripeService):
 
     async def delete_async(
         self,
-        plan: str,
+        id: str,
         /,
         params: Optional["PlanDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,7 +52,7 @@ class PlanService(StripeService):
             "Plan",
             await self._request_async(
                 "delete",
-                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                "/v1/plans/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -61,7 +61,7 @@ class PlanService(StripeService):
 
     def retrieve(
         self,
-        plan: str,
+        id: str,
         /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -73,7 +73,7 @@ class PlanService(StripeService):
             "Plan",
             self._request(
                 "get",
-                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                "/v1/plans/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -82,7 +82,7 @@ class PlanService(StripeService):
 
     async def retrieve_async(
         self,
-        plan: str,
+        id: str,
         /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -94,7 +94,7 @@ class PlanService(StripeService):
             "Plan",
             await self._request_async(
                 "get",
-                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                "/v1/plans/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -103,7 +103,7 @@ class PlanService(StripeService):
 
     def update(
         self,
-        plan: str,
+        id: str,
         /,
         params: Optional["PlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -115,7 +115,7 @@ class PlanService(StripeService):
             "Plan",
             self._request(
                 "post",
-                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                "/v1/plans/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -124,7 +124,7 @@ class PlanService(StripeService):
 
     async def update_async(
         self,
-        plan: str,
+        id: str,
         /,
         params: Optional["PlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -136,7 +136,7 @@ class PlanService(StripeService):
             "Plan",
             await self._request_async(
                 "post",
-                "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
+                "/v1/plans/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

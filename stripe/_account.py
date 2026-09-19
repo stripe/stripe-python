@@ -309,6 +309,12 @@ class Account(
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
         """
+        blik_recurring_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+        """
         boleto_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]
@@ -905,7 +911,7 @@ class Account(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
                 details: Optional[str]
                 """
@@ -917,7 +923,7 @@ class Account(
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
 
             document: Document
@@ -1154,8 +1160,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1345,8 +1353,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1580,6 +1590,16 @@ class Account(
             secondary_color: Optional[str]
             """
             A CSS hex color value representing the secondary branding color for this account
+            """
+
+        class Capital(StripeObject):
+            allowed_payout_destinations: Optional[List[str]]
+            """
+            The payout destinations allowed for Capital financing payouts.
+            """
+            excluded_payout_destinations: Optional[List[str]]
+            """
+            The payout destinations excluded from Capital financing payouts.
             """
 
         class CardIssuing(StripeObject):
@@ -1825,6 +1845,7 @@ class Account(
         bacs_debit_payments: Optional[BacsDebitPayments]
         bank_bca_onboarding: Optional[BankBcaOnboarding]
         branding: Branding
+        capital: Optional[Capital]
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
@@ -1841,6 +1862,7 @@ class Account(
             "bacs_debit_payments": BacsDebitPayments,
             "bank_bca_onboarding": BankBcaOnboarding,
             "branding": Branding,
+            "capital": Capital,
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,
@@ -2194,7 +2216,7 @@ class Account(
 
     @classmethod
     def _cls_persons(
-        cls, account: str, /, **params: Unpack["AccountPersonsParams"]
+        cls, id: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2203,9 +2225,7 @@ class Account(
             ListObject["Person"],
             cls._static_request(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2213,7 +2233,7 @@ class Account(
     @overload
     @staticmethod
     def persons(
-        account: str, /, **params: Unpack["AccountPersonsParams"]
+        id: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2240,8 +2260,8 @@ class Account(
             ListObject["Person"],
             self._request(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/accounts/{id}/persons".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2249,7 +2269,7 @@ class Account(
 
     @classmethod
     async def _cls_persons_async(
-        cls, account: str, /, **params: Unpack["AccountPersonsParams"]
+        cls, id: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2258,9 +2278,7 @@ class Account(
             ListObject["Person"],
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2268,7 +2286,7 @@ class Account(
     @overload
     @staticmethod
     async def persons_async(
-        account: str, /, **params: Unpack["AccountPersonsParams"]
+        id: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2295,8 +2313,8 @@ class Account(
             ListObject["Person"],
             await self._request_async(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/accounts/{id}/persons".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2304,7 +2322,7 @@ class Account(
 
     @classmethod
     def _cls_reject(
-        cls, account: str, /, **params: Unpack["AccountRejectParams"]
+        cls, id: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2315,9 +2333,7 @@ class Account(
             "Account",
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/reject".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2325,7 +2341,7 @@ class Account(
     @overload
     @staticmethod
     def reject(
-        account: str, /, **params: Unpack["AccountRejectParams"]
+        id: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2356,8 +2372,8 @@ class Account(
             "Account",
             self._request(
                 "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/accounts/{id}/reject".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2365,7 +2381,7 @@ class Account(
 
     @classmethod
     async def _cls_reject_async(
-        cls, account: str, /, **params: Unpack["AccountRejectParams"]
+        cls, id: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2376,9 +2392,7 @@ class Account(
             "Account",
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/reject".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2386,7 +2400,7 @@ class Account(
     @overload
     @staticmethod
     async def reject_async(
-        account: str, /, **params: Unpack["AccountRejectParams"]
+        id: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2419,8 +2433,8 @@ class Account(
             "Account",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/accounts/{id}/reject".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2428,7 +2442,7 @@ class Account(
 
     @classmethod
     def _cls_unreject(
-        cls, account: str, /, **params: Unpack["AccountUnrejectParams"]
+        cls, id: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2441,9 +2455,7 @@ class Account(
             "Account",
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/unreject".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/unreject".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2451,7 +2463,7 @@ class Account(
     @overload
     @staticmethod
     def unreject(
-        account: str, /, **params: Unpack["AccountUnrejectParams"]
+        id: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2488,8 +2500,8 @@ class Account(
             "Account",
             self._request(
                 "post",
-                "/v1/accounts/{account}/unreject".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/accounts/{id}/unreject".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2497,7 +2509,7 @@ class Account(
 
     @classmethod
     async def _cls_unreject_async(
-        cls, account: str, /, **params: Unpack["AccountUnrejectParams"]
+        cls, id: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2510,9 +2522,7 @@ class Account(
             "Account",
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/unreject".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/unreject".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2520,7 +2530,7 @@ class Account(
     @overload
     @staticmethod
     async def unreject_async(
-        account: str, /, **params: Unpack["AccountUnrejectParams"]
+        id: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2559,8 +2569,8 @@ class Account(
             "Account",
             await self._request_async(
                 "post",
-                "/v1/accounts/{account}/unreject".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/accounts/{id}/unreject".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2618,7 +2628,7 @@ class Account(
 
     @classmethod
     def list_capabilities(
-        cls, account: str, /, **params: Unpack["AccountListCapabilitiesParams"]
+        cls, id: str, /, **params: Unpack["AccountListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
@@ -2627,16 +2637,14 @@ class Account(
             ListObject["Capability"],
             cls._static_request(
                 "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/capabilities".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_capabilities_async(
-        cls, account: str, /, **params: Unpack["AccountListCapabilitiesParams"]
+        cls, id: str, /, **params: Unpack["AccountListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
@@ -2645,9 +2653,7 @@ class Account(
             ListObject["Capability"],
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/capabilities".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2655,8 +2661,8 @@ class Account(
     @classmethod
     def retrieve_capability(
         cls,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountRetrieveCapabilityParams"],
     ) -> "Capability":
@@ -2667,9 +2673,8 @@ class Account(
             "Capability",
             cls._static_request(
                 "get",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2678,8 +2683,8 @@ class Account(
     @classmethod
     async def retrieve_capability_async(
         cls,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountRetrieveCapabilityParams"],
     ) -> "Capability":
@@ -2690,9 +2695,8 @@ class Account(
             "Capability",
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2701,8 +2705,8 @@ class Account(
     @classmethod
     def modify_capability(
         cls,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountModifyCapabilityParams"],
     ) -> "Capability":
@@ -2713,9 +2717,8 @@ class Account(
             "Capability",
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2724,8 +2727,8 @@ class Account(
     @classmethod
     async def modify_capability_async(
         cls,
-        account: str,
-        capability: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountModifyCapabilityParams"],
     ) -> "Capability":
@@ -2736,9 +2739,8 @@ class Account(
             "Capability",
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=sanitize_id(account),
-                    capability=sanitize_id(capability),
+                "/v1/accounts/{account_id}/capabilities/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2747,7 +2749,7 @@ class Account(
     @classmethod
     def delete_external_account(
         cls,
-        account: str,
+        account_id: str,
         id: str,
         /,
         **params: Unpack["AccountDeleteExternalAccountParams"],
@@ -2759,8 +2761,8 @@ class Account(
             Union["BankAccount", "Card"],
             cls._static_request(
                 "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2769,7 +2771,7 @@ class Account(
     @classmethod
     async def delete_external_account_async(
         cls,
-        account: str,
+        account_id: str,
         id: str,
         /,
         **params: Unpack["AccountDeleteExternalAccountParams"],
@@ -2781,8 +2783,8 @@ class Account(
             Union["BankAccount", "Card"],
             await cls._static_request_async(
                 "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2791,7 +2793,7 @@ class Account(
     @classmethod
     def retrieve_external_account(
         cls,
-        account: str,
+        account_id: str,
         id: str,
         /,
         **params: Unpack["AccountRetrieveExternalAccountParams"],
@@ -2803,8 +2805,8 @@ class Account(
             Union["BankAccount", "Card"],
             cls._static_request(
                 "get",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2813,7 +2815,7 @@ class Account(
     @classmethod
     async def retrieve_external_account_async(
         cls,
-        account: str,
+        account_id: str,
         id: str,
         /,
         **params: Unpack["AccountRetrieveExternalAccountParams"],
@@ -2825,8 +2827,8 @@ class Account(
             Union["BankAccount", "Card"],
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2835,7 +2837,7 @@ class Account(
     @classmethod
     def modify_external_account(
         cls,
-        account: str,
+        account_id: str,
         id: str,
         /,
         **params: Unpack["AccountModifyExternalAccountParams"],
@@ -2854,8 +2856,8 @@ class Account(
             Union["BankAccount", "Card"],
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2864,7 +2866,7 @@ class Account(
     @classmethod
     async def modify_external_account_async(
         cls,
-        account: str,
+        account_id: str,
         id: str,
         /,
         **params: Unpack["AccountModifyExternalAccountParams"],
@@ -2883,8 +2885,8 @@ class Account(
             Union["BankAccount", "Card"],
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
+                "/v1/accounts/{account_id}/external_accounts/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2892,10 +2894,7 @@ class Account(
 
     @classmethod
     def list_external_accounts(
-        cls,
-        account: str,
-        /,
-        **params: Unpack["AccountListExternalAccountsParams"],
+        cls, id: str, /, **params: Unpack["AccountListExternalAccountsParams"]
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
         List external accounts for an account.
@@ -2904,8 +2903,8 @@ class Account(
             ListObject[Union["BankAccount", "Card"]],
             cls._static_request(
                 "get",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2913,10 +2912,7 @@ class Account(
 
     @classmethod
     async def list_external_accounts_async(
-        cls,
-        account: str,
-        /,
-        **params: Unpack["AccountListExternalAccountsParams"],
+        cls, id: str, /, **params: Unpack["AccountListExternalAccountsParams"]
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
         List external accounts for an account.
@@ -2925,8 +2921,8 @@ class Account(
             ListObject[Union["BankAccount", "Card"]],
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2934,10 +2930,7 @@ class Account(
 
     @classmethod
     def create_external_account(
-        cls,
-        account: str,
-        /,
-        **params: Unpack["AccountCreateExternalAccountParams"],
+        cls, id: str, /, **params: Unpack["AccountCreateExternalAccountParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Create an external account for a given account.
@@ -2946,8 +2939,8 @@ class Account(
             Union["BankAccount", "Card"],
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2955,10 +2948,7 @@ class Account(
 
     @classmethod
     async def create_external_account_async(
-        cls,
-        account: str,
-        /,
-        **params: Unpack["AccountCreateExternalAccountParams"],
+        cls, id: str, /, **params: Unpack["AccountCreateExternalAccountParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Create an external account for a given account.
@@ -2967,8 +2957,8 @@ class Account(
             Union["BankAccount", "Card"],
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "/v1/accounts/{id}/external_accounts".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2976,7 +2966,7 @@ class Account(
 
     @classmethod
     def create_login_link(
-        cls, account: str, /, **params: Unpack["AccountCreateLoginLinkParams"]
+        cls, id: str, /, **params: Unpack["AccountCreateLoginLinkParams"]
     ) -> "LoginLink":
         """
         Creates a login link for a connected account to access the Express Dashboard.
@@ -2987,16 +2977,14 @@ class Account(
             "LoginLink",
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/login_links".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/login_links".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def create_login_link_async(
-        cls, account: str, /, **params: Unpack["AccountCreateLoginLinkParams"]
+        cls, id: str, /, **params: Unpack["AccountCreateLoginLinkParams"]
     ) -> "LoginLink":
         """
         Creates a login link for a connected account to access the Express Dashboard.
@@ -3007,9 +2995,7 @@ class Account(
             "LoginLink",
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/login_links".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/login_links".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -3017,8 +3003,8 @@ class Account(
     @classmethod
     def delete_person(
         cls,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
@@ -3029,8 +3015,8 @@ class Account(
             "Person",
             cls._static_request(
                 "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3039,8 +3025,8 @@ class Account(
     @classmethod
     async def delete_person_async(
         cls,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
@@ -3051,8 +3037,8 @@ class Account(
             "Person",
             await cls._static_request_async(
                 "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3061,8 +3047,8 @@ class Account(
     @classmethod
     def retrieve_person(
         cls,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountRetrievePersonParams"],
     ) -> "Person":
@@ -3073,8 +3059,8 @@ class Account(
             "Person",
             cls._static_request(
                 "get",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3083,8 +3069,8 @@ class Account(
     @classmethod
     async def retrieve_person_async(
         cls,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountRetrievePersonParams"],
     ) -> "Person":
@@ -3095,8 +3081,8 @@ class Account(
             "Person",
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3105,8 +3091,8 @@ class Account(
     @classmethod
     def modify_person(
         cls,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountModifyPersonParams"],
     ) -> "Person":
@@ -3117,8 +3103,8 @@ class Account(
             "Person",
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3127,8 +3113,8 @@ class Account(
     @classmethod
     async def modify_person_async(
         cls,
-        account: str,
-        person: str,
+        account_id: str,
+        id: str,
         /,
         **params: Unpack["AccountModifyPersonParams"],
     ) -> "Person":
@@ -3139,8 +3125,8 @@ class Account(
             "Person",
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
+                "/v1/accounts/{account_id}/persons/{id}".format(
+                    account_id=sanitize_id(account_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3148,7 +3134,7 @@ class Account(
 
     @classmethod
     def list_persons(
-        cls, account: str, /, **params: Unpack["AccountListPersonsParams"]
+        cls, id: str, /, **params: Unpack["AccountListPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3157,16 +3143,14 @@ class Account(
             ListObject["Person"],
             cls._static_request(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_persons_async(
-        cls, account: str, /, **params: Unpack["AccountListPersonsParams"]
+        cls, id: str, /, **params: Unpack["AccountListPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3175,16 +3159,14 @@ class Account(
             ListObject["Person"],
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def create_person(
-        cls, account: str, /, **params: Unpack["AccountCreatePersonParams"]
+        cls, id: str, /, **params: Unpack["AccountCreatePersonParams"]
     ) -> "Person":
         """
         Creates a new person.
@@ -3193,16 +3175,14 @@ class Account(
             "Person",
             cls._static_request(
                 "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def create_person_async(
-        cls, account: str, /, **params: Unpack["AccountCreatePersonParams"]
+        cls, id: str, /, **params: Unpack["AccountCreatePersonParams"]
     ) -> "Person":
         """
         Creates a new person.
@@ -3211,19 +3191,14 @@ class Account(
             "Person",
             await cls._static_request_async(
                 "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
-                ),
+                "/v1/accounts/{id}/persons".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def retrieve_signal(
-        cls,
-        account_id: str,
-        /,
-        **params: Unpack["AccountRetrieveSignalParams"],
+        cls, id: str, /, **params: Unpack["AccountRetrieveSignalParams"]
     ) -> "AccountSignals":
         """
         Retrieves the account's Signal objects
@@ -3232,19 +3207,14 @@ class Account(
             "AccountSignals",
             cls._static_request(
                 "get",
-                "/v1/accounts/{account_id}/signals".format(
-                    account_id=sanitize_id(account_id)
-                ),
+                "/v1/accounts/{id}/signals".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def retrieve_signal_async(
-        cls,
-        account_id: str,
-        /,
-        **params: Unpack["AccountRetrieveSignalParams"],
+        cls, id: str, /, **params: Unpack["AccountRetrieveSignalParams"]
     ) -> "AccountSignals":
         """
         Retrieves the account's Signal objects
@@ -3253,9 +3223,7 @@ class Account(
             "AccountSignals",
             await cls._static_request_async(
                 "get",
-                "/v1/accounts/{account_id}/signals".format(
-                    account_id=sanitize_id(account_id)
-                ),
+                "/v1/accounts/{id}/signals".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class QuoteLineService(StripeService):
     def list(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteLineListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -27,7 +27,7 @@ class QuoteLineService(StripeService):
             "ListObject[QuoteLine]",
             self._request(
                 "get",
-                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -36,7 +36,7 @@ class QuoteLineService(StripeService):
 
     async def list_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuoteLineListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -48,7 +48,7 @@ class QuoteLineService(StripeService):
             "ListObject[QuoteLine]",
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                "/v1/quotes/{id}/lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

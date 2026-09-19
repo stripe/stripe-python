@@ -104,7 +104,7 @@ class PayoutService(StripeService):
 
     def retrieve(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -116,7 +116,7 @@ class PayoutService(StripeService):
             "Payout",
             self._request(
                 "get",
-                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
+                "/v1/payouts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -125,7 +125,7 @@ class PayoutService(StripeService):
 
     async def retrieve_async(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,7 +137,7 @@ class PayoutService(StripeService):
             "Payout",
             await self._request_async(
                 "get",
-                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
+                "/v1/payouts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -146,7 +146,7 @@ class PayoutService(StripeService):
 
     def update(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -158,7 +158,7 @@ class PayoutService(StripeService):
             "Payout",
             self._request(
                 "post",
-                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
+                "/v1/payouts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -167,7 +167,7 @@ class PayoutService(StripeService):
 
     async def update_async(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -179,7 +179,7 @@ class PayoutService(StripeService):
             "Payout",
             await self._request_async(
                 "post",
-                "/v1/payouts/{payout}".format(payout=sanitize_id(payout)),
+                "/v1/payouts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -188,7 +188,7 @@ class PayoutService(StripeService):
 
     def cancel(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -200,9 +200,7 @@ class PayoutService(StripeService):
             "Payout",
             self._request(
                 "post",
-                "/v1/payouts/{payout}/cancel".format(
-                    payout=sanitize_id(payout),
-                ),
+                "/v1/payouts/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -211,7 +209,7 @@ class PayoutService(StripeService):
 
     async def cancel_async(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -223,9 +221,7 @@ class PayoutService(StripeService):
             "Payout",
             await self._request_async(
                 "post",
-                "/v1/payouts/{payout}/cancel".format(
-                    payout=sanitize_id(payout),
-                ),
+                "/v1/payouts/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -234,7 +230,7 @@ class PayoutService(StripeService):
 
     def reverse(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutReverseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -248,9 +244,7 @@ class PayoutService(StripeService):
             "Payout",
             self._request(
                 "post",
-                "/v1/payouts/{payout}/reverse".format(
-                    payout=sanitize_id(payout),
-                ),
+                "/v1/payouts/{id}/reverse".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -259,7 +253,7 @@ class PayoutService(StripeService):
 
     async def reverse_async(
         self,
-        payout: str,
+        id: str,
         /,
         params: Optional["PayoutReverseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -273,9 +267,7 @@ class PayoutService(StripeService):
             "Payout",
             await self._request_async(
                 "post",
-                "/v1/payouts/{payout}/reverse".format(
-                    payout=sanitize_id(payout),
-                ),
+                "/v1/payouts/{id}/reverse".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

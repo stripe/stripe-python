@@ -340,10 +340,6 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.radar._account_evaluation",
         "AccountEvaluation",
     ),
-    "radar.billing_evaluation": (
-        "stripe.radar._billing_evaluation",
-        "BillingEvaluation",
-    ),
     "radar.customer_evaluation": (
         "stripe.radar._customer_evaluation",
         "CustomerEvaluation",
@@ -699,6 +695,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._financial_account_statement",
         "FinancialAccountStatement",
     ),
+    "v2.money_management.financial_account_wallet_export": (
+        "stripe.v2.money_management._financial_account_wallet_export",
+        "FinancialAccountWalletExport",
+    ),
+    "v2.money_management.financial_account_wallet_export_credentials": (
+        "stripe.v2.money_management._financial_account_wallet_export_credentials",
+        "FinancialAccountWalletExportCredentials",
+    ),
     "v2.money_management.financial_address": (
         "stripe.v2.money_management._financial_address",
         "FinancialAddress",
@@ -782,6 +786,39 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.payments.settlement_allocation_intent_split": (
         "stripe.v2.payments._settlement_allocation_intent_split",
         "SettlementAllocationIntentSplit",
+    ),
+    "v2.provisioning.eligibility": (
+        "stripe.v2.provisioning._eligibility",
+        "Eligibility",
+    ),
+    "v2.provisioning.payment_method_request": (
+        "stripe.v2.provisioning._payment_method_request",
+        "PaymentMethodRequest",
+    ),
+    "v2.provisioning.payment_profile": (
+        "stripe.v2.provisioning._payment_profile",
+        "PaymentProfile",
+    ),
+    "v2.provisioning.project": ("stripe.v2.provisioning._project", "Project"),
+    "v2.provisioning.provider": (
+        "stripe.v2.provisioning._provider",
+        "Provider",
+    ),
+    "v2.provisioning.provider_connection": (
+        "stripe.v2.provisioning._provider_connection",
+        "ProviderConnection",
+    ),
+    "v2.provisioning.provider_connection_request": (
+        "stripe.v2.provisioning._provider_connection_request",
+        "ProviderConnectionRequest",
+    ),
+    "v2.provisioning.provider_service_detail": (
+        "stripe.v2.provisioning._provider_service_detail",
+        "ProviderServiceDetail",
+    ),
+    "v2.provisioning.resource": (
+        "stripe.v2.provisioning._resource",
+        "Resource",
     ),
     "v2.reporting.report": ("stripe.v2.reporting._report", "Report"),
     "v2.reporting.report_run": (

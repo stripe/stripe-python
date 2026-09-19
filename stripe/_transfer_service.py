@@ -124,7 +124,7 @@ class TransferService(StripeService):
 
     def retrieve(
         self,
-        transfer: str,
+        id: str,
         /,
         params: Optional["TransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -136,9 +136,7 @@ class TransferService(StripeService):
             "Transfer",
             self._request(
                 "get",
-                "/v1/transfers/{transfer}".format(
-                    transfer=sanitize_id(transfer),
-                ),
+                "/v1/transfers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -147,7 +145,7 @@ class TransferService(StripeService):
 
     async def retrieve_async(
         self,
-        transfer: str,
+        id: str,
         /,
         params: Optional["TransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -159,9 +157,7 @@ class TransferService(StripeService):
             "Transfer",
             await self._request_async(
                 "get",
-                "/v1/transfers/{transfer}".format(
-                    transfer=sanitize_id(transfer),
-                ),
+                "/v1/transfers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -170,7 +166,7 @@ class TransferService(StripeService):
 
     def update(
         self,
-        transfer: str,
+        id: str,
         /,
         params: Optional["TransferUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -184,9 +180,7 @@ class TransferService(StripeService):
             "Transfer",
             self._request(
                 "post",
-                "/v1/transfers/{transfer}".format(
-                    transfer=sanitize_id(transfer),
-                ),
+                "/v1/transfers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -195,7 +189,7 @@ class TransferService(StripeService):
 
     async def update_async(
         self,
-        transfer: str,
+        id: str,
         /,
         params: Optional["TransferUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -209,9 +203,7 @@ class TransferService(StripeService):
             "Transfer",
             await self._request_async(
                 "post",
-                "/v1/transfers/{transfer}".format(
-                    transfer=sanitize_id(transfer),
-                ),
+                "/v1/transfers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

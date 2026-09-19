@@ -111,7 +111,7 @@ class CustomerService(StripeService):
 
     def delete(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -123,9 +123,7 @@ class CustomerService(StripeService):
             "Customer",
             self._request(
                 "delete",
-                "/v1/customers/{customer}".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -134,7 +132,7 @@ class CustomerService(StripeService):
 
     async def delete_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -146,9 +144,7 @@ class CustomerService(StripeService):
             "Customer",
             await self._request_async(
                 "delete",
-                "/v1/customers/{customer}".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -157,7 +153,7 @@ class CustomerService(StripeService):
 
     def retrieve(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -169,9 +165,7 @@ class CustomerService(StripeService):
             "Customer",
             self._request(
                 "get",
-                "/v1/customers/{customer}".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -180,7 +174,7 @@ class CustomerService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -192,9 +186,7 @@ class CustomerService(StripeService):
             "Customer",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -203,7 +195,7 @@ class CustomerService(StripeService):
 
     def update(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -217,9 +209,7 @@ class CustomerService(StripeService):
             "Customer",
             self._request(
                 "post",
-                "/v1/customers/{customer}".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -228,7 +218,7 @@ class CustomerService(StripeService):
 
     async def update_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -242,9 +232,7 @@ class CustomerService(StripeService):
             "Customer",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -253,7 +241,7 @@ class CustomerService(StripeService):
 
     def delete_discount(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -265,9 +253,7 @@ class CustomerService(StripeService):
             "Discount",
             self._request(
                 "delete",
-                "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/discount".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -276,7 +262,7 @@ class CustomerService(StripeService):
 
     async def delete_discount_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -288,9 +274,7 @@ class CustomerService(StripeService):
             "Discount",
             await self._request_async(
                 "delete",
-                "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/discount".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -419,7 +403,7 @@ class CustomerService(StripeService):
 
     def serialize_batch_delete(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -434,7 +418,7 @@ class CustomerService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -444,7 +428,7 @@ class CustomerService(StripeService):
 
     def serialize_batch_update(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -459,7 +443,7 @@ class CustomerService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -469,7 +453,7 @@ class CustomerService(StripeService):
 
     def serialize_batch_delete_discount(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -484,7 +468,7 @@ class CustomerService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

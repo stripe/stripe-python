@@ -21,3 +21,7 @@ class FinancialAccountCloseParamsForwardingSettings(TypedDict):
     """
     The address to send forwarded payouts to.
     """
+    skip_exportable_balances: NotRequired[bool]
+    """
+    Whether to skip forwarding exportable self-custodied wallet balances. Defaults to false. This does not skip non-exportable or fiat balances, inbound-pending checks, or negative-balance requirements.
+    """

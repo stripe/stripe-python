@@ -927,7 +927,7 @@ class Charge(
             """
             electronic_commerce_indicator: Optional[str]
             """
-            The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. The response value is the source of truth; it may differ from the request value if the network downgraded the transaction.
+            The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
             """
             exp_month: int
             """
@@ -1003,6 +1003,18 @@ class Charge(
             ]
             """
             Status of a card based on the card issuer.
+            """
+            setup_credential_usage: Optional[
+                Union[Literal["recurring", "unscheduled"], str]
+            ]
+            """
+            The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
+            """
+            stored_credential_usage: Optional[
+                Union[Literal["recurring", "unscheduled"], str]
+            ]
+            """
+            The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction, one of `recurring`, `unscheduled`, `on_session`, or `installment`
             """
             three_d_secure: Optional[ThreeDSecure]
             """
@@ -2892,7 +2904,7 @@ class Charge(
 
     @classmethod
     def _cls_capture(
-        cls, charge: str, /, **params: Unpack["ChargeCaptureParams"]
+        cls, id: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
@@ -2901,9 +2913,7 @@ class Charge(
             "Charge",
             cls._static_request(
                 "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(charge)
-                ),
+                "/v1/charges/{id}/capture".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2911,7 +2921,7 @@ class Charge(
     @overload
     @staticmethod
     def capture(
-        charge: str, /, **params: Unpack["ChargeCaptureParams"]
+        id: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
@@ -2936,8 +2946,8 @@ class Charge(
             "Charge",
             self._request(
                 "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(self._data.get("id"))
+                "/v1/charges/{id}/capture".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2945,7 +2955,7 @@ class Charge(
 
     @classmethod
     async def _cls_capture_async(
-        cls, charge: str, /, **params: Unpack["ChargeCaptureParams"]
+        cls, id: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
@@ -2954,9 +2964,7 @@ class Charge(
             "Charge",
             await cls._static_request_async(
                 "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(charge)
-                ),
+                "/v1/charges/{id}/capture".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2964,7 +2972,7 @@ class Charge(
     @overload
     @staticmethod
     async def capture_async(
-        charge: str, /, **params: Unpack["ChargeCaptureParams"]
+        id: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
@@ -2991,8 +2999,8 @@ class Charge(
             "Charge",
             await self._request_async(
                 "post",
-                "/v1/charges/{charge}/capture".format(
-                    charge=sanitize_id(self._data.get("id"))
+                "/v1/charges/{id}/capture".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3183,8 +3191,8 @@ class Charge(
     @classmethod
     def retrieve_refund(
         cls,
-        charge: str,
-        refund: str,
+        charge_id: str,
+        id: str,
         /,
         **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
@@ -3195,8 +3203,8 @@ class Charge(
             "Refund",
             cls._static_request(
                 "get",
-                "/v1/charges/{charge}/refunds/{refund}".format(
-                    charge=sanitize_id(charge), refund=sanitize_id(refund)
+                "/v1/charges/{charge_id}/refunds/{id}".format(
+                    charge_id=sanitize_id(charge_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3205,8 +3213,8 @@ class Charge(
     @classmethod
     async def retrieve_refund_async(
         cls,
-        charge: str,
-        refund: str,
+        charge_id: str,
+        id: str,
         /,
         **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
@@ -3217,8 +3225,8 @@ class Charge(
             "Refund",
             await cls._static_request_async(
                 "get",
-                "/v1/charges/{charge}/refunds/{refund}".format(
-                    charge=sanitize_id(charge), refund=sanitize_id(refund)
+                "/v1/charges/{charge_id}/refunds/{id}".format(
+                    charge_id=sanitize_id(charge_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3226,7 +3234,7 @@ class Charge(
 
     @classmethod
     def list_refunds(
-        cls, charge: str, /, **params: Unpack["ChargeListRefundsParams"]
+        cls, id: str, /, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -3235,16 +3243,14 @@ class Charge(
             ListObject["Refund"],
             cls._static_request(
                 "get",
-                "/v1/charges/{charge}/refunds".format(
-                    charge=sanitize_id(charge)
-                ),
+                "/v1/charges/{id}/refunds".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_refunds_async(
-        cls, charge: str, /, **params: Unpack["ChargeListRefundsParams"]
+        cls, id: str, /, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -3253,9 +3259,7 @@ class Charge(
             ListObject["Refund"],
             await cls._static_request_async(
                 "get",
-                "/v1/charges/{charge}/refunds".format(
-                    charge=sanitize_id(charge)
-                ),
+                "/v1/charges/{id}/refunds".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

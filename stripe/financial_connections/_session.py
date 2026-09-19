@@ -105,6 +105,12 @@ class Session(CreateableAPIResource["Session"]):
         Controls how manual entry of bank account details is presented to the user.
         """
 
+    class PreCollectedConsent(StripeObject):
+        outcome: Union[Literal["consent_accepted", "consent_required"], str]
+        """
+        The outcome of evaluating the pre-collected consent submitted for this Session.
+        """
+
     class RelinkOptions(StripeObject):
         account: Optional[str]
         """
@@ -204,6 +210,7 @@ class Session(CreateableAPIResource["Session"]):
     """
     Permissions requested for accounts collected during this session.
     """
+    pre_collected_consent: Optional[PreCollectedConsent]
     prefetch: Optional[
         List[
             Union[
@@ -300,6 +307,7 @@ class Session(CreateableAPIResource["Session"]):
         "hosted": Hosted,
         "limits": Limits,
         "manual_entry": ManualEntry,
+        "pre_collected_consent": PreCollectedConsent,
         "relink_options": RelinkOptions,
         "relink_result": RelinkResult,
         "status_details": StatusDetails,

@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class SourceTransactionService(StripeService):
     def list(
         self,
-        source: str,
+        id: str,
         /,
         params: Optional["SourceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,8 +29,8 @@ class SourceTransactionService(StripeService):
             "ListObject[SourceTransaction]",
             self._request(
                 "get",
-                "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(source),
+                "/v1/sources/{id}/source_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -40,7 +40,7 @@ class SourceTransactionService(StripeService):
 
     async def list_async(
         self,
-        source: str,
+        id: str,
         /,
         params: Optional["SourceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,8 +52,8 @@ class SourceTransactionService(StripeService):
             "ListObject[SourceTransaction]",
             await self._request_async(
                 "get",
-                "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(source),
+                "/v1/sources/{id}/source_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

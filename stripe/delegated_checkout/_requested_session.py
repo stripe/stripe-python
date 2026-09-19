@@ -860,10 +860,7 @@ class RequestedSession(
 
     @classmethod
     def _cls_confirm(
-        cls,
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionConfirmParams"],
+        cls, id: str, /, **params: Unpack["RequestedSessionConfirmParams"]
     ) -> "RequestedSession":
         """
         Confirms a requested session
@@ -872,8 +869,8 @@ class RequestedSession(
             "RequestedSession",
             cls._static_request(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(requested_session)
+                "/v1/delegated_checkout/requested_sessions/{id}/confirm".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -882,9 +879,7 @@ class RequestedSession(
     @overload
     @staticmethod
     def confirm(
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionConfirmParams"],
+        id: str, /, **params: Unpack["RequestedSessionConfirmParams"]
     ) -> "RequestedSession":
         """
         Confirms a requested session
@@ -911,8 +906,8 @@ class RequestedSession(
             "RequestedSession",
             self._request(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(self._data.get("id"))
+                "/v1/delegated_checkout/requested_sessions/{id}/confirm".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -920,10 +915,7 @@ class RequestedSession(
 
     @classmethod
     async def _cls_confirm_async(
-        cls,
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionConfirmParams"],
+        cls, id: str, /, **params: Unpack["RequestedSessionConfirmParams"]
     ) -> "RequestedSession":
         """
         Confirms a requested session
@@ -932,8 +924,8 @@ class RequestedSession(
             "RequestedSession",
             await cls._static_request_async(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(requested_session)
+                "/v1/delegated_checkout/requested_sessions/{id}/confirm".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -942,9 +934,7 @@ class RequestedSession(
     @overload
     @staticmethod
     async def confirm_async(
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionConfirmParams"],
+        id: str, /, **params: Unpack["RequestedSessionConfirmParams"]
     ) -> "RequestedSession":
         """
         Confirms a requested session
@@ -971,8 +961,8 @@ class RequestedSession(
             "RequestedSession",
             await self._request_async(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(self._data.get("id"))
+                "/v1/delegated_checkout/requested_sessions/{id}/confirm".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1012,10 +1002,7 @@ class RequestedSession(
 
     @classmethod
     def _cls_expire(
-        cls,
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionExpireParams"],
+        cls, id: str, /, **params: Unpack["RequestedSessionExpireParams"]
     ) -> "RequestedSession":
         """
         Expires a requested session
@@ -1024,8 +1011,8 @@ class RequestedSession(
             "RequestedSession",
             cls._static_request(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(requested_session)
+                "/v1/delegated_checkout/requested_sessions/{id}/expire".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1034,9 +1021,7 @@ class RequestedSession(
     @overload
     @staticmethod
     def expire(
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionExpireParams"],
+        id: str, /, **params: Unpack["RequestedSessionExpireParams"]
     ) -> "RequestedSession":
         """
         Expires a requested session
@@ -1063,8 +1048,8 @@ class RequestedSession(
             "RequestedSession",
             self._request(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(self._data.get("id"))
+                "/v1/delegated_checkout/requested_sessions/{id}/expire".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1072,10 +1057,7 @@ class RequestedSession(
 
     @classmethod
     async def _cls_expire_async(
-        cls,
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionExpireParams"],
+        cls, id: str, /, **params: Unpack["RequestedSessionExpireParams"]
     ) -> "RequestedSession":
         """
         Expires a requested session
@@ -1084,8 +1066,8 @@ class RequestedSession(
             "RequestedSession",
             await cls._static_request_async(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(requested_session)
+                "/v1/delegated_checkout/requested_sessions/{id}/expire".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1094,9 +1076,7 @@ class RequestedSession(
     @overload
     @staticmethod
     async def expire_async(
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionExpireParams"],
+        id: str, /, **params: Unpack["RequestedSessionExpireParams"]
     ) -> "RequestedSession":
         """
         Expires a requested session
@@ -1123,8 +1103,8 @@ class RequestedSession(
             "RequestedSession",
             await self._request_async(
                 "post",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(self._data.get("id"))
+                "/v1/delegated_checkout/requested_sessions/{id}/expire".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1132,10 +1112,7 @@ class RequestedSession(
 
     @classmethod
     def _cls_list_orders(
-        cls,
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionListOrdersParams"],
+        cls, id: str, /, **params: Unpack["RequestedSessionListOrdersParams"]
     ) -> ListObject["Order"]:
         """
         Lists orders for a delegated checkout requested session.
@@ -1144,8 +1121,8 @@ class RequestedSession(
             ListObject["Order"],
             cls._static_request(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
-                    requested_session=sanitize_id(requested_session)
+                "/v1/delegated_checkout/requested_sessions/{id}/orders".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1154,9 +1131,7 @@ class RequestedSession(
     @overload
     @staticmethod
     def list_orders(
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionListOrdersParams"],
+        id: str, /, **params: Unpack["RequestedSessionListOrdersParams"]
     ) -> ListObject["Order"]:
         """
         Lists orders for a delegated checkout requested session.
@@ -1183,8 +1158,8 @@ class RequestedSession(
             ListObject["Order"],
             self._request(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
-                    requested_session=sanitize_id(self._data.get("id"))
+                "/v1/delegated_checkout/requested_sessions/{id}/orders".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1192,10 +1167,7 @@ class RequestedSession(
 
     @classmethod
     async def _cls_list_orders_async(
-        cls,
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionListOrdersParams"],
+        cls, id: str, /, **params: Unpack["RequestedSessionListOrdersParams"]
     ) -> ListObject["Order"]:
         """
         Lists orders for a delegated checkout requested session.
@@ -1204,8 +1176,8 @@ class RequestedSession(
             ListObject["Order"],
             await cls._static_request_async(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
-                    requested_session=sanitize_id(requested_session)
+                "/v1/delegated_checkout/requested_sessions/{id}/orders".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1214,9 +1186,7 @@ class RequestedSession(
     @overload
     @staticmethod
     async def list_orders_async(
-        requested_session: str,
-        /,
-        **params: Unpack["RequestedSessionListOrdersParams"],
+        id: str, /, **params: Unpack["RequestedSessionListOrdersParams"]
     ) -> ListObject["Order"]:
         """
         Lists orders for a delegated checkout requested session.
@@ -1243,8 +1213,8 @@ class RequestedSession(
             ListObject["Order"],
             await self._request_async(
                 "get",
-                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
-                    requested_session=sanitize_id(self._data.get("id"))
+                "/v1/delegated_checkout/requested_sessions/{id}/orders".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

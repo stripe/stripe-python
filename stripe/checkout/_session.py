@@ -672,6 +672,12 @@ class Session(
                 """
                 _inner_class_types = {"wallet": Wallet}
 
+            class Custom(StripeObject):
+                type: str
+                """
+                ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+                """
+
             class Link(StripeObject):
                 fingerprint: Optional[str]
                 """
@@ -706,6 +712,7 @@ class Session(
             bacs_debit: Optional[BacsDebit]
             boleto: Optional[Boleto]
             card: Optional[Card]
+            custom: Optional[Custom]
             link: Optional[Link]
             pix: Optional[Pix]
             sepa_debit: Optional[SepaDebit]
@@ -719,6 +726,7 @@ class Session(
                 "bacs_debit": BacsDebit,
                 "boleto": Boleto,
                 "card": Card,
+                "custom": Custom,
                 "link": Link,
                 "pix": Pix,
                 "sepa_debit": SepaDebit,
@@ -1310,9 +1318,6 @@ class Session(
         The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         """
         subscription: Optional[Subscription]
-        """
-        Details on the subscription for this item.
-        """
         type: Union[Literal["subscription"], str]
         """
         The type of the item.
@@ -3027,7 +3032,7 @@ class Session(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
                 Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -3381,6 +3386,10 @@ class Session(
     """
     The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
     """
+    payment_reservation: Optional[str]
+    """
+    The ID of the Payment Reservation for this Checkout Session.
+    """
     payment_status: Union[
         Literal["no_payment_required", "paid", "unpaid"], str
     ]
@@ -3479,7 +3488,7 @@ class Session(
 
     @classmethod
     def _cls_approve(
-        cls, session: str, /, **params: Unpack["SessionApproveParams"]
+        cls, id: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3488,8 +3497,8 @@ class Session(
             "Session",
             cls._static_request(
                 "post",
-                "/v1/checkout/sessions/{session}/approve".format(
-                    session=sanitize_id(session)
+                "/v1/checkout/sessions/{id}/approve".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3498,7 +3507,7 @@ class Session(
     @overload
     @staticmethod
     def approve(
-        session: str, /, **params: Unpack["SessionApproveParams"]
+        id: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3523,8 +3532,8 @@ class Session(
             "Session",
             self._request(
                 "post",
-                "/v1/checkout/sessions/{session}/approve".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/checkout/sessions/{id}/approve".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3532,7 +3541,7 @@ class Session(
 
     @classmethod
     async def _cls_approve_async(
-        cls, session: str, /, **params: Unpack["SessionApproveParams"]
+        cls, id: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3541,8 +3550,8 @@ class Session(
             "Session",
             await cls._static_request_async(
                 "post",
-                "/v1/checkout/sessions/{session}/approve".format(
-                    session=sanitize_id(session)
+                "/v1/checkout/sessions/{id}/approve".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3551,7 +3560,7 @@ class Session(
     @overload
     @staticmethod
     async def approve_async(
-        session: str, /, **params: Unpack["SessionApproveParams"]
+        id: str, /, **params: Unpack["SessionApproveParams"]
     ) -> "Session":
         """
         Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
@@ -3578,8 +3587,8 @@ class Session(
             "Session",
             await self._request_async(
                 "post",
-                "/v1/checkout/sessions/{session}/approve".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/checkout/sessions/{id}/approve".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3617,7 +3626,7 @@ class Session(
 
     @classmethod
     def _cls_expire(
-        cls, session: str, /, **params: Unpack["SessionExpireParams"]
+        cls, id: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3628,9 +3637,7 @@ class Session(
             "Session",
             cls._static_request(
                 "post",
-                "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(session)
-                ),
+                "/v1/checkout/sessions/{id}/expire".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -3638,7 +3645,7 @@ class Session(
     @overload
     @staticmethod
     def expire(
-        session: str, /, **params: Unpack["SessionExpireParams"]
+        id: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3669,8 +3676,8 @@ class Session(
             "Session",
             self._request(
                 "post",
-                "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/checkout/sessions/{id}/expire".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3678,7 +3685,7 @@ class Session(
 
     @classmethod
     async def _cls_expire_async(
-        cls, session: str, /, **params: Unpack["SessionExpireParams"]
+        cls, id: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3689,9 +3696,7 @@ class Session(
             "Session",
             await cls._static_request_async(
                 "post",
-                "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(session)
-                ),
+                "/v1/checkout/sessions/{id}/expire".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -3699,7 +3704,7 @@ class Session(
     @overload
     @staticmethod
     async def expire_async(
-        session: str, /, **params: Unpack["SessionExpireParams"]
+        id: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3732,8 +3737,8 @@ class Session(
             "Session",
             await self._request_async(
                 "post",
-                "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/checkout/sessions/{id}/expire".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3781,7 +3786,7 @@ class Session(
 
     @classmethod
     def _cls_list_line_items(
-        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
+        cls, id: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3790,8 +3795,8 @@ class Session(
             ListObject["LineItem"],
             cls._static_request(
                 "get",
-                "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(session)
+                "/v1/checkout/sessions/{id}/line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3800,7 +3805,7 @@ class Session(
     @overload
     @staticmethod
     def list_line_items(
-        session: str, /, **params: Unpack["SessionListLineItemsParams"]
+        id: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3827,8 +3832,8 @@ class Session(
             ListObject["LineItem"],
             self._request(
                 "get",
-                "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/checkout/sessions/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3836,7 +3841,7 @@ class Session(
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
+        cls, id: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3845,8 +3850,8 @@ class Session(
             ListObject["LineItem"],
             await cls._static_request_async(
                 "get",
-                "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(session)
+                "/v1/checkout/sessions/{id}/line_items".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3855,7 +3860,7 @@ class Session(
     @overload
     @staticmethod
     async def list_line_items_async(
-        session: str, /, **params: Unpack["SessionListLineItemsParams"]
+        id: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3882,8 +3887,8 @@ class Session(
             ListObject["LineItem"],
             await self._request_async(
                 "get",
-                "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/checkout/sessions/{id}/line_items".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

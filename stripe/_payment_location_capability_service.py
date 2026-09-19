@@ -61,7 +61,7 @@ class PaymentLocationCapabilityService(StripeService):
 
     def retrieve(
         self,
-        capability: str,
+        id: str,
         /,
         params: "PaymentLocationCapabilityRetrieveParams",
         options: Optional["RequestOptions"] = None,
@@ -73,8 +73,8 @@ class PaymentLocationCapabilityService(StripeService):
             "PaymentLocationCapability",
             self._request(
                 "get",
-                "/v1/payment_location_capabilities/{capability}".format(
-                    capability=sanitize_id(capability),
+                "/v1/payment_location_capabilities/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -84,7 +84,7 @@ class PaymentLocationCapabilityService(StripeService):
 
     async def retrieve_async(
         self,
-        capability: str,
+        id: str,
         /,
         params: "PaymentLocationCapabilityRetrieveParams",
         options: Optional["RequestOptions"] = None,
@@ -96,8 +96,8 @@ class PaymentLocationCapabilityService(StripeService):
             "PaymentLocationCapability",
             await self._request_async(
                 "get",
-                "/v1/payment_location_capabilities/{capability}".format(
-                    capability=sanitize_id(capability),
+                "/v1/payment_location_capabilities/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -107,7 +107,7 @@ class PaymentLocationCapabilityService(StripeService):
 
     def update(
         self,
-        capability: str,
+        id: str,
         /,
         params: "PaymentLocationCapabilityUpdateParams",
         options: Optional["RequestOptions"] = None,
@@ -119,8 +119,8 @@ class PaymentLocationCapabilityService(StripeService):
             "PaymentLocationCapability",
             self._request(
                 "post",
-                "/v1/payment_location_capabilities/{capability}".format(
-                    capability=sanitize_id(capability),
+                "/v1/payment_location_capabilities/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -130,7 +130,7 @@ class PaymentLocationCapabilityService(StripeService):
 
     async def update_async(
         self,
-        capability: str,
+        id: str,
         /,
         params: "PaymentLocationCapabilityUpdateParams",
         options: Optional["RequestOptions"] = None,
@@ -142,8 +142,8 @@ class PaymentLocationCapabilityService(StripeService):
             "PaymentLocationCapability",
             await self._request_async(
                 "post",
-                "/v1/payment_location_capabilities/{capability}".format(
-                    capability=sanitize_id(capability),
+                "/v1/payment_location_capabilities/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

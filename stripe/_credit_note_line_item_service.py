@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class CreditNoteLineItemService(StripeService):
     def list(
         self,
-        credit_note: str,
+        id: str,
         /,
         params: Optional["CreditNoteLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,9 +29,7 @@ class CreditNoteLineItemService(StripeService):
             "ListObject[CreditNoteLineItem]",
             self._request(
                 "get",
-                "/v1/credit_notes/{credit_note}/lines".format(
-                    credit_note=sanitize_id(credit_note),
-                ),
+                "/v1/credit_notes/{id}/lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -40,7 +38,7 @@ class CreditNoteLineItemService(StripeService):
 
     async def list_async(
         self,
-        credit_note: str,
+        id: str,
         /,
         params: Optional["CreditNoteLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,9 +50,7 @@ class CreditNoteLineItemService(StripeService):
             "ListObject[CreditNoteLineItem]",
             await self._request_async(
                 "get",
-                "/v1/credit_notes/{credit_note}/lines".format(
-                    credit_note=sanitize_id(credit_note),
-                ),
+                "/v1/credit_notes/{id}/lines".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

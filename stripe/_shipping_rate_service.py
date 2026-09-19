@@ -100,7 +100,7 @@ class ShippingRateService(StripeService):
 
     def retrieve(
         self,
-        shipping_rate_token: str,
+        id: str,
         /,
         params: Optional["ShippingRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -112,9 +112,7 @@ class ShippingRateService(StripeService):
             "ShippingRate",
             self._request(
                 "get",
-                "/v1/shipping_rates/{shipping_rate_token}".format(
-                    shipping_rate_token=sanitize_id(shipping_rate_token),
-                ),
+                "/v1/shipping_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -123,7 +121,7 @@ class ShippingRateService(StripeService):
 
     async def retrieve_async(
         self,
-        shipping_rate_token: str,
+        id: str,
         /,
         params: Optional["ShippingRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -135,9 +133,7 @@ class ShippingRateService(StripeService):
             "ShippingRate",
             await self._request_async(
                 "get",
-                "/v1/shipping_rates/{shipping_rate_token}".format(
-                    shipping_rate_token=sanitize_id(shipping_rate_token),
-                ),
+                "/v1/shipping_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -146,7 +142,7 @@ class ShippingRateService(StripeService):
 
     def update(
         self,
-        shipping_rate_token: str,
+        id: str,
         /,
         params: Optional["ShippingRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -158,9 +154,7 @@ class ShippingRateService(StripeService):
             "ShippingRate",
             self._request(
                 "post",
-                "/v1/shipping_rates/{shipping_rate_token}".format(
-                    shipping_rate_token=sanitize_id(shipping_rate_token),
-                ),
+                "/v1/shipping_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -169,7 +163,7 @@ class ShippingRateService(StripeService):
 
     async def update_async(
         self,
-        shipping_rate_token: str,
+        id: str,
         /,
         params: Optional["ShippingRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -181,9 +175,7 @@ class ShippingRateService(StripeService):
             "ShippingRate",
             await self._request_async(
                 "post",
-                "/v1/shipping_rates/{shipping_rate_token}".format(
-                    shipping_rate_token=sanitize_id(shipping_rate_token),
-                ),
+                "/v1/shipping_rates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

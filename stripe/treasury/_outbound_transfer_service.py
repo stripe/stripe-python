@@ -102,7 +102,7 @@ class OutboundTransferService(StripeService):
 
     def retrieve(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -114,8 +114,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             self._request(
                 "get",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/treasury/outbound_transfers/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -125,7 +125,7 @@ class OutboundTransferService(StripeService):
 
     async def retrieve_async(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -137,8 +137,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             await self._request_async(
                 "get",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/treasury/outbound_transfers/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -148,7 +148,7 @@ class OutboundTransferService(StripeService):
 
     def cancel(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -160,8 +160,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             self._request(
                 "post",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/treasury/outbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -171,7 +171,7 @@ class OutboundTransferService(StripeService):
 
     async def cancel_async(
         self,
-        outbound_transfer: str,
+        id: str,
         /,
         params: Optional["OutboundTransferCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -183,8 +183,8 @@ class OutboundTransferService(StripeService):
             "OutboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(outbound_transfer),
+                "/v1/treasury/outbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

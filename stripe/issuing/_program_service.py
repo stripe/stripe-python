@@ -100,7 +100,7 @@ class ProgramService(StripeService):
 
     def retrieve(
         self,
-        program: str,
+        id: str,
         /,
         params: Optional["ProgramRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -112,9 +112,7 @@ class ProgramService(StripeService):
             "Program",
             self._request(
                 "get",
-                "/v1/issuing/programs/{program}".format(
-                    program=sanitize_id(program),
-                ),
+                "/v1/issuing/programs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -123,7 +121,7 @@ class ProgramService(StripeService):
 
     async def retrieve_async(
         self,
-        program: str,
+        id: str,
         /,
         params: Optional["ProgramRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -135,9 +133,7 @@ class ProgramService(StripeService):
             "Program",
             await self._request_async(
                 "get",
-                "/v1/issuing/programs/{program}".format(
-                    program=sanitize_id(program),
-                ),
+                "/v1/issuing/programs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -146,7 +142,7 @@ class ProgramService(StripeService):
 
     def update(
         self,
-        program: str,
+        id: str,
         /,
         params: Optional["ProgramUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -158,9 +154,7 @@ class ProgramService(StripeService):
             "Program",
             self._request(
                 "post",
-                "/v1/issuing/programs/{program}".format(
-                    program=sanitize_id(program),
-                ),
+                "/v1/issuing/programs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -169,7 +163,7 @@ class ProgramService(StripeService):
 
     async def update_async(
         self,
-        program: str,
+        id: str,
         /,
         params: Optional["ProgramUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -181,9 +175,7 @@ class ProgramService(StripeService):
             "Program",
             await self._request_async(
                 "post",
-                "/v1/issuing/programs/{program}".format(
-                    program=sanitize_id(program),
-                ),
+                "/v1/issuing/programs/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

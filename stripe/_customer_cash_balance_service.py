@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class CustomerCashBalanceService(StripeService):
     def retrieve(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerCashBalanceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,9 +34,7 @@ class CustomerCashBalanceService(StripeService):
             "CashBalance",
             self._request(
                 "get",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -45,7 +43,7 @@ class CustomerCashBalanceService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerCashBalanceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -57,9 +55,7 @@ class CustomerCashBalanceService(StripeService):
             "CashBalance",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -68,7 +64,7 @@ class CustomerCashBalanceService(StripeService):
 
     def update(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerCashBalanceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -80,9 +76,7 @@ class CustomerCashBalanceService(StripeService):
             "CashBalance",
             self._request(
                 "post",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -91,7 +85,7 @@ class CustomerCashBalanceService(StripeService):
 
     async def update_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerCashBalanceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -103,9 +97,7 @@ class CustomerCashBalanceService(StripeService):
             "CashBalance",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer),
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -114,7 +106,7 @@ class CustomerCashBalanceService(StripeService):
 
     def serialize_batch_update(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerCashBalanceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -129,7 +121,7 @@ class CustomerCashBalanceService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

@@ -95,7 +95,7 @@ class TopupService(StripeService):
 
     def retrieve(
         self,
-        topup: str,
+        id: str,
         /,
         params: Optional["TopupRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -107,7 +107,7 @@ class TopupService(StripeService):
             "Topup",
             self._request(
                 "get",
-                "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -116,7 +116,7 @@ class TopupService(StripeService):
 
     async def retrieve_async(
         self,
-        topup: str,
+        id: str,
         /,
         params: Optional["TopupRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -128,7 +128,7 @@ class TopupService(StripeService):
             "Topup",
             await self._request_async(
                 "get",
-                "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -137,7 +137,7 @@ class TopupService(StripeService):
 
     def update(
         self,
-        topup: str,
+        id: str,
         /,
         params: Optional["TopupUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -149,7 +149,7 @@ class TopupService(StripeService):
             "Topup",
             self._request(
                 "post",
-                "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -158,7 +158,7 @@ class TopupService(StripeService):
 
     async def update_async(
         self,
-        topup: str,
+        id: str,
         /,
         params: Optional["TopupUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -170,7 +170,7 @@ class TopupService(StripeService):
             "Topup",
             await self._request_async(
                 "post",
-                "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -179,7 +179,7 @@ class TopupService(StripeService):
 
     def cancel(
         self,
-        topup: str,
+        id: str,
         /,
         params: Optional["TopupCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -191,7 +191,7 @@ class TopupService(StripeService):
             "Topup",
             self._request(
                 "post",
-                "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -200,7 +200,7 @@ class TopupService(StripeService):
 
     async def cancel_async(
         self,
-        topup: str,
+        id: str,
         /,
         params: Optional["TopupCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -212,7 +212,7 @@ class TopupService(StripeService):
             "Topup",
             await self._request_async(
                 "post",
-                "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
+                "/v1/topups/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -67,7 +67,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     def retrieve(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -79,8 +79,8 @@ class InvoiceRenderingTemplateService(StripeService):
             "InvoiceRenderingTemplate",
             self._request(
                 "get",
-                "/v1/invoice_rendering_templates/{template}".format(
-                    template=sanitize_id(template),
+                "/v1/invoice_rendering_templates/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -90,7 +90,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     async def retrieve_async(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -102,8 +102,8 @@ class InvoiceRenderingTemplateService(StripeService):
             "InvoiceRenderingTemplate",
             await self._request_async(
                 "get",
-                "/v1/invoice_rendering_templates/{template}".format(
-                    template=sanitize_id(template),
+                "/v1/invoice_rendering_templates/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -113,7 +113,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     def archive(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -125,8 +125,8 @@ class InvoiceRenderingTemplateService(StripeService):
             "InvoiceRenderingTemplate",
             self._request(
                 "post",
-                "/v1/invoice_rendering_templates/{template}/archive".format(
-                    template=sanitize_id(template),
+                "/v1/invoice_rendering_templates/{id}/archive".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -136,7 +136,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     async def archive_async(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -148,8 +148,8 @@ class InvoiceRenderingTemplateService(StripeService):
             "InvoiceRenderingTemplate",
             await self._request_async(
                 "post",
-                "/v1/invoice_rendering_templates/{template}/archive".format(
-                    template=sanitize_id(template),
+                "/v1/invoice_rendering_templates/{id}/archive".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -159,7 +159,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     def unarchive(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -171,8 +171,8 @@ class InvoiceRenderingTemplateService(StripeService):
             "InvoiceRenderingTemplate",
             self._request(
                 "post",
-                "/v1/invoice_rendering_templates/{template}/unarchive".format(
-                    template=sanitize_id(template),
+                "/v1/invoice_rendering_templates/{id}/unarchive".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -182,7 +182,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     async def unarchive_async(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -194,8 +194,8 @@ class InvoiceRenderingTemplateService(StripeService):
             "InvoiceRenderingTemplate",
             await self._request_async(
                 "post",
-                "/v1/invoice_rendering_templates/{template}/unarchive".format(
-                    template=sanitize_id(template),
+                "/v1/invoice_rendering_templates/{id}/unarchive".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -205,7 +205,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     def serialize_batch_archive(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -220,7 +220,7 @@ class InvoiceRenderingTemplateService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"template": template},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -230,7 +230,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     def serialize_batch_unarchive(
         self,
-        template: str,
+        id: str,
         /,
         params: Optional["InvoiceRenderingTemplateUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -245,7 +245,7 @@ class InvoiceRenderingTemplateService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"template": template},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

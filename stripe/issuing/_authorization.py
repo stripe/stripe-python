@@ -1990,10 +1990,7 @@ class Authorization(
 
     @classmethod
     def _cls_approve(
-        cls,
-        authorization: str,
-        /,
-        **params: Unpack["AuthorizationApproveParams"],
+        cls, id: str, /, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2003,8 +2000,8 @@ class Authorization(
             "Authorization",
             cls._static_request(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(authorization)
+                "/v1/issuing/authorizations/{id}/approve".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2013,7 +2010,7 @@ class Authorization(
     @overload
     @staticmethod
     def approve(
-        authorization: str, /, **params: Unpack["AuthorizationApproveParams"]
+        id: str, /, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2043,8 +2040,8 @@ class Authorization(
             "Authorization",
             self._request(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(self._data.get("id"))
+                "/v1/issuing/authorizations/{id}/approve".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2052,10 +2049,7 @@ class Authorization(
 
     @classmethod
     async def _cls_approve_async(
-        cls,
-        authorization: str,
-        /,
-        **params: Unpack["AuthorizationApproveParams"],
+        cls, id: str, /, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2065,8 +2059,8 @@ class Authorization(
             "Authorization",
             await cls._static_request_async(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(authorization)
+                "/v1/issuing/authorizations/{id}/approve".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2075,7 +2069,7 @@ class Authorization(
     @overload
     @staticmethod
     async def approve_async(
-        authorization: str, /, **params: Unpack["AuthorizationApproveParams"]
+        id: str, /, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2105,8 +2099,8 @@ class Authorization(
             "Authorization",
             await self._request_async(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/approve".format(
-                    authorization=sanitize_id(self._data.get("id"))
+                "/v1/issuing/authorizations/{id}/approve".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2114,10 +2108,7 @@ class Authorization(
 
     @classmethod
     def _cls_decline(
-        cls,
-        authorization: str,
-        /,
-        **params: Unpack["AuthorizationDeclineParams"],
+        cls, id: str, /, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2127,8 +2118,8 @@ class Authorization(
             "Authorization",
             cls._static_request(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(authorization)
+                "/v1/issuing/authorizations/{id}/decline".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2137,7 +2128,7 @@ class Authorization(
     @overload
     @staticmethod
     def decline(
-        authorization: str, /, **params: Unpack["AuthorizationDeclineParams"]
+        id: str, /, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2167,8 +2158,8 @@ class Authorization(
             "Authorization",
             self._request(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(self._data.get("id"))
+                "/v1/issuing/authorizations/{id}/decline".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2176,10 +2167,7 @@ class Authorization(
 
     @classmethod
     async def _cls_decline_async(
-        cls,
-        authorization: str,
-        /,
-        **params: Unpack["AuthorizationDeclineParams"],
+        cls, id: str, /, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2189,8 +2177,8 @@ class Authorization(
             "Authorization",
             await cls._static_request_async(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(authorization)
+                "/v1/issuing/authorizations/{id}/decline".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2199,7 +2187,7 @@ class Authorization(
     @overload
     @staticmethod
     async def decline_async(
-        authorization: str, /, **params: Unpack["AuthorizationDeclineParams"]
+        id: str, /, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -2229,8 +2217,8 @@ class Authorization(
             "Authorization",
             await self._request_async(
                 "post",
-                "/v1/issuing/authorizations/{authorization}/decline".format(
-                    authorization=sanitize_id(self._data.get("id"))
+                "/v1/issuing/authorizations/{id}/decline".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2337,10 +2325,7 @@ class Authorization(
 
         @classmethod
         def _cls_capture(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationCaptureParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationCaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -2349,8 +2334,8 @@ class Authorization(
                 "Authorization",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/capture".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2359,9 +2344,7 @@ class Authorization(
         @overload
         @staticmethod
         def capture(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationCaptureParams"],
+            id: str, /, **params: Unpack["AuthorizationCaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -2388,10 +2371,8 @@ class Authorization(
                 "Authorization",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/capture".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2399,10 +2380,7 @@ class Authorization(
 
         @classmethod
         async def _cls_capture_async(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationCaptureParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationCaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -2411,8 +2389,8 @@ class Authorization(
                 "Authorization",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/capture".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2421,9 +2399,7 @@ class Authorization(
         @overload
         @staticmethod
         async def capture_async(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationCaptureParams"],
+            id: str, /, **params: Unpack["AuthorizationCaptureParams"]
         ) -> "Authorization":
             """
             Capture a test-mode authorization.
@@ -2450,10 +2426,8 @@ class Authorization(
                 "Authorization",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/capture".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2493,10 +2467,7 @@ class Authorization(
 
         @classmethod
         def _cls_expire(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationExpireParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -2505,8 +2476,8 @@ class Authorization(
                 "Authorization",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/expire".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2515,9 +2486,7 @@ class Authorization(
         @overload
         @staticmethod
         def expire(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationExpireParams"],
+            id: str, /, **params: Unpack["AuthorizationExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -2544,10 +2513,8 @@ class Authorization(
                 "Authorization",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/expire".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2555,10 +2522,7 @@ class Authorization(
 
         @classmethod
         async def _cls_expire_async(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationExpireParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -2567,8 +2531,8 @@ class Authorization(
                 "Authorization",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/expire".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2577,9 +2541,7 @@ class Authorization(
         @overload
         @staticmethod
         async def expire_async(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationExpireParams"],
+            id: str, /, **params: Unpack["AuthorizationExpireParams"]
         ) -> "Authorization":
             """
             Expire a test-mode Authorization.
@@ -2606,10 +2568,8 @@ class Authorization(
                 "Authorization",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/expire".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2618,7 +2578,7 @@ class Authorization(
         @classmethod
         def _cls_finalize_amount(
             cls,
-            authorization: str,
+            id: str,
             /,
             **params: Unpack["AuthorizationFinalizeAmountParams"],
         ) -> "Authorization":
@@ -2629,8 +2589,8 @@ class Authorization(
                 "Authorization",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/finalize_amount".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2639,9 +2599,7 @@ class Authorization(
         @overload
         @staticmethod
         def finalize_amount(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationFinalizeAmountParams"],
+            id: str, /, **params: Unpack["AuthorizationFinalizeAmountParams"]
         ) -> "Authorization":
             """
             Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
@@ -2668,10 +2626,8 @@ class Authorization(
                 "Authorization",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/finalize_amount".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2680,7 +2636,7 @@ class Authorization(
         @classmethod
         async def _cls_finalize_amount_async(
             cls,
-            authorization: str,
+            id: str,
             /,
             **params: Unpack["AuthorizationFinalizeAmountParams"],
         ) -> "Authorization":
@@ -2691,8 +2647,8 @@ class Authorization(
                 "Authorization",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/finalize_amount".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2701,9 +2657,7 @@ class Authorization(
         @overload
         @staticmethod
         async def finalize_amount_async(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationFinalizeAmountParams"],
+            id: str, /, **params: Unpack["AuthorizationFinalizeAmountParams"]
         ) -> "Authorization":
             """
             Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
@@ -2730,10 +2684,8 @@ class Authorization(
                 "Authorization",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/finalize_amount".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2741,10 +2693,7 @@ class Authorization(
 
         @classmethod
         def _cls_increment(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationIncrementParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationIncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -2753,8 +2702,8 @@ class Authorization(
                 "Authorization",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/increment".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2763,9 +2712,7 @@ class Authorization(
         @overload
         @staticmethod
         def increment(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationIncrementParams"],
+            id: str, /, **params: Unpack["AuthorizationIncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -2792,10 +2739,8 @@ class Authorization(
                 "Authorization",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/increment".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2803,10 +2748,7 @@ class Authorization(
 
         @classmethod
         async def _cls_increment_async(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationIncrementParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationIncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -2815,8 +2757,8 @@ class Authorization(
                 "Authorization",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/increment".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2825,9 +2767,7 @@ class Authorization(
         @overload
         @staticmethod
         async def increment_async(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationIncrementParams"],
+            id: str, /, **params: Unpack["AuthorizationIncrementParams"]
         ) -> "Authorization":
             """
             Increment a test-mode Authorization.
@@ -2854,10 +2794,8 @@ class Authorization(
                 "Authorization",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/increment".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2865,10 +2803,7 @@ class Authorization(
 
         @classmethod
         def _cls_respond(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationRespondParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationRespondParams"]
         ) -> "Authorization":
             """
             Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -2877,8 +2812,8 @@ class Authorization(
                 "Authorization",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/fraud_challenges/respond".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2887,9 +2822,7 @@ class Authorization(
         @overload
         @staticmethod
         def respond(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationRespondParams"],
+            id: str, /, **params: Unpack["AuthorizationRespondParams"]
         ) -> "Authorization":
             """
             Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -2916,10 +2849,8 @@ class Authorization(
                 "Authorization",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/fraud_challenges/respond".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2927,10 +2858,7 @@ class Authorization(
 
         @classmethod
         async def _cls_respond_async(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationRespondParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationRespondParams"]
         ) -> "Authorization":
             """
             Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -2939,8 +2867,8 @@ class Authorization(
                 "Authorization",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/fraud_challenges/respond".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2949,9 +2877,7 @@ class Authorization(
         @overload
         @staticmethod
         async def respond_async(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationRespondParams"],
+            id: str, /, **params: Unpack["AuthorizationRespondParams"]
         ) -> "Authorization":
             """
             Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -2978,10 +2904,8 @@ class Authorization(
                 "Authorization",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/fraud_challenges/respond".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2989,10 +2913,7 @@ class Authorization(
 
         @classmethod
         def _cls_reverse(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationReverseParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -3001,8 +2922,8 @@ class Authorization(
                 "Authorization",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/reverse".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -3011,9 +2932,7 @@ class Authorization(
         @overload
         @staticmethod
         def reverse(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationReverseParams"],
+            id: str, /, **params: Unpack["AuthorizationReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -3040,10 +2959,8 @@ class Authorization(
                 "Authorization",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/reverse".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -3051,10 +2968,7 @@ class Authorization(
 
         @classmethod
         async def _cls_reverse_async(
-            cls,
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationReverseParams"],
+            cls, id: str, /, **params: Unpack["AuthorizationReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -3063,8 +2977,8 @@ class Authorization(
                 "Authorization",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=sanitize_id(authorization)
+                    "/v1/test_helpers/issuing/authorizations/{id}/reverse".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -3073,9 +2987,7 @@ class Authorization(
         @overload
         @staticmethod
         async def reverse_async(
-            authorization: str,
-            /,
-            **params: Unpack["AuthorizationReverseParams"],
+            id: str, /, **params: Unpack["AuthorizationReverseParams"]
         ) -> "Authorization":
             """
             Reverse a test-mode Authorization.
@@ -3102,10 +3014,8 @@ class Authorization(
                 "Authorization",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                        authorization=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/authorizations/{id}/reverse".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

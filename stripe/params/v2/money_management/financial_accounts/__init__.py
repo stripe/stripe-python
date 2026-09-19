@@ -10,6 +10,13 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management.financial_accounts._statement_retrieve_params import (
         StatementRetrieveParams as StatementRetrieveParams,
     )
+    from stripe.params.v2.money_management.financial_accounts._wallet_export_export_credentials_params import (
+        WalletExportExportCredentialsParams as WalletExportExportCredentialsParams,
+        WalletExportExportCredentialsParamsEncryption as WalletExportExportCredentialsParamsEncryption,
+    )
+    from stripe.params.v2.money_management.financial_accounts._wallet_export_retrieve_params import (
+        WalletExportRetrieveParams as WalletExportRetrieveParams,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -19,6 +26,18 @@ _import_map = {
     ),
     "StatementRetrieveParams": (
         "stripe.params.v2.money_management.financial_accounts._statement_retrieve_params",
+        False,
+    ),
+    "WalletExportExportCredentialsParams": (
+        "stripe.params.v2.money_management.financial_accounts._wallet_export_export_credentials_params",
+        False,
+    ),
+    "WalletExportExportCredentialsParamsEncryption": (
+        "stripe.params.v2.money_management.financial_accounts._wallet_export_export_credentials_params",
+        False,
+    ),
+    "WalletExportRetrieveParams": (
+        "stripe.params.v2.money_management.financial_accounts._wallet_export_retrieve_params",
         False,
     ),
 }

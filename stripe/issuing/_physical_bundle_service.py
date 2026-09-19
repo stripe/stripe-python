@@ -58,7 +58,7 @@ class PhysicalBundleService(StripeService):
 
     def retrieve(
         self,
-        physical_bundle: str,
+        id: str,
         /,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,9 +70,7 @@ class PhysicalBundleService(StripeService):
             "PhysicalBundle",
             self._request(
                 "get",
-                "/v1/issuing/physical_bundles/{physical_bundle}".format(
-                    physical_bundle=sanitize_id(physical_bundle),
-                ),
+                "/v1/issuing/physical_bundles/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -81,7 +79,7 @@ class PhysicalBundleService(StripeService):
 
     async def retrieve_async(
         self,
-        physical_bundle: str,
+        id: str,
         /,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,9 +91,7 @@ class PhysicalBundleService(StripeService):
             "PhysicalBundle",
             await self._request_async(
                 "get",
-                "/v1/issuing/physical_bundles/{physical_bundle}".format(
-                    physical_bundle=sanitize_id(physical_bundle),
-                ),
+                "/v1/issuing/physical_bundles/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -58,7 +58,7 @@ class EarlyFraudWarningService(StripeService):
 
     def retrieve(
         self,
-        early_fraud_warning: str,
+        id: str,
         /,
         params: Optional["EarlyFraudWarningRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -72,8 +72,8 @@ class EarlyFraudWarningService(StripeService):
             "EarlyFraudWarning",
             self._request(
                 "get",
-                "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
-                    early_fraud_warning=sanitize_id(early_fraud_warning),
+                "/v1/radar/early_fraud_warnings/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -83,7 +83,7 @@ class EarlyFraudWarningService(StripeService):
 
     async def retrieve_async(
         self,
-        early_fraud_warning: str,
+        id: str,
         /,
         params: Optional["EarlyFraudWarningRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -97,8 +97,8 @@ class EarlyFraudWarningService(StripeService):
             "EarlyFraudWarning",
             await self._request_async(
                 "get",
-                "/v1/radar/early_fraud_warnings/{early_fraud_warning}".format(
-                    early_fraud_warning=sanitize_id(early_fraud_warning),
+                "/v1/radar/early_fraud_warnings/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

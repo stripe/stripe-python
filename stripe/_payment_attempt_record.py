@@ -749,6 +749,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
             """
+            stored_credential_usage: Optional[
+                Union[Literal["recurring", "unscheduled"], str]
+            ]
+            """
+            The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
+            """
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
@@ -2599,7 +2605,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_authenticated(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2610,8 +2616,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_authenticated".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2620,7 +2626,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_authenticated(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2649,8 +2655,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_authenticated".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2659,7 +2665,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_authenticated_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2670,8 +2676,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_authenticated".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2680,7 +2686,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_authenticated_async(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2709,8 +2715,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_authenticated".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2719,7 +2725,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_authorized(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthorizedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2730,8 +2736,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_authorized".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2740,7 +2746,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_authorized(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthorizedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2769,8 +2775,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_authorized".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2779,7 +2785,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_authorized_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthorizedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2790,8 +2796,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_authorized".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2800,7 +2806,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_authorized_async(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportAuthorizedParams"],
     ) -> "PaymentAttemptRecord":
@@ -2829,8 +2835,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_authorized".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2839,7 +2845,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_canceled(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
     ) -> "PaymentAttemptRecord":
@@ -2850,8 +2856,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_canceled".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2860,7 +2866,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_canceled(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
     ) -> "PaymentAttemptRecord":
@@ -2889,8 +2895,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_canceled".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2899,7 +2905,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_canceled_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
     ) -> "PaymentAttemptRecord":
@@ -2910,8 +2916,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_canceled".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2920,7 +2926,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_canceled_async(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
     ) -> "PaymentAttemptRecord":
@@ -2949,8 +2955,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_canceled".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2959,7 +2965,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_early_fraud_warning(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
     ) -> "PaymentAttemptRecord":
@@ -2970,8 +2976,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_early_fraud_warning".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -2980,7 +2986,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_early_fraud_warning(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
     ) -> "PaymentAttemptRecord":
@@ -3011,8 +3017,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_early_fraud_warning".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3021,7 +3027,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_early_fraud_warning_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
     ) -> "PaymentAttemptRecord":
@@ -3032,8 +3038,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_early_fraud_warning".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3042,7 +3048,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_early_fraud_warning_async(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
     ) -> "PaymentAttemptRecord":
@@ -3073,8 +3079,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_early_fraud_warning".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3083,7 +3089,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_failed(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportFailedParams"],
     ) -> "PaymentAttemptRecord":
@@ -3094,8 +3100,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_failed".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3104,9 +3110,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_failed(
-        payment_attempt_record: str,
-        /,
-        **params: Unpack["PaymentAttemptRecordReportFailedParams"],
+        id: str, /, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
     ) -> "PaymentAttemptRecord":
         """
         Report that the specified Payment Attempt Record failed.
@@ -3133,8 +3137,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_failed".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3143,7 +3147,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_failed_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportFailedParams"],
     ) -> "PaymentAttemptRecord":
@@ -3154,8 +3158,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_failed".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3164,9 +3168,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_failed_async(
-        payment_attempt_record: str,
-        /,
-        **params: Unpack["PaymentAttemptRecordReportFailedParams"],
+        id: str, /, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
     ) -> "PaymentAttemptRecord":
         """
         Report that the specified Payment Attempt Record failed.
@@ -3193,8 +3195,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_failed".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3203,7 +3205,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_guaranteed(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
     ) -> "PaymentAttemptRecord":
@@ -3214,8 +3216,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_guaranteed".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3224,7 +3226,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_guaranteed(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
     ) -> "PaymentAttemptRecord":
@@ -3253,8 +3255,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_guaranteed".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3263,7 +3265,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_guaranteed_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
     ) -> "PaymentAttemptRecord":
@@ -3274,8 +3276,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_guaranteed".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3284,7 +3286,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_guaranteed_async(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
     ) -> "PaymentAttemptRecord":
@@ -3313,8 +3315,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_guaranteed".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3323,7 +3325,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_informational(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
     ) -> "PaymentAttemptRecord":
@@ -3334,8 +3336,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_informational".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3344,7 +3346,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_informational(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
     ) -> "PaymentAttemptRecord":
@@ -3373,8 +3375,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_informational".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3383,7 +3385,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_informational_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
     ) -> "PaymentAttemptRecord":
@@ -3394,8 +3396,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_informational".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3404,7 +3406,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_informational_async(
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
     ) -> "PaymentAttemptRecord":
@@ -3433,8 +3435,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_informational".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3443,7 +3445,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     def _cls_report_refund(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportRefundParams"],
     ) -> "PaymentAttemptRecord":
@@ -3454,8 +3456,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             cls._static_request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_refund".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3464,9 +3466,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     def report_refund(
-        payment_attempt_record: str,
-        /,
-        **params: Unpack["PaymentAttemptRecordReportRefundParams"],
+        id: str, /, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
     ) -> "PaymentAttemptRecord":
         """
         Report that the specified Payment Attempt Record was refunded.
@@ -3493,8 +3493,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_refund".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3503,7 +3503,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @classmethod
     async def _cls_report_refund_async(
         cls,
-        payment_attempt_record: str,
+        id: str,
         /,
         **params: Unpack["PaymentAttemptRecordReportRefundParams"],
     ) -> "PaymentAttemptRecord":
@@ -3514,8 +3514,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                "/v1/payment_attempt_records/{id}/report_refund".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -3524,9 +3524,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     @overload
     @staticmethod
     async def report_refund_async(
-        payment_attempt_record: str,
-        /,
-        **params: Unpack["PaymentAttemptRecordReportRefundParams"],
+        id: str, /, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
     ) -> "PaymentAttemptRecord":
         """
         Report that the specified Payment Attempt Record was refunded.
@@ -3553,8 +3551,8 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
-                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                "/v1/payment_attempt_records/{id}/report_refund".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

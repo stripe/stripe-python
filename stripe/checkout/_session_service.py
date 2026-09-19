@@ -138,7 +138,7 @@ class SessionService(StripeService):
 
     def retrieve(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -150,9 +150,7 @@ class SessionService(StripeService):
             "Session",
             self._request(
                 "get",
-                "/v1/checkout/sessions/{session}".format(
-                    session=sanitize_id(session),
-                ),
+                "/v1/checkout/sessions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -161,7 +159,7 @@ class SessionService(StripeService):
 
     async def retrieve_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -173,9 +171,7 @@ class SessionService(StripeService):
             "Session",
             await self._request_async(
                 "get",
-                "/v1/checkout/sessions/{session}".format(
-                    session=sanitize_id(session),
-                ),
+                "/v1/checkout/sessions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -184,7 +180,7 @@ class SessionService(StripeService):
 
     def update(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -198,9 +194,7 @@ class SessionService(StripeService):
             "Session",
             self._request(
                 "post",
-                "/v1/checkout/sessions/{session}".format(
-                    session=sanitize_id(session),
-                ),
+                "/v1/checkout/sessions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -209,7 +203,7 @@ class SessionService(StripeService):
 
     async def update_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -223,9 +217,7 @@ class SessionService(StripeService):
             "Session",
             await self._request_async(
                 "post",
-                "/v1/checkout/sessions/{session}".format(
-                    session=sanitize_id(session),
-                ),
+                "/v1/checkout/sessions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -234,7 +226,7 @@ class SessionService(StripeService):
 
     def approve(
         self,
-        session: str,
+        id: str,
         /,
         params: "SessionApproveParams",
         options: Optional["RequestOptions"] = None,
@@ -246,8 +238,8 @@ class SessionService(StripeService):
             "Session",
             self._request(
                 "post",
-                "/v1/checkout/sessions/{session}/approve".format(
-                    session=sanitize_id(session),
+                "/v1/checkout/sessions/{id}/approve".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,
@@ -257,7 +249,7 @@ class SessionService(StripeService):
 
     async def approve_async(
         self,
-        session: str,
+        id: str,
         /,
         params: "SessionApproveParams",
         options: Optional["RequestOptions"] = None,
@@ -269,8 +261,8 @@ class SessionService(StripeService):
             "Session",
             await self._request_async(
                 "post",
-                "/v1/checkout/sessions/{session}/approve".format(
-                    session=sanitize_id(session),
+                "/v1/checkout/sessions/{id}/approve".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,
@@ -280,7 +272,7 @@ class SessionService(StripeService):
 
     def expire(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -294,9 +286,7 @@ class SessionService(StripeService):
             "Session",
             self._request(
                 "post",
-                "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(session),
-                ),
+                "/v1/checkout/sessions/{id}/expire".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -305,7 +295,7 @@ class SessionService(StripeService):
 
     async def expire_async(
         self,
-        session: str,
+        id: str,
         /,
         params: Optional["SessionExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -319,9 +309,7 @@ class SessionService(StripeService):
             "Session",
             await self._request_async(
                 "post",
-                "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(session),
-                ),
+                "/v1/checkout/sessions/{id}/expire".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

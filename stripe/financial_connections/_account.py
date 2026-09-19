@@ -82,7 +82,7 @@ class Account(ListableAPIResource["Account"]):
         """
         The type of account number associated with the account.
         """
-        status: Union[Literal["deactivated", "transactable"], str]
+        status: Union[Literal["deactivated", "expired", "transactable"], str]
         """
         Whether the account number is currently active and usable for transactions.
         """
@@ -397,7 +397,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_disconnect(
-        cls, account: str, /, **params: Unpack["AccountDisconnectParams"]
+        cls, id: str, /, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -406,8 +406,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             cls._static_request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/disconnect".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -416,7 +416,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def disconnect(
-        account: str, /, **params: Unpack["AccountDisconnectParams"]
+        id: str, /, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -443,8 +443,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/disconnect".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -452,7 +452,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_disconnect_async(
-        cls, account: str, /, **params: Unpack["AccountDisconnectParams"]
+        cls, id: str, /, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -461,8 +461,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await cls._static_request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/disconnect".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -471,7 +471,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def disconnect_async(
-        account: str, /, **params: Unpack["AccountDisconnectParams"]
+        id: str, /, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -498,8 +498,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/disconnect".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -547,7 +547,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_list_owners(
-        cls, account: str, /, **params: Unpack["AccountListOwnersParams"]
+        cls, id: str, /, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -556,8 +556,8 @@ class Account(ListableAPIResource["Account"]):
             ListObject["AccountOwner"],
             cls._static_request(
                 "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/owners".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -566,7 +566,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def list_owners(
-        account: str, /, **params: Unpack["AccountListOwnersParams"]
+        id: str, /, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -593,8 +593,8 @@ class Account(ListableAPIResource["Account"]):
             ListObject["AccountOwner"],
             self._request(
                 "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/owners".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -602,7 +602,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_list_owners_async(
-        cls, account: str, /, **params: Unpack["AccountListOwnersParams"]
+        cls, id: str, /, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -611,8 +611,8 @@ class Account(ListableAPIResource["Account"]):
             ListObject["AccountOwner"],
             await cls._static_request_async(
                 "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/owners".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -621,7 +621,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def list_owners_async(
-        account: str, /, **params: Unpack["AccountListOwnersParams"]
+        id: str, /, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -648,8 +648,8 @@ class Account(ListableAPIResource["Account"]):
             ListObject["AccountOwner"],
             await self._request_async(
                 "get",
-                "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/owners".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -657,7 +657,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_refresh_account(
-        cls, account: str, /, **params: Unpack["AccountRefreshAccountParams"]
+        cls, id: str, /, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -666,8 +666,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             cls._static_request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/refresh".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -676,7 +676,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def refresh_account(
-        account: str, /, **params: Unpack["AccountRefreshAccountParams"]
+        id: str, /, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -703,8 +703,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/refresh".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -712,7 +712,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_refresh_account_async(
-        cls, account: str, /, **params: Unpack["AccountRefreshAccountParams"]
+        cls, id: str, /, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -721,8 +721,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await cls._static_request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/refresh".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -731,7 +731,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def refresh_account_async(
-        account: str, /, **params: Unpack["AccountRefreshAccountParams"]
+        id: str, /, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -758,8 +758,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/refresh".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -789,7 +789,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_subscribe(
-        cls, account: str, /, **params: Unpack["AccountSubscribeParams"]
+        cls, id: str, /, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
@@ -798,8 +798,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             cls._static_request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/subscribe".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -808,7 +808,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def subscribe(
-        account: str, /, **params: Unpack["AccountSubscribeParams"]
+        id: str, /, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
@@ -835,8 +835,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/subscribe".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -844,7 +844,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_subscribe_async(
-        cls, account: str, /, **params: Unpack["AccountSubscribeParams"]
+        cls, id: str, /, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
@@ -853,8 +853,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await cls._static_request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/subscribe".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -863,7 +863,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def subscribe_async(
-        account: str, /, **params: Unpack["AccountSubscribeParams"]
+        id: str, /, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
@@ -890,8 +890,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/subscribe".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -899,7 +899,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_unsubscribe(
-        cls, account: str, /, **params: Unpack["AccountUnsubscribeParams"]
+        cls, id: str, /, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -908,8 +908,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             cls._static_request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/unsubscribe".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -918,7 +918,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def unsubscribe(
-        account: str, /, **params: Unpack["AccountUnsubscribeParams"]
+        id: str, /, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -945,8 +945,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             self._request(
                 "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/unsubscribe".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -954,7 +954,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_unsubscribe_async(
-        cls, account: str, /, **params: Unpack["AccountUnsubscribeParams"]
+        cls, id: str, /, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -963,8 +963,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await cls._static_request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/unsubscribe".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -973,7 +973,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def unsubscribe_async(
-        account: str, /, **params: Unpack["AccountUnsubscribeParams"]
+        id: str, /, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -1000,8 +1000,8 @@ class Account(ListableAPIResource["Account"]):
             "Account",
             await self._request_async(
                 "post",
-                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(self._data.get("id"))
+                "/v1/financial_connections/accounts/{id}/unsubscribe".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1009,10 +1009,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def list_inferred_balances(
-        cls,
-        account: str,
-        /,
-        **params: Unpack["AccountListInferredBalancesParams"],
+        cls, id: str, /, **params: Unpack["AccountListInferredBalancesParams"]
     ) -> ListObject["AccountInferredBalance"]:
         """
         Lists the recorded inferred balances for a Financial Connections Account.
@@ -1021,8 +1018,8 @@ class Account(ListableAPIResource["Account"]):
             ListObject["AccountInferredBalance"],
             cls._static_request(
                 "get",
-                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/inferred_balances".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1030,10 +1027,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def list_inferred_balances_async(
-        cls,
-        account: str,
-        /,
-        **params: Unpack["AccountListInferredBalancesParams"],
+        cls, id: str, /, **params: Unpack["AccountListInferredBalancesParams"]
     ) -> ListObject["AccountInferredBalance"]:
         """
         Lists the recorded inferred balances for a Financial Connections Account.
@@ -1042,8 +1036,8 @@ class Account(ListableAPIResource["Account"]):
             ListObject["AccountInferredBalance"],
             await cls._static_request_async(
                 "get",
-                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
-                    account=sanitize_id(account)
+                "/v1/financial_connections/accounts/{id}/inferred_balances".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),

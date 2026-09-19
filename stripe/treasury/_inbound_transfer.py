@@ -41,7 +41,7 @@ class InboundTransfer(
     ListableAPIResource["InboundTransfer"],
 ):
     """
-    Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+    Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
 
     Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     """
@@ -201,7 +201,7 @@ class InboundTransfer(
     """
     failure_details: Optional[FailureDetails]
     """
-    Details about this InboundTransfer's failure. Only set when status is `failed`.
+    Details about this InboundTransfer's failure. Will be set when `status=failed` or `returned=true`.
     """
     financial_account: str
     """
@@ -258,10 +258,7 @@ class InboundTransfer(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        inbound_transfer: str,
-        /,
-        **params: Unpack["InboundTransferCancelParams"],
+        cls, id: str, /, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -270,8 +267,8 @@ class InboundTransfer(
             "InboundTransfer",
             cls._static_request(
                 "post",
-                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(inbound_transfer)
+                "/v1/treasury/inbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -280,9 +277,7 @@ class InboundTransfer(
     @overload
     @staticmethod
     def cancel(
-        inbound_transfer: str,
-        /,
-        **params: Unpack["InboundTransferCancelParams"],
+        id: str, /, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -309,8 +304,8 @@ class InboundTransfer(
             "InboundTransfer",
             self._request(
                 "post",
-                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(self._data.get("id"))
+                "/v1/treasury/inbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -318,10 +313,7 @@ class InboundTransfer(
 
     @classmethod
     async def _cls_cancel_async(
-        cls,
-        inbound_transfer: str,
-        /,
-        **params: Unpack["InboundTransferCancelParams"],
+        cls, id: str, /, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -330,8 +322,8 @@ class InboundTransfer(
             "InboundTransfer",
             await cls._static_request_async(
                 "post",
-                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(inbound_transfer)
+                "/v1/treasury/inbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -340,9 +332,7 @@ class InboundTransfer(
     @overload
     @staticmethod
     async def cancel_async(
-        inbound_transfer: str,
-        /,
-        **params: Unpack["InboundTransferCancelParams"],
+        id: str, /, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -369,8 +359,8 @@ class InboundTransfer(
             "InboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(self._data.get("id"))
+                "/v1/treasury/inbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

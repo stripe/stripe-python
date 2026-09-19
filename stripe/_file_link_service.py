@@ -94,7 +94,7 @@ class FileLinkService(StripeService):
 
     def retrieve(
         self,
-        link: str,
+        id: str,
         /,
         params: Optional["FileLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -106,7 +106,7 @@ class FileLinkService(StripeService):
             "FileLink",
             self._request(
                 "get",
-                "/v1/file_links/{link}".format(link=sanitize_id(link)),
+                "/v1/file_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -115,7 +115,7 @@ class FileLinkService(StripeService):
 
     async def retrieve_async(
         self,
-        link: str,
+        id: str,
         /,
         params: Optional["FileLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -127,7 +127,7 @@ class FileLinkService(StripeService):
             "FileLink",
             await self._request_async(
                 "get",
-                "/v1/file_links/{link}".format(link=sanitize_id(link)),
+                "/v1/file_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -136,7 +136,7 @@ class FileLinkService(StripeService):
 
     def update(
         self,
-        link: str,
+        id: str,
         /,
         params: Optional["FileLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -148,7 +148,7 @@ class FileLinkService(StripeService):
             "FileLink",
             self._request(
                 "post",
-                "/v1/file_links/{link}".format(link=sanitize_id(link)),
+                "/v1/file_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -157,7 +157,7 @@ class FileLinkService(StripeService):
 
     async def update_async(
         self,
-        link: str,
+        id: str,
         /,
         params: Optional["FileLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -169,7 +169,7 @@ class FileLinkService(StripeService):
             "FileLink",
             await self._request_async(
                 "post",
-                "/v1/file_links/{link}".format(link=sanitize_id(link)),
+                "/v1/file_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

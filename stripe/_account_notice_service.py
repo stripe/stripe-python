@@ -61,7 +61,7 @@ class AccountNoticeService(StripeService):
 
     def retrieve(
         self,
-        account_notice: str,
+        id: str,
         /,
         params: Optional["AccountNoticeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -73,9 +73,7 @@ class AccountNoticeService(StripeService):
             "AccountNotice",
             self._request(
                 "get",
-                "/v1/account_notices/{account_notice}".format(
-                    account_notice=sanitize_id(account_notice),
-                ),
+                "/v1/account_notices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -84,7 +82,7 @@ class AccountNoticeService(StripeService):
 
     async def retrieve_async(
         self,
-        account_notice: str,
+        id: str,
         /,
         params: Optional["AccountNoticeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -96,9 +94,7 @@ class AccountNoticeService(StripeService):
             "AccountNotice",
             await self._request_async(
                 "get",
-                "/v1/account_notices/{account_notice}".format(
-                    account_notice=sanitize_id(account_notice),
-                ),
+                "/v1/account_notices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -107,7 +103,7 @@ class AccountNoticeService(StripeService):
 
     def update(
         self,
-        account_notice: str,
+        id: str,
         /,
         params: "AccountNoticeUpdateParams",
         options: Optional["RequestOptions"] = None,
@@ -119,9 +115,7 @@ class AccountNoticeService(StripeService):
             "AccountNotice",
             self._request(
                 "post",
-                "/v1/account_notices/{account_notice}".format(
-                    account_notice=sanitize_id(account_notice),
-                ),
+                "/v1/account_notices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -130,7 +124,7 @@ class AccountNoticeService(StripeService):
 
     async def update_async(
         self,
-        account_notice: str,
+        id: str,
         /,
         params: "AccountNoticeUpdateParams",
         options: Optional["RequestOptions"] = None,
@@ -142,9 +136,7 @@ class AccountNoticeService(StripeService):
             "AccountNotice",
             await self._request_async(
                 "post",
-                "/v1/account_notices/{account_notice}".format(
-                    account_notice=sanitize_id(account_notice),
-                ),
+                "/v1/account_notices/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

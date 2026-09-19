@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class ReaderService(StripeService):
     def present_payment_method(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderPresentPaymentMethodParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -34,8 +34,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                    reader=sanitize_id(reader),
+                "/v1/test_helpers/terminal/readers/{id}/present_payment_method".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -45,7 +45,7 @@ class ReaderService(StripeService):
 
     async def present_payment_method_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderPresentPaymentMethodParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -57,8 +57,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                    reader=sanitize_id(reader),
+                "/v1/test_helpers/terminal/readers/{id}/present_payment_method".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -68,7 +68,7 @@ class ReaderService(StripeService):
 
     def succeed_input_collection(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderSucceedInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -80,8 +80,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                    reader=sanitize_id(reader),
+                "/v1/test_helpers/terminal/readers/{id}/succeed_input_collection".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -91,7 +91,7 @@ class ReaderService(StripeService):
 
     async def succeed_input_collection_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderSucceedInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -103,8 +103,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                    reader=sanitize_id(reader),
+                "/v1/test_helpers/terminal/readers/{id}/succeed_input_collection".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -114,7 +114,7 @@ class ReaderService(StripeService):
 
     def timeout_input_collection(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderTimeoutInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -126,8 +126,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                    reader=sanitize_id(reader),
+                "/v1/test_helpers/terminal/readers/{id}/timeout_input_collection".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -137,7 +137,7 @@ class ReaderService(StripeService):
 
     async def timeout_input_collection_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderTimeoutInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -149,8 +149,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                    reader=sanitize_id(reader),
+                "/v1/test_helpers/terminal/readers/{id}/timeout_input_collection".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

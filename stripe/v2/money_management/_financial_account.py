@@ -195,6 +195,10 @@ class FinancialAccount(StripeObject):
                 """
                 The address to send forwarded payouts to.
                 """
+                skip_exportable_balances: Optional[bool]
+                """
+                Whether to skip forwarding exportable self-custodied wallet balances. Defaults to false. This does not skip non-exportable or fiat balances, inbound-pending checks, or negative-balance requirements.
+                """
 
             forwarding_settings: Optional[ForwardingSettings]
             """
@@ -213,6 +217,22 @@ class FinancialAccount(StripeObject):
         _inner_class_types = {"closed": Closed}
 
     class Storage(StripeObject):
+        class Crypto(StripeObject):
+            currency_networks: UntypedStripeObject[
+                Union[Literal["tempo"], str]
+            ]
+            """
+            The blockchain network configured for each crypto currency. Keys are lowercase currency codes and must identify crypto currencies also present in `holds_currencies`.
+            """
+            custody_model: Literal["self", "stripe"]
+            """
+            Describes who controls the private keys for the crypto storage.
+            """
+
+        crypto: Optional[Crypto]
+        """
+        Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+        """
         funds_usage_type: Optional[Union[Literal["business", "consumer"], str]]
         """
         The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
@@ -221,6 +241,7 @@ class FinancialAccount(StripeObject):
         """
         The currencies that this FinancialAccount can hold.
         """
+        _inner_class_types = {"crypto": Crypto}
 
     accrued_fees: Optional[AccruedFees]
     """

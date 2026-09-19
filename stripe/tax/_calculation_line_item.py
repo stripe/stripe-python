@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class CalculationLineItem(StripeObject):
+    """
+    A Tax Calculation Line Item represents a single item in a tax calculation.
+    """
+
     OBJECT_NAME: ClassVar[Literal["tax.calculation_line_item"]] = (
         "tax.calculation_line_item"
     )

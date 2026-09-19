@@ -132,7 +132,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             Date at which the mandate expires.
             """
-            type: Union[Literal["off_session", "on_session"], str]
+            type: Literal["off_session"]
             """
             Type of the mandate.
             """

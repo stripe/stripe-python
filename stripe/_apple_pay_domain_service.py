@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 class ApplePayDomainService(StripeService):
     def delete(
         self,
-        domain: str,
+        id: str,
         /,
         params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -38,9 +38,7 @@ class ApplePayDomainService(StripeService):
             "ApplePayDomain",
             self._request(
                 "delete",
-                "/v1/apple_pay/domains/{domain}".format(
-                    domain=sanitize_id(domain),
-                ),
+                "/v1/apple_pay/domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -49,7 +47,7 @@ class ApplePayDomainService(StripeService):
 
     async def delete_async(
         self,
-        domain: str,
+        id: str,
         /,
         params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -61,9 +59,7 @@ class ApplePayDomainService(StripeService):
             "ApplePayDomain",
             await self._request_async(
                 "delete",
-                "/v1/apple_pay/domains/{domain}".format(
-                    domain=sanitize_id(domain),
-                ),
+                "/v1/apple_pay/domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -72,7 +68,7 @@ class ApplePayDomainService(StripeService):
 
     def retrieve(
         self,
-        domain: str,
+        id: str,
         /,
         params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -84,9 +80,7 @@ class ApplePayDomainService(StripeService):
             "ApplePayDomain",
             self._request(
                 "get",
-                "/v1/apple_pay/domains/{domain}".format(
-                    domain=sanitize_id(domain),
-                ),
+                "/v1/apple_pay/domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -95,7 +89,7 @@ class ApplePayDomainService(StripeService):
 
     async def retrieve_async(
         self,
-        domain: str,
+        id: str,
         /,
         params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -107,9 +101,7 @@ class ApplePayDomainService(StripeService):
             "ApplePayDomain",
             await self._request_async(
                 "get",
-                "/v1/apple_pay/domains/{domain}".format(
-                    domain=sanitize_id(domain),
-                ),
+                "/v1/apple_pay/domains/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

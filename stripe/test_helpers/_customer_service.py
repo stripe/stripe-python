@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 class CustomerService(StripeService):
     def fund_cash_balance(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerFundCashBalanceParams",
         options: Optional["RequestOptions"] = None,
@@ -30,8 +30,8 @@ class CustomerService(StripeService):
             "CustomerCashBalanceTransaction",
             self._request(
                 "post",
-                "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                    customer=sanitize_id(customer),
+                "/v1/test_helpers/customers/{id}/fund_cash_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -41,7 +41,7 @@ class CustomerService(StripeService):
 
     async def fund_cash_balance_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerFundCashBalanceParams",
         options: Optional["RequestOptions"] = None,
@@ -53,8 +53,8 @@ class CustomerService(StripeService):
             "CustomerCashBalanceTransaction",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                    customer=sanitize_id(customer),
+                "/v1/test_helpers/customers/{id}/fund_cash_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

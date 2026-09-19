@@ -51,7 +51,7 @@ class CalculationService(StripeService):
 
     def retrieve(
         self,
-        calculation: str,
+        id: str,
         /,
         params: Optional["CalculationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -63,9 +63,7 @@ class CalculationService(StripeService):
             "Calculation",
             self._request(
                 "get",
-                "/v1/tax/calculations/{calculation}".format(
-                    calculation=sanitize_id(calculation),
-                ),
+                "/v1/tax/calculations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -74,7 +72,7 @@ class CalculationService(StripeService):
 
     async def retrieve_async(
         self,
-        calculation: str,
+        id: str,
         /,
         params: Optional["CalculationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -86,9 +84,7 @@ class CalculationService(StripeService):
             "Calculation",
             await self._request_async(
                 "get",
-                "/v1/tax/calculations/{calculation}".format(
-                    calculation=sanitize_id(calculation),
-                ),
+                "/v1/tax/calculations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

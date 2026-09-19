@@ -366,10 +366,7 @@ class VerificationSession(
 
     @classmethod
     def _cls_cancel(
-        cls,
-        session: str,
-        /,
-        **params: Unpack["VerificationSessionCancelParams"],
+        cls, id: str, /, **params: Unpack["VerificationSessionCancelParams"]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -380,8 +377,8 @@ class VerificationSession(
             "VerificationSession",
             cls._static_request(
                 "post",
-                "/v1/identity/verification_sessions/{session}/cancel".format(
-                    session=sanitize_id(session)
+                "/v1/identity/verification_sessions/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -390,7 +387,7 @@ class VerificationSession(
     @overload
     @staticmethod
     def cancel(
-        session: str, /, **params: Unpack["VerificationSessionCancelParams"]
+        id: str, /, **params: Unpack["VerificationSessionCancelParams"]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -423,8 +420,8 @@ class VerificationSession(
             "VerificationSession",
             self._request(
                 "post",
-                "/v1/identity/verification_sessions/{session}/cancel".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/identity/verification_sessions/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -432,10 +429,7 @@ class VerificationSession(
 
     @classmethod
     async def _cls_cancel_async(
-        cls,
-        session: str,
-        /,
-        **params: Unpack["VerificationSessionCancelParams"],
+        cls, id: str, /, **params: Unpack["VerificationSessionCancelParams"]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -446,8 +440,8 @@ class VerificationSession(
             "VerificationSession",
             await cls._static_request_async(
                 "post",
-                "/v1/identity/verification_sessions/{session}/cancel".format(
-                    session=sanitize_id(session)
+                "/v1/identity/verification_sessions/{id}/cancel".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -456,7 +450,7 @@ class VerificationSession(
     @overload
     @staticmethod
     async def cancel_async(
-        session: str, /, **params: Unpack["VerificationSessionCancelParams"]
+        id: str, /, **params: Unpack["VerificationSessionCancelParams"]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -489,8 +483,8 @@ class VerificationSession(
             "VerificationSession",
             await self._request_async(
                 "post",
-                "/v1/identity/verification_sessions/{session}/cancel".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/identity/verification_sessions/{id}/cancel".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -622,10 +616,7 @@ class VerificationSession(
 
     @classmethod
     def _cls_redact(
-        cls,
-        session: str,
-        /,
-        **params: Unpack["VerificationSessionRedactParams"],
+        cls, id: str, /, **params: Unpack["VerificationSessionRedactParams"]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -652,8 +643,8 @@ class VerificationSession(
             "VerificationSession",
             cls._static_request(
                 "post",
-                "/v1/identity/verification_sessions/{session}/redact".format(
-                    session=sanitize_id(session)
+                "/v1/identity/verification_sessions/{id}/redact".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -662,7 +653,7 @@ class VerificationSession(
     @overload
     @staticmethod
     def redact(
-        session: str, /, **params: Unpack["VerificationSessionRedactParams"]
+        id: str, /, **params: Unpack["VerificationSessionRedactParams"]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -743,8 +734,8 @@ class VerificationSession(
             "VerificationSession",
             self._request(
                 "post",
-                "/v1/identity/verification_sessions/{session}/redact".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/identity/verification_sessions/{id}/redact".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -752,10 +743,7 @@ class VerificationSession(
 
     @classmethod
     async def _cls_redact_async(
-        cls,
-        session: str,
-        /,
-        **params: Unpack["VerificationSessionRedactParams"],
+        cls, id: str, /, **params: Unpack["VerificationSessionRedactParams"]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -782,8 +770,8 @@ class VerificationSession(
             "VerificationSession",
             await cls._static_request_async(
                 "post",
-                "/v1/identity/verification_sessions/{session}/redact".format(
-                    session=sanitize_id(session)
+                "/v1/identity/verification_sessions/{id}/redact".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -792,7 +780,7 @@ class VerificationSession(
     @overload
     @staticmethod
     async def redact_async(
-        session: str, /, **params: Unpack["VerificationSessionRedactParams"]
+        id: str, /, **params: Unpack["VerificationSessionRedactParams"]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -873,8 +861,8 @@ class VerificationSession(
             "VerificationSession",
             await self._request_async(
                 "post",
-                "/v1/identity/verification_sessions/{session}/redact".format(
-                    session=sanitize_id(self._data.get("id"))
+                "/v1/identity/verification_sessions/{id}/redact".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

@@ -62,7 +62,12 @@ class AccountLinkCreateParamsUseCaseAccountOnboarding(TypedDict):
     configurations: List[
         Union[
             Literal[
-                "customer", "merchant", "money_manager", "recipient", "storer"
+                "customer",
+                "developer",
+                "merchant",
+                "money_manager",
+                "recipient",
+                "storer",
             ],
             str,
         ]
@@ -103,7 +108,12 @@ class AccountLinkCreateParamsUseCaseAccountUpdate(TypedDict):
     configurations: List[
         Union[
             Literal[
-                "customer", "merchant", "money_manager", "recipient", "storer"
+                "customer",
+                "developer",
+                "merchant",
+                "money_manager",
+                "recipient",
+                "storer",
             ],
             str,
         ]

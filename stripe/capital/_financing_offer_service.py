@@ -61,7 +61,7 @@ class FinancingOfferService(StripeService):
 
     def retrieve(
         self,
-        financing_offer: str,
+        id: str,
         /,
         params: Optional["FinancingOfferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -73,9 +73,7 @@ class FinancingOfferService(StripeService):
             "FinancingOffer",
             self._request(
                 "get",
-                "/v1/capital/financing_offers/{financing_offer}".format(
-                    financing_offer=sanitize_id(financing_offer),
-                ),
+                "/v1/capital/financing_offers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -84,7 +82,7 @@ class FinancingOfferService(StripeService):
 
     async def retrieve_async(
         self,
-        financing_offer: str,
+        id: str,
         /,
         params: Optional["FinancingOfferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -96,9 +94,7 @@ class FinancingOfferService(StripeService):
             "FinancingOffer",
             await self._request_async(
                 "get",
-                "/v1/capital/financing_offers/{financing_offer}".format(
-                    financing_offer=sanitize_id(financing_offer),
-                ),
+                "/v1/capital/financing_offers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -107,7 +103,7 @@ class FinancingOfferService(StripeService):
 
     def mark_delivered(
         self,
-        financing_offer: str,
+        id: str,
         /,
         params: Optional["FinancingOfferMarkDeliveredParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -120,8 +116,8 @@ class FinancingOfferService(StripeService):
             "FinancingOffer",
             self._request(
                 "post",
-                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                    financing_offer=sanitize_id(financing_offer),
+                "/v1/capital/financing_offers/{id}/mark_delivered".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -131,7 +127,7 @@ class FinancingOfferService(StripeService):
 
     async def mark_delivered_async(
         self,
-        financing_offer: str,
+        id: str,
         /,
         params: Optional["FinancingOfferMarkDeliveredParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -144,8 +140,8 @@ class FinancingOfferService(StripeService):
             "FinancingOffer",
             await self._request_async(
                 "post",
-                "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                    financing_offer=sanitize_id(financing_offer),
+                "/v1/capital/financing_offers/{id}/mark_delivered".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

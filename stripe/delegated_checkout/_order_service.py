@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class OrderService(StripeService):
     def retrieve(
         self,
-        order_id: str,
+        id: str,
         /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,8 +28,8 @@ class OrderService(StripeService):
             "Order",
             self._request(
                 "get",
-                "/v1/delegated_checkout/orders/{order_id}".format(
-                    order_id=sanitize_id(order_id),
+                "/v1/delegated_checkout/orders/{id}".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,
@@ -39,7 +39,7 @@ class OrderService(StripeService):
 
     async def retrieve_async(
         self,
-        order_id: str,
+        id: str,
         /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,8 +51,8 @@ class OrderService(StripeService):
             "Order",
             await self._request_async(
                 "get",
-                "/v1/delegated_checkout/orders/{order_id}".format(
-                    order_id=sanitize_id(order_id),
+                "/v1/delegated_checkout/orders/{id}".format(
+                    id=sanitize_id(id)
                 ),
                 base_address="api",
                 params=params,

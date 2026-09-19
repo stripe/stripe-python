@@ -58,7 +58,7 @@ class FraudLiabilityDebitService(StripeService):
 
     def retrieve(
         self,
-        fraud_liability_debit: str,
+        id: str,
         /,
         params: Optional["FraudLiabilityDebitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -70,8 +70,8 @@ class FraudLiabilityDebitService(StripeService):
             "FraudLiabilityDebit",
             self._request(
                 "get",
-                "/v1/issuing/fraud_liability_debits/{fraud_liability_debit}".format(
-                    fraud_liability_debit=sanitize_id(fraud_liability_debit),
+                "/v1/issuing/fraud_liability_debits/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -81,7 +81,7 @@ class FraudLiabilityDebitService(StripeService):
 
     async def retrieve_async(
         self,
-        fraud_liability_debit: str,
+        id: str,
         /,
         params: Optional["FraudLiabilityDebitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -93,8 +93,8 @@ class FraudLiabilityDebitService(StripeService):
             "FraudLiabilityDebit",
             await self._request_async(
                 "get",
-                "/v1/issuing/fraud_liability_debits/{fraud_liability_debit}".format(
-                    fraud_liability_debit=sanitize_id(fraud_liability_debit),
+                "/v1/issuing/fraud_liability_debits/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

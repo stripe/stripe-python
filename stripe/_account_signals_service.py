@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class AccountSignalsService(StripeService):
     def retrieve(
         self,
-        account_id: str,
+        id: str,
         /,
         params: Optional["AccountSignalsRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,9 +28,7 @@ class AccountSignalsService(StripeService):
             "AccountSignals",
             self._request(
                 "get",
-                "/v1/accounts/{account_id}/signals".format(
-                    account_id=sanitize_id(account_id),
-                ),
+                "/v1/accounts/{id}/signals".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -39,7 +37,7 @@ class AccountSignalsService(StripeService):
 
     async def retrieve_async(
         self,
-        account_id: str,
+        id: str,
         /,
         params: Optional["AccountSignalsRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,9 +49,7 @@ class AccountSignalsService(StripeService):
             "AccountSignals",
             await self._request_async(
                 "get",
-                "/v1/accounts/{account_id}/signals".format(
-                    account_id=sanitize_id(account_id),
-                ),
+                "/v1/accounts/{id}/signals".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

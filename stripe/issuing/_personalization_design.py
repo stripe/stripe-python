@@ -300,7 +300,7 @@ class PersonalizationDesign(
         @classmethod
         def _cls_activate(
             cls,
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignActivateParams"],
         ) -> "PersonalizationDesign":
@@ -311,10 +311,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                        personalization_design=sanitize_id(
-                            personalization_design
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/activate".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -323,9 +321,7 @@ class PersonalizationDesign(
         @overload
         @staticmethod
         def activate(
-            personalization_design: str,
-            /,
-            **params: Unpack["PersonalizationDesignActivateParams"],
+            id: str, /, **params: Unpack["PersonalizationDesignActivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -352,10 +348,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                        personalization_design=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/activate".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -364,7 +358,7 @@ class PersonalizationDesign(
         @classmethod
         async def _cls_activate_async(
             cls,
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignActivateParams"],
         ) -> "PersonalizationDesign":
@@ -375,10 +369,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                        personalization_design=sanitize_id(
-                            personalization_design
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/activate".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -387,9 +379,7 @@ class PersonalizationDesign(
         @overload
         @staticmethod
         async def activate_async(
-            personalization_design: str,
-            /,
-            **params: Unpack["PersonalizationDesignActivateParams"],
+            id: str, /, **params: Unpack["PersonalizationDesignActivateParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to active.
@@ -416,10 +406,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                        personalization_design=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/activate".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -428,7 +416,7 @@ class PersonalizationDesign(
         @classmethod
         def _cls_deactivate(
             cls,
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
@@ -439,10 +427,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                        personalization_design=sanitize_id(
-                            personalization_design
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/deactivate".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -451,7 +437,7 @@ class PersonalizationDesign(
         @overload
         @staticmethod
         def deactivate(
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
@@ -480,10 +466,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                        personalization_design=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/deactivate".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -492,7 +476,7 @@ class PersonalizationDesign(
         @classmethod
         async def _cls_deactivate_async(
             cls,
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
@@ -503,10 +487,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                        personalization_design=sanitize_id(
-                            personalization_design
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/deactivate".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -515,7 +497,7 @@ class PersonalizationDesign(
         @overload
         @staticmethod
         async def deactivate_async(
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignDeactivateParams"],
         ) -> "PersonalizationDesign":
@@ -544,10 +526,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                        personalization_design=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/deactivate".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -556,7 +536,7 @@ class PersonalizationDesign(
         @classmethod
         def _cls_reject(
             cls,
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignRejectParams"],
         ) -> "PersonalizationDesign":
@@ -567,10 +547,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                        personalization_design=sanitize_id(
-                            personalization_design
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/reject".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -579,9 +557,7 @@ class PersonalizationDesign(
         @overload
         @staticmethod
         def reject(
-            personalization_design: str,
-            /,
-            **params: Unpack["PersonalizationDesignRejectParams"],
+            id: str, /, **params: Unpack["PersonalizationDesignRejectParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -608,10 +584,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                        personalization_design=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/reject".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -620,7 +594,7 @@ class PersonalizationDesign(
         @classmethod
         async def _cls_reject_async(
             cls,
-            personalization_design: str,
+            id: str,
             /,
             **params: Unpack["PersonalizationDesignRejectParams"],
         ) -> "PersonalizationDesign":
@@ -631,10 +605,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                        personalization_design=sanitize_id(
-                            personalization_design
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/reject".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -643,9 +615,7 @@ class PersonalizationDesign(
         @overload
         @staticmethod
         async def reject_async(
-            personalization_design: str,
-            /,
-            **params: Unpack["PersonalizationDesignRejectParams"],
+            id: str, /, **params: Unpack["PersonalizationDesignRejectParams"]
         ) -> "PersonalizationDesign":
             """
             Updates the status of the specified testmode personalization design object to rejected.
@@ -672,10 +642,8 @@ class PersonalizationDesign(
                 "PersonalizationDesign",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                        personalization_design=sanitize_id(
-                            self.resource._data.get("id")
-                        )
+                    "/v1/test_helpers/issuing/personalization_designs/{id}/reject".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

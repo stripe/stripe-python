@@ -317,7 +317,7 @@ class Customer(
 
     address: Optional[Address]
     """
-    The customer's address.
+    The customer's billing address.
     """
     balance: Optional[int]
     """
@@ -485,7 +485,7 @@ class Customer(
     @classmethod
     def _cls_create_funding_instructions(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
@@ -498,8 +498,8 @@ class Customer(
             "FundingInstructions",
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/funding_instructions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -508,9 +508,7 @@ class Customer(
     @overload
     @staticmethod
     def create_funding_instructions(
-        customer: str,
-        /,
-        **params: Unpack["CustomerCreateFundingInstructionsParams"],
+        id: str, /, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -543,8 +541,8 @@ class Customer(
             "FundingInstructions",
             self._request(
                 "post",
-                "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(self._data.get("id"))
+                "/v1/customers/{id}/funding_instructions".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -553,7 +551,7 @@ class Customer(
     @classmethod
     async def _cls_create_funding_instructions_async(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
@@ -566,8 +564,8 @@ class Customer(
             "FundingInstructions",
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/funding_instructions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -576,9 +574,7 @@ class Customer(
     @overload
     @staticmethod
     async def create_funding_instructions_async(
-        customer: str,
-        /,
-        **params: Unpack["CustomerCreateFundingInstructionsParams"],
+        id: str, /, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -611,8 +607,8 @@ class Customer(
             "FundingInstructions",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(self._data.get("id"))
+                "/v1/customers/{id}/funding_instructions".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -716,7 +712,7 @@ class Customer(
 
     @classmethod
     def _cls_delete_discount(
-        cls, customer: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
+        cls, id: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -725,9 +721,7 @@ class Customer(
             "Discount",
             cls._static_request(
                 "delete",
-                "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/discount".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -735,7 +729,7 @@ class Customer(
     @overload
     @staticmethod
     def delete_discount(
-        customer: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
+        id: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -762,8 +756,8 @@ class Customer(
             "Discount",
             self._request(
                 "delete",
-                "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(self._data.get("id"))
+                "/v1/customers/{id}/discount".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -771,7 +765,7 @@ class Customer(
 
     @classmethod
     async def _cls_delete_discount_async(
-        cls, customer: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
+        cls, id: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -780,9 +774,7 @@ class Customer(
             "Discount",
             await cls._static_request_async(
                 "delete",
-                "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/discount".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -790,7 +782,7 @@ class Customer(
     @overload
     @staticmethod
     async def delete_discount_async(
-        customer: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
+        id: str, /, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -817,8 +809,8 @@ class Customer(
             "Discount",
             await self._request_async(
                 "delete",
-                "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(self._data.get("id"))
+                "/v1/customers/{id}/discount".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -866,10 +858,7 @@ class Customer(
 
     @classmethod
     def _cls_list_payment_methods(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerListPaymentMethodsParams"],
+        cls, id: str, /, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -878,8 +867,8 @@ class Customer(
             ListObject["PaymentMethod"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/payment_methods".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -888,7 +877,7 @@ class Customer(
     @overload
     @staticmethod
     def list_payment_methods(
-        customer: str, /, **params: Unpack["CustomerListPaymentMethodsParams"]
+        id: str, /, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -915,8 +904,8 @@ class Customer(
             ListObject["PaymentMethod"],
             self._request(
                 "get",
-                "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(self._data.get("id"))
+                "/v1/customers/{id}/payment_methods".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -924,10 +913,7 @@ class Customer(
 
     @classmethod
     async def _cls_list_payment_methods_async(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerListPaymentMethodsParams"],
+        cls, id: str, /, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -936,8 +922,8 @@ class Customer(
             ListObject["PaymentMethod"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/payment_methods".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -946,7 +932,7 @@ class Customer(
     @overload
     @staticmethod
     async def list_payment_methods_async(
-        customer: str, /, **params: Unpack["CustomerListPaymentMethodsParams"]
+        id: str, /, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -973,8 +959,8 @@ class Customer(
             ListObject["PaymentMethod"],
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(self._data.get("id"))
+                "/v1/customers/{id}/payment_methods".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1043,8 +1029,8 @@ class Customer(
     @classmethod
     def _cls_retrieve_payment_method(
         cls,
-        customer: str,
-        payment_method: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1055,9 +1041,8 @@ class Customer(
             "PaymentMethod",
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(customer),
-                    payment_method=sanitize_id(payment_method),
+                "/v1/customers/{customer_id}/payment_methods/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1066,8 +1051,8 @@ class Customer(
     @overload
     @staticmethod
     def retrieve_payment_method(
-        customer: str,
-        payment_method: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1079,7 +1064,7 @@ class Customer(
     @overload
     def retrieve_payment_method(
         self,
-        payment_method: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1091,7 +1076,7 @@ class Customer(
     @class_method_variant("_cls_retrieve_payment_method")
     def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        payment_method: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1102,9 +1087,9 @@ class Customer(
             "PaymentMethod",
             self._request(
                 "get",
-                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(self._data.get("id")),
-                    payment_method=sanitize_id(payment_method),
+                "/v1/customers/{customer_id}/payment_methods/{id}".format(
+                    customer_id=sanitize_id(self._data.get("id")),
+                    id=sanitize_id(id),
                 ),
                 params=params,
             ),
@@ -1113,8 +1098,8 @@ class Customer(
     @classmethod
     async def _cls_retrieve_payment_method_async(
         cls,
-        customer: str,
-        payment_method: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1125,9 +1110,8 @@ class Customer(
             "PaymentMethod",
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(customer),
-                    payment_method=sanitize_id(payment_method),
+                "/v1/customers/{customer_id}/payment_methods/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1136,8 +1120,8 @@ class Customer(
     @overload
     @staticmethod
     async def retrieve_payment_method_async(
-        customer: str,
-        payment_method: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1149,7 +1133,7 @@ class Customer(
     @overload
     async def retrieve_payment_method_async(
         self,
-        payment_method: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1161,7 +1145,7 @@ class Customer(
     @class_method_variant("_cls_retrieve_payment_method_async")
     async def retrieve_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        payment_method: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
@@ -1172,9 +1156,9 @@ class Customer(
             "PaymentMethod",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(self._data.get("id")),
-                    payment_method=sanitize_id(payment_method),
+                "/v1/customers/{customer_id}/payment_methods/{id}".format(
+                    customer_id=sanitize_id(self._data.get("id")),
+                    id=sanitize_id(id),
                 ),
                 params=params,
             ),
@@ -1221,7 +1205,7 @@ class Customer(
     @classmethod
     def list_balance_transactions(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
@@ -1232,8 +1216,8 @@ class Customer(
             ListObject["CustomerBalanceTransaction"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1242,7 +1226,7 @@ class Customer(
     @classmethod
     async def list_balance_transactions_async(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
@@ -1253,8 +1237,8 @@ class Customer(
             ListObject["CustomerBalanceTransaction"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1263,7 +1247,7 @@ class Customer(
     @classmethod
     def create_balance_transaction(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerCreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
@@ -1274,8 +1258,8 @@ class Customer(
             "CustomerBalanceTransaction",
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1284,7 +1268,7 @@ class Customer(
     @classmethod
     async def create_balance_transaction_async(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerCreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
@@ -1295,8 +1279,8 @@ class Customer(
             "CustomerBalanceTransaction",
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1305,8 +1289,8 @@ class Customer(
     @classmethod
     def retrieve_balance_transaction(
         cls,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
@@ -1317,9 +1301,8 @@ class Customer(
             "CustomerBalanceTransaction",
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1328,8 +1311,8 @@ class Customer(
     @classmethod
     async def retrieve_balance_transaction_async(
         cls,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
@@ -1340,9 +1323,8 @@ class Customer(
             "CustomerBalanceTransaction",
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1351,8 +1333,8 @@ class Customer(
     @classmethod
     def modify_balance_transaction(
         cls,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
@@ -1363,9 +1345,8 @@ class Customer(
             "CustomerBalanceTransaction",
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1374,8 +1355,8 @@ class Customer(
     @classmethod
     async def modify_balance_transaction_async(
         cls,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
@@ -1386,9 +1367,8 @@ class Customer(
             "CustomerBalanceTransaction",
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1397,7 +1377,7 @@ class Customer(
     @classmethod
     def list_cash_balance_transactions(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
@@ -1408,8 +1388,8 @@ class Customer(
             ListObject["CustomerCashBalanceTransaction"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/cash_balance_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1418,7 +1398,7 @@ class Customer(
     @classmethod
     async def list_cash_balance_transactions_async(
         cls,
-        customer: str,
+        id: str,
         /,
         **params: Unpack["CustomerListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
@@ -1429,8 +1409,8 @@ class Customer(
             ListObject["CustomerCashBalanceTransaction"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
-                    customer=sanitize_id(customer)
+                "/v1/customers/{id}/cash_balance_transactions".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1439,8 +1419,8 @@ class Customer(
     @classmethod
     def retrieve_cash_balance_transaction(
         cls,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
@@ -1451,9 +1431,8 @@ class Customer(
             "CustomerCashBalanceTransaction",
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/cash_balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1462,8 +1441,8 @@ class Customer(
     @classmethod
     async def retrieve_cash_balance_transaction_async(
         cls,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         **params: Unpack["CustomerRetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
@@ -1474,9 +1453,8 @@ class Customer(
             "CustomerCashBalanceTransaction",
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/cash_balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1485,7 +1463,7 @@ class Customer(
     @classmethod
     def delete_tax_exemption(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerDeleteTaxExemptionParams"],
@@ -1497,8 +1475,8 @@ class Customer(
             "CustomerTaxExemption",
             cls._static_request(
                 "delete",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1507,7 +1485,7 @@ class Customer(
     @classmethod
     async def delete_tax_exemption_async(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerDeleteTaxExemptionParams"],
@@ -1519,8 +1497,8 @@ class Customer(
             "CustomerTaxExemption",
             await cls._static_request_async(
                 "delete",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1529,7 +1507,7 @@ class Customer(
     @classmethod
     def retrieve_tax_exemption(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerRetrieveTaxExemptionParams"],
@@ -1541,8 +1519,8 @@ class Customer(
             "CustomerTaxExemption",
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1551,7 +1529,7 @@ class Customer(
     @classmethod
     async def retrieve_tax_exemption_async(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerRetrieveTaxExemptionParams"],
@@ -1563,8 +1541,8 @@ class Customer(
             "CustomerTaxExemption",
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_exemptions/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1572,10 +1550,7 @@ class Customer(
 
     @classmethod
     def list_tax_exemptions(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerListTaxExemptionsParams"],
+        cls, id: str, /, **params: Unpack["CustomerListTaxExemptionsParams"]
     ) -> ListObject["CustomerTaxExemption"]:
         """
         List all location specific tax exemptions for a customer.
@@ -1584,19 +1559,14 @@ class Customer(
             ListObject["CustomerTaxExemption"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_tax_exemptions_async(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerListTaxExemptionsParams"],
+        cls, id: str, /, **params: Unpack["CustomerListTaxExemptionsParams"]
     ) -> ListObject["CustomerTaxExemption"]:
         """
         List all location specific tax exemptions for a customer.
@@ -1605,19 +1575,14 @@ class Customer(
             ListObject["CustomerTaxExemption"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def create_tax_exemption(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerCreateTaxExemptionParams"],
+        cls, id: str, /, **params: Unpack["CustomerCreateTaxExemptionParams"]
     ) -> "CustomerTaxExemption":
         """
         Create a location specific tax exemption for a customer.
@@ -1626,19 +1591,14 @@ class Customer(
             "CustomerTaxExemption",
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def create_tax_exemption_async(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerCreateTaxExemptionParams"],
+        cls, id: str, /, **params: Unpack["CustomerCreateTaxExemptionParams"]
     ) -> "CustomerTaxExemption":
         """
         Create a location specific tax exemption for a customer.
@@ -1647,16 +1607,14 @@ class Customer(
             "CustomerTaxExemption",
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/tax_exemptions".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_exemptions".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def list_sources(
-        cls, customer: str, /, **params: Unpack["CustomerListSourcesParams"]
+        cls, id: str, /, **params: Unpack["CustomerListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -1665,16 +1623,14 @@ class Customer(
             ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_sources_async(
-        cls, customer: str, /, **params: Unpack["CustomerListSourcesParams"]
+        cls, id: str, /, **params: Unpack["CustomerListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -1683,16 +1639,14 @@ class Customer(
             ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def create_source(
-        cls, customer: str, /, **params: Unpack["CustomerCreateSourceParams"]
+        cls, id: str, /, **params: Unpack["CustomerCreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -1705,16 +1659,14 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def create_source_async(
-        cls, customer: str, /, **params: Unpack["CustomerCreateSourceParams"]
+        cls, id: str, /, **params: Unpack["CustomerCreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -1727,9 +1679,7 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/sources".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1737,7 +1687,7 @@ class Customer(
     @classmethod
     def retrieve_source(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerRetrieveSourceParams"],
@@ -1749,8 +1699,8 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1759,7 +1709,7 @@ class Customer(
     @classmethod
     async def retrieve_source_async(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerRetrieveSourceParams"],
@@ -1771,8 +1721,8 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1781,7 +1731,7 @@ class Customer(
     @classmethod
     def modify_source(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerModifySourceParams"],
@@ -1793,8 +1743,8 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1803,7 +1753,7 @@ class Customer(
     @classmethod
     async def modify_source_async(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerModifySourceParams"],
@@ -1815,8 +1765,8 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1825,7 +1775,7 @@ class Customer(
     @classmethod
     def delete_source(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerDeleteSourceParams"],
@@ -1837,8 +1787,8 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
                 "delete",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1847,7 +1797,7 @@ class Customer(
     @classmethod
     async def delete_source_async(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerDeleteSourceParams"],
@@ -1859,8 +1809,8 @@ class Customer(
             Union["Account", "BankAccount", "Card", "Source"],
             await cls._static_request_async(
                 "delete",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1868,7 +1818,7 @@ class Customer(
 
     @classmethod
     def create_tax_id(
-        cls, customer: str, /, **params: Unpack["CustomerCreateTaxIdParams"]
+        cls, id: str, /, **params: Unpack["CustomerCreateTaxIdParams"]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -1877,16 +1827,14 @@ class Customer(
             "TaxId",
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def create_tax_id_async(
-        cls, customer: str, /, **params: Unpack["CustomerCreateTaxIdParams"]
+        cls, id: str, /, **params: Unpack["CustomerCreateTaxIdParams"]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -1895,9 +1843,7 @@ class Customer(
             "TaxId",
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -1905,7 +1851,7 @@ class Customer(
     @classmethod
     def retrieve_tax_id(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerRetrieveTaxIdParams"],
@@ -1917,8 +1863,8 @@ class Customer(
             "TaxId",
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1927,7 +1873,7 @@ class Customer(
     @classmethod
     async def retrieve_tax_id_async(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerRetrieveTaxIdParams"],
@@ -1939,8 +1885,8 @@ class Customer(
             "TaxId",
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1949,7 +1895,7 @@ class Customer(
     @classmethod
     def delete_tax_id(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerDeleteTaxIdParams"],
@@ -1961,8 +1907,8 @@ class Customer(
             "TaxId",
             cls._static_request(
                 "delete",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1971,7 +1917,7 @@ class Customer(
     @classmethod
     async def delete_tax_id_async(
         cls,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         **params: Unpack["CustomerDeleteTaxIdParams"],
@@ -1983,8 +1929,8 @@ class Customer(
             "TaxId",
             await cls._static_request_async(
                 "delete",
-                "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=sanitize_id(customer), id=sanitize_id(id)
+                "/v1/customers/{customer_id}/tax_ids/{id}".format(
+                    customer_id=sanitize_id(customer_id), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -1992,7 +1938,7 @@ class Customer(
 
     @classmethod
     def list_tax_ids(
-        cls, customer: str, /, **params: Unpack["CustomerListTaxIdsParams"]
+        cls, id: str, /, **params: Unpack["CustomerListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2001,16 +1947,14 @@ class Customer(
             ListObject["TaxId"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def list_tax_ids_async(
-        cls, customer: str, /, **params: Unpack["CustomerListTaxIdsParams"]
+        cls, id: str, /, **params: Unpack["CustomerListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2019,19 +1963,14 @@ class Customer(
             ListObject["TaxId"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/tax_ids".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/tax_ids".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def retrieve_cash_balance(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerRetrieveCashBalanceParams"],
+        cls, id: str, /, **params: Unpack["CustomerRetrieveCashBalanceParams"]
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2040,19 +1979,14 @@ class Customer(
             "CashBalance",
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def retrieve_cash_balance_async(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerRetrieveCashBalanceParams"],
+        cls, id: str, /, **params: Unpack["CustomerRetrieveCashBalanceParams"]
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2061,19 +1995,14 @@ class Customer(
             "CashBalance",
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     def modify_cash_balance(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerModifyCashBalanceParams"],
+        cls, id: str, /, **params: Unpack["CustomerModifyCashBalanceParams"]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2082,19 +2011,14 @@ class Customer(
             "CashBalance",
             cls._static_request(
                 "post",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
 
     @classmethod
     async def modify_cash_balance_async(
-        cls,
-        customer: str,
-        /,
-        **params: Unpack["CustomerModifyCashBalanceParams"],
+        cls, id: str, /, **params: Unpack["CustomerModifyCashBalanceParams"]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2103,9 +2027,7 @@ class Customer(
             "CashBalance",
             await cls._static_request_async(
                 "post",
-                "/v1/customers/{customer}/cash_balance".format(
-                    customer=sanitize_id(customer)
-                ),
+                "/v1/customers/{id}/cash_balance".format(id=sanitize_id(id)),
                 params=params,
             ),
         )
@@ -2115,10 +2037,7 @@ class Customer(
 
         @classmethod
         def _cls_fund_cash_balance(
-            cls,
-            customer: str,
-            /,
-            **params: Unpack["CustomerFundCashBalanceParams"],
+            cls, id: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2127,8 +2046,8 @@ class Customer(
                 "CustomerCashBalanceTransaction",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=sanitize_id(customer)
+                    "/v1/test_helpers/customers/{id}/fund_cash_balance".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2137,7 +2056,7 @@ class Customer(
         @overload
         @staticmethod
         def fund_cash_balance(
-            customer: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
+            id: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2164,8 +2083,8 @@ class Customer(
                 "CustomerCashBalanceTransaction",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/customers/{id}/fund_cash_balance".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2173,10 +2092,7 @@ class Customer(
 
         @classmethod
         async def _cls_fund_cash_balance_async(
-            cls,
-            customer: str,
-            /,
-            **params: Unpack["CustomerFundCashBalanceParams"],
+            cls, id: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2185,8 +2101,8 @@ class Customer(
                 "CustomerCashBalanceTransaction",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=sanitize_id(customer)
+                    "/v1/test_helpers/customers/{id}/fund_cash_balance".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -2195,7 +2111,7 @@ class Customer(
         @overload
         @staticmethod
         async def fund_cash_balance_async(
-            customer: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
+            id: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2222,8 +2138,8 @@ class Customer(
                 "CustomerCashBalanceTransaction",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/customers/{id}/fund_cash_balance".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

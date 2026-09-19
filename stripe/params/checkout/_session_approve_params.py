@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from typing import List
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SessionApproveParams(RequestOptions):
@@ -17,6 +17,12 @@ class SessionApproveParams(RequestOptions):
     payment_intent_data: NotRequired["SessionApproveParamsPaymentIntentData"]
     """
     A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
+    """
+    payment_method_options: NotRequired[
+        "SessionApproveParamsPaymentMethodOptions"
+    ]
+    """
+    Payment method-specific configuration to apply to the Checkout Session during approval. Currently only supports `card` payment method options.
     """
     return_url: NotRequired[str]
     """
@@ -34,6 +40,28 @@ class SessionApproveParamsPaymentIntentData(TypedDict):
     application_fee_amount: NotRequired[int]
     """
     The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
+    """
+
+
+class SessionApproveParamsPaymentMethodOptions(TypedDict):
+    card: NotRequired["SessionApproveParamsPaymentMethodOptionsCard"]
+    """
+    Card-specific payment method options. Use this to control 3D Secure behavior during approval.
+    """
+
+
+class SessionApproveParamsPaymentMethodOptionsCard(TypedDict):
+    request_three_d_secure: NotRequired[
+        "Literal['any', 'automatic', 'challenge']|str"
+    ]
+    """
+    We recommend that you rely on our SCA Engine to automatically prompt your customers for
+    authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication).
+    However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this
+    option. When supplied during approval, this value overrides the 3D Secure preference of the
+    Checkout Session's underlying Intent. If omitted, Checkout does not modify the existing preference.
+    Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds)
+    for more information on how this configuration interacts with Radar and our SCA Engine.
     """
 
 

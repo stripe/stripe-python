@@ -57,7 +57,7 @@ class GrantedTokenService(StripeService):
 
     def revoke(
         self,
-        shared_payment_granted_token: str,
+        id: str,
         /,
         params: Optional["GrantedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -69,10 +69,8 @@ class GrantedTokenService(StripeService):
             "GrantedToken",
             self._request(
                 "post",
-                "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
-                    shared_payment_granted_token=sanitize_id(
-                        shared_payment_granted_token
-                    ),
+                "/v1/test_helpers/shared_payment/granted_tokens/{id}/revoke".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -82,7 +80,7 @@ class GrantedTokenService(StripeService):
 
     async def revoke_async(
         self,
-        shared_payment_granted_token: str,
+        id: str,
         /,
         params: Optional["GrantedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -94,10 +92,8 @@ class GrantedTokenService(StripeService):
             "GrantedToken",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
-                    shared_payment_granted_token=sanitize_id(
-                        shared_payment_granted_token
-                    ),
+                "/v1/test_helpers/shared_payment/granted_tokens/{id}/revoke".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

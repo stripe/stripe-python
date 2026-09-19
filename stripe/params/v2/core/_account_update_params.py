@@ -45,6 +45,7 @@ class AccountUpdateParams(TypedDict):
             Literal[
                 "configuration.card_creator",
                 "configuration.customer",
+                "configuration.developer",
                 "configuration.merchant",
                 "configuration.recipient",
                 "configuration.money_manager",
@@ -74,6 +75,10 @@ class AccountUpdateParamsConfiguration(TypedDict):
     customer: NotRequired["AccountUpdateParamsConfigurationCustomer"]
     """
     The Customer Configuration allows the Account to be charged.
+    """
+    developer: NotRequired["AccountUpdateParamsConfigurationDeveloper"]
+    """
+    The Developer Configuration allows the Account to use developer tooling.
     """
     merchant: NotRequired["AccountUpdateParamsConfigurationMerchant"]
     """
@@ -971,6 +976,59 @@ class AccountUpdateParamsConfigurationCustomerShippingAddress(TypedDict):
     state: NotRequired[str]
     """
     State, county, province, or region.
+    """
+
+
+class AccountUpdateParamsConfigurationDeveloper(TypedDict):
+    applied: NotRequired[bool]
+    """
+    Represents the state of the configuration and can be updated to deactivate or reapply it.
+    """
+    capabilities: NotRequired[
+        "AccountUpdateParamsConfigurationDeveloperCapabilities"
+    ]
+    """
+    Capabilities to request on the Developer Configuration.
+    """
+
+
+class AccountUpdateParamsConfigurationDeveloperCapabilities(TypedDict):
+    projects: NotRequired[
+        "AccountUpdateParamsConfigurationDeveloperCapabilitiesProjects"
+    ]
+    """
+    Updates access to Stripe developer tooling.
+    """
+
+
+class AccountUpdateParamsConfigurationDeveloperCapabilitiesProjects(TypedDict):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationDeveloperCapabilitiesProjectsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 

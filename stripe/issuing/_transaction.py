@@ -855,10 +855,7 @@ class Transaction(
 
         @classmethod
         def _cls_refund(
-            cls,
-            transaction: str,
-            /,
-            **params: Unpack["TransactionRefundParams"],
+            cls, id: str, /, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -867,8 +864,8 @@ class Transaction(
                 "Transaction",
                 cls._static_request(
                     "post",
-                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(transaction)
+                    "/v1/test_helpers/issuing/transactions/{id}/refund".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -877,7 +874,7 @@ class Transaction(
         @overload
         @staticmethod
         def refund(
-            transaction: str, /, **params: Unpack["TransactionRefundParams"]
+            id: str, /, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -904,8 +901,8 @@ class Transaction(
                 "Transaction",
                 self.resource._request(
                     "post",
-                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/transactions/{id}/refund".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -913,10 +910,7 @@ class Transaction(
 
         @classmethod
         async def _cls_refund_async(
-            cls,
-            transaction: str,
-            /,
-            **params: Unpack["TransactionRefundParams"],
+            cls, id: str, /, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -925,8 +919,8 @@ class Transaction(
                 "Transaction",
                 await cls._static_request_async(
                     "post",
-                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(transaction)
+                    "/v1/test_helpers/issuing/transactions/{id}/refund".format(
+                        id=sanitize_id(id)
                     ),
                     params=params,
                 ),
@@ -935,7 +929,7 @@ class Transaction(
         @overload
         @staticmethod
         async def refund_async(
-            transaction: str, /, **params: Unpack["TransactionRefundParams"]
+            id: str, /, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -962,8 +956,8 @@ class Transaction(
                 "Transaction",
                 await self.resource._request_async(
                     "post",
-                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(self.resource._data.get("id"))
+                    "/v1/test_helpers/issuing/transactions/{id}/refund".format(
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

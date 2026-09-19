@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 class CardService(StripeService):
     def deliver_card(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardDeliverCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -40,8 +40,8 @@ class CardService(StripeService):
             "Card",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/deliver".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -51,7 +51,7 @@ class CardService(StripeService):
 
     async def deliver_card_async(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardDeliverCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -63,8 +63,8 @@ class CardService(StripeService):
             "Card",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/deliver".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -74,7 +74,7 @@ class CardService(StripeService):
 
     def fail_card(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardFailCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -86,8 +86,8 @@ class CardService(StripeService):
             "Card",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/fail".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -97,7 +97,7 @@ class CardService(StripeService):
 
     async def fail_card_async(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardFailCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -109,8 +109,8 @@ class CardService(StripeService):
             "Card",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/fail".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -120,7 +120,7 @@ class CardService(StripeService):
 
     def return_card(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardReturnCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -132,8 +132,8 @@ class CardService(StripeService):
             "Card",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/return".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -143,7 +143,7 @@ class CardService(StripeService):
 
     async def return_card_async(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardReturnCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -155,8 +155,8 @@ class CardService(StripeService):
             "Card",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/return".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -166,7 +166,7 @@ class CardService(StripeService):
 
     def ship_card(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardShipCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -178,8 +178,8 @@ class CardService(StripeService):
             "Card",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/ship".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -189,7 +189,7 @@ class CardService(StripeService):
 
     async def ship_card_async(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardShipCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -201,8 +201,8 @@ class CardService(StripeService):
             "Card",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/ship".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -212,7 +212,7 @@ class CardService(StripeService):
 
     def submit_card(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardSubmitCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -224,8 +224,8 @@ class CardService(StripeService):
             "Card",
             self._request(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/submit".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -235,7 +235,7 @@ class CardService(StripeService):
 
     async def submit_card_async(
         self,
-        card: str,
+        id: str,
         /,
         params: Optional["CardSubmitCardParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -247,8 +247,8 @@ class CardService(StripeService):
             "Card",
             await self._request_async(
                 "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                    card=sanitize_id(card),
+                "/v1/test_helpers/issuing/cards/{id}/shipping/submit".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

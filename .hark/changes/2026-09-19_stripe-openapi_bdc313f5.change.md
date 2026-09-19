@@ -1,0 +1,89 @@
+---
+title: Update generated code
+pr_url: https://github.com/stripe/stripe-python/pull/1913
+semver_level: major
+is_stripe_api_change: true
+---
+
+* Add support for new resources `v2.money_management.FinancialAccountWalletExportCredentials`, `v2.money_management.FinancialAccountWalletExport`, `v2.provisioning.Eligibility`, `v2.provisioning.PaymentMethodRequest`, `v2.provisioning.PaymentProfile`, `v2.provisioning.Project`, `v2.provisioning.ProviderConnectionRequest`, `v2.provisioning.ProviderConnection`, `v2.provisioning.ProviderServiceDetail`, `v2.provisioning.Provider`, and `v2.provisioning.Resource`
+* ⚠️ Remove support for resource `radar.BillingEvaluation`
+* ⚠️ Remove support for `create` method on resource `radar.BillingEvaluation`
+* Add support for `create`, `link`, `modify`, `remove`, `retrieve`, `rotate_credentials`, `submit_information`, and `unlink` methods on resource `v2.provisioning.Resource`
+* Add support for `create`, `retrieve`, and `submit_information` methods on resource `v2.provisioning.ProviderConnectionRequest`
+* Add support for `list` and `unlink` methods on resource `v2.provisioning.ProviderConnection`
+* Add support for `create` method on resources `v2.provisioning.PaymentMethodRequest` and `v2.provisioning.Project`
+* Add support for `modify` and `retrieve` methods on resource `v2.provisioning.PaymentProfile`
+* Add support for `retrieve` method on resource `v2.provisioning.Eligibility`
+* Add support for `export_credentials` and `retrieve` methods on resource `v2.money_management.FinancialAccountWalletExport`
+* ⚠️ Add support for new values `invalid_address_cmra_address` and `invalid_address_registered_agent_address` on enums `Account.FutureRequirement.Error.code`, `Account.Requirement.Error.code`, `BankAccount.FutureRequirement.Error.code`, `BankAccount.Requirement.Error.code`, `Capability.FutureRequirement.Error.code`, `Capability.Requirement.Error.code`, `Person.FutureRequirement.Error.code`, and `Person.Requirement.Error.code`
+* Change type of `Apps.Install.ContentSecurityPolicyGranted.connect_src` and `Apps.Install.ContentSecurityPolicyPending.connect_src` from `nullable(array(string))` to `array(string)`
+* Change type of `Apps.Install.ContentSecurityPolicyGranted.image_src` and `Apps.Install.ContentSecurityPolicyPending.image_src` from `nullable(array(string))` to `array(string)`
+* Add support for `blik_recurring_payments` on `Account.Capability` and `AccountModifyParamsCapability`
+* Add support for `sequra_payments` on `AccountModifyParamsCapability`
+* Add support for `capital` on `Account.Setting`
+* Change `Account.BusinessProfile.specified_commercial_transactions_act_url` to be required
+* Add support for `payout_method` on `Balance.InstantAvailable.NetAvailable`
+* Add support for `destination_currency` on `BalanceSettings.Payment.Payout.AutomaticTransferRulesByCurrency` and `BalanceSettingsModifyParamsPaymentPayoutAutomaticTransferRulesByCurrency`
+* Add support for `total_due_amount` on `Capital.FinancingOffer.AcceptedTerm` and `Capital.FinancingSummary.Detail`
+* Add support for `incremental_interval_target_amount` and `starts_at` on `Capital.FinancingSummary.Detail.CurrentRepaymentInterval`
+* Add support for `setup_credential_usage` on `Charge.PaymentMethodDetail.Card`, `PaymentIntent.PaymentMethodOption.Card`, `PaymentIntentConfirmParamsPaymentMethodOptionCard`, `PaymentIntentModifyParamsPaymentMethodOptionCard`, `SetupIntent.PaymentMethodOption.Card`, `SetupIntentConfirmParamsPaymentMethodOptionCard`, and `SetupIntentModifyParamsPaymentMethodOptionCard`
+* Add support for `stored_credential_usage` on `Charge.PaymentMethodDetail.Card`, `PaymentAttemptRecord.PaymentMethodDetail.Card`, `PaymentIntent.PaymentMethodOption.Card`, `PaymentIntentConfirmParamsPaymentMethodOptionCard`, `PaymentIntentModifyParamsPaymentMethodOptionCard`, and `PaymentRecord.PaymentMethodDetail.Card`
+* Change `Charge.PaymentMethodDetail.Card.electronic_commerce_indicator` to be required
+* Add support for `payment_method_options` on `checkout.SessionApproveParams`
+* Add support for `payment_reservation` on `Checkout.Session`
+* Add support for `custom` on `Checkout.Session.CurrentAttempt.PaymentMethodDetail`
+* Change type of `Checkout.Session.Item.subscription` from `nullable(PaymentPagesCheckoutSessionSubscription)` to `PaymentPagesCheckoutSessionSubscription`
+* Add support for `payment_method_preselect` on `CustomerSession.Component.PaymentElement.Feature` and `CustomerSessionCreateParamsComponentPaymentElementFeature`
+* Add support for `bic`, `iban_last4`, and `network` on `CustomerCashBalanceTransaction.Funded.BankTransfer.GbBankTransfer`
+* Add support for `appeal` on `DisputeModifyParamsEvidence`
+* Add support for new values `apps.install.created`, `apps.install.deleted`, and `apps.install.updated` on enum `Event.type`
+* Add support for new value `expired` on enum `FinancialConnections.Account.AccountNumber.status`
+* Add support for `pre_collected_consent` on `FinancialConnections.Session`
+* Add support for `financial_activity` on `FinancialConnections.Transaction.Classification`
+* ⚠️ Remove support for `credit` on `FinancialConnections.Transaction.Classification`
+* Add support for `invoicing_rules` on `InvoiceItemModifyParams`
+* Add support for new value `touch_n_go` on enums `Invoice.PaymentSetting.payment_method_types`, `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `QuotePreviewInvoice.PaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+* ⚠️ Change type of `Mandate.PaymentMethodDetail.Blik.type` from `enum('off_session'|'on_session')` to `literal('off_session')`
+* Add support for new values `additive_dosage`, `additized_diesel_2`, `additized_diesel_3`, `air_filter`, `antifreeze`, `automotive_merchandise`, `batteries`, `biodiesel_b100`, `biodiesel_b10`, `biodiesel_b11`, `biodiesel_b15`, `biodiesel_b1`, `biodiesel_b20`, `biodiesel_b2`, `biodiesel_b5`, `biodiesel_b75`, `biodiesel_b99`, `blended_diesel_1_and_2`, `body_work`, `brake_fluid`, `brake_service`, `car_wash`, `def_at_pump`, `e85`, `engine_service`, `ethanol_e16_to_e84`, `exhaust_service`, `federal_tire_excise_tax`, `fuel_additive_treatment`, `fuel_system`, `heating_oil`, `hoses`, `hydrogen_h35`, `hydrogen_h70`, `inspection`, `kerosene_low_sulfur_non_taxable`, `kerosene_low_sulfur`, `kerosene_ultra_low_sulfur_non_taxable`, `kerosene_ultra_low_sulfur`, `labor`, `lamps`, `low_octane_unleaded`, `lube`, `marine_fuel_1`, `marine_fuel_2`, `marine_fuel_3`, `marine_fuel_4`, `marine_fuel_5`, `marine_other`, `mid_plus_2_10`, `mid_plus_2_e15`, `mid_plus_2_reformulated`, `mid_plus_2`, `mid_plus_e10`, `mid_plus_e15`, `mid_plus_reformulated`, `motor_oil`, `off_road_b100`, `off_road_b10`, `off_road_b11`, `off_road_b15`, `off_road_b1`, `off_road_b20`, `off_road_b2`, `off_road_b5`, `off_road_b75`, `off_road_b99`, `off_road_biodiesel`, `off_road_diesel_1`, `off_road_diesel_2`, `off_road_mid_plus_2`, `off_road_mid_plus`, `off_road_premium_diesel_1`, `off_road_premium_diesel_2`, `off_road_premium_super_2`, `off_road_premium_super`, `off_road_regular`, `off_road_renewable_diesel_b6_to_b20`, `off_road_renewable_diesel_r95`, `oil_change`, `oil_filter`, `other_lubricants`, `premium_diesel_2`, `premium_diesel_b20_plus`, `premium_diesel_under_b20`, `premium_super_2_10`, `premium_super_2_e15`, `premium_super_2_reformulated`, `premium_super_2`, `premium_super_e10`, `premium_super_e15`, `premium_super_reformulated`, `racing_fuel`, `recreational_fuel_90_octane`, `regular_diesel_2`, `regular_e10`, `regular_e15`, `regular_reformulated`, `renewable_diesel_b6_to_b20`, `renewable_diesel_r95`, `road_service`, `rv_dump_fee`, `scales`, `service_package`, `synthetic_oil`, `tire_related`, `tire_repair`, `tire_rotation`, `tires`, `toll_payments`, `towing`, `trailer_wash`, `transmission_service`, `truck_tank_cleaning`, `vehicle_glass`, `vehicle_prep`, `vehicle_rental`, `vehicle_work_order`, `washer_fluid`, `white_gas`, and `wipers` on enums `PaymentIntentCaptureParamsAmountDetailLineItemPaymentMethodOptionCardFleetDatum.product_type`, `PaymentIntentConfirmParamsAmountDetailLineItemPaymentMethodOptionCardFleetDatum.product_type`, `PaymentIntentCreateParamsAmountDetailLineItemPaymentMethodOptionCardFleetDatum.product_type`, `PaymentIntentDecrementAuthorizationParamsAmountDetailLineItemPaymentMethodOptionCardFleetDatum.product_type`, `PaymentIntentIncrementAuthorizationParamsAmountDetailLineItemPaymentMethodOptionCardFleetDatum.product_type`, and `PaymentIntentModifyParamsAmountDetailLineItemPaymentMethodOptionCardFleetDatum.product_type`
+* Add support for new values `card_present` and `interac_present` on enums `PaymentIntentConfirmParams.allowed_payment_method_types`, `PaymentIntentModifyParams.allowed_payment_method_types`, `SetupIntentConfirmParams.allowed_payment_method_types`, and `SetupIntentModifyParams.allowed_payment_method_types`
+* Add support for `sequra` on `PaymentIntentConfirmParamsPaymentMethodDatum`, `PaymentIntentConfirmParamsPaymentMethodOption`, `PaymentIntentModifyParamsPaymentMethodDatum`, `PaymentIntentModifyParamsPaymentMethodOption`, `PaymentMethodConfigurationModifyParams`, `SetupIntentConfirmParamsPaymentMethodDatum`, and `SetupIntentModifyParamsPaymentMethodDatum`
+* Add support for `mandate_options` on `PaymentIntent.PaymentMethodOption.Blik`, `PaymentIntentConfirmParamsPaymentMethodOptionBlik`, and `PaymentIntentModifyParamsPaymentMethodOptionBlik`
+* Change type of `PaymentIntentConfirmParamsPaymentMethodOptionBlik.setup_future_usage` and `PaymentIntentModifyParamsPaymentMethodOptionBlik.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+* ⚠️ Remove support for `capture_method` on `PaymentIntentConfirmParamsPaymentMethodOptionPaypay` and `PaymentIntentModifyParamsPaymentMethodOptionPaypay`
+* ⚠️ Change type of `PaymentIntent.PaymentMethodOption.Blik.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+* Add support for new value `sequra` on enum `PaymentLinkModifyParams.payment_method_types`
+* ⚠️ Remove support for `payto` on `PaymentMethodModifyParams`
+* Add support for `payout_method_options` on `Payout`
+* Add support for new value `rerouted` on enum `Radar.PaymentEvaluation.Outcome.type`
+* Add support for `blik` on `SetupAttempt.PaymentMethodDetail`, `SetupIntent.PaymentMethodOption`, `SetupIntentConfirmParamsPaymentMethodOption`, and `SetupIntentModifyParamsPaymentMethodOption`
+* Add support for `expires_at` on `SubscriptionModifyParamsPaymentSettingPaymentMethodOptionBlikMandateOption`
+* ⚠️ Remove support for `expires_after` on `SubscriptionModifyParamsPaymentSettingPaymentMethodOptionBlikMandateOption`
+* Change `SubscriptionModifyParamsTrialSettingEndBehavior.missing_payment_method` to be optional
+* Add support for `cancel_at_period_end` on `Subscription.PendingUpdate`
+* Add support for `tamper_state` on `terminal.ReaderListParams`
+* Add support for new values `apps.install.created`, `apps.install.deleted`, and `apps.install.updated` on enums `WebhookEndpointCreateParams.enabled_events` and `WebhookEndpointModifyParams.enabled_events`
+* Add support for `collection_status_transitions` and `collection_status` on `V2.Billing.Contract`
+* ⚠️ Change `V2.Billing.Contract.PricingLine.Datum.Pricing.PriceDetail.PricingOverride.Datum.ends_at`, `V2.Billing.Contract.PricingLine.Datum.ends_at`, and `V2.Billing.Contract.PricingOverride.Datum.ends_at` to be optional
+* Add support for new value `developer` on enums `EventsV2CoreAccountLinkReturnedEvent.configurations`, `V2.Core.AccountLink.UseCase.AccountOnboarding.configurations`, `V2.Core.AccountLink.UseCase.AccountUpdate.configurations`, `v2.core.AccountLinkCreateParamsUseCaseAccountOnboarding.configurations`, and `v2.core.AccountLinkCreateParamsUseCaseAccountUpdate.configurations`
+* ⚠️ Add support for new value `developer` on enum `V2.Core.Account.applied_configurations`
+* Add support for `developer` on `V2.Core.Account.Configuration`, `v2.core.AccountCreateParamsConfiguration`, and `v2.core.AccountModifyParamsConfiguration`
+* ⚠️ Add support for new value `apple_pay` on enum `V2.Core.Account.Configuration.Recipient.DefaultOutboundDestination.type`
+* Add support for new value `projects` on enums `V2.Core.Account.FutureRequirement.Entry.Impact.RestrictsCapability.capability` and `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.capability`
+* Add support for new value `developer` on enums `V2.Core.Account.FutureRequirement.Entry.Impact.RestrictsCapability.configuration` and `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.configuration`
+* Add support for `skip_exportable_balances` on `V2.MoneyManagement.FinancialAccount.StatusDetail.Closed.ForwardingSetting` and `v2.money_management.FinancialAccountCloseParamsForwardingSetting`
+* Add support for `crypto` on `V2.MoneyManagement.FinancialAccount.Storage`, `v2.money_management.FinancialAccountCreateParamsStorage`, and `v2.money_management.FinancialAccountModifyParamsStorage`
+* Add support for `apple_pay` on `V2.MoneyManagement.PayoutMethod` and `v2.money_management.OutboundSetupIntentCreateParamsPayoutMethodDatum`
+* Add support for new value `apple_pay` on enums `V2.MoneyManagement.PayoutMethod.type`, `v2.money_management.OutboundSetupIntentCreateParamsPayoutMethodDatum.type`, and `v2.money_management.OutboundSetupIntentModifyParamsPayoutMethodDatum.type`
+* Add support for new value `crypto_wallet_export` on enums `V2.MoneyManagement.Transaction.category` and `V2.MoneyManagement.TransactionEntry.TransactionDetail.category`
+* Change type of `v2.money_management.FinancialAccountListParams.include` and `v2.money_management.FinancialAccountRetrieveParams.include` from `literal('payments.balance_by_funds_type')` to `enum('payments.balance_by_funds_type'|'storage.crypto')`
+* Add support for `forwarding_settings` on `v2.money_management.FinancialAccountModifyParams`
+* Add support for new value `developer` on enums `v2.core.AccountCloseParams.applied_configurations` and `v2.core.AccountListParams.applied_configurations`
+* Add support for new value `configuration.developer` on enums `v2.core.AccountCreateParams.include`, `v2.core.AccountModifyParams.include`, and `v2.core.AccountRetrieveParams.include`
+* Add support for new value `never` on enums `v2.billing.ContractCreateParamsPricingLineEndsAt.type`, `v2.billing.ContractCreateParamsPricingLinePricingPriceDetailPricingOverrideEndsAt.type`, `v2.billing.ContractCreateParamsPricingOverrideEndsAt.type`, and `v2.billing.ContractModifyParamsPricingLineActionAddPricingPriceDetailPricingOverrideEndsAt.type`
+* Change `v2.billing.ContractCreateParamsPricingLine.ends_at`, `v2.billing.ContractCreateParamsPricingOverride.ends_at`, `v2.billing.ContractModifyParamsPricingLineActionAdd.ends_at`, `v2.billing.ContractModifyParamsPricingLineActionUpdatePricingPriceDetailPricingOverrideActionAdd.ends_at`, and `v2.billing.ContractModifyParamsPricingOverrideActionAdd.ends_at` to be optional
+* Add support for new values `never` and `now` on enums `v2.billing.ContractModifyParamsPricingLineActionAddEndsAt.type`, `v2.billing.ContractModifyParamsPricingLineActionUpdateEndsAt.type`, `v2.billing.ContractModifyParamsPricingLineActionUpdatePricingPriceDetailPricingOverrideActionAddEndsAt.type`, `v2.billing.ContractModifyParamsPricingLineActionUpdatePricingPriceDetailPricingOverrideActionUpdateEndsAt.type`, `v2.billing.ContractModifyParamsPricingOverrideActionAddEndsAt.type`, and `v2.billing.ContractModifyParamsPricingOverrideActionUpdateEndsAt.type`
+* Add support for snapshot events `apps.install.created`, `apps.install.deleted`, and `apps.install.updated` with resource `apps.Install`
+* Add support for event notifications `V2BillingContractCollectionBlockedEvent`, `V2BillingContractCollectionCurrentEvent`, `V2BillingContractCollectionPastDueEvent`, and `V2BillingContractCollectionUnpaidEvent` with related object `v2.billing.Contract`
+* Add support for event notifications `V2CoreVaultNetworkTokenActivatedEvent`, `V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEvent`, `V2CoreVaultNetworkTokenDeactivatedEvent`, `V2CoreVaultNetworkTokenDetailsUpdatedEvent`, and `V2CoreVaultNetworkTokenSuspendedEvent` with related object `v2.core.vault.NetworkToken`
+* Add support for event notifications `V2MoneyManagementFinancialAccountWalletExportCompletedEvent`, `V2MoneyManagementFinancialAccountWalletExportPendingEvent`, and `V2MoneyManagementFinancialAccountWalletExportReadyEvent` with related object `v2.money_management.FinancialAccount`
+* Add support for error type `ServiceUnavailableError`

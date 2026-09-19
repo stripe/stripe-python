@@ -50,7 +50,7 @@ if TYPE_CHECKING:
 class SubscriptionService(StripeService):
     def cancel(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -66,11 +66,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             self._request(
                 "delete",
-                "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -79,7 +75,7 @@ class SubscriptionService(StripeService):
 
     async def cancel_async(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -95,11 +91,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             await self._request_async(
                 "delete",
-                "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -108,7 +100,7 @@ class SubscriptionService(StripeService):
 
     def retrieve(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -120,11 +112,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             self._request(
                 "get",
-                "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -133,7 +121,7 @@ class SubscriptionService(StripeService):
 
     async def retrieve_async(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -145,11 +133,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             await self._request_async(
                 "get",
-                "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -158,7 +142,7 @@ class SubscriptionService(StripeService):
 
     def update(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -190,11 +174,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             self._request(
                 "post",
-                "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -203,7 +183,7 @@ class SubscriptionService(StripeService):
 
     async def update_async(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -235,11 +215,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             await self._request_async(
                 "post",
-                "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -248,7 +224,7 @@ class SubscriptionService(StripeService):
 
     def delete_discount(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -260,11 +236,7 @@ class SubscriptionService(StripeService):
             "Discount",
             self._request(
                 "delete",
-                "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}/discount".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -273,7 +245,7 @@ class SubscriptionService(StripeService):
 
     async def delete_discount_async(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -285,11 +257,7 @@ class SubscriptionService(StripeService):
             "Discount",
             await self._request_async(
                 "delete",
-                "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=sanitize_id(
-                        subscription_exposed_id
-                    ),
-                ),
+                "/v1/subscriptions/{id}/discount".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -430,7 +398,7 @@ class SubscriptionService(StripeService):
 
     def attach_cadence(
         self,
-        subscription: str,
+        id: str,
         /,
         params: "SubscriptionAttachCadenceParams",
         options: Optional["RequestOptions"] = None,
@@ -442,8 +410,8 @@ class SubscriptionService(StripeService):
             "Subscription",
             self._request(
                 "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription),
+                "/v1/subscriptions/{id}/attach_cadence".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -453,7 +421,7 @@ class SubscriptionService(StripeService):
 
     async def attach_cadence_async(
         self,
-        subscription: str,
+        id: str,
         /,
         params: "SubscriptionAttachCadenceParams",
         options: Optional["RequestOptions"] = None,
@@ -465,8 +433,8 @@ class SubscriptionService(StripeService):
             "Subscription",
             await self._request_async(
                 "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription),
+                "/v1/subscriptions/{id}/attach_cadence".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -476,7 +444,7 @@ class SubscriptionService(StripeService):
 
     def migrate(
         self,
-        subscription: str,
+        id: str,
         /,
         params: "SubscriptionMigrateParams",
         options: Optional["RequestOptions"] = None,
@@ -488,9 +456,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             self._request(
                 "post",
-                "/v1/subscriptions/{subscription}/migrate".format(
-                    subscription=sanitize_id(subscription),
-                ),
+                "/v1/subscriptions/{id}/migrate".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -499,7 +465,7 @@ class SubscriptionService(StripeService):
 
     async def migrate_async(
         self,
-        subscription: str,
+        id: str,
         /,
         params: "SubscriptionMigrateParams",
         options: Optional["RequestOptions"] = None,
@@ -511,9 +477,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             await self._request_async(
                 "post",
-                "/v1/subscriptions/{subscription}/migrate".format(
-                    subscription=sanitize_id(subscription),
-                ),
+                "/v1/subscriptions/{id}/migrate".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -522,7 +486,7 @@ class SubscriptionService(StripeService):
 
     def pause(
         self,
-        subscription: str,
+        id: str,
         /,
         params: Optional["SubscriptionPauseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -534,9 +498,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             self._request(
                 "post",
-                "/v1/subscriptions/{subscription}/pause".format(
-                    subscription=sanitize_id(subscription),
-                ),
+                "/v1/subscriptions/{id}/pause".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -545,7 +507,7 @@ class SubscriptionService(StripeService):
 
     async def pause_async(
         self,
-        subscription: str,
+        id: str,
         /,
         params: Optional["SubscriptionPauseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -557,9 +519,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             await self._request_async(
                 "post",
-                "/v1/subscriptions/{subscription}/pause".format(
-                    subscription=sanitize_id(subscription),
-                ),
+                "/v1/subscriptions/{id}/pause".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -568,7 +528,7 @@ class SubscriptionService(StripeService):
 
     def resume(
         self,
-        subscription: str,
+        id: str,
         /,
         params: Optional["SubscriptionResumeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -580,9 +540,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             self._request(
                 "post",
-                "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=sanitize_id(subscription),
-                ),
+                "/v1/subscriptions/{id}/resume".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -591,7 +549,7 @@ class SubscriptionService(StripeService):
 
     async def resume_async(
         self,
-        subscription: str,
+        id: str,
         /,
         params: Optional["SubscriptionResumeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -603,9 +561,7 @@ class SubscriptionService(StripeService):
             "Subscription",
             await self._request_async(
                 "post",
-                "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=sanitize_id(subscription),
-                ),
+                "/v1/subscriptions/{id}/resume".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -614,7 +570,7 @@ class SubscriptionService(StripeService):
 
     def serialize_batch_cancel(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -629,9 +585,7 @@ class SubscriptionService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {
-                "subscription_exposed_id": subscription_exposed_id
-            },
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -641,7 +595,7 @@ class SubscriptionService(StripeService):
 
     def serialize_batch_update(
         self,
-        subscription_exposed_id: str,
+        id: str,
         /,
         params: Optional["SubscriptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -656,9 +610,7 @@ class SubscriptionService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {
-                "subscription_exposed_id": subscription_exposed_id
-            },
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -690,7 +642,7 @@ class SubscriptionService(StripeService):
 
     def serialize_batch_migrate(
         self,
-        subscription: str,
+        id: str,
         /,
         params: Optional["SubscriptionMigrateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -705,7 +657,7 @@ class SubscriptionService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"subscription": subscription},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -715,7 +667,7 @@ class SubscriptionService(StripeService):
 
     def serialize_batch_pause(
         self,
-        subscription: str,
+        id: str,
         /,
         params: Optional["SubscriptionPauseParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -730,7 +682,7 @@ class SubscriptionService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"subscription": subscription},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -740,7 +692,7 @@ class SubscriptionService(StripeService):
 
     def serialize_batch_resume(
         self,
-        subscription: str,
+        id: str,
         /,
         params: Optional["SubscriptionResumeParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -755,7 +707,7 @@ class SubscriptionService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"subscription": subscription},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }

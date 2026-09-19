@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class QuotePreviewInvoiceService(StripeService):
     def list(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuotePreviewInvoiceListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -29,9 +29,7 @@ class QuotePreviewInvoiceService(StripeService):
             "ListObject[QuotePreviewInvoice]",
             self._request(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/preview_invoices".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -40,7 +38,7 @@ class QuotePreviewInvoiceService(StripeService):
 
     async def list_async(
         self,
-        quote: str,
+        id: str,
         /,
         params: Optional["QuotePreviewInvoiceListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -52,9 +50,7 @@ class QuotePreviewInvoiceService(StripeService):
             "ListObject[QuotePreviewInvoice]",
             await self._request_async(
                 "get",
-                "/v1/quotes/{quote}/preview_invoices".format(
-                    quote=sanitize_id(quote),
-                ),
+                "/v1/quotes/{id}/preview_invoices".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

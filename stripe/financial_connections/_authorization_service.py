@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class AuthorizationService(StripeService):
     def retrieve(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -28,8 +28,8 @@ class AuthorizationService(StripeService):
             "Authorization",
             self._request(
                 "get",
-                "/v1/financial_connections/authorizations/{authorization}".format(
-                    authorization=sanitize_id(authorization),
+                "/v1/financial_connections/authorizations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -39,7 +39,7 @@ class AuthorizationService(StripeService):
 
     async def retrieve_async(
         self,
-        authorization: str,
+        id: str,
         /,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -51,8 +51,8 @@ class AuthorizationService(StripeService):
             "Authorization",
             await self._request_async(
                 "get",
-                "/v1/financial_connections/authorizations/{authorization}".format(
-                    authorization=sanitize_id(authorization),
+                "/v1/financial_connections/authorizations/{id}".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

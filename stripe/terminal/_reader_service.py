@@ -57,7 +57,7 @@ if TYPE_CHECKING:
 class ReaderService(StripeService):
     def delete(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -69,9 +69,7 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "delete",
-                "/v1/terminal/readers/{reader}".format(
-                    reader=sanitize_id(reader),
-                ),
+                "/v1/terminal/readers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -80,7 +78,7 @@ class ReaderService(StripeService):
 
     async def delete_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -92,9 +90,7 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "delete",
-                "/v1/terminal/readers/{reader}".format(
-                    reader=sanitize_id(reader),
-                ),
+                "/v1/terminal/readers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -103,7 +99,7 @@ class ReaderService(StripeService):
 
     def retrieve(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -115,9 +111,7 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "get",
-                "/v1/terminal/readers/{reader}".format(
-                    reader=sanitize_id(reader),
-                ),
+                "/v1/terminal/readers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -126,7 +120,7 @@ class ReaderService(StripeService):
 
     async def retrieve_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -138,9 +132,7 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "get",
-                "/v1/terminal/readers/{reader}".format(
-                    reader=sanitize_id(reader),
-                ),
+                "/v1/terminal/readers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -149,7 +141,7 @@ class ReaderService(StripeService):
 
     def update(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -161,9 +153,7 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}".format(
-                    reader=sanitize_id(reader),
-                ),
+                "/v1/terminal/readers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -172,7 +162,7 @@ class ReaderService(StripeService):
 
     async def update_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -184,9 +174,7 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}".format(
-                    reader=sanitize_id(reader),
-                ),
+                "/v1/terminal/readers/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -271,7 +259,7 @@ class ReaderService(StripeService):
 
     def activate_gift_card(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderActivateGiftCardParams",
         options: Optional["RequestOptions"] = None,
@@ -283,8 +271,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/activate_gift_card".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/activate_gift_card".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -294,7 +282,7 @@ class ReaderService(StripeService):
 
     async def activate_gift_card_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderActivateGiftCardParams",
         options: Optional["RequestOptions"] = None,
@@ -306,8 +294,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/activate_gift_card".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/activate_gift_card".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -317,7 +305,7 @@ class ReaderService(StripeService):
 
     def cancel_action(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderCancelActionParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -329,8 +317,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/cancel_action".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -340,7 +328,7 @@ class ReaderService(StripeService):
 
     async def cancel_action_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderCancelActionParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -352,8 +340,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/cancel_action".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -363,7 +351,7 @@ class ReaderService(StripeService):
 
     def cashout_gift_card(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCashoutGiftCardParams",
         options: Optional["RequestOptions"] = None,
@@ -375,8 +363,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/cashout_gift_card".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -386,7 +374,7 @@ class ReaderService(StripeService):
 
     async def cashout_gift_card_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCashoutGiftCardParams",
         options: Optional["RequestOptions"] = None,
@@ -398,8 +386,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/cashout_gift_card".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -409,7 +397,7 @@ class ReaderService(StripeService):
 
     def check_gift_card_balance(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCheckGiftCardBalanceParams",
         options: Optional["RequestOptions"] = None,
@@ -421,8 +409,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/check_gift_card_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -432,7 +420,7 @@ class ReaderService(StripeService):
 
     async def check_gift_card_balance_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCheckGiftCardBalanceParams",
         options: Optional["RequestOptions"] = None,
@@ -444,8 +432,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/check_gift_card_balance".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -455,7 +443,7 @@ class ReaderService(StripeService):
 
     def collect_inputs(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCollectInputsParams",
         options: Optional["RequestOptions"] = None,
@@ -467,8 +455,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/collect_inputs".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -478,7 +466,7 @@ class ReaderService(StripeService):
 
     async def collect_inputs_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCollectInputsParams",
         options: Optional["RequestOptions"] = None,
@@ -490,8 +478,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/collect_inputs".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -501,7 +489,7 @@ class ReaderService(StripeService):
 
     def collect_payment_method(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCollectPaymentMethodParams",
         options: Optional["RequestOptions"] = None,
@@ -513,8 +501,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/collect_payment_method".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -524,7 +512,7 @@ class ReaderService(StripeService):
 
     async def collect_payment_method_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderCollectPaymentMethodParams",
         options: Optional["RequestOptions"] = None,
@@ -536,8 +524,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/collect_payment_method".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -547,7 +535,7 @@ class ReaderService(StripeService):
 
     def confirm_payment_intent(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderConfirmPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
@@ -559,8 +547,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/confirm_payment_intent".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -570,7 +558,7 @@ class ReaderService(StripeService):
 
     async def confirm_payment_intent_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderConfirmPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
@@ -582,8 +570,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/confirm_payment_intent".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -593,7 +581,7 @@ class ReaderService(StripeService):
 
     def process_payment_intent(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderProcessPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
@@ -605,8 +593,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/process_payment_intent".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -616,7 +604,7 @@ class ReaderService(StripeService):
 
     async def process_payment_intent_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderProcessPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
@@ -628,8 +616,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/process_payment_intent".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -639,7 +627,7 @@ class ReaderService(StripeService):
 
     def process_setup_intent(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderProcessSetupIntentParams",
         options: Optional["RequestOptions"] = None,
@@ -651,8 +639,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/process_setup_intent".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -662,7 +650,7 @@ class ReaderService(StripeService):
 
     async def process_setup_intent_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderProcessSetupIntentParams",
         options: Optional["RequestOptions"] = None,
@@ -674,8 +662,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/process_setup_intent".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -685,7 +673,7 @@ class ReaderService(StripeService):
 
     def refund_payment(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderRefundPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -697,8 +685,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/refund_payment".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -708,7 +696,7 @@ class ReaderService(StripeService):
 
     async def refund_payment_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: Optional["ReaderRefundPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -720,8 +708,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/refund_payment".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -731,7 +719,7 @@ class ReaderService(StripeService):
 
     def reload_gift_card(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderReloadGiftCardParams",
         options: Optional["RequestOptions"] = None,
@@ -743,8 +731,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/reload_gift_card".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/reload_gift_card".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -754,7 +742,7 @@ class ReaderService(StripeService):
 
     async def reload_gift_card_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderReloadGiftCardParams",
         options: Optional["RequestOptions"] = None,
@@ -766,8 +754,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/reload_gift_card".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/reload_gift_card".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -777,7 +765,7 @@ class ReaderService(StripeService):
 
     def set_reader_display(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderSetReaderDisplayParams",
         options: Optional["RequestOptions"] = None,
@@ -789,8 +777,8 @@ class ReaderService(StripeService):
             "Reader",
             self._request(
                 "post",
-                "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/set_reader_display".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -800,7 +788,7 @@ class ReaderService(StripeService):
 
     async def set_reader_display_async(
         self,
-        reader: str,
+        id: str,
         /,
         params: "ReaderSetReaderDisplayParams",
         options: Optional["RequestOptions"] = None,
@@ -812,8 +800,8 @@ class ReaderService(StripeService):
             "Reader",
             await self._request_async(
                 "post",
-                "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(reader),
+                "/v1/terminal/readers/{id}/set_reader_display".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

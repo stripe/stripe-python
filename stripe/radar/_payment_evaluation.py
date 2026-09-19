@@ -329,7 +329,14 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         Details of a succeeded outcome attached to this payment evaluation.
         """
         type: Union[
-            Literal["failed", "merchant_blocked", "rejected", "succeeded"], str
+            Literal[
+                "failed",
+                "merchant_blocked",
+                "rejected",
+                "rerouted",
+                "succeeded",
+            ],
+            str,
         ]
         """
         Indicates the outcome of the payment evaluation.
@@ -370,7 +377,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             money_movement_type: Literal["card"]
             """
-            Describes the type of money movement. Currently only `card` is supported.
+            Describes the type of money movement.
             """
             _inner_class_types = {"card": Card}
 

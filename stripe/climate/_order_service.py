@@ -101,7 +101,7 @@ class OrderService(StripeService):
 
     def retrieve(
         self,
-        order: str,
+        id: str,
         /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -113,7 +113,7 @@ class OrderService(StripeService):
             "Order",
             self._request(
                 "get",
-                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
+                "/v1/climate/orders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,7 +122,7 @@ class OrderService(StripeService):
 
     async def retrieve_async(
         self,
-        order: str,
+        id: str,
         /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -134,7 +134,7 @@ class OrderService(StripeService):
             "Order",
             await self._request_async(
                 "get",
-                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
+                "/v1/climate/orders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -143,7 +143,7 @@ class OrderService(StripeService):
 
     def update(
         self,
-        order: str,
+        id: str,
         /,
         params: Optional["OrderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -155,7 +155,7 @@ class OrderService(StripeService):
             "Order",
             self._request(
                 "post",
-                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
+                "/v1/climate/orders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -164,7 +164,7 @@ class OrderService(StripeService):
 
     async def update_async(
         self,
-        order: str,
+        id: str,
         /,
         params: Optional["OrderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -176,7 +176,7 @@ class OrderService(StripeService):
             "Order",
             await self._request_async(
                 "post",
-                "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
+                "/v1/climate/orders/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -185,7 +185,7 @@ class OrderService(StripeService):
 
     def cancel(
         self,
-        order: str,
+        id: str,
         /,
         params: Optional["OrderCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -200,9 +200,7 @@ class OrderService(StripeService):
             "Order",
             self._request(
                 "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(order),
-                ),
+                "/v1/climate/orders/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -211,7 +209,7 @@ class OrderService(StripeService):
 
     async def cancel_async(
         self,
-        order: str,
+        id: str,
         /,
         params: Optional["OrderCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -226,9 +224,7 @@ class OrderService(StripeService):
             "Order",
             await self._request_async(
                 "post",
-                "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(order),
-                ),
+                "/v1/climate/orders/{id}/cancel".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

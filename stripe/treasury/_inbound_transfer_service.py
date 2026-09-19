@@ -148,7 +148,7 @@ class InboundTransferService(StripeService):
 
     def cancel(
         self,
-        inbound_transfer: str,
+        id: str,
         /,
         params: Optional["InboundTransferCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -160,8 +160,8 @@ class InboundTransferService(StripeService):
             "InboundTransfer",
             self._request(
                 "post",
-                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(inbound_transfer),
+                "/v1/treasury/inbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -171,7 +171,7 @@ class InboundTransferService(StripeService):
 
     async def cancel_async(
         self,
-        inbound_transfer: str,
+        id: str,
         /,
         params: Optional["InboundTransferCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -183,8 +183,8 @@ class InboundTransferService(StripeService):
             "InboundTransfer",
             await self._request_async(
                 "post",
-                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(inbound_transfer),
+                "/v1/treasury/inbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

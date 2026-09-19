@@ -460,7 +460,7 @@ class CreditUnderwritingRecord(
     @classmethod
     def _cls_correct(
         cls,
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
@@ -471,10 +471,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             cls._static_request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/correct".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -483,9 +481,7 @@ class CreditUnderwritingRecord(
     @overload
     @staticmethod
     def correct(
-        credit_underwriting_record: str,
-        /,
-        **params: Unpack["CreditUnderwritingRecordCorrectParams"],
+        id: str, /, **params: Unpack["CreditUnderwritingRecordCorrectParams"]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -512,10 +508,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             self._request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/correct".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -524,7 +518,7 @@ class CreditUnderwritingRecord(
     @classmethod
     async def _cls_correct_async(
         cls,
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
@@ -535,10 +529,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/correct".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -547,9 +539,7 @@ class CreditUnderwritingRecord(
     @overload
     @staticmethod
     async def correct_async(
-        credit_underwriting_record: str,
-        /,
-        **params: Unpack["CreditUnderwritingRecordCorrectParams"],
+        id: str, /, **params: Unpack["CreditUnderwritingRecordCorrectParams"]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -576,10 +566,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             await self._request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/correct".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -704,7 +692,7 @@ class CreditUnderwritingRecord(
     @classmethod
     def _cls_report_decision(
         cls,
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
@@ -715,10 +703,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             cls._static_request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_decision".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -727,7 +713,7 @@ class CreditUnderwritingRecord(
     @overload
     @staticmethod
     def report_decision(
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
@@ -756,10 +742,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             self._request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_decision".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -768,7 +752,7 @@ class CreditUnderwritingRecord(
     @classmethod
     async def _cls_report_decision_async(
         cls,
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
@@ -779,10 +763,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_decision".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -791,7 +773,7 @@ class CreditUnderwritingRecord(
     @overload
     @staticmethod
     async def report_decision_async(
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
@@ -820,10 +802,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             await self._request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_decision".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -832,7 +812,7 @@ class CreditUnderwritingRecord(
     @classmethod
     def _cls_report_offer_acceptance(
         cls,
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
@@ -845,10 +825,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             cls._static_request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_offer_acceptance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -857,7 +835,7 @@ class CreditUnderwritingRecord(
     @overload
     @staticmethod
     def report_offer_acceptance(
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
@@ -894,10 +872,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             self._request(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
-                    credit_underwriting_record=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_offer_acceptance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -906,7 +882,7 @@ class CreditUnderwritingRecord(
     @classmethod
     async def _cls_report_offer_acceptance_async(
         cls,
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
@@ -919,10 +895,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             await cls._static_request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
-                    credit_underwriting_record=sanitize_id(
-                        credit_underwriting_record
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_offer_acceptance".format(
+                    id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -931,7 +905,7 @@ class CreditUnderwritingRecord(
     @overload
     @staticmethod
     async def report_offer_acceptance_async(
-        credit_underwriting_record: str,
+        id: str,
         /,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
@@ -968,10 +942,8 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord",
             await self._request_async(
                 "post",
-                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
-                    credit_underwriting_record=sanitize_id(
-                        self._data.get("id")
-                    )
+                "/v1/issuing/credit_underwriting_records/{id}/report_offer_acceptance".format(
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

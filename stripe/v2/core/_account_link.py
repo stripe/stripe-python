@@ -38,6 +38,7 @@ class AccountLink(StripeObject):
                 Union[
                     Literal[
                         "customer",
+                        "developer",
                         "merchant",
                         "money_manager",
                         "recipient",
@@ -82,6 +83,7 @@ class AccountLink(StripeObject):
                 Union[
                     Literal[
                         "customer",
+                        "developer",
                         "merchant",
                         "money_manager",
                         "recipient",

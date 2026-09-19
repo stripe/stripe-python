@@ -52,7 +52,7 @@ class SourceService(StripeService):
 
     def detach(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["SourceDetachParams"] = None,
@@ -65,8 +65,8 @@ class SourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             self._request(
                 "delete",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -77,7 +77,7 @@ class SourceService(StripeService):
 
     async def detach_async(
         self,
-        customer: str,
+        customer_id: str,
         id: str,
         /,
         params: Optional["SourceDetachParams"] = None,
@@ -90,8 +90,8 @@ class SourceService(StripeService):
             "Union[Account, BankAccount, Card, Source]",
             await self._request_async(
                 "delete",
-                "/v1/customers/{customer}/sources/{id}".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{customer_id}/sources/{id}".format(
+                    customer_id=sanitize_id(customer_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -102,7 +102,7 @@ class SourceService(StripeService):
 
     def retrieve(
         self,
-        source: str,
+        id: str,
         /,
         params: Optional["SourceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -114,7 +114,7 @@ class SourceService(StripeService):
             "Source",
             self._request(
                 "get",
-                "/v1/sources/{source}".format(source=sanitize_id(source)),
+                "/v1/sources/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -123,7 +123,7 @@ class SourceService(StripeService):
 
     async def retrieve_async(
         self,
-        source: str,
+        id: str,
         /,
         params: Optional["SourceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -135,7 +135,7 @@ class SourceService(StripeService):
             "Source",
             await self._request_async(
                 "get",
-                "/v1/sources/{source}".format(source=sanitize_id(source)),
+                "/v1/sources/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -144,7 +144,7 @@ class SourceService(StripeService):
 
     def update(
         self,
-        source: str,
+        id: str,
         /,
         params: Optional["SourceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -158,7 +158,7 @@ class SourceService(StripeService):
             "Source",
             self._request(
                 "post",
-                "/v1/sources/{source}".format(source=sanitize_id(source)),
+                "/v1/sources/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -167,7 +167,7 @@ class SourceService(StripeService):
 
     async def update_async(
         self,
-        source: str,
+        id: str,
         /,
         params: Optional["SourceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -181,7 +181,7 @@ class SourceService(StripeService):
             "Source",
             await self._request_async(
                 "post",
-                "/v1/sources/{source}".format(source=sanitize_id(source)),
+                "/v1/sources/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -228,7 +228,7 @@ class SourceService(StripeService):
 
     def verify(
         self,
-        source: str,
+        id: str,
         /,
         params: "SourceVerifyParams",
         options: Optional["RequestOptions"] = None,
@@ -240,9 +240,7 @@ class SourceService(StripeService):
             "Source",
             self._request(
                 "post",
-                "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(source),
-                ),
+                "/v1/sources/{id}/verify".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -251,7 +249,7 @@ class SourceService(StripeService):
 
     async def verify_async(
         self,
-        source: str,
+        id: str,
         /,
         params: "SourceVerifyParams",
         options: Optional["RequestOptions"] = None,
@@ -263,9 +261,7 @@ class SourceService(StripeService):
             "Source",
             await self._request_async(
                 "post",
-                "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(source),
-                ),
+                "/v1/sources/{id}/verify".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

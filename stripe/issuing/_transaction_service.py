@@ -61,7 +61,7 @@ class TransactionService(StripeService):
 
     def retrieve(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -73,9 +73,7 @@ class TransactionService(StripeService):
             "Transaction",
             self._request(
                 "get",
-                "/v1/issuing/transactions/{transaction}".format(
-                    transaction=sanitize_id(transaction),
-                ),
+                "/v1/issuing/transactions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -84,7 +82,7 @@ class TransactionService(StripeService):
 
     async def retrieve_async(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -96,9 +94,7 @@ class TransactionService(StripeService):
             "Transaction",
             await self._request_async(
                 "get",
-                "/v1/issuing/transactions/{transaction}".format(
-                    transaction=sanitize_id(transaction),
-                ),
+                "/v1/issuing/transactions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -107,7 +103,7 @@ class TransactionService(StripeService):
 
     def update(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -119,9 +115,7 @@ class TransactionService(StripeService):
             "Transaction",
             self._request(
                 "post",
-                "/v1/issuing/transactions/{transaction}".format(
-                    transaction=sanitize_id(transaction),
-                ),
+                "/v1/issuing/transactions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -130,7 +124,7 @@ class TransactionService(StripeService):
 
     async def update_async(
         self,
-        transaction: str,
+        id: str,
         /,
         params: Optional["TransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -142,9 +136,7 @@ class TransactionService(StripeService):
             "Transaction",
             await self._request_async(
                 "post",
-                "/v1/issuing/transactions/{transaction}".format(
-                    transaction=sanitize_id(transaction),
-                ),
+                "/v1/issuing/transactions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

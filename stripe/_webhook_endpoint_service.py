@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 class WebhookEndpointService(StripeService):
     def delete(
         self,
-        webhook_endpoint: str,
+        id: str,
         /,
         params: Optional["WebhookEndpointDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -41,9 +41,7 @@ class WebhookEndpointService(StripeService):
             "WebhookEndpoint",
             self._request(
                 "delete",
-                "/v1/webhook_endpoints/{webhook_endpoint}".format(
-                    webhook_endpoint=sanitize_id(webhook_endpoint),
-                ),
+                "/v1/webhook_endpoints/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -52,7 +50,7 @@ class WebhookEndpointService(StripeService):
 
     async def delete_async(
         self,
-        webhook_endpoint: str,
+        id: str,
         /,
         params: Optional["WebhookEndpointDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -64,9 +62,7 @@ class WebhookEndpointService(StripeService):
             "WebhookEndpoint",
             await self._request_async(
                 "delete",
-                "/v1/webhook_endpoints/{webhook_endpoint}".format(
-                    webhook_endpoint=sanitize_id(webhook_endpoint),
-                ),
+                "/v1/webhook_endpoints/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -75,7 +71,7 @@ class WebhookEndpointService(StripeService):
 
     def retrieve(
         self,
-        webhook_endpoint: str,
+        id: str,
         /,
         params: Optional["WebhookEndpointRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -87,9 +83,7 @@ class WebhookEndpointService(StripeService):
             "WebhookEndpoint",
             self._request(
                 "get",
-                "/v1/webhook_endpoints/{webhook_endpoint}".format(
-                    webhook_endpoint=sanitize_id(webhook_endpoint),
-                ),
+                "/v1/webhook_endpoints/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -98,7 +92,7 @@ class WebhookEndpointService(StripeService):
 
     async def retrieve_async(
         self,
-        webhook_endpoint: str,
+        id: str,
         /,
         params: Optional["WebhookEndpointRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -110,9 +104,7 @@ class WebhookEndpointService(StripeService):
             "WebhookEndpoint",
             await self._request_async(
                 "get",
-                "/v1/webhook_endpoints/{webhook_endpoint}".format(
-                    webhook_endpoint=sanitize_id(webhook_endpoint),
-                ),
+                "/v1/webhook_endpoints/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -121,7 +113,7 @@ class WebhookEndpointService(StripeService):
 
     def update(
         self,
-        webhook_endpoint: str,
+        id: str,
         /,
         params: Optional["WebhookEndpointUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -133,9 +125,7 @@ class WebhookEndpointService(StripeService):
             "WebhookEndpoint",
             self._request(
                 "post",
-                "/v1/webhook_endpoints/{webhook_endpoint}".format(
-                    webhook_endpoint=sanitize_id(webhook_endpoint),
-                ),
+                "/v1/webhook_endpoints/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -144,7 +134,7 @@ class WebhookEndpointService(StripeService):
 
     async def update_async(
         self,
-        webhook_endpoint: str,
+        id: str,
         /,
         params: Optional["WebhookEndpointUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -156,9 +146,7 @@ class WebhookEndpointService(StripeService):
             "WebhookEndpoint",
             await self._request_async(
                 "post",
-                "/v1/webhook_endpoints/{webhook_endpoint}".format(
-                    webhook_endpoint=sanitize_id(webhook_endpoint),
-                ),
+                "/v1/webhook_endpoints/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

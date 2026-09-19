@@ -1507,6 +1507,91 @@ class Account(StripeObject):
                 "shipping": Shipping,
             }
 
+        class Developer(StripeObject):
+            class Capabilities(StripeObject):
+                class Projects(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active", "pending", "restricted", "unsupported"
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                projects: Optional[Projects]
+                """
+                Enables the Account to use Stripe developer tooling.
+                """
+                _inner_class_types = {"projects": Projects}
+
+            applied: bool
+            """
+            Indicates whether the Developer Configuration is active.
+            """
+            capabilities: Optional[Capabilities]
+            """
+            Capabilities that have been requested on the Developer Configuration.
+            """
+            _inner_class_types = {"capabilities": Capabilities}
+
         class Merchant(StripeObject):
             class BacsDebitPayments(StripeObject):
                 display_name: Optional[str]
@@ -9092,6 +9177,7 @@ class Account(StripeObject):
                     "al_bank_account",
                     "am_bank_account",
                     "ao_bank_account",
+                    "apple_pay",
                     "ar_bank_account",
                     "at_bank_account",
                     "au_bank_account",
@@ -9244,6 +9330,10 @@ class Account(StripeObject):
         """
         The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
         """
+        developer: Optional[Developer]
+        """
+        The Developer Configuration allows the Account to use developer tooling.
+        """
         merchant: Optional[Merchant]
         """
         Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
@@ -9259,6 +9349,7 @@ class Account(StripeObject):
         _inner_class_types = {
             "card_creator": CardCreator,
             "customer": Customer,
+            "developer": Developer,
             "merchant": Merchant,
             "money_manager": MoneyManager,
             "recipient": Recipient,
@@ -9632,6 +9723,7 @@ class Account(StripeObject):
                             "payco_payments",
                             "paynow_payments",
                             "pay_by_bank_payments",
+                            "projects",
                             "promptpay_payments",
                             "received_credits.bank_accounts",
                             "received_debits.bank_accounts",
@@ -9655,6 +9747,7 @@ class Account(StripeObject):
                         Literal[
                             "card_creator",
                             "customer",
+                            "developer",
                             "merchant",
                             "money_manager",
                             "recipient",
@@ -12481,6 +12574,7 @@ class Account(StripeObject):
                             "payco_payments",
                             "paynow_payments",
                             "pay_by_bank_payments",
+                            "projects",
                             "promptpay_payments",
                             "received_credits.bank_accounts",
                             "received_debits.bank_accounts",
@@ -12504,6 +12598,7 @@ class Account(StripeObject):
                         Literal[
                             "card_creator",
                             "customer",
+                            "developer",
                             "merchant",
                             "money_manager",
                             "recipient",
@@ -12624,6 +12719,7 @@ class Account(StripeObject):
         Literal[
             "card_creator",
             "customer",
+            "developer",
             "merchant",
             "recipient",
             "money_manager",

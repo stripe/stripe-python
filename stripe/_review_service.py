@@ -55,7 +55,7 @@ class ReviewService(StripeService):
 
     def retrieve(
         self,
-        review: str,
+        id: str,
         /,
         params: Optional["ReviewRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -67,7 +67,7 @@ class ReviewService(StripeService):
             "Review",
             self._request(
                 "get",
-                "/v1/reviews/{review}".format(review=sanitize_id(review)),
+                "/v1/reviews/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -76,7 +76,7 @@ class ReviewService(StripeService):
 
     async def retrieve_async(
         self,
-        review: str,
+        id: str,
         /,
         params: Optional["ReviewRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -88,7 +88,7 @@ class ReviewService(StripeService):
             "Review",
             await self._request_async(
                 "get",
-                "/v1/reviews/{review}".format(review=sanitize_id(review)),
+                "/v1/reviews/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -97,7 +97,7 @@ class ReviewService(StripeService):
 
     def approve(
         self,
-        review: str,
+        id: str,
         /,
         params: Optional["ReviewApproveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -109,9 +109,7 @@ class ReviewService(StripeService):
             "Review",
             self._request(
                 "post",
-                "/v1/reviews/{review}/approve".format(
-                    review=sanitize_id(review),
-                ),
+                "/v1/reviews/{id}/approve".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -120,7 +118,7 @@ class ReviewService(StripeService):
 
     async def approve_async(
         self,
-        review: str,
+        id: str,
         /,
         params: Optional["ReviewApproveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -132,9 +130,7 @@ class ReviewService(StripeService):
             "Review",
             await self._request_async(
                 "post",
-                "/v1/reviews/{review}/approve".format(
-                    review=sanitize_id(review),
-                ),
+                "/v1/reviews/{id}/approve".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

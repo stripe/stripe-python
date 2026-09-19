@@ -132,7 +132,7 @@ class PaymentLinkService(StripeService):
 
     def retrieve(
         self,
-        payment_link: str,
+        id: str,
         /,
         params: Optional["PaymentLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -144,9 +144,7 @@ class PaymentLinkService(StripeService):
             "PaymentLink",
             self._request(
                 "get",
-                "/v1/payment_links/{payment_link}".format(
-                    payment_link=sanitize_id(payment_link),
-                ),
+                "/v1/payment_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -155,7 +153,7 @@ class PaymentLinkService(StripeService):
 
     async def retrieve_async(
         self,
-        payment_link: str,
+        id: str,
         /,
         params: Optional["PaymentLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -167,9 +165,7 @@ class PaymentLinkService(StripeService):
             "PaymentLink",
             await self._request_async(
                 "get",
-                "/v1/payment_links/{payment_link}".format(
-                    payment_link=sanitize_id(payment_link),
-                ),
+                "/v1/payment_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -178,7 +174,7 @@ class PaymentLinkService(StripeService):
 
     def update(
         self,
-        payment_link: str,
+        id: str,
         /,
         params: Optional["PaymentLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -190,9 +186,7 @@ class PaymentLinkService(StripeService):
             "PaymentLink",
             self._request(
                 "post",
-                "/v1/payment_links/{payment_link}".format(
-                    payment_link=sanitize_id(payment_link),
-                ),
+                "/v1/payment_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -201,7 +195,7 @@ class PaymentLinkService(StripeService):
 
     async def update_async(
         self,
-        payment_link: str,
+        id: str,
         /,
         params: Optional["PaymentLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -213,9 +207,7 @@ class PaymentLinkService(StripeService):
             "PaymentLink",
             await self._request_async(
                 "post",
-                "/v1/payment_links/{payment_link}".format(
-                    payment_link=sanitize_id(payment_link),
-                ),
+                "/v1/payment_links/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

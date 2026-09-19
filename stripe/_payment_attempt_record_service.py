@@ -124,7 +124,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_authenticated(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional[
             "PaymentAttemptRecordReportAuthenticatedParams"
@@ -138,8 +138,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_authenticated".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -149,7 +149,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_authenticated_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional[
             "PaymentAttemptRecordReportAuthenticatedParams"
@@ -163,8 +163,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_authenticated".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -174,7 +174,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_authorized(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportAuthorizedParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -186,8 +186,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_authorized".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -197,7 +197,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_authorized_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportAuthorizedParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -209,8 +209,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_authorized".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -220,7 +220,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_canceled(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportCanceledParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -232,8 +232,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_canceled".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -243,7 +243,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_canceled_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportCanceledParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -255,8 +255,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_canceled".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -266,7 +266,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_early_fraud_warning(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: "PaymentAttemptRecordReportEarlyFraudWarningParams",
         options: Optional["RequestOptions"] = None,
@@ -278,8 +278,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_early_fraud_warning".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -289,7 +289,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_early_fraud_warning_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: "PaymentAttemptRecordReportEarlyFraudWarningParams",
         options: Optional["RequestOptions"] = None,
@@ -301,8 +301,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_early_fraud_warning".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -312,7 +312,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_failed(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportFailedParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -324,8 +324,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_failed".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -335,7 +335,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_failed_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportFailedParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -347,8 +347,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_failed".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -358,7 +358,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_guaranteed(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportGuaranteedParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -370,8 +370,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_guaranteed".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -381,7 +381,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_guaranteed_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional["PaymentAttemptRecordReportGuaranteedParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -393,8 +393,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_guaranteed".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -404,7 +404,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_informational(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional[
             "PaymentAttemptRecordReportInformationalParams"
@@ -418,8 +418,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_informational".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -429,7 +429,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_informational_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: Optional[
             "PaymentAttemptRecordReportInformationalParams"
@@ -443,8 +443,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_informational".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -454,7 +454,7 @@ class PaymentAttemptRecordService(StripeService):
 
     def report_refund(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: "PaymentAttemptRecordReportRefundParams",
         options: Optional["RequestOptions"] = None,
@@ -466,8 +466,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             self._request(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_refund".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -477,7 +477,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def report_refund_async(
         self,
-        payment_attempt_record: str,
+        id: str,
         /,
         params: "PaymentAttemptRecordReportRefundParams",
         options: Optional["RequestOptions"] = None,
@@ -489,8 +489,8 @@ class PaymentAttemptRecordService(StripeService):
             "PaymentAttemptRecord",
             await self._request_async(
                 "post",
-                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
-                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                "/v1/payment_attempt_records/{id}/report_refund".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,

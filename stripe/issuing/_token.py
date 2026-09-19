@@ -252,7 +252,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         class Mastercard(StripeObject):
             card_reference_id: Optional[str]
             """
-            A unique reference ID from MasterCard to represent the card account number.
+            A unique reference ID from Mastercard to represent the card account number.
             """
             token_reference_id: str
             """
@@ -260,11 +260,11 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             token_requestor_id: str
             """
-            The ID of the entity requesting tokenization, specific to MasterCard.
+            The ID of the entity requesting tokenization, specific to Mastercard.
             """
             token_requestor_name: Optional[str]
             """
-            The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
+            The name of the entity requesting tokenization, if known. This is directly provided from Mastercard.
             """
 
         class Visa(StripeObject):

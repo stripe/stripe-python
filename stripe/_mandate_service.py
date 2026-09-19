@@ -54,7 +54,7 @@ class MandateService(StripeService):
 
     def retrieve(
         self,
-        mandate: str,
+        id: str,
         /,
         params: Optional["MandateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -66,7 +66,7 @@ class MandateService(StripeService):
             "Mandate",
             self._request(
                 "get",
-                "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
+                "/v1/mandates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
@@ -75,7 +75,7 @@ class MandateService(StripeService):
 
     async def retrieve_async(
         self,
-        mandate: str,
+        id: str,
         /,
         params: Optional["MandateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -87,7 +87,7 @@ class MandateService(StripeService):
             "Mandate",
             await self._request_async(
                 "get",
-                "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
+                "/v1/mandates/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

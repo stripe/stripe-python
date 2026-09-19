@@ -17,6 +17,7 @@ if TYPE_CHECKING:
         OrchestratedCommerceService,
     )
     from stripe.v2._payments_service import PaymentsService
+    from stripe.v2._provisioning_service import ProvisioningService
     from stripe.v2._reporting_service import ReportingService
     from stripe.v2._risk_service import RiskService
     from stripe.v2._signals_service import SignalsService
@@ -40,6 +41,7 @@ _subservices = {
         "OrchestratedCommerceService",
     ],
     "payments": ["stripe.v2._payments_service", "PaymentsService"],
+    "provisioning": ["stripe.v2._provisioning_service", "ProvisioningService"],
     "reporting": ["stripe.v2._reporting_service", "ReportingService"],
     "risk": ["stripe.v2._risk_service", "RiskService"],
     "signals": ["stripe.v2._signals_service", "SignalsService"],
@@ -59,6 +61,7 @@ class V2Services(StripeService):
     network: "NetworkService"
     orchestrated_commerce: "OrchestratedCommerceService"
     payments: "PaymentsService"
+    provisioning: "ProvisioningService"
     reporting: "ReportingService"
     risk: "RiskService"
     signals: "SignalsService"

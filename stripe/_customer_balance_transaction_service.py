@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 class CustomerBalanceTransactionService(StripeService):
     def list(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -41,8 +41,8 @@ class CustomerBalanceTransactionService(StripeService):
             "ListObject[CustomerBalanceTransaction]",
             self._request(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -52,7 +52,7 @@ class CustomerBalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -64,8 +64,8 @@ class CustomerBalanceTransactionService(StripeService):
             "ListObject[CustomerBalanceTransaction]",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -75,7 +75,7 @@ class CustomerBalanceTransactionService(StripeService):
 
     def create(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerBalanceTransactionCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -87,8 +87,8 @@ class CustomerBalanceTransactionService(StripeService):
             "CustomerBalanceTransaction",
             self._request(
                 "post",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -98,7 +98,7 @@ class CustomerBalanceTransactionService(StripeService):
 
     async def create_async(
         self,
-        customer: str,
+        id: str,
         /,
         params: "CustomerBalanceTransactionCreateParams",
         options: Optional["RequestOptions"] = None,
@@ -110,8 +110,8 @@ class CustomerBalanceTransactionService(StripeService):
             "CustomerBalanceTransaction",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/balance_transactions".format(
-                    customer=sanitize_id(customer),
+                "/v1/customers/{id}/balance_transactions".format(
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -121,8 +121,8 @@ class CustomerBalanceTransactionService(StripeService):
 
     def retrieve(
         self,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -134,9 +134,9 @@ class CustomerBalanceTransactionService(StripeService):
             "CustomerBalanceTransaction",
             self._request(
                 "get",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -146,8 +146,8 @@ class CustomerBalanceTransactionService(StripeService):
 
     async def retrieve_async(
         self,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -159,9 +159,9 @@ class CustomerBalanceTransactionService(StripeService):
             "CustomerBalanceTransaction",
             await self._request_async(
                 "get",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -171,8 +171,8 @@ class CustomerBalanceTransactionService(StripeService):
 
     def update(
         self,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -184,9 +184,9 @@ class CustomerBalanceTransactionService(StripeService):
             "CustomerBalanceTransaction",
             self._request(
                 "post",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -196,8 +196,8 @@ class CustomerBalanceTransactionService(StripeService):
 
     async def update_async(
         self,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -209,9 +209,9 @@ class CustomerBalanceTransactionService(StripeService):
             "CustomerBalanceTransaction",
             await self._request_async(
                 "post",
-                "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=sanitize_id(customer),
-                    transaction=sanitize_id(transaction),
+                "/v1/customers/{customer_id}/balance_transactions/{id}".format(
+                    customer_id=sanitize_id(customer_id),
+                    id=sanitize_id(id),
                 ),
                 base_address="api",
                 params=params,
@@ -221,7 +221,7 @@ class CustomerBalanceTransactionService(StripeService):
 
     def serialize_batch_create(
         self,
-        customer: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -236,7 +236,7 @@ class CustomerBalanceTransactionService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer},
+            "path_params": {"id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
@@ -246,8 +246,8 @@ class CustomerBalanceTransactionService(StripeService):
 
     def serialize_batch_update(
         self,
-        customer: str,
-        transaction: str,
+        customer_id: str,
+        id: str,
         /,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
@@ -262,7 +262,7 @@ class CustomerBalanceTransactionService(StripeService):
         context = options.get("stripe_context") if options else None
         batch_request = {
             "id": item_id,
-            "path_params": {"customer": customer, "transaction": transaction},
+            "path_params": {"customer_id": customer_id, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
