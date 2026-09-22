@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from stripe._payout import Payout
     from stripe._refund import Refund
     from stripe._reserve_transaction import ReserveTransaction
-    from stripe._reversal import Reversal
+    from stripe._transfer_reversal import TransferReversal
     from stripe._tax_deducted_at_source import TaxDeductedAtSource
     from stripe._topup import Topup
     from stripe._transfer import Transfer
@@ -146,7 +146,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
                 "TaxDeductedAtSource",
                 "Topup",
                 "Transfer",
-                "Reversal",
+                "TransferReversal",
             ]
         ]
     ]
