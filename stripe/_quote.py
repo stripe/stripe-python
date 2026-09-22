@@ -619,7 +619,7 @@ class Quote(
 
     @classmethod
     def _cls_accept(
-        cls, quote: str, **params: Unpack["QuoteAcceptParams"]
+        cls, quote: str, /, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -635,7 +635,9 @@ class Quote(
 
     @overload
     @staticmethod
-    def accept(quote: str, **params: Unpack["QuoteAcceptParams"]) -> "Quote":
+    def accept(
+        quote: str, /, **params: Unpack["QuoteAcceptParams"]
+    ) -> "Quote":
         """
         Accepts the specified quote.
         """
@@ -668,7 +670,7 @@ class Quote(
 
     @classmethod
     async def _cls_accept_async(
-        cls, quote: str, **params: Unpack["QuoteAcceptParams"]
+        cls, quote: str, /, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -685,7 +687,7 @@ class Quote(
     @overload
     @staticmethod
     async def accept_async(
-        quote: str, **params: Unpack["QuoteAcceptParams"]
+        quote: str, /, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -721,7 +723,7 @@ class Quote(
 
     @classmethod
     def _cls_cancel(
-        cls, quote: str, **params: Unpack["QuoteCancelParams"]
+        cls, quote: str, /, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -737,7 +739,9 @@ class Quote(
 
     @overload
     @staticmethod
-    def cancel(quote: str, **params: Unpack["QuoteCancelParams"]) -> "Quote":
+    def cancel(
+        quote: str, /, **params: Unpack["QuoteCancelParams"]
+    ) -> "Quote":
         """
         Cancels the quote.
         """
@@ -770,7 +774,7 @@ class Quote(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, quote: str, **params: Unpack["QuoteCancelParams"]
+        cls, quote: str, /, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -787,7 +791,7 @@ class Quote(
     @overload
     @staticmethod
     async def cancel_async(
-        quote: str, **params: Unpack["QuoteCancelParams"]
+        quote: str, /, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -853,7 +857,7 @@ class Quote(
 
     @classmethod
     def _cls_finalize_quote(
-        cls, quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
+        cls, quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -870,7 +874,7 @@ class Quote(
     @overload
     @staticmethod
     def finalize_quote(
-        quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
+        quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -906,7 +910,7 @@ class Quote(
 
     @classmethod
     async def _cls_finalize_quote_async(
-        cls, quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
+        cls, quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -923,7 +927,7 @@ class Quote(
     @overload
     @staticmethod
     async def finalize_quote_async(
-        quote: str, **params: Unpack["QuoteFinalizeQuoteParams"]
+        quote: str, /, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -999,6 +1003,7 @@ class Quote(
     def _cls_list_computed_upfront_line_items(
         cls,
         quote: str,
+        /,
         **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
@@ -1018,7 +1023,9 @@ class Quote(
     @overload
     @staticmethod
     def list_computed_upfront_line_items(
-        quote: str, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
+        quote: str,
+        /,
+        **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1056,6 +1063,7 @@ class Quote(
     async def _cls_list_computed_upfront_line_items_async(
         cls,
         quote: str,
+        /,
         **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
@@ -1075,7 +1083,9 @@ class Quote(
     @overload
     @staticmethod
     async def list_computed_upfront_line_items_async(
-        quote: str, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
+        quote: str,
+        /,
+        **params: Unpack["QuoteListComputedUpfrontLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -1111,7 +1121,7 @@ class Quote(
 
     @classmethod
     def _cls_list_line_items(
-        cls, quote: str, **params: Unpack["QuoteListLineItemsParams"]
+        cls, quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1130,7 +1140,7 @@ class Quote(
     @overload
     @staticmethod
     def list_line_items(
-        quote: str, **params: Unpack["QuoteListLineItemsParams"]
+        quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1166,7 +1176,7 @@ class Quote(
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls, quote: str, **params: Unpack["QuoteListLineItemsParams"]
+        cls, quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1185,7 +1195,7 @@ class Quote(
     @overload
     @staticmethod
     async def list_line_items_async(
-        quote: str, **params: Unpack["QuoteListLineItemsParams"]
+        quote: str, /, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1252,7 +1262,9 @@ class Quote(
         )
 
     @classmethod
-    def _cls_pdf(cls, quote: str, **params: Unpack["QuotePdfParams"]) -> Any:
+    def _cls_pdf(
+        cls, quote: str, /, **params: Unpack["QuotePdfParams"]
+    ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -1268,7 +1280,7 @@ class Quote(
 
     @overload
     @staticmethod
-    def pdf(quote: str, **params: Unpack["QuotePdfParams"]) -> Any:
+    def pdf(quote: str, /, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -1302,7 +1314,7 @@ class Quote(
 
     @classmethod
     async def _cls_pdf_async(
-        cls, quote: str, **params: Unpack["QuotePdfParams"]
+        cls, quote: str, /, **params: Unpack["QuotePdfParams"]
     ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
@@ -1319,7 +1331,9 @@ class Quote(
 
     @overload
     @staticmethod
-    async def pdf_async(quote: str, **params: Unpack["QuotePdfParams"]) -> Any:
+    async def pdf_async(
+        quote: str, /, **params: Unpack["QuotePdfParams"]
+    ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """

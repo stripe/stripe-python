@@ -1654,7 +1654,10 @@ class PaymentMethod(
 
     @classmethod
     def _cls_attach(
-        cls, payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodAttachParams"],
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1685,7 +1688,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def attach(
-        payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1757,7 +1760,10 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_attach_async(
-        cls, payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodAttachParams"],
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1788,7 +1794,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def attach_async(
-        payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1896,7 +1902,10 @@ class PaymentMethod(
 
     @classmethod
     def _cls_detach(
-        cls, payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodDetachParams"],
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -1915,7 +1924,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def detach(
-        payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -1951,7 +1960,10 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_detach_async(
-        cls, payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodDetachParams"],
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -1970,7 +1982,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def detach_async(
-        payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.

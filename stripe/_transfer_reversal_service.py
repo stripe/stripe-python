@@ -27,6 +27,7 @@ class TransferReversalService(StripeService):
     def list(
         self,
         id: str,
+        /,
         params: Optional["TransferReversalListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Reversal]":
@@ -47,6 +48,7 @@ class TransferReversalService(StripeService):
     async def list_async(
         self,
         id: str,
+        /,
         params: Optional["TransferReversalListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Reversal]":
@@ -67,6 +69,7 @@ class TransferReversalService(StripeService):
     def create(
         self,
         id: str,
+        /,
         params: Optional["TransferReversalCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reversal":
@@ -91,6 +94,7 @@ class TransferReversalService(StripeService):
     async def create_async(
         self,
         id: str,
+        /,
         params: Optional["TransferReversalCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reversal":
@@ -116,6 +120,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
+        /,
         params: Optional["TransferReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reversal":
@@ -140,6 +145,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
+        /,
         params: Optional["TransferReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reversal":
@@ -164,6 +170,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
+        /,
         params: Optional["TransferReversalUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reversal":
@@ -190,6 +197,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
+        /,
         params: Optional["TransferReversalUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reversal":
