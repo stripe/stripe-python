@@ -100,6 +100,7 @@ class CreditReversalService(StripeService):
     def retrieve(
         self,
         credit_reversal: str,
+        /,
         params: Optional["CreditReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditReversal":
@@ -122,6 +123,7 @@ class CreditReversalService(StripeService):
     async def retrieve_async(
         self,
         credit_reversal: str,
+        /,
         params: Optional["CreditReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditReversal":

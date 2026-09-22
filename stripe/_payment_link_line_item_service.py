@@ -18,6 +18,7 @@ class PaymentLinkLineItemService(StripeService):
     def list(
         self,
         payment_link: str,
+        /,
         params: Optional["PaymentLinkLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[LineItem]":
@@ -40,6 +41,7 @@ class PaymentLinkLineItemService(StripeService):
     async def list_async(
         self,
         payment_link: str,
+        /,
         params: Optional["PaymentLinkLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[LineItem]":

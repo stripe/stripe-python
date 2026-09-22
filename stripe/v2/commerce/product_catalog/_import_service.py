@@ -100,6 +100,7 @@ class ImportService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ImportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ProductCatalogImport":
@@ -122,6 +123,7 @@ class ImportService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ImportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ProductCatalogImport":

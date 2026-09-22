@@ -255,7 +255,7 @@ class Transfer(
 
     @classmethod
     def list_reversals(
-        cls, id: str, **params: Unpack["TransferListReversalsParams"]
+        cls, id: str, /, **params: Unpack["TransferListReversalsParams"]
     ) -> ListObject["TransferReversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
@@ -271,7 +271,7 @@ class Transfer(
 
     @classmethod
     async def list_reversals_async(
-        cls, id: str, **params: Unpack["TransferListReversalsParams"]
+        cls, id: str, /, **params: Unpack["TransferListReversalsParams"]
     ) -> ListObject["TransferReversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
@@ -287,7 +287,7 @@ class Transfer(
 
     @classmethod
     def create_reversal(
-        cls, id: str, **params: Unpack["TransferCreateReversalParams"]
+        cls, id: str, /, **params: Unpack["TransferCreateReversalParams"]
     ) -> "TransferReversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
@@ -307,7 +307,7 @@ class Transfer(
 
     @classmethod
     async def create_reversal_async(
-        cls, id: str, **params: Unpack["TransferCreateReversalParams"]
+        cls, id: str, /, **params: Unpack["TransferCreateReversalParams"]
     ) -> "TransferReversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
@@ -330,6 +330,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
+        /,
         **params: Unpack["TransferRetrieveReversalParams"],
     ) -> "TransferReversal":
         """
@@ -351,6 +352,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
+        /,
         **params: Unpack["TransferRetrieveReversalParams"],
     ) -> "TransferReversal":
         """
@@ -372,6 +374,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
+        /,
         **params: Unpack["TransferModifyReversalParams"],
     ) -> "TransferReversal":
         """
@@ -395,6 +398,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
+        /,
         **params: Unpack["TransferModifyReversalParams"],
     ) -> "TransferReversal":
         """

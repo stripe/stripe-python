@@ -20,6 +20,7 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
+        /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
@@ -42,6 +43,7 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
+        /,
         params: Optional["SessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
