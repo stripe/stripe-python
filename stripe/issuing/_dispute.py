@@ -480,7 +480,7 @@ class Dispute(
 
     @classmethod
     def _cls_submit(
-        cls, dispute: str, **params: Unpack["DisputeSubmitParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -499,7 +499,7 @@ class Dispute(
     @overload
     @staticmethod
     def submit(
-        dispute: str, **params: Unpack["DisputeSubmitParams"]
+        dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -533,7 +533,7 @@ class Dispute(
 
     @classmethod
     async def _cls_submit_async(
-        cls, dispute: str, **params: Unpack["DisputeSubmitParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -552,7 +552,7 @@ class Dispute(
     @overload
     @staticmethod
     async def submit_async(
-        dispute: str, **params: Unpack["DisputeSubmitParams"]
+        dispute: str, /, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).

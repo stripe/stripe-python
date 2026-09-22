@@ -264,6 +264,7 @@ class FinancialAccount(
     def _cls_close(
         cls,
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
@@ -283,7 +284,9 @@ class FinancialAccount(
     @overload
     @staticmethod
     def close(
-        financial_account: str, **params: Unpack["FinancialAccountCloseParams"]
+        financial_account: str,
+        /,
+        **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -321,6 +324,7 @@ class FinancialAccount(
     async def _cls_close_async(
         cls,
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
@@ -340,7 +344,9 @@ class FinancialAccount(
     @overload
     @staticmethod
     async def close_async(
-        financial_account: str, **params: Unpack["FinancialAccountCloseParams"]
+        financial_account: str,
+        /,
+        **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -506,6 +512,7 @@ class FinancialAccount(
     def _cls_retrieve_features(
         cls,
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
@@ -526,6 +533,7 @@ class FinancialAccount(
     @staticmethod
     def retrieve_features(
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
@@ -564,6 +572,7 @@ class FinancialAccount(
     async def _cls_retrieve_features_async(
         cls,
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
@@ -584,6 +593,7 @@ class FinancialAccount(
     @staticmethod
     async def retrieve_features_async(
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
@@ -622,6 +632,7 @@ class FinancialAccount(
     def _cls_update_features(
         cls,
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
@@ -642,6 +653,7 @@ class FinancialAccount(
     @staticmethod
     def update_features(
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
@@ -680,6 +692,7 @@ class FinancialAccount(
     async def _cls_update_features_async(
         cls,
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
@@ -700,6 +713,7 @@ class FinancialAccount(
     @staticmethod
     async def update_features_async(
         financial_account: str,
+        /,
         **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """

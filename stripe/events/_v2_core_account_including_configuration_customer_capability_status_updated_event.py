@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -98,7 +98,7 @@ class V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent(
     class V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventData(
         StripeObject,
     ):
-        updated_capability: Literal["automatic_indirect_tax"]
+        updated_capability: Union[Literal["automatic_indirect_tax"], str]
         """
         Open Enum. The capability which had its status updated.
         """

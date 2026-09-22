@@ -130,7 +130,7 @@ class Topup(
 
     @classmethod
     def _cls_cancel(
-        cls, topup: str, **params: Unpack["TopupCancelParams"]
+        cls, topup: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -146,7 +146,9 @@ class Topup(
 
     @overload
     @staticmethod
-    def cancel(topup: str, **params: Unpack["TopupCancelParams"]) -> "Topup":
+    def cancel(
+        topup: str, /, **params: Unpack["TopupCancelParams"]
+    ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
@@ -179,7 +181,7 @@ class Topup(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, topup: str, **params: Unpack["TopupCancelParams"]
+        cls, topup: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -196,7 +198,7 @@ class Topup(
     @overload
     @staticmethod
     async def cancel_async(
-        topup: str, **params: Unpack["TopupCancelParams"]
+        topup: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.

@@ -103,6 +103,7 @@ class PersonalizationDesignService(StripeService):
     def retrieve(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -125,6 +126,7 @@ class PersonalizationDesignService(StripeService):
     async def retrieve_async(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -147,6 +149,7 @@ class PersonalizationDesignService(StripeService):
     def update(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -169,6 +172,7 @@ class PersonalizationDesignService(StripeService):
     async def update_async(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":

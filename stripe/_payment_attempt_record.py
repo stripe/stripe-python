@@ -276,7 +276,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     """
 
                 card: Optional[Card]
-                type: Optional[Literal["card"]]
+                type: Optional[Union[Literal["card"], str]]
                 """
                 funding type of the underlying payment method.
                 """
@@ -1703,7 +1703,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     """
 
                 card: Optional[Card]
-                type: Optional[Literal["card"]]
+                type: Optional[Union[Literal["card"], str]]
                 """
                 Funding type of the underlying payment method.
                 """

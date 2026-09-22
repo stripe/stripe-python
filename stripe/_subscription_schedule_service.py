@@ -109,6 +109,7 @@ class SubscriptionScheduleService(StripeService):
     def retrieve(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":
@@ -131,6 +132,7 @@ class SubscriptionScheduleService(StripeService):
     async def retrieve_async(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":
@@ -153,6 +155,7 @@ class SubscriptionScheduleService(StripeService):
     def update(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":
@@ -175,6 +178,7 @@ class SubscriptionScheduleService(StripeService):
     async def update_async(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":
@@ -197,6 +201,7 @@ class SubscriptionScheduleService(StripeService):
     def cancel(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":
@@ -219,6 +224,7 @@ class SubscriptionScheduleService(StripeService):
     async def cancel_async(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":
@@ -241,6 +247,7 @@ class SubscriptionScheduleService(StripeService):
     def release(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleReleaseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":
@@ -263,6 +270,7 @@ class SubscriptionScheduleService(StripeService):
     async def release_async(
         self,
         schedule: str,
+        /,
         params: Optional["SubscriptionScheduleReleaseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionSchedule":

@@ -1003,6 +1003,7 @@ class Subscription(
     def _cls_cancel(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1029,6 +1030,7 @@ class Subscription(
     @staticmethod
     def cancel(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1079,6 +1081,7 @@ class Subscription(
     async def _cls_cancel_async(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1105,6 +1108,7 @@ class Subscription(
     @staticmethod
     async def cancel_async(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1199,6 +1203,7 @@ class Subscription(
     def _cls_delete_discount(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1221,6 +1226,7 @@ class Subscription(
     @staticmethod
     def delete_discount(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1259,6 +1265,7 @@ class Subscription(
     async def _cls_delete_discount_async(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1281,6 +1288,7 @@ class Subscription(
     @staticmethod
     async def delete_discount_async(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1357,7 +1365,10 @@ class Subscription(
 
     @classmethod
     def _cls_migrate(
-        cls, subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        cls,
+        subscription: str,
+        /,
+        **params: Unpack["SubscriptionMigrateParams"],
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1376,7 +1387,7 @@ class Subscription(
     @overload
     @staticmethod
     def migrate(
-        subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        subscription: str, /, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1412,7 +1423,10 @@ class Subscription(
 
     @classmethod
     async def _cls_migrate_async(
-        cls, subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        cls,
+        subscription: str,
+        /,
+        **params: Unpack["SubscriptionMigrateParams"],
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1431,7 +1445,7 @@ class Subscription(
     @overload
     @staticmethod
     async def migrate_async(
-        subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        subscription: str, /, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1541,7 +1555,7 @@ class Subscription(
 
     @classmethod
     def _cls_resume(
-        cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        cls, subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
@@ -1560,7 +1574,7 @@ class Subscription(
     @overload
     @staticmethod
     def resume(
-        subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
@@ -1596,7 +1610,7 @@ class Subscription(
 
     @classmethod
     async def _cls_resume_async(
-        cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        cls, subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
@@ -1615,7 +1629,7 @@ class Subscription(
     @overload
     @staticmethod
     async def resume_async(
-        subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).

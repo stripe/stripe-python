@@ -144,7 +144,7 @@ class Meter(
 
     @classmethod
     def _cls_deactivate(
-        cls, id: str, **params: Unpack["MeterDeactivateParams"]
+        cls, id: str, /, **params: Unpack["MeterDeactivateParams"]
     ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -163,7 +163,7 @@ class Meter(
     @overload
     @staticmethod
     def deactivate(
-        id: str, **params: Unpack["MeterDeactivateParams"]
+        id: str, /, **params: Unpack["MeterDeactivateParams"]
     ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -197,7 +197,7 @@ class Meter(
 
     @classmethod
     async def _cls_deactivate_async(
-        cls, id: str, **params: Unpack["MeterDeactivateParams"]
+        cls, id: str, /, **params: Unpack["MeterDeactivateParams"]
     ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -216,7 +216,7 @@ class Meter(
     @overload
     @staticmethod
     async def deactivate_async(
-        id: str, **params: Unpack["MeterDeactivateParams"]
+        id: str, /, **params: Unpack["MeterDeactivateParams"]
     ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -322,7 +322,7 @@ class Meter(
 
     @classmethod
     def _cls_reactivate(
-        cls, id: str, **params: Unpack["MeterReactivateParams"]
+        cls, id: str, /, **params: Unpack["MeterReactivateParams"]
     ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
@@ -341,7 +341,7 @@ class Meter(
     @overload
     @staticmethod
     def reactivate(
-        id: str, **params: Unpack["MeterReactivateParams"]
+        id: str, /, **params: Unpack["MeterReactivateParams"]
     ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
@@ -375,7 +375,7 @@ class Meter(
 
     @classmethod
     async def _cls_reactivate_async(
-        cls, id: str, **params: Unpack["MeterReactivateParams"]
+        cls, id: str, /, **params: Unpack["MeterReactivateParams"]
     ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
@@ -394,7 +394,7 @@ class Meter(
     @overload
     @staticmethod
     async def reactivate_async(
-        id: str, **params: Unpack["MeterReactivateParams"]
+        id: str, /, **params: Unpack["MeterReactivateParams"]
     ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
@@ -452,7 +452,7 @@ class Meter(
 
     @classmethod
     def list_event_summaries(
-        cls, id: str, **params: Unpack["MeterListEventSummariesParams"]
+        cls, id: str, /, **params: Unpack["MeterListEventSummariesParams"]
     ) -> ListObject["MeterEventSummary"]:
         """
         Retrieve a list of billing meter event summaries.
@@ -470,7 +470,7 @@ class Meter(
 
     @classmethod
     async def list_event_summaries_async(
-        cls, id: str, **params: Unpack["MeterListEventSummariesParams"]
+        cls, id: str, /, **params: Unpack["MeterListEventSummariesParams"]
     ) -> ListObject["MeterEventSummary"]:
         """
         Retrieve a list of billing meter event summaries.

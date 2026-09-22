@@ -534,7 +534,7 @@ class Dispute(
 
     @classmethod
     def _cls_close(
-        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -555,7 +555,7 @@ class Dispute(
     @overload
     @staticmethod
     def close(
-        dispute: str, **params: Unpack["DisputeCloseParams"]
+        dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -595,7 +595,7 @@ class Dispute(
 
     @classmethod
     async def _cls_close_async(
-        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -616,7 +616,7 @@ class Dispute(
     @overload
     @staticmethod
     async def close_async(
-        dispute: str, **params: Unpack["DisputeCloseParams"]
+        dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.

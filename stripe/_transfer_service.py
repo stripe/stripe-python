@@ -125,6 +125,7 @@ class TransferService(StripeService):
     def retrieve(
         self,
         transfer: str,
+        /,
         params: Optional["TransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Transfer":
@@ -147,6 +148,7 @@ class TransferService(StripeService):
     async def retrieve_async(
         self,
         transfer: str,
+        /,
         params: Optional["TransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Transfer":
@@ -169,6 +171,7 @@ class TransferService(StripeService):
     def update(
         self,
         transfer: str,
+        /,
         params: Optional["TransferUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Transfer":
@@ -193,6 +196,7 @@ class TransferService(StripeService):
     async def update_async(
         self,
         transfer: str,
+        /,
         params: Optional["TransferUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Transfer":

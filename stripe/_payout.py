@@ -166,7 +166,7 @@ class Payout(
 
     @classmethod
     def _cls_cancel(
-        cls, payout: str, **params: Unpack["PayoutCancelParams"]
+        cls, payout: str, /, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -185,7 +185,7 @@ class Payout(
     @overload
     @staticmethod
     def cancel(
-        payout: str, **params: Unpack["PayoutCancelParams"]
+        payout: str, /, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -219,7 +219,7 @@ class Payout(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, payout: str, **params: Unpack["PayoutCancelParams"]
+        cls, payout: str, /, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -238,7 +238,7 @@ class Payout(
     @overload
     @staticmethod
     async def cancel_async(
-        payout: str, **params: Unpack["PayoutCancelParams"]
+        payout: str, /, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -408,7 +408,7 @@ class Payout(
 
     @classmethod
     def _cls_reverse(
-        cls, payout: str, **params: Unpack["PayoutReverseParams"]
+        cls, payout: str, /, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -429,7 +429,7 @@ class Payout(
     @overload
     @staticmethod
     def reverse(
-        payout: str, **params: Unpack["PayoutReverseParams"]
+        payout: str, /, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -469,7 +469,7 @@ class Payout(
 
     @classmethod
     async def _cls_reverse_async(
-        cls, payout: str, **params: Unpack["PayoutReverseParams"]
+        cls, payout: str, /, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -490,7 +490,7 @@ class Payout(
     @overload
     @staticmethod
     async def reverse_async(
-        payout: str, **params: Unpack["PayoutReverseParams"]
+        payout: str, /, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.

@@ -92,7 +92,7 @@ class TestClock(
 
     @classmethod
     def _cls_advance(
-        cls, test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        cls, test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -111,7 +111,7 @@ class TestClock(
     @overload
     @staticmethod
     def advance(
-        test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -147,7 +147,7 @@ class TestClock(
 
     @classmethod
     async def _cls_advance_async(
-        cls, test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        cls, test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -166,7 +166,7 @@ class TestClock(
     @overload
     @staticmethod
     async def advance_async(
-        test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.

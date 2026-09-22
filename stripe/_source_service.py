@@ -54,6 +54,7 @@ class SourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["SourceDetachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -78,6 +79,7 @@ class SourceService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["SourceDetachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
@@ -101,6 +103,7 @@ class SourceService(StripeService):
     def retrieve(
         self,
         source: str,
+        /,
         params: Optional["SourceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Source":
@@ -121,6 +124,7 @@ class SourceService(StripeService):
     async def retrieve_async(
         self,
         source: str,
+        /,
         params: Optional["SourceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Source":
@@ -141,6 +145,7 @@ class SourceService(StripeService):
     def update(
         self,
         source: str,
+        /,
         params: Optional["SourceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Source":
@@ -163,6 +168,7 @@ class SourceService(StripeService):
     async def update_async(
         self,
         source: str,
+        /,
         params: Optional["SourceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Source":
@@ -223,6 +229,7 @@ class SourceService(StripeService):
     def verify(
         self,
         source: str,
+        /,
         params: "SourceVerifyParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Source":
@@ -245,6 +252,7 @@ class SourceService(StripeService):
     async def verify_async(
         self,
         source: str,
+        /,
         params: "SourceVerifyParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Source":

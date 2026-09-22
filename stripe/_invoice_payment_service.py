@@ -59,6 +59,7 @@ class InvoicePaymentService(StripeService):
     def retrieve(
         self,
         invoice_payment: str,
+        /,
         params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoicePayment":
@@ -81,6 +82,7 @@ class InvoicePaymentService(StripeService):
     async def retrieve_async(
         self,
         invoice_payment: str,
+        /,
         params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoicePayment":

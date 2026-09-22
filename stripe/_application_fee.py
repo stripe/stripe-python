@@ -159,7 +159,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def _cls_refund(
-        cls, id: str, **params: Unpack["ApplicationFeeRefundParams"]
+        cls, id: str, /, **params: Unpack["ApplicationFeeRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -184,7 +184,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @overload
     @staticmethod
     def refund(
-        id: str, **params: Unpack["ApplicationFeeRefundParams"]
+        id: str, /, **params: Unpack["ApplicationFeeRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -244,7 +244,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     async def _cls_refund_async(
-        cls, id: str, **params: Unpack["ApplicationFeeRefundParams"]
+        cls, id: str, /, **params: Unpack["ApplicationFeeRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -269,7 +269,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @overload
     @staticmethod
     async def refund_async(
-        id: str, **params: Unpack["ApplicationFeeRefundParams"]
+        id: str, /, **params: Unpack["ApplicationFeeRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -354,6 +354,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
+        /,
         **params: Unpack["ApplicationFeeRetrieveRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
@@ -375,6 +376,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
+        /,
         **params: Unpack["ApplicationFeeRetrieveRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
@@ -396,6 +398,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
+        /,
         **params: Unpack["ApplicationFeeModifyRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
@@ -419,6 +422,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         cls,
         fee: str,
         id: str,
+        /,
         **params: Unpack["ApplicationFeeModifyRefundParams"],
     ) -> "ApplicationFeeRefund":
         """
@@ -439,7 +443,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def list_refunds(
-        cls, id: str, **params: Unpack["ApplicationFeeListRefundsParams"]
+        cls, id: str, /, **params: Unpack["ApplicationFeeListRefundsParams"]
     ) -> ListObject["ApplicationFeeRefund"]:
         """
         You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -455,7 +459,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     async def list_refunds_async(
-        cls, id: str, **params: Unpack["ApplicationFeeListRefundsParams"]
+        cls, id: str, /, **params: Unpack["ApplicationFeeListRefundsParams"]
     ) -> ListObject["ApplicationFeeRefund"]:
         """
         You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -471,7 +475,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def create_refund(
-        cls, id: str, **params: Unpack["ApplicationFeeCreateRefundParams"]
+        cls, id: str, /, **params: Unpack["ApplicationFeeCreateRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -495,7 +499,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     async def create_refund_async(
-        cls, id: str, **params: Unpack["ApplicationFeeCreateRefundParams"]
+        cls, id: str, /, **params: Unpack["ApplicationFeeCreateRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
