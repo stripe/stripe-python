@@ -7,7 +7,10 @@ from typing_extensions import Literal
 
 class Install(StripeObject):
     """
-    An object representing an app installation.
+    An app install represents a Stripe App that is installed on an account. It reports the permissions,
+    content security policy entries, and endpoints that the installing account has authorized, along with any
+    that the app's latest version requests but the account has not authorized yet. Use the Install API to
+    install, reauthorize, and uninstall apps, and to check the state of existing installs.
     """
 
     OBJECT_NAME: ClassVar[Literal["apps.install"]] = "apps.install"
@@ -18,12 +21,24 @@ class Install(StripeObject):
         purpose: Optional[str]
 
     class ContentSecurityPolicyGranted(StripeObject):
-        connect_src: Optional[List[str]]
-        image_src: Optional[List[str]]
+        connect_src: List[str]
+        """
+        The URLs that the app can make network requests to.
+        """
+        image_src: List[str]
+        """
+        The URLs that the app can load images from.
+        """
 
     class ContentSecurityPolicyPending(StripeObject):
-        connect_src: Optional[List[str]]
-        image_src: Optional[List[str]]
+        connect_src: List[str]
+        """
+        The URLs that the app can make network requests to.
+        """
+        image_src: List[str]
+        """
+        The URLs that the app can load images from.
+        """
 
     account: str
     """
@@ -35,7 +50,7 @@ class Install(StripeObject):
     """
     approval_required: bool
     """
-    Whether the installer must authorize pending permissions, content security policy entries, or endpoints.
+    Whether the installer must authorize pending permissions, content security policy entries, or endpoints. For private apps, `approval_required` stays `false`. Install a new version from the Dashboard to grant its permissions.
     """
     auth_code: Optional[str]
     """

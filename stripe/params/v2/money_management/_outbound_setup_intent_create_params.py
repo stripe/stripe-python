@@ -25,6 +25,12 @@ class OutboundSetupIntentCreateParams(TypedDict):
 
 
 class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
+    apple_pay: NotRequired[
+        "OutboundSetupIntentCreateParamsPayoutMethodDataApplePay"
+    ]
+    """
+    The type specific details of the Apple Pay payout method.
+    """
     bank_account: NotRequired[
         "OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount"
     ]
@@ -43,6 +49,7 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
     """
     type: Union[
         Literal[
+            "apple_pay",
             "bank_account",
             "card",
             "crypto_wallet",
@@ -52,6 +59,17 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
     ]
     """
     Open Enum. The type of payout method to be created.
+    """
+
+
+class OutboundSetupIntentCreateParamsPayoutMethodDataApplePay(TypedDict):
+    pk_token: NotRequired[str]
+    """
+    The paymentData property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web) as a UTF-8 encoded serialization of a JSON dictionary.
+    """
+    pk_token_display_name: str
+    """
+    The paymentMethod.displayName property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web), e.g. "Visa 1234".
     """
 
 

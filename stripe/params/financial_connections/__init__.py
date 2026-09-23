@@ -41,6 +41,13 @@ if TYPE_CHECKING:
     from stripe.params.financial_connections._authorization_retrieve_params import (
         AuthorizationRetrieveParams as AuthorizationRetrieveParams,
     )
+    from stripe.params.financial_connections._consent_create_params import (
+        ConsentCreateParams as ConsentCreateParams,
+        ConsentCreateParamsAccountHolder as ConsentCreateParamsAccountHolder,
+    )
+    from stripe.params.financial_connections._consent_retrieve_params import (
+        ConsentRetrieveParams as ConsentRetrieveParams,
+    )
     from stripe.params.financial_connections._institution_list_params import (
         InstitutionListParams as InstitutionListParams,
     )
@@ -120,6 +127,18 @@ _import_map = {
     ),
     "AuthorizationRetrieveParams": (
         "stripe.params.financial_connections._authorization_retrieve_params",
+        False,
+    ),
+    "ConsentCreateParams": (
+        "stripe.params.financial_connections._consent_create_params",
+        False,
+    ),
+    "ConsentCreateParamsAccountHolder": (
+        "stripe.params.financial_connections._consent_create_params",
+        False,
+    ),
+    "ConsentRetrieveParams": (
+        "stripe.params.financial_connections._consent_retrieve_params",
         False,
     ),
     "InstitutionListParams": (

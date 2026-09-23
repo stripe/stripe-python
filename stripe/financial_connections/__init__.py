@@ -29,6 +29,10 @@ if TYPE_CHECKING:
     from stripe.financial_connections._authorization_service import (
         AuthorizationService as AuthorizationService,
     )
+    from stripe.financial_connections._consent import Consent as Consent
+    from stripe.financial_connections._consent_service import (
+        ConsentService as ConsentService,
+    )
     from stripe.financial_connections._institution import (
         Institution as Institution,
     )
@@ -72,6 +76,8 @@ _import_map = {
         "stripe.financial_connections._authorization_service",
         False,
     ),
+    "Consent": ("stripe.financial_connections._consent", False),
+    "ConsentService": ("stripe.financial_connections._consent_service", False),
     "Institution": ("stripe.financial_connections._institution", False),
     "InstitutionService": (
         "stripe.financial_connections._institution_service",

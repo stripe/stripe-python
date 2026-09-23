@@ -927,7 +927,7 @@ class Charge(
             """
             electronic_commerce_indicator: Optional[str]
             """
-            The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. The response value is the source of truth; it may differ from the request value if the network downgraded the transaction.
+            The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
             """
             exp_month: int
             """
@@ -1003,6 +1003,18 @@ class Charge(
             ]
             """
             Status of a card based on the card issuer.
+            """
+            setup_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
+            """
+            stored_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction, one of `recurring`, `unscheduled`, `on_session`, or `installment`
             """
             three_d_secure: Optional[ThreeDSecure]
             """

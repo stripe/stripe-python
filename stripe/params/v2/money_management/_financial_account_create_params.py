@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -36,6 +36,10 @@ class FinancialAccountCreateParamsSavings(TypedDict):
 
 
 class FinancialAccountCreateParamsStorage(TypedDict):
+    crypto: NotRequired["FinancialAccountCreateParamsStorageCrypto"]
+    """
+    Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+    """
     funds_usage_type: NotRequired["Literal['business', 'consumer']|str"]
     """
     The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
@@ -43,4 +47,15 @@ class FinancialAccountCreateParamsStorage(TypedDict):
     holds_currencies: List[str]
     """
     The currencies that this FinancialAccount can hold.
+    """
+
+
+class FinancialAccountCreateParamsStorageCrypto(TypedDict):
+    currency_networks: "Dict[str, Union[Literal['tempo'], str]]|UntypedStripeObject[Union[Literal['tempo'], str]]"
+    """
+    The blockchain network configured for each crypto currency. Keys are lowercase currency codes and must identify crypto currencies also present in `holds_currencies`.
+    """
+    custody_model: Literal["self", "stripe"]
+    """
+    Describes who controls the private keys for the crypto storage.
     """

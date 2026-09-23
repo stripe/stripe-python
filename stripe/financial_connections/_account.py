@@ -82,7 +82,9 @@ class Account(ListableAPIResource["Account"]):
         """
         The type of account number associated with the account.
         """
-        status: Union[Literal["deactivated", "transactable"], str]
+        status: Union[
+            Literal["deactivated", "expired", "pending", "transactable"], str
+        ]
         """
         Whether the account number is currently active and usable for transactions.
         """

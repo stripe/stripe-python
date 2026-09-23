@@ -885,6 +885,7 @@ class Subscription(
                         "sofort",
                         "stripe_balance",
                         "swish",
+                        "touch_n_go",
                         "truemoney",
                         "twint",
                         "upi",
@@ -921,6 +922,10 @@ class Subscription(
         billing_cycle_anchor: Optional[int]
         """
         If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
+        """
+        cancel_at_period_end: Optional[bool]
+        """
+        Indicates whether this subscription should cancel at the end of the current period if the update is applied.
         """
         discount: Optional["Discount"]
         """

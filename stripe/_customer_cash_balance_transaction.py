@@ -61,6 +61,20 @@ class CustomerCashBalanceTransaction(StripeObject):
                 """
                 The last 4 digits of the account number of the sender of the funding.
                 """
+                bic: Optional[str]
+                """
+                The BIC of the bank of the sender of the funding.
+                """
+                iban_last4: Optional[str]
+                """
+                The last 4 digits of the IBAN of the sender of the funding.
+                """
+                network: Optional[
+                    Union[Literal["bacs", "chaps", "fps", "swift"], str]
+                ]
+                """
+                The banking network used for this funding.
+                """
                 sender_name: Optional[str]
                 """
                 The full name of the sender, as supplied by the sending bank.

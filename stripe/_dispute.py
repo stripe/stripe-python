@@ -42,7 +42,7 @@ class Dispute(
                 """
                 supporting_files: Optional[List[str]]
                 """
-                One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+                One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
                 """
 
             card: Optional[Card]

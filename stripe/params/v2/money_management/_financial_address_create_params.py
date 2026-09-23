@@ -10,11 +10,17 @@ class FinancialAddressCreateParams(TypedDict):
     Properties for creating a bank account FinancialAddress.
     """
     crypto_wallet: NotRequired["FinancialAddressCreateParamsCryptoWallet"]
+    """
+    Properties for creating a crypto wallet FinancialAddress.
+    """
     financial_account: str
     """
     The ID of the FinancialAccount the new FinancialAddress should be associated with.
     """
     settlement_currency: NotRequired[str]
+    """
+    Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+    """
     type: Union[Literal["bank_account", "crypto_wallet"], str]
     """
     The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.

@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
-from typing_extensions import NotRequired
+from typing_extensions import NotRequired, TypedDict
 
 
 class InboundTransferCreateParams(RequestOptions):
@@ -35,7 +35,42 @@ class InboundTransferCreateParams(RequestOptions):
     """
     The origin payment method to be debited for the InboundTransfer.
     """
+    origin_payment_method_options: NotRequired[
+        "InboundTransferCreateParamsOriginPaymentMethodOptions"
+    ]
+    """
+    Additional options about the origin PaymentMethod.
+    """
     statement_descriptor: NotRequired[str]
     """
     The complete description that appears on your customers' statements. Maximum 10 characters. Can only include -#.$&*, spaces, and alphanumeric characters.
+    """
+
+
+class InboundTransferCreateParamsOriginPaymentMethodOptions(TypedDict):
+    us_bank_account: NotRequired[
+        "InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccount"
+    ]
+    """
+    Includes additional payment method options if the destination is a us_bank_account.
+    """
+
+
+class InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccount(
+    TypedDict,
+):
+    ach: NotRequired[
+        "InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccountAch"
+    ]
+    """
+    Specify details about the ACH transaction.
+    """
+
+
+class InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccountAch(
+    TypedDict,
+):
+    addenda: NotRequired[str]
+    """
+    Freeform payment-related information to transmit in the ACH addenda record. Maximum 80 characters, ACH character set. Applied only when the payment routes over ACH. Immutable after creation.
     """

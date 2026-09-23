@@ -670,6 +670,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_contract_canceled_event import (
         V2BillingContractCanceledEventNotification,
     )
+    from stripe.events._v2_billing_contract_collection_blocked_event import (
+        V2BillingContractCollectionBlockedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_collection_current_event import (
+        V2BillingContractCollectionCurrentEventNotification,
+    )
+    from stripe.events._v2_billing_contract_collection_past_due_event import (
+        V2BillingContractCollectionPastDueEventNotification,
+    )
+    from stripe.events._v2_billing_contract_collection_unpaid_event import (
+        V2BillingContractCollectionUnpaidEventNotification,
+    )
     from stripe.events._v2_billing_contract_created_event import (
         V2BillingContractCreatedEventNotification,
     )
@@ -1015,6 +1027,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_webhook_latency_resolved_event import (
         V2CoreHealthWebhookLatencyResolvedEventNotification,
     )
+    from stripe.events._v2_core_vault_network_token_activated_event import (
+        V2CoreVaultNetworkTokenActivatedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_authorization_requirements_changed_event import (
+        V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_deactivated_event import (
+        V2CoreVaultNetworkTokenDeactivatedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_details_updated_event import (
+        V2CoreVaultNetworkTokenDetailsUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_suspended_event import (
+        V2CoreVaultNetworkTokenSuspendedEventNotification,
+    )
     from stripe.events._v2_data_reporting_query_run_created_event import (
         V2DataReportingQueryRunCreatedEventNotification,
     )
@@ -1098,6 +1125,15 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_financial_account_updated_event import (
         V2MoneyManagementFinancialAccountUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_wallet_export_completed_event import (
+        V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_wallet_export_pending_event import (
+        V2MoneyManagementFinancialAccountWalletExportPendingEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_wallet_export_ready_event import (
+        V2MoneyManagementFinancialAccountWalletExportReadyEventNotification,
     )
     from stripe.events._v2_money_management_financial_address_activated_event import (
         V2MoneyManagementFinancialAddressActivatedEventNotification,
@@ -2241,6 +2277,22 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_billing_contract_canceled_event",
         "V2BillingContractCanceledEvent",
     ),
+    "v2.billing.contract.collection_blocked": (
+        "stripe.events._v2_billing_contract_collection_blocked_event",
+        "V2BillingContractCollectionBlockedEvent",
+    ),
+    "v2.billing.contract.collection_current": (
+        "stripe.events._v2_billing_contract_collection_current_event",
+        "V2BillingContractCollectionCurrentEvent",
+    ),
+    "v2.billing.contract.collection_past_due": (
+        "stripe.events._v2_billing_contract_collection_past_due_event",
+        "V2BillingContractCollectionPastDueEvent",
+    ),
+    "v2.billing.contract.collection_unpaid": (
+        "stripe.events._v2_billing_contract_collection_unpaid_event",
+        "V2BillingContractCollectionUnpaidEvent",
+    ),
     "v2.billing.contract.created": (
         "stripe.events._v2_billing_contract_created_event",
         "V2BillingContractCreatedEvent",
@@ -2701,6 +2753,26 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
         "V2CoreHealthWebhookLatencyResolvedEvent",
     ),
+    "v2.core.vault.network_token.activated": (
+        "stripe.events._v2_core_vault_network_token_activated_event",
+        "V2CoreVaultNetworkTokenActivatedEvent",
+    ),
+    "v2.core.vault.network_token.authorization_requirements_changed": (
+        "stripe.events._v2_core_vault_network_token_authorization_requirements_changed_event",
+        "V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEvent",
+    ),
+    "v2.core.vault.network_token.deactivated": (
+        "stripe.events._v2_core_vault_network_token_deactivated_event",
+        "V2CoreVaultNetworkTokenDeactivatedEvent",
+    ),
+    "v2.core.vault.network_token.details_updated": (
+        "stripe.events._v2_core_vault_network_token_details_updated_event",
+        "V2CoreVaultNetworkTokenDetailsUpdatedEvent",
+    ),
+    "v2.core.vault.network_token.suspended": (
+        "stripe.events._v2_core_vault_network_token_suspended_event",
+        "V2CoreVaultNetworkTokenSuspendedEvent",
+    ),
     "v2.data.reporting.query_run.created": (
         "stripe.events._v2_data_reporting_query_run_created_event",
         "V2DataReportingQueryRunCreatedEvent",
@@ -2812,6 +2884,18 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.financial_account.updated": (
         "stripe.events._v2_money_management_financial_account_updated_event",
         "V2MoneyManagementFinancialAccountUpdatedEvent",
+    ),
+    "v2.money_management.financial_account.wallet_export.completed": (
+        "stripe.events._v2_money_management_financial_account_wallet_export_completed_event",
+        "V2MoneyManagementFinancialAccountWalletExportCompletedEvent",
+    ),
+    "v2.money_management.financial_account.wallet_export.pending": (
+        "stripe.events._v2_money_management_financial_account_wallet_export_pending_event",
+        "V2MoneyManagementFinancialAccountWalletExportPendingEvent",
+    ),
+    "v2.money_management.financial_account.wallet_export.ready": (
+        "stripe.events._v2_money_management_financial_account_wallet_export_ready_event",
+        "V2MoneyManagementFinancialAccountWalletExportReadyEvent",
     ),
     "v2.money_management.financial_address.activated": (
         "stripe.events._v2_money_management_financial_address_activated_event",
@@ -4052,6 +4136,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_billing_contract_canceled_event",
         "V2BillingContractCanceledEventNotification",
     ),
+    "v2.billing.contract.collection_blocked": (
+        "stripe.events._v2_billing_contract_collection_blocked_event",
+        "V2BillingContractCollectionBlockedEventNotification",
+    ),
+    "v2.billing.contract.collection_current": (
+        "stripe.events._v2_billing_contract_collection_current_event",
+        "V2BillingContractCollectionCurrentEventNotification",
+    ),
+    "v2.billing.contract.collection_past_due": (
+        "stripe.events._v2_billing_contract_collection_past_due_event",
+        "V2BillingContractCollectionPastDueEventNotification",
+    ),
+    "v2.billing.contract.collection_unpaid": (
+        "stripe.events._v2_billing_contract_collection_unpaid_event",
+        "V2BillingContractCollectionUnpaidEventNotification",
+    ),
     "v2.billing.contract.created": (
         "stripe.events._v2_billing_contract_created_event",
         "V2BillingContractCreatedEventNotification",
@@ -4512,6 +4612,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
         "V2CoreHealthWebhookLatencyResolvedEventNotification",
     ),
+    "v2.core.vault.network_token.activated": (
+        "stripe.events._v2_core_vault_network_token_activated_event",
+        "V2CoreVaultNetworkTokenActivatedEventNotification",
+    ),
+    "v2.core.vault.network_token.authorization_requirements_changed": (
+        "stripe.events._v2_core_vault_network_token_authorization_requirements_changed_event",
+        "V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification",
+    ),
+    "v2.core.vault.network_token.deactivated": (
+        "stripe.events._v2_core_vault_network_token_deactivated_event",
+        "V2CoreVaultNetworkTokenDeactivatedEventNotification",
+    ),
+    "v2.core.vault.network_token.details_updated": (
+        "stripe.events._v2_core_vault_network_token_details_updated_event",
+        "V2CoreVaultNetworkTokenDetailsUpdatedEventNotification",
+    ),
+    "v2.core.vault.network_token.suspended": (
+        "stripe.events._v2_core_vault_network_token_suspended_event",
+        "V2CoreVaultNetworkTokenSuspendedEventNotification",
+    ),
     "v2.data.reporting.query_run.created": (
         "stripe.events._v2_data_reporting_query_run_created_event",
         "V2DataReportingQueryRunCreatedEventNotification",
@@ -4623,6 +4743,18 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.money_management.financial_account.updated": (
         "stripe.events._v2_money_management_financial_account_updated_event",
         "V2MoneyManagementFinancialAccountUpdatedEventNotification",
+    ),
+    "v2.money_management.financial_account.wallet_export.completed": (
+        "stripe.events._v2_money_management_financial_account_wallet_export_completed_event",
+        "V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification",
+    ),
+    "v2.money_management.financial_account.wallet_export.pending": (
+        "stripe.events._v2_money_management_financial_account_wallet_export_pending_event",
+        "V2MoneyManagementFinancialAccountWalletExportPendingEventNotification",
+    ),
+    "v2.money_management.financial_account.wallet_export.ready": (
+        "stripe.events._v2_money_management_financial_account_wallet_export_ready_event",
+        "V2MoneyManagementFinancialAccountWalletExportReadyEventNotification",
     ),
     "v2.money_management.financial_address.activated": (
         "stripe.events._v2_money_management_financial_address_activated_event",
@@ -5200,6 +5332,10 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2BillingCadenceCreatedEventNotification",
     "V2BillingContractActivatedEventNotification",
     "V2BillingContractCanceledEventNotification",
+    "V2BillingContractCollectionBlockedEventNotification",
+    "V2BillingContractCollectionCurrentEventNotification",
+    "V2BillingContractCollectionPastDueEventNotification",
+    "V2BillingContractCollectionUnpaidEventNotification",
     "V2BillingContractCreatedEventNotification",
     "V2BillingContractEndedEventNotification",
     "V2BillingContractUpdatedEventNotification",
@@ -5315,6 +5451,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreHealthTrafficVolumeDropResolvedEventNotification",
     "V2CoreHealthWebhookLatencyFiringEventNotification",
     "V2CoreHealthWebhookLatencyResolvedEventNotification",
+    "V2CoreVaultNetworkTokenActivatedEventNotification",
+    "V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification",
+    "V2CoreVaultNetworkTokenDeactivatedEventNotification",
+    "V2CoreVaultNetworkTokenDetailsUpdatedEventNotification",
+    "V2CoreVaultNetworkTokenSuspendedEventNotification",
     "V2DataReportingQueryRunCreatedEventNotification",
     "V2DataReportingQueryRunFailedEventNotification",
     "V2DataReportingQueryRunSucceededEventNotification",
@@ -5343,6 +5484,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementFinancialAccountStatementCreatedEventNotification",
     "V2MoneyManagementFinancialAccountStatementRestatedEventNotification",
     "V2MoneyManagementFinancialAccountUpdatedEventNotification",
+    "V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification",
+    "V2MoneyManagementFinancialAccountWalletExportPendingEventNotification",
+    "V2MoneyManagementFinancialAccountWalletExportReadyEventNotification",
     "V2MoneyManagementFinancialAddressActivatedEventNotification",
     "V2MoneyManagementFinancialAddressFailedEventNotification",
     "V2MoneyManagementInboundTransferAvailableEventNotification",

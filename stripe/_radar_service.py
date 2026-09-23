@@ -8,9 +8,6 @@ if TYPE_CHECKING:
     from stripe.radar._account_evaluation_service import (
         AccountEvaluationService,
     )
-    from stripe.radar._billing_evaluation_service import (
-        BillingEvaluationService,
-    )
     from stripe.radar._customer_evaluation_service import (
         CustomerEvaluationService,
     )
@@ -30,10 +27,6 @@ _subservices = {
     "account_evaluations": [
         "stripe.radar._account_evaluation_service",
         "AccountEvaluationService",
-    ],
-    "billing_evaluations": [
-        "stripe.radar._billing_evaluation_service",
-        "BillingEvaluationService",
     ],
     "customer_evaluations": [
         "stripe.radar._customer_evaluation_service",
@@ -61,7 +54,6 @@ _subservices = {
 
 class RadarService(StripeService):
     account_evaluations: "AccountEvaluationService"
-    billing_evaluations: "BillingEvaluationService"
     customer_evaluations: "CustomerEvaluationService"
     early_fraud_warnings: "EarlyFraudWarningService"
     issuing_authorization_evaluations: "IssuingAuthorizationEvaluationService"

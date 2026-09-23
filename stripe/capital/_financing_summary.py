@@ -27,6 +27,10 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
             The time at which the minimum payment amount will be due. If not met through withholding, the Connected account's linked bank account or account balance will be debited.
             Given in seconds since unix epoch.
             """
+            incremental_interval_target_amount: Optional[int]
+            """
+            The balance for the current repayment interval, in minor units. This does not account for any amount paid down during the interval.
+            """
             paid_amount: Optional[int]
             """
             The amount that has already been paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
@@ -34,6 +38,10 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
             remaining_amount: int
             """
             The amount that is yet to be paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
+            """
+            starts_at: Optional[int]
+            """
+            The time at which the current repayment interval started. Given in seconds since unix epoch.
             """
 
         advance_amount: int
@@ -84,6 +92,10 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         repayments_begin_at: Optional[float]
         """
         The time at which Capital will begin withholding from payments. Given in seconds since unix epoch.
+        """
+        total_due_amount: Optional[int]
+        """
+        Total amount to be paid, independent of what's already been paid, in minor units. For example, 100 USD is represented as 10000.
         """
         withhold_rate: float
         """

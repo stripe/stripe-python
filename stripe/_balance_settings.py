@@ -28,6 +28,10 @@ class BalanceSettings(
     class Payments(StripeObject):
         class Payouts(StripeObject):
             class AutomaticTransferRulesByCurrency(StripeObject):
+                destination_currency: Optional[str]
+                """
+                The currency of the FinancialAccount balance that receives the automatic transfer.
+                """
                 payout_method: str
                 """
                 The ID of the FinancialAccount that funds will be transferred to during automatic transfers.

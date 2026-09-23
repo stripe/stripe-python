@@ -132,6 +132,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.treasury._inbound_transfer_create_params import (
         InboundTransferCreateParams as InboundTransferCreateParams,
+        InboundTransferCreateParamsOriginPaymentMethodOptions as InboundTransferCreateParamsOriginPaymentMethodOptions,
+        InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccount as InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccount,
+        InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccountAch as InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccountAch,
     )
     from stripe.params.treasury._inbound_transfer_fail_params import (
         InboundTransferFailParams as InboundTransferFailParams,
@@ -634,6 +637,18 @@ _import_map = {
         False,
     ),
     "InboundTransferCreateParams": (
+        "stripe.params.treasury._inbound_transfer_create_params",
+        False,
+    ),
+    "InboundTransferCreateParamsOriginPaymentMethodOptions": (
+        "stripe.params.treasury._inbound_transfer_create_params",
+        False,
+    ),
+    "InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccount": (
+        "stripe.params.treasury._inbound_transfer_create_params",
+        False,
+    ),
+    "InboundTransferCreateParamsOriginPaymentMethodOptionsUsBankAccountAch": (
         "stripe.params.treasury._inbound_transfer_create_params",
         False,
     ),

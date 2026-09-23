@@ -702,6 +702,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_contract_canceled_event import (
         V2BillingContractCanceledEventNotification,
     )
+    from stripe.events._v2_billing_contract_collection_blocked_event import (
+        V2BillingContractCollectionBlockedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_collection_current_event import (
+        V2BillingContractCollectionCurrentEventNotification,
+    )
+    from stripe.events._v2_billing_contract_collection_past_due_event import (
+        V2BillingContractCollectionPastDueEventNotification,
+    )
+    from stripe.events._v2_billing_contract_collection_unpaid_event import (
+        V2BillingContractCollectionUnpaidEventNotification,
+    )
     from stripe.events._v2_billing_contract_created_event import (
         V2BillingContractCreatedEventNotification,
     )
@@ -1047,6 +1059,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_webhook_latency_resolved_event import (
         V2CoreHealthWebhookLatencyResolvedEventNotification,
     )
+    from stripe.events._v2_core_vault_network_token_activated_event import (
+        V2CoreVaultNetworkTokenActivatedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_authorization_requirements_changed_event import (
+        V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_deactivated_event import (
+        V2CoreVaultNetworkTokenDeactivatedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_details_updated_event import (
+        V2CoreVaultNetworkTokenDetailsUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_vault_network_token_suspended_event import (
+        V2CoreVaultNetworkTokenSuspendedEventNotification,
+    )
     from stripe.events._v2_data_reporting_query_run_created_event import (
         V2DataReportingQueryRunCreatedEventNotification,
     )
@@ -1130,6 +1157,15 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_financial_account_updated_event import (
         V2MoneyManagementFinancialAccountUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_wallet_export_completed_event import (
+        V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_wallet_export_pending_event import (
+        V2MoneyManagementFinancialAccountWalletExportPendingEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_wallet_export_ready_event import (
+        V2MoneyManagementFinancialAccountWalletExportReadyEventNotification,
     )
     from stripe.events._v2_money_management_financial_address_activated_event import (
         V2MoneyManagementFinancialAddressActivatedEventNotification,
@@ -4395,6 +4431,58 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_billing_contract_collection_blocked(
+        self,
+        func: "Callable[[V2BillingContractCollectionBlockedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractCollectionBlockedEvent` (`v2.billing.contract.collection_blocked`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.collection_blocked",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_collection_current(
+        self,
+        func: "Callable[[V2BillingContractCollectionCurrentEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractCollectionCurrentEvent` (`v2.billing.contract.collection_current`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.collection_current",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_collection_past_due(
+        self,
+        func: "Callable[[V2BillingContractCollectionPastDueEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractCollectionPastDueEvent` (`v2.billing.contract.collection_past_due`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.collection_past_due",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_collection_unpaid(
+        self,
+        func: "Callable[[V2BillingContractCollectionUnpaidEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractCollectionUnpaidEvent` (`v2.billing.contract.collection_unpaid`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.collection_unpaid",
+            func,
+        )
+        return func
+
     def on_v2_billing_contract_created(
         self,
         func: "Callable[[V2BillingContractCreatedEventNotification, StripeClient], CallbackReturn]",
@@ -5890,6 +5978,71 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_core_vault_network_token_activated(
+        self,
+        func: "Callable[[V2CoreVaultNetworkTokenActivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreVaultNetworkTokenActivatedEvent` (`v2.core.vault.network_token.activated`) event notification.
+        """
+        self._register(
+            "v2.core.vault.network_token.activated",
+            func,
+        )
+        return func
+
+    def on_v2_core_vault_network_token_authorization_requirements_changed(
+        self,
+        func: "Callable[[V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEvent` (`v2.core.vault.network_token.authorization_requirements_changed`) event notification.
+        """
+        self._register(
+            "v2.core.vault.network_token.authorization_requirements_changed",
+            func,
+        )
+        return func
+
+    def on_v2_core_vault_network_token_deactivated(
+        self,
+        func: "Callable[[V2CoreVaultNetworkTokenDeactivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreVaultNetworkTokenDeactivatedEvent` (`v2.core.vault.network_token.deactivated`) event notification.
+        """
+        self._register(
+            "v2.core.vault.network_token.deactivated",
+            func,
+        )
+        return func
+
+    def on_v2_core_vault_network_token_details_updated(
+        self,
+        func: "Callable[[V2CoreVaultNetworkTokenDetailsUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreVaultNetworkTokenDetailsUpdatedEvent` (`v2.core.vault.network_token.details_updated`) event notification.
+        """
+        self._register(
+            "v2.core.vault.network_token.details_updated",
+            func,
+        )
+        return func
+
+    def on_v2_core_vault_network_token_suspended(
+        self,
+        func: "Callable[[V2CoreVaultNetworkTokenSuspendedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreVaultNetworkTokenSuspendedEvent` (`v2.core.vault.network_token.suspended`) event notification.
+        """
+        self._register(
+            "v2.core.vault.network_token.suspended",
+            func,
+        )
+        return func
+
     def on_v2_data_reporting_query_run_created(
         self,
         func: "Callable[[V2DataReportingQueryRunCreatedEventNotification, StripeClient], CallbackReturn]",
@@ -6250,6 +6403,45 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.money_management.financial_account.updated",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_financial_account_wallet_export_completed(
+        self,
+        func: "Callable[[V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementFinancialAccountWalletExportCompletedEvent` (`v2.money_management.financial_account.wallet_export.completed`) event notification.
+        """
+        self._register(
+            "v2.money_management.financial_account.wallet_export.completed",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_financial_account_wallet_export_pending(
+        self,
+        func: "Callable[[V2MoneyManagementFinancialAccountWalletExportPendingEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementFinancialAccountWalletExportPendingEvent` (`v2.money_management.financial_account.wallet_export.pending`) event notification.
+        """
+        self._register(
+            "v2.money_management.financial_account.wallet_export.pending",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_financial_account_wallet_export_ready(
+        self,
+        func: "Callable[[V2MoneyManagementFinancialAccountWalletExportReadyEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementFinancialAccountWalletExportReadyEvent` (`v2.money_management.financial_account.wallet_export.ready`) event notification.
+        """
+        self._register(
+            "v2.money_management.financial_account.wallet_export.ready",
             func,
         )
         return func
