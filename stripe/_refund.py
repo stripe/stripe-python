@@ -528,9 +528,7 @@ class Refund(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RefundCancelParams"]
-    ) -> "Refund":
+    def cancel(self, **params: Unpack["RefundCancelParams"]) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
 
@@ -591,7 +589,7 @@ class Refund(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
@@ -702,7 +700,7 @@ class Refund(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["RefundModifyParams"]
+        cls, id: str, /, **params: Unpack["RefundModifyParams"]
     ) -> "Refund":
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
@@ -721,7 +719,7 @@ class Refund(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["RefundModifyParams"]
+        cls, id: str, /, **params: Unpack["RefundModifyParams"]
     ) -> "Refund":
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
@@ -799,9 +797,7 @@ class Refund(
             ...
 
         @class_method_variant("_cls_expire")
-        def expire(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["RefundExpireParams"]
-        ) -> "Refund":
+        def expire(self, **params: Unpack["RefundExpireParams"]) -> "Refund":
             """
             Expire a refund with a status of requires_action.
             """
@@ -854,7 +850,7 @@ class Refund(
             ...
 
         @class_method_variant("_cls_expire_async")
-        async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def expire_async(
             self, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """

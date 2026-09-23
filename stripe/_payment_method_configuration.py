@@ -1493,6 +1493,7 @@ class PaymentMethodConfiguration(
     def modify(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentMethodConfigurationModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """
@@ -1512,6 +1513,7 @@ class PaymentMethodConfiguration(
     async def modify_async(
         cls,
         id: str,
+        /,
         **params: Unpack["PaymentMethodConfigurationModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """

@@ -280,7 +280,9 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["TokenModifyParams"]) -> "Token":
+    def modify(
+        cls, id: str, /, **params: Unpack["TokenModifyParams"]
+    ) -> "Token":
         """
         Attempts to update the specified Issuing Token object to the status specified.
         """
@@ -296,7 +298,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TokenModifyParams"]
+        cls, id: str, /, **params: Unpack["TokenModifyParams"]
     ) -> "Token":
         """
         Attempts to update the specified Issuing Token object to the status specified.

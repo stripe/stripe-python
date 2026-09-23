@@ -344,7 +344,7 @@ class OutboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
@@ -404,7 +404,7 @@ class OutboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
@@ -561,7 +561,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # pyright: ignore[reportGeneralTypeIssues]
+        def fail(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
@@ -623,7 +623,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_fail_async")
-        async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def fail_async(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
@@ -685,7 +685,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_post")
-        def post(  # pyright: ignore[reportGeneralTypeIssues]
+        def post(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
@@ -747,7 +747,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_post_async")
-        async def post_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def post_async(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
@@ -810,7 +810,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_return_outbound_transfer")
-        def return_outbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
+        def return_outbound_transfer(
             self,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -874,7 +874,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_return_outbound_transfer_async")
-        async def return_outbound_transfer_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def return_outbound_transfer_async(
             self,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -937,7 +937,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_update")
-        def update(  # pyright: ignore[reportGeneralTypeIssues]
+        def update(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
@@ -999,7 +999,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_update_async")
-        async def update_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def update_async(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """

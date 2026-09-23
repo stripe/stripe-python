@@ -138,7 +138,7 @@ class FeedbackOption(
         ...
 
     @class_method_variant("_cls_deactivate")
-    def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
+    def deactivate(
         self, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
@@ -193,7 +193,7 @@ class FeedbackOption(
         ...
 
     @class_method_variant("_cls_deactivate_async")
-    async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def deactivate_async(
         self, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
@@ -252,7 +252,7 @@ class FeedbackOption(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FeedbackOptionModifyParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionModifyParams"]
     ) -> "FeedbackOption":
         """
         Updates the description of an existing feedback option.
@@ -269,7 +269,7 @@ class FeedbackOption(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FeedbackOptionModifyParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionModifyParams"]
     ) -> "FeedbackOption":
         """
         Updates the description of an existing feedback option.

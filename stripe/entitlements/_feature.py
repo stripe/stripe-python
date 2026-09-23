@@ -138,7 +138,7 @@ class Feature(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FeatureModifyParams"]
+        cls, id: str, /, **params: Unpack["FeatureModifyParams"]
     ) -> "Feature":
         """
         Update a feature's metadata or permanently deactivate it.
@@ -155,7 +155,7 @@ class Feature(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FeatureModifyParams"]
+        cls, id: str, /, **params: Unpack["FeatureModifyParams"]
     ) -> "Feature":
         """
         Update a feature's metadata or permanently deactivate it.

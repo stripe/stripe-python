@@ -104,7 +104,7 @@ class ValueListItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ValueListItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -122,7 +122,7 @@ class ValueListItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["ValueListItemDeleteParams"]
+        sid: str, /, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -139,7 +139,7 @@ class ValueListItem(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
@@ -153,7 +153,7 @@ class ValueListItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ValueListItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -171,7 +171,7 @@ class ValueListItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ValueListItemDeleteParams"]
+        sid: str, /, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -188,7 +188,7 @@ class ValueListItem(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """

@@ -495,7 +495,7 @@ class Transaction(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["TransactionModifyParams"]
+        cls, id: str, /, **params: Unpack["TransactionModifyParams"]
     ) -> "Transaction":
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -512,7 +512,7 @@ class Transaction(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TransactionModifyParams"]
+        cls, id: str, /, **params: Unpack["TransactionModifyParams"]
     ) -> "Transaction":
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -657,7 +657,7 @@ class Transaction(
             ...
 
         @class_method_variant("_cls_refund")
-        def refund(  # pyright: ignore[reportGeneralTypeIssues]
+        def refund(
             self, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
@@ -715,7 +715,7 @@ class Transaction(
             ...
 
         @class_method_variant("_cls_refund_async")
-        async def refund_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def refund_async(
             self, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """

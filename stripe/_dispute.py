@@ -574,9 +574,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_close")
-    def close(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["DisputeCloseParams"]
-    ) -> "Dispute":
+    def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
@@ -637,7 +635,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_close_async")
-    async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def close_async(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
@@ -698,7 +696,7 @@ class Dispute(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["DisputeModifyParams"]
+        cls, id: str, /, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -717,7 +715,7 @@ class Dispute(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["DisputeModifyParams"]
+        cls, id: str, /, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.

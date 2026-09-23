@@ -109,7 +109,7 @@ class InvoiceRenderingTemplate(
         ...
 
     @class_method_variant("_cls_archive")
-    def archive(  # pyright: ignore[reportGeneralTypeIssues]
+    def archive(
         self, **params: Unpack["InvoiceRenderingTemplateArchiveParams"]
     ) -> "InvoiceRenderingTemplate":
         """
@@ -169,7 +169,7 @@ class InvoiceRenderingTemplate(
         ...
 
     @class_method_variant("_cls_archive_async")
-    async def archive_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def archive_async(
         self, **params: Unpack["InvoiceRenderingTemplateArchiveParams"]
     ) -> "InvoiceRenderingTemplate":
         """
@@ -295,7 +295,7 @@ class InvoiceRenderingTemplate(
         ...
 
     @class_method_variant("_cls_unarchive")
-    def unarchive(  # pyright: ignore[reportGeneralTypeIssues]
+    def unarchive(
         self, **params: Unpack["InvoiceRenderingTemplateUnarchiveParams"]
     ) -> "InvoiceRenderingTemplate":
         """
@@ -355,7 +355,7 @@ class InvoiceRenderingTemplate(
         ...
 
     @class_method_variant("_cls_unarchive_async")
-    async def unarchive_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def unarchive_async(
         self, **params: Unpack["InvoiceRenderingTemplateUnarchiveParams"]
     ) -> "InvoiceRenderingTemplate":
         """

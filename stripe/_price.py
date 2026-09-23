@@ -348,7 +348,9 @@ class Price(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["PriceModifyParams"]) -> "Price":
+    def modify(
+        cls, id: str, /, **params: Unpack["PriceModifyParams"]
+    ) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
         """
@@ -364,7 +366,7 @@ class Price(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PriceModifyParams"]
+        cls, id: str, /, **params: Unpack["PriceModifyParams"]
     ) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
