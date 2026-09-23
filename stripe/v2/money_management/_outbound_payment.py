@@ -164,6 +164,10 @@ class OutboundPayment(StripeObject):
             class BankAccount(StripeObject):
                 class PreferredNetworkOptions(StripeObject):
                     class Ach(StripeObject):
+                        addenda: Optional[str]
+                        """
+                        Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                        """
                         submission: Optional[
                             Union[Literal["next_day", "same_day"], str]
                         ]

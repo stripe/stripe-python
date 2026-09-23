@@ -170,7 +170,7 @@ class ContractUpdateParamsPricingLineAction(TypedDict):
 
 
 class ContractUpdateParamsPricingLineActionAdd(TypedDict):
-    ends_at: "ContractUpdateParamsPricingLineActionAddEndsAt"
+    ends_at: NotRequired["ContractUpdateParamsPricingLineActionAddEndsAt"]
     """
     The end time for the pricing line.
     """
@@ -197,7 +197,7 @@ class ContractUpdateParamsPricingLineActionAddEndsAt(TypedDict):
     """
     The timestamp when the pricing ends.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of end time to apply.
     """
@@ -286,7 +286,7 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -390,7 +390,7 @@ class ContractUpdateParamsPricingLineActionUpdateEndsAt(TypedDict):
     """
     The timestamp when the pricing ends.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of end time to apply.
     """
@@ -456,7 +456,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd(
     TypedDict,
 ):
-    ends_at: "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt"
+    ends_at: NotRequired[
+        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt"
+    ]
     """
     The end time for the override.
     """
@@ -495,7 +497,7 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
     """
     The timestamp when the pricing ends.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of end time to apply.
     """
@@ -574,7 +576,7 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
     """
     The timestamp when the pricing ends.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of end time to apply.
     """
@@ -650,7 +652,7 @@ class ContractUpdateParamsPricingOverrideAction(TypedDict):
 
 
 class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
-    ends_at: "ContractUpdateParamsPricingOverrideActionAddEndsAt"
+    ends_at: NotRequired["ContractUpdateParamsPricingOverrideActionAddEndsAt"]
     """
     The end time for the pricing override.
     """
@@ -693,7 +695,7 @@ class ContractUpdateParamsPricingOverrideActionAddEndsAt(TypedDict):
     """
     The timestamp when the pricing ends.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of end time to apply.
     """
@@ -784,7 +786,7 @@ class ContractUpdateParamsPricingOverrideActionUpdateEndsAt(TypedDict):
     """
     The timestamp when the pricing ends.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of end time to apply.
     """

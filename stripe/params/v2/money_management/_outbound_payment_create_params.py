@@ -192,6 +192,10 @@ class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetwor
 class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch(
     TypedDict,
 ):
+    addenda: NotRequired[str]
+    """
+    Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+    """
     submission: NotRequired["Literal['next_day', 'same_day']|str"]
     """
     Open Enum. ACH submission timing.

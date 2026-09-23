@@ -28,17 +28,25 @@ if TYPE_CHECKING:
     from stripe.v2.money_management.financial_accounts._statement_service import (
         StatementService,
     )
+    from stripe.v2.money_management.financial_accounts._wallet_export_service import (
+        WalletExportService,
+    )
 
 _subservices = {
     "statements": [
         "stripe.v2.money_management.financial_accounts._statement_service",
         "StatementService",
     ],
+    "wallet_export": [
+        "stripe.v2.money_management.financial_accounts._wallet_export_service",
+        "WalletExportService",
+    ],
 }
 
 
 class FinancialAccountService(StripeService):
     statements: "StatementService"
+    wallet_export: "WalletExportService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

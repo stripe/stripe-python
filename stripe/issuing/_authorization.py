@@ -859,6 +859,57 @@ class Authorization(
             "unit_cost_decimal": "decimal_string",
         }
 
+    class Fuels(StripeObject):
+        industry_product_code: Optional[str]
+        """
+        [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        """
+        quantity_decimal: Optional[Decimal]
+        """
+        The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        """
+        type: Optional[
+            Union[
+                Literal[
+                    "diesel",
+                    "other",
+                    "unleaded_plus",
+                    "unleaded_regular",
+                    "unleaded_super",
+                ],
+                str,
+            ]
+        ]
+        """
+        The type of fuel that was purchased.
+        """
+        unit: Optional[
+            Union[
+                Literal[
+                    "charging_minute",
+                    "imperial_gallon",
+                    "kilogram",
+                    "kilowatt_hour",
+                    "liter",
+                    "other",
+                    "pound",
+                    "us_gallon",
+                ],
+                str,
+            ]
+        ]
+        """
+        The units for `quantity_decimal`.
+        """
+        unit_cost_decimal: Optional[Decimal]
+        """
+        The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+        """
+        _field_encodings = {
+            "quantity_decimal": "decimal_string",
+            "unit_cost_decimal": "decimal_string",
+        }
+
     class Healthcare(StripeObject):
         clinic_amount: Optional[int]
         """
@@ -1892,6 +1943,10 @@ class Authorization(
     fuel: Optional[Fuel]
     """
     Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
+    """
+    fuels: Optional[List[Fuels]]
+    """
+    Information about the list of fuel items that were purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
     """
     healthcare: Optional[Healthcare]
     """
@@ -3123,6 +3178,7 @@ class Authorization(
         "fleet": Fleet,
         "fraud_challenges": FraudChallenge,
         "fuel": Fuel,
+        "fuels": Fuels,
         "healthcare": Healthcare,
         "merchant_data": MerchantData,
         "network_data": NetworkData,

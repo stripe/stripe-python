@@ -309,6 +309,12 @@ class Account(
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
         """
+        blik_recurring_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+        """
         boleto_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]
@@ -905,7 +911,7 @@ class Account(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
                 details: Optional[str]
                 """
@@ -917,7 +923,7 @@ class Account(
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
 
             document: Document
@@ -1154,8 +1160,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1297,7 +1305,7 @@ class Account(
             ]
         ]
         """
-        This is typed as an enum for consistency with `requirements.disabled_reason`.
+        If the account is disabled, this string describes why the account can't create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
         """
         errors: Optional[List[Error]]
         """
@@ -1345,8 +1353,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1488,7 +1498,7 @@ class Account(
             ]
         ]
         """
-        If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
+        If the account is disabled, this string describes why the account can't create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
         """
         errors: Optional[List[Error]]
         """
@@ -1580,6 +1590,16 @@ class Account(
             secondary_color: Optional[str]
             """
             A CSS hex color value representing the secondary branding color for this account
+            """
+
+        class Capital(StripeObject):
+            allowed_payout_destinations: Optional[List[str]]
+            """
+            The payout destinations allowed for Capital financing payouts.
+            """
+            excluded_payout_destinations: Optional[List[str]]
+            """
+            The payout destinations excluded from Capital financing payouts.
             """
 
         class CardIssuing(StripeObject):
@@ -1825,6 +1845,7 @@ class Account(
         bacs_debit_payments: Optional[BacsDebitPayments]
         bank_bca_onboarding: Optional[BankBcaOnboarding]
         branding: Branding
+        capital: Optional[Capital]
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
@@ -1841,6 +1862,7 @@ class Account(
             "bacs_debit_payments": BacsDebitPayments,
             "bank_bca_onboarding": BankBcaOnboarding,
             "branding": Branding,
+            "capital": Capital,
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,

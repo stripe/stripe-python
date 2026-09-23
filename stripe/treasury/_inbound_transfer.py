@@ -41,7 +41,7 @@ class InboundTransfer(
     ListableAPIResource["InboundTransfer"],
 ):
     """
-    Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+    Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
 
     Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     """
@@ -119,6 +119,12 @@ class InboundTransfer(
             _inner_class_types = {"address": Address}
 
         class UsBankAccount(StripeObject):
+            class Ach(StripeObject):
+                addenda: Optional[str]
+                """
+                Freeform payment-related information transmitted in the ACH addenda record.
+                """
+
             account_holder_type: Optional[
                 Union[Literal["company", "individual"], str]
             ]
@@ -128,6 +134,10 @@ class InboundTransfer(
             account_type: Optional[Union[Literal["checking", "savings"], str]]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
+            """
+            ach: Optional[Ach]
+            """
+            Details about an ACH transaction.
             """
             bank_name: Optional[str]
             """
@@ -153,6 +163,7 @@ class InboundTransfer(
             """
             Routing number of the bank account.
             """
+            _inner_class_types = {"ach": Ach}
 
         billing_details: BillingDetails
         type: Literal["us_bank_account"]
@@ -201,7 +212,7 @@ class InboundTransfer(
     """
     failure_details: Optional[FailureDetails]
     """
-    Details about this InboundTransfer's failure. Only set when status is `failed`.
+    Details about this InboundTransfer's failure. Will be set when `status=failed` or `returned=true`.
     """
     financial_account: str
     """

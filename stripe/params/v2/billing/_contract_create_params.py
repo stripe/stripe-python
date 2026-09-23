@@ -233,7 +233,7 @@ class ContractCreateParamsOneTimeFeeBillAt(TypedDict):
 
 
 class ContractCreateParamsPricingLine(TypedDict):
-    ends_at: "ContractCreateParamsPricingLineEndsAt"
+    ends_at: NotRequired["ContractCreateParamsPricingLineEndsAt"]
     """
     When the pricing line ends.
     """
@@ -260,7 +260,7 @@ class ContractCreateParamsPricingLineEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -349,7 +349,7 @@ class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt(
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -415,7 +415,7 @@ class ContractCreateParamsPricingLineStartsAt(TypedDict):
 
 
 class ContractCreateParamsPricingOverride(TypedDict):
-    ends_at: "ContractCreateParamsPricingOverrideEndsAt"
+    ends_at: NotRequired["ContractCreateParamsPricingOverrideEndsAt"]
     """
     When the pricing override ends.
     """
@@ -452,7 +452,7 @@ class ContractCreateParamsPricingOverrideEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["never", "timestamp"], str]
     """
     The type of the ends_at.
     """

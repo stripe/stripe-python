@@ -95,6 +95,12 @@ class OutboundTransferCreateParamsToPayoutMethodOptions(TypedDict):
 
 
 class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
+    preferred_network_options: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions"
+    ]
+    """
+    Per-network configuration options.
+    """
     preferred_networks: List[
         Union[
             Literal[
@@ -114,4 +120,24 @@ class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
     ]
     """
     The preferred networks to use for this OutboundTransfer.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions(
+    TypedDict,
+):
+    ach: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch"
+    ]
+    """
+    ACH-specific network options.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch(
+    TypedDict,
+):
+    addenda: NotRequired[str]
+    """
+    Freeform ACH addenda (max 80 characters) included in the NACHA submission.
     """

@@ -141,7 +141,7 @@ class Session(
             class IntegrationConfigurationDisabledReason(StripeObject):
                 conflicting_field: str
                 """
-                The parameter that prevented `automatic_tax` from being enabled (e.g. `line_items[][tax_rates]`).
+                The parameter that prevented `automatic_tax` from being enabled (for example `line_items[][tax_rates]`).
                 """
 
             integration_configuration_disabled_reason: Optional[
@@ -672,6 +672,12 @@ class Session(
                 """
                 _inner_class_types = {"wallet": Wallet}
 
+            class Custom(StripeObject):
+                type: str
+                """
+                ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+                """
+
             class Link(StripeObject):
                 fingerprint: Optional[str]
                 """
@@ -706,6 +712,7 @@ class Session(
             bacs_debit: Optional[BacsDebit]
             boleto: Optional[Boleto]
             card: Optional[Card]
+            custom: Optional[Custom]
             link: Optional[Link]
             pix: Optional[Pix]
             sepa_debit: Optional[SepaDebit]
@@ -719,6 +726,7 @@ class Session(
                 "bacs_debit": BacsDebit,
                 "boleto": Boleto,
                 "card": Card,
+                "custom": Custom,
                 "link": Link,
                 "pix": Pix,
                 "sepa_debit": SepaDebit,
@@ -1310,9 +1318,6 @@ class Session(
         The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         """
         subscription: Optional[Subscription]
-        """
-        Details on the subscription for this item.
-        """
         type: Union[Literal["subscription"], str]
         """
         The type of the item.
@@ -3027,7 +3032,7 @@ class Session(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
                 Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -3380,6 +3385,10 @@ class Session(
     payment_record: Optional[ExpandableField["PaymentRecord"]]
     """
     The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
+    """
+    payment_reservation: Optional[str]
+    """
+    The ID of the Payment Reservation for this Checkout Session.
     """
     payment_status: Union[
         Literal["no_payment_required", "paid", "unpaid"], str

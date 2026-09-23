@@ -18,6 +18,7 @@ if TYPE_CHECKING:
         network as network,
         orchestrated_commerce as orchestrated_commerce,
         payments as payments,
+        provisioning as provisioning,
         reporting as reporting,
         risk as risk,
         signals as signals,
@@ -45,6 +46,9 @@ if TYPE_CHECKING:
         OrchestratedCommerceService as OrchestratedCommerceService,
     )
     from stripe.v2._payments_service import PaymentsService as PaymentsService
+    from stripe.v2._provisioning_service import (
+        ProvisioningService as ProvisioningService,
+    )
     from stripe.v2._reporting_service import (
         ReportingService as ReportingService,
     )
@@ -67,6 +71,7 @@ _import_map = {
     "network": ("stripe.v2.network", True),
     "orchestrated_commerce": ("stripe.v2.orchestrated_commerce", True),
     "payments": ("stripe.v2.payments", True),
+    "provisioning": ("stripe.v2.provisioning", True),
     "reporting": ("stripe.v2.reporting", True),
     "risk": ("stripe.v2.risk", True),
     "signals": ("stripe.v2.signals", True),
@@ -94,6 +99,7 @@ _import_map = {
         False,
     ),
     "PaymentsService": ("stripe.v2._payments_service", False),
+    "ProvisioningService": ("stripe.v2._provisioning_service", False),
     "ReportingService": ("stripe.v2._reporting_service", False),
     "RiskService": ("stripe.v2._risk_service", False),
     "SignalsService": ("stripe.v2._signals_service", False),

@@ -6,26 +6,26 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._request_options import RequestOptions
-    from stripe.params.radar._billing_evaluation_create_params import (
-        BillingEvaluationCreateParams,
+    from stripe.params.v2.provisioning._project_create_params import (
+        ProjectCreateParams,
     )
-    from stripe.radar._billing_evaluation import BillingEvaluation
+    from stripe.v2.provisioning._project import Project
 
 
-class BillingEvaluationService(StripeService):
+class ProjectService(StripeService):
     def create(
         self,
-        params: "BillingEvaluationCreateParams",
+        params: "ProjectCreateParams",
         options: Optional["RequestOptions"] = None,
-    ) -> "BillingEvaluation":
+    ) -> "Project":
         """
-        Request Stripe Radar's assessment of the non-payment abuse risk of an upcoming charge, before the payment is attempted.
+        Creates a new project.
         """
         return cast(
-            "BillingEvaluation",
+            "Project",
             self._request(
                 "post",
-                "/v1/radar/billing_evaluations",
+                "/v2/provisioning/projects",
                 base_address="api",
                 params=params,
                 options=options,
@@ -34,17 +34,17 @@ class BillingEvaluationService(StripeService):
 
     async def create_async(
         self,
-        params: "BillingEvaluationCreateParams",
+        params: "ProjectCreateParams",
         options: Optional["RequestOptions"] = None,
-    ) -> "BillingEvaluation":
+    ) -> "Project":
         """
-        Request Stripe Radar's assessment of the non-payment abuse risk of an upcoming charge, before the payment is attempted.
+        Creates a new project.
         """
         return cast(
-            "BillingEvaluation",
+            "Project",
             await self._request_async(
                 "post",
-                "/v1/radar/billing_evaluations",
+                "/v2/provisioning/projects",
                 base_address="api",
                 params=params,
                 options=options,

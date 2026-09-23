@@ -54,6 +54,10 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         Populated when the `product_type` of the `financingoffer` is `refill`.
         Represents the discount amount on remaining premium for the existing loan at payout time.
         """
+        total_due_amount: Optional[int]
+        """
+        Total amount due for the financing independent of what's already been paid, in minor units. For example, 100 USD is represented as 10000.
+        """
         withhold_rate: float
         """
         Per-transaction rate at which Stripe withholds funds to repay the financing.

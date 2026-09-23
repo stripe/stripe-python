@@ -123,6 +123,23 @@ class OutboundTransfer(StripeObject):
     class To(StripeObject):
         class PayoutMethodOptions(StripeObject):
             class BankAccount(StripeObject):
+                class PreferredNetworkOptions(StripeObject):
+                    class Ach(StripeObject):
+                        addenda: Optional[str]
+                        """
+                        Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                        """
+
+                    ach: Optional[Ach]
+                    """
+                    ACH-specific network options.
+                    """
+                    _inner_class_types = {"ach": Ach}
+
+                preferred_network_options: Optional[PreferredNetworkOptions]
+                """
+                Per-network configuration options.
+                """
                 preferred_networks: List[
                     Union[
                         Literal[
@@ -143,6 +160,9 @@ class OutboundTransfer(StripeObject):
                 """
                 The preferred networks to use for this OutboundTransfer.
                 """
+                _inner_class_types = {
+                    "preferred_network_options": PreferredNetworkOptions,
+                }
 
             bank_account: Optional[BankAccount]
             """

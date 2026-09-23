@@ -110,7 +110,7 @@ class SessionCreateParamsFilters(TypedDict):
     """
     countries: NotRequired[List[str]]
     """
-    List of countries from which to collect accounts.
+    List of countries from which to filter accounts.
     """
     institution: NotRequired[str]
     """

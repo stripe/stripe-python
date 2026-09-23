@@ -41,6 +41,16 @@ class Payout(
 
     OBJECT_NAME: ClassVar[Literal["payout"]] = "payout"
 
+    class PayoutMethodOptions(StripeObject):
+        class FinancialAccount(StripeObject):
+            destination_currency: Optional[str]
+            """
+            The currency credited to the destination Financial Account.
+            """
+
+        financial_account: Optional[FinancialAccount]
+        _inner_class_types = {"financial_account": FinancialAccount}
+
     class TraceId(StripeObject):
         status: str
         """
@@ -133,6 +143,7 @@ class Payout(
     """
     ID of the v2 FinancialAccount the funds are sent to.
     """
+    payout_method_options: Optional[PayoutMethodOptions]
     reconciliation_status: Union[
         Literal["completed", "in_progress", "not_applicable"], str
     ]
@@ -530,4 +541,7 @@ class Payout(
             ),
         )
 
-    _inner_class_types = {"trace_id": TraceId}
+    _inner_class_types = {
+        "payout_method_options": PayoutMethodOptions,
+        "trace_id": TraceId,
+    }

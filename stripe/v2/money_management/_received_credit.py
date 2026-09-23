@@ -132,6 +132,61 @@ class ReceivedCredit(StripeObject):
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
 
+        class NetworkDetails(StripeObject):
+            class Ach(StripeObject):
+                addenda: Optional[str]
+                """
+                Payment-related information from the ACH addenda record, up to 80 characters.
+                """
+                originator_company_entry_description: Optional[str]
+                """
+                Company Entry Description from the ACH batch header, e.g. "HCCLAIMPMT".
+                """
+                originator_company_id: Optional[str]
+                """
+                Company Identification from the ACH batch header.
+                """
+                originator_company_name: Optional[str]
+                """
+                Company Name from the ACH batch header -- the business that sent the funds.
+                """
+                receiver_id_number: Optional[str]
+                """
+                Identification Number from the ACH entry detail record.
+                """
+                receiver_name: Optional[str]
+                """
+                Individual Name from the ACH entry detail record.
+                """
+                standard_entry_class_code: Optional[
+                    Union[
+                        Literal[
+                            "ccd",
+                            "cie",
+                            "ctx",
+                            "iat",
+                            "pos",
+                            "ppd",
+                            "tel",
+                            "web",
+                        ],
+                        str,
+                    ]
+                ]
+                """
+                Open Enum. Standard Entry Class code of the ACH entry.
+                """
+                trace_id: Optional[str]
+                """
+                Trace Number from the ACH entry detail record.
+                """
+
+            ach: Ach
+            """
+            NACHA details for the ACH entry that created this ReceivedCredit.
+            """
+            _inner_class_types = {"ach": Ach}
+
         class OriginatingBankAccount(StripeObject):
             class Aba(StripeObject):
                 account_holder_name: Optional[str]
@@ -349,6 +404,10 @@ class ReceivedCredit(StripeObject):
         """
         Deprecated. Use `originating_bank_account.clabe` instead.
         """
+        network_details: Optional[NetworkDetails]
+        """
+        Network-level detail for the transfer that created this ReceivedCredit. Present only for ACH.
+        """
         originating_bank_account: OriginatingBankAccount
         """
         Hash containing the originating bank account details and type for this bank transfer.
@@ -370,6 +429,7 @@ class ReceivedCredit(StripeObject):
             "eu_bank_account": EuBankAccount,
             "gb_bank_account": GbBankAccount,
             "mx_bank_account": MxBankAccount,
+            "network_details": NetworkDetails,
             "originating_bank_account": OriginatingBankAccount,
             "sepa_bank_account": SepaBankAccount,
             "us_bank_account": UsBankAccount,

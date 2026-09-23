@@ -2,7 +2,11 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe._util import get_api_mode
-from stripe.v2.core._event import Event, EventNotification, RelatedObject
+from stripe.v2.core._event import (
+    Event,
+    EventNotification,
+    RelatedSingletonObject,
+)
 from typing import Any, Dict, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
@@ -14,7 +18,7 @@ if TYPE_CHECKING:
 class V1CashBalanceFundsAvailableEventNotification(EventNotification):
     LOOKUP_TYPE = "v1.cash_balance.funds_available"
     type: Literal["v1.cash_balance.funds_available"]
-    related_object: RelatedObject
+    related_object: RelatedSingletonObject
 
     def __init__(
         self, parsed_body: Dict[str, Any], client: "StripeClient"
@@ -23,7 +27,9 @@ class V1CashBalanceFundsAvailableEventNotification(EventNotification):
             parsed_body,
             client,
         )
-        self.related_object = RelatedObject(parsed_body["related_object"])
+        self.related_object = RelatedSingletonObject(
+            parsed_body["related_object"],
+        )
 
     @override
     def fetch_event(self) -> "V1CashBalanceFundsAvailableEvent":
@@ -76,11 +82,7 @@ class V1CashBalanceFundsAvailableEvent(Event):
     LOOKUP_TYPE = "v1.cash_balance.funds_available"
     type: Literal["v1.cash_balance.funds_available"]
 
-    class RelatedObject(StripeObject):
-        id: str
-        """
-        Unique identifier for the object relevant to the event.
-        """
+    class RelatedSingletonObject(StripeObject):
         type: str
         """
         Type of the object relevant to the event.
@@ -90,7 +92,7 @@ class V1CashBalanceFundsAvailableEvent(Event):
         URL to retrieve the resource.
         """
 
-    related_object: RelatedObject
+    related_object: RelatedSingletonObject
     """
     Object containing the reference to API resource relevant to the event
     """

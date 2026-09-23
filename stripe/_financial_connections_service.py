@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from stripe.financial_connections._authorization_service import (
         AuthorizationService,
     )
+    from stripe.financial_connections._consent_service import ConsentService
     from stripe.financial_connections._institution_service import (
         InstitutionService,
     )
@@ -25,6 +26,10 @@ _subservices = {
     "authorizations": [
         "stripe.financial_connections._authorization_service",
         "AuthorizationService",
+    ],
+    "consents": [
+        "stripe.financial_connections._consent_service",
+        "ConsentService",
     ],
     "institutions": [
         "stripe.financial_connections._institution_service",
@@ -44,6 +49,7 @@ _subservices = {
 class FinancialConnectionsService(StripeService):
     accounts: "AccountService"
     authorizations: "AuthorizationService"
+    consents: "ConsentService"
     institutions: "InstitutionService"
     sessions: "SessionService"
     transactions: "TransactionService"

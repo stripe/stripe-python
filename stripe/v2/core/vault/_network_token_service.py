@@ -29,7 +29,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Creates or returns a NetworkToken from raw card data for POST /v2/core/vault/network_tokens.
+        Create or Return a Network Token Using Raw Card Data.
         """
         return cast(
             "NetworkToken",
@@ -48,7 +48,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Creates or returns a NetworkToken from raw card data for POST /v2/core/vault/network_tokens.
+        Create or Return a Network Token Using Raw Card Data.
         """
         return cast(
             "NetworkToken",
@@ -67,7 +67,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Creates or returns a NetworkToken from an existing card reference for POST /v2/core/vault/network_tokens/create_from_credential.
+        Creates or returns a Network Token from an existing card reference.
         """
         return cast(
             "NetworkToken",
@@ -86,7 +86,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Creates or returns a NetworkToken from an existing card reference for POST /v2/core/vault/network_tokens/create_from_credential.
+        Creates or returns a Network Token from an existing card reference.
         """
         return cast(
             "NetworkToken",
@@ -107,7 +107,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Retrieves the persisted NetworkToken projection for GET /v2/core/vault/network_tokens/:id.
+        Retrieves an existing network token.
         """
         return cast(
             "NetworkToken",
@@ -130,7 +130,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Retrieves the persisted NetworkToken projection for GET /v2/core/vault/network_tokens/:id.
+        Retrieves an existing network token.
         """
         return cast(
             "NetworkToken",
@@ -153,7 +153,6 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Generates a single-use cryptogram for POST /v2/core/vault/network_tokens/:id/generate_cryptogram.
         Every successful call generates a new cryptogram, and retrying can generate another cryptogram.
         The cryptogram is returned only in this response and is never persisted.
         """
@@ -178,7 +177,6 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Generates a single-use cryptogram for POST /v2/core/vault/network_tokens/:id/generate_cryptogram.
         Every successful call generates a new cryptogram, and retrying can generate another cryptogram.
         The cryptogram is returned only in this response and is never persisted.
         """

@@ -138,7 +138,7 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails(
     """
     money_movement_type: Literal["card"]
     """
-    Describes the type of money movement. Currently only `card` is supported.
+    Describes the type of money movement.
     """
 
 
