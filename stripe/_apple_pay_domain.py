@@ -85,7 +85,7 @@ class ApplePayDomain(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ApplePayDomainDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ApplePayDomainDeleteParams"]
     ) -> "ApplePayDomain":
         """
         Delete an apple pay domain.
@@ -103,7 +103,7 @@ class ApplePayDomain(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["ApplePayDomainDeleteParams"]
+        sid: str, /, **params: Unpack["ApplePayDomainDeleteParams"]
     ) -> "ApplePayDomain":
         """
         Delete an apple pay domain.
@@ -120,7 +120,7 @@ class ApplePayDomain(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["ApplePayDomainDeleteParams"]
     ) -> "ApplePayDomain":
         """
@@ -134,7 +134,7 @@ class ApplePayDomain(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ApplePayDomainDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ApplePayDomainDeleteParams"]
     ) -> "ApplePayDomain":
         """
         Delete an apple pay domain.
@@ -152,7 +152,7 @@ class ApplePayDomain(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ApplePayDomainDeleteParams"]
+        sid: str, /, **params: Unpack["ApplePayDomainDeleteParams"]
     ) -> "ApplePayDomain":
         """
         Delete an apple pay domain.
@@ -169,7 +169,7 @@ class ApplePayDomain(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ApplePayDomainDeleteParams"]
     ) -> "ApplePayDomain":
         """

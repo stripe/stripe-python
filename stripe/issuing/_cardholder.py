@@ -1299,7 +1299,7 @@ class Cardholder(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CardholderModifyParams"]
+        cls, id: str, /, **params: Unpack["CardholderModifyParams"]
     ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1316,7 +1316,7 @@ class Cardholder(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CardholderModifyParams"]
+        cls, id: str, /, **params: Unpack["CardholderModifyParams"]
     ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

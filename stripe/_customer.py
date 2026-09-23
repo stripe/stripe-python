@@ -507,7 +507,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_create_funding_instructions")
-    def create_funding_instructions(  # pyright: ignore[reportGeneralTypeIssues]
+    def create_funding_instructions(
         self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
@@ -575,7 +575,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_create_funding_instructions_async")
-    async def create_funding_instructions_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def create_funding_instructions_async(
         self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
@@ -596,7 +596,7 @@ class Customer(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["CustomerDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -614,7 +614,7 @@ class Customer(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["CustomerDeleteParams"]
+        sid: str, /, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -629,9 +629,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CustomerDeleteParams"]
-    ) -> "Customer":
+    def delete(self, **params: Unpack["CustomerDeleteParams"]) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
@@ -643,7 +641,7 @@ class Customer(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["CustomerDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -661,7 +659,7 @@ class Customer(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["CustomerDeleteParams"]
+        sid: str, /, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -678,7 +676,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
@@ -728,7 +726,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_delete_discount")
-    def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete_discount(
         self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
@@ -783,7 +781,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_delete_discount_async")
-    async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_discount_async(
         self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
@@ -881,7 +879,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_list_payment_methods")
-    def list_payment_methods(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_payment_methods(
         self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
@@ -939,7 +937,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_list_payment_methods_async")
-    async def list_payment_methods_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_payment_methods_async(
         self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
@@ -958,7 +956,7 @@ class Customer(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CustomerModifyParams"]
+        cls, id: str, /, **params: Unpack["CustomerModifyParams"]
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided are left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (such as a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled is retried. This retry doesn't count as an automatic retry, and doesn't affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer doesn't trigger this behavior.
@@ -977,7 +975,7 @@ class Customer(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CustomerModifyParams"]
+        cls, id: str, /, **params: Unpack["CustomerModifyParams"]
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided are left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (such as a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled is retried. This retry doesn't count as an automatic retry, and doesn't affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer doesn't trigger this behavior.
@@ -1065,7 +1063,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_retrieve_payment_method")
-    def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+    def retrieve_payment_method(
         self,
         payment_method: str,
         /,
@@ -1135,7 +1133,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_retrieve_payment_method_async")
-    async def retrieve_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def retrieve_payment_method_async(
         self,
         payment_method: str,
         /,
@@ -1958,7 +1956,7 @@ class Customer(
             ...
 
         @class_method_variant("_cls_fund_cash_balance")
-        def fund_cash_balance(  # pyright: ignore[reportGeneralTypeIssues]
+        def fund_cash_balance(
             self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
@@ -2016,7 +2014,7 @@ class Customer(
             ...
 
         @class_method_variant("_cls_fund_cash_balance_async")
-        async def fund_cash_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def fund_cash_balance_async(
             self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """

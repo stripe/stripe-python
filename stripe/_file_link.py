@@ -139,7 +139,7 @@ class FileLink(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FileLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["FileLinkModifyParams"]
     ) -> "FileLink":
         """
         Updates an existing file link object. Expired links can no longer be updated.
@@ -156,7 +156,7 @@ class FileLink(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FileLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["FileLinkModifyParams"]
     ) -> "FileLink":
         """
         Updates an existing file link object. Expired links can no longer be updated.

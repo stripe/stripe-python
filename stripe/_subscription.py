@@ -1056,7 +1056,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
@@ -1134,7 +1134,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
@@ -1244,7 +1244,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_delete_discount")
-    def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete_discount(
         self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
@@ -1306,7 +1306,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_delete_discount_async")
-    async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_discount_async(
         self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
@@ -1404,7 +1404,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_migrate")
-    def migrate(  # pyright: ignore[reportGeneralTypeIssues]
+    def migrate(
         self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
@@ -1462,7 +1462,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_migrate_async")
-    async def migrate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def migrate_async(
         self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
@@ -1481,7 +1481,7 @@ class Subscription(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SubscriptionModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionModifyParams"]
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -1518,7 +1518,7 @@ class Subscription(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SubscriptionModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionModifyParams"]
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -1591,7 +1591,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_resume")
-    def resume(  # pyright: ignore[reportGeneralTypeIssues]
+    def resume(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
@@ -1646,7 +1646,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_resume_async")
-    async def resume_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def resume_async(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """

@@ -133,7 +133,7 @@ class ValueList(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ValueListDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -151,7 +151,7 @@ class ValueList(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["ValueListDeleteParams"]
+        sid: str, /, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -166,9 +166,7 @@ class ValueList(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ValueListDeleteParams"]
-    ) -> "ValueList":
+    def delete(self, **params: Unpack["ValueListDeleteParams"]) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
@@ -180,7 +178,7 @@ class ValueList(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ValueListDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -198,7 +196,7 @@ class ValueList(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ValueListDeleteParams"]
+        sid: str, /, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -215,7 +213,7 @@ class ValueList(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
@@ -269,7 +267,7 @@ class ValueList(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ValueListModifyParams"]
+        cls, id: str, /, **params: Unpack["ValueListModifyParams"]
     ) -> "ValueList":
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
@@ -286,7 +284,7 @@ class ValueList(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ValueListModifyParams"]
+        cls, id: str, /, **params: Unpack["ValueListModifyParams"]
     ) -> "ValueList":
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.

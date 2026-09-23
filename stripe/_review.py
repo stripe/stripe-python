@@ -170,9 +170,7 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @class_method_variant("_cls_approve")
-    def approve(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ReviewApproveParams"]
-    ) -> "Review":
+    def approve(self, **params: Unpack["ReviewApproveParams"]) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
@@ -225,7 +223,7 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @class_method_variant("_cls_approve_async")
-    async def approve_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def approve_async(
         self, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """

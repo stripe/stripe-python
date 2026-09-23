@@ -546,7 +546,7 @@ class Transaction(APIResource["Transaction"]):
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
@@ -604,7 +604,7 @@ class Transaction(APIResource["Transaction"]):
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
