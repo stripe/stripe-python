@@ -1729,7 +1729,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_attach")
-    def attach(  # pyright: ignore[reportGeneralTypeIssues]
+    def attach(
         self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
@@ -1835,7 +1835,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_attach_async")
-    async def attach_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def attach_async(
         self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
@@ -1941,7 +1941,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_detach")
-    def detach(  # pyright: ignore[reportGeneralTypeIssues]
+    def detach(
         self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
@@ -1999,7 +1999,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_detach_async")
-    async def detach_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def detach_async(
         self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
@@ -2058,7 +2058,7 @@ class PaymentMethod(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentMethodModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentMethodModifyParams"]
     ) -> "PaymentMethod":
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
@@ -2075,7 +2075,7 @@ class PaymentMethod(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentMethodModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentMethodModifyParams"]
     ) -> "PaymentMethod":
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.

@@ -240,7 +240,7 @@ class PersonalizationDesign(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PersonalizationDesignModifyParams"]
+        cls, id: str, /, **params: Unpack["PersonalizationDesignModifyParams"]
     ) -> "PersonalizationDesign":
         """
         Updates a card personalization object.
@@ -257,7 +257,7 @@ class PersonalizationDesign(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PersonalizationDesignModifyParams"]
+        cls, id: str, /, **params: Unpack["PersonalizationDesignModifyParams"]
     ) -> "PersonalizationDesign":
         """
         Updates a card personalization object.
@@ -342,7 +342,7 @@ class PersonalizationDesign(
             ...
 
         @class_method_variant("_cls_activate")
-        def activate(  # pyright: ignore[reportGeneralTypeIssues]
+        def activate(
             self, **params: Unpack["PersonalizationDesignActivateParams"]
         ) -> "PersonalizationDesign":
             """
@@ -406,7 +406,7 @@ class PersonalizationDesign(
             ...
 
         @class_method_variant("_cls_activate_async")
-        async def activate_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def activate_async(
             self, **params: Unpack["PersonalizationDesignActivateParams"]
         ) -> "PersonalizationDesign":
             """
@@ -470,7 +470,7 @@ class PersonalizationDesign(
             ...
 
         @class_method_variant("_cls_deactivate")
-        def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
+        def deactivate(
             self, **params: Unpack["PersonalizationDesignDeactivateParams"]
         ) -> "PersonalizationDesign":
             """
@@ -534,7 +534,7 @@ class PersonalizationDesign(
             ...
 
         @class_method_variant("_cls_deactivate_async")
-        async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def deactivate_async(
             self, **params: Unpack["PersonalizationDesignDeactivateParams"]
         ) -> "PersonalizationDesign":
             """
@@ -598,7 +598,7 @@ class PersonalizationDesign(
             ...
 
         @class_method_variant("_cls_reject")
-        def reject(  # pyright: ignore[reportGeneralTypeIssues]
+        def reject(
             self, **params: Unpack["PersonalizationDesignRejectParams"]
         ) -> "PersonalizationDesign":
             """
@@ -662,7 +662,7 @@ class PersonalizationDesign(
             ...
 
         @class_method_variant("_cls_reject_async")
-        async def reject_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def reject_async(
             self, **params: Unpack["PersonalizationDesignRejectParams"]
         ) -> "PersonalizationDesign":
             """

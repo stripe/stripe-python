@@ -397,7 +397,7 @@ class VerificationSession(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["VerificationSessionCancelParams"]
     ) -> "VerificationSession":
         """
@@ -463,7 +463,7 @@ class VerificationSession(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["VerificationSessionCancelParams"]
     ) -> "VerificationSession":
         """
@@ -568,7 +568,7 @@ class VerificationSession(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["VerificationSessionModifyParams"]
+        cls, id: str, /, **params: Unpack["VerificationSessionModifyParams"]
     ) -> "VerificationSession":
         """
         Updates a VerificationSession object.
@@ -588,7 +588,7 @@ class VerificationSession(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["VerificationSessionModifyParams"]
+        cls, id: str, /, **params: Unpack["VerificationSessionModifyParams"]
     ) -> "VerificationSession":
         """
         Updates a VerificationSession object.
@@ -701,7 +701,7 @@ class VerificationSession(
         ...
 
     @class_method_variant("_cls_redact")
-    def redact(  # pyright: ignore[reportGeneralTypeIssues]
+    def redact(
         self, **params: Unpack["VerificationSessionRedactParams"]
     ) -> "VerificationSession":
         """
@@ -831,7 +831,7 @@ class VerificationSession(
         ...
 
     @class_method_variant("_cls_redact_async")
-    async def redact_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def redact_async(
         self, **params: Unpack["VerificationSessionRedactParams"]
     ) -> "VerificationSession":
         """
