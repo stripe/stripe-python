@@ -106,7 +106,9 @@ class TestAccount(object):
         assert resource is account
 
     def test_can_reject_classmethod(self, http_client_mock):
-        resource = stripe.Account.reject(TEST_RESOURCE_ID, reason="fraud_other")
+        resource = stripe.Account.reject(
+            TEST_RESOURCE_ID, reason="fraud_other"
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/%s/reject" % TEST_RESOURCE_ID,
