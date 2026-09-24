@@ -96,21 +96,21 @@ class TestAccount(object):
 
     def test_can_reject(self, http_client_mock):
         account = stripe.Account.retrieve(TEST_RESOURCE_ID)
-        resource = account.reject(reason="fraud")
+        resource = account.reject(reason="fraud_other")
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/%s/reject" % TEST_RESOURCE_ID,
-            post_data="reason=fraud",
+            post_data="reason=fraud_other",
         )
         assert isinstance(resource, stripe.Account)
         assert resource is account
 
     def test_can_reject_classmethod(self, http_client_mock):
-        resource = stripe.Account.reject(TEST_RESOURCE_ID, reason="fraud")
+        resource = stripe.Account.reject(TEST_RESOURCE_ID, reason="fraud_other")
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/%s/reject" % TEST_RESOURCE_ID,
-            post_data="reason=fraud",
+            post_data="reason=fraud_other",
         )
         assert isinstance(resource, stripe.Account)
 

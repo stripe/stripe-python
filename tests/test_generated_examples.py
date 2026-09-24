@@ -2600,14 +2600,14 @@ class TestGeneratedExamples(object):
 
         client.accounts.reject(
             "acct_xxxxxxxxxxxxx",
-            {"reason": "fraud"},
+            {"reason": "fraud_other"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="reason=fraud",
+            post_data="reason=fraud_other",
         )
 
     def test_accounts_reject_post(
@@ -2615,13 +2615,13 @@ class TestGeneratedExamples(object):
     ) -> None:
         stripe.Account.reject(
             "acct_xxxxxxxxxxxxx",
-            reason="fraud",
+            reason="fraud_other",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
             query_string="",
-            post_data="reason=fraud",
+            post_data="reason=fraud_other",
         )
 
     def test_accounts_reject_post_service(
@@ -2638,14 +2638,14 @@ class TestGeneratedExamples(object):
 
         client.v1.accounts.reject(
             "acct_xxxxxxxxxxxxx",
-            {"reason": "fraud"},
+            {"reason": "fraud_other"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="reason=fraud",
+            post_data="reason=fraud_other",
         )
 
     @pytest.mark.anyio
@@ -2654,13 +2654,13 @@ class TestGeneratedExamples(object):
     ) -> None:
         await stripe.Account.reject_async(
             "acct_xxxxxxxxxxxxx",
-            reason="fraud",
+            reason="fraud_other",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
             query_string="",
-            post_data="reason=fraud",
+            post_data="reason=fraud_other",
         )
 
     @pytest.mark.anyio
@@ -2678,14 +2678,14 @@ class TestGeneratedExamples(object):
 
         await client.v1.accounts.reject_async(
             "acct_xxxxxxxxxxxxx",
-            {"reason": "fraud"},
+            {"reason": "fraud_other"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="reason=fraud",
+            post_data="reason=fraud_other",
         )
 
     def test_application_fees_get_service_non_namespaced(
