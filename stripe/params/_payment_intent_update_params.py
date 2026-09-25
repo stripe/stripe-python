@@ -26,6 +26,7 @@ class PaymentIntentUpdateParams(TypedDict):
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -46,6 +47,7 @@ class PaymentIntentUpdateParams(TypedDict):
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -145,7 +147,7 @@ class PaymentIntentUpdateParams(TypedDict):
 
     Payment methods attached to other Customers cannot be used with this PaymentIntent.
 
-    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     """
     customer_account: NotRequired[str]
     """
@@ -153,14 +155,14 @@ class PaymentIntentUpdateParams(TypedDict):
 
     Payment methods attached to other Accounts cannot be used with this PaymentIntent.
 
-    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     """
     description: NotRequired[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -206,10 +208,6 @@ class PaymentIntentUpdateParams(TypedDict):
     ]
     """
     Payment-method-specific configuration for this PaymentIntent.
-    """
-    payment_method_types: NotRequired[List[str]]
-    """
-    The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
     receipt_email: NotRequired["Literal['']|str"]
     """
@@ -512,13 +510,13 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["PaymentIntentUpdateParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "PaymentIntentUpdateParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "PaymentIntentUpdateParamsPaymentMethodDataAuBecsDebit"
@@ -680,6 +678,10 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["PaymentIntentUpdateParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["PaymentIntentUpdateParamsPaymentMethodDataPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -725,6 +727,10 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+    """
+    sequra: NotRequired["PaymentIntentUpdateParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
     sofort: NotRequired["PaymentIntentUpdateParamsPaymentMethodDataSofort"]
     """
@@ -781,6 +787,7 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -789,6 +796,7 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -1151,6 +1159,10 @@ class PaymentIntentUpdateParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class PaymentIntentUpdateParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
 class PaymentIntentUpdateParamsPaymentMethodDataPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -1202,6 +1214,10 @@ class PaymentIntentUpdateParamsPaymentMethodDataSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class PaymentIntentUpdateParamsPaymentMethodDataSequra(TypedDict):
+    pass
 
 
 class PaymentIntentUpdateParamsPaymentMethodDataSofort(TypedDict):
@@ -1523,6 +1539,12 @@ class PaymentIntentUpdateParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
     """
+    paypay: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsPaypay"
+    ]
+    """
+    If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+    """
     payto: NotRequired[
         "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsPayto"
     ]
@@ -1570,6 +1592,12 @@ class PaymentIntentUpdateParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+    """
+    sequra: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsSequra"
+    ]
+    """
+    If this is a `sequra` PaymentMethod, this sub-hash contains details about the SeQura payment method options.
     """
     sofort: NotRequired[
         "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsSofort"
@@ -1872,6 +1900,74 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsBillie(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    company_details: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+    reference: NotRequired[str]
+    """
+    An identifier or reference that this payment corresponds to.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT id number
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (e.g., street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (e.g., apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsBizum(TypedDict):
@@ -1883,7 +1979,15 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsBlik(TypedDict):
     """
     The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
     """
-    setup_future_usage: NotRequired["Literal['']|Literal['none']"]
+    mandate_options: NotRequired[
+        "PaymentIntentUpdateParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']|str"
+    ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1894,6 +1998,15 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsBlik(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsBlikMandateOptions(
+    TypedDict,
+):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
     """
 
 
@@ -2834,6 +2947,10 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsPaypal(TypedDict):
     """
 
 
+class PaymentIntentUpdateParamsPaymentMethodOptionsPaypay(TypedDict):
+    pass
+
+
 class PaymentIntentUpdateParamsPaymentMethodOptionsPayto(TypedDict):
     mandate_options: NotRequired[
         "PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions"
@@ -3089,6 +3206,29 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions(
     """
 
 
+class PaymentIntentUpdateParamsPaymentMethodOptionsSequra(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
 class PaymentIntentUpdateParamsPaymentMethodOptionsSofort(TypedDict):
     preferred_language: NotRequired[
         "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']|str"
@@ -3325,7 +3465,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The client type that the end customer will pay from
     """
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

@@ -12958,7 +12958,7 @@ class TestGeneratedExamples(object):
                     "customer": "cus_xxxxxxxxxxxxx",
                 },
                 "permissions": ["payment_method", "balances"],
-                "filters": {"countries": ["US"]},
+                "filters": {"country": "US"},
             }
         )
         http_client_mock.assert_requested(
@@ -12966,7 +12966,7 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     def test_financial_connections_sessions_post_2(
@@ -12978,13 +12978,13 @@ class TestGeneratedExamples(object):
                 "customer": "cus_xxxxxxxxxxxxx",
             },
             permissions=["payment_method", "balances"],
-            filters={"countries": ["US"]},
+            filters={"country": "US"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     def test_financial_connections_sessions_post_2_service(
@@ -13006,7 +13006,7 @@ class TestGeneratedExamples(object):
                     "customer": "cus_xxxxxxxxxxxxx",
                 },
                 "permissions": ["payment_method", "balances"],
-                "filters": {"countries": ["US"]},
+                "filters": {"country": "US"},
             }
         )
         http_client_mock.assert_requested(
@@ -13014,7 +13014,7 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     @pytest.mark.anyio
@@ -13027,13 +13027,13 @@ class TestGeneratedExamples(object):
                 "customer": "cus_xxxxxxxxxxxxx",
             },
             permissions=["payment_method", "balances"],
-            filters={"countries": ["US"]},
+            filters={"country": "US"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     @pytest.mark.anyio
@@ -13056,7 +13056,7 @@ class TestGeneratedExamples(object):
                     "customer": "cus_xxxxxxxxxxxxx",
                 },
                 "permissions": ["payment_method", "balances"],
-                "filters": {"countries": ["US"]},
+                "filters": {"country": "US"},
             }
         )
         http_client_mock.assert_requested(
@@ -13064,7 +13064,7 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     def test_financial_connections_transactions_get_service_non_namespaced(

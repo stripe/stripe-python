@@ -1289,6 +1289,9 @@ class PaymentMethod(
         PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
         """
 
+    class Paypay(StripeObject):
+        pass
+
     class Payto(StripeObject):
         bsb_number: Optional[str]
         """
@@ -1366,6 +1369,9 @@ class PaymentMethod(
         Last four characters of the IBAN.
         """
         _inner_class_types = {"generated_from": GeneratedFrom}
+
+    class Sequra(StripeObject):
+        pass
 
     class Sofort(StripeObject):
         country: Optional[str]
@@ -1566,6 +1572,7 @@ class PaymentMethod(
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
+    paypay: Optional[Paypay]
     payto: Optional[Payto]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
@@ -1578,6 +1585,7 @@ class PaymentMethod(
     satispay: Optional[Satispay]
     scalapay: Optional[Scalapay]
     sepa_debit: Optional[SepaDebit]
+    sequra: Optional[Sequra]
     sofort: Optional[Sofort]
     sunbit: Optional[Sunbit]
     swish: Optional[Swish]
@@ -1625,6 +1633,7 @@ class PaymentMethod(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -1633,6 +1642,7 @@ class PaymentMethod(
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -2143,6 +2153,7 @@ class PaymentMethod(
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
+        "paypay": Paypay,
         "payto": Payto,
         "pix": Pix,
         "promptpay": Promptpay,
@@ -2152,6 +2163,7 @@ class PaymentMethod(
         "satispay": Satispay,
         "scalapay": Scalapay,
         "sepa_debit": SepaDebit,
+        "sequra": Sequra,
         "sofort": Sofort,
         "sunbit": Sunbit,
         "swish": Swish,

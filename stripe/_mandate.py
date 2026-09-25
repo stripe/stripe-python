@@ -125,8 +125,38 @@ class Mandate(APIResource["Mandate"]):
             The URL that will contain the mandate that the customer has signed.
             """
 
+        class Blik(StripeObject):
+            expires_at: Optional[int]
+            """
+            Date at which the mandate expires.
+            """
+            type: Literal["off_session"]
+            """
+            Type of the mandate.
+            """
+
         class Card(StripeObject):
-            pass
+            class India(StripeObject):
+                inactive_reason: Optional[
+                    Union[
+                        Literal[
+                            "canceled",
+                            "card_not_supported",
+                            "currency_not_supported",
+                            "expired",
+                            "issuer_not_supported",
+                            "processing_error",
+                            "undetermined",
+                        ],
+                        str,
+                    ]
+                ]
+                """
+                The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
+                """
+
+            india: Optional[India]
+            _inner_class_types = {"india": India}
 
         class Cashapp(StripeObject):
             pass
@@ -301,6 +331,7 @@ class Mandate(APIResource["Mandate"]):
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
+        blik: Optional[Blik]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
         kakao_pay: Optional[KakaoPay]
@@ -326,6 +357,7 @@ class Mandate(APIResource["Mandate"]):
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
+            "blik": Blik,
             "card": Card,
             "cashapp": Cashapp,
             "kakao_pay": KakaoPay,

@@ -145,11 +145,13 @@ class PaymentLinkCreateParams(RequestOptions):
                     "pay_by_bank",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "sofort",
                     "sunbit",
                     "swish",
@@ -351,7 +353,7 @@ class PaymentLinkCreateParamsCustomFieldDropdownOption(TypedDict):
 class PaymentLinkCreateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """
@@ -623,9 +625,26 @@ class PaymentLinkCreateParamsLineItemPriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired[
+        "PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired[str]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+
+
+class PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 

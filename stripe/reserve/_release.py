@@ -49,6 +49,10 @@ class Release(StripeObject):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    destination: Literal["other", "payments"]
+    """
+    The balance destination to which the released funds are sent.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -67,7 +71,7 @@ class Release(StripeObject):
     """
     reason: Union[
         Literal[
-            "bulk_hold_expiry",
+            "hold_expired",
             "hold_released_early",
             "hold_reversed",
             "plan_disabled",

@@ -14,6 +14,10 @@ class SubscriptionItemCreateParams(RequestOptions):
     """
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     """
+    current_trial: NotRequired["SubscriptionItemCreateParamsCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
     discounts: NotRequired[
         "Literal['']|List[SubscriptionItemCreateParamsDiscount]"
     ]
@@ -74,6 +78,13 @@ class SubscriptionItemCreateParamsBillingThresholds(TypedDict):
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class SubscriptionItemCreateParamsCurrentTrial(TypedDict):
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 

@@ -73,7 +73,9 @@ class Account(ListableAPIResource["Account"]):
         """
         The type of account number associated with the account.
         """
-        status: Union[Literal["deactivated", "transactable"], str]
+        status: Union[
+            Literal["deactivated", "expired", "pending", "transactable"], str
+        ]
         """
         Whether the account number is currently active and usable for transactions.
         """
@@ -683,7 +685,7 @@ class Account(ListableAPIResource["Account"]):
         cls, id: str, **params: Unpack["AccountRetrieveParams"]
     ) -> "Account":
         """
-        Retrieves the details of an Financial Connections Account.
+        Retrieves the details of a Financial Connections Account.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -694,7 +696,7 @@ class Account(ListableAPIResource["Account"]):
         cls, id: str, **params: Unpack["AccountRetrieveParams"]
     ) -> "Account":
         """
-        Retrieves the details of an Financial Connections Account.
+        Retrieves the details of a Financial Connections Account.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

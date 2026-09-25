@@ -61,6 +61,7 @@ if TYPE_CHECKING:
     from stripe._payout_service import PayoutService
     from stripe._plan_service import PlanService
     from stripe._price_service import PriceService
+    from stripe._product_catalog_service import ProductCatalogService
     from stripe._product_service import ProductService
     from stripe._promotion_code_service import PromotionCodeService
     from stripe._quote_service import QuoteService
@@ -84,6 +85,7 @@ if TYPE_CHECKING:
     from stripe._tax_service import TaxService
     from stripe._terminal_service import TerminalService
     from stripe._test_helpers_service import TestHelpersService
+    from stripe._three_d_secure_service import ThreeDSecureService
     from stripe._token_service import TokenService
     from stripe._topup_service import TopupService
     from stripe._transfer_service import TransferService
@@ -189,6 +191,10 @@ _subservices = {
     "plans": ["stripe._plan_service", "PlanService"],
     "prices": ["stripe._price_service", "PriceService"],
     "products": ["stripe._product_service", "ProductService"],
+    "product_catalog": [
+        "stripe._product_catalog_service",
+        "ProductCatalogService",
+    ],
     "promotion_codes": [
         "stripe._promotion_code_service",
         "PromotionCodeService",
@@ -218,6 +224,10 @@ _subservices = {
     "tax_rates": ["stripe._tax_rate_service", "TaxRateService"],
     "terminal": ["stripe._terminal_service", "TerminalService"],
     "test_helpers": ["stripe._test_helpers_service", "TestHelpersService"],
+    "three_d_secure": [
+        "stripe._three_d_secure_service",
+        "ThreeDSecureService",
+    ],
     "tokens": ["stripe._token_service", "TokenService"],
     "topups": ["stripe._topup_service", "TopupService"],
     "transfers": ["stripe._transfer_service", "TransferService"],
@@ -277,6 +287,7 @@ class V1Services(StripeService):
     plans: "PlanService"
     prices: "PriceService"
     products: "ProductService"
+    product_catalog: "ProductCatalogService"
     promotion_codes: "PromotionCodeService"
     quotes: "QuoteService"
     radar: "RadarService"
@@ -297,6 +308,7 @@ class V1Services(StripeService):
     tax_rates: "TaxRateService"
     terminal: "TerminalService"
     test_helpers: "TestHelpersService"
+    three_d_secure: "ThreeDSecureService"
     tokens: "TokenService"
     topups: "TopupService"
     transfers: "TransferService"

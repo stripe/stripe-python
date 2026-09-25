@@ -58,7 +58,7 @@ class Product(
     """
     Products describe the specific goods or services you offer to your customers.
     For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
-    They can be used in conjunction with [Prices](https://api.stripe.com#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
+    They can be used in conjunction with [Prices](https://docs.stripe.com/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
 
     Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription),
     [share a Payment Link](https://docs.stripe.com/payment-links),
@@ -90,6 +90,16 @@ class Product(
         width: float
         """
         Width, in inches.
+        """
+
+    class TaxDetails(StripeObject):
+        performance_location: Optional[str]
+        """
+        The ID of a tax location with type `performance`, representing where the performance takes place.
+        """
+        tax_code: Optional[str]
+        """
+        A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
         """
 
     active: bool
@@ -155,6 +165,10 @@ class Product(
     tax_code: Optional[ExpandableField["TaxCode"]]
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+    """
+    tax_details: Optional[TaxDetails]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
     """
     type: Union[Literal["good", "service"], str]
     """
@@ -590,4 +604,5 @@ class Product(
     _inner_class_types = {
         "marketing_features": MarketingFeature,
         "package_dimensions": PackageDimensions,
+        "tax_details": TaxDetails,
     }

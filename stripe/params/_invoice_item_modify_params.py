@@ -28,6 +28,10 @@ class InvoiceItemModifyParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    invoicing_rules: NotRequired[Literal[""]]
+    """
+    Pass an empty string to remove previously-defined invoicing rules. Setting invoicing rules is not supported.
+    """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
     ]

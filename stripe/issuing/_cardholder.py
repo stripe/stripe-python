@@ -115,11 +115,11 @@ class Cardholder(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+                The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+                The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
                 """
 
             document: Optional[Document]
