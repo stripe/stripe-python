@@ -40,6 +40,12 @@ class FinancialAccountCreateParamsStorage(TypedDict):
     """
     Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
     """
+    deposit_insurance_eligibility: NotRequired[
+        List["FinancialAccountCreateParamsStorageDepositInsuranceEligibility"]
+    ]
+    """
+    Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+    """
     funds_usage_type: NotRequired["Literal['business', 'consumer']|str"]
     """
     The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
@@ -58,4 +64,21 @@ class FinancialAccountCreateParamsStorageCrypto(TypedDict):
     custody_model: Literal["self", "stripe"]
     """
     Describes who controls the private keys for the crypto storage.
+    """
+
+
+class FinancialAccountCreateParamsStorageDepositInsuranceEligibility(
+    TypedDict
+):
+    bank_name: Union[Literal["fifth_third"], str]
+    """
+    The bank where funds are stored.
+    """
+    currencies: List[str]
+    """
+    Currencies eligible for deposit insurance at this bank under this scheme.
+    """
+    type: Union[Literal["fdic", "fdic_passthrough"], str]
+    """
+    The deposit insurance scheme.
     """

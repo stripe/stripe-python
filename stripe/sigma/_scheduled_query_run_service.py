@@ -64,7 +64,7 @@ class ScheduledQueryRunService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ScheduledQueryRun":
         """
-        Retrieves the details of an scheduled query run.
+        Retrieves the details of a scheduled query run.
         """
         return cast(
             "ScheduledQueryRun",
@@ -87,7 +87,7 @@ class ScheduledQueryRunService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ScheduledQueryRun":
         """
-        Retrieves the details of an scheduled query run.
+        Retrieves the details of a scheduled query run.
         """
         return cast(
             "ScheduledQueryRun",

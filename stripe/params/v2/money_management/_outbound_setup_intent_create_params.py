@@ -5,6 +5,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class OutboundSetupIntentCreateParams(TypedDict):
+    from_resource: NotRequired["OutboundSetupIntentCreateParamsFromResource"]
+    """
+    An existing resource to use as the source for setting up outbound credentials.
+    """
     payout_method: NotRequired[str]
     """
     If provided, the existing payout method resource to link to this setup intent.
@@ -21,6 +25,17 @@ class OutboundSetupIntentCreateParams(TypedDict):
     """
     Specify which type of outbound money movement this credential should be set up for (payment | transfer).
     If not provided, defaults to payment.
+    """
+
+
+class OutboundSetupIntentCreateParamsFromResource(TypedDict):
+    id: str
+    """
+    The identifier of the source resource.
+    """
+    type: Union[Literal["payment_method"], str]
+    """
+    The type of the source resource.
     """
 
 

@@ -1499,6 +1499,9 @@ class PaymentMethod(
         """
         _inner_class_types = {"generated_from": GeneratedFrom}
 
+    class Sequra(StripeObject):
+        pass
+
     class Shopeepay(StripeObject):
         pass
 
@@ -1743,6 +1746,7 @@ class PaymentMethod(
     satispay: Optional[Satispay]
     scalapay: Optional[Scalapay]
     sepa_debit: Optional[SepaDebit]
+    sequra: Optional[Sequra]
     shared_payment_granted_token: Optional[str]
     """
     ID of the shared payment granted token used in the creation of this PaymentMethod.
@@ -2475,6 +2479,7 @@ class PaymentMethod(
         "satispay": Satispay,
         "scalapay": Scalapay,
         "sepa_debit": SepaDebit,
+        "sequra": Sequra,
         "shopeepay": Shopeepay,
         "sofort": Sofort,
         "stripe_balance": StripeBalance,

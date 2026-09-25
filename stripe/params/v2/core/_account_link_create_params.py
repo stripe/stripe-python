@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List, Union
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -11,7 +11,9 @@ class AccountLinkCreateParams(TypedDict):
     """
     use_case: "AccountLinkCreateParamsUseCase"
     """
-    The use case of the AccountLink.
+    Specifies the Stripe-hosted flow for this Account Link. Set `type` and the matching options hash—for example,
+    `account_onboarding`—to configure the flow, including which Account configurations to collect information for and
+    any flow-specific collection or redirect options.
     """
 
 
@@ -59,22 +61,6 @@ class AccountLinkCreateParamsUseCaseAccountOnboarding(TypedDict):
     """
     Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
     """
-    configurations: List[
-        Union[
-            Literal[
-                "customer",
-                "developer",
-                "merchant",
-                "money_manager",
-                "recipient",
-                "storer",
-            ],
-            str,
-        ]
-    ]
-    """
-    Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
-    """
     refresh_url: str
     """
     The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink's URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
@@ -105,22 +91,6 @@ class AccountLinkCreateParamsUseCaseAccountUpdate(TypedDict):
     """
     Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
     """
-    configurations: List[
-        Union[
-            Literal[
-                "customer",
-                "developer",
-                "merchant",
-                "money_manager",
-                "recipient",
-                "storer",
-            ],
-            str,
-        ]
-    ]
-    """
-    Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
-    """
     refresh_url: str
     """
     The URL the user will be redirected to if the Account Link is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new Account Link with the same parameters used to create the original Account Link, then redirect the user to the new Account Link URL so they can continue the flow. Make sure to authenticate the user before redirecting to the new Account Link, in case the URL leaks to a third party. If a new Account Link can't be generated, or if the redirect fails, you should display a useful error to the user.
@@ -148,10 +118,6 @@ class AccountLinkCreateParamsUseCaseRecipientOnboarding(TypedDict):
     ]
     """
     Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
-    """
-    configurations: List[Union[Literal["recipient"], str]]
-    """
-    Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
     """
     refresh_url: str
     """
@@ -182,10 +148,6 @@ class AccountLinkCreateParamsUseCaseRecipientUpdate(TypedDict):
     ]
     """
     Specifies the requirements that Stripe collects from v2/core/accounts in the Update flow.
-    """
-    configurations: List[Union[Literal["recipient"], str]]
-    """
-    Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
     """
     refresh_url: str
     """

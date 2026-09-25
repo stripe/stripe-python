@@ -52,12 +52,6 @@ class PayoutMethod(StripeObject):
         """
 
     class BankAccount(StripeObject):
-        archived: bool
-        """
-        Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
-        the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
-        cannot be used as payout methods and will not appear in the payout method list.
-        """
         bank_account_type: Literal["checking", "futsu", "savings", "toza"]
         """
         The type of bank account (checking or savings).
@@ -100,12 +94,6 @@ class PayoutMethod(StripeObject):
         """
 
     class Card(StripeObject):
-        archived: bool
-        """
-        Whether the PayoutMethodCard object was archived. PayoutMethodCard objects can be archived through
-        the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodCard objects
-        cannot be used as payout methods and will not appear in the payout method list.
-        """
         exp_month: str
         """
         The month the card expires.
@@ -132,12 +120,6 @@ class PayoutMethod(StripeObject):
         address: str
         """
         Destination wallet address.
-        """
-        archived: bool
-        """
-        Whether the crypto wallet was archived. Crypto wallets can be archived through the /archive API,
-        and they will not be automatically archived by Stripe. Archived crypto wallets cannot be used as
-        payout method and will not appear in the payout method list.
         """
         memo: Optional[str]
         """
@@ -168,13 +150,15 @@ class PayoutMethod(StripeObject):
         """
 
     class UsageStatus(StripeObject):
-        payments: Literal["disabled", "eligible", "invalid", "requires_action"]
+        payments: Literal[
+            "disabled", "eligible", "ineligible", "invalid", "requires_action"
+        ]
         """
         Payments status - used when sending OutboundPayments (sending funds to recipients).
         If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
         """
         transfers: Literal[
-            "disabled", "eligible", "invalid", "requires_action"
+            "disabled", "eligible", "ineligible", "invalid", "requires_action"
         ]
         """
         Transfers status - used when making an OutboundTransfer (sending funds to yourself).
@@ -188,6 +172,12 @@ class PayoutMethod(StripeObject):
     apple_pay: Optional[ApplePay]
     """
     The PayoutMethodApplePay object details.
+    """
+    archived: bool
+    """
+    Whether the payout method was archived. Payout methods can be archived through the /archive API,
+    and they will not be automatically archived by Stripe. Archived payout methods cannot be used
+    for outbound money movement.
     """
     available_payout_speeds: List[Literal["instant", "standard"]]
     """

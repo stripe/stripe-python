@@ -1081,6 +1081,12 @@ class AccountUpdateParamsConfigurationMerchant(TypedDict):
     """
     Settings for the default text that appears on statements for language variations.
     """
+    sepa_debit_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantSepaDebitPayments"
+    ]
+    """
+    Settings for SEPA Direct Debit payments.
+    """
     smart_disputes: NotRequired[
         "AccountUpdateParamsConfigurationMerchantSmartDisputes"
     ]
@@ -1360,6 +1366,12 @@ class AccountUpdateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process Samsung Pay payments.
     """
+    satispay_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments"
+    ]
+    """
+    Allow the merchant to process Satispay payments.
+    """
     sepa_bank_transfer_payments: NotRequired[
         "AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments"
     ]
@@ -1371,6 +1383,12 @@ class AccountUpdateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process SEPA Direct Debit payments.
+    """
+    sequra_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments"
+    ]
+    """
+    Allow the merchant to process SeQura payments.
     """
     sunbit_payments: NotRequired[
         "AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments"
@@ -2691,6 +2709,39 @@ class AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProt
     """
 
 
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments(
     TypedDict,
 ):
@@ -2749,6 +2800,39 @@ class AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProte
 
 
 class AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -3033,6 +3117,13 @@ class AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji(
     """
 
 
+class AccountUpdateParamsConfigurationMerchantSepaDebitPayments(TypedDict):
+    creditor_id: NotRequired[str]
+    """
+    Creditor ID for SEPA Direct Debit payments.
+    """
+
+
 class AccountUpdateParamsConfigurationMerchantSmartDisputes(TypedDict):
     auto_respond: NotRequired[
         "AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond"
@@ -3285,6 +3376,12 @@ class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     """
     Can receive business storage-type funds on Stripe in GBP.
     """
+    ousd: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in OUSD.
+    """
     usd: NotRequired[
         "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd"
     ]
@@ -3431,6 +3528,39 @@ class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     """
 
 
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd(
     TypedDict,
 ):
@@ -3523,6 +3653,12 @@ class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
     ]
     """
     Can send business storage-type funds on Stripe in GBP.
+    """
+    ousd: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd"
+    ]
+    """
+    Can send business storage-type funds on Stripe in OUSD.
     """
     usd: NotRequired[
         "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd"
@@ -3662,6 +3798,39 @@ class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
 
 
 class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool

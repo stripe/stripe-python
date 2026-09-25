@@ -5,6 +5,8 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
+from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
 from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
@@ -16,6 +18,9 @@ if TYPE_CHECKING:
     from stripe.params.product_catalog._trial_offer_list_params import (
         TrialOfferListParams,
     )
+    from stripe.params.product_catalog._trial_offer_modify_params import (
+        TrialOfferModifyParams,
+    )
     from stripe.params.product_catalog._trial_offer_retrieve_params import (
         TrialOfferRetrieveParams,
     )
@@ -24,6 +29,7 @@ if TYPE_CHECKING:
 class TrialOffer(
     CreateableAPIResource["TrialOffer"],
     ListableAPIResource["TrialOffer"],
+    UpdateableAPIResource["TrialOffer"],
 ):
     """
     Trial offers let you define free or paid introductory pricing for a subscription item.
@@ -65,6 +71,10 @@ class TrialOffer(
         """
         _inner_class_types = {"transition": Transition}
 
+    active: bool
+    """
+    Whether the trial offer is active. Set to false to archive the trial offer.
+    """
     duration: Duration
     end_behavior: EndBehavior
     id: str
@@ -75,9 +85,9 @@ class TrialOffer(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    name: Optional[str]
+    nickname: Optional[str]
     """
-    A brief, user-friendly name for the trial offer-for identification purposes.
+    A brief description of the trial offer, hidden from customers.
     """
     object: Literal["product_catalog.trial_offer"]
     """
@@ -159,6 +169,40 @@ class TrialOffer(
             )
 
         return result
+
+    @classmethod
+    def modify(
+        cls, id: str, **params: Unpack["TrialOfferModifyParams"]
+    ) -> "TrialOffer":
+        """
+        Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "TrialOffer",
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["TrialOfferModifyParams"]
+    ) -> "TrialOffer":
+        """
+        Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "TrialOffer",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
 
     @classmethod
     def retrieve(

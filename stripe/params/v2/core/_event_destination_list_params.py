@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class EventDestinationListParams(TypedDict):
     include: NotRequired[List[Union[Literal["webhook_endpoint.url"], str]]]
     """
-    Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
+    Include the normally redacted `webhook_endpoint.url` in each returned destination.
     """
     limit: NotRequired[int]
     """

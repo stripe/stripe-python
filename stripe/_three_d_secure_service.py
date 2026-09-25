@@ -5,20 +5,20 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.money_management.test_helpers._financial_address_service import (
-        FinancialAddressService,
+    from stripe.three_d_secure._authentication_service import (
+        AuthenticationService,
     )
 
 _subservices = {
-    "financial_addresses": [
-        "stripe.v2.money_management.test_helpers._financial_address_service",
-        "FinancialAddressService",
+    "authentications": [
+        "stripe.three_d_secure._authentication_service",
+        "AuthenticationService",
     ],
 }
 
 
-class TestHelpersService(StripeService):
-    financial_addresses: "FinancialAddressService"
+class ThreeDSecureService(StripeService):
+    authentications: "AuthenticationService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

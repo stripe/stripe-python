@@ -10,6 +10,12 @@ if TYPE_CHECKING:
     from stripe.radar._account_evaluation_service import (
         AccountEvaluationService as AccountEvaluationService,
     )
+    from stripe.radar._billing_evaluation import (
+        BillingEvaluation as BillingEvaluation,
+    )
+    from stripe.radar._billing_evaluation_service import (
+        BillingEvaluationService as BillingEvaluationService,
+    )
     from stripe.radar._customer_evaluation import (
         CustomerEvaluation as CustomerEvaluation,
     )
@@ -48,6 +54,11 @@ _import_map = {
     "AccountEvaluation": ("stripe.radar._account_evaluation", False),
     "AccountEvaluationService": (
         "stripe.radar._account_evaluation_service",
+        False,
+    ),
+    "BillingEvaluation": ("stripe.radar._billing_evaluation", False),
+    "BillingEvaluationService": (
+        "stripe.radar._billing_evaluation_service",
         False,
     ),
     "CustomerEvaluation": ("stripe.radar._customer_evaluation", False),

@@ -54,6 +54,12 @@ class InvoiceItem(
 
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
 
+    class InvoicingRule(StripeObject):
+        type: Union[Literal["defer_until_credited_items_resolved"], str]
+        """
+        The type of invoicing rule.
+        """
+
     class ManagedPayments(StripeObject):
         enabled: bool
         """
@@ -332,6 +338,10 @@ class InvoiceItem(
     invoice: Optional[ExpandableField["Invoice"]]
     """
     The ID of the invoice this invoice item belongs to.
+    """
+    invoicing_rules: Optional[List[InvoicingRule]]
+    """
+    The rules that control when this invoice item is eligible for invoicing. All rules must be satisfied for the item to be invoiced.
     """
     livemode: bool
     """
@@ -612,6 +622,7 @@ class InvoiceItem(
         return instance
 
     _inner_class_types = {
+        "invoicing_rules": InvoicingRule,
         "managed_payments": ManagedPayments,
         "parent": Parent,
         "period": Period,

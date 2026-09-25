@@ -24,6 +24,15 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._debit_dispute_service import (
         DebitDisputeService as DebitDisputeService,
     )
+    from stripe.v2.money_management._earned_credit import (
+        EarnedCredit as EarnedCredit,
+    )
+    from stripe.v2.money_management._earned_credit_service import (
+        EarnedCreditService as EarnedCreditService,
+    )
+    from stripe.v2.money_management._earned_credit_simulation import (
+        EarnedCreditSimulation as EarnedCreditSimulation,
+    )
     from stripe.v2.money_management._financial_account import (
         FinancialAccount as FinancialAccount,
     )
@@ -42,8 +51,14 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._financial_address import (
         FinancialAddress as FinancialAddress,
     )
+    from stripe.v2.money_management._financial_address_credit_simulation import (
+        FinancialAddressCreditSimulation as FinancialAddressCreditSimulation,
+    )
     from stripe.v2.money_management._financial_address_debit_simulation import (
         FinancialAddressDebitSimulation as FinancialAddressDebitSimulation,
+    )
+    from stripe.v2.money_management._financial_address_generated_microdeposits import (
+        FinancialAddressGeneratedMicrodeposits as FinancialAddressGeneratedMicrodeposits,
     )
     from stripe.v2.money_management._financial_address_service import (
         FinancialAddressService as FinancialAddressService,
@@ -120,8 +135,8 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._recipient_verification_service import (
         RecipientVerificationService as RecipientVerificationService,
     )
-    from stripe.v2.money_management._test_helpers_service import (
-        TestHelpersService as TestHelpersService,
+    from stripe.v2.money_management._test_helper_service import (
+        TestHelperService as TestHelperService,
     )
     from stripe.v2.money_management._transaction import (
         Transaction as Transaction,
@@ -161,6 +176,15 @@ _import_map = {
         "stripe.v2.money_management._debit_dispute_service",
         False,
     ),
+    "EarnedCredit": ("stripe.v2.money_management._earned_credit", False),
+    "EarnedCreditService": (
+        "stripe.v2.money_management._earned_credit_service",
+        False,
+    ),
+    "EarnedCreditSimulation": (
+        "stripe.v2.money_management._earned_credit_simulation",
+        False,
+    ),
     "FinancialAccount": (
         "stripe.v2.money_management._financial_account",
         False,
@@ -185,8 +209,16 @@ _import_map = {
         "stripe.v2.money_management._financial_address",
         False,
     ),
+    "FinancialAddressCreditSimulation": (
+        "stripe.v2.money_management._financial_address_credit_simulation",
+        False,
+    ),
     "FinancialAddressDebitSimulation": (
         "stripe.v2.money_management._financial_address_debit_simulation",
+        False,
+    ),
+    "FinancialAddressGeneratedMicrodeposits": (
+        "stripe.v2.money_management._financial_address_generated_microdeposits",
         False,
     ),
     "FinancialAddressService": (
@@ -271,8 +303,8 @@ _import_map = {
         "stripe.v2.money_management._recipient_verification_service",
         False,
     ),
-    "TestHelpersService": (
-        "stripe.v2.money_management._test_helpers_service",
+    "TestHelperService": (
+        "stripe.v2.money_management._test_helper_service",
         False,
     ),
     "Transaction": ("stripe.v2.money_management._transaction", False),

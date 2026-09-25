@@ -1146,6 +1146,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_debit_dispute_succeeded_event import (
         V2MoneyManagementDebitDisputeSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_earned_credit_succeeded_event import (
+        V2MoneyManagementEarnedCreditSucceededEventNotification,
+    )
     from stripe.events._v2_money_management_financial_account_created_event import (
         V2MoneyManagementFinancialAccountCreatedEventNotification,
     )
@@ -6351,6 +6354,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.money_management.debit_dispute.succeeded",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_earned_credit_succeeded(
+        self,
+        func: "Callable[[V2MoneyManagementEarnedCreditSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementEarnedCreditSucceededEvent` (`v2.money_management.earned_credit.succeeded`) event notification.
+        """
+        self._register(
+            "v2.money_management.earned_credit.succeeded",
             func,
         )
         return func

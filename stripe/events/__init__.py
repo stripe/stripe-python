@@ -1491,6 +1491,10 @@ if TYPE_CHECKING:
         V2MoneyManagementDebitDisputeSucceededEvent as V2MoneyManagementDebitDisputeSucceededEvent,
         V2MoneyManagementDebitDisputeSucceededEventNotification as V2MoneyManagementDebitDisputeSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_earned_credit_succeeded_event import (
+        V2MoneyManagementEarnedCreditSucceededEvent as V2MoneyManagementEarnedCreditSucceededEvent,
+        V2MoneyManagementEarnedCreditSucceededEventNotification as V2MoneyManagementEarnedCreditSucceededEventNotification,
+    )
     from stripe.events._v2_money_management_financial_account_created_event import (
         V2MoneyManagementFinancialAccountCreatedEvent as V2MoneyManagementFinancialAccountCreatedEvent,
         V2MoneyManagementFinancialAccountCreatedEventNotification as V2MoneyManagementFinancialAccountCreatedEventNotification,
@@ -4702,6 +4706,14 @@ _import_map = {
     ),
     "V2MoneyManagementDebitDisputeSucceededEventNotification": (
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
+        False,
+    ),
+    "V2MoneyManagementEarnedCreditSucceededEvent": (
+        "stripe.events._v2_money_management_earned_credit_succeeded_event",
+        False,
+    ),
+    "V2MoneyManagementEarnedCreditSucceededEventNotification": (
+        "stripe.events._v2_money_management_earned_credit_succeeded_event",
         False,
     ),
     "V2MoneyManagementFinancialAccountCreatedEvent": (

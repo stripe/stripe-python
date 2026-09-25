@@ -14,6 +14,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._debit_dispute_service import (
         DebitDisputeService,
     )
+    from stripe.v2.money_management._earned_credit_service import (
+        EarnedCreditService,
+    )
     from stripe.v2.money_management._financial_account_service import (
         FinancialAccountService,
     )
@@ -56,8 +59,8 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._recipient_verification_service import (
         RecipientVerificationService,
     )
-    from stripe.v2.money_management._test_helpers_service import (
-        TestHelpersService,
+    from stripe.v2.money_management._test_helper_service import (
+        TestHelperService,
     )
     from stripe.v2.money_management._transaction_entry_service import (
         TransactionEntryService,
@@ -78,6 +81,10 @@ _subservices = {
     "debit_disputes": [
         "stripe.v2.money_management._debit_dispute_service",
         "DebitDisputeService",
+    ],
+    "earned_credits": [
+        "stripe.v2.money_management._earned_credit_service",
+        "EarnedCreditService",
     ],
     "financial_accounts": [
         "stripe.v2.money_management._financial_account_service",
@@ -136,8 +143,8 @@ _subservices = {
         "RecipientVerificationService",
     ],
     "test_helpers": [
-        "stripe.v2.money_management._test_helpers_service",
-        "TestHelpersService",
+        "stripe.v2.money_management._test_helper_service",
+        "TestHelperService",
     ],
     "transactions": [
         "stripe.v2.money_management._transaction_service",
@@ -154,6 +161,7 @@ class MoneyManagementService(StripeService):
     adjustments: "AdjustmentService"
     currency_conversions: "CurrencyConversionService"
     debit_disputes: "DebitDisputeService"
+    earned_credits: "EarnedCreditService"
     financial_accounts: "FinancialAccountService"
     financial_addresses: "FinancialAddressService"
     inbound_transfers: "InboundTransferService"
@@ -168,7 +176,7 @@ class MoneyManagementService(StripeService):
     received_debits: "ReceivedDebitService"
     received_debit_mandates: "ReceivedDebitMandateService"
     recipient_verifications: "RecipientVerificationService"
-    test_helpers: "TestHelpersService"
+    test_helpers: "TestHelperService"
     transactions: "TransactionService"
     transaction_entries: "TransactionEntryService"
 

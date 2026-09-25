@@ -285,10 +285,6 @@ class OffSessionPaymentCreateParamsPaymentMethodDataBillingDetailsAddress(
 
 
 class OffSessionPaymentCreateParamsPaymentMethodDataCard(TypedDict):
-    cvc: NotRequired[str]
-    """
-    The card CVC.
-    """
     exp_month: str
     """
     The card expiration month.

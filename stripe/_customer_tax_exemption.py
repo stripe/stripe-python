@@ -24,6 +24,12 @@ class CustomerTaxExemption(StripeObject):
         The type of Canadian tax (gst_hst, PST, QST, RST).
         """
 
+    class Es(StripeObject):
+        state: Optional[str]
+        """
+        Two-letter Spanish subdivision code (ISO 3166-2). Absent for country-wide Spain exemptions.
+        """
+
     class Us(StripeObject):
         state: str
         """
@@ -51,6 +57,7 @@ class CustomerTaxExemption(StripeObject):
     """
     ISO 8601 date (YYYY-MM-DD) when the exemption becomes effective.
     """
+    es: Optional[Es]
     expiration_date: Optional[str]
     """
     ISO 8601 date (YYYY-MM-DD) when the exemption expires.
@@ -68,4 +75,4 @@ class CustomerTaxExemption(StripeObject):
     String representing the object's type. Objects of the same type share the same value.
     """
     us: Optional[Us]
-    _inner_class_types = {"ca": Ca, "us": Us}
+    _inner_class_types = {"ca": Ca, "es": Es, "us": Us}

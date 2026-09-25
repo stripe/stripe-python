@@ -56,6 +56,61 @@ class ReceivedDebit(StripeObject):
             The sort code of the bank that originated the debit.
             """
 
+        class NetworkDetails(StripeObject):
+            class Ach(StripeObject):
+                addenda: Optional[str]
+                """
+                Additional information included with the ACH debit.
+                """
+                originator_company_entry_description: Optional[str]
+                """
+                The entry description supplied by the company that originated the ACH debit.
+                """
+                originator_company_id: Optional[str]
+                """
+                The identifier of the company that originated the ACH debit.
+                """
+                originator_company_name: Optional[str]
+                """
+                The name of the company that originated the ACH debit.
+                """
+                receiver_id_number: Optional[str]
+                """
+                The identifier assigned to the receiver of the ACH debit.
+                """
+                receiver_name: Optional[str]
+                """
+                The name of the receiver of the ACH debit.
+                """
+                standard_entry_class_code: Optional[
+                    Union[
+                        Literal[
+                            "ccd",
+                            "cie",
+                            "ctx",
+                            "iat",
+                            "pos",
+                            "ppd",
+                            "tel",
+                            "web",
+                        ],
+                        str,
+                    ]
+                ]
+                """
+                Open Enum. The standard entry class code for the ACH debit.
+                """
+                trace_id: Optional[str]
+                """
+                The trace identifier for the ACH debit.
+                """
+
+            ach: Optional[Ach]
+            """
+            ACH-specific network details.
+            """
+            _inner_class_types = {"ach": Ach}
+
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
             """
@@ -79,6 +134,10 @@ class ReceivedDebit(StripeObject):
         Object containing details of the GB Bank Account that originated the debit.
         Present when the debit was originated via BACS.
         """
+        network_details: Optional[NetworkDetails]
+        """
+        Network-specific details about the bank transfer.
+        """
         origin_type: Union[Literal["gb_bank_account", "us_bank_account"], str]
         """
         Open Enum. Indicates the origin type through which this debit was initiated.
@@ -100,6 +159,7 @@ class ReceivedDebit(StripeObject):
         """
         _inner_class_types = {
             "gb_bank_account": GbBankAccount,
+            "network_details": NetworkDetails,
             "us_bank_account": UsBankAccount,
         }
 

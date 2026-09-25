@@ -119,10 +119,6 @@ class InboundTransfer(StripeObject):
         """
         A unique ID for the HistoryEntry.
         """
-        level: Union[Literal["canonical", "debug"], str]
-        """
-        Open Enum. The Level of the HistoryEntry.
-        """
         type: Union[
             Literal[
                 "bank_debit_failed",

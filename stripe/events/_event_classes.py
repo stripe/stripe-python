@@ -1114,6 +1114,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_debit_dispute_succeeded_event import (
         V2MoneyManagementDebitDisputeSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_earned_credit_succeeded_event import (
+        V2MoneyManagementEarnedCreditSucceededEventNotification,
+    )
     from stripe.events._v2_money_management_financial_account_created_event import (
         V2MoneyManagementFinancialAccountCreatedEventNotification,
     )
@@ -2868,6 +2871,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.debit_dispute.succeeded": (
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
         "V2MoneyManagementDebitDisputeSucceededEvent",
+    ),
+    "v2.money_management.earned_credit.succeeded": (
+        "stripe.events._v2_money_management_earned_credit_succeeded_event",
+        "V2MoneyManagementEarnedCreditSucceededEvent",
     ),
     "v2.money_management.financial_account.created": (
         "stripe.events._v2_money_management_financial_account_created_event",
@@ -4728,6 +4735,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
         "V2MoneyManagementDebitDisputeSucceededEventNotification",
     ),
+    "v2.money_management.earned_credit.succeeded": (
+        "stripe.events._v2_money_management_earned_credit_succeeded_event",
+        "V2MoneyManagementEarnedCreditSucceededEventNotification",
+    ),
     "v2.money_management.financial_account.created": (
         "stripe.events._v2_money_management_financial_account_created_event",
         "V2MoneyManagementFinancialAccountCreatedEventNotification",
@@ -5480,6 +5491,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementDebitDisputeFailedEventNotification",
     "V2MoneyManagementDebitDisputeSubmittedEventNotification",
     "V2MoneyManagementDebitDisputeSucceededEventNotification",
+    "V2MoneyManagementEarnedCreditSucceededEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
     "V2MoneyManagementFinancialAccountStatementCreatedEventNotification",
     "V2MoneyManagementFinancialAccountStatementRestatedEventNotification",

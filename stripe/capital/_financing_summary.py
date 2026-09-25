@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, Union
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -76,6 +76,19 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         ]
         """
         The type of disclaimer to use for a financing offer in user-facing surfaces. The corresponding disclaimer text to use for each disclaimer_variant value can be found in the [regulatory compliance docs](https://docs.stripe.com/capital/regulatory-compliance).
+        """
+        enabled_payment_types: Optional[
+            List[
+                Union[
+                    Literal[
+                        "automatic_debits", "manual_payment", "withholding"
+                    ],
+                    str,
+                ]
+            ]
+        ]
+        """
+        The ways the connected account can pay toward its financing(s).
         """
         fee_amount: int
         """

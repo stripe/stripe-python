@@ -115,22 +115,419 @@ class Form(ListableAPIResource["Form"]):
         """
 
     class Us1099K(StripeObject):
+        class CardNotPresentTransactions(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class CashTips(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class FederalIncomeTaxWithheld(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class MonthlyVolume(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class PaymentTransactionsCount(StripeObject):
+            count: Optional[int]
+            """
+            The effective number of transactions.
+            """
+            delta: Optional[int]
+            """
+            The signed adjustment included in the effective count. Only present for drafts.
+            """
+
+        class StateIncomeTaxWithheld(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        card_not_present_transactions: Optional[CardNotPresentTransactions]
+        cash_tips: Optional[CashTips]
+        currency: Optional[str]
+        """
+        The currency of the amounts on the form. Always `usd`.
+        """
+        federal_income_tax_withheld: Optional[FederalIncomeTaxWithheld]
+        gross_amount_of_transactions_decimal: Optional[str]
+        """
+        The gross amount of payment transactions, as a decimal string in USD.
+        """
+        monthly_volumes: Optional[List[MonthlyVolume]]
+        """
+        The gross amounts for each month, ordered from January through December.
+        """
+        payment_transactions_count: Optional[PaymentTransactionsCount]
         reporting_year: int
         """
         Year represented by the information reported on the tax form.
         """
+        state_income_tax_withheld: Optional[StateIncomeTaxWithheld]
+        _inner_class_types = {
+            "card_not_present_transactions": CardNotPresentTransactions,
+            "cash_tips": CashTips,
+            "federal_income_tax_withheld": FederalIncomeTaxWithheld,
+            "monthly_volumes": MonthlyVolume,
+            "payment_transactions_count": PaymentTransactionsCount,
+            "state_income_tax_withheld": StateIncomeTaxWithheld,
+        }
 
     class Us1099Misc(StripeObject):
+        class CashTips(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class CropInsuranceProceeds(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class ExcessGoldenParachutePayments(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class FederalIncomeTaxWithheld(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class FishPurchasedForResale(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class FishingBoatProceeds(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class GrossProceedsPaidToAnAttorney(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class MedicalAndHealthCarePayments(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class NonqualifiedDeferredCompensation(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class OtherIncome(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class OvertimeCompensation(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class Rents(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class Royalties(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class Section409aDeferrals(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class StateIncome(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class StateTaxWithheld(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class SubstitutePayments(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        cash_tips: Optional[CashTips]
+        crop_insurance_proceeds: Optional[CropInsuranceProceeds]
+        currency: Optional[str]
+        """
+        The currency of the amounts on the form. Always `usd`.
+        """
+        direct_sales_for_resale: Optional[bool]
+        """
+        Whether direct sales of at least $5,000 of consumer products were made for resale.
+        """
+        excess_golden_parachute_payments: Optional[
+            ExcessGoldenParachutePayments
+        ]
+        fatca_filing_required: Optional[bool]
+        """
+        Whether the FATCA filing requirement applies.
+        """
+        federal_income_tax_withheld: Optional[FederalIncomeTaxWithheld]
+        fish_purchased_for_resale: Optional[FishPurchasedForResale]
+        fishing_boat_proceeds: Optional[FishingBoatProceeds]
+        gross_proceeds_paid_to_an_attorney: Optional[
+            GrossProceedsPaidToAnAttorney
+        ]
+        medical_and_health_care_payments: Optional[
+            MedicalAndHealthCarePayments
+        ]
+        nonqualified_deferred_compensation: Optional[
+            NonqualifiedDeferredCompensation
+        ]
+        other_income: Optional[OtherIncome]
+        overtime_compensation: Optional[OvertimeCompensation]
+        rents: Optional[Rents]
         reporting_year: int
         """
         Year represented by the information reported on the tax form.
         """
+        royalties: Optional[Royalties]
+        section_409a_deferrals: Optional[Section409aDeferrals]
+        state_income: Optional[StateIncome]
+        state_tax_withheld: Optional[StateTaxWithheld]
+        substitute_payments: Optional[SubstitutePayments]
+        _inner_class_types = {
+            "cash_tips": CashTips,
+            "crop_insurance_proceeds": CropInsuranceProceeds,
+            "excess_golden_parachute_payments": ExcessGoldenParachutePayments,
+            "federal_income_tax_withheld": FederalIncomeTaxWithheld,
+            "fish_purchased_for_resale": FishPurchasedForResale,
+            "fishing_boat_proceeds": FishingBoatProceeds,
+            "gross_proceeds_paid_to_an_attorney": GrossProceedsPaidToAnAttorney,
+            "medical_and_health_care_payments": MedicalAndHealthCarePayments,
+            "nonqualified_deferred_compensation": NonqualifiedDeferredCompensation,
+            "other_income": OtherIncome,
+            "overtime_compensation": OvertimeCompensation,
+            "rents": Rents,
+            "royalties": Royalties,
+            "section_409a_deferrals": Section409aDeferrals,
+            "state_income": StateIncome,
+            "state_tax_withheld": StateTaxWithheld,
+            "substitute_payments": SubstitutePayments,
+        }
 
     class Us1099Nec(StripeObject):
+        class CashTips(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class FederalIncomeTaxWithheld(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class NonemployeeCompensation(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class OvertimeCompensation(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class StateIncome(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        class StateTaxWithheld(StripeObject):
+            delta_decimal: Optional[str]
+            """
+            The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+            """
+            volume_decimal: Optional[str]
+            """
+            The effective amount in the form's currency, as a decimal string.
+            """
+
+        cash_tips: Optional[CashTips]
+        currency: Optional[str]
+        """
+        The currency of the amounts on the form. Always `usd`.
+        """
+        direct_sales_indicator: Optional[bool]
+        """
+        Whether direct sales of at least $5,000 of consumer products were made for resale.
+        """
+        fatca_filing_requirement: Optional[bool]
+        """
+        Whether the FATCA filing requirement applies.
+        """
+        federal_income_tax_withheld: Optional[FederalIncomeTaxWithheld]
+        nonemployee_compensation: Optional[NonemployeeCompensation]
+        overtime_compensation: Optional[OvertimeCompensation]
         reporting_year: int
         """
         Year represented by the information reported on the tax form.
         """
+        state_income: Optional[StateIncome]
+        state_tax_withheld: Optional[StateTaxWithheld]
+        _inner_class_types = {
+            "cash_tips": CashTips,
+            "federal_income_tax_withheld": FederalIncomeTaxWithheld,
+            "nonemployee_compensation": NonemployeeCompensation,
+            "overtime_compensation": OvertimeCompensation,
+            "state_income": StateIncome,
+            "state_tax_withheld": StateTaxWithheld,
+        }
 
     au_serr: Optional[AuSerr]
     ca_mrdp: Optional[CaMrdp]
@@ -162,6 +559,10 @@ class Form(ListableAPIResource["Form"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     payee: Payee
+    status: Optional[Literal["draft", "finalized"]]
+    """
+    Whether the tax form is a mutable draft or a finalized form.
+    """
     type: Union[
         Literal[
             "au_serr",

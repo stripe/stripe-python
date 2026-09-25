@@ -759,6 +759,12 @@ class PaymentLink(
 
         class TrialSettings(StripeObject):
             class EndBehavior(StripeObject):
+                billing_cycle_anchor: Optional[
+                    Union[Literal["now", "unchanged"], str]
+                ]
+                """
+                Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+                """
                 missing_payment_method: Union[
                     Literal["cancel", "create_invoice", "pause"], str
                 ]
@@ -950,6 +956,7 @@ class PaymentLink(
                     "rechnung",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
