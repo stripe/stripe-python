@@ -20,6 +20,82 @@ class SessionCreateParams(RequestOptions):
     """
     Enables user redeemable promotion codes.
     """
+    allowed_payment_method_types: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "link",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "sequra",
+                    "shopeepay",
+                    "sofort",
+                    "sunbit",
+                    "swish",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+
+    Unlike `payment_method_types`, this acts as a filter on the dynamically computed set of
+    eligible payment methods rather than an explicit static list. Only payment methods that
+    are both dynamically eligible and present in this list will be offered to the customer.
+    """
     automatic_tax: NotRequired["SessionCreateParamsAutomaticTax"]
     """
     Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
@@ -157,6 +233,7 @@ class SessionCreateParams(RequestOptions):
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -234,7 +311,7 @@ class SessionCreateParams(RequestOptions):
 
     For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
 
-    You can't set this parameter if `ui_mode` is `custom`.
+    You can't set this parameter if `ui_mode` is `elements` or `form`.
     """
     origin_context: NotRequired["Literal['mobile_app', 'web']|str"]
     """
@@ -268,87 +345,6 @@ class SessionCreateParams(RequestOptions):
     ]
     """
     Payment-method-specific configuration.
-    """
-    payment_method_types: NotRequired[
-        List[
-            Union[
-                Literal[
-                    "acss_debit",
-                    "affirm",
-                    "afterpay_clearpay",
-                    "alipay",
-                    "alma",
-                    "amazon_pay",
-                    "au_becs_debit",
-                    "bacs_debit",
-                    "bancontact",
-                    "billie",
-                    "bizum",
-                    "blik",
-                    "boleto",
-                    "card",
-                    "cashapp",
-                    "crypto",
-                    "customer_balance",
-                    "eps",
-                    "fpx",
-                    "giropay",
-                    "gopay",
-                    "grabpay",
-                    "ideal",
-                    "kakao_pay",
-                    "klarna",
-                    "konbini",
-                    "kr_card",
-                    "link",
-                    "mb_way",
-                    "mobilepay",
-                    "multibanco",
-                    "naver_pay",
-                    "nz_bank_account",
-                    "oxxo",
-                    "p24",
-                    "pay_by_bank",
-                    "payco",
-                    "paynow",
-                    "paypal",
-                    "paypay",
-                    "payto",
-                    "pix",
-                    "promptpay",
-                    "qris",
-                    "rechnung",
-                    "revolut_pay",
-                    "samsung_pay",
-                    "satispay",
-                    "scalapay",
-                    "sepa_debit",
-                    "shopeepay",
-                    "sofort",
-                    "sunbit",
-                    "swish",
-                    "twint",
-                    "upi",
-                    "us_bank_account",
-                    "wechat_pay",
-                    "zip",
-                ],
-                str,
-            ]
-        ]
-    ]
-    """
-    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
-
-    You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-    See [Dynamic Payment Methods](https://docs.stripe.com/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
-
-    Read more about the supported payment methods and their requirements in our [payment
-    method details guide](https://docs.stripe.com/docs/payments/checkout/payment-methods).
-
-    If multiple payment methods are passed, Checkout will dynamically reorder them to
-    prioritize the most relevant payment methods based on the customer's location and
-    other characteristics.
     """
     permissions: NotRequired["SessionCreateParamsPermissions"]
     """
@@ -637,7 +633,7 @@ class SessionCreateParamsCustomFieldDropdownOption(TypedDict):
 class SessionCreateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """
@@ -1408,6 +1404,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Sepa Debit payment method options.
     """
+    sequra: NotRequired["SessionCreateParamsPaymentMethodOptionsSequra"]
+    """
+    contains details about the SeQura payment method options.
+    """
     sofort: NotRequired["SessionCreateParamsPaymentMethodOptionsSofort"]
     """
     contains details about the Sofort payment method options.
@@ -1541,7 +1541,7 @@ class SessionCreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
 
 
 class SessionCreateParamsPaymentMethodOptionsAlipay(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1629,7 +1629,7 @@ class SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(
 
 
 class SessionCreateParamsPaymentMethodOptionsBancontact(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1656,12 +1656,12 @@ class SessionCreateParamsPaymentMethodOptionsBlik(TypedDict):
     Additional fields for Mandate creation
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
 
 
 class SessionCreateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
-    expires_after: NotRequired[int]
+    expires_at: NotRequired[int]
     """
     Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
     """
@@ -2462,6 +2462,13 @@ class SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions(
     """
 
 
+class SessionCreateParamsPaymentMethodOptionsSequra(TypedDict):
+    capture_method: NotRequired[Literal["manual"]]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+
+
 class SessionCreateParamsPaymentMethodOptionsSofort(TypedDict):
     setup_future_usage: NotRequired[Literal["none"]]
     """
@@ -2615,7 +2622,7 @@ class SessionCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The client type that the end customer will pay from
     """
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

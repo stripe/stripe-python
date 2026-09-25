@@ -24,6 +24,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "application": ("stripe._application", "Application"),
     "application_fee": ("stripe._application_fee", "ApplicationFee"),
     "fee_refund": ("stripe._application_fee_refund", "ApplicationFeeRefund"),
+    "apps.install": ("stripe.apps._install", "Install"),
     "apps.secret": ("stripe.apps._secret", "Secret"),
     "balance": ("stripe._balance", "Balance"),
     "balance_settings": ("stripe._balance_settings", "BalanceSettings"),
@@ -266,6 +267,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._quote_preview_subscription_schedule",
         "QuotePreviewSubscriptionSchedule",
     ),
+    "radar.billing_evaluation": (
+        "stripe.radar._billing_evaluation",
+        "BillingEvaluation",
+    ),
     "radar.early_fraud_warning": (
         "stripe.radar._early_fraud_warning",
         "EarlyFraudWarning",
@@ -361,6 +366,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "test_helpers.test_clock": (
         "stripe.test_helpers._test_clock",
         "TestClock",
+    ),
+    "three_d_secure.authentication": (
+        "stripe.three_d_secure._authentication",
+        "Authentication",
     ),
     "token": ("stripe._token", "Token"),
     "topup": ("stripe._topup", "Topup"),

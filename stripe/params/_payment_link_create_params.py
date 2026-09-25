@@ -154,6 +154,7 @@ class PaymentLinkCreateParams(RequestOptions):
                     "rechnung",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -356,7 +357,7 @@ class PaymentLinkCreateParamsCustomFieldDropdownOption(TypedDict):
 class PaymentLinkCreateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """

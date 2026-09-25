@@ -475,7 +475,7 @@ class Session(
         class Label(StripeObject):
             custom: Optional[str]
             """
-            Custom text for the label, displayed to the customer. Up to 50 characters.
+            Custom text for the label, displayed to the customer. Up to 100 characters.
             """
             type: Literal["custom"]
             """
@@ -1019,7 +1019,7 @@ class Session(
             """
 
         class Alipay(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1097,7 +1097,9 @@ class Session(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1812,6 +1814,12 @@ class Session(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Sequra(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class Sofort(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -1993,7 +2001,7 @@ class Session(
             """
             The client type that the end customer will pay from
             """
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2043,6 +2051,7 @@ class Session(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         sofort: Optional[Sofort]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
@@ -2090,6 +2099,7 @@ class Session(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "sofort": Sofort,
             "sunbit": Sunbit,
             "swish": Swish,
@@ -2534,7 +2544,7 @@ class Session(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
                 Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -2627,6 +2637,10 @@ class Session(
     allow_promotion_codes: Optional[bool]
     """
     Enables user redeemable promotion codes.
+    """
+    allowed_payment_method_types: Optional[List[str]]
+    """
+    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
     """
     amount_subtotal: Optional[int]
     """

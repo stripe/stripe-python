@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class CadenceListParams(TypedDict):
-    include: NotRequired[List[Literal["settings_data"]]]
+    include: NotRequired[List[Union[Literal["settings_data"], str]]]
     """
     Additional resource to include in the response.
     """
@@ -35,7 +35,7 @@ class CadenceListParamsPayer(TypedDict):
     """
     The ID of the Customer object. If provided, only cadences that specifically reference the provided customer ID will be returned.
     """
-    type: Literal["customer"]
+    type: Union[Literal["customer"], str]
     """
     A string identifying the type of the payer. Currently the only supported value is `customer`.
     """

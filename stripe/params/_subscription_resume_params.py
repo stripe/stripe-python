@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
-from typing_extensions import Literal, NotRequired
+from typing import List, Union
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SubscriptionResumeParams(RequestOptions):
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    billing_cycle_anchor: NotRequired[
+        "SubscriptionResumeParamsBillingCycleAnchor"
+    ]
     """
     The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -29,4 +31,11 @@ class SubscriptionResumeParams(RequestOptions):
     proration_date: NotRequired[int]
     """
     If set, prorations will be calculated as though the subscription was resumed at the given time. This can be used to apply exactly the same prorations that were previewed with the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint.
+    """
+
+
+class SubscriptionResumeParamsBillingCycleAnchor(TypedDict):
+    type: Union[Literal["now", "unchanged"], str]
+    """
+    Determines how the billing cycle anchor changes when the subscription resumes.
     """

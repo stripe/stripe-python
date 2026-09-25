@@ -25,7 +25,7 @@ class LocationService(StripeService):
         """
         Retrieve a list of all tax locations. Tax locations can represent the venues for services, tickets, or other product types.
 
-        The response includes detailed information for each tax location, such as its address, name, description, and current operational status.
+        The response includes detailed information for each tax location, such as its address, type, and description.
 
         You can paginate through the list by using the limit parameter to control the number of results returned in each request.
         """
@@ -48,7 +48,7 @@ class LocationService(StripeService):
         """
         Retrieve a list of all tax locations. Tax locations can represent the venues for services, tickets, or other product types.
 
-        The response includes detailed information for each tax location, such as its address, name, description, and current operational status.
+        The response includes detailed information for each tax location, such as its address, type, and description.
 
         You can paginate through the list by using the limit parameter to control the number of results returned in each request.
         """
@@ -69,7 +69,7 @@ class LocationService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
-        Create a tax location to use in calculating taxes for a service, ticket, or other type of product. The resulting object contains the id, address, name, description, and current operational status of the tax location.
+        Create a tax location to use in calculating taxes for a service, ticket, or other type of product. The resulting object contains the ID, address, type, and description of the tax location.
         """
         return cast(
             "Location",
@@ -88,7 +88,7 @@ class LocationService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
-        Create a tax location to use in calculating taxes for a service, ticket, or other type of product. The resulting object contains the id, address, name, description, and current operational status of the tax location.
+        Create a tax location to use in calculating taxes for a service, ticket, or other type of product. The resulting object contains the ID, address, type, and description of the tax location.
         """
         return cast(
             "Location",

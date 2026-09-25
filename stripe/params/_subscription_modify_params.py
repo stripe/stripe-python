@@ -22,9 +22,11 @@ class SubscriptionModifyParams(RequestOptions):
     """
     Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     """
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    billing_cycle_anchor: NotRequired[
+        "SubscriptionModifyParamsBillingCycleAnchor"
+    ]
     """
-    Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+    Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
     billing_schedules: NotRequired[
         "Literal['']|List[SubscriptionModifyParamsBillingSchedule]"
@@ -336,6 +338,13 @@ class SubscriptionModifyParamsAutomaticTaxLiability(TypedDict):
     """
 
 
+class SubscriptionModifyParamsBillingCycleAnchor(TypedDict):
+    type: Union[Literal["now", "unchanged"], str]
+    """
+    Determines how the billing cycle anchor changes when the subscription is updated.
+    """
+
+
 class SubscriptionModifyParamsBillingSchedule(TypedDict):
     applies_to: NotRequired[
         List["SubscriptionModifyParamsBillingScheduleAppliesTo"]
@@ -555,11 +564,11 @@ class SubscriptionModifyParamsItem(TypedDict):
     """
     price: NotRequired[str]
     """
-    The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     """
     price_data: NotRequired["SubscriptionModifyParamsItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     """
     quantity: NotRequired[int]
     """
@@ -831,7 +840,70 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie(
     TypedDict,
 ):
-    pass
+    company_details: NotRequired[
+        "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+
+
+class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT ID number.
+    """
+
+
+class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (for example, street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (for example, apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
 
 
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik(
@@ -848,7 +920,7 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik(
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions(
     TypedDict,
 ):
-    expires_after: NotRequired[int]
+    expires_at: NotRequired[int]
     """
     Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
     """
@@ -1164,8 +1236,8 @@ class SubscriptionModifyParamsTrialSettingsEndBehavior(TypedDict):
     """
     Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
     """
-    missing_payment_method: Union[
-        Literal["cancel", "create_invoice", "pause"], str
+    missing_payment_method: NotRequired[
+        "Literal['cancel', 'create_invoice', 'pause']|str"
     ]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.

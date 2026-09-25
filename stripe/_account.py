@@ -304,6 +304,12 @@ class Account(
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
         """
+        blik_recurring_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+        """
         boleto_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]
@@ -591,6 +597,12 @@ class Account(
         ]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
+        """
+        sequra_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
         """
         shopeepay_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
@@ -894,7 +906,7 @@ class Account(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
                 details: Optional[str]
                 """
@@ -906,7 +918,7 @@ class Account(
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
 
             document: Document
@@ -1137,8 +1149,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1319,8 +1333,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",

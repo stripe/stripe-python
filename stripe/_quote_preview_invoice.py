@@ -35,7 +35,7 @@ class QuotePreviewInvoice(StripeObject):
     Invoices are statements of amounts owed by a customer, and are either
     generated one-off, or generated periodically from a subscription.
 
-    They contain [invoice items](https://api.stripe.com#invoiceitems), and proration adjustments
+    They contain [invoice items](https://docs.stripe.com/api#invoiceitems), and proration adjustments
     that may be caused by subscription upgrades/downgrades (if necessary).
 
     If your invoice is configured to be billed through automatic charges,
@@ -471,6 +471,7 @@ class QuotePreviewInvoice(StripeObject):
                     "customer_session_expired",
                     "customer_tax_location_invalid",
                     "debit_not_authorized",
+                    "dispute_evidence_page_limit_exceeded",
                     "email_invalid",
                     "expired_card",
                     "expired_payment_method",
@@ -481,6 +482,8 @@ class QuotePreviewInvoice(StripeObject):
                     "financial_connections_account_inactive",
                     "financial_connections_account_pending_account_numbers",
                     "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_consent_locale_invalid",
+                    "financial_connections_consent_locale_unsupported",
                     "financial_connections_institution_unavailable",
                     "financial_connections_no_successful_transaction_refresh",
                     "forwarding_api_inactive",
@@ -535,6 +538,7 @@ class QuotePreviewInvoice(StripeObject):
                     "parameter_missing",
                     "parameter_unknown",
                     "parameters_exclusive",
+                    "payment_evaluation_on_api_version_not_supported",
                     "payment_intent_action_required",
                     "payment_intent_authentication_failure",
                     "payment_intent_incompatible_payment_method",
@@ -690,7 +694,7 @@ class QuotePreviewInvoice(StripeObject):
         """
         A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
         For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-        Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+        Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -701,9 +705,9 @@ class QuotePreviewInvoice(StripeObject):
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
         [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
         to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-        If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+        If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
-        We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+        We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
         PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -814,7 +818,77 @@ class QuotePreviewInvoice(StripeObject):
                 """
 
             class Billie(StripeObject):
-                pass
+                class CompanyDetails(StripeObject):
+                    class RegisteredAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code.
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (for example, street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (for example, apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    registered_address: Optional[RegisteredAddress]
+                    registered_name: Optional[str]
+                    """
+                    Company or entity name.
+                    """
+                    registration_number: Optional[str]
+                    """
+                    The official registration number for the given registration type.
+                    """
+                    registration_type: Optional[
+                        Literal[
+                            "ch_ein",
+                            "de_hrb",
+                            "dk_cvr",
+                            "es_cif",
+                            "fi_tunnus",
+                            "fr_siren",
+                            "fr_siret",
+                            "it_rea",
+                            "nl_kvk",
+                            "no_org_number",
+                            "no_pno",
+                            "se_org_number",
+                            "se_pno",
+                            "uk_crn",
+                        ]
+                    ]
+                    """
+                    Type of registration the company or entity holds in their registered country.
+                    """
+                    vat: Optional[str]
+                    """
+                    VAT ID number.
+                    """
+                    _inner_class_types = {
+                        "registered_address": RegisteredAddress,
+                    }
+
+                company_details: Optional[CompanyDetails]
+                reference: Optional[str]
+                """
+                An identifier or reference that this payment corresponds to.
+                """
+                _inner_class_types = {"company_details": CompanyDetails}
 
             class Blik(StripeObject):
                 pass
@@ -1280,6 +1354,27 @@ class QuotePreviewInvoice(StripeObject):
         """
         _inner_class_types = {"address": Address}
 
+    class StatusDetails(StripeObject):
+        class Uncollectible(StripeObject):
+            reason: Optional[
+                Union[
+                    Literal[
+                        "max_payment_attempts",
+                        "payment_not_received",
+                        "subscription_canceled",
+                        "subscription_paused",
+                        "user_forgiven",
+                    ],
+                    str,
+                ]
+            ]
+            """
+            The reason why the invoice is uncollectible.
+            """
+
+        uncollectible: Optional[Uncollectible]
+        _inner_class_types = {"uncollectible": Uncollectible}
+
     class StatusTransitions(StripeObject):
         finalized_at: Optional[int]
         """
@@ -1679,7 +1774,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     rendering: Optional[Rendering]
     """
-    The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
+    The rendering-related settings that control how invoices render in customer-facing interfaces such as the PDF or hosted invoice page.
     """
     shipping_cost: Optional[ShippingCost]
     """
@@ -1703,6 +1798,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     """
+    status_details: Optional[StatusDetails]
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
     subtotal: int
@@ -1763,6 +1859,7 @@ class QuotePreviewInvoice(StripeObject):
         "rendering": Rendering,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
+        "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,

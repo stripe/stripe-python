@@ -855,7 +855,70 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact(
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillie(
     TypedDict,
 ):
-    pass
+    company_details: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT ID number.
+    """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (for example, street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (for example, apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
 
 
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlik(
@@ -872,7 +935,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlik(
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions(
     TypedDict,
 ):
-    expires_after: NotRequired[int]
+    expires_at: NotRequired[int]
     """
     Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
     """
@@ -1188,8 +1251,8 @@ class SubscriptionCreateParamsTrialSettingsEndBehavior(TypedDict):
     """
     Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
     """
-    missing_payment_method: Union[
-        Literal["cancel", "create_invoice", "pause"], str
+    missing_payment_method: NotRequired[
+        "Literal['cancel', 'create_invoice', 'pause']|str"
     ]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.

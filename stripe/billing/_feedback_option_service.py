@@ -33,7 +33,7 @@ class FeedbackOptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FeedbackOption]":
         """
-        An API method for listing the feedback options model
+        Returns a list of your feedback options.
         """
         return cast(
             "ListObject[FeedbackOption]",
@@ -52,7 +52,7 @@ class FeedbackOptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FeedbackOption]":
         """
-        An API method for listing the feedback options model
+        Returns a list of your feedback options.
         """
         return cast(
             "ListObject[FeedbackOption]",
@@ -110,7 +110,7 @@ class FeedbackOptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":
         """
-        Retrieves a feedback options object given an ID.
+        Retrieves a feedback option object given an ID.
         """
         return cast(
             "FeedbackOption",
@@ -130,7 +130,7 @@ class FeedbackOptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":
         """
-        Retrieves a feedback options object given an ID.
+        Retrieves a feedback option object given an ID.
         """
         return cast(
             "FeedbackOption",
