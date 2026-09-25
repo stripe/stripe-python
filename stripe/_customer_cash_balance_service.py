@@ -20,6 +20,7 @@ class CustomerCashBalanceService(StripeService):
     def retrieve(
         self,
         customer: str,
+        /,
         params: Optional["CustomerCashBalanceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CashBalance":
@@ -42,6 +43,7 @@ class CustomerCashBalanceService(StripeService):
     async def retrieve_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerCashBalanceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CashBalance":
@@ -64,6 +66,7 @@ class CustomerCashBalanceService(StripeService):
     def update(
         self,
         customer: str,
+        /,
         params: Optional["CustomerCashBalanceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CashBalance":
@@ -86,6 +89,7 @@ class CustomerCashBalanceService(StripeService):
     async def update_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerCashBalanceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CashBalance":

@@ -16,6 +16,7 @@ class TokenService(StripeService):
     def retrieve(
         self,
         token: str,
+        /,
         params: Optional["TokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Token":
@@ -36,6 +37,7 @@ class TokenService(StripeService):
     async def retrieve_async(
         self,
         token: str,
+        /,
         params: Optional["TokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Token":

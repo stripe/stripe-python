@@ -5,6 +5,16 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 # Changelog
 
+## Unreleased
+* [#1904](https://github.com/stripe/stripe-python/pull/1904) Support `EventNotification`s with singleton related objects
+* [#1909](https://github.com/stripe/stripe-python/pull/1909) Allow suppressing Stripe notices
+  Set the `STRIPE_SUPPRESS_NOTICES` environment variable to `true` to suppress Stripe notices in test and sandbox environments when not running under a detected AI agent. Notices remain enabled by default and continue to be shown to AI agents.
+* [#1911](https://github.com/stripe/stripe-python/pull/1911) Fix account scoping for event notification handler callback clients
+  - Fix callback clients to use the event's Stripe context and preserve the original client's non-account configuration.
+  - Fix API errors when using an event notification handler with a client configured with a Stripe account.
+* ⚠️ [#1919](https://github.com/stripe/stripe-python/pull/1919) Make path parameters positional-only in all service methods
+  Path parameters must now be passed positionally to service methods. Passing them by keyword is no longer supported.  Resource methods are unaffected by this change.
+
 ## <a id="15-6-1"></a>15.6.1 - 2026-09-01
 * [#1860](https://github.com/stripe/stripe-python/pull/1860) Dispatch discriminated union fields to their variant class
 * [#1896](https://github.com/stripe/stripe-python/pull/1896) Harden API requestor code against malicious URLs
