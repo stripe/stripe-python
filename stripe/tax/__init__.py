@@ -18,6 +18,8 @@ if TYPE_CHECKING:
     from stripe.tax._calculation_service import (
         CalculationService as CalculationService,
     )
+    from stripe.tax._location import Location as Location
+    from stripe.tax._location_service import LocationService as LocationService
     from stripe.tax._registration import Registration as Registration
     from stripe.tax._registration_service import (
         RegistrationService as RegistrationService,
@@ -46,6 +48,8 @@ _import_map = {
         False,
     ),
     "CalculationService": ("stripe.tax._calculation_service", False),
+    "Location": ("stripe.tax._location", False),
+    "LocationService": ("stripe.tax._location_service", False),
     "Registration": ("stripe.tax._registration", False),
     "RegistrationService": ("stripe.tax._registration_service", False),
     "Settings": ("stripe.tax._settings", False),

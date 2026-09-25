@@ -49,7 +49,7 @@ class CustomerModifyParams(RequestOptions):
     """
     invoice_prefix: NotRequired[str]
     """
-    The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+    The prefix for the customer used to generate unique invoice numbers. Must be 1–12 uppercase letters or numbers.
     """
     invoice_settings: NotRequired["CustomerModifyParamsInvoiceSettings"]
     """

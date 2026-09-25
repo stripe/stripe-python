@@ -22,6 +22,9 @@ class Plan(StripeObject):
         The time at which reserved funds are scheduled for release, automatically set to midnight UTC of the day after `release_after`.
         """
 
+    class ManualRelease(StripeObject):
+        pass
+
     class RollingRelease(StripeObject):
         days_after_charge: int
         """
@@ -44,6 +47,10 @@ class Plan(StripeObject):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). An unset currency indicates that the plan applies to all currencies.
     """
+    destination: Literal["other", "risk_reserved", "settlement_reserved"]
+    """
+    The balance destination to which the reserved funds are sent.
+    """
     disabled_at: Optional[int]
     """
     Time at which the ReservePlan was disabled.
@@ -57,6 +64,7 @@ class Plan(StripeObject):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
+    manual_release: Optional[ManualRelease]
     metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -70,15 +78,18 @@ class Plan(StripeObject):
     The percent of each Charge to reserve.
     """
     rolling_release: Optional[RollingRelease]
-    status: Union[Literal["active", "disabled", "expired"], str]
+    status: Literal["active", "disabled", "expired", "other"]
     """
     The current status of the ReservePlan. The ReservePlan only affects charges if it is `active`.
     """
-    type: Union[Literal["fixed_release", "rolling_release"], str]
+    type: Literal[
+        "fixed_release", "manual_release", "other", "rolling_release"
+    ]
     """
     The type of the ReservePlan.
     """
     _inner_class_types = {
         "fixed_release": FixedRelease,
+        "manual_release": ManualRelease,
         "rolling_release": RollingRelease,
     }

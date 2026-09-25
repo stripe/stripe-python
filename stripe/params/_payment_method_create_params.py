@@ -31,11 +31,11 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     alma: NotRequired["PaymentMethodCreateParamsAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired["PaymentMethodCreateParamsAmazonPay"]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired["PaymentMethodCreateParamsAuBecsDebit"]
     """
@@ -193,6 +193,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["PaymentMethodCreateParamsPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["PaymentMethodCreateParamsPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -229,6 +233,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    sequra: NotRequired["PaymentMethodCreateParamsSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
     sofort: NotRequired["PaymentMethodCreateParamsSofort"]
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -246,7 +254,7 @@ class PaymentMethodCreateParams(RequestOptions):
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
     type: NotRequired[
-        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']|str"
+        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']|str"
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -636,6 +644,10 @@ class PaymentMethodCreateParamsPaypal(TypedDict):
     pass
 
 
+class PaymentMethodCreateParamsPaypay(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -687,6 +699,10 @@ class PaymentMethodCreateParamsSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class PaymentMethodCreateParamsSequra(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsSofort(TypedDict):

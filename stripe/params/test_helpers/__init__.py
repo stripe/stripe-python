@@ -53,6 +53,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataPayco as ConfirmationTokenCreateParamsPaymentMethodDataPayco,
         ConfirmationTokenCreateParamsPaymentMethodDataPaynow as ConfirmationTokenCreateParamsPaymentMethodDataPaynow,
         ConfirmationTokenCreateParamsPaymentMethodDataPaypal as ConfirmationTokenCreateParamsPaymentMethodDataPaypal,
+        ConfirmationTokenCreateParamsPaymentMethodDataPaypay as ConfirmationTokenCreateParamsPaymentMethodDataPaypay,
         ConfirmationTokenCreateParamsPaymentMethodDataPayto as ConfirmationTokenCreateParamsPaymentMethodDataPayto,
         ConfirmationTokenCreateParamsPaymentMethodDataPix as ConfirmationTokenCreateParamsPaymentMethodDataPix,
         ConfirmationTokenCreateParamsPaymentMethodDataPromptpay as ConfirmationTokenCreateParamsPaymentMethodDataPromptpay,
@@ -62,6 +63,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataSatispay as ConfirmationTokenCreateParamsPaymentMethodDataSatispay,
         ConfirmationTokenCreateParamsPaymentMethodDataScalapay as ConfirmationTokenCreateParamsPaymentMethodDataScalapay,
         ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit as ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataSequra as ConfirmationTokenCreateParamsPaymentMethodDataSequra,
         ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
         ConfirmationTokenCreateParamsPaymentMethodDataSunbit as ConfirmationTokenCreateParamsPaymentMethodDataSunbit,
         ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
@@ -277,6 +279,10 @@ _import_map = {
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataPaypay": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataPayto": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
@@ -310,6 +316,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataSequra": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

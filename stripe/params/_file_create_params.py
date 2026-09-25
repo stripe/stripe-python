@@ -17,7 +17,7 @@ class FileCreateParams(RequestOptions):
     """
     file_link_data: NotRequired["FileCreateParamsFileLinkData"]
     """
-    Optional parameters that automatically create a [file link](https://api.stripe.com#file_links) for the newly created file.
+    Optional parameters that automatically create a [file link](https://docs.stripe.com/api#file_links) for the newly created file.
     """
     purpose: Union[
         Literal[

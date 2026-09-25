@@ -27,6 +27,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -47,6 +48,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -234,13 +236,13 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["SetupIntentConfirmParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAuBecsDebit"
@@ -398,6 +400,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["SetupIntentConfirmParamsPaymentMethodDataPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -443,6 +449,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+    """
+    sequra: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
     sofort: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSofort"]
     """
@@ -499,6 +509,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -507,6 +518,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -869,6 +881,10 @@ class SetupIntentConfirmParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -920,6 +936,10 @@ class SetupIntentConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataSequra(TypedDict):
+    pass
 
 
 class SetupIntentConfirmParamsPaymentMethodDataSofort(TypedDict):
@@ -1022,6 +1042,10 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     bizum: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsBizum"]
     """
     If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
+    blik: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsBlik"]
+    """
+    If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     """
     card: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsCard"]
     """
@@ -1145,6 +1169,28 @@ class SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(
 
 class SetupIntentConfirmParamsPaymentMethodOptionsBizum(TypedDict):
     pass
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsBlik(TypedDict):
+    code: NotRequired[str]
+    """
+    The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+    """
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsBlikMandateOptions(
+    TypedDict
+):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
+    """
 
 
 class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):

@@ -989,7 +989,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseTransferData(TypedDict):
 
 
 class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str|int"]
+    billing_cycle_anchor: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsBillingCycleAnchor"
+    ]
     """
     For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
     """
@@ -1035,6 +1037,14 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    pause: NotRequired["InvoiceCreatePreviewParamsSubscriptionDetailsPause"]
+    """
+    Previews the invoice that would be generated when pausing the subscription. Passing an empty hash won't preview pausing and instead returns the next invoice.
+
+    To receive a preview invoice, set `invoicing_behavior` to `invoice`. A preview isn't available if the `bill_for` options produce no billable amounts.
+
+    `pending_invoice_item` never has a preview available because pausing wouldn't generate an invoice, and paused subscriptions don't generate invoices either.
+    """
     proration_behavior: NotRequired[
         "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
@@ -1056,6 +1066,19 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     trial_end: NotRequired["Literal['now']|int"]
     """
     If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsBillingCycleAnchor(
+    TypedDict,
+):
+    timestamp: NotRequired[int]
+    """
+    A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp", "unchanged"], str]
+    """
+    Determines how the subscription's billing cycle anchor behaves for the invoice preview.
     """
 
 
@@ -1158,6 +1181,12 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
     """
+    current_trial: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial"
+    ]
+    """
+    The trial offer to apply to this subscription item.
+    """
     deleted: NotRequired[bool]
     """
     A flag that, if set to `true`, will delete the specified item.
@@ -1184,13 +1213,13 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     price: NotRequired[str]
     """
-    The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     """
     price_data: NotRequired[
         "InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData"
     ]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     """
     quantity: NotRequired[int]
     """
@@ -1208,6 +1237,13 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemBillingThresholds(
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial(TypedDict):
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 
@@ -1267,4 +1303,56 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring(
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPause(TypedDict):
+    bill_for: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillFor"
+    ]
+    """
+    Controls what to bill for when pausing the subscription.
+    """
+    invoicing_behavior: NotRequired[
+        "Literal['invoice', 'pending_invoice_item']|str"
+    ]
+    """
+    Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
+    """
+    type: NotRequired["Literal['subscription']|str"]
+    """
+    The type of pause to apply. Defaults to `subscription`.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillFor(TypedDict):
+    outstanding_usage_through: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForOutstandingUsageThrough"
+    ]
+    """
+    Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
+    """
+    unused_time_from: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForUnusedTimeFrom"
+    ]
+    """
+    Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForOutstandingUsageThrough(
+    TypedDict,
+):
+    type: Union[Literal["none", "now"], str]
+    """
+    When to bill metered usage in the current period.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForUnusedTimeFrom(
+    TypedDict,
+):
+    type: Union[Literal["item_current_period_start", "none", "now"], str]
+    """
+    When to credit for unused time.
     """

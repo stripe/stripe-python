@@ -102,7 +102,7 @@ class InvoiceUpdateParams(TypedDict):
     """
     rendering: NotRequired["InvoiceUpdateParamsRendering"]
     """
-    The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
+    The rendering-related settings that control how invoices render in customer-facing interfaces such as the PDF or hosted invoice page.
     """
     shipping_cost: NotRequired["Literal['']|InvoiceUpdateParamsShippingCost"]
     """
@@ -195,7 +195,7 @@ class InvoiceUpdateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to the invoice's PaymentIntent.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -220,6 +220,12 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     ]
     """
     If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
+    """
+    blik: NotRequired[
+        "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik"
+    ]
+    """
+    If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice's PaymentIntent.
     """
     card: NotRequired[
         "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard"
@@ -307,6 +313,77 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact(
 
 
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie(TypedDict):
+    company_details: NotRequired[
+        "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+    reference: NotRequired[str]
+    """
+    An identifier or reference that this payment corresponds to.
+    """
+
+
+class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT ID number.
+    """
+
+
+class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (for example, street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (for example, apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik(TypedDict):
     pass
 
 

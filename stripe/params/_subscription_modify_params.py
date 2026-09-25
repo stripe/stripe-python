@@ -22,9 +22,11 @@ class SubscriptionModifyParams(RequestOptions):
     """
     Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     """
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    billing_cycle_anchor: NotRequired[
+        "SubscriptionModifyParamsBillingCycleAnchor"
+    ]
     """
-    Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+    Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
     billing_schedules: NotRequired[
         "Literal['']|List[SubscriptionModifyParamsBillingSchedule]"
@@ -296,6 +298,13 @@ class SubscriptionModifyParamsAutomaticTaxLiability(TypedDict):
     """
 
 
+class SubscriptionModifyParamsBillingCycleAnchor(TypedDict):
+    type: Union[Literal["now", "unchanged"], str]
+    """
+    Determines how the billing cycle anchor changes when the subscription is updated.
+    """
+
+
 class SubscriptionModifyParamsBillingSchedule(TypedDict):
     applies_to: NotRequired[
         List["SubscriptionModifyParamsBillingScheduleAppliesTo"]
@@ -453,6 +462,10 @@ class SubscriptionModifyParamsItem(TypedDict):
     """
     Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
     """
+    current_trial: NotRequired["SubscriptionModifyParamsItemCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
     deleted: NotRequired[bool]
     """
     A flag that, if set to `true`, will delete the specified item.
@@ -479,11 +492,11 @@ class SubscriptionModifyParamsItem(TypedDict):
     """
     price: NotRequired[str]
     """
-    The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     """
     price_data: NotRequired["SubscriptionModifyParamsItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     """
     quantity: NotRequired[int]
     """
@@ -499,6 +512,13 @@ class SubscriptionModifyParamsItemBillingThresholds(TypedDict):
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class SubscriptionModifyParamsItemCurrentTrial(TypedDict):
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 
@@ -578,7 +598,7 @@ class SubscriptionModifyParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -609,6 +629,12 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     ]
     """
     This sub-hash contains details about the Billie payment method options to pass to the invoice's PaymentIntent.
+    """
+    blik: NotRequired[
+        "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik"
+    ]
+    """
+    This sub-hash contains details about the Blik payment method options to pass to the invoice's PaymentIntent.
     """
     card: NotRequired[
         "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard"
@@ -698,7 +724,90 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillie(
     TypedDict,
 ):
-    pass
+    company_details: NotRequired[
+        "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+
+
+class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT ID number.
+    """
+
+
+class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (for example, street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (for example, apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik(
+    TypedDict,
+):
+    mandate_options: NotRequired[
+        "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Configuration options for setting up a mandate
+    """
+
+
+class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions(
+    TypedDict,
+):
+    expires_at: NotRequired[int]
+    """
+    Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+    """
 
 
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard(
@@ -976,8 +1085,12 @@ class SubscriptionModifyParamsTrialSettings(TypedDict):
 
 
 class SubscriptionModifyParamsTrialSettingsEndBehavior(TypedDict):
-    missing_payment_method: Union[
-        Literal["cancel", "create_invoice", "pause"], str
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """
+    missing_payment_method: NotRequired[
+        "Literal['cancel', 'create_invoice', 'pause']|str"
     ]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.

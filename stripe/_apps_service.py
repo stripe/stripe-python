@@ -5,12 +5,17 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.apps._install_service import InstallService
     from stripe.apps._secret_service import SecretService
 
-_subservices = {"secrets": ["stripe.apps._secret_service", "SecretService"]}
+_subservices = {
+    "installs": ["stripe.apps._install_service", "InstallService"],
+    "secrets": ["stripe.apps._secret_service", "SecretService"],
+}
 
 
 class AppsService(StripeService):
+    installs: "InstallService"
     secrets: "SecretService"
 
     def __init__(self, requestor):

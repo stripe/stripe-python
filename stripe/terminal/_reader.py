@@ -144,6 +144,7 @@ class Reader(
                         "customer_session_expired",
                         "customer_tax_location_invalid",
                         "debit_not_authorized",
+                        "dispute_evidence_page_limit_exceeded",
                         "email_invalid",
                         "expired_card",
                         "expired_payment_method",
@@ -154,6 +155,8 @@ class Reader(
                         "financial_connections_account_inactive",
                         "financial_connections_account_pending_account_numbers",
                         "financial_connections_account_unavailable_account_numbers",
+                        "financial_connections_consent_locale_invalid",
+                        "financial_connections_consent_locale_unsupported",
                         "financial_connections_no_successful_transaction_refresh",
                         "forwarding_api_inactive",
                         "forwarding_api_invalid_parameter",
@@ -207,6 +210,7 @@ class Reader(
                         "parameter_missing",
                         "parameter_unknown",
                         "parameters_exclusive",
+                        "payment_evaluation_on_api_version_not_supported",
                         "payment_intent_action_required",
                         "payment_intent_authentication_failure",
                         "payment_intent_incompatible_payment_method",
@@ -358,7 +362,7 @@ class Reader(
             """
             A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
             For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-            Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+            Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
             Create a SetupIntent when you're ready to collect your customer's payment credentials.
             Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -369,9 +373,9 @@ class Reader(
             For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
             [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
             to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-            If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+            If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
             it automatically attaches the resulting payment method to that Customer after successful setup.
-            We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+            We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
             PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
             By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -960,7 +964,7 @@ class Reader(
     """
     status: Optional[Union[Literal["offline", "online"], str]]
     """
-    The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
+    The networking status of the reader. This value is `null` for mobile readers. We do not recommend using this field in flows that may block taking payments.
     """
 
     @classmethod

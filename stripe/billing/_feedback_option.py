@@ -33,7 +33,11 @@ class FeedbackOption(
     UpdateableAPIResource["FeedbackOption"],
 ):
     """
-    A resource for the feedback options model (for custom cancellation reasons)
+    A feedback option is a reason you can present to customers when they cancel a
+    subscription through the customer portal. Configure the set of options a customer
+    can choose from on a [portal configuration](https://docs.stripe.com/api/customer_portal/configuration).
+
+    Related guide: [Customer management](https://docs.stripe.com/customer-management)
     """
 
     OBJECT_NAME: ClassVar[Literal["billing.feedback_option"]] = (
@@ -215,7 +219,7 @@ class FeedbackOption(
         cls, **params: Unpack["FeedbackOptionListParams"]
     ) -> ListObject["FeedbackOption"]:
         """
-        An API method for listing the feedback options model
+        Returns a list of your feedback options.
         """
         result = cls._static_request(
             "get",
@@ -235,7 +239,7 @@ class FeedbackOption(
         cls, **params: Unpack["FeedbackOptionListParams"]
     ) -> ListObject["FeedbackOption"]:
         """
-        An API method for listing the feedback options model
+        Returns a list of your feedback options.
         """
         result = await cls._static_request_async(
             "get",
@@ -289,7 +293,7 @@ class FeedbackOption(
         cls, id: str, **params: Unpack["FeedbackOptionRetrieveParams"]
     ) -> "FeedbackOption":
         """
-        Retrieves a feedback options object given an ID.
+        Retrieves a feedback option object given an ID.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -300,7 +304,7 @@ class FeedbackOption(
         cls, id: str, **params: Unpack["FeedbackOptionRetrieveParams"]
     ) -> "FeedbackOption":
         """
-        Retrieves a feedback options object given an ID.
+        Retrieves a feedback option object given an ID.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

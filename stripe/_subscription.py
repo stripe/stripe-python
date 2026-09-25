@@ -55,6 +55,9 @@ if TYPE_CHECKING:
     from stripe.params._subscription_modify_params import (
         SubscriptionModifyParams,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams,
     )
@@ -345,7 +348,83 @@ class Subscription(
                 """
 
             class Billie(StripeObject):
-                pass
+                class CompanyDetails(StripeObject):
+                    class RegisteredAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code.
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (for example, street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (for example, apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    registered_address: Optional[RegisteredAddress]
+                    registered_name: Optional[str]
+                    """
+                    Company or entity name.
+                    """
+                    registration_number: Optional[str]
+                    """
+                    The official registration number for the given registration type.
+                    """
+                    registration_type: Optional[
+                        Literal[
+                            "ch_ein",
+                            "de_hrb",
+                            "dk_cvr",
+                            "es_cif",
+                            "fi_tunnus",
+                            "fr_siren",
+                            "fr_siret",
+                            "it_rea",
+                            "nl_kvk",
+                            "no_org_number",
+                            "no_pno",
+                            "se_org_number",
+                            "se_pno",
+                            "uk_crn",
+                        ]
+                    ]
+                    """
+                    Type of registration the company or entity holds in their registered country.
+                    """
+                    vat: Optional[str]
+                    """
+                    VAT ID number.
+                    """
+                    _inner_class_types = {
+                        "registered_address": RegisteredAddress,
+                    }
+
+                company_details: Optional[CompanyDetails]
+                _inner_class_types = {"company_details": CompanyDetails}
+
+            class Blik(StripeObject):
+                class MandateOptions(StripeObject):
+                    expires_at: Optional[int]
+                    """
+                    Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
 
             class Card(StripeObject):
                 class MandateOptions(StripeObject):
@@ -593,6 +672,10 @@ class Subscription(
             """
             This sub-hash contains details about the Billie payment method options to pass to invoices created by the subscription.
             """
+            blik: Optional[Blik]
+            """
+            This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
+            """
             card: Optional[Card]
             """
             This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
@@ -629,6 +712,7 @@ class Subscription(
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
                 "billie": Billie,
+                "blik": Blik,
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
@@ -657,6 +741,7 @@ class Subscription(
                         "bacs_debit",
                         "bancontact",
                         "billie",
+                        "blik",
                         "boleto",
                         "card",
                         "cashapp",
@@ -727,6 +812,10 @@ class Subscription(
         """
         If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
         """
+        cancel_at_period_end: Optional[bool]
+        """
+        Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+        """
         discount: Optional["Discount"]
         """
         The pending subscription-level discount that will be applied when the pending update is applied.
@@ -762,6 +851,41 @@ class Subscription(
         Currency used for customer payments.
         """
 
+    class StatusDetails(StripeObject):
+        class Paused(StripeObject):
+            class Subscription(StripeObject):
+                type: Union[
+                    Literal[
+                        "pause_requested",
+                        "system",
+                        "trial_end_without_payment_method",
+                    ],
+                    str,
+                ]
+                """
+                The reason that the subscription was paused.
+                """
+
+            subscription: Subscription
+            """
+            Information on the `type=subscription` pause.
+            """
+            transitioned_at: int
+            """
+            Unix timestamp in seconds of when the subscription status transitioned to `paused`.
+            """
+            type: Union[Literal["subscription"], str]
+            """
+            The type of pause.
+            """
+            _inner_class_types = {"subscription": Subscription}
+
+        paused: Paused
+        """
+        Indicates when and why the subscription transitioned to the paused status.
+        """
+        _inner_class_types = {"paused": Paused}
+
     class TransferData(StripeObject):
         amount_percent: Optional[float]
         """
@@ -774,6 +898,12 @@ class Subscription(
 
     class TrialSettings(StripeObject):
         class EndBehavior(StripeObject):
+            billing_cycle_anchor: Optional[
+                Union[Literal["now", "unchanged"], str]
+            ]
+            """
+            Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+            """
             missing_payment_method: Union[
                 Literal["cancel", "create_invoice", "pause"], str
             ]
@@ -977,6 +1107,10 @@ class Subscription(
     If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
 
     If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
+    """
+    status_details: Optional[StatusDetails]
+    """
+    Describes changes to the subscription's status.
     """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
@@ -1540,6 +1674,116 @@ class Subscription(
         )
 
     @classmethod
+    def _cls_pause(
+        cls, subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def pause(
+        subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @overload
+    def pause(
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @class_method_variant("_cls_pause")
+    def pause(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_pause_async(
+        cls, subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def pause_async(
+        subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @overload
+    async def pause_async(
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @class_method_variant("_cls_pause_async")
+    async def pause_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_resume(
         cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
@@ -1725,6 +1969,7 @@ class Subscription(
         "pending_invoice_item_interval": PendingInvoiceItemInterval,
         "pending_update": PendingUpdate,
         "presentment_details": PresentmentDetails,
+        "status_details": StatusDetails,
         "transfer_data": TransferData,
         "trial_settings": TrialSettings,
     }
