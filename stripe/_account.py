@@ -1305,7 +1305,7 @@ class Account(
             ]
         ]
         """
-        If the account is disabled, this string describes why the account can't create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+        This is typed as an enum for consistency with `requirements.disabled_reason`.
         """
         errors: Optional[List[Error]]
         """
@@ -1498,7 +1498,7 @@ class Account(
             ]
         ]
         """
-        If the account is disabled, this string describes why the account can't create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+        If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
         """
         errors: Optional[List[Error]]
         """

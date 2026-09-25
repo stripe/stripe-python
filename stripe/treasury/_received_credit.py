@@ -286,7 +286,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Union[Literal["ach", "card", "stripe", "us_domestic_wire"], str]
+    network: Union[
+        Literal["ach", "card", "rtp", "stripe", "us_domestic_wire"], str
+    ]
     """
     The rails used to send the funds.
     """

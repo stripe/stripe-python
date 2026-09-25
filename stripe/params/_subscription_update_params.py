@@ -25,9 +25,11 @@ class SubscriptionUpdateParams(TypedDict):
     """
     The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
     """
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    billing_cycle_anchor: NotRequired[
+        "SubscriptionUpdateParamsBillingCycleAnchor"
+    ]
     """
-    Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+    Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
     billing_schedules: NotRequired[
         "Literal['']|List[SubscriptionUpdateParamsBillingSchedule]"
@@ -167,7 +169,7 @@ class SubscriptionUpdateParams(TypedDict):
     """
     trial_from_plan: NotRequired[bool]
     """
-    Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+    Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
     """
     trial_settings: NotRequired["SubscriptionUpdateParamsTrialSettings"]
     """
@@ -340,6 +342,17 @@ class SubscriptionUpdateParamsAutomaticTaxLiability(TypedDict):
     type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
+    """
+
+
+class SubscriptionUpdateParamsBillingCycleAnchor(TypedDict):
+    timestamp: NotRequired[int]
+    """
+    A Unix timestamp within the inclusive bounds of the subscription's current billing period. For subscriptions with multiple items, it must fall within the intersection of their current billing periods. Only valid when `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp", "unchanged"], str]
+    """
+    Determines how the billing cycle anchor changes when the subscription is updated.
     """
 
 
@@ -1100,7 +1113,7 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik(
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions(
     TypedDict,
 ):
-    expires_after: NotRequired[int]
+    expires_at: NotRequired[int]
     """
     Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
     """
@@ -1435,8 +1448,8 @@ class SubscriptionUpdateParamsTrialSettingsEndBehavior(TypedDict):
     """
     Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
     """
-    missing_payment_method: Union[
-        Literal["cancel", "create_invoice", "pause"], str
+    missing_payment_method: NotRequired[
+        "Literal['cancel', 'create_invoice', 'pause']|str"
     ]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.

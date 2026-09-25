@@ -6,7 +6,13 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class FinancialAccountListParams(TypedDict):
     include: NotRequired[
-        List[Literal["payments.balance_by_funds_type", "storage.crypto"]]
+        List[
+            Literal[
+                "payments.balance_by_funds_type",
+                "storage.crypto",
+                "storage.deposit_insurance_eligibility",
+            ]
+        ]
     ]
     """
     Additional fields to include in the response.

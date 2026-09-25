@@ -120,6 +120,29 @@ class QuotePreviewInvoice(StripeObject):
         """
 
     class AutomaticTax(StripeObject):
+        class EnablementDetails(StripeObject):
+            class IntegrationConfigurationDisabledReason(StripeObject):
+                conflicting_field: str
+                """
+                The parameter that prevented `automatic_tax` from being enabled (for example `default_tax_rates`).
+                """
+
+            integration_configuration_disabled_reason: Optional[
+                IntegrationConfigurationDisabledReason
+            ]
+            """
+            Present when `source=tax_integration_configuration`, `automatic_tax[enabled]=false`, and a conflicting parameter is recorded.
+            """
+            source: Literal[
+                "explicit", "managed_payments", "tax_integration_configuration"
+            ]
+            """
+            How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+            """
+            _inner_class_types = {
+                "integration_configuration_disabled_reason": IntegrationConfigurationDisabledReason,
+            }
+
         class Liability(StripeObject):
             account: Optional[ExpandableField["Account"]]
             """
@@ -146,6 +169,10 @@ class QuotePreviewInvoice(StripeObject):
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
         """
+        enablement_details: Optional[EnablementDetails]
+        """
+        How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+        """
         liability: Optional[Liability]
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
@@ -162,7 +189,10 @@ class QuotePreviewInvoice(StripeObject):
         """
         The status of the most recent automated tax calculation for this invoice.
         """
-        _inner_class_types = {"liability": Liability}
+        _inner_class_types = {
+            "enablement_details": EnablementDetails,
+            "liability": Liability,
+        }
 
     class ConfirmationSecret(StripeObject):
         client_secret: str
@@ -486,6 +516,7 @@ class QuotePreviewInvoice(StripeObject):
                     "customer_session_expired",
                     "customer_tax_location_invalid",
                     "debit_not_authorized",
+                    "dispute_evidence_page_limit_exceeded",
                     "email_invalid",
                     "expired_card",
                     "expired_payment_method",
@@ -496,6 +527,8 @@ class QuotePreviewInvoice(StripeObject):
                     "financial_connections_account_inactive",
                     "financial_connections_account_pending_account_numbers",
                     "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_consent_locale_invalid",
+                    "financial_connections_consent_locale_unsupported",
                     "financial_connections_institution_unavailable",
                     "financial_connections_no_successful_transaction_refresh",
                     "forwarding_api_inactive",
@@ -550,6 +583,7 @@ class QuotePreviewInvoice(StripeObject):
                     "parameter_missing",
                     "parameter_unknown",
                     "parameters_exclusive",
+                    "payment_evaluation_on_api_version_not_supported",
                     "payment_intent_action_required",
                     "payment_intent_authentication_failure",
                     "payment_intent_incompatible_payment_method",
@@ -1465,6 +1499,27 @@ class QuotePreviewInvoice(StripeObject):
         """
         _inner_class_types = {"address": Address}
 
+    class StatusDetails(StripeObject):
+        class Uncollectible(StripeObject):
+            reason: Optional[
+                Union[
+                    Literal[
+                        "max_payment_attempts",
+                        "payment_not_received",
+                        "subscription_canceled",
+                        "subscription_paused",
+                        "user_forgiven",
+                    ],
+                    str,
+                ]
+            ]
+            """
+            The reason why the invoice is uncollectible.
+            """
+
+        uncollectible: Optional[Uncollectible]
+        _inner_class_types = {"uncollectible": Uncollectible}
+
     class StatusTransitions(StripeObject):
         finalized_at: Optional[int]
         """
@@ -1893,6 +1948,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     """
+    status_details: Optional[StatusDetails]
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
     subtotal: int
@@ -1955,6 +2011,7 @@ class QuotePreviewInvoice(StripeObject):
         "rendering": Rendering,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
+        "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,

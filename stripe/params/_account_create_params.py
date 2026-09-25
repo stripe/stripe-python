@@ -306,6 +306,12 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The blik_payments capability.
     """
+    blik_recurring_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesBlikRecurringPayments"
+    ]
+    """
+    The blik_recurring_payments capability.
+    """
     boleto_payments: NotRequired[
         "AccountCreateParamsCapabilitiesBoletoPayments"
     ]
@@ -566,6 +572,12 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The sepa_debit_payments capability.
     """
+    sequra_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesSequraPayments"
+    ]
+    """
+    The sequra_payments capability.
+    """
     shopeepay_payments: NotRequired[
         "AccountCreateParamsCapabilitiesShopeepayPayments"
     ]
@@ -750,6 +762,13 @@ class AccountCreateParamsCapabilitiesBizumPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesBlikPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesBlikRecurringPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1110,6 +1129,13 @@ class AccountCreateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesSepaDebitPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesSequraPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2255,6 +2281,12 @@ class AccountCreateParamsSettings(TypedDict):
     """
     Settings specific to the PayPay payments method.
     """
+    sepa_debit_payments: NotRequired[
+        "AccountCreateParamsSettingsSepaDebitPayments"
+    ]
+    """
+    Settings specific to SEPA Direct Debit payments.
+    """
     smart_disputes: NotRequired["AccountCreateParamsSettingsSmartDisputes"]
     """
     Settings specific to the account's use of Smart Disputes.
@@ -2521,6 +2553,13 @@ class AccountCreateParamsSettingsPaypayPaymentsSiteRestricted(TypedDict):
     payment_flow_file: NotRequired[str]
     """
     The file explaining the payment flow for your business.
+    """
+
+
+class AccountCreateParamsSettingsSepaDebitPayments(TypedDict):
+    creditor_id: NotRequired[str]
+    """
+    The business creditor id for european payments.
     """
 
 

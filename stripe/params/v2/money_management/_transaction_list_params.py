@@ -4,25 +4,9 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class TransactionListParams(TypedDict):
-    created: NotRequired[str]
+    created: NotRequired["TransactionListParamsCreated"]
     """
-    Filter for Transactions created at an exact time.
-    """
-    created_gt: NotRequired[str]
-    """
-    Filter for Transactions created after the specified timestamp.
-    """
-    created_gte: NotRequired[str]
-    """
-    Filter for Transactions created at or after the specified timestamp.
-    """
-    created_lt: NotRequired[str]
-    """
-    Filter for Transactions created before the specified timestamp.
-    """
-    created_lte: NotRequired[str]
-    """
-    Filter for Transactions created at or before the specified timestamp.
+    Set of filters to query Transactions within a range of `created` timestamps.
     """
     financial_account: NotRequired[str]
     """
@@ -35,4 +19,23 @@ class TransactionListParams(TypedDict):
     limit: NotRequired[int]
     """
     The page limit.
+    """
+
+
+class TransactionListParamsCreated(TypedDict):
+    gt: NotRequired[str]
+    """
+    Filter for Transactions created after the specified timestamp.
+    """
+    gte: NotRequired[str]
+    """
+    Filter for Transactions created at or after the specified timestamp.
+    """
+    lt: NotRequired[str]
+    """
+    Filter for Transactions created before the specified timestamp.
+    """
+    lte: NotRequired[str]
+    """
+    Filter for Transactions created at or before the specified timestamp.
     """

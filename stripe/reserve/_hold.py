@@ -61,6 +61,10 @@ class Hold(ListableAPIResource["Hold"]):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    destination: Literal["other", "risk_reserved", "settlement_reserved"]
+    """
+    The balance destination to which the reserved funds are sent.
+    """
     id: str
     """
     Unique identifier for the object.

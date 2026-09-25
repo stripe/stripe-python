@@ -253,6 +253,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    sequra: NotRequired["PaymentMethodCreateParamsSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
     shopeepay: NotRequired["PaymentMethodCreateParamsShopeepay"]
     """
     If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -775,6 +779,10 @@ class PaymentMethodCreateParamsSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class PaymentMethodCreateParamsSequra(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsShopeepay(TypedDict):

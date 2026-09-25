@@ -138,7 +138,27 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
 
         class Card(StripeObject):
-            pass
+            class India(StripeObject):
+                inactive_reason: Optional[
+                    Union[
+                        Literal[
+                            "canceled",
+                            "card_not_supported",
+                            "currency_not_supported",
+                            "expired",
+                            "issuer_not_supported",
+                            "processing_error",
+                            "undetermined",
+                        ],
+                        str,
+                    ]
+                ]
+                """
+                The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
+                """
+
+            india: Optional[India]
+            _inner_class_types = {"india": India}
 
         class Cashapp(StripeObject):
             pass

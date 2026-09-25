@@ -71,6 +71,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [Capital financing application](https://docs.stripe.com/connect/supported-embedded-components/capital-financing-application/) embedded component.
     """
+    capital_financing_manual_payment: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancingManualPayment"
+    ]
+    """
+    Configuration for the [Capital financing manual payment](https://docs.stripe.com/connect/supported-embedded-components/capital-financing-manual-payment/) embedded component.
+    """
     capital_financing_promotion: NotRequired[
         "AccountSessionCreateParamsComponentsCapitalFinancingPromotion"
     ]
@@ -426,6 +432,27 @@ class AccountSessionCreateParamsComponentsCapitalFinancingApplication(
 
 
 class AccountSessionCreateParamsComponentsCapitalFinancingApplicationFeatures(
+    TypedDict,
+):
+    pass
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancingManualPayment(
+    TypedDict,
+):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancingManualPaymentFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancingManualPaymentFeatures(
     TypedDict,
 ):
     pass

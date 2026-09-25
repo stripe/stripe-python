@@ -60,6 +60,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.billing_portal._session_create_params import (
         SessionCreateParams as SessionCreateParams,
+        SessionCreateParamsAfterExpiration as SessionCreateParamsAfterExpiration,
+        SessionCreateParamsAfterExpirationCustomerLogin as SessionCreateParamsAfterExpirationCustomerLogin,
         SessionCreateParamsFlowData as SessionCreateParamsFlowData,
         SessionCreateParamsFlowDataAfterCompletion as SessionCreateParamsFlowDataAfterCompletion,
         SessionCreateParamsFlowDataAfterCompletionHostedConfirmation as SessionCreateParamsFlowDataAfterCompletionHostedConfirmation,
@@ -253,6 +255,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParams": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAfterExpiration": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAfterExpirationCustomerLogin": (
         "stripe.params.billing_portal._session_create_params",
         False,
     ),

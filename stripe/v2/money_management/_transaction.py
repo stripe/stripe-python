@@ -68,6 +68,10 @@ class Transaction(StripeObject):
         """
         If applicable, the ID of the Dispute that created this Transaction.
         """
+        earned_credit: Optional[str]
+        """
+        If applicable, the ID of the EarnedCredit that created this Transaction.
+        """
         fee_transaction: Optional[str]
         """
         If applicable, the ID of the FeeTransaction that created this Transaction.
@@ -177,6 +181,7 @@ class Transaction(StripeObject):
                 "currency_conversion",
                 "debit_dispute",
                 "dispute",
+                "earned_credit",
                 "fee_transaction",
                 "inbound_transfer",
                 "issuing_authorization",
@@ -245,6 +250,7 @@ class Transaction(StripeObject):
             "debit_dispute",
             "dispute",
             "dispute_reversal",
+            "earned_credit",
             "financing_paydown",
             "financing_paydown_reversal",
             "inbound_payment",

@@ -33,7 +33,7 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             self._request(
                 "post",
-                "/v2/signals/account_activity",
+                "/v2/signals/account_activities",
                 base_address="api",
                 params=params,
                 options=options,
@@ -52,7 +52,7 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             await self._request_async(
                 "post",
-                "/v2/signals/account_activity",
+                "/v2/signals/account_activities",
                 base_address="api",
                 params=params,
                 options=options,
@@ -73,7 +73,9 @@ class AccountActivityService(StripeService):
             "DeletedObject",
             self._request(
                 "delete",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -94,7 +96,9 @@ class AccountActivityService(StripeService):
             "DeletedObject",
             await self._request_async(
                 "delete",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -115,7 +119,9 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             self._request(
                 "get",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -136,7 +142,9 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             await self._request_async(
                 "get",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

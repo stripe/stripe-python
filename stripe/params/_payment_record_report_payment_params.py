@@ -51,7 +51,7 @@ class PaymentRecordReportPaymentParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    outcome: NotRequired["Literal['failed', 'guaranteed']|str"]
+    outcome: NotRequired["Literal['canceled', 'failed', 'guaranteed']|str"]
     """
     The outcome of the reported payment.
     """
@@ -96,7 +96,7 @@ class PaymentRecordReportPaymentParamsCanceled(TypedDict):
     Payment evaluations associated with this reported payment.
     """
     reason: NotRequired[
-        "Literal['blocked_for_fraud', 'merchant_canceled']|str"
+        "Literal['blocked_for_fraud', 'merchant_canceled', 'rerouted']|str"
     ]
     """
     The reason the payment attempt was canceled.

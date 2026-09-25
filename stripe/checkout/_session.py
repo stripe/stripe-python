@@ -1252,6 +1252,12 @@ class Session(
 
             class TrialSettings(StripeObject):
                 class EndBehavior(StripeObject):
+                    billing_cycle_anchor: Optional[
+                        Union[Literal["now", "unchanged"], str]
+                    ]
+                    """
+                    Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+                    """
                     missing_payment_method: Union[
                         Literal["cancel", "create_invoice", "pause"], str
                     ]
@@ -2657,6 +2663,10 @@ class Session(
         """
         Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with 'allow_redisplay: ‘always' are shown in Checkout.
         """
+        payment_method_preselect: Optional[str]
+        """
+        The ID of a saved payment method to select when the Payment Element renders, for example `pm_1MqLiJLkdIwHu7ixUEgbFdYF`. Takes precedence over the customer's default payment method. If the ID doesn't match one of the payment methods the Element is displaying, the Element selects a payment method as it normally would and no error is returned. Preselecting a payment method never changes which payment methods the Element displays, and never modifies the payment method, the customer, or this session. The preselection is fixed once set. To preselect a different payment method, create a new session. An Element that's already on the page keeps its current selection.
+        """
         payment_method_remove: Optional[
             Union[Literal["disabled", "enabled"], str]
         ]
@@ -3129,6 +3139,10 @@ class Session(
     allow_promotion_codes: Optional[bool]
     """
     Enables user redeemable promotion codes.
+    """
+    allowed_payment_method_types: Optional[List[str]]
+    """
+    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
     """
     amount_subtotal: Optional[int]
     """

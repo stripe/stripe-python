@@ -71,6 +71,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataSatispay as ConfirmationTokenCreateParamsPaymentMethodDataSatispay,
         ConfirmationTokenCreateParamsPaymentMethodDataScalapay as ConfirmationTokenCreateParamsPaymentMethodDataScalapay,
         ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit as ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataSequra as ConfirmationTokenCreateParamsPaymentMethodDataSequra,
         ConfirmationTokenCreateParamsPaymentMethodDataShopeepay as ConfirmationTokenCreateParamsPaymentMethodDataShopeepay,
         ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
         ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance as ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance,
@@ -356,6 +357,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataSequra": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

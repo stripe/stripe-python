@@ -2179,6 +2179,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The ACH payment reference for this transaction.
             """
+            return_code: Optional[str]
+            """
+            NACHA ACH return code for a failed US bank account payment.
+            """
             routing_number: Optional[str]
             """
             The routing number for the bank account.

@@ -160,6 +160,7 @@ class PaymentLinkCreateParams(RequestOptions):
                     "rechnung",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -1178,6 +1179,10 @@ class PaymentLinkCreateParamsSubscriptionDataTrialSettings(TypedDict):
 class PaymentLinkCreateParamsSubscriptionDataTrialSettingsEndBehavior(
     TypedDict,
 ):
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """
     missing_payment_method: Union[
         Literal["cancel", "create_invoice", "pause"], str
     ]

@@ -16,6 +16,47 @@ class PayoutIntent(StripeObject):
     )
 
     class EstimatedFee(StripeObject):
+        class NetworkFeeDetails(StripeObject):
+            class NetworkOptions(StripeObject):
+                class Ach(StripeObject):
+                    submission: Optional[
+                        Union[Literal["next_day", "same_day"], str]
+                    ]
+                    """
+                    Open Enum. ACH submission timing.
+                    """
+
+                ach: Optional[Ach]
+                """
+                ACH-specific network fee options.
+                """
+                _inner_class_types = {"ach": Ach}
+
+            network: Union[
+                Literal[
+                    "ach",
+                    "becs",
+                    "eft",
+                    "fedwire",
+                    "fps",
+                    "local",
+                    "npp",
+                    "rtp",
+                    "sepa",
+                    "sepa_instant",
+                    "swift",
+                ],
+                str,
+            ]
+            """
+            The network associated with the fee.
+            """
+            network_options: NetworkOptions
+            """
+            Per-network options that affect the fee.
+            """
+            _inner_class_types = {"network_options": NetworkOptions}
+
         class TaxAmount(StripeObject):
             currency: str
             """
@@ -30,6 +71,10 @@ class PayoutIntent(StripeObject):
         """
         The fee amount.
         """
+        network_fee_details: Optional[NetworkFeeDetails]
+        """
+        Details about the network and options associated with this fee. Present when type is network_fee.
+        """
         tax_amount: Optional[TaxAmount]
         """
         Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
@@ -39,6 +84,7 @@ class PayoutIntent(StripeObject):
                 "cross_border_fee",
                 "foreign_exchange_fee",
                 "instant_card_payout_fee",
+                "network_fee",
                 "next_day_payout_fee",
                 "real_time_payout_fee",
                 "stablecoin_payout_fee",
@@ -51,7 +97,10 @@ class PayoutIntent(StripeObject):
         """
         Open Enum. The type of fee.
         """
-        _inner_class_types = {"tax_amount": TaxAmount}
+        _inner_class_types = {
+            "network_fee_details": NetworkFeeDetails,
+            "tax_amount": TaxAmount,
+        }
 
     class From(StripeObject):
         currency: str
