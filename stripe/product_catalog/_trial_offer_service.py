@@ -17,6 +17,9 @@ if TYPE_CHECKING:
     from stripe.params.product_catalog._trial_offer_retrieve_params import (
         TrialOfferRetrieveParams,
     )
+    from stripe.params.product_catalog._trial_offer_update_params import (
+        TrialOfferUpdateParams,
+    )
     from stripe.product_catalog._trial_offer import TrialOffer
 
 
@@ -132,6 +135,50 @@ class TrialOfferService(StripeService):
             "TrialOffer",
             await self._request_async(
                 "get",
+                "/v1/product_catalog/trial_offers/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        params: Optional["TrialOfferUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "TrialOffer":
+        """
+        Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        """
+        return cast(
+            "TrialOffer",
+            self._request(
+                "post",
+                "/v1/product_catalog/trial_offers/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: Optional["TrialOfferUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "TrialOffer":
+        """
+        Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        """
+        return cast(
+            "TrialOffer",
+            await self._request_async(
+                "post",
                 "/v1/product_catalog/trial_offers/{id}".format(
                     id=sanitize_id(id),
                 ),

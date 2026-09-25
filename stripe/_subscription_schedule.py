@@ -257,6 +257,147 @@ class SubscriptionSchedule(
         """
         _inner_class_types = {"failed_transitions": FailedTransition}
 
+    class PauseSchedule(StripeObject):
+        class Pause(StripeObject):
+            class Settings(StripeObject):
+                class BillFor(StripeObject):
+                    class OutstandingUsageThrough(StripeObject):
+                        type: Union[Literal["none", "pause_at"], str]
+                        """
+                        The type of outstanding usage billing behavior.
+                        """
+
+                    class UnusedTimeFrom(StripeObject):
+                        type: Union[
+                            Literal[
+                                "item_current_period_start", "none", "pause_at"
+                            ],
+                            str,
+                        ]
+                        """
+                        The type of unused time credit behavior.
+                        """
+
+                    outstanding_usage_through: OutstandingUsageThrough
+                    unused_time_from: UnusedTimeFrom
+                    _inner_class_types = {
+                        "outstanding_usage_through": OutstandingUsageThrough,
+                        "unused_time_from": UnusedTimeFrom,
+                    }
+
+                bill_for: BillFor
+                invoicing_behavior: Union[
+                    Literal["invoice", "pending_invoice_item"], str
+                ]
+                """
+                Determines how to handle debits and credits when pausing.
+                """
+                type: Union[Literal["subscription"], str]
+                """
+                The type of pause settings.
+                """
+                _inner_class_types = {"bill_for": BillFor}
+
+            class Status(StripeObject):
+                class Error(StripeObject):
+                    code: Optional[str]
+                    """
+                    A machine-readable error code.
+                    """
+                    message: str
+                    """
+                    A description of the error.
+                    """
+
+                error: Optional[Error]
+                type: Union[Literal["error", "scheduled", "succeeded"], str]
+                """
+                The lifecycle state of the pause operation.
+                """
+                _inner_class_types = {"error": Error}
+
+            pause_at: int
+            """
+            Time at which the subscription pauses.
+            """
+            settings: Optional[Settings]
+            """
+            Settings controlling billing behavior during the pause.
+            """
+            status: Status
+            _inner_class_types = {"settings": Settings, "status": Status}
+
+        class Resume(StripeObject):
+            class Settings(StripeObject):
+                billing_cycle_anchor: Union[
+                    Literal["resume_at", "unchanged"], str
+                ]
+                """
+                The billing cycle anchor that applies when the subscription is resumed.
+                """
+                payment_behavior: Union[
+                    Literal[
+                        "resume_on_payment_attempt",
+                        "resume_on_payment_success",
+                    ],
+                    str,
+                ]
+                """
+                Controls whether Stripe attempts payment on the resumption invoice and how that affects the subscription's status.
+                """
+                proration_behavior: Union[
+                    Literal["always_invoice", "create_prorations", "none"], str
+                ]
+                """
+                Determines how to handle prorations resulting from the billing_cycle_anchor change on resume.
+                """
+
+            class Status(StripeObject):
+                class Error(StripeObject):
+                    code: Optional[str]
+                    """
+                    A machine-readable error code.
+                    """
+                    message: str
+                    """
+                    A description of the error.
+                    """
+
+                error: Optional[Error]
+                type: Union[
+                    Literal[
+                        "error",
+                        "pending",
+                        "requires_action",
+                        "scheduled",
+                        "succeeded",
+                    ],
+                    str,
+                ]
+                """
+                The lifecycle state of the resume operation.
+                """
+                _inner_class_types = {"error": Error}
+
+            resume_at: int
+            """
+            Time at which the subscription resumes.
+            """
+            settings: Settings
+            status: Status
+            _inner_class_types = {"settings": Settings, "status": Status}
+
+        key: str
+        """
+        A unique identifier for this pause schedule.
+        """
+        pause: Pause
+        resume: Optional[Resume]
+        """
+        Details about when and how the subscription resumes.
+        """
+        _inner_class_types = {"pause": Pause, "resume": Resume}
+
     class Phase(StripeObject):
         class AddInvoiceItem(StripeObject):
             class Discount(StripeObject):
@@ -777,6 +918,10 @@ class SubscriptionSchedule(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    pause_schedules: Optional[List[PauseSchedule]]
+    """
+    The pause schedules for this subscription schedule.
+    """
     phases: List[Phase]
     """
     Configuration for the subscription schedule's phases.
@@ -1280,6 +1425,7 @@ class SubscriptionSchedule(
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
         "last_price_migration_error": LastPriceMigrationError,
+        "pause_schedules": PauseSchedule,
         "phases": Phase,
         "prebilling": Prebilling,
     }

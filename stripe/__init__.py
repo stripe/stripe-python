@@ -172,6 +172,7 @@ if TYPE_CHECKING:
         tax as tax,
         terminal as terminal,
         test_helpers as test_helpers,
+        three_d_secure as three_d_secure,
         treasury as treasury,
         v2 as v2,
     )
@@ -610,6 +611,9 @@ if TYPE_CHECKING:
     from stripe._test_helpers_service import (
         TestHelpersService as TestHelpersService,
     )
+    from stripe._three_d_secure_service import (
+        ThreeDSecureService as ThreeDSecureService,
+    )
     from stripe._token import Token as Token
     from stripe._token_service import TokenService as TokenService
     from stripe._topup import Topup as Topup
@@ -664,6 +668,7 @@ _import_map = {
     "tax": ("stripe.tax", True),
     "terminal": ("stripe.terminal", True),
     "test_helpers": ("stripe.test_helpers", True),
+    "three_d_secure": ("stripe.three_d_secure", True),
     "treasury": ("stripe.treasury", True),
     "v2": ("stripe.v2", True),
     "Account": ("stripe._account", False),
@@ -1018,6 +1023,7 @@ _import_map = {
     "TerminalService": ("stripe._terminal_service", False),
     "APIResourceTestHelpers": ("stripe._test_helpers", False),
     "TestHelpersService": ("stripe._test_helpers_service", False),
+    "ThreeDSecureService": ("stripe._three_d_secure_service", False),
     "Token": ("stripe._token", False),
     "TokenService": ("stripe._token_service", False),
     "Topup": ("stripe._topup", False),

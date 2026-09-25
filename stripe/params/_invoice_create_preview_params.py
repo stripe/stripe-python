@@ -1905,7 +1905,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPrebillingBillUntilDuration(
 
 
 class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str|int"]
+    billing_cycle_anchor: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsBillingCycleAnchor"
+    ]
     """
     For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
     """
@@ -1986,6 +1988,19 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     trial_end: NotRequired["Literal['now']|int"]
     """
     If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsBillingCycleAnchor(
+    TypedDict,
+):
+    timestamp: NotRequired[int]
+    """
+    A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp", "unchanged"], str]
+    """
+    Determines how the subscription's billing cycle anchor behaves for the invoice preview.
     """
 
 
@@ -2120,13 +2135,13 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     price: NotRequired[str]
     """
-    The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     """
     price_data: NotRequired[
         "InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData"
     ]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     """
     quantity: NotRequired[int]
     """
@@ -2268,7 +2283,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsPause(TypedDict):
     """
     Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
     """
-    type: NotRequired[Literal["subscription"]]
+    type: NotRequired["Literal['subscription']|str"]
     """
     The type of pause to apply. Defaults to `subscription`.
     """

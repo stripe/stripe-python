@@ -160,8 +160,10 @@ class Person(UpdateableAPIResource["Person"]):
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -370,8 +372,10 @@ class Person(UpdateableAPIResource["Person"]):
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -593,7 +597,7 @@ class Person(UpdateableAPIResource["Person"]):
         class AdditionalDocument(StripeObject):
             back: Optional[ExpandableField["File"]]
             """
-            The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             """
             details: Optional[str]
             """
@@ -605,13 +609,13 @@ class Person(UpdateableAPIResource["Person"]):
             """
             front: Optional[ExpandableField["File"]]
             """
-            The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             """
 
         class Document(StripeObject):
             back: Optional[ExpandableField["File"]]
             """
-            The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             """
             details: Optional[str]
             """
@@ -623,7 +627,7 @@ class Person(UpdateableAPIResource["Person"]):
             """
             front: Optional[ExpandableField["File"]]
             """
-            The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             """
 
         additional_document: Optional[AdditionalDocument]

@@ -4,6 +4,20 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.radar._billing_evaluation_create_params import (
+        BillingEvaluationCreateParams as BillingEvaluationCreateParams,
+        BillingEvaluationCreateParamsClientDeviceMetadataDetails as BillingEvaluationCreateParamsClientDeviceMetadataDetails,
+        BillingEvaluationCreateParamsCustomerDetails as BillingEvaluationCreateParamsCustomerDetails,
+        BillingEvaluationCreateParamsCustomerDetailsData as BillingEvaluationCreateParamsCustomerDetailsData,
+        BillingEvaluationCreateParamsPaymentDetails as BillingEvaluationCreateParamsPaymentDetails,
+        BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetails as BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetails,
+        BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard as BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard,
+        BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetails as BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetails,
+        BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails as BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails,
+        BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress as BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress,
+        BillingEvaluationCreateParamsPaymentDetailsShippingDetails as BillingEvaluationCreateParamsPaymentDetailsShippingDetails,
+        BillingEvaluationCreateParamsPaymentDetailsShippingDetailsAddress as BillingEvaluationCreateParamsPaymentDetailsShippingDetailsAddress,
+    )
     from stripe.params.radar._early_fraud_warning_list_params import (
         EarlyFraudWarningListParams as EarlyFraudWarningListParams,
         EarlyFraudWarningListParamsCreated as EarlyFraudWarningListParamsCreated,
@@ -59,6 +73,54 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "BillingEvaluationCreateParams": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsClientDeviceMetadataDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsCustomerDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsCustomerDetailsData": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsShippingDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsShippingDetailsAddress": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
     "EarlyFraudWarningListParams": (
         "stripe.params.radar._early_fraud_warning_list_params",
         False,

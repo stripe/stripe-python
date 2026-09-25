@@ -1238,6 +1238,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Sequra(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Shopeepay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1522,6 +1544,7 @@ class PaymentMethodConfiguration(
     satispay: Optional[Satispay]
     scalapay: Optional[Scalapay]
     sepa_debit: Optional[SepaDebit]
+    sequra: Optional[Sequra]
     shopeepay: Optional[Shopeepay]
     sofort: Optional[Sofort]
     sunbit: Optional[Sunbit]
@@ -1723,6 +1746,7 @@ class PaymentMethodConfiguration(
         "satispay": Satispay,
         "scalapay": Scalapay,
         "sepa_debit": SepaDebit,
+        "sequra": Sequra,
         "shopeepay": Shopeepay,
         "sofort": Sofort,
         "sunbit": Sunbit,

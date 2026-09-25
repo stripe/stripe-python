@@ -21,7 +21,7 @@ class AuthorizationService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
-        Retrieves the details of an Financial Connections Authorization.
+        Retrieves the details of a Financial Connections Authorization.
         """
         return cast(
             "Authorization",
@@ -43,7 +43,7 @@ class AuthorizationService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
-        Retrieves the details of an Financial Connections Authorization.
+        Retrieves the details of a Financial Connections Authorization.
         """
         return cast(
             "Authorization",

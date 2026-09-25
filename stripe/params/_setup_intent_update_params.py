@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class SetupIntentUpdateParams(TypedDict):
     allowed_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boku_promptpay', 'boleto', 'capchase_pay', 'card', 'cashapp', 'check_scan', 'click_to_pay', 'crypto', 'customer_balance', 'demo_pay', 'duitnow', 'dummy_auth_push', 'dummy_passthrough_card', 'edenred', 'eps', 'fpx', 'gcash', 'getbalance', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'knet', 'konbini', 'kr_card', 'kr_market', 'kriya', 'link', 'mb_way', 'mobilepay', 'momo', 'mondu', 'multibanco', 'naver_pay', 'netbanking', 'ng_bank', 'ng_bank_transfer', 'ng_card', 'ng_market', 'ng_ussd', 'ng_wallet', 'nz_bank_account', 'octopus', 'oxxo', 'p24', 'paper_check', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shop_pay', 'shopeepay', 'sofort', 'south_korea_market', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'test_pay', 'touch_n_go', 'truemoney', 'twint', 'upi', 'us_bank_account', 'us_cash_voucher', 'vipps', 'wechat_pay', 'wero', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boku_promptpay', 'boleto', 'capchase_pay', 'card', 'card_present', 'cashapp', 'check_scan', 'click_to_pay', 'crypto', 'customer_balance', 'demo_pay', 'duitnow', 'dummy_auth_push', 'dummy_passthrough_card', 'edenred', 'eps', 'fpx', 'gcash', 'getbalance', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'interac_present', 'kakao_pay', 'klarna', 'knet', 'konbini', 'kr_card', 'kr_market', 'kriya', 'link', 'mb_way', 'mobilepay', 'momo', 'mondu', 'multibanco', 'naver_pay', 'netbanking', 'ng_bank', 'ng_bank_transfer', 'ng_card', 'ng_market', 'ng_ussd', 'ng_wallet', 'nz_bank_account', 'octopus', 'oxxo', 'p24', 'paper_check', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shop_pay', 'shopeepay', 'sofort', 'south_korea_market', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'test_pay', 'touch_n_go', 'truemoney', 'twint', 'upi', 'us_bank_account', 'us_cash_voucher', 'vipps', 'wechat_pay', 'wero', 'zip'], str]]"
     ]
     """
     The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
@@ -35,7 +35,7 @@ class SetupIntentUpdateParams(TypedDict):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -110,13 +110,13 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["SetupIntentUpdateParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodDataAuBecsDebit"
@@ -338,6 +338,10 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    sequra: NotRequired["SetupIntentUpdateParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
     shared_payment_granted_token: NotRequired[str]
     """
     ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -420,6 +424,7 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -876,6 +881,10 @@ class SetupIntentUpdateParamsPaymentMethodDataSepaDebit(TypedDict):
     """
 
 
+class SetupIntentUpdateParamsPaymentMethodDataSequra(TypedDict):
+    pass
+
+
 class SetupIntentUpdateParamsPaymentMethodDataShopeepay(TypedDict):
     pass
 
@@ -987,6 +996,10 @@ class SetupIntentUpdateParamsPaymentMethodOptions(TypedDict):
     bizum: NotRequired["SetupIntentUpdateParamsPaymentMethodOptionsBizum"]
     """
     If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
+    blik: NotRequired["SetupIntentUpdateParamsPaymentMethodOptionsBlik"]
+    """
+    If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     """
     card: NotRequired["SetupIntentUpdateParamsPaymentMethodOptionsCard"]
     """
@@ -1112,6 +1125,26 @@ class SetupIntentUpdateParamsPaymentMethodOptionsBizum(TypedDict):
     pass
 
 
+class SetupIntentUpdateParamsPaymentMethodOptionsBlik(TypedDict):
+    code: NotRequired[str]
+    """
+    The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+    """
+    mandate_options: NotRequired[
+        "SetupIntentUpdateParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+
+
+class SetupIntentUpdateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
+    """
+
+
 class SetupIntentUpdateParamsPaymentMethodOptionsCard(TypedDict):
     mandate_options: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodOptionsCardMandateOptions"
@@ -1136,6 +1169,12 @@ class SetupIntentUpdateParamsPaymentMethodOptionsCard(TypedDict):
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    """
+    setup_credential_usage: NotRequired[
+        "Literal['installment', 'recurring', 'unscheduled']|str"
+    ]
+    """
+    Set to indicate the future transaction type usage for the card being set up.
     """
     three_d_secure: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodOptionsCardThreeDSecure"

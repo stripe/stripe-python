@@ -557,7 +557,7 @@ class Order(
                     """
                     The client type that the end customer will pay from
                     """
-                    setup_future_usage: Optional[Literal["none"]]
+                    setup_future_usage: Optional[Union[Literal["none"], str]]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -963,7 +963,7 @@ class Order(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
                 Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)

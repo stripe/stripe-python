@@ -21,7 +21,7 @@ class ReceivedDebit(StripeObject):
             """
             The name of the bank the debit originated from.
             """
-            network: Literal["ach"]
+            network: Union[Literal["ach"], str]
             """
             Open Enum. The bank network the debit was originated on.
             """
@@ -34,7 +34,7 @@ class ReceivedDebit(StripeObject):
         """
         The Financial Address that was debited.
         """
-        payment_method_type: Literal["us_bank_account"]
+        payment_method_type: Union[Literal["us_bank_account"], str]
         """
         Open Enum. The type of the payment method used to originate the debit.
         """
