@@ -45,6 +45,16 @@ def test_can_import_webhook_members() -> None:
     )
 
 
+def test_can_import_event_notification_members() -> None:
+    from stripe.v2.core import (
+        EventNotification,  # pyright: ignore[reportUnusedImport]
+        Reason,  # pyright: ignore[reportUnusedImport]
+        ReasonRequest,  # pyright: ignore[reportUnusedImport]
+        RelatedObject,  # pyright: ignore[reportUnusedImport]
+        RelatedSingletonObject,  # pyright: ignore[reportUnusedImport]
+    )
+
+
 def test_can_import_abstract() -> None:
     from stripe import (
         APIResource,  # pyright: ignore[reportUnusedImport]
