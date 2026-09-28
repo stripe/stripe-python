@@ -1085,7 +1085,7 @@ class PaymentLink(
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1145,7 +1145,7 @@ class PaymentLink(
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1164,7 +1164,7 @@ class PaymentLink(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.
@@ -1181,7 +1181,7 @@ class PaymentLink(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.

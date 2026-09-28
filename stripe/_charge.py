@@ -2599,9 +2599,7 @@ class Charge(
         ...
 
     @class_method_variant("_cls_capture")
-    def capture(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ChargeCaptureParams"]
-    ) -> "Charge":
+    def capture(self, **params: Unpack["ChargeCaptureParams"]) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
@@ -2670,7 +2668,7 @@ class Charge(
         ...
 
     @class_method_variant("_cls_capture_async")
-    async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def capture_async(
         self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
@@ -2767,7 +2765,7 @@ class Charge(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ChargeModifyParams"]
+        cls, id: str, /, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -2784,7 +2782,7 @@ class Charge(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ChargeModifyParams"]
+        cls, id: str, /, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

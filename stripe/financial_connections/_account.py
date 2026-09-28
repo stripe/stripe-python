@@ -346,7 +346,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_disconnect")
-    def disconnect(  # pyright: ignore[reportGeneralTypeIssues]
+    def disconnect(
         self, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
@@ -401,7 +401,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_disconnect_async")
-    async def disconnect_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def disconnect_async(
         self, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
@@ -496,7 +496,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_list_owners")
-    def list_owners(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_owners(
         self, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
@@ -551,7 +551,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_list_owners_async")
-    async def list_owners_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_owners_async(
         self, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
@@ -606,7 +606,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_refresh_account")
-    def refresh_account(  # pyright: ignore[reportGeneralTypeIssues]
+    def refresh_account(
         self, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
@@ -661,7 +661,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_refresh_account_async")
-    async def refresh_account_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def refresh_account_async(
         self, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
@@ -738,7 +738,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_subscribe")
-    def subscribe(  # pyright: ignore[reportGeneralTypeIssues]
+    def subscribe(
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
@@ -793,7 +793,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_subscribe_async")
-    async def subscribe_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def subscribe_async(
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
@@ -848,7 +848,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_unsubscribe")
-    def unsubscribe(  # pyright: ignore[reportGeneralTypeIssues]
+    def unsubscribe(
         self, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
@@ -903,7 +903,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_unsubscribe_async")
-    async def unsubscribe_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def unsubscribe_async(
         self, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """

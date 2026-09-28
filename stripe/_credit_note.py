@@ -484,7 +484,7 @@ class CreditNote(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CreditNoteModifyParams"]
+        cls, id: str, /, **params: Unpack["CreditNoteModifyParams"]
     ) -> "CreditNote":
         """
         Updates an existing credit note.
@@ -501,7 +501,7 @@ class CreditNote(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CreditNoteModifyParams"]
+        cls, id: str, /, **params: Unpack["CreditNoteModifyParams"]
     ) -> "CreditNote":
         """
         Updates an existing credit note.
@@ -638,7 +638,7 @@ class CreditNote(
         ...
 
     @class_method_variant("_cls_void_credit_note")
-    def void_credit_note(  # pyright: ignore[reportGeneralTypeIssues]
+    def void_credit_note(
         self, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
@@ -691,7 +691,7 @@ class CreditNote(
         ...
 
     @class_method_variant("_cls_void_credit_note_async")
-    async def void_credit_note_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def void_credit_note_async(
         self, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """

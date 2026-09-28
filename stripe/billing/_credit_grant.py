@@ -223,7 +223,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_expire")
-    def expire(  # pyright: ignore[reportGeneralTypeIssues]
+    def expire(
         self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
@@ -278,7 +278,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_expire_async")
-    async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def expire_async(
         self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
@@ -337,7 +337,7 @@ class CreditGrant(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -354,7 +354,7 @@ class CreditGrant(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -429,7 +429,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_void_grant")
-    def void_grant(  # pyright: ignore[reportGeneralTypeIssues]
+    def void_grant(
         self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
@@ -484,7 +484,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_void_grant_async")
-    async def void_grant_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def void_grant_async(
         self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """

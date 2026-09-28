@@ -1298,7 +1298,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1361,7 +1361,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1457,7 +1457,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1564,7 +1564,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm_async")
-    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_async(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1674,7 +1674,7 @@ class SetupIntent(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1691,7 +1691,7 @@ class SetupIntent(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1779,7 +1779,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
+    def verify_microdeposits(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
@@ -1839,7 +1839,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits_async")
-    async def verify_microdeposits_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def verify_microdeposits_async(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """

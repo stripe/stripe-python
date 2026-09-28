@@ -695,7 +695,7 @@ class Authorization(
         ...
 
     @class_method_variant("_cls_approve")
-    def approve(  # pyright: ignore[reportGeneralTypeIssues]
+    def approve(
         self, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
@@ -757,7 +757,7 @@ class Authorization(
         ...
 
     @class_method_variant("_cls_approve_async")
-    async def approve_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def approve_async(
         self, **params: Unpack["AuthorizationApproveParams"]
     ) -> "Authorization":
         """
@@ -819,7 +819,7 @@ class Authorization(
         ...
 
     @class_method_variant("_cls_decline")
-    def decline(  # pyright: ignore[reportGeneralTypeIssues]
+    def decline(
         self, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
@@ -881,7 +881,7 @@ class Authorization(
         ...
 
     @class_method_variant("_cls_decline_async")
-    async def decline_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def decline_async(
         self, **params: Unpack["AuthorizationDeclineParams"]
     ) -> "Authorization":
         """
@@ -941,7 +941,7 @@ class Authorization(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["AuthorizationModifyParams"]
+        cls, id: str, /, **params: Unpack["AuthorizationModifyParams"]
     ) -> "Authorization":
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -958,7 +958,7 @@ class Authorization(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["AuthorizationModifyParams"]
+        cls, id: str, /, **params: Unpack["AuthorizationModifyParams"]
     ) -> "Authorization":
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1041,7 +1041,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_capture")
-        def capture(  # pyright: ignore[reportGeneralTypeIssues]
+        def capture(
             self, **params: Unpack["AuthorizationCaptureParams"]
         ) -> "Authorization":
             """
@@ -1103,7 +1103,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_capture_async")
-        async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def capture_async(
             self, **params: Unpack["AuthorizationCaptureParams"]
         ) -> "Authorization":
             """
@@ -1197,7 +1197,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_expire")
-        def expire(  # pyright: ignore[reportGeneralTypeIssues]
+        def expire(
             self, **params: Unpack["AuthorizationExpireParams"]
         ) -> "Authorization":
             """
@@ -1259,7 +1259,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_expire_async")
-        async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def expire_async(
             self, **params: Unpack["AuthorizationExpireParams"]
         ) -> "Authorization":
             """
@@ -1321,7 +1321,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_finalize_amount")
-        def finalize_amount(  # pyright: ignore[reportGeneralTypeIssues]
+        def finalize_amount(
             self, **params: Unpack["AuthorizationFinalizeAmountParams"]
         ) -> "Authorization":
             """
@@ -1383,7 +1383,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_finalize_amount_async")
-        async def finalize_amount_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def finalize_amount_async(
             self, **params: Unpack["AuthorizationFinalizeAmountParams"]
         ) -> "Authorization":
             """
@@ -1445,7 +1445,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_increment")
-        def increment(  # pyright: ignore[reportGeneralTypeIssues]
+        def increment(
             self, **params: Unpack["AuthorizationIncrementParams"]
         ) -> "Authorization":
             """
@@ -1507,7 +1507,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_increment_async")
-        async def increment_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def increment_async(
             self, **params: Unpack["AuthorizationIncrementParams"]
         ) -> "Authorization":
             """
@@ -1569,7 +1569,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_respond")
-        def respond(  # pyright: ignore[reportGeneralTypeIssues]
+        def respond(
             self, **params: Unpack["AuthorizationRespondParams"]
         ) -> "Authorization":
             """
@@ -1631,7 +1631,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_respond_async")
-        async def respond_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def respond_async(
             self, **params: Unpack["AuthorizationRespondParams"]
         ) -> "Authorization":
             """
@@ -1693,7 +1693,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_reverse")
-        def reverse(  # pyright: ignore[reportGeneralTypeIssues]
+        def reverse(
             self, **params: Unpack["AuthorizationReverseParams"]
         ) -> "Authorization":
             """
@@ -1755,7 +1755,7 @@ class Authorization(
             ...
 
         @class_method_variant("_cls_reverse_async")
-        async def reverse_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def reverse_async(
             self, **params: Unpack["AuthorizationReverseParams"]
         ) -> "Authorization":
             """
