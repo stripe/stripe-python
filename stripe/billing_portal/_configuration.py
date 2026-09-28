@@ -373,7 +373,7 @@ class Configuration(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a configuration that describes the functionality of the customer portal.
@@ -390,7 +390,7 @@ class Configuration(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a configuration that describes the functionality of the customer portal.

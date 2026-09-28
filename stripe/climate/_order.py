@@ -181,7 +181,7 @@ class Order(
 
     @classmethod
     def _cls_cancel(
-        cls, order: str, **params: Unpack["OrderCancelParams"]
+        cls, order: str, /, **params: Unpack["OrderCancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
@@ -202,7 +202,9 @@ class Order(
 
     @overload
     @staticmethod
-    def cancel(order: str, **params: Unpack["OrderCancelParams"]) -> "Order":
+    def cancel(
+        order: str, /, **params: Unpack["OrderCancelParams"]
+    ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
@@ -222,9 +224,7 @@ class Order(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
+    def cancel(self, **params: Unpack["OrderCancelParams"]) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
@@ -244,7 +244,7 @@ class Order(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, order: str, **params: Unpack["OrderCancelParams"]
+        cls, order: str, /, **params: Unpack["OrderCancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
@@ -266,7 +266,7 @@ class Order(
     @overload
     @staticmethod
     async def cancel_async(
-        order: str, **params: Unpack["OrderCancelParams"]
+        order: str, /, **params: Unpack["OrderCancelParams"]
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
@@ -289,7 +289,7 @@ class Order(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["OrderCancelParams"]
     ) -> "Order":
         """
@@ -382,7 +382,9 @@ class Order(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["OrderModifyParams"]) -> "Order":
+    def modify(
+        cls, id: str, /, **params: Unpack["OrderModifyParams"]
+    ) -> "Order":
         """
         Updates the specified order by setting the values of the parameters passed.
         """
@@ -398,7 +400,7 @@ class Order(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["OrderModifyParams"]
+        cls, id: str, /, **params: Unpack["OrderModifyParams"]
     ) -> "Order":
         """
         Updates the specified order by setting the values of the parameters passed.

@@ -40,7 +40,7 @@ class Event(StripeObject):
         """
         Information on the API request that instigated the event.
         """
-        type: Literal["request"]
+        type: Union[Literal["request"], str]
         """
         Event reason type.
         """

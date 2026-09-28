@@ -113,6 +113,7 @@ class PaymentMethodService(StripeService):
     def retrieve(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
@@ -135,6 +136,7 @@ class PaymentMethodService(StripeService):
     async def retrieve_async(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
@@ -157,6 +159,7 @@ class PaymentMethodService(StripeService):
     def update(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
@@ -179,6 +182,7 @@ class PaymentMethodService(StripeService):
     async def update_async(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
@@ -201,6 +205,7 @@ class PaymentMethodService(StripeService):
     def attach(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodAttachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
@@ -235,6 +240,7 @@ class PaymentMethodService(StripeService):
     async def attach_async(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodAttachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
@@ -269,6 +275,7 @@ class PaymentMethodService(StripeService):
     def detach(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodDetachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
@@ -291,6 +298,7 @@ class PaymentMethodService(StripeService):
     async def detach_async(
         self,
         payment_method: str,
+        /,
         params: Optional["PaymentMethodDetachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":

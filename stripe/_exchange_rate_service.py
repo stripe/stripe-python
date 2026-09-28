@@ -61,6 +61,7 @@ class ExchangeRateService(StripeService):
     def retrieve(
         self,
         rate_id: str,
+        /,
         params: Optional["ExchangeRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ExchangeRate":
@@ -85,6 +86,7 @@ class ExchangeRateService(StripeService):
     async def retrieve_async(
         self,
         rate_id: str,
+        /,
         params: Optional["ExchangeRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ExchangeRate":

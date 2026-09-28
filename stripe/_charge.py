@@ -2551,7 +2551,7 @@ class Charge(
 
     @classmethod
     def _cls_capture(
-        cls, charge: str, **params: Unpack["ChargeCaptureParams"]
+        cls, charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2574,7 +2574,7 @@ class Charge(
     @overload
     @staticmethod
     def capture(
-        charge: str, **params: Unpack["ChargeCaptureParams"]
+        charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2597,9 +2597,7 @@ class Charge(
         ...
 
     @class_method_variant("_cls_capture")
-    def capture(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ChargeCaptureParams"]
-    ) -> "Charge":
+    def capture(self, **params: Unpack["ChargeCaptureParams"]) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
@@ -2620,7 +2618,7 @@ class Charge(
 
     @classmethod
     async def _cls_capture_async(
-        cls, charge: str, **params: Unpack["ChargeCaptureParams"]
+        cls, charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2643,7 +2641,7 @@ class Charge(
     @overload
     @staticmethod
     async def capture_async(
-        charge: str, **params: Unpack["ChargeCaptureParams"]
+        charge: str, /, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2668,7 +2666,7 @@ class Charge(
         ...
 
     @class_method_variant("_cls_capture_async")
-    async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def capture_async(
         self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
@@ -2765,7 +2763,7 @@ class Charge(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ChargeModifyParams"]
+        cls, id: str, /, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -2782,7 +2780,7 @@ class Charge(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ChargeModifyParams"]
+        cls, id: str, /, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -2880,6 +2878,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
+        /,
         **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
         """
@@ -2901,6 +2900,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
+        /,
         **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
         """
@@ -2919,7 +2919,7 @@ class Charge(
 
     @classmethod
     def list_refunds(
-        cls, charge: str, **params: Unpack["ChargeListRefundsParams"]
+        cls, charge: str, /, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -2937,7 +2937,7 @@ class Charge(
 
     @classmethod
     async def list_refunds_async(
-        cls, charge: str, **params: Unpack["ChargeListRefundsParams"]
+        cls, charge: str, /, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.

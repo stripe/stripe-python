@@ -19,6 +19,7 @@ class CustomerService(StripeService):
     def fund_cash_balance(
         self,
         customer: str,
+        /,
         params: "CustomerFundCashBalanceParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":
@@ -41,6 +42,7 @@ class CustomerService(StripeService):
     async def fund_cash_balance_async(
         self,
         customer: str,
+        /,
         params: "CustomerFundCashBalanceParams",
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":

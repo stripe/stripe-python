@@ -59,6 +59,7 @@ class ScheduledQueryRunService(StripeService):
     def retrieve(
         self,
         scheduled_query_run: str,
+        /,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ScheduledQueryRun":
@@ -81,6 +82,7 @@ class ScheduledQueryRunService(StripeService):
     async def retrieve_async(
         self,
         scheduled_query_run: str,
+        /,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ScheduledQueryRun":

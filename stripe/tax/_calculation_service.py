@@ -52,6 +52,7 @@ class CalculationService(StripeService):
     def retrieve(
         self,
         calculation: str,
+        /,
         params: Optional["CalculationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Calculation":
@@ -74,6 +75,7 @@ class CalculationService(StripeService):
     async def retrieve_async(
         self,
         calculation: str,
+        /,
         params: Optional["CalculationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Calculation":

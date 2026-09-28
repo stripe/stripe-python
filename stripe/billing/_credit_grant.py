@@ -187,7 +187,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_expire(
-        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -206,7 +206,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def expire(
-        id: str, **params: Unpack["CreditGrantExpireParams"]
+        id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -223,7 +223,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_expire")
-    def expire(  # pyright: ignore[reportGeneralTypeIssues]
+    def expire(
         self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
@@ -242,7 +242,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_expire_async(
-        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -261,7 +261,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def expire_async(
-        id: str, **params: Unpack["CreditGrantExpireParams"]
+        id: str, /, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -278,7 +278,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_expire_async")
-    async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def expire_async(
         self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
@@ -337,7 +337,7 @@ class CreditGrant(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -354,7 +354,7 @@ class CreditGrant(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -393,7 +393,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_void_grant(
-        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -412,7 +412,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def void_grant(
-        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -429,7 +429,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_void_grant")
-    def void_grant(  # pyright: ignore[reportGeneralTypeIssues]
+    def void_grant(
         self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
@@ -448,7 +448,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_void_grant_async(
-        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        cls, id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -467,7 +467,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def void_grant_async(
-        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
+        id: str, /, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -484,7 +484,7 @@ class CreditGrant(
         ...
 
     @class_method_variant("_cls_void_grant_async")
-    async def void_grant_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def void_grant_async(
         self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
