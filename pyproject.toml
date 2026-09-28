@@ -76,7 +76,7 @@ reportUnnecessaryComparison = true
 reportUnnecessaryContains = true
 reportUnnecessaryIsInstance = true
 reportPrivateImportUsage = true
-reportUnnecessaryTypeIgnoreComment = true
+reportUnnecessaryTypeIgnoreComment = false
 
 [tool.mypy]
 follow_imports = "silent"

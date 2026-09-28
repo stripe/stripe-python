@@ -29,6 +29,7 @@ class TestEventNotificationHandler:
     def stripe_client(self, http_client_mock: HTTPClientMock) -> StripeClient:
         return StripeClient(
             api_key="sk_test_1234",
+            stripe_account="acct_123",
             stripe_context=StripeContext.parse("original_context_123"),
             http_client=http_client_mock.get_mock_http_client(),
         )
@@ -249,12 +250,14 @@ class TestEventNotificationHandler:
     ) -> None:
         """Test that the handler receives a client with stripe_context from the event"""
         received_context: Optional[StripeContext | str] = None
+        received_account: Optional[str] = None
 
         def handler(
             event: V1BillingMeterErrorReportTriggeredEventNotification,
             client: StripeClient,
         ) -> None:
-            nonlocal received_context
+            nonlocal received_account, received_context
+            received_account = client._requestor._options.stripe_account
             received_context = client._requestor._options.stripe_context
 
         event_handler.on_v1_billing_meter_error_report_triggered(handler)
@@ -268,6 +271,7 @@ class TestEventNotificationHandler:
         event_handler.handle(v1_billing_meter_payload, sig_header)
 
         assert str(received_context) == "event_context_456"
+        assert received_account is None
 
     def test_stripe_context_restored_after_handler_success(
         self,

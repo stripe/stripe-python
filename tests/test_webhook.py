@@ -274,6 +274,16 @@ class TestStripeClientConstructEvent(object):
             )
         assert "parse_event_notification" in str(e.value)
 
+    @pytest.mark.parametrize("secret", [None, ""])
+    def test_raise_on_missing_secret(self, stripe_mock_stripe_client, secret):
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_mock_stripe_client.construct_event(
+                DUMMY_WEBHOOK_PAYLOAD, generate_header(), secret
+            )
+
     def test_construct_event_inherits_requestor(self, http_client_mock):
         http_client_mock.stub_request("delete", "/v1/terminal/readers/rdr_123")
 
