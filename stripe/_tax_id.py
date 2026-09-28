@@ -275,7 +275,7 @@ class TaxId(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["TaxIdDeleteParams"]
+        cls, sid: str, /, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -292,7 +292,7 @@ class TaxId(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["TaxIdDeleteParams"]) -> "TaxId":
+    def delete(sid: str, /, **params: Unpack["TaxIdDeleteParams"]) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
         """
@@ -306,9 +306,7 @@ class TaxId(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TaxIdDeleteParams"]
-    ) -> "TaxId":
+    def delete(self, **params: Unpack["TaxIdDeleteParams"]) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
         """
@@ -320,7 +318,7 @@ class TaxId(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["TaxIdDeleteParams"]
+        cls, sid: str, /, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -338,7 +336,7 @@ class TaxId(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["TaxIdDeleteParams"]
+        sid: str, /, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -355,7 +353,7 @@ class TaxId(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """

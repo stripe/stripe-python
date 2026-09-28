@@ -195,7 +195,7 @@ class Transfer(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["TransferModifyParams"]
+        cls, id: str, /, **params: Unpack["TransferModifyParams"]
     ) -> "Transfer":
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -214,7 +214,7 @@ class Transfer(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TransferModifyParams"]
+        cls, id: str, /, **params: Unpack["TransferModifyParams"]
     ) -> "Transfer":
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

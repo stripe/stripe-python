@@ -150,7 +150,7 @@ class Coupon(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["CouponDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CouponDeleteParams"]
     ) -> "Coupon":
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
@@ -167,7 +167,9 @@ class Coupon(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["CouponDeleteParams"]) -> "Coupon":
+    def delete(
+        sid: str, /, **params: Unpack["CouponDeleteParams"]
+    ) -> "Coupon":
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
         """
@@ -181,9 +183,7 @@ class Coupon(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CouponDeleteParams"]
-    ) -> "Coupon":
+    def delete(self, **params: Unpack["CouponDeleteParams"]) -> "Coupon":
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
         """
@@ -195,7 +195,7 @@ class Coupon(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["CouponDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CouponDeleteParams"]
     ) -> "Coupon":
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
@@ -213,7 +213,7 @@ class Coupon(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["CouponDeleteParams"]
+        sid: str, /, **params: Unpack["CouponDeleteParams"]
     ) -> "Coupon":
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
@@ -230,7 +230,7 @@ class Coupon(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["CouponDeleteParams"]
     ) -> "Coupon":
         """
@@ -284,7 +284,7 @@ class Coupon(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CouponModifyParams"]
+        cls, id: str, /, **params: Unpack["CouponModifyParams"]
     ) -> "Coupon":
         """
         Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
@@ -301,7 +301,7 @@ class Coupon(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CouponModifyParams"]
+        cls, id: str, /, **params: Unpack["CouponModifyParams"]
     ) -> "Coupon":
         """
         Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.

@@ -1001,7 +1001,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_cancel_action")
-    def cancel_action(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel_action(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
@@ -1056,7 +1056,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_cancel_action_async")
-    async def cancel_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_action_async(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
@@ -1111,7 +1111,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_inputs")
-    def collect_inputs(  # pyright: ignore[reportGeneralTypeIssues]
+    def collect_inputs(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
@@ -1166,7 +1166,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_inputs_async")
-    async def collect_inputs_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def collect_inputs_async(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
@@ -1224,7 +1224,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_payment_method")
-    def collect_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+    def collect_payment_method(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
@@ -1282,7 +1282,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_payment_method_async")
-    async def collect_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def collect_payment_method_async(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
@@ -1340,7 +1340,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_confirm_payment_intent")
-    def confirm_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm_payment_intent(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1398,7 +1398,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_confirm_payment_intent_async")
-    async def confirm_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_payment_intent_async(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1447,7 +1447,7 @@ class Reader(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ReaderDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1464,7 +1464,9 @@ class Reader(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["ReaderDeleteParams"]) -> "Reader":
+    def delete(
+        sid: str, /, **params: Unpack["ReaderDeleteParams"]
+    ) -> "Reader":
         """
         Deletes a Reader object.
         """
@@ -1478,9 +1480,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ReaderDeleteParams"]
-    ) -> "Reader":
+    def delete(self, **params: Unpack["ReaderDeleteParams"]) -> "Reader":
         """
         Deletes a Reader object.
         """
@@ -1492,7 +1492,7 @@ class Reader(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ReaderDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1510,7 +1510,7 @@ class Reader(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ReaderDeleteParams"]
+        sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1527,7 +1527,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
@@ -1581,7 +1581,7 @@ class Reader(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ReaderModifyParams"]
+        cls, id: str, /, **params: Unpack["ReaderModifyParams"]
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1598,7 +1598,7 @@ class Reader(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ReaderModifyParams"]
+        cls, id: str, /, **params: Unpack["ReaderModifyParams"]
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1654,7 +1654,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_payment_intent")
-    def process_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def process_payment_intent(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1712,7 +1712,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_payment_intent_async")
-    async def process_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def process_payment_intent_async(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1767,7 +1767,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_setup_intent")
-    def process_setup_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def process_setup_intent(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
@@ -1822,7 +1822,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_setup_intent_async")
-    async def process_setup_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def process_setup_intent_async(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
@@ -1877,7 +1877,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_refund_payment")
-    def refund_payment(  # pyright: ignore[reportGeneralTypeIssues]
+    def refund_payment(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
@@ -1932,7 +1932,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_refund_payment_async")
-    async def refund_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def refund_payment_async(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
@@ -2009,7 +2009,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_set_reader_display")
-    def set_reader_display(  # pyright: ignore[reportGeneralTypeIssues]
+    def set_reader_display(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
@@ -2064,7 +2064,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_set_reader_display_async")
-    async def set_reader_display_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def set_reader_display_async(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
@@ -2127,7 +2127,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_present_payment_method")
-        def present_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+        def present_payment_method(
             self, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
@@ -2187,7 +2187,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_present_payment_method_async")
-        async def present_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def present_payment_method_async(
             self, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
@@ -2247,7 +2247,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_succeed_input_collection")
-        def succeed_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+        def succeed_input_collection(
             self, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2307,7 +2307,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_succeed_input_collection_async")
-        async def succeed_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def succeed_input_collection_async(
             self, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2367,7 +2367,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_timeout_input_collection")
-        def timeout_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+        def timeout_input_collection(
             self, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2427,7 +2427,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_timeout_input_collection_async")
-        async def timeout_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def timeout_input_collection_async(
             self, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """
