@@ -104,6 +104,7 @@ class FileService(StripeService):
     def retrieve(
         self,
         file: str,
+        /,
         params: Optional["FileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "File":
@@ -124,6 +125,7 @@ class FileService(StripeService):
     async def retrieve_async(
         self,
         file: str,
+        /,
         params: Optional["FileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "File":

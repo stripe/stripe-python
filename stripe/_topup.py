@@ -130,7 +130,7 @@ class Topup(
 
     @classmethod
     def _cls_cancel(
-        cls, topup: str, **params: Unpack["TopupCancelParams"]
+        cls, topup: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -146,7 +146,9 @@ class Topup(
 
     @overload
     @staticmethod
-    def cancel(topup: str, **params: Unpack["TopupCancelParams"]) -> "Topup":
+    def cancel(
+        topup: str, /, **params: Unpack["TopupCancelParams"]
+    ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
@@ -160,9 +162,7 @@ class Topup(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TopupCancelParams"]
-    ) -> "Topup":
+    def cancel(self, **params: Unpack["TopupCancelParams"]) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
@@ -179,7 +179,7 @@ class Topup(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, topup: str, **params: Unpack["TopupCancelParams"]
+        cls, topup: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -196,7 +196,7 @@ class Topup(
     @overload
     @staticmethod
     async def cancel_async(
-        topup: str, **params: Unpack["TopupCancelParams"]
+        topup: str, /, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -213,7 +213,7 @@ class Topup(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["TopupCancelParams"]
     ) -> "Topup":
         """
@@ -299,7 +299,9 @@ class Topup(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["TopupModifyParams"]) -> "Topup":
+    def modify(
+        cls, id: str, /, **params: Unpack["TopupModifyParams"]
+    ) -> "Topup":
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
         """
@@ -315,7 +317,7 @@ class Topup(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TopupModifyParams"]
+        cls, id: str, /, **params: Unpack["TopupModifyParams"]
     ) -> "Topup":
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.

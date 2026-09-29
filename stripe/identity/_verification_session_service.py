@@ -121,6 +121,7 @@ class VerificationSessionService(StripeService):
     def retrieve(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
@@ -146,6 +147,7 @@ class VerificationSessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
@@ -171,6 +173,7 @@ class VerificationSessionService(StripeService):
     def update(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
@@ -196,6 +199,7 @@ class VerificationSessionService(StripeService):
     async def update_async(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
@@ -221,6 +225,7 @@ class VerificationSessionService(StripeService):
     def cancel(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
@@ -245,6 +250,7 @@ class VerificationSessionService(StripeService):
     async def cancel_async(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
@@ -269,6 +275,7 @@ class VerificationSessionService(StripeService):
     def redact(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionRedactParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
@@ -309,6 +316,7 @@ class VerificationSessionService(StripeService):
     async def redact_async(
         self,
         session: str,
+        /,
         params: Optional["VerificationSessionRedactParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":

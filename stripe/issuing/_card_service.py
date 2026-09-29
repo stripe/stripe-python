@@ -95,6 +95,7 @@ class CardService(StripeService):
     def retrieve(
         self,
         card: str,
+        /,
         params: Optional["CardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -115,6 +116,7 @@ class CardService(StripeService):
     async def retrieve_async(
         self,
         card: str,
+        /,
         params: Optional["CardRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -135,6 +137,7 @@ class CardService(StripeService):
     def update(
         self,
         card: str,
+        /,
         params: Optional["CardUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":
@@ -155,6 +158,7 @@ class CardService(StripeService):
     async def update_async(
         self,
         card: str,
+        /,
         params: Optional["CardUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Card":

@@ -17,6 +17,7 @@ class ConfirmationTokenService(StripeService):
     def retrieve(
         self,
         confirmation_token: str,
+        /,
         params: Optional["ConfirmationTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ConfirmationToken":
@@ -39,6 +40,7 @@ class ConfirmationTokenService(StripeService):
     async def retrieve_async(
         self,
         confirmation_token: str,
+        /,
         params: Optional["ConfirmationTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ConfirmationToken":

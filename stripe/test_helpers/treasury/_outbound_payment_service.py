@@ -26,6 +26,7 @@ class OutboundPaymentService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: "OutboundPaymentUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -48,6 +49,7 @@ class OutboundPaymentService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: "OutboundPaymentUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -70,6 +72,7 @@ class OutboundPaymentService(StripeService):
     def fail(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentFailParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -92,6 +95,7 @@ class OutboundPaymentService(StripeService):
     async def fail_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentFailParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -114,6 +118,7 @@ class OutboundPaymentService(StripeService):
     def post(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentPostParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -136,6 +141,7 @@ class OutboundPaymentService(StripeService):
     async def post_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentPostParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -158,6 +164,7 @@ class OutboundPaymentService(StripeService):
     def return_outbound_payment(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentReturnOutboundPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -180,6 +187,7 @@ class OutboundPaymentService(StripeService):
     async def return_outbound_payment_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentReturnOutboundPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":

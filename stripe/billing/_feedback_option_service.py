@@ -106,6 +106,7 @@ class FeedbackOptionService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FeedbackOptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":
@@ -126,6 +127,7 @@ class FeedbackOptionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FeedbackOptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":
@@ -146,6 +148,7 @@ class FeedbackOptionService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["FeedbackOptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":
@@ -166,6 +169,7 @@ class FeedbackOptionService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["FeedbackOptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":
@@ -186,6 +190,7 @@ class FeedbackOptionService(StripeService):
     def deactivate(
         self,
         id: str,
+        /,
         params: Optional["FeedbackOptionDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":
@@ -208,6 +213,7 @@ class FeedbackOptionService(StripeService):
     async def deactivate_async(
         self,
         id: str,
+        /,
         params: Optional["FeedbackOptionDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FeedbackOption":

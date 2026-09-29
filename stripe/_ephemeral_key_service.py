@@ -20,6 +20,7 @@ class EphemeralKeyService(StripeService):
     def delete(
         self,
         key: str,
+        /,
         params: Optional["EphemeralKeyDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EphemeralKey":
@@ -40,6 +41,7 @@ class EphemeralKeyService(StripeService):
     async def delete_async(
         self,
         key: str,
+        /,
         params: Optional["EphemeralKeyDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EphemeralKey":

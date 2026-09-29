@@ -305,6 +305,7 @@ class OutboundTransfer(
     def _cls_cancel(
         cls,
         outbound_transfer: str,
+        /,
         **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
@@ -325,6 +326,7 @@ class OutboundTransfer(
     @staticmethod
     def cancel(
         outbound_transfer: str,
+        /,
         **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
@@ -342,7 +344,7 @@ class OutboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
@@ -363,6 +365,7 @@ class OutboundTransfer(
     async def _cls_cancel_async(
         cls,
         outbound_transfer: str,
+        /,
         **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
@@ -383,6 +386,7 @@ class OutboundTransfer(
     @staticmethod
     async def cancel_async(
         outbound_transfer: str,
+        /,
         **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
@@ -400,7 +404,7 @@ class OutboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
@@ -518,6 +522,7 @@ class OutboundTransfer(
         def _cls_fail(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
@@ -538,6 +543,7 @@ class OutboundTransfer(
         @staticmethod
         def fail(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
@@ -555,7 +561,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # pyright: ignore[reportGeneralTypeIssues]
+        def fail(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
@@ -578,6 +584,7 @@ class OutboundTransfer(
         async def _cls_fail_async(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
@@ -598,6 +605,7 @@ class OutboundTransfer(
         @staticmethod
         async def fail_async(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
@@ -615,7 +623,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_fail_async")
-        async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def fail_async(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
@@ -638,6 +646,7 @@ class OutboundTransfer(
         def _cls_post(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
@@ -658,6 +667,7 @@ class OutboundTransfer(
         @staticmethod
         def post(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
@@ -675,7 +685,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_post")
-        def post(  # pyright: ignore[reportGeneralTypeIssues]
+        def post(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
@@ -698,6 +708,7 @@ class OutboundTransfer(
         async def _cls_post_async(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
@@ -718,6 +729,7 @@ class OutboundTransfer(
         @staticmethod
         async def post_async(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
@@ -735,7 +747,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_post_async")
-        async def post_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def post_async(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
@@ -758,6 +770,7 @@ class OutboundTransfer(
         def _cls_return_outbound_transfer(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
@@ -778,6 +791,7 @@ class OutboundTransfer(
         @staticmethod
         def return_outbound_transfer(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
@@ -796,7 +810,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_return_outbound_transfer")
-        def return_outbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
+        def return_outbound_transfer(
             self,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -820,6 +834,7 @@ class OutboundTransfer(
         async def _cls_return_outbound_transfer_async(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
@@ -840,6 +855,7 @@ class OutboundTransfer(
         @staticmethod
         async def return_outbound_transfer_async(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
@@ -858,7 +874,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_return_outbound_transfer_async")
-        async def return_outbound_transfer_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def return_outbound_transfer_async(
             self,
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
@@ -882,6 +898,7 @@ class OutboundTransfer(
         def _cls_update(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
@@ -902,6 +919,7 @@ class OutboundTransfer(
         @staticmethod
         def update(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
@@ -919,7 +937,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_update")
-        def update(  # pyright: ignore[reportGeneralTypeIssues]
+        def update(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
@@ -942,6 +960,7 @@ class OutboundTransfer(
         async def _cls_update_async(
             cls,
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
@@ -962,6 +981,7 @@ class OutboundTransfer(
         @staticmethod
         async def update_async(
             outbound_transfer: str,
+            /,
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
@@ -979,7 +999,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_update_async")
-        async def update_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def update_async(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """

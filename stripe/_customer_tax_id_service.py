@@ -28,6 +28,7 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxIdDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -52,6 +53,7 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxIdDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -76,6 +78,7 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxIdRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -100,6 +103,7 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
+        /,
         params: Optional["CustomerTaxIdRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -123,6 +127,7 @@ class CustomerTaxIdService(StripeService):
     def list(
         self,
         customer: str,
+        /,
         params: Optional["CustomerTaxIdListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TaxId]":
@@ -145,6 +150,7 @@ class CustomerTaxIdService(StripeService):
     async def list_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerTaxIdListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TaxId]":
@@ -167,6 +173,7 @@ class CustomerTaxIdService(StripeService):
     def create(
         self,
         customer: str,
+        /,
         params: "CustomerTaxIdCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -189,6 +196,7 @@ class CustomerTaxIdService(StripeService):
     async def create_async(
         self,
         customer: str,
+        /,
         params: "CustomerTaxIdCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
