@@ -286,7 +286,7 @@ class InvoiceItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -304,7 +304,7 @@ class InvoiceItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -321,7 +321,7 @@ class InvoiceItem(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
@@ -335,7 +335,7 @@ class InvoiceItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -353,7 +353,7 @@ class InvoiceItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -370,7 +370,7 @@ class InvoiceItem(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
@@ -424,7 +424,7 @@ class InvoiceItem(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["InvoiceItemModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceItemModifyParams"]
     ) -> "InvoiceItem":
         """
         Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
@@ -441,7 +441,7 @@ class InvoiceItem(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["InvoiceItemModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceItemModifyParams"]
     ) -> "InvoiceItem":
         """
         Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.

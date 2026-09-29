@@ -102,7 +102,7 @@ class FeedbackOption(
 
     @classmethod
     def _cls_deactivate(
-        cls, id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -121,7 +121,7 @@ class FeedbackOption(
     @overload
     @staticmethod
     def deactivate(
-        id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -138,7 +138,7 @@ class FeedbackOption(
         ...
 
     @class_method_variant("_cls_deactivate")
-    def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
+    def deactivate(
         self, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
@@ -157,7 +157,7 @@ class FeedbackOption(
 
     @classmethod
     async def _cls_deactivate_async(
-        cls, id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -176,7 +176,7 @@ class FeedbackOption(
     @overload
     @staticmethod
     async def deactivate_async(
-        id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -193,7 +193,7 @@ class FeedbackOption(
         ...
 
     @class_method_variant("_cls_deactivate_async")
-    async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def deactivate_async(
         self, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
@@ -252,7 +252,7 @@ class FeedbackOption(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FeedbackOptionModifyParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionModifyParams"]
     ) -> "FeedbackOption":
         """
         Updates the description of an existing feedback option.
@@ -269,7 +269,7 @@ class FeedbackOption(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FeedbackOptionModifyParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionModifyParams"]
     ) -> "FeedbackOption":
         """
         Updates the description of an existing feedback option.

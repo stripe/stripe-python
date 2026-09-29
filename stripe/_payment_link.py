@@ -1046,6 +1046,7 @@ class PaymentLink(
     def _cls_list_line_items(
         cls,
         payment_link: str,
+        /,
         **params: Unpack["PaymentLinkListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
@@ -1065,7 +1066,9 @@ class PaymentLink(
     @overload
     @staticmethod
     def list_line_items(
-        payment_link: str, **params: Unpack["PaymentLinkListLineItemsParams"]
+        payment_link: str,
+        /,
+        **params: Unpack["PaymentLinkListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1082,7 +1085,7 @@ class PaymentLink(
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1103,6 +1106,7 @@ class PaymentLink(
     async def _cls_list_line_items_async(
         cls,
         payment_link: str,
+        /,
         **params: Unpack["PaymentLinkListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
@@ -1122,7 +1126,9 @@ class PaymentLink(
     @overload
     @staticmethod
     async def list_line_items_async(
-        payment_link: str, **params: Unpack["PaymentLinkListLineItemsParams"]
+        payment_link: str,
+        /,
+        **params: Unpack["PaymentLinkListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1139,7 +1145,7 @@ class PaymentLink(
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1158,7 +1164,7 @@ class PaymentLink(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.
@@ -1175,7 +1181,7 @@ class PaymentLink(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.

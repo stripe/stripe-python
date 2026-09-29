@@ -204,7 +204,7 @@ class Location(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["LocationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["LocationDeleteParams"]
     ) -> "Location":
         """
         Deletes a Location object.
@@ -222,7 +222,7 @@ class Location(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["LocationDeleteParams"]
+        sid: str, /, **params: Unpack["LocationDeleteParams"]
     ) -> "Location":
         """
         Deletes a Location object.
@@ -237,9 +237,7 @@ class Location(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["LocationDeleteParams"]
-    ) -> "Location":
+    def delete(self, **params: Unpack["LocationDeleteParams"]) -> "Location":
         """
         Deletes a Location object.
         """
@@ -251,7 +249,7 @@ class Location(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["LocationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["LocationDeleteParams"]
     ) -> "Location":
         """
         Deletes a Location object.
@@ -269,7 +267,7 @@ class Location(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["LocationDeleteParams"]
+        sid: str, /, **params: Unpack["LocationDeleteParams"]
     ) -> "Location":
         """
         Deletes a Location object.
@@ -286,7 +284,7 @@ class Location(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["LocationDeleteParams"]
     ) -> "Location":
         """
@@ -340,7 +338,7 @@ class Location(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["LocationModifyParams"]
+        cls, id: str, /, **params: Unpack["LocationModifyParams"]
     ) -> "Location":
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -357,7 +355,7 @@ class Location(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["LocationModifyParams"]
+        cls, id: str, /, **params: Unpack["LocationModifyParams"]
     ) -> "Location":
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

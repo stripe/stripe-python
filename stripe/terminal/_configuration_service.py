@@ -30,6 +30,7 @@ class ConfigurationService(StripeService):
     def delete(
         self,
         configuration: str,
+        /,
         params: Optional["ConfigurationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
@@ -52,6 +53,7 @@ class ConfigurationService(StripeService):
     async def delete_async(
         self,
         configuration: str,
+        /,
         params: Optional["ConfigurationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
@@ -74,6 +76,7 @@ class ConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
+        /,
         params: Optional["ConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
@@ -96,6 +99,7 @@ class ConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
+        /,
         params: Optional["ConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
@@ -118,6 +122,7 @@ class ConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
+        /,
         params: Optional["ConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
@@ -140,6 +145,7 @@ class ConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
+        /,
         params: Optional["ConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Configuration":

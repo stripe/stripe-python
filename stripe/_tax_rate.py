@@ -215,7 +215,7 @@ class TaxRate(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["TaxRateModifyParams"]
+        cls, id: str, /, **params: Unpack["TaxRateModifyParams"]
     ) -> "TaxRate":
         """
         Updates an existing tax rate.
@@ -232,7 +232,7 @@ class TaxRate(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TaxRateModifyParams"]
+        cls, id: str, /, **params: Unpack["TaxRateModifyParams"]
     ) -> "TaxRate":
         """
         Updates an existing tax rate.

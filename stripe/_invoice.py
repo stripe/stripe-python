@@ -1694,7 +1694,7 @@ class Invoice(
 
     @classmethod
     def _cls_add_lines(
-        cls, invoice: str, **params: Unpack["InvoiceAddLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -1713,7 +1713,7 @@ class Invoice(
     @overload
     @staticmethod
     def add_lines(
-        invoice: str, **params: Unpack["InvoiceAddLinesParams"]
+        invoice: str, /, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -1730,7 +1730,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_add_lines")
-    def add_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def add_lines(
         self, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
@@ -1749,7 +1749,7 @@ class Invoice(
 
     @classmethod
     async def _cls_add_lines_async(
-        cls, invoice: str, **params: Unpack["InvoiceAddLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -1768,7 +1768,7 @@ class Invoice(
     @overload
     @staticmethod
     async def add_lines_async(
-        invoice: str, **params: Unpack["InvoiceAddLinesParams"]
+        invoice: str, /, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -1785,7 +1785,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_add_lines_async")
-    async def add_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def add_lines_async(
         self, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
@@ -1804,7 +1804,7 @@ class Invoice(
 
     @classmethod
     def _cls_attach_payment(
-        cls, invoice: str, **params: Unpack["InvoiceAttachPaymentParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
@@ -1832,7 +1832,7 @@ class Invoice(
     @overload
     @staticmethod
     def attach_payment(
-        invoice: str, **params: Unpack["InvoiceAttachPaymentParams"]
+        invoice: str, /, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
@@ -1867,7 +1867,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_attach_payment")
-    def attach_payment(  # pyright: ignore[reportGeneralTypeIssues]
+    def attach_payment(
         self, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
@@ -1895,7 +1895,7 @@ class Invoice(
 
     @classmethod
     async def _cls_attach_payment_async(
-        cls, invoice: str, **params: Unpack["InvoiceAttachPaymentParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
@@ -1923,7 +1923,7 @@ class Invoice(
     @overload
     @staticmethod
     async def attach_payment_async(
-        invoice: str, **params: Unpack["InvoiceAttachPaymentParams"]
+        invoice: str, /, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
@@ -1958,7 +1958,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_attach_payment_async")
-    async def attach_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def attach_payment_async(
         self, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
@@ -2064,7 +2064,7 @@ class Invoice(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["InvoiceDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
@@ -2081,7 +2081,9 @@ class Invoice(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["InvoiceDeleteParams"]) -> "Invoice":
+    def delete(
+        sid: str, /, **params: Unpack["InvoiceDeleteParams"]
+    ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
         """
@@ -2095,9 +2097,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InvoiceDeleteParams"]
-    ) -> "Invoice":
+    def delete(self, **params: Unpack["InvoiceDeleteParams"]) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
         """
@@ -2109,7 +2109,7 @@ class Invoice(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["InvoiceDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
@@ -2127,7 +2127,7 @@ class Invoice(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["InvoiceDeleteParams"]
+        sid: str, /, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
@@ -2144,7 +2144,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
@@ -2158,7 +2158,7 @@ class Invoice(
 
     @classmethod
     def _cls_finalize_invoice(
-        cls, invoice: str, **params: Unpack["InvoiceFinalizeInvoiceParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -2177,7 +2177,7 @@ class Invoice(
     @overload
     @staticmethod
     def finalize_invoice(
-        invoice: str, **params: Unpack["InvoiceFinalizeInvoiceParams"]
+        invoice: str, /, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -2194,7 +2194,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_finalize_invoice")
-    def finalize_invoice(  # pyright: ignore[reportGeneralTypeIssues]
+    def finalize_invoice(
         self, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
@@ -2213,7 +2213,7 @@ class Invoice(
 
     @classmethod
     async def _cls_finalize_invoice_async(
-        cls, invoice: str, **params: Unpack["InvoiceFinalizeInvoiceParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -2232,7 +2232,7 @@ class Invoice(
     @overload
     @staticmethod
     async def finalize_invoice_async(
-        invoice: str, **params: Unpack["InvoiceFinalizeInvoiceParams"]
+        invoice: str, /, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -2249,7 +2249,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_finalize_invoice_async")
-    async def finalize_invoice_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def finalize_invoice_async(
         self, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
@@ -2308,7 +2308,10 @@ class Invoice(
 
     @classmethod
     def _cls_mark_uncollectible(
-        cls, invoice: str, **params: Unpack["InvoiceMarkUncollectibleParams"]
+        cls,
+        invoice: str,
+        /,
+        **params: Unpack["InvoiceMarkUncollectibleParams"],
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -2327,7 +2330,7 @@ class Invoice(
     @overload
     @staticmethod
     def mark_uncollectible(
-        invoice: str, **params: Unpack["InvoiceMarkUncollectibleParams"]
+        invoice: str, /, **params: Unpack["InvoiceMarkUncollectibleParams"]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -2344,7 +2347,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_mark_uncollectible")
-    def mark_uncollectible(  # pyright: ignore[reportGeneralTypeIssues]
+    def mark_uncollectible(
         self, **params: Unpack["InvoiceMarkUncollectibleParams"]
     ) -> "Invoice":
         """
@@ -2363,7 +2366,10 @@ class Invoice(
 
     @classmethod
     async def _cls_mark_uncollectible_async(
-        cls, invoice: str, **params: Unpack["InvoiceMarkUncollectibleParams"]
+        cls,
+        invoice: str,
+        /,
+        **params: Unpack["InvoiceMarkUncollectibleParams"],
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -2382,7 +2388,7 @@ class Invoice(
     @overload
     @staticmethod
     async def mark_uncollectible_async(
-        invoice: str, **params: Unpack["InvoiceMarkUncollectibleParams"]
+        invoice: str, /, **params: Unpack["InvoiceMarkUncollectibleParams"]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -2399,7 +2405,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_mark_uncollectible_async")
-    async def mark_uncollectible_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def mark_uncollectible_async(
         self, **params: Unpack["InvoiceMarkUncollectibleParams"]
     ) -> "Invoice":
         """
@@ -2418,7 +2424,7 @@ class Invoice(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["InvoiceModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceModifyParams"]
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
@@ -2440,7 +2446,7 @@ class Invoice(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["InvoiceModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceModifyParams"]
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
@@ -2462,7 +2468,7 @@ class Invoice(
 
     @classmethod
     def _cls_pay(
-        cls, invoice: str, **params: Unpack["InvoicePayParams"]
+        cls, invoice: str, /, **params: Unpack["InvoicePayParams"]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -2480,7 +2486,9 @@ class Invoice(
 
     @overload
     @staticmethod
-    def pay(invoice: str, **params: Unpack["InvoicePayParams"]) -> "Invoice":
+    def pay(
+        invoice: str, /, **params: Unpack["InvoicePayParams"]
+    ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
         """
@@ -2494,9 +2502,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_pay")
-    def pay(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InvoicePayParams"]
-    ) -> "Invoice":
+    def pay(self, **params: Unpack["InvoicePayParams"]) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
         """
@@ -2513,7 +2519,7 @@ class Invoice(
 
     @classmethod
     async def _cls_pay_async(
-        cls, invoice: str, **params: Unpack["InvoicePayParams"]
+        cls, invoice: str, /, **params: Unpack["InvoicePayParams"]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -2532,7 +2538,7 @@ class Invoice(
     @overload
     @staticmethod
     async def pay_async(
-        invoice: str, **params: Unpack["InvoicePayParams"]
+        invoice: str, /, **params: Unpack["InvoicePayParams"]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -2549,7 +2555,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_pay_async")
-    async def pay_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def pay_async(
         self, **params: Unpack["InvoicePayParams"]
     ) -> "Invoice":
         """
@@ -2568,7 +2574,7 @@ class Invoice(
 
     @classmethod
     def _cls_remove_lines(
-        cls, invoice: str, **params: Unpack["InvoiceRemoveLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -2587,7 +2593,7 @@ class Invoice(
     @overload
     @staticmethod
     def remove_lines(
-        invoice: str, **params: Unpack["InvoiceRemoveLinesParams"]
+        invoice: str, /, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -2604,7 +2610,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_remove_lines")
-    def remove_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def remove_lines(
         self, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
@@ -2623,7 +2629,7 @@ class Invoice(
 
     @classmethod
     async def _cls_remove_lines_async(
-        cls, invoice: str, **params: Unpack["InvoiceRemoveLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -2642,7 +2648,7 @@ class Invoice(
     @overload
     @staticmethod
     async def remove_lines_async(
-        invoice: str, **params: Unpack["InvoiceRemoveLinesParams"]
+        invoice: str, /, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -2659,7 +2665,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_remove_lines_async")
-    async def remove_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def remove_lines_async(
         self, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
@@ -2700,7 +2706,7 @@ class Invoice(
 
     @classmethod
     def _cls_send_invoice(
-        cls, invoice: str, **params: Unpack["InvoiceSendInvoiceParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -2721,7 +2727,7 @@ class Invoice(
     @overload
     @staticmethod
     def send_invoice(
-        invoice: str, **params: Unpack["InvoiceSendInvoiceParams"]
+        invoice: str, /, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -2742,7 +2748,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_send_invoice")
-    def send_invoice(  # pyright: ignore[reportGeneralTypeIssues]
+    def send_invoice(
         self, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
@@ -2763,7 +2769,7 @@ class Invoice(
 
     @classmethod
     async def _cls_send_invoice_async(
-        cls, invoice: str, **params: Unpack["InvoiceSendInvoiceParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -2784,7 +2790,7 @@ class Invoice(
     @overload
     @staticmethod
     async def send_invoice_async(
-        invoice: str, **params: Unpack["InvoiceSendInvoiceParams"]
+        invoice: str, /, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -2805,7 +2811,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_send_invoice_async")
-    async def send_invoice_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def send_invoice_async(
         self, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
@@ -2826,7 +2832,7 @@ class Invoice(
 
     @classmethod
     def _cls_update_lines(
-        cls, invoice: str, **params: Unpack["InvoiceUpdateLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -2845,7 +2851,7 @@ class Invoice(
     @overload
     @staticmethod
     def update_lines(
-        invoice: str, **params: Unpack["InvoiceUpdateLinesParams"]
+        invoice: str, /, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -2862,7 +2868,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_update_lines")
-    def update_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def update_lines(
         self, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
@@ -2881,7 +2887,7 @@ class Invoice(
 
     @classmethod
     async def _cls_update_lines_async(
-        cls, invoice: str, **params: Unpack["InvoiceUpdateLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -2900,7 +2906,7 @@ class Invoice(
     @overload
     @staticmethod
     async def update_lines_async(
-        invoice: str, **params: Unpack["InvoiceUpdateLinesParams"]
+        invoice: str, /, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -2917,7 +2923,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_update_lines_async")
-    async def update_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def update_lines_async(
         self, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
@@ -2936,7 +2942,7 @@ class Invoice(
 
     @classmethod
     def _cls_void_invoice(
-        cls, invoice: str, **params: Unpack["InvoiceVoidInvoiceParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -2957,7 +2963,7 @@ class Invoice(
     @overload
     @staticmethod
     def void_invoice(
-        invoice: str, **params: Unpack["InvoiceVoidInvoiceParams"]
+        invoice: str, /, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -2978,7 +2984,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_void_invoice")
-    def void_invoice(  # pyright: ignore[reportGeneralTypeIssues]
+    def void_invoice(
         self, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
@@ -2999,7 +3005,7 @@ class Invoice(
 
     @classmethod
     async def _cls_void_invoice_async(
-        cls, invoice: str, **params: Unpack["InvoiceVoidInvoiceParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -3020,7 +3026,7 @@ class Invoice(
     @overload
     @staticmethod
     async def void_invoice_async(
-        invoice: str, **params: Unpack["InvoiceVoidInvoiceParams"]
+        invoice: str, /, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -3041,7 +3047,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_void_invoice_async")
-    async def void_invoice_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def void_invoice_async(
         self, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
@@ -3100,7 +3106,7 @@ class Invoice(
 
     @classmethod
     def list_lines(
-        cls, invoice: str, **params: Unpack["InvoiceListLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceListLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3118,7 +3124,7 @@ class Invoice(
 
     @classmethod
     async def list_lines_async(
-        cls, invoice: str, **params: Unpack["InvoiceListLinesParams"]
+        cls, invoice: str, /, **params: Unpack["InvoiceListLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

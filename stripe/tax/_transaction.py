@@ -509,6 +509,7 @@ class Transaction(APIResource["Transaction"]):
     def _cls_list_line_items(
         cls,
         transaction: str,
+        /,
         **params: Unpack["TransactionListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
@@ -528,7 +529,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     def list_line_items(
-        transaction: str, **params: Unpack["TransactionListLineItemsParams"]
+        transaction: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -545,7 +546,7 @@ class Transaction(APIResource["Transaction"]):
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
@@ -566,6 +567,7 @@ class Transaction(APIResource["Transaction"]):
     async def _cls_list_line_items_async(
         cls,
         transaction: str,
+        /,
         **params: Unpack["TransactionListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
@@ -585,7 +587,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     async def list_line_items_async(
-        transaction: str, **params: Unpack["TransactionListLineItemsParams"]
+        transaction: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -602,7 +604,7 @@ class Transaction(APIResource["Transaction"]):
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """

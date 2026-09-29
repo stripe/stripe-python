@@ -138,6 +138,7 @@ class FinancialAccountService(StripeService):
     def retrieve(
         self,
         financial_account: str,
+        /,
         params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
@@ -160,6 +161,7 @@ class FinancialAccountService(StripeService):
     async def retrieve_async(
         self,
         financial_account: str,
+        /,
         params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
@@ -182,6 +184,7 @@ class FinancialAccountService(StripeService):
     def update(
         self,
         financial_account: str,
+        /,
         params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
@@ -204,6 +207,7 @@ class FinancialAccountService(StripeService):
     async def update_async(
         self,
         financial_account: str,
+        /,
         params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
@@ -226,6 +230,7 @@ class FinancialAccountService(StripeService):
     def close(
         self,
         financial_account: str,
+        /,
         params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
@@ -248,6 +253,7 @@ class FinancialAccountService(StripeService):
     async def close_async(
         self,
         financial_account: str,
+        /,
         params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":

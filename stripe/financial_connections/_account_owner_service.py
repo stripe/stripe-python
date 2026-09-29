@@ -18,6 +18,7 @@ class AccountOwnerService(StripeService):
     def list(
         self,
         account: str,
+        /,
         params: "AccountOwnerListParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountOwner]":
@@ -40,6 +41,7 @@ class AccountOwnerService(StripeService):
     async def list_async(
         self,
         account: str,
+        /,
         params: "AccountOwnerListParams",
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountOwner]":

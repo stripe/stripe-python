@@ -447,7 +447,7 @@ if TYPE_CHECKING:
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
-    from stripe._reversal import Reversal as Reversal
+    from stripe._transfer_reversal import TransferReversal as TransferReversal
     from stripe._review import Review as Review
     from stripe._review_service import ReviewService as ReviewService
     from stripe._search_result_object import (
@@ -835,7 +835,7 @@ _import_map = {
     "RequestOptions": ("stripe._request_options", False),
     "RequestorOptions": ("stripe._requestor_options", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
-    "Reversal": ("stripe._reversal", False),
+    "TransferReversal": ("stripe._transfer_reversal", False),
     "Review": ("stripe._review", False),
     "ReviewService": ("stripe._review_service", False),
     "SearchResultObject": ("stripe._search_result_object", False),

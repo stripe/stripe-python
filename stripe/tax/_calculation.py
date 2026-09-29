@@ -564,6 +564,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     def _cls_list_line_items(
         cls,
         calculation: str,
+        /,
         **params: Unpack["CalculationListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
@@ -583,7 +584,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     @overload
     @staticmethod
     def list_line_items(
-        calculation: str, **params: Unpack["CalculationListLineItemsParams"]
+        calculation: str, /, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
@@ -600,7 +601,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
@@ -621,6 +622,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     async def _cls_list_line_items_async(
         cls,
         calculation: str,
+        /,
         **params: Unpack["CalculationListLineItemsParams"],
     ) -> ListObject["CalculationLineItem"]:
         """
@@ -640,7 +642,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     @overload
     @staticmethod
     async def list_line_items_async(
-        calculation: str, **params: Unpack["CalculationListLineItemsParams"]
+        calculation: str, /, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
@@ -657,7 +659,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["CalculationListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
         """
