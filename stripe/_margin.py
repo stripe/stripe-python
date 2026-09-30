@@ -136,7 +136,7 @@ class Margin(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["MarginModifyParams"]
+        cls, id: str, /, **params: Unpack["MarginModifyParams"]
     ) -> "Margin":
         """
         Update the specified margin object. Certain fields of the margin object are not editable.
@@ -153,7 +153,7 @@ class Margin(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["MarginModifyParams"]
+        cls, id: str, /, **params: Unpack["MarginModifyParams"]
     ) -> "Margin":
         """
         Update the specified margin object. Certain fields of the margin object are not editable.

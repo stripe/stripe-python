@@ -151,7 +151,10 @@ class PaymentLocationCapability(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentLocationCapabilityModifyParams"]
+        cls,
+        id: str,
+        /,
+        **params: Unpack["PaymentLocationCapabilityModifyParams"],
     ) -> "PaymentLocationCapability":
         """
         Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
@@ -168,7 +171,10 @@ class PaymentLocationCapability(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentLocationCapabilityModifyParams"]
+        cls,
+        id: str,
+        /,
+        **params: Unpack["PaymentLocationCapabilityModifyParams"],
     ) -> "PaymentLocationCapability":
         """
         Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.

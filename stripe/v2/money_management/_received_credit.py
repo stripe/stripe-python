@@ -65,7 +65,7 @@ class ReceivedCredit(StripeObject):
             The last 4 digits of the account number that originated the transfer.
             Depending on the bank, this may instead be the last 4 digits of the return account number.
             """
-            network: Union[Literal["acss"], str]
+            network: Union[Literal["acss", "swift"], str]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -105,7 +105,7 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Union[Literal["chaps", "fps"], str]
+            network: Union[Literal["chaps", "fps", "swift"], str]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -201,7 +201,9 @@ class ReceivedCredit(StripeObject):
                 """
                 The last 4 digits of the account number that originated the transfer.
                 """
-                network: Union[Literal["ach", "rtp", "us_domestic_wire"], str]
+                network: Union[
+                    Literal["ach", "rtp", "swift", "us_domestic_wire"], str
+                ]
                 """
                 Open Enum. The money transmission network used to send funds for this ReceivedCredit.
                 """
@@ -249,7 +251,7 @@ class ReceivedCredit(StripeObject):
                 """
                 The last 4 digits of the account number that originated the transfer.
                 """
-                network: Union[Literal["acss"], str]
+                network: Union[Literal["acss", "swift"], str]
                 """
                 Open Enum. The money transmission network used to send funds for this ReceivedCredit.
                 """
@@ -275,7 +277,7 @@ class ReceivedCredit(StripeObject):
                 """
                 The IBAN that originated the transfer.
                 """
-                network: Union[Literal["sepa_credit_transfer"], str]
+                network: Union[Literal["sepa_credit_transfer", "swift"], str]
                 """
                 Open Enum. The money transmission network used to send funds for this ReceivedCredit.
                 """
@@ -293,7 +295,7 @@ class ReceivedCredit(StripeObject):
                 """
                 The last 4 digits of the account number that originated the transfer.
                 """
-                network: Union[Literal["chaps", "fps"], str]
+                network: Union[Literal["chaps", "fps", "swift"], str]
                 """
                 Open Enum. The money transmission network used to send funds for this ReceivedCredit.
                 """
@@ -357,7 +359,7 @@ class ReceivedCredit(StripeObject):
             """
             The IBAN that originated the transfer.
             """
-            network: Union[Literal["sepa_credit_transfer"], str]
+            network: Union[Literal["sepa_credit_transfer", "swift"], str]
             """
             The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -375,7 +377,9 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Union[Literal["ach", "rtp", "us_domestic_wire"], str]
+            network: Union[
+                Literal["ach", "rtp", "swift", "us_domestic_wire"], str
+            ]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """

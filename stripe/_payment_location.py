@@ -176,7 +176,7 @@ class PaymentLocation(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["PaymentLocationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["PaymentLocationDeleteParams"]
     ) -> "PaymentLocation":
         """
         Delete a Payment Location.
@@ -194,7 +194,7 @@ class PaymentLocation(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["PaymentLocationDeleteParams"]
+        sid: str, /, **params: Unpack["PaymentLocationDeleteParams"]
     ) -> "PaymentLocation":
         """
         Delete a Payment Location.
@@ -211,7 +211,7 @@ class PaymentLocation(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["PaymentLocationDeleteParams"]
     ) -> "PaymentLocation":
         """
@@ -225,7 +225,7 @@ class PaymentLocation(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["PaymentLocationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["PaymentLocationDeleteParams"]
     ) -> "PaymentLocation":
         """
         Delete a Payment Location.
@@ -243,7 +243,7 @@ class PaymentLocation(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["PaymentLocationDeleteParams"]
+        sid: str, /, **params: Unpack["PaymentLocationDeleteParams"]
     ) -> "PaymentLocation":
         """
         Delete a Payment Location.
@@ -260,7 +260,7 @@ class PaymentLocation(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["PaymentLocationDeleteParams"]
     ) -> "PaymentLocation":
         """
@@ -314,7 +314,7 @@ class PaymentLocation(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentLocationModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLocationModifyParams"]
     ) -> "PaymentLocation":
         """
         Update a Payment Location.
@@ -331,7 +331,7 @@ class PaymentLocation(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentLocationModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLocationModifyParams"]
     ) -> "PaymentLocation":
         """
         Update a Payment Location.

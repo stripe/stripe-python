@@ -277,7 +277,7 @@ class Product(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ProductDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -294,7 +294,9 @@ class Product(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["ProductDeleteParams"]) -> "Product":
+    def delete(
+        sid: str, /, **params: Unpack["ProductDeleteParams"]
+    ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
@@ -308,9 +310,7 @@ class Product(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ProductDeleteParams"]
-    ) -> "Product":
+    def delete(self, **params: Unpack["ProductDeleteParams"]) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
@@ -322,7 +322,7 @@ class Product(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ProductDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -340,7 +340,7 @@ class Product(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ProductDeleteParams"]
+        sid: str, /, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -357,7 +357,7 @@ class Product(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
@@ -411,7 +411,7 @@ class Product(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ProductModifyParams"]
+        cls, id: str, /, **params: Unpack["ProductModifyParams"]
     ) -> "Product":
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -428,7 +428,7 @@ class Product(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ProductModifyParams"]
+        cls, id: str, /, **params: Unpack["ProductModifyParams"]
     ) -> "Product":
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

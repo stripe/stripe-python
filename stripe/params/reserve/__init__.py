@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from stripe.params.reserve._hold_retrieve_params import (
         HoldRetrieveParams as HoldRetrieveParams,
     )
+    from stripe.params.reserve._plan_list_params import (
+        PlanListParams as PlanListParams,
+    )
     from stripe.params.reserve._plan_retrieve_params import (
         PlanRetrieveParams as PlanRetrieveParams,
     )
@@ -27,6 +30,7 @@ _import_map = {
         "stripe.params.reserve._hold_retrieve_params",
         False,
     ),
+    "PlanListParams": ("stripe.params.reserve._plan_list_params", False),
     "PlanRetrieveParams": (
         "stripe.params.reserve._plan_retrieve_params",
         False,

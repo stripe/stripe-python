@@ -4,7 +4,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class NetworkTokenGenerateCryptogramParams(TypedDict):
-    type: NotRequired[Literal["token_cryptogram"]]
+    type: NotRequired["Literal['token_cryptogram']|str"]
     """
     The cryptogram type. When omitted, token_cryptogram is used.
     """

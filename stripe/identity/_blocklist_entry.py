@@ -184,7 +184,7 @@ class BlocklistEntry(
         ...
 
     @class_method_variant("_cls_disable")
-    def disable(  # pyright: ignore[reportGeneralTypeIssues]
+    def disable(
         self, **params: Unpack["BlocklistEntryDisableParams"]
     ) -> "BlocklistEntry":
         """
@@ -263,7 +263,7 @@ class BlocklistEntry(
         ...
 
     @class_method_variant("_cls_disable_async")
-    async def disable_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def disable_async(
         self, **params: Unpack["BlocklistEntryDisableParams"]
     ) -> "BlocklistEntry":
         """

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     )
 
 _subservices = {
-    "account_activity": [
+    "account_activities": [
         "stripe.v2.signals._account_activity_service",
         "AccountActivityService",
     ],
@@ -44,7 +44,7 @@ _subservices = {
 
 
 class SignalsService(StripeService):
-    account_activity: "AccountActivityService"
+    account_activities: "AccountActivityService"
     account_evaluations: "AccountEvaluationService"
     account_signals: "AccountSignalService"
     payment_retry_evaluations: "PaymentRetryEvaluationService"

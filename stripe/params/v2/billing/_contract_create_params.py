@@ -358,9 +358,9 @@ class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt(
 class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice(
     TypedDict,
 ):
-    unit_amount: NotRequired[str]
+    unit_amount: NotRequired[Decimal]
     """
-    The per-unit amount to be charged, represented as a decimal string in minor currency units.
+    The per-unit amount to be charged in minor currency units.
     """
 
 
@@ -465,9 +465,9 @@ class ContractCreateParamsPricingOverrideMultiplyPricing(TypedDict):
     """
     Criteria determining which rates the multiply_pricing override applies to.
     """
-    factor: str
+    factor: Decimal
     """
-    The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+    The multiply_pricing factor. e.g. "0.8" for a 20% reduction.
     """
 
 

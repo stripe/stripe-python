@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from stripe._application_fee import ApplicationFee
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
-    from stripe._reversal import Reversal
+    from stripe._transfer_reversal import TransferReversal
     from stripe.params._transfer_create_params import TransferCreateParams
     from stripe.params._transfer_create_reversal_params import (
         TransferCreateReversalParams,
@@ -109,7 +109,7 @@ class Transfer(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    reversals: ListObject["Reversal"]
+    reversals: ListObject["TransferReversal"]
     """
     A list of reversals that have been applied to the transfer.
     """
@@ -202,7 +202,7 @@ class Transfer(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["TransferModifyParams"]
+        cls, id: str, /, **params: Unpack["TransferModifyParams"]
     ) -> "Transfer":
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -221,7 +221,7 @@ class Transfer(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TransferModifyParams"]
+        cls, id: str, /, **params: Unpack["TransferModifyParams"]
     ) -> "Transfer":
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -263,12 +263,12 @@ class Transfer(
     @classmethod
     def list_reversals(
         cls, id: str, /, **params: Unpack["TransferListReversalsParams"]
-    ) -> ListObject["Reversal"]:
+    ) -> ListObject["TransferReversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
         """
         return cast(
-            ListObject["Reversal"],
+            ListObject["TransferReversal"],
             cls._static_request(
                 "get",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
@@ -279,12 +279,12 @@ class Transfer(
     @classmethod
     async def list_reversals_async(
         cls, id: str, /, **params: Unpack["TransferListReversalsParams"]
-    ) -> ListObject["Reversal"]:
+    ) -> ListObject["TransferReversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
         """
         return cast(
-            ListObject["Reversal"],
+            ListObject["TransferReversal"],
             await cls._static_request_async(
                 "get",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
@@ -295,7 +295,7 @@ class Transfer(
     @classmethod
     def create_reversal(
         cls, id: str, /, **params: Unpack["TransferCreateReversalParams"]
-    ) -> "Reversal":
+    ) -> "TransferReversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
 
@@ -304,7 +304,7 @@ class Transfer(
         Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
         """
         return cast(
-            "Reversal",
+            "TransferReversal",
             cls._static_request(
                 "post",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
@@ -315,7 +315,7 @@ class Transfer(
     @classmethod
     async def create_reversal_async(
         cls, id: str, /, **params: Unpack["TransferCreateReversalParams"]
-    ) -> "Reversal":
+    ) -> "TransferReversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
 
@@ -324,7 +324,7 @@ class Transfer(
         Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
         """
         return cast(
-            "Reversal",
+            "TransferReversal",
             await cls._static_request_async(
                 "post",
                 "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
@@ -339,12 +339,12 @@ class Transfer(
         id: str,
         /,
         **params: Unpack["TransferRetrieveReversalParams"],
-    ) -> "Reversal":
+    ) -> "TransferReversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
         """
         return cast(
-            "Reversal",
+            "TransferReversal",
             cls._static_request(
                 "get",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
@@ -361,12 +361,12 @@ class Transfer(
         id: str,
         /,
         **params: Unpack["TransferRetrieveReversalParams"],
-    ) -> "Reversal":
+    ) -> "TransferReversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
         """
         return cast(
-            "Reversal",
+            "TransferReversal",
             await cls._static_request_async(
                 "get",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
@@ -383,14 +383,14 @@ class Transfer(
         id: str,
         /,
         **params: Unpack["TransferModifyReversalParams"],
-    ) -> "Reversal":
+    ) -> "TransferReversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
         This request only accepts metadata and description as arguments.
         """
         return cast(
-            "Reversal",
+            "TransferReversal",
             cls._static_request(
                 "post",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
@@ -407,14 +407,14 @@ class Transfer(
         id: str,
         /,
         **params: Unpack["TransferModifyReversalParams"],
-    ) -> "Reversal":
+    ) -> "TransferReversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
         This request only accepts metadata and description as arguments.
         """
         return cast(
-            "Reversal",
+            "TransferReversal",
             await cls._static_request_async(
                 "post",
                 "/v1/transfers/{transfer}/reversals/{id}".format(

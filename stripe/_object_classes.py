@@ -344,6 +344,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.radar._account_evaluation",
         "AccountEvaluation",
     ),
+    "radar.billing_evaluation": (
+        "stripe.radar._billing_evaluation",
+        "BillingEvaluation",
+    ),
     "radar.customer_evaluation": (
         "stripe.radar._customer_evaluation",
         "CustomerEvaluation",
@@ -375,7 +379,6 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._reserve_transaction",
         "ReserveTransaction",
     ),
-    "transfer_reversal": ("stripe._reversal", "Reversal"),
     "review": ("stripe._review", "Review"),
     "risk_signals": ("stripe._risk_signals", "RiskSignals"),
     "setup_attempt": ("stripe._setup_attempt", "SetupAttempt"),
@@ -450,9 +453,14 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.test_helpers._test_clock",
         "TestClock",
     ),
+    "three_d_secure.authentication": (
+        "stripe.three_d_secure._authentication",
+        "Authentication",
+    ),
     "token": ("stripe._token", "Token"),
     "topup": ("stripe._topup", "Topup"),
     "transfer": ("stripe._transfer", "Transfer"),
+    "transfer_reversal": ("stripe._transfer_reversal", "TransferReversal"),
     "transit_balance": ("stripe._transit_balance", "TransitBalance"),
     "treasury.credit_reversal": (
         "stripe.treasury._credit_reversal",
@@ -660,22 +668,18 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.data.analytics._metric_query_result",
         "MetricQueryResult",
     ),
+    "v2.data.query_run": ("stripe.v2.data._query_run", "QueryRun"),
+    "v2.data.report": ("stripe.v2.data._report", "Report"),
     "v2.data.reporting.query_run": (
         "stripe.v2.data.reporting._query_run",
         "QueryRun",
     ),
+    "v2.data.report_run": ("stripe.v2.data._report_run", "ReportRun"),
+    "v2.data.schema": ("stripe.v2.data._schema", "Schema"),
     "v2.extend.workflow": ("stripe.v2.extend._workflow", "Workflow"),
     "v2.extend.workflow_run": (
         "stripe.v2.extend._workflow_run",
         "WorkflowRun",
-    ),
-    "financial_address_credit_simulation": (
-        "stripe.v2._financial_address_credit_simulation",
-        "FinancialAddressCreditSimulation",
-    ),
-    "financial_address_generated_microdeposits": (
-        "stripe.v2._financial_address_generated_microdeposits",
-        "FinancialAddressGeneratedMicrodeposits",
     ),
     "v2.iam.activity_log": ("stripe.v2.iam._activity_log", "ActivityLog"),
     "v2.iam.api_key": ("stripe.v2.iam._api_key", "ApiKey"),
@@ -690,6 +694,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.debit_dispute": (
         "stripe.v2.money_management._debit_dispute",
         "DebitDispute",
+    ),
+    "v2.money_management.earned_credit": (
+        "stripe.v2.money_management._earned_credit",
+        "EarnedCredit",
+    ),
+    "v2.money_management.earned_credit_simulation": (
+        "stripe.v2.money_management._earned_credit_simulation",
+        "EarnedCreditSimulation",
     ),
     "v2.money_management.financial_account": (
         "stripe.v2.money_management._financial_account",
@@ -711,9 +723,17 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._financial_address",
         "FinancialAddress",
     ),
+    "v2.money_management.financial_address_credit_simulation": (
+        "stripe.v2.money_management._financial_address_credit_simulation",
+        "FinancialAddressCreditSimulation",
+    ),
     "v2.money_management.financial_address_debit_simulation": (
         "stripe.v2.money_management._financial_address_debit_simulation",
         "FinancialAddressDebitSimulation",
+    ),
+    "v2.money_management.financial_address_generated_microdeposits": (
+        "stripe.v2.money_management._financial_address_generated_microdeposits",
+        "FinancialAddressGeneratedMicrodeposits",
     ),
     "v2.money_management.inbound_transfer": (
         "stripe.v2.money_management._inbound_transfer",
@@ -823,6 +843,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.provisioning.resource": (
         "stripe.v2.provisioning._resource",
         "Resource",
+    ),
+    "v2.provisioning.resource_access_configuration": (
+        "stripe.v2.provisioning._resource_access_configuration",
+        "ResourceAccessConfiguration",
     ),
     "v2.reporting.report": ("stripe.v2.reporting._report", "Report"),
     "v2.reporting.report_run": (

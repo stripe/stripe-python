@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
-    from stripe._reversal import Reversal
+    from stripe._transfer_reversal import TransferReversal
     from stripe.params._refund_cancel_params import RefundCancelParams
     from stripe.params._refund_create_params import RefundCreateParams
     from stripe.params._refund_expire_params import RefundExpireParams
@@ -485,7 +485,7 @@ class Refund(
     """
     This is the transaction number that appears on email receipts sent for this refund.
     """
-    source_transfer_reversal: Optional[ExpandableField["Reversal"]]
+    source_transfer_reversal: Optional[ExpandableField["TransferReversal"]]
     """
     The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.
     """
@@ -493,7 +493,7 @@ class Refund(
     """
     Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://docs.stripe.com/refunds#failed-refunds).
     """
-    transfer_reversal: Optional[ExpandableField["Reversal"]]
+    transfer_reversal: Optional[ExpandableField["TransferReversal"]]
     """
     This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.
     """
@@ -540,9 +540,7 @@ class Refund(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RefundCancelParams"]
-    ) -> "Refund":
+    def cancel(self, **params: Unpack["RefundCancelParams"]) -> "Refund":
         """
         Cancels a refund with a status of requires_action.
 
@@ -603,7 +601,7 @@ class Refund(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["RefundCancelParams"]
     ) -> "Refund":
         """
@@ -714,7 +712,7 @@ class Refund(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["RefundModifyParams"]
+        cls, id: str, /, **params: Unpack["RefundModifyParams"]
     ) -> "Refund":
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
@@ -733,7 +731,7 @@ class Refund(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["RefundModifyParams"]
+        cls, id: str, /, **params: Unpack["RefundModifyParams"]
     ) -> "Refund":
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
@@ -811,9 +809,7 @@ class Refund(
             ...
 
         @class_method_variant("_cls_expire")
-        def expire(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["RefundExpireParams"]
-        ) -> "Refund":
+        def expire(self, **params: Unpack["RefundExpireParams"]) -> "Refund":
             """
             Expire a refund with a status of requires_action.
             """
@@ -866,7 +862,7 @@ class Refund(
             ...
 
         @class_method_variant("_cls_expire_async")
-        async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def expire_async(
             self, **params: Unpack["RefundExpireParams"]
         ) -> "Refund":
             """

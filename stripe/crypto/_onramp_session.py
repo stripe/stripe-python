@@ -334,7 +334,7 @@ class OnrampSession(
         ...
 
     @class_method_variant("_cls_checkout")
-    def checkout(  # pyright: ignore[reportGeneralTypeIssues]
+    def checkout(
         self, **params: Unpack["OnrampSessionCheckoutParams"]
     ) -> "OnrampSession":
         """
@@ -397,7 +397,7 @@ class OnrampSession(
         ...
 
     @class_method_variant("_cls_checkout_async")
-    async def checkout_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def checkout_async(
         self, **params: Unpack["OnrampSessionCheckoutParams"]
     ) -> "OnrampSession":
         """
@@ -534,7 +534,7 @@ class OnrampSession(
         ...
 
     @class_method_variant("_cls_quote")
-    def quote(  # pyright: ignore[reportGeneralTypeIssues]
+    def quote(
         self, **params: Unpack["OnrampSessionQuoteParams"]
     ) -> "OnrampSession":
         """
@@ -589,7 +589,7 @@ class OnrampSession(
         ...
 
     @class_method_variant("_cls_quote_async")
-    async def quote_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def quote_async(
         self, **params: Unpack["OnrampSessionQuoteParams"]
     ) -> "OnrampSession":
         """

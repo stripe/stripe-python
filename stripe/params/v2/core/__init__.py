@@ -207,12 +207,18 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtectionsPspMigration,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSequraPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSequraPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtectionsPspMigration,
@@ -237,6 +243,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptor as AccountCreateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountCreateParamsConfigurationMerchantSepaDebitPayments as AccountCreateParamsConfigurationMerchantSepaDebitPayments,
         AccountCreateParamsConfigurationMerchantSmartDisputes as AccountCreateParamsConfigurationMerchantSmartDisputes,
         AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond as AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond,
         AccountCreateParamsConfigurationMerchantStatementDescriptor as AccountCreateParamsConfigurationMerchantStatementDescriptor,
@@ -258,6 +265,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtections,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtectionsPspMigration,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtections,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtectionsPspMigration,
@@ -277,6 +287,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtections,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtections,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtectionsPspMigration,
@@ -824,12 +837,18 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtectionsPspMigration,
@@ -854,6 +873,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountUpdateParamsConfigurationMerchantSepaDebitPayments as AccountUpdateParamsConfigurationMerchantSepaDebitPayments,
         AccountUpdateParamsConfigurationMerchantSmartDisputes as AccountUpdateParamsConfigurationMerchantSmartDisputes,
         AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond as AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond,
         AccountUpdateParamsConfigurationMerchantStatementDescriptor as AccountUpdateParamsConfigurationMerchantStatementDescriptor,
@@ -875,6 +895,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtections,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtections,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtectionsPspMigration,
@@ -894,6 +917,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtections,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtections,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtectionsPspMigration,
@@ -2010,6 +2036,18 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -2031,6 +2069,18 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSequraPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -2130,6 +2180,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantSepaDebitPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantSmartDisputes": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -2214,6 +2268,18 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -2287,6 +2353,18 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -4419,6 +4497,18 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -4440,6 +4530,18 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPaymentsProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -4539,6 +4641,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantSepaDebitPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantSmartDisputes": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -4623,6 +4729,18 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusd": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundOusdProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -4696,6 +4814,18 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusd": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundOusdProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

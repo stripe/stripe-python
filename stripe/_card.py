@@ -201,7 +201,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["CardDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -219,7 +219,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["CardDeleteParams"]
+        sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -236,7 +236,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
@@ -250,7 +250,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["CardDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -268,7 +268,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["CardDeleteParams"]
+        sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -285,7 +285,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """

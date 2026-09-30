@@ -366,7 +366,7 @@ class OutboundPayment(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
@@ -421,7 +421,7 @@ class OutboundPayment(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
@@ -573,7 +573,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # pyright: ignore[reportGeneralTypeIssues]
+        def fail(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
@@ -628,7 +628,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_fail_async")
-        async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def fail_async(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
@@ -683,7 +683,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_post")
-        def post(  # pyright: ignore[reportGeneralTypeIssues]
+        def post(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
@@ -738,7 +738,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_post_async")
-        async def post_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def post_async(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
@@ -799,7 +799,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_return_outbound_payment")
-        def return_outbound_payment(  # pyright: ignore[reportGeneralTypeIssues]
+        def return_outbound_payment(
             self,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
@@ -861,7 +861,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_return_outbound_payment_async")
-        async def return_outbound_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def return_outbound_payment_async(
             self,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
@@ -917,7 +917,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_update")
-        def update(  # pyright: ignore[reportGeneralTypeIssues]
+        def update(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
@@ -972,7 +972,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_update_async")
-        async def update_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def update_async(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """

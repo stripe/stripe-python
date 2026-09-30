@@ -31,6 +31,20 @@ if TYPE_CHECKING:
         AccountEvaluationUpdateParamsRegistrationFailed as AccountEvaluationUpdateParamsRegistrationFailed,
         AccountEvaluationUpdateParamsRegistrationSucceeded as AccountEvaluationUpdateParamsRegistrationSucceeded,
     )
+    from stripe.params.radar._billing_evaluation_create_params import (
+        BillingEvaluationCreateParams as BillingEvaluationCreateParams,
+        BillingEvaluationCreateParamsClientDeviceMetadataDetails as BillingEvaluationCreateParamsClientDeviceMetadataDetails,
+        BillingEvaluationCreateParamsCustomerDetails as BillingEvaluationCreateParamsCustomerDetails,
+        BillingEvaluationCreateParamsCustomerDetailsData as BillingEvaluationCreateParamsCustomerDetailsData,
+        BillingEvaluationCreateParamsPaymentDetails as BillingEvaluationCreateParamsPaymentDetails,
+        BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetails as BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetails,
+        BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard as BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard,
+        BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetails as BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetails,
+        BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails as BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails,
+        BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress as BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress,
+        BillingEvaluationCreateParamsPaymentDetailsShippingDetails as BillingEvaluationCreateParamsPaymentDetailsShippingDetails,
+        BillingEvaluationCreateParamsPaymentDetailsShippingDetailsAddress as BillingEvaluationCreateParamsPaymentDetailsShippingDetailsAddress,
+    )
     from stripe.params.radar._customer_evaluation_create_params import (
         CustomerEvaluationCreateParams as CustomerEvaluationCreateParams,
         CustomerEvaluationCreateParamsEvaluationContext as CustomerEvaluationCreateParamsEvaluationContext,
@@ -189,6 +203,54 @@ _import_map = {
     ),
     "AccountEvaluationUpdateParamsRegistrationSucceeded": (
         "stripe.params.radar._account_evaluation_update_params",
+        False,
+    ),
+    "BillingEvaluationCreateParams": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsClientDeviceMetadataDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsCustomerDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsCustomerDetailsData": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsShippingDetails": (
+        "stripe.params.radar._billing_evaluation_create_params",
+        False,
+    ),
+    "BillingEvaluationCreateParamsPaymentDetailsShippingDetailsAddress": (
+        "stripe.params.radar._billing_evaluation_create_params",
         False,
     ),
     "CustomerEvaluationCreateParams": (

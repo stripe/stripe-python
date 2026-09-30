@@ -40,7 +40,3 @@ class ReaderListParams(RequestOptions):
     """
     A status filter to filter readers to only offline or online readers
     """
-    tamper_state: NotRequired["Literal['secure', 'tampered']|str"]
-    """
-    Filters readers by tamper state.
-    """

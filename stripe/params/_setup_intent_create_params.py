@@ -27,6 +27,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -47,6 +48,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -618,6 +620,10 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    sequra: NotRequired["SetupIntentCreateParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
     shared_payment_granted_token: NotRequired[str]
     """
     ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -1175,6 +1181,10 @@ class SetupIntentCreateParamsPaymentMethodDataSepaDebit(TypedDict):
     """
 
 
+class SetupIntentCreateParamsPaymentMethodDataSequra(TypedDict):
+    pass
+
+
 class SetupIntentCreateParamsPaymentMethodDataShopeepay(TypedDict):
     pass
 
@@ -1294,6 +1304,10 @@ class SetupIntentCreateParamsPaymentMethodOptions(TypedDict):
     bizum: NotRequired["SetupIntentCreateParamsPaymentMethodOptionsBizum"]
     """
     If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
+    blik: NotRequired["SetupIntentCreateParamsPaymentMethodOptionsBlik"]
+    """
+    If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     """
     card: NotRequired["SetupIntentCreateParamsPaymentMethodOptionsCard"]
     """
@@ -1428,6 +1442,26 @@ class SetupIntentCreateParamsPaymentMethodOptionsBizum(TypedDict):
     pass
 
 
+class SetupIntentCreateParamsPaymentMethodOptionsBlik(TypedDict):
+    code: NotRequired[str]
+    """
+    The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+    """
+    mandate_options: NotRequired[
+        "SetupIntentCreateParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+
+
+class SetupIntentCreateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
+    """
+
+
 class SetupIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
     mandate_options: NotRequired[
         "SetupIntentCreateParamsPaymentMethodOptionsCardMandateOptions"
@@ -1452,6 +1486,12 @@ class SetupIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    """
+    setup_credential_usage: NotRequired[
+        "Literal['installment', 'recurring', 'unscheduled']|str"
+    ]
+    """
+    Set to indicate the future transaction type usage for the card being set up.
     """
     three_d_secure: NotRequired[
         "SetupIntentCreateParamsPaymentMethodOptionsCardThreeDSecure"

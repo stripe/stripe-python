@@ -307,7 +307,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_close")
-    def close(  # pyright: ignore[reportGeneralTypeIssues]
+    def close(
         self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
@@ -367,7 +367,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_close_async")
-    async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def close_async(
         self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
@@ -458,7 +458,7 @@ class FinancialAccount(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FinancialAccountModifyParams"]
+        cls, id: str, /, **params: Unpack["FinancialAccountModifyParams"]
     ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
@@ -475,7 +475,7 @@ class FinancialAccount(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FinancialAccountModifyParams"]
+        cls, id: str, /, **params: Unpack["FinancialAccountModifyParams"]
     ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
@@ -555,7 +555,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_retrieve_features")
-    def retrieve_features(  # pyright: ignore[reportGeneralTypeIssues]
+    def retrieve_features(
         self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
@@ -615,7 +615,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_retrieve_features_async")
-    async def retrieve_features_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def retrieve_features_async(
         self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
@@ -675,7 +675,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_update_features")
-    def update_features(  # pyright: ignore[reportGeneralTypeIssues]
+    def update_features(
         self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
@@ -735,7 +735,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_update_features_async")
-    async def update_features_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def update_features_async(
         self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """

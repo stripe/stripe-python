@@ -10,14 +10,14 @@ class FinancialAddressCreditSimulation(StripeObject):
     Credit Simulations represent simulated credit transactions applied to financial addresses for testing purposes.
     """
 
-    OBJECT_NAME: ClassVar[Literal["financial_address_credit_simulation"]] = (
-        "financial_address_credit_simulation"
-    )
+    OBJECT_NAME: ClassVar[
+        Literal["v2.money_management.financial_address_credit_simulation"]
+    ] = "v2.money_management.financial_address_credit_simulation"
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    object: Literal["financial_address_credit_simulation"]
+    object: Literal["v2.money_management.financial_address_credit_simulation"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """

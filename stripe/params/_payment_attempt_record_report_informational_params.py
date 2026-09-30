@@ -42,7 +42,7 @@ class PaymentAttemptRecordReportInformationalParamsCustomerDetails(TypedDict):
     """
     email: NotRequired[str]
     """
-    The customer's phone number.
+    The customer's email address.
     """
     name: NotRequired[str]
     """

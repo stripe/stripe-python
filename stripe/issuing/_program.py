@@ -129,7 +129,7 @@ class Program(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ProgramModifyParams"]
+        cls, id: str, /, **params: Unpack["ProgramModifyParams"]
     ) -> "Program":
         """
         Updates a Program object.
@@ -146,7 +146,7 @@ class Program(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ProgramModifyParams"]
+        cls, id: str, /, **params: Unpack["ProgramModifyParams"]
     ) -> "Program":
         """
         Updates a Program object.

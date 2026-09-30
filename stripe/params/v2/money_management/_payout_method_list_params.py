@@ -17,13 +17,29 @@ class PayoutMethodListParams(TypedDict):
 
 class PayoutMethodListParamsUsageStatus(TypedDict):
     payments: NotRequired[
-        List[Literal["disabled", "eligible", "invalid", "requires_action"]]
+        List[
+            Literal[
+                "disabled",
+                "eligible",
+                "ineligible",
+                "invalid",
+                "requires_action",
+            ]
+        ]
     ]
     """
     List of payments status to filter by.
     """
     transfers: NotRequired[
-        List[Literal["disabled", "eligible", "invalid", "requires_action"]]
+        List[
+            Literal[
+                "disabled",
+                "eligible",
+                "ineligible",
+                "invalid",
+                "requires_action",
+            ]
+        ]
     ]
     """
     List of transfers status to filter by.

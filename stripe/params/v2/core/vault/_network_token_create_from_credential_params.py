@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -8,14 +9,14 @@ class NetworkTokenCreateFromCredentialParams(TypedDict):
     """
     The existing Stripe card reference to provision or resolve.
     """
-    type: Literal["card"]
+    type: Union[Literal["card"], str]
     """
     Private preview supports card only.
     """
 
 
 class NetworkTokenCreateFromCredentialParamsCard(TypedDict):
-    origin: NotRequired[Literal["card_on_file"]]
+    origin: NotRequired["Literal['card_on_file', 'wallet']|str"]
     """
     The optional origin attestation for the referenced card.
     """

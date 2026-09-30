@@ -912,6 +912,12 @@ class Charge(
             """
             When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
             """
+            card_account_update: Optional[
+                Union[Literal["expiry_changed", "number_changed"], str]
+            ]
+            """
+            If present, indicates that the Card Account Updater changed the card's credentials during this authorization. `number_changed` means the card number was updated (the expiration date may have changed as well); `expiry_changed` means only the expiration date was updated.
+            """
             checks: Optional[Checks]
             """
             Check results by Card networks on Card address and CVC at time of payment.
@@ -2938,9 +2944,7 @@ class Charge(
         ...
 
     @class_method_variant("_cls_capture")
-    def capture(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ChargeCaptureParams"]
-    ) -> "Charge":
+    def capture(self, **params: Unpack["ChargeCaptureParams"]) -> "Charge":
         """
         This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
@@ -2993,7 +2997,7 @@ class Charge(
         ...
 
     @class_method_variant("_cls_capture_async")
-    async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def capture_async(
         self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
@@ -3082,7 +3086,7 @@ class Charge(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ChargeModifyParams"]
+        cls, id: str, /, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -3099,7 +3103,7 @@ class Charge(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ChargeModifyParams"]
+        cls, id: str, /, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

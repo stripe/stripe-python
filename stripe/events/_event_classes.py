@@ -1042,6 +1042,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_vault_network_token_suspended_event import (
         V2CoreVaultNetworkTokenSuspendedEventNotification,
     )
+    from stripe.events._v2_data_query_run_created_event import (
+        V2DataQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_query_run_failed_event import (
+        V2DataQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_query_run_succeeded_event import (
+        V2DataQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_query_run_updated_event import (
+        V2DataQueryRunUpdatedEventNotification,
+    )
     from stripe.events._v2_data_reporting_query_run_created_event import (
         V2DataReportingQueryRunCreatedEventNotification,
     )
@@ -1053,6 +1065,18 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_data_reporting_query_run_updated_event import (
         V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_created_event import (
+        V2DataReportRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_failed_event import (
+        V2DataReportRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_succeeded_event import (
+        V2DataReportRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_report_run_updated_event import (
+        V2DataReportRunUpdatedEventNotification,
     )
     from stripe.events._v2_extend_extension_run_failed_event import (
         V2ExtendExtensionRunFailedEventNotification,
@@ -1113,6 +1137,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_debit_dispute_succeeded_event import (
         V2MoneyManagementDebitDisputeSucceededEventNotification,
+    )
+    from stripe.events._v2_money_management_earned_credit_succeeded_event import (
+        V2MoneyManagementEarnedCreditSucceededEventNotification,
     )
     from stripe.events._v2_money_management_financial_account_created_event import (
         V2MoneyManagementFinancialAccountCreatedEventNotification,
@@ -2773,6 +2800,22 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_vault_network_token_suspended_event",
         "V2CoreVaultNetworkTokenSuspendedEvent",
     ),
+    "v2.data.query_run.created": (
+        "stripe.events._v2_data_query_run_created_event",
+        "V2DataQueryRunCreatedEvent",
+    ),
+    "v2.data.query_run.failed": (
+        "stripe.events._v2_data_query_run_failed_event",
+        "V2DataQueryRunFailedEvent",
+    ),
+    "v2.data.query_run.succeeded": (
+        "stripe.events._v2_data_query_run_succeeded_event",
+        "V2DataQueryRunSucceededEvent",
+    ),
+    "v2.data.query_run.updated": (
+        "stripe.events._v2_data_query_run_updated_event",
+        "V2DataQueryRunUpdatedEvent",
+    ),
     "v2.data.reporting.query_run.created": (
         "stripe.events._v2_data_reporting_query_run_created_event",
         "V2DataReportingQueryRunCreatedEvent",
@@ -2788,6 +2831,22 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.data.reporting.query_run.updated": (
         "stripe.events._v2_data_reporting_query_run_updated_event",
         "V2DataReportingQueryRunUpdatedEvent",
+    ),
+    "v2.data.report_run.created": (
+        "stripe.events._v2_data_report_run_created_event",
+        "V2DataReportRunCreatedEvent",
+    ),
+    "v2.data.report_run.failed": (
+        "stripe.events._v2_data_report_run_failed_event",
+        "V2DataReportRunFailedEvent",
+    ),
+    "v2.data.report_run.succeeded": (
+        "stripe.events._v2_data_report_run_succeeded_event",
+        "V2DataReportRunSucceededEvent",
+    ),
+    "v2.data.report_run.updated": (
+        "stripe.events._v2_data_report_run_updated_event",
+        "V2DataReportRunUpdatedEvent",
     ),
     "v2.extend.extension_run.failed": (
         "stripe.events._v2_extend_extension_run_failed_event",
@@ -2868,6 +2927,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.debit_dispute.succeeded": (
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
         "V2MoneyManagementDebitDisputeSucceededEvent",
+    ),
+    "v2.money_management.earned_credit.succeeded": (
+        "stripe.events._v2_money_management_earned_credit_succeeded_event",
+        "V2MoneyManagementEarnedCreditSucceededEvent",
     ),
     "v2.money_management.financial_account.created": (
         "stripe.events._v2_money_management_financial_account_created_event",
@@ -4632,6 +4695,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_vault_network_token_suspended_event",
         "V2CoreVaultNetworkTokenSuspendedEventNotification",
     ),
+    "v2.data.query_run.created": (
+        "stripe.events._v2_data_query_run_created_event",
+        "V2DataQueryRunCreatedEventNotification",
+    ),
+    "v2.data.query_run.failed": (
+        "stripe.events._v2_data_query_run_failed_event",
+        "V2DataQueryRunFailedEventNotification",
+    ),
+    "v2.data.query_run.succeeded": (
+        "stripe.events._v2_data_query_run_succeeded_event",
+        "V2DataQueryRunSucceededEventNotification",
+    ),
+    "v2.data.query_run.updated": (
+        "stripe.events._v2_data_query_run_updated_event",
+        "V2DataQueryRunUpdatedEventNotification",
+    ),
     "v2.data.reporting.query_run.created": (
         "stripe.events._v2_data_reporting_query_run_created_event",
         "V2DataReportingQueryRunCreatedEventNotification",
@@ -4647,6 +4726,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.data.reporting.query_run.updated": (
         "stripe.events._v2_data_reporting_query_run_updated_event",
         "V2DataReportingQueryRunUpdatedEventNotification",
+    ),
+    "v2.data.report_run.created": (
+        "stripe.events._v2_data_report_run_created_event",
+        "V2DataReportRunCreatedEventNotification",
+    ),
+    "v2.data.report_run.failed": (
+        "stripe.events._v2_data_report_run_failed_event",
+        "V2DataReportRunFailedEventNotification",
+    ),
+    "v2.data.report_run.succeeded": (
+        "stripe.events._v2_data_report_run_succeeded_event",
+        "V2DataReportRunSucceededEventNotification",
+    ),
+    "v2.data.report_run.updated": (
+        "stripe.events._v2_data_report_run_updated_event",
+        "V2DataReportRunUpdatedEventNotification",
     ),
     "v2.extend.extension_run.failed": (
         "stripe.events._v2_extend_extension_run_failed_event",
@@ -4727,6 +4822,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.money_management.debit_dispute.succeeded": (
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
         "V2MoneyManagementDebitDisputeSucceededEventNotification",
+    ),
+    "v2.money_management.earned_credit.succeeded": (
+        "stripe.events._v2_money_management_earned_credit_succeeded_event",
+        "V2MoneyManagementEarnedCreditSucceededEventNotification",
     ),
     "v2.money_management.financial_account.created": (
         "stripe.events._v2_money_management_financial_account_created_event",
@@ -5456,10 +5555,18 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreVaultNetworkTokenDeactivatedEventNotification",
     "V2CoreVaultNetworkTokenDetailsUpdatedEventNotification",
     "V2CoreVaultNetworkTokenSuspendedEventNotification",
+    "V2DataQueryRunCreatedEventNotification",
+    "V2DataQueryRunFailedEventNotification",
+    "V2DataQueryRunSucceededEventNotification",
+    "V2DataQueryRunUpdatedEventNotification",
     "V2DataReportingQueryRunCreatedEventNotification",
     "V2DataReportingQueryRunFailedEventNotification",
     "V2DataReportingQueryRunSucceededEventNotification",
     "V2DataReportingQueryRunUpdatedEventNotification",
+    "V2DataReportRunCreatedEventNotification",
+    "V2DataReportRunFailedEventNotification",
+    "V2DataReportRunSucceededEventNotification",
+    "V2DataReportRunUpdatedEventNotification",
     "V2ExtendExtensionRunFailedEventNotification",
     "V2ExtendWorkflowRunFailedEventNotification",
     "V2ExtendWorkflowRunStartedEventNotification",
@@ -5480,6 +5587,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementDebitDisputeFailedEventNotification",
     "V2MoneyManagementDebitDisputeSubmittedEventNotification",
     "V2MoneyManagementDebitDisputeSucceededEventNotification",
+    "V2MoneyManagementEarnedCreditSucceededEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
     "V2MoneyManagementFinancialAccountStatementCreatedEventNotification",
     "V2MoneyManagementFinancialAccountStatementRestatedEventNotification",

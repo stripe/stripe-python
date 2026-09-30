@@ -174,7 +174,7 @@ class AccountEvaluation(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["AccountEvaluationModifyParams"]
+        cls, id: str, /, **params: Unpack["AccountEvaluationModifyParams"]
     ) -> "AccountEvaluation":
         """
         Reports an event on an AccountEvaluation object.
@@ -191,7 +191,7 @@ class AccountEvaluation(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["AccountEvaluationModifyParams"]
+        cls, id: str, /, **params: Unpack["AccountEvaluationModifyParams"]
     ) -> "AccountEvaluation":
         """
         Reports an event on an AccountEvaluation object.

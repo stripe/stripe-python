@@ -20,6 +20,82 @@ class SessionCreateParams(RequestOptions):
     """
     Enables user redeemable promotion codes.
     """
+    allowed_payment_method_types: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "link",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "sequra",
+                    "shopeepay",
+                    "sofort",
+                    "sunbit",
+                    "swish",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+
+    Unlike `payment_method_types`, this acts as a filter on the dynamically computed set of
+    eligible payment methods rather than an explicit static list. Only payment methods that
+    are both dynamically eligible and present in this list will be offered to the customer.
+    """
     approval_method: NotRequired["Literal['auto', 'manual']|str"]
     """
     Determines whether the customer's attempt to pay must be manually approved.
@@ -64,7 +140,7 @@ class SessionCreateParams(RequestOptions):
     """
     custom_fields: NotRequired[List["SessionCreateParamsCustomField"]]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_payment_method_types: NotRequired[List[str]]
     """
@@ -76,7 +152,7 @@ class SessionCreateParams(RequestOptions):
     """
     custom_text: NotRequired["SessionCreateParamsCustomText"]
     """
-    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     """
     customer: NotRequired[str]
     """
@@ -177,6 +253,7 @@ class SessionCreateParams(RequestOptions):
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -248,6 +325,10 @@ class SessionCreateParams(RequestOptions):
 
     If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
     """
+    on_behalf_of: NotRequired[str]
+    """
+    The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
+    """
     optional_items: NotRequired[List["SessionCreateParamsOptionalItem"]]
     """
     A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
@@ -293,91 +374,9 @@ class SessionCreateParams(RequestOptions):
     """
     Payment-method-specific configuration.
     """
-    payment_method_types: NotRequired[
-        List[
-            Union[
-                Literal[
-                    "acss_debit",
-                    "affirm",
-                    "afterpay_clearpay",
-                    "alipay",
-                    "alma",
-                    "amazon_pay",
-                    "au_becs_debit",
-                    "bacs_debit",
-                    "bancontact",
-                    "billie",
-                    "bizum",
-                    "blik",
-                    "boleto",
-                    "card",
-                    "cashapp",
-                    "crypto",
-                    "customer_balance",
-                    "eps",
-                    "fpx",
-                    "giropay",
-                    "gopay",
-                    "grabpay",
-                    "ideal",
-                    "kakao_pay",
-                    "klarna",
-                    "konbini",
-                    "kr_card",
-                    "link",
-                    "mb_way",
-                    "mobilepay",
-                    "multibanco",
-                    "naver_pay",
-                    "nz_bank_account",
-                    "oxxo",
-                    "p24",
-                    "pay_by_bank",
-                    "payco",
-                    "paynow",
-                    "paypal",
-                    "paypay",
-                    "payto",
-                    "pix",
-                    "promptpay",
-                    "qris",
-                    "rechnung",
-                    "revolut_pay",
-                    "samsung_pay",
-                    "satispay",
-                    "scalapay",
-                    "sepa_debit",
-                    "sequra",
-                    "shopeepay",
-                    "sofort",
-                    "sunbit",
-                    "swish",
-                    "twint",
-                    "upi",
-                    "us_bank_account",
-                    "wechat_pay",
-                    "zip",
-                ],
-                str,
-            ]
-        ]
-    ]
-    """
-    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
-
-    You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-    See [Dynamic Payment Methods](https://docs.stripe.com/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
-
-    Read more about the supported payment methods and their requirements in our [payment
-    method details guide](https://docs.stripe.com/docs/payments/checkout/payment-methods).
-
-    If multiple payment methods are passed, Checkout will dynamically reorder them to
-    prioritize the most relevant payment methods based on the customer's location and
-    other characteristics.
-    """
     permissions: NotRequired["SessionCreateParamsPermissions"]
     """
-    This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
+    This property is used to set up permissions for various actions (for example, update) on the CheckoutSession object. Can only be set when creating `embedded_page` or `elements` sessions.
 
     For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
     """
@@ -1173,6 +1172,10 @@ class SessionCreateParamsItemSubscriptionTrialSettings(TypedDict):
 
 
 class SessionCreateParamsItemSubscriptionTrialSettingsEndBehavior(TypedDict):
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """
     missing_payment_method: Union[
         Literal["cancel", "create_invoice", "pause"], str
     ]
@@ -1723,6 +1726,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Sepa Debit payment method options.
     """
+    sequra: NotRequired["SessionCreateParamsPaymentMethodOptionsSequra"]
+    """
+    contains details about the SeQura payment method options.
+    """
     sofort: NotRequired["SessionCreateParamsPaymentMethodOptionsSofort"]
     """
     contains details about the Sofort payment method options.
@@ -1947,7 +1954,7 @@ class SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(
 
 
 class SessionCreateParamsPaymentMethodOptionsBancontact(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1987,12 +1994,12 @@ class SessionCreateParamsPaymentMethodOptionsBlik(TypedDict):
     Additional fields for Mandate creation
     """
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
 
 
 class SessionCreateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
-    expires_after: NotRequired[int]
+    expires_at: NotRequired[int]
     """
     Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
     """
@@ -2064,7 +2071,7 @@ class SessionCreateParamsPaymentMethodOptionsCard(TypedDict):
         "SessionCreateParamsPaymentMethodOptionsCardRestrictions"
     ]
     """
-    Restrictions to apply to the card payment method. For example, you can block specific card brands. You can't set this parameter if `ui_mode` is `custom`.
+    Restrictions to apply to the card payment method. For example, you can block specific card brands. You can't set this parameter if `ui_mode` is `elements`.
     """
     setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
     """
@@ -2793,6 +2800,13 @@ class SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions(
     """
 
 
+class SessionCreateParamsPaymentMethodOptionsSequra(TypedDict):
+    capture_method: NotRequired[Literal["manual"]]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+
+
 class SessionCreateParamsPaymentMethodOptionsSofort(TypedDict):
     setup_future_usage: NotRequired[Literal["none"]]
     """
@@ -3023,6 +3037,10 @@ class SessionCreateParamsSavedPaymentMethodOptions(TypedDict):
     ]
     """
     Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with 'allow_redisplay: ‘always' are shown in Checkout.
+    """
+    payment_method_preselect: NotRequired[str]
+    """
+    The ID of a saved payment method to select when the Payment Element renders, for example `pm_1MqLiJLkdIwHu7ixUEgbFdYF`. Takes precedence over the customer's default payment method. If the ID doesn't match one of the payment methods the Element is displaying, the Element selects a payment method as it normally would and no error is returned. Preselecting a payment method never changes which payment methods the Element displays, and never modifies the payment method, the customer, or this session. The preselection is fixed once set. To preselect a different payment method, create a new session. An Element that's already on the page keeps its current selection.
     """
     payment_method_remove: NotRequired["Literal['disabled', 'enabled']|str"]
     """
@@ -3600,6 +3618,10 @@ class SessionCreateParamsSubscriptionDataTrialSettings(TypedDict):
 
 
 class SessionCreateParamsSubscriptionDataTrialSettingsEndBehavior(TypedDict):
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """
     missing_payment_method: Union[
         Literal["cancel", "create_invoice", "pause"], str
     ]
@@ -3615,7 +3637,7 @@ class SessionCreateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired["Literal['if_supported', 'never']|str"]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
     """
 
 

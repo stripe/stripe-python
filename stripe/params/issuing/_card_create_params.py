@@ -100,9 +100,9 @@ class CardCreateParamsCryptoWallet(TypedDict):
     """
     The cryptocurrency held in the wallet.
     """
-    type: NotRequired["Literal['bridge_wallet', 'standard']|str"]
+    type: NotRequired["Literal['bridge_wallet', 'squads', 'standard']|str"]
     """
-    The type of wallet (standard or bridge_wallet).
+    The type of crypto wallet.
     """
 
 

@@ -1074,6 +1074,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_vault_network_token_suspended_event import (
         V2CoreVaultNetworkTokenSuspendedEventNotification,
     )
+    from stripe.events._v2_data_query_run_created_event import (
+        V2DataQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_query_run_failed_event import (
+        V2DataQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_query_run_succeeded_event import (
+        V2DataQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_query_run_updated_event import (
+        V2DataQueryRunUpdatedEventNotification,
+    )
     from stripe.events._v2_data_reporting_query_run_created_event import (
         V2DataReportingQueryRunCreatedEventNotification,
     )
@@ -1085,6 +1097,18 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_data_reporting_query_run_updated_event import (
         V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_created_event import (
+        V2DataReportRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_failed_event import (
+        V2DataReportRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_succeeded_event import (
+        V2DataReportRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_report_run_updated_event import (
+        V2DataReportRunUpdatedEventNotification,
     )
     from stripe.events._v2_extend_extension_run_failed_event import (
         V2ExtendExtensionRunFailedEventNotification,
@@ -1145,6 +1169,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_debit_dispute_succeeded_event import (
         V2MoneyManagementDebitDisputeSucceededEventNotification,
+    )
+    from stripe.events._v2_money_management_earned_credit_succeeded_event import (
+        V2MoneyManagementEarnedCreditSucceededEventNotification,
     )
     from stripe.events._v2_money_management_financial_account_created_event import (
         V2MoneyManagementFinancialAccountCreatedEventNotification,
@@ -6043,6 +6070,58 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_data_query_run_created(
+        self,
+        func: "Callable[[V2DataQueryRunCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataQueryRunCreatedEvent` (`v2.data.query_run.created`) event notification.
+        """
+        self._register(
+            "v2.data.query_run.created",
+            func,
+        )
+        return func
+
+    def on_v2_data_query_run_failed(
+        self,
+        func: "Callable[[V2DataQueryRunFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataQueryRunFailedEvent` (`v2.data.query_run.failed`) event notification.
+        """
+        self._register(
+            "v2.data.query_run.failed",
+            func,
+        )
+        return func
+
+    def on_v2_data_query_run_succeeded(
+        self,
+        func: "Callable[[V2DataQueryRunSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataQueryRunSucceededEvent` (`v2.data.query_run.succeeded`) event notification.
+        """
+        self._register(
+            "v2.data.query_run.succeeded",
+            func,
+        )
+        return func
+
+    def on_v2_data_query_run_updated(
+        self,
+        func: "Callable[[V2DataQueryRunUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataQueryRunUpdatedEvent` (`v2.data.query_run.updated`) event notification.
+        """
+        self._register(
+            "v2.data.query_run.updated",
+            func,
+        )
+        return func
+
     def on_v2_data_reporting_query_run_created(
         self,
         func: "Callable[[V2DataReportingQueryRunCreatedEventNotification, StripeClient], CallbackReturn]",
@@ -6091,6 +6170,58 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.data.reporting.query_run.updated",
+            func,
+        )
+        return func
+
+    def on_v2_data_report_run_created(
+        self,
+        func: "Callable[[V2DataReportRunCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataReportRunCreatedEvent` (`v2.data.report_run.created`) event notification.
+        """
+        self._register(
+            "v2.data.report_run.created",
+            func,
+        )
+        return func
+
+    def on_v2_data_report_run_failed(
+        self,
+        func: "Callable[[V2DataReportRunFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataReportRunFailedEvent` (`v2.data.report_run.failed`) event notification.
+        """
+        self._register(
+            "v2.data.report_run.failed",
+            func,
+        )
+        return func
+
+    def on_v2_data_report_run_succeeded(
+        self,
+        func: "Callable[[V2DataReportRunSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataReportRunSucceededEvent` (`v2.data.report_run.succeeded`) event notification.
+        """
+        self._register(
+            "v2.data.report_run.succeeded",
+            func,
+        )
+        return func
+
+    def on_v2_data_report_run_updated(
+        self,
+        func: "Callable[[V2DataReportRunUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2DataReportRunUpdatedEvent` (`v2.data.report_run.updated`) event notification.
+        """
+        self._register(
+            "v2.data.report_run.updated",
             func,
         )
         return func
@@ -6351,6 +6482,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.money_management.debit_dispute.succeeded",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_earned_credit_succeeded(
+        self,
+        func: "Callable[[V2MoneyManagementEarnedCreditSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementEarnedCreditSucceededEvent` (`v2.money_management.earned_credit.succeeded`) event notification.
+        """
+        self._register(
+            "v2.money_management.earned_credit.succeeded",
             func,
         )
         return func

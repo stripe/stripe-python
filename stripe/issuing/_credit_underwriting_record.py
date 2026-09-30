@@ -502,7 +502,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_correct")
-    def correct(  # pyright: ignore[reportGeneralTypeIssues]
+    def correct(
         self, **params: Unpack["CreditUnderwritingRecordCorrectParams"]
     ) -> "CreditUnderwritingRecord":
         """
@@ -566,7 +566,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_correct_async")
-    async def correct_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def correct_async(
         self, **params: Unpack["CreditUnderwritingRecordCorrectParams"]
     ) -> "CreditUnderwritingRecord":
         """
@@ -746,7 +746,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_report_decision")
-    def report_decision(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_decision(
         self, **params: Unpack["CreditUnderwritingRecordReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
         """
@@ -810,7 +810,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_report_decision_async")
-    async def report_decision_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_decision_async(
         self, **params: Unpack["CreditUnderwritingRecordReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
         """
@@ -881,7 +881,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_report_offer_acceptance")
-    def report_offer_acceptance(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_offer_acceptance(
         self,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"
@@ -955,7 +955,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_report_offer_acceptance_async")
-    async def report_offer_acceptance_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_offer_acceptance_async(
         self,
         **params: Unpack[
             "CreditUnderwritingRecordReportOfferAcceptanceParams"

@@ -48,11 +48,11 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     custom_fields: NotRequired[List["PaymentLinkCreateParamsCustomField"]]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: NotRequired["PaymentLinkCreateParamsCustomText"]
     """
-    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     """
     customer_creation: NotRequired["Literal['always', 'if_required']|str"]
     """
@@ -160,6 +160,7 @@ class PaymentLinkCreateParams(RequestOptions):
                     "rechnung",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -1178,6 +1179,10 @@ class PaymentLinkCreateParamsSubscriptionDataTrialSettings(TypedDict):
 class PaymentLinkCreateParamsSubscriptionDataTrialSettingsEndBehavior(
     TypedDict,
 ):
+    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str"]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """
     missing_payment_method: Union[
         Literal["cancel", "create_invoice", "pause"], str
     ]
@@ -1193,7 +1198,7 @@ class PaymentLinkCreateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired["Literal['if_supported', 'never']|str"]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
     """
 
 

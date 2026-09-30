@@ -159,6 +159,14 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.billing._contract_update_params import (
         ContractUpdateParams as ContractUpdateParams,
+        ContractUpdateParamsBillingSettings as ContractUpdateParamsBillingSettings,
+        ContractUpdateParamsBillingSettingsBillSettingsDetails as ContractUpdateParamsBillingSettingsBillSettingsDetails,
+        ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculation as ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculation,
+        ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculationTax as ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculationTax,
+        ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoice as ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoice,
+        ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue as ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue,
+        ContractUpdateParamsBillingSettingsBillingProfileDetails as ContractUpdateParamsBillingSettingsBillingProfileDetails,
+        ContractUpdateParamsBillingSettingsCollectionSettingsDetails as ContractUpdateParamsBillingSettingsCollectionSettingsDetails,
         ContractUpdateParamsOneTimeFeeAction as ContractUpdateParamsOneTimeFeeAction,
         ContractUpdateParamsOneTimeFeeActionAdd as ContractUpdateParamsOneTimeFeeActionAdd,
         ContractUpdateParamsOneTimeFeeActionAddBillAt as ContractUpdateParamsOneTimeFeeActionAddBillAt,
@@ -905,6 +913,38 @@ _import_map = {
         False,
     ),
     "ContractUpdateParams": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettings": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettingsBillSettingsDetails": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculation": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculationTax": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoice": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettingsBillingProfileDetails": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsBillingSettingsCollectionSettingsDetails": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -8,7 +9,7 @@ class NetworkTokenCreateParams(TypedDict):
     """
     Raw card values used to provision the network token.
     """
-    type: Literal["card"]
+    type: Union[Literal["card"], str]
     """
     Private preview supports card only.
     """
@@ -27,7 +28,7 @@ class NetworkTokenCreateParamsCard(TypedDict):
     """
     The card number.
     """
-    origin: NotRequired[Literal["card_on_file"]]
+    origin: NotRequired["Literal['card_on_file', 'wallet']|str"]
     """
     The optional origin attestation for the card.
     """

@@ -153,6 +153,7 @@ if TYPE_CHECKING:
     from stripe._tax_rate_service import TaxRateService
     from stripe._terminal_service import TerminalService
     from stripe._test_helpers_service import TestHelpersService
+    from stripe._three_d_secure_service import ThreeDSecureService
     from stripe._token_service import TokenService
     from stripe._topup_service import TopupService
     from stripe._transfer_service import TransferService
@@ -1399,6 +1400,17 @@ class StripeClient(object):
     )
     def test_helpers(self) -> "TestHelpersService":
         return self.v1.test_helpers
+
+    @property
+    @deprecated(
+        """
+        StripeClient.three_d_secure is deprecated, use StripeClient.v1.three_d_secure instead.
+          All functionality under it has been copied over to StripeClient.v1.three_d_secure.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def three_d_secure(self) -> "ThreeDSecureService":
+        return self.v1.three_d_secure
 
     @property
     @deprecated(

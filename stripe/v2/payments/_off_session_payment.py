@@ -233,10 +233,6 @@ class OffSessionPayment(StripeObject):
         """
         Indicates the strategy for how you want Stripe to retry the payment.
         """
-        retry_until: Optional[str]
-        """
-        The timestamp when this payment is no longer eligible to be retried. When this timestamp is reached, the payment will be marked as failed.
-        """
 
     class TransferData(StripeObject):
         amount: Optional[int]

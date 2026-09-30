@@ -196,7 +196,7 @@ class CustomerEvaluation(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CustomerEvaluationModifyParams"]
+        cls, id: str, /, **params: Unpack["CustomerEvaluationModifyParams"]
     ) -> "CustomerEvaluation":
         """
         Reports an event on a CustomerEvaluation object.
@@ -213,7 +213,7 @@ class CustomerEvaluation(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CustomerEvaluationModifyParams"]
+        cls, id: str, /, **params: Unpack["CustomerEvaluationModifyParams"]
     ) -> "CustomerEvaluation":
         """
         Reports an event on a CustomerEvaluation object.

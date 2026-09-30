@@ -137,6 +137,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsScalapay as SessionCreateParamsPaymentMethodOptionsScalapay,
         SessionCreateParamsPaymentMethodOptionsSepaDebit as SessionCreateParamsPaymentMethodOptionsSepaDebit,
         SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SessionCreateParamsPaymentMethodOptionsSequra as SessionCreateParamsPaymentMethodOptionsSequra,
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
         SessionCreateParamsPaymentMethodOptionsSunbit as SessionCreateParamsPaymentMethodOptionsSunbit,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
@@ -772,6 +773,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsSequra": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

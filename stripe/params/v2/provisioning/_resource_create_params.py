@@ -20,7 +20,8 @@ class ResourceCreateParams(TypedDict):
     """
     livemode: NotRequired[bool]
     """
-    Whether the resource should use Stripe live-mode objects. When omitted, this resolves to true.
+    Whether the resource should use Stripe live-mode objects. When omitted, this resolves to false
+    for a sandbox target and true otherwise. Sandbox targets cannot create live-mode resources.
     """
     name: NotRequired[str]
     """

@@ -8,6 +8,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ContractUpdateParams(TypedDict):
+    billing_settings: NotRequired["ContractUpdateParamsBillingSettings"]
+    """
+    The billing settings to update on the contract.
+    """
     include: NotRequired[
         List[
             Union[
@@ -47,6 +51,105 @@ class ContractUpdateParams(TypedDict):
     ]
     """
     Pricing override actions to apply.
+    """
+
+
+class ContractUpdateParamsBillingSettings(TypedDict):
+    bill_settings_details: NotRequired[
+        "ContractUpdateParamsBillingSettingsBillSettingsDetails"
+    ]
+    """
+    The bill settings to update (tax calculation type and/or invoice time until due).
+    """
+    billing_profile_details: NotRequired[
+        "ContractUpdateParamsBillingSettingsBillingProfileDetails"
+    ]
+    """
+    The billing profile details to update.
+    """
+    collection_settings_details: NotRequired[
+        "ContractUpdateParamsBillingSettingsCollectionSettingsDetails"
+    ]
+    """
+    The collection settings details to update on the contract.
+    """
+
+
+class ContractUpdateParamsBillingSettingsBillSettingsDetails(TypedDict):
+    calculation: NotRequired[
+        "ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculation"
+    ]
+    """
+    The tax calculation settings to update.
+    """
+    invoice: NotRequired[
+        "ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoice"
+    ]
+    """
+    The invoice settings to update.
+    """
+
+
+class ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculation(
+    TypedDict,
+):
+    tax: NotRequired[
+        "ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculationTax"
+    ]
+    """
+    Tax calculation settings.
+    """
+
+
+class ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculationTax(
+    TypedDict,
+):
+    type: Literal["automatic", "manual"]
+    """
+    The type of tax calculation.
+    """
+
+
+class ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoice(TypedDict):
+    time_until_due: NotRequired[
+        "ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue"
+    ]
+    """
+    How long the customer has to pay the invoice before it's past due.
+    """
+
+
+class ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    The interval unit.
+    """
+    interval_count: int
+    """
+    The number of intervals.
+    """
+
+
+class ContractUpdateParamsBillingSettingsBillingProfileDetails(TypedDict):
+    default_payment_method: NotRequired[str]
+    """
+    The default payment method to charge for the contract.
+    """
+
+
+class ContractUpdateParamsBillingSettingsCollectionSettingsDetails(TypedDict):
+    collection_method: NotRequired[
+        Literal["charge_automatically", "send_invoice"]
+    ]
+    """
+    How payment is collected for the contract. An omitted value leaves the
+    collection method unchanged.
+    """
+    payment_method_configuration: NotRequired[str]
+    """
+    The payment method configuration.
     """
 
 
@@ -295,9 +398,9 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride
 class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice(
     TypedDict,
 ):
-    unit_amount: NotRequired[str]
+    unit_amount: NotRequired[Decimal]
     """
-    The per-unit amount to be charged, represented as a decimal string in minor currency units.
+    The per-unit amount to be charged in minor currency units.
     """
 
 
@@ -506,9 +609,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice(
     TypedDict,
 ):
-    unit_amount: NotRequired[str]
+    unit_amount: NotRequired[Decimal]
     """
-    The per-unit amount to be charged, represented as a decimal string in minor currency units.
+    The per-unit amount to be charged in minor currency units.
     """
 
 

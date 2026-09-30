@@ -310,7 +310,7 @@ class InboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
@@ -370,7 +370,7 @@ class InboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["InboundTransferCancelParams"]
     ) -> "InboundTransfer":
         """
@@ -522,7 +522,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # pyright: ignore[reportGeneralTypeIssues]
+        def fail(
             self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
@@ -577,7 +577,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_fail_async")
-        async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def fail_async(
             self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
@@ -638,7 +638,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_return_inbound_transfer")
-        def return_inbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
+        def return_inbound_transfer(
             self,
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
@@ -700,7 +700,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_return_inbound_transfer_async")
-        async def return_inbound_transfer_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def return_inbound_transfer_async(
             self,
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
@@ -756,7 +756,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_succeed")
-        def succeed(  # pyright: ignore[reportGeneralTypeIssues]
+        def succeed(
             self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
@@ -811,7 +811,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_succeed_async")
-        async def succeed_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def succeed_async(
             self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """

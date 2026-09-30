@@ -268,7 +268,7 @@ class PaymentMethodDomain(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentMethodDomainModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentMethodDomainModifyParams"]
     ) -> "PaymentMethodDomain":
         """
         Updates an existing payment method domain.
@@ -285,7 +285,7 @@ class PaymentMethodDomain(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentMethodDomainModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentMethodDomainModifyParams"]
     ) -> "PaymentMethodDomain":
         """
         Updates an existing payment method domain.
@@ -380,7 +380,7 @@ class PaymentMethodDomain(
         ...
 
     @class_method_variant("_cls_validate")
-    def validate(  # pyright: ignore[reportGeneralTypeIssues]
+    def validate(
         self, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
@@ -460,7 +460,7 @@ class PaymentMethodDomain(
         ...
 
     @class_method_variant("_cls_validate_async")
-    async def validate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def validate_async(
         self, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """

@@ -182,9 +182,7 @@ class Meter(
         ...
 
     @class_method_variant("_cls_deactivate")
-    def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["MeterDeactivateParams"]
-    ) -> "Meter":
+    def deactivate(self, **params: Unpack["MeterDeactivateParams"]) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
@@ -237,7 +235,7 @@ class Meter(
         ...
 
     @class_method_variant("_cls_deactivate_async")
-    async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def deactivate_async(
         self, **params: Unpack["MeterDeactivateParams"]
     ) -> "Meter":
         """
@@ -293,7 +291,9 @@ class Meter(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["MeterModifyParams"]) -> "Meter":
+    def modify(
+        cls, id: str, /, **params: Unpack["MeterModifyParams"]
+    ) -> "Meter":
         """
         Updates a billing meter.
         """
@@ -309,7 +309,7 @@ class Meter(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["MeterModifyParams"]
+        cls, id: str, /, **params: Unpack["MeterModifyParams"]
     ) -> "Meter":
         """
         Updates a billing meter.
@@ -360,9 +360,7 @@ class Meter(
         ...
 
     @class_method_variant("_cls_reactivate")
-    def reactivate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["MeterReactivateParams"]
-    ) -> "Meter":
+    def reactivate(self, **params: Unpack["MeterReactivateParams"]) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
@@ -415,7 +413,7 @@ class Meter(
         ...
 
     @class_method_variant("_cls_reactivate_async")
-    async def reactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def reactivate_async(
         self, **params: Unpack["MeterReactivateParams"]
     ) -> "Meter":
         """

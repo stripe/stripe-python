@@ -119,10 +119,6 @@ class InboundTransfer(StripeObject):
         """
         A unique ID for the HistoryEntry.
         """
-        level: Union[Literal["canonical", "debug"], str]
-        """
-        Open Enum. The Level of the HistoryEntry.
-        """
         type: Union[
             Literal[
                 "bank_debit_failed",
@@ -175,6 +171,10 @@ class InboundTransfer(StripeObject):
     receipt_url: Optional[str]
     """
     A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    """
+    statement_descriptor: Optional[str]
+    """
+    The statement descriptor surfaced on the payer's bank statement. Echoes the submitted value.
     """
     to: To
     """

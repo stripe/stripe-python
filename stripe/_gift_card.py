@@ -102,7 +102,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_activate")
-    def activate(  # pyright: ignore[reportGeneralTypeIssues]
+    def activate(
         self, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
@@ -157,7 +157,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_activate_async")
-    async def activate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def activate_async(
         self, **params: Unpack["GiftCardActivateParams"]
     ) -> "GiftCardOperation":
         """
@@ -212,7 +212,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_cashout")
-    def cashout(  # pyright: ignore[reportGeneralTypeIssues]
+    def cashout(
         self, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
@@ -267,7 +267,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_cashout_async")
-    async def cashout_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cashout_async(
         self, **params: Unpack["GiftCardCashoutParams"]
     ) -> "GiftCardOperation":
         """
@@ -322,7 +322,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_check_balance")
-    def check_balance(  # pyright: ignore[reportGeneralTypeIssues]
+    def check_balance(
         self, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
@@ -377,7 +377,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_check_balance_async")
-    async def check_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def check_balance_async(
         self, **params: Unpack["GiftCardCheckBalanceParams"]
     ) -> "GiftCardOperation":
         """
@@ -462,7 +462,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_reload")
-    def reload(  # pyright: ignore[reportGeneralTypeIssues]
+    def reload(
         self, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
@@ -517,7 +517,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_reload_async")
-    async def reload_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def reload_async(
         self, **params: Unpack["GiftCardReloadParams"]
     ) -> "GiftCardOperation":
         """
@@ -594,7 +594,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_void_operation")
-    def void_operation(  # pyright: ignore[reportGeneralTypeIssues]
+    def void_operation(
         self, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """
@@ -649,7 +649,7 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
         ...
 
     @class_method_variant("_cls_void_operation_async")
-    async def void_operation_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def void_operation_async(
         self, **params: Unpack["GiftCardVoidOperationParams"]
     ) -> "GiftCardOperation":
         """

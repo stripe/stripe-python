@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -60,7 +60,11 @@ class NetworkToken(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    status: Literal["active", "deactivated", "suspended"]
+    origin: Union[Literal["card_on_file", "wallet"], str]
+    """
+    The origin of the resource used to provision this network token.
+    """
+    status: Union[Literal["active", "deactivated", "suspended"], str]
     """
     Closed Enum. The status of the network token.
     """
