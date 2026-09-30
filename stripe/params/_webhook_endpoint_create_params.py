@@ -136,6 +136,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "2026-06-24.dahlia",
             "2026-07-29.dahlia",
             "2026-08-26.dahlia",
+            "2026-09-30.endive",
         ]
     ]
     """
@@ -163,6 +164,9 @@ class WebhookEndpointCreateParams(RequestOptions):
             "application_fee.created",
             "application_fee.refund.updated",
             "application_fee.refunded",
+            "apps.install.created",
+            "apps.install.deleted",
+            "apps.install.updated",
             "balance.available",
             "balance_settings.updated",
             "billing.alert.triggered",

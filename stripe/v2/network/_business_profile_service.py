@@ -58,6 +58,7 @@ class BusinessProfileService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["BusinessProfileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BusinessProfile":
@@ -80,6 +81,7 @@ class BusinessProfileService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["BusinessProfileRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BusinessProfile":

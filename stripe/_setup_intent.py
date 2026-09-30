@@ -50,7 +50,7 @@ class SetupIntent(
     """
     A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
     For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-    Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+    Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
     Create a SetupIntent when you're ready to collect your customer's payment credentials.
     Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -61,9 +61,9 @@ class SetupIntent(
     For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
     [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
     to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-    If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+    If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
     it automatically attaches the resulting payment method to that Customer after successful setup.
-    We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+    We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
     PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
     By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -88,7 +88,7 @@ class SetupIntent(
     class LastSetupError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
@@ -149,6 +149,7 @@ class SetupIntent(
                     "customer_session_expired",
                     "customer_tax_location_invalid",
                     "debit_not_authorized",
+                    "dispute_evidence_page_limit_exceeded",
                     "email_invalid",
                     "expired_card",
                     "expired_payment_method",
@@ -159,6 +160,8 @@ class SetupIntent(
                     "financial_connections_account_inactive",
                     "financial_connections_account_pending_account_numbers",
                     "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_consent_locale_invalid",
+                    "financial_connections_consent_locale_unsupported",
                     "financial_connections_institution_unavailable",
                     "financial_connections_no_successful_transaction_refresh",
                     "forwarding_api_inactive",
@@ -213,6 +216,7 @@ class SetupIntent(
                     "parameter_missing",
                     "parameter_unknown",
                     "parameters_exclusive",
+                    "payment_evaluation_on_api_version_not_supported",
                     "payment_intent_action_required",
                     "payment_intent_authentication_failure",
                     "payment_intent_incompatible_payment_method",
@@ -368,7 +372,7 @@ class SetupIntent(
         """
         A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
         For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-        Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+        Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -379,9 +383,9 @@ class SetupIntent(
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
         [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
         to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-        If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+        If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
-        We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+        We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
         PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -606,6 +610,20 @@ class SetupIntent(
         class Bizum(StripeObject):
             pass
 
+        class Blik(StripeObject):
+            class MandateOptions(StripeObject):
+                expires_at: Optional[int]
+                """
+                Date at which the mandate expires.
+                """
+                type: Optional[Literal["off_session"]]
+                """
+                Type of the mandate.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Card(StripeObject):
             class MandateOptions(StripeObject):
                 amount: int
@@ -683,6 +701,12 @@ class SetupIntent(
             ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            """
+            setup_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            Set to indicate the future transaction type usage for the card being set up.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -953,6 +977,7 @@ class SetupIntent(
         amazon_pay: Optional[AmazonPay]
         bacs_debit: Optional[BacsDebit]
         bizum: Optional[Bizum]
+        blik: Optional[Blik]
         card: Optional[Card]
         card_present: Optional[CardPresent]
         klarna: Optional[Klarna]
@@ -968,6 +993,7 @@ class SetupIntent(
             "amazon_pay": AmazonPay,
             "bacs_debit": BacsDebit,
             "bizum": Bizum,
+            "blik": Blik,
             "card": Card,
             "card_present": CardPresent,
             "klarna": Klarna,
@@ -1006,6 +1032,7 @@ class SetupIntent(
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -1026,6 +1053,7 @@ class SetupIntent(
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -1195,6 +1223,7 @@ class SetupIntent(
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",
@@ -1305,7 +1334,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_cancel(
-        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1326,7 +1355,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def cancel(
-        intent: str, **params: Unpack["SetupIntentCancelParams"]
+        intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1347,7 +1376,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1368,7 +1397,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1389,7 +1418,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def cancel_async(
-        intent: str, **params: Unpack["SetupIntentCancelParams"]
+        intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1410,7 +1439,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1431,7 +1460,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_confirm(
-        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1463,7 +1492,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def confirm(
-        intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1506,7 +1535,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1538,7 +1567,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_confirm_async(
-        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1570,7 +1599,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def confirm_async(
-        intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1613,7 +1642,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm_async")
-    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_async(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1723,7 +1752,7 @@ class SetupIntent(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1740,7 +1769,7 @@ class SetupIntent(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1789,6 +1818,7 @@ class SetupIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
+        /,
         **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
@@ -1808,7 +1838,9 @@ class SetupIntent(
     @overload
     @staticmethod
     def verify_microdeposits(
-        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -1825,7 +1857,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
+    def verify_microdeposits(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
@@ -1846,6 +1878,7 @@ class SetupIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
@@ -1865,7 +1898,9 @@ class SetupIntent(
     @overload
     @staticmethod
     async def verify_microdeposits_async(
-        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -1882,7 +1917,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits_async")
-    async def verify_microdeposits_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def verify_microdeposits_async(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """

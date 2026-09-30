@@ -57,6 +57,7 @@ class FormService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FormRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Form":
@@ -77,6 +78,7 @@ class FormService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FormRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Form":
@@ -97,6 +99,7 @@ class FormService(StripeService):
     def pdf(
         self,
         id: str,
+        /,
         params: Optional["FormPdfParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Any":
@@ -117,6 +120,7 @@ class FormService(StripeService):
     async def pdf_async(
         self,
         id: str,
+        /,
         params: Optional["FormPdfParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Any":

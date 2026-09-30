@@ -24,7 +24,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
     """
     Invoice Payments represent payments made against invoices. Invoice Payments can
     be accessed in two ways:
-    1. By expanding the `payments` field on the [Invoice](https://api.stripe.com#invoice) resource.
+    1. By expanding the `payments` field on the [Invoice](https://docs.stripe.com/api#invoice) resource.
     2. By using the Invoice Payment retrieve and list endpoints.
 
     Invoice Payments include the mapping between payment objects, such as Payment Intent, and Invoices.
@@ -37,7 +37,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
     class Payment(StripeObject):
         charge: Optional[ExpandableField["Charge"]]
         """
-        ID of the successful charge for this payment when `type` is `charge`.Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
+        ID of the successful charge for this payment when `type` is `charge`. Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
         """
         payment_intent: Optional[ExpandableField["PaymentIntent"]]
         """

@@ -42,7 +42,7 @@ class Event(StripeObject):
         """
         Information on the API request that instigated the event.
         """
-        type: Literal["request"]
+        type: Union[Literal["request"], str]
         """
         Event reason type.
         """
@@ -75,6 +75,10 @@ class Event(StripeObject):
     reason: Optional[Reason]
     """
     Reason for the event.
+    """
+    snapshot_event: Optional[str]
+    """
+    For interop events, this is the snapshot event ID.
     """
     type: str
     """

@@ -32,7 +32,7 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
     """
     The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
     """
-    purpose: NotRequired[Literal["payroll"]]
+    purpose: NotRequired["Literal['payroll']|str"]
     """
     The purpose of the OutboundPayment.
     """

@@ -59,6 +59,7 @@ class ReceivedDebitService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ReceivedDebitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebit":
@@ -81,6 +82,7 @@ class ReceivedDebitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ReceivedDebitRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebit":

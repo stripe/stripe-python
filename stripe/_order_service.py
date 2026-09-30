@@ -96,6 +96,7 @@ class OrderService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Order":
@@ -116,6 +117,7 @@ class OrderService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Order":
@@ -136,6 +138,7 @@ class OrderService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["OrderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Order":
@@ -156,6 +159,7 @@ class OrderService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["OrderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Order":
@@ -176,6 +180,7 @@ class OrderService(StripeService):
     def submit(
         self,
         id: str,
+        /,
         params: "OrderSubmitParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Order":
@@ -196,6 +201,7 @@ class OrderService(StripeService):
     async def submit_async(
         self,
         id: str,
+        /,
         params: "OrderSubmitParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Order":

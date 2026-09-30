@@ -10,6 +10,8 @@ if TYPE_CHECKING:
         AccountActivityCreateParamsAccountDetailsData as AccountActivityCreateParamsAccountDetailsData,
         AccountActivityCreateParamsAccountDetailsDataDefaults as AccountActivityCreateParamsAccountDetailsDataDefaults,
         AccountActivityCreateParamsAccountDetailsDataDefaultsProfile as AccountActivityCreateParamsAccountDetailsDataDefaultsProfile,
+        AccountActivityCreateParamsAccountDetailsDataIdentity as AccountActivityCreateParamsAccountDetailsDataIdentity,
+        AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails as AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails,
         AccountActivityCreateParamsLoginAttempt as AccountActivityCreateParamsLoginAttempt,
         AccountActivityCreateParamsLoginAttemptClientDetails as AccountActivityCreateParamsLoginAttemptClientDetails,
         AccountActivityCreateParamsLoginAttemptClientDetailsData as AccountActivityCreateParamsLoginAttemptClientDetailsData,
@@ -39,6 +41,8 @@ if TYPE_CHECKING:
         AccountEvaluationCreateParamsAccountDetailsData as AccountEvaluationCreateParamsAccountDetailsData,
         AccountEvaluationCreateParamsAccountDetailsDataDefaults as AccountEvaluationCreateParamsAccountDetailsDataDefaults,
         AccountEvaluationCreateParamsAccountDetailsDataDefaultsProfile as AccountEvaluationCreateParamsAccountDetailsDataDefaultsProfile,
+        AccountEvaluationCreateParamsAccountDetailsDataIdentity as AccountEvaluationCreateParamsAccountDetailsDataIdentity,
+        AccountEvaluationCreateParamsAccountDetailsDataIdentityBusinessDetails as AccountEvaluationCreateParamsAccountDetailsDataIdentityBusinessDetails,
     )
     from stripe.params.v2.signals._account_evaluation_retrieve_params import (
         AccountEvaluationRetrieveParams as AccountEvaluationRetrieveParams,
@@ -70,6 +74,14 @@ _import_map = {
         False,
     ),
     "AccountActivityCreateParamsAccountDetailsDataDefaultsProfile": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsAccountDetailsDataIdentity": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails": (
         "stripe.params.v2.signals._account_activity_create_params",
         False,
     ),
@@ -162,6 +174,14 @@ _import_map = {
         False,
     ),
     "AccountEvaluationCreateParamsAccountDetailsDataDefaultsProfile": (
+        "stripe.params.v2.signals._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountDetailsDataIdentity": (
+        "stripe.params.v2.signals._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountDetailsDataIdentityBusinessDetails": (
         "stripe.params.v2.signals._account_evaluation_create_params",
         False,
     ),

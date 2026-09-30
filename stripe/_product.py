@@ -58,7 +58,7 @@ class Product(
     """
     Products describe the specific goods or services you offer to your customers.
     For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
-    They can be used in conjunction with [Prices](https://api.stripe.com#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
+    They can be used in conjunction with [Prices](https://docs.stripe.com/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
 
     Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription),
     [share a Payment Link](https://docs.stripe.com/payment-links),
@@ -95,7 +95,7 @@ class Product(
     class TaxDetails(StripeObject):
         performance_location: Optional[str]
         """
-        The performance location.
+        The ID of a tax location with type `performance`, representing where the performance takes place.
         """
         tax_code: Optional[str]
         """
@@ -219,7 +219,7 @@ class Product(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ProductDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -236,7 +236,9 @@ class Product(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["ProductDeleteParams"]) -> "Product":
+    def delete(
+        sid: str, /, **params: Unpack["ProductDeleteParams"]
+    ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
@@ -250,9 +252,7 @@ class Product(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ProductDeleteParams"]
-    ) -> "Product":
+    def delete(self, **params: Unpack["ProductDeleteParams"]) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
@@ -264,7 +264,7 @@ class Product(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ProductDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -282,7 +282,7 @@ class Product(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ProductDeleteParams"]
+        sid: str, /, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -299,7 +299,7 @@ class Product(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ProductDeleteParams"]
     ) -> "Product":
         """
@@ -353,7 +353,7 @@ class Product(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ProductModifyParams"]
+        cls, id: str, /, **params: Unpack["ProductModifyParams"]
     ) -> "Product":
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -370,7 +370,7 @@ class Product(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ProductModifyParams"]
+        cls, id: str, /, **params: Unpack["ProductModifyParams"]
     ) -> "Product":
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -450,6 +450,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductDeleteFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -471,6 +472,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductDeleteFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -492,6 +494,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductRetrieveFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -513,6 +516,7 @@ class Product(
         cls,
         product: str,
         id: str,
+        /,
         **params: Unpack["ProductRetrieveFeatureParams"],
     ) -> "ProductFeature":
         """
@@ -531,7 +535,7 @@ class Product(
 
     @classmethod
     def list_features(
-        cls, product: str, **params: Unpack["ProductListFeaturesParams"]
+        cls, product: str, /, **params: Unpack["ProductListFeaturesParams"]
     ) -> ListObject["ProductFeature"]:
         """
         Retrieve a list of features for a product
@@ -549,7 +553,7 @@ class Product(
 
     @classmethod
     async def list_features_async(
-        cls, product: str, **params: Unpack["ProductListFeaturesParams"]
+        cls, product: str, /, **params: Unpack["ProductListFeaturesParams"]
     ) -> ListObject["ProductFeature"]:
         """
         Retrieve a list of features for a product
@@ -567,7 +571,7 @@ class Product(
 
     @classmethod
     def create_feature(
-        cls, product: str, **params: Unpack["ProductCreateFeatureParams"]
+        cls, product: str, /, **params: Unpack["ProductCreateFeatureParams"]
     ) -> "ProductFeature":
         """
         Creates a product_feature, which represents a feature attachment to a product
@@ -585,7 +589,7 @@ class Product(
 
     @classmethod
     async def create_feature_async(
-        cls, product: str, **params: Unpack["ProductCreateFeatureParams"]
+        cls, product: str, /, **params: Unpack["ProductCreateFeatureParams"]
     ) -> "ProductFeature":
         """
         Creates a product_feature, which represents a feature attachment to a product

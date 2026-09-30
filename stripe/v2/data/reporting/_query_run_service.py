@@ -58,6 +58,7 @@ class QueryRunService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["QueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "QueryRun":
@@ -81,6 +82,7 @@ class QueryRunService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["QueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "QueryRun":

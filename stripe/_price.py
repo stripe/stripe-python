@@ -38,7 +38,7 @@ class Price(
 ):
     """
     Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.
-    [Products](https://api.stripe.com#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
+    [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
 
     For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
 
@@ -366,7 +366,9 @@ class Price(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["PriceModifyParams"]) -> "Price":
+    def modify(
+        cls, id: str, /, **params: Unpack["PriceModifyParams"]
+    ) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
         """
@@ -382,7 +384,7 @@ class Price(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PriceModifyParams"]
+        cls, id: str, /, **params: Unpack["PriceModifyParams"]
     ) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.

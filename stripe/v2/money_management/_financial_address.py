@@ -7,89 +7,43 @@ from typing_extensions import Literal
 
 class FinancialAddress(StripeObject):
     """
-    A Financial Address contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+    A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.money_management.financial_address"]] = (
         "v2.money_management.financial_address"
     )
 
-    class Credentials(StripeObject):
-        class GbBankAccount(StripeObject):
-            account_holder_name: str
-            """
-            The account holder name to be used during bank transference.
-            """
-            account_number: Optional[str]
-            """
-            The account number of the UK Bank Account.
-            """
-            last4: str
-            """
-            The last four digits of the UK Bank Account number. This will always be returned.
-            To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            """
-            sort_code: str
-            """
-            The sort code of the UK Bank Account.
-            """
-
-        class SepaBankAccount(StripeObject):
-            account_holder_name: str
-            """
-            The account holder name to be used during bank transfers.
-            """
-            bank_name: str
-            """
-            The name of the Bank.
-            """
-            bic: str
-            """
-            The BIC of the SEPA Bank Account.
-            """
-            country: str
-            """
-            The originating country of the SEPA Bank account.
-            """
-            iban: str
-            """
-            The IBAN of the SEPA Bank Account.
-            """
-            last4: str
-            """
-            The last four digits of the SEPA Bank Account number. This will always be returned.
-            To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            """
-
-        class UsBankAccount(StripeObject):
+    class BankAccount(StripeObject):
+        class Aba(StripeObject):
             class AccountHolderAddress(StripeObject):
                 city: str
                 """
-                The city of the address.
+                City.
                 """
                 country: str
                 """
-                The country of the address.
+                Country.
                 """
                 line1: str
                 """
-                The first line of the address.
+                Address line 1.
                 """
                 line2: str
                 """
-                The second line of the address.
+                Address line 2.
                 """
                 postal_code: str
                 """
-                The postal / zip code of the address.
+                Postal code.
                 """
                 state: str
                 """
-                The state of the address.
+                State or province.
                 """
                 town: str
                 """
-                The town of the address.
+                Town or suburb.
                 """
 
             account_holder_address: Optional[AccountHolderAddress]
@@ -102,72 +56,105 @@ class FinancialAddress(StripeObject):
             """
             account_number: Optional[str]
             """
-            The account number of the US Bank Account.
+            The full account number.
             """
             bank_name: Optional[str]
             """
-            The name of the Bank.
-            """
-            bic: Optional[str]
-            """
-            The BIC of the bank or financial institution.
+            The name of the bank.
             """
             last4: str
             """
-            The last four digits of the US Bank Account number. This will always be returned.
-            To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            The last four digits of the account number.
             """
             routing_number: str
             """
-            The routing number of the US Bank Account.
+            The ABA routing number.
             """
             _inner_class_types = {
                 "account_holder_address": AccountHolderAddress,
             }
 
-        gb_bank_account: Optional[GbBankAccount]
-        """
-        The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
-        """
-        sepa_bank_account: Optional[SepaBankAccount]
-        """
-        The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
-        """
-        type: Union[Literal["gb_bank_account", "us_bank_account"], str]
-        """
-        Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
-        """
-        us_bank_account: Optional[UsBankAccount]
-        """
-        The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
-        """
-        _inner_class_types = {
-            "gb_bank_account": GbBankAccount,
-            "sepa_bank_account": SepaBankAccount,
-            "us_bank_account": UsBankAccount,
-        }
+        class Iban(StripeObject):
+            account_holder_name: str
+            """
+            The name of the account holder.
+            """
+            bank_name: str
+            """
+            The name of the bank.
+            """
+            country: str
+            """
+            The country of the bank account.
+            """
+            iban: Optional[str]
+            """
+            The full IBAN.
+            """
+            last4: str
+            """
+            The last four digits of the IBAN.
+            """
 
+        class SortCode(StripeObject):
+            account_holder_name: str
+            """
+            The name of the account holder.
+            """
+            account_number: Optional[str]
+            """
+            The full account number.
+            """
+            last4: str
+            """
+            The last four digits of the account number.
+            """
+            sort_code: str
+            """
+            The sort code.
+            """
+
+        aba: Optional[Aba]
+        """
+        ABA bank account details (US).
+        """
+        country: Optional[str]
+        """
+        The country of the bank account.
+        """
+        currency: str
+        """
+        Open Enum. The currency of the bank account.
+        """
+        iban: Optional[Iban]
+        """
+        IBAN bank account details.
+        """
+        sort_code: Optional[SortCode]
+        """
+        Sort code bank account details (UK).
+        """
+        type: Union[Literal["aba", "iban", "sort_code"], str]
+        """
+        Open Enum. The type of bank account details.
+        """
+        _inner_class_types = {"aba": Aba, "iban": Iban, "sort_code": SortCode}
+
+    bank_account: Optional[BankAccount]
+    """
+    Bank account details for this FinancialAddress.
+    """
     created: str
     """
     The creation timestamp of the FinancialAddress.
     """
-    credentials: Optional[Credentials]
-    """
-    Object indicates the type of credentials that have been allocated and attached to the FinancialAddress.
-    It contains all necessary banking details with which to perform money movements with the FinancialAddress.
-    This field is only available for FinancialAddresses with an active status.
-    """
-    currency: str
-    """
-    Open Enum. The currency the FinancialAddress supports.
-    """
     financial_account: str
     """
-    A ID of the FinancialAccount this FinancialAddress corresponds to.
+    The ID of the FinancialAccount this FinancialAddress corresponds to.
     """
     id: str
     """
-    The ID of a FinancialAddress.
+    The ID of the FinancialAddress.
     """
     livemode: bool
     """
@@ -183,6 +170,10 @@ class FinancialAddress(StripeObject):
     """
     status: Literal["active", "archived", "failed", "pending"]
     """
-    Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
+    Closed Enum. The status of the FinancialAddress.
     """
-    _inner_class_types = {"credentials": Credentials}
+    type: Union[Literal["bank_account"], str]
+    """
+    Open Enum. The type of FinancialAddress.
+    """
+    _inner_class_types = {"bank_account": BankAccount}

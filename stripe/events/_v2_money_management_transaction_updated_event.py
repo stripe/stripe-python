@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
     from stripe._stripe_client import StripeClient
     from stripe.v2.money_management._transaction import Transaction
 
@@ -77,6 +80,41 @@ class V2MoneyManagementTransactionUpdatedEventNotification(EventNotification):
 class V2MoneyManagementTransactionUpdatedEvent(Event):
     LOOKUP_TYPE = "v2.money_management.transaction.updated"
     type: Literal["v2.money_management.transaction.updated"]
+
+    class V2MoneyManagementTransactionUpdatedEventData(StripeObject):
+        treasury_transaction: Optional[str]
+        """
+        Id of the v1 Treasury Transaction corresponding to this Transaction.
+        """
+
+    data: V2MoneyManagementTransactionUpdatedEventData
+    """
+    Data for the v2.money_management.transaction.updated event
+    """
+
+    @classmethod
+    def _construct_from(
+        cls,
+        *,
+        values: Dict[str, Any],
+        last_response: Optional[StripeResponse] = None,
+        requestor: "_APIRequestor",
+        api_mode: ApiMode,
+    ) -> "V2MoneyManagementTransactionUpdatedEvent":
+        evt = super()._construct_from(
+            values=values,
+            last_response=last_response,
+            requestor=requestor,
+            api_mode=api_mode,
+        )
+        if hasattr(evt, "data"):
+            evt.data = V2MoneyManagementTransactionUpdatedEvent.V2MoneyManagementTransactionUpdatedEventData._construct_from(
+                values=evt.data,
+                last_response=last_response,
+                requestor=requestor,
+                api_mode=api_mode,
+            )
+        return evt
 
     class RelatedObject(StripeObject):
         id: str

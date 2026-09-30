@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from stripe.v2.signals._account_signal_service import AccountSignalService
 
 _subservices = {
-    "account_activity": [
+    "account_activities": [
         "stripe.v2.signals._account_activity_service",
         "AccountActivityService",
     ],
@@ -30,7 +30,7 @@ _subservices = {
 
 
 class SignalsService(StripeService):
-    account_activity: "AccountActivityService"
+    account_activities: "AccountActivityService"
     account_evaluations: "AccountEvaluationService"
     account_signals: "AccountSignalService"
 

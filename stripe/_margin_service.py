@@ -95,6 +95,7 @@ class MarginService(StripeService):
     def retrieve(
         self,
         margin: str,
+        /,
         params: Optional["MarginRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Margin":
@@ -117,6 +118,7 @@ class MarginService(StripeService):
     async def retrieve_async(
         self,
         margin: str,
+        /,
         params: Optional["MarginRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Margin":
@@ -139,6 +141,7 @@ class MarginService(StripeService):
     def update(
         self,
         margin: str,
+        /,
         params: Optional["MarginUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Margin":
@@ -161,6 +164,7 @@ class MarginService(StripeService):
     async def update_async(
         self,
         margin: str,
+        /,
         params: Optional["MarginUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Margin":

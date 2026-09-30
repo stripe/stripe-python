@@ -19,10 +19,10 @@ if TYPE_CHECKING:
     from stripe._payout import Payout
     from stripe._refund import Refund
     from stripe._reserve_transaction import ReserveTransaction
-    from stripe._reversal import Reversal
     from stripe._tax_deducted_at_source import TaxDeductedAtSource
     from stripe._topup import Topup
     from stripe._transfer import Transfer
+    from stripe._transfer_reversal import TransferReversal
     from stripe.issuing._authorization import Authorization
     from stripe.issuing._dispute import Dispute as IssuingDisputeResource
     from stripe.issuing._transaction import Transaction
@@ -146,7 +146,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
                 "TaxDeductedAtSource",
                 "Topup",
                 "Transfer",
-                "Reversal",
+                "TransferReversal",
             ]
         ]
     ]
@@ -176,6 +176,8 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
             "issuing_authorization_hold",
             "issuing_authorization_release",
             "issuing_dispute",
+            "issuing_dispute_provisional_credit",
+            "issuing_dispute_provisional_credit_reversal",
             "issuing_transaction",
             "obligation_outbound",
             "obligation_reversal_inbound",
@@ -213,7 +215,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         str,
     ]
     """
-    Transaction type: `tax_fund`, `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `inbound_transfer`, `inbound_transfer_reversal`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `reserve_hold`, `reserve_release`, `stripe_fee`, `stripe_fx_fee`, `stripe_balance_payment_debit`, `stripe_balance_payment_debit_reversal`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, `transfer_refund`, or `fee_credit_funding`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
+    Transaction type: `tax_fund`, `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `inbound_transfer`, `inbound_transfer_reversal`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_dispute_provisional_credit`, `issuing_dispute_provisional_credit_reversal`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `reserve_hold`, `reserve_release`, `stripe_fee`, `stripe_fx_fee`, `stripe_balance_payment_debit`, `stripe_balance_payment_debit_reversal`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, `transfer_refund`, or `fee_credit_funding`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
     """
 
     @classmethod

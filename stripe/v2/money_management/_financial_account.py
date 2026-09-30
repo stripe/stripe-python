@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -64,10 +64,33 @@ class FinancialAccount(StripeObject):
         _inner_class_types = {"closed": Closed}
 
     class Storage(StripeObject):
+        class DepositInsuranceEligibility(StripeObject):
+            bank_name: Union[Literal["fifth_third"], str]
+            """
+            The bank where funds are stored.
+            """
+            currencies: List[str]
+            """
+            Currencies eligible for deposit insurance at this bank under this scheme.
+            """
+            type: Union[Literal["fdic", "fdic_passthrough"], str]
+            """
+            The deposit insurance scheme.
+            """
+
+        deposit_insurance_eligibility: Optional[
+            List[DepositInsuranceEligibility]
+        ]
+        """
+        Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+        """
         holds_currencies: List[str]
         """
         The currencies that this FinancialAccount can hold.
         """
+        _inner_class_types = {
+            "deposit_insurance_eligibility": DepositInsuranceEligibility,
+        }
 
     balance: Balance
     """

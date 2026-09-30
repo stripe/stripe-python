@@ -581,7 +581,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",
@@ -597,7 +597,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",

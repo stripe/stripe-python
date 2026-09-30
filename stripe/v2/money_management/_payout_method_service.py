@@ -68,6 +68,7 @@ class PayoutMethodService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":
@@ -90,6 +91,7 @@ class PayoutMethodService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":
@@ -112,6 +114,7 @@ class PayoutMethodService(StripeService):
     def archive(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":
@@ -135,6 +138,7 @@ class PayoutMethodService(StripeService):
     async def archive_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":
@@ -158,6 +162,7 @@ class PayoutMethodService(StripeService):
     def disable(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodDisableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":
@@ -182,6 +187,7 @@ class PayoutMethodService(StripeService):
     async def disable_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodDisableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":
@@ -206,6 +212,7 @@ class PayoutMethodService(StripeService):
     def unarchive(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":
@@ -228,6 +235,7 @@ class PayoutMethodService(StripeService):
     async def unarchive_async(
         self,
         id: str,
+        /,
         params: Optional["PayoutMethodUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PayoutMethod":

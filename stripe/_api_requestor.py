@@ -430,8 +430,6 @@ class _APIRequestor(object):
             )
         elif type == "controlled_by_alternate_resource":
             return error.ControlledByAlternateResourceError(**error_args)
-        elif type == "controlled_by_dashboard":
-            return error.ControlledByDashboardError(**error_args)
         elif type == "feature_not_enabled":
             return error.FeatureNotEnabledError(**error_args)
         elif type == "financial_account_not_open":
@@ -445,6 +443,11 @@ class _APIRequestor(object):
             )
         elif type == "invalid_payout_method":
             return error.InvalidPayoutMethodError(**error_args)
+        elif type == "invalid_vaulted_credential":
+            return error.InvalidVaultedCredentialError(
+                **error_args,
+                invalid_param=error_data.get("invalid_param"),
+            )
         elif type == "non_zero_balance":
             return error.NonZeroBalanceError(**error_args)
         elif type == "not_cancelable":
@@ -457,6 +460,21 @@ class _APIRequestor(object):
             return error.RecipientNotNotifiableError(**error_args)
         elif type == "temporary_session_expired":
             return error.TemporarySessionExpiredError(**error_args)
+        elif type == "verification_attempt_failed":
+            return error.VerificationAttemptFailedError(
+                **error_args,
+                verification_status=error_data.get("verification_status"),
+            )
+        elif type == "verification_expired":
+            return error.VerificationExpiredError(
+                **error_args,
+                verification_status=error_data.get("verification_status"),
+            )
+        elif type == "verification_not_initiated":
+            return error.VerificationNotInitiatedError(
+                **error_args,
+                verification_status=error_data.get("verification_status"),
+            )
         # switchCases: The end of the section generated from our OpenAPI spec
 
         return self.specific_v1_api_error(
@@ -554,6 +572,7 @@ class _APIRequestor(object):
         ("CODEX_CI", "codex_cli"),
         ("CURSOR_AGENT", "cursor"),
         ("GEMINI_CLI", "gemini_cli"),
+        ("HERMES_AGENT", "hermes"),
         ("OPENCLAW_SHELL", "openclaw"),
         ("OPENCODE", "open_code"),
         # aiAgents: The end of the section generated from our OpenAPI spec

@@ -103,6 +103,7 @@ class PaymentMethodConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
+        /,
         params: Optional["PaymentMethodConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethodConfiguration":
@@ -125,6 +126,7 @@ class PaymentMethodConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
+        /,
         params: Optional["PaymentMethodConfigurationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethodConfiguration":
@@ -147,6 +149,7 @@ class PaymentMethodConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
+        /,
         params: Optional["PaymentMethodConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethodConfiguration":
@@ -169,6 +172,7 @@ class PaymentMethodConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
+        /,
         params: Optional["PaymentMethodConfigurationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethodConfiguration":

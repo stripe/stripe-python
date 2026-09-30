@@ -24,6 +24,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "application": ("stripe._application", "Application"),
     "application_fee": ("stripe._application_fee", "ApplicationFee"),
     "fee_refund": ("stripe._application_fee_refund", "ApplicationFeeRefund"),
+    "apps.install": ("stripe.apps._install", "Install"),
     "apps.secret": ("stripe.apps._secret", "Secret"),
     "balance": ("stripe._balance", "Balance"),
     "balance_settings": ("stripe._balance_settings", "BalanceSettings"),
@@ -266,6 +267,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._quote_preview_subscription_schedule",
         "QuotePreviewSubscriptionSchedule",
     ),
+    "radar.billing_evaluation": (
+        "stripe.radar._billing_evaluation",
+        "BillingEvaluation",
+    ),
     "radar.early_fraud_warning": (
         "stripe.radar._early_fraud_warning",
         "EarlyFraudWarning",
@@ -289,7 +294,6 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._reserve_transaction",
         "ReserveTransaction",
     ),
-    "transfer_reversal": ("stripe._reversal", "Reversal"),
     "review": ("stripe._review", "Review"),
     "setup_attempt": ("stripe._setup_attempt", "SetupAttempt"),
     "setup_intent": ("stripe._setup_intent", "SetupIntent"),
@@ -362,9 +366,14 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.test_helpers._test_clock",
         "TestClock",
     ),
+    "three_d_secure.authentication": (
+        "stripe.three_d_secure._authentication",
+        "Authentication",
+    ),
     "token": ("stripe._token", "Token"),
     "topup": ("stripe._topup", "Topup"),
     "transfer": ("stripe._transfer", "Transfer"),
+    "transfer_reversal": ("stripe._transfer_reversal", "TransferReversal"),
     "treasury.credit_reversal": (
         "stripe.treasury._credit_reversal",
         "CreditReversal",
@@ -481,14 +490,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.extend._workflow_run",
         "WorkflowRun",
     ),
-    "financial_address_credit_simulation": (
-        "stripe.v2._financial_address_credit_simulation",
-        "FinancialAddressCreditSimulation",
-    ),
-    "financial_address_generated_microdeposits": (
-        "stripe.v2._financial_address_generated_microdeposits",
-        "FinancialAddressGeneratedMicrodeposits",
-    ),
     "v2.iam.activity_log": ("stripe.v2.iam._activity_log", "ActivityLog"),
     "v2.money_management.adjustment": (
         "stripe.v2.money_management._adjustment",
@@ -501,6 +502,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.financial_address": (
         "stripe.v2.money_management._financial_address",
         "FinancialAddress",
+    ),
+    "v2.money_management.financial_address_credit_simulation": (
+        "stripe.v2.money_management._financial_address_credit_simulation",
+        "FinancialAddressCreditSimulation",
+    ),
+    "v2.money_management.financial_address_generated_microdeposits": (
+        "stripe.v2.money_management._financial_address_generated_microdeposits",
+        "FinancialAddressGeneratedMicrodeposits",
     ),
     "v2.money_management.inbound_transfer": (
         "stripe.v2.money_management._inbound_transfer",

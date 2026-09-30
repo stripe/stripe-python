@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -40,18 +40,21 @@ class Adjustment(StripeObject):
         """
         If applicable, the ID of the ReceivedDebit linked to this Adjustment.
         """
-        type: Literal[
-            "adjustment",
-            "balance_exchange",
-            "inbound_payment",
-            "inbound_transfer",
-            "outbound_payment",
-            "outbound_transfer",
-            "received_credit",
-            "received_debit",
+        type: Union[
+            Literal[
+                "adjustment",
+                "balance_exchange",
+                "inbound_payment",
+                "inbound_transfer",
+                "outbound_payment",
+                "outbound_transfer",
+                "received_credit",
+                "received_debit",
+            ],
+            str,
         ]
         """
-        Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
+        Open Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
         """
 
     adjusted_flow: Optional[AdjustedFlow]

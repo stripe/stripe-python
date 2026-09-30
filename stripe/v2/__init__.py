@@ -18,7 +18,6 @@ if TYPE_CHECKING:
         network as network,
         orchestrated_commerce as orchestrated_commerce,
         signals as signals,
-        test_helpers as test_helpers,
     )
     from stripe.v2._billing_service import BillingService as BillingService
     from stripe.v2._commerce_service import CommerceService as CommerceService
@@ -26,12 +25,6 @@ if TYPE_CHECKING:
     from stripe.v2._data_service import DataService as DataService
     from stripe.v2._deleted_object import DeletedObject as DeletedObject
     from stripe.v2._extend_service import ExtendService as ExtendService
-    from stripe.v2._financial_address_credit_simulation import (
-        FinancialAddressCreditSimulation as FinancialAddressCreditSimulation,
-    )
-    from stripe.v2._financial_address_generated_microdeposits import (
-        FinancialAddressGeneratedMicrodeposits as FinancialAddressGeneratedMicrodeposits,
-    )
     from stripe.v2._iam_service import IamService as IamService
     from stripe.v2._money_management_service import (
         MoneyManagementService as MoneyManagementService,
@@ -41,9 +34,6 @@ if TYPE_CHECKING:
         OrchestratedCommerceService as OrchestratedCommerceService,
     )
     from stripe.v2._signals_service import SignalsService as SignalsService
-    from stripe.v2._test_helper_service import (
-        TestHelperService as TestHelperService,
-    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -57,21 +47,12 @@ _import_map = {
     "network": ("stripe.v2.network", True),
     "orchestrated_commerce": ("stripe.v2.orchestrated_commerce", True),
     "signals": ("stripe.v2.signals", True),
-    "test_helpers": ("stripe.v2.test_helpers", True),
     "BillingService": ("stripe.v2._billing_service", False),
     "CommerceService": ("stripe.v2._commerce_service", False),
     "CoreService": ("stripe.v2._core_service", False),
     "DataService": ("stripe.v2._data_service", False),
     "DeletedObject": ("stripe.v2._deleted_object", False),
     "ExtendService": ("stripe.v2._extend_service", False),
-    "FinancialAddressCreditSimulation": (
-        "stripe.v2._financial_address_credit_simulation",
-        False,
-    ),
-    "FinancialAddressGeneratedMicrodeposits": (
-        "stripe.v2._financial_address_generated_microdeposits",
-        False,
-    ),
     "IamService": ("stripe.v2._iam_service", False),
     "MoneyManagementService": ("stripe.v2._money_management_service", False),
     "NetworkService": ("stripe.v2._network_service", False),
@@ -80,7 +61,6 @@ _import_map = {
         False,
     ),
     "SignalsService": ("stripe.v2._signals_service", False),
-    "TestHelperService": ("stripe.v2._test_helper_service", False),
 }
 if not TYPE_CHECKING:
 

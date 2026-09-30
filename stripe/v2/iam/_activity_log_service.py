@@ -59,6 +59,7 @@ class ActivityLogService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ActivityLogRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ActivityLog":
@@ -79,6 +80,7 @@ class ActivityLogService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ActivityLogRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ActivityLog":

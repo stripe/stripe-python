@@ -41,6 +41,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._received_debit_service import (
         ReceivedDebitService,
     )
+    from stripe.v2.money_management._test_helpers_service import (
+        TestHelpersService,
+    )
     from stripe.v2.money_management._transaction_entry_service import (
         TransactionEntryService,
     )
@@ -97,6 +100,10 @@ _subservices = {
         "stripe.v2.money_management._received_debit_service",
         "ReceivedDebitService",
     ],
+    "test_helpers": [
+        "stripe.v2.money_management._test_helpers_service",
+        "TestHelpersService",
+    ],
     "transactions": [
         "stripe.v2.money_management._transaction_service",
         "TransactionService",
@@ -121,6 +128,7 @@ class MoneyManagementService(StripeService):
     payout_methods_bank_account_spec: "PayoutMethodsBankAccountSpecService"
     received_credits: "ReceivedCreditService"
     received_debits: "ReceivedDebitService"
+    test_helpers: "TestHelpersService"
     transactions: "TransactionService"
     transaction_entries: "TransactionEntryService"
 

@@ -42,11 +42,11 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     custom_fields: NotRequired[List["PaymentLinkCreateParamsCustomField"]]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: NotRequired["PaymentLinkCreateParamsCustomText"]
     """
-    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     """
     customer_creation: NotRequired["Literal['always', 'if_required']|str"]
     """
@@ -154,6 +154,7 @@ class PaymentLinkCreateParams(RequestOptions):
                     "rechnung",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -356,7 +357,7 @@ class PaymentLinkCreateParamsCustomFieldDropdownOption(TypedDict):
 class PaymentLinkCreateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """
@@ -1168,7 +1169,7 @@ class PaymentLinkCreateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired["Literal['if_supported', 'never']|str"]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
     """
 
 

@@ -37,11 +37,28 @@ class AccountActivity(StripeObject):
                 """
                 _inner_class_types = {"profile": Profile}
 
+            class Identity(StripeObject):
+                class BusinessDetails(StripeObject):
+                    registered_name: Optional[str]
+                    """
+                    Registered business name.
+                    """
+
+                business_details: BusinessDetails
+                """
+                Business details for identity data.
+                """
+                _inner_class_types = {"business_details": BusinessDetails}
+
             defaults: Optional[Defaults]
             """
             Default account settings.
             """
-            _inner_class_types = {"defaults": Defaults}
+            identity: Optional[Identity]
+            """
+            Identity data.
+            """
+            _inner_class_types = {"defaults": Defaults, "identity": Identity}
 
         account: Optional[str]
         """

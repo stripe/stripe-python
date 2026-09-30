@@ -112,6 +112,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             Literal[
                 "celtic_us_loan",
                 "fundbox_au_financing",
+                "fundbox_ca_financing",
                 "youlend_de_financing",
                 "youlend_fr_financing",
                 "youlend_uk_mca",
@@ -234,6 +235,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def _cls_mark_delivered(
         cls,
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -255,6 +257,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     def mark_delivered(
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -274,7 +277,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         ...
 
     @class_method_variant("_cls_mark_delivered")
-    def mark_delivered(  # pyright: ignore[reportGeneralTypeIssues]
+    def mark_delivered(
         self, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
@@ -296,6 +299,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     async def _cls_mark_delivered_async(
         cls,
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -317,6 +321,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     async def mark_delivered_async(
         financing_offer: str,
+        /,
         **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
@@ -336,7 +341,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         ...
 
     @class_method_variant("_cls_mark_delivered_async")
-    async def mark_delivered_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def mark_delivered_async(
         self, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """

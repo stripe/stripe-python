@@ -154,6 +154,7 @@ class CollectionSettingService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CollectionSettingRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CollectionSetting":
@@ -176,6 +177,7 @@ class CollectionSettingService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CollectionSettingRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CollectionSetting":
@@ -198,6 +200,7 @@ class CollectionSettingService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["CollectionSettingUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CollectionSetting":
@@ -229,6 +232,7 @@ class CollectionSettingService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["CollectionSettingUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CollectionSetting":

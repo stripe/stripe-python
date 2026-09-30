@@ -60,6 +60,7 @@ class OutboundPaymentQuoteService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentQuoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPaymentQuote":
@@ -82,6 +83,7 @@ class OutboundPaymentQuoteService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentQuoteRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPaymentQuote":

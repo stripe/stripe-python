@@ -20,6 +20,7 @@ class QuotePreviewSubscriptionScheduleService(StripeService):
     def list(
         self,
         quote: str,
+        /,
         params: Optional["QuotePreviewSubscriptionScheduleListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[QuotePreviewSubscriptionSchedule]":
@@ -42,6 +43,7 @@ class QuotePreviewSubscriptionScheduleService(StripeService):
     async def list_async(
         self,
         quote: str,
+        /,
         params: Optional["QuotePreviewSubscriptionScheduleListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[QuotePreviewSubscriptionSchedule]":

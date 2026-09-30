@@ -4,6 +4,12 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.radar._billing_evaluation import (
+        BillingEvaluation as BillingEvaluation,
+    )
+    from stripe.radar._billing_evaluation_service import (
+        BillingEvaluationService as BillingEvaluationService,
+    )
     from stripe.radar._early_fraud_warning import (
         EarlyFraudWarning as EarlyFraudWarning,
     )
@@ -27,6 +33,11 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "BillingEvaluation": ("stripe.radar._billing_evaluation", False),
+    "BillingEvaluationService": (
+        "stripe.radar._billing_evaluation_service",
+        False,
+    ),
     "EarlyFraudWarning": ("stripe.radar._early_fraud_warning", False),
     "EarlyFraudWarningService": (
         "stripe.radar._early_fraud_warning_service",

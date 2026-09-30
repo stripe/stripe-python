@@ -58,6 +58,7 @@ class GrantedTokenService(StripeService):
     def revoke(
         self,
         shared_payment_granted_token: str,
+        /,
         params: Optional["GrantedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GrantedToken":
@@ -82,6 +83,7 @@ class GrantedTokenService(StripeService):
     async def revoke_async(
         self,
         shared_payment_granted_token: str,
+        /,
         params: Optional["GrantedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GrantedToken":

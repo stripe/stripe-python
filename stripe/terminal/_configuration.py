@@ -610,7 +610,7 @@ class Configuration(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -628,7 +628,7 @@ class Configuration(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -645,7 +645,7 @@ class Configuration(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
@@ -659,7 +659,7 @@ class Configuration(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -677,7 +677,7 @@ class Configuration(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -694,7 +694,7 @@ class Configuration(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
@@ -748,7 +748,7 @@ class Configuration(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a new Configuration object.
@@ -765,7 +765,7 @@ class Configuration(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a new Configuration object.

@@ -83,7 +83,7 @@ class Reader(
         class ApiError(StripeObject):
             advice_code: Optional[str]
             """
-            For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+            For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
             """
             charge: Optional[str]
             """
@@ -144,6 +144,7 @@ class Reader(
                         "customer_session_expired",
                         "customer_tax_location_invalid",
                         "debit_not_authorized",
+                        "dispute_evidence_page_limit_exceeded",
                         "email_invalid",
                         "expired_card",
                         "expired_payment_method",
@@ -154,6 +155,8 @@ class Reader(
                         "financial_connections_account_inactive",
                         "financial_connections_account_pending_account_numbers",
                         "financial_connections_account_unavailable_account_numbers",
+                        "financial_connections_consent_locale_invalid",
+                        "financial_connections_consent_locale_unsupported",
                         "financial_connections_institution_unavailable",
                         "financial_connections_no_successful_transaction_refresh",
                         "forwarding_api_inactive",
@@ -208,6 +211,7 @@ class Reader(
                         "parameter_missing",
                         "parameter_unknown",
                         "parameters_exclusive",
+                        "payment_evaluation_on_api_version_not_supported",
                         "payment_intent_action_required",
                         "payment_intent_authentication_failure",
                         "payment_intent_incompatible_payment_method",
@@ -363,7 +367,7 @@ class Reader(
             """
             A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
             For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-            Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+            Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
             Create a SetupIntent when you're ready to collect your customer's payment credentials.
             Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -374,9 +378,9 @@ class Reader(
             For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
             [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
             to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-            If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+            If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
             it automatically attaches the resulting payment method to that Customer after successful setup.
-            We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+            We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
             PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
             By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -981,12 +985,12 @@ class Reader(
     """
     status: Optional[Union[Literal["offline", "online"], str]]
     """
-    The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
+    The networking status of the reader. This value is `null` for mobile readers. We do not recommend using this field in flows that may block taking payments.
     """
 
     @classmethod
     def _cls_cancel_action(
-        cls, reader: str, **params: Unpack["ReaderCancelActionParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1005,7 +1009,7 @@ class Reader(
     @overload
     @staticmethod
     def cancel_action(
-        reader: str, **params: Unpack["ReaderCancelActionParams"]
+        reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1022,7 +1026,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_cancel_action")
-    def cancel_action(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel_action(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
@@ -1041,7 +1045,7 @@ class Reader(
 
     @classmethod
     async def _cls_cancel_action_async(
-        cls, reader: str, **params: Unpack["ReaderCancelActionParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1060,7 +1064,7 @@ class Reader(
     @overload
     @staticmethod
     async def cancel_action_async(
-        reader: str, **params: Unpack["ReaderCancelActionParams"]
+        reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1077,7 +1081,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_cancel_action_async")
-    async def cancel_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_action_async(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
@@ -1096,7 +1100,7 @@ class Reader(
 
     @classmethod
     def _cls_collect_inputs(
-        cls, reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1115,7 +1119,7 @@ class Reader(
     @overload
     @staticmethod
     def collect_inputs(
-        reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1132,7 +1136,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_inputs")
-    def collect_inputs(  # pyright: ignore[reportGeneralTypeIssues]
+    def collect_inputs(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
@@ -1151,7 +1155,7 @@ class Reader(
 
     @classmethod
     async def _cls_collect_inputs_async(
-        cls, reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1170,7 +1174,7 @@ class Reader(
     @overload
     @staticmethod
     async def collect_inputs_async(
-        reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1187,7 +1191,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_inputs_async")
-    async def collect_inputs_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def collect_inputs_async(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
@@ -1206,7 +1210,10 @@ class Reader(
 
     @classmethod
     def _cls_collect_payment_method(
-        cls, reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderCollectPaymentMethodParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1225,7 +1232,7 @@ class Reader(
     @overload
     @staticmethod
     def collect_payment_method(
-        reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        reader: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1242,7 +1249,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_payment_method")
-    def collect_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+    def collect_payment_method(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
@@ -1261,7 +1268,10 @@ class Reader(
 
     @classmethod
     async def _cls_collect_payment_method_async(
-        cls, reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderCollectPaymentMethodParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1280,7 +1290,7 @@ class Reader(
     @overload
     @staticmethod
     async def collect_payment_method_async(
-        reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        reader: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1297,7 +1307,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_payment_method_async")
-    async def collect_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def collect_payment_method_async(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
@@ -1316,7 +1326,10 @@ class Reader(
 
     @classmethod
     def _cls_confirm_payment_intent(
-        cls, reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderConfirmPaymentIntentParams"],
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1335,7 +1348,7 @@ class Reader(
     @overload
     @staticmethod
     def confirm_payment_intent(
-        reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1352,7 +1365,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_confirm_payment_intent")
-    def confirm_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm_payment_intent(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1371,7 +1384,10 @@ class Reader(
 
     @classmethod
     async def _cls_confirm_payment_intent_async(
-        cls, reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderConfirmPaymentIntentParams"],
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1390,7 +1406,7 @@ class Reader(
     @overload
     @staticmethod
     async def confirm_payment_intent_async(
-        reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1407,7 +1423,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_confirm_payment_intent_async")
-    async def confirm_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_payment_intent_async(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1456,7 +1472,7 @@ class Reader(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ReaderDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1473,7 +1489,9 @@ class Reader(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["ReaderDeleteParams"]) -> "Reader":
+    def delete(
+        sid: str, /, **params: Unpack["ReaderDeleteParams"]
+    ) -> "Reader":
         """
         Deletes a Reader object.
         """
@@ -1487,9 +1505,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ReaderDeleteParams"]
-    ) -> "Reader":
+    def delete(self, **params: Unpack["ReaderDeleteParams"]) -> "Reader":
         """
         Deletes a Reader object.
         """
@@ -1501,7 +1517,7 @@ class Reader(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ReaderDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1519,7 +1535,7 @@ class Reader(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ReaderDeleteParams"]
+        sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1536,7 +1552,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
@@ -1590,7 +1606,7 @@ class Reader(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ReaderModifyParams"]
+        cls, id: str, /, **params: Unpack["ReaderModifyParams"]
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1607,7 +1623,7 @@ class Reader(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ReaderModifyParams"]
+        cls, id: str, /, **params: Unpack["ReaderModifyParams"]
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1624,7 +1640,10 @@ class Reader(
 
     @classmethod
     def _cls_process_payment_intent(
-        cls, reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderProcessPaymentIntentParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1643,7 +1662,7 @@ class Reader(
     @overload
     @staticmethod
     def process_payment_intent(
-        reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1660,7 +1679,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_payment_intent")
-    def process_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def process_payment_intent(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1679,7 +1698,10 @@ class Reader(
 
     @classmethod
     async def _cls_process_payment_intent_async(
-        cls, reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderProcessPaymentIntentParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1698,7 +1720,7 @@ class Reader(
     @overload
     @staticmethod
     async def process_payment_intent_async(
-        reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1715,7 +1737,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_payment_intent_async")
-    async def process_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def process_payment_intent_async(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1734,7 +1756,7 @@ class Reader(
 
     @classmethod
     def _cls_process_setup_intent(
-        cls, reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1753,7 +1775,7 @@ class Reader(
     @overload
     @staticmethod
     def process_setup_intent(
-        reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1770,7 +1792,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_setup_intent")
-    def process_setup_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def process_setup_intent(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
@@ -1789,7 +1811,7 @@ class Reader(
 
     @classmethod
     async def _cls_process_setup_intent_async(
-        cls, reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1808,7 +1830,7 @@ class Reader(
     @overload
     @staticmethod
     async def process_setup_intent_async(
-        reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1825,7 +1847,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_setup_intent_async")
-    async def process_setup_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def process_setup_intent_async(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
@@ -1844,7 +1866,7 @@ class Reader(
 
     @classmethod
     def _cls_refund_payment(
-        cls, reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1863,7 +1885,7 @@ class Reader(
     @overload
     @staticmethod
     def refund_payment(
-        reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1880,7 +1902,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_refund_payment")
-    def refund_payment(  # pyright: ignore[reportGeneralTypeIssues]
+    def refund_payment(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
@@ -1899,7 +1921,7 @@ class Reader(
 
     @classmethod
     async def _cls_refund_payment_async(
-        cls, reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1918,7 +1940,7 @@ class Reader(
     @overload
     @staticmethod
     async def refund_payment_async(
-        reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1935,7 +1957,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_refund_payment_async")
-    async def refund_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def refund_payment_async(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
@@ -1976,7 +1998,7 @@ class Reader(
 
     @classmethod
     def _cls_set_reader_display(
-        cls, reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        cls, reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -1995,7 +2017,7 @@ class Reader(
     @overload
     @staticmethod
     def set_reader_display(
-        reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2012,7 +2034,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_set_reader_display")
-    def set_reader_display(  # pyright: ignore[reportGeneralTypeIssues]
+    def set_reader_display(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
@@ -2031,7 +2053,7 @@ class Reader(
 
     @classmethod
     async def _cls_set_reader_display_async(
-        cls, reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        cls, reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2050,7 +2072,7 @@ class Reader(
     @overload
     @staticmethod
     async def set_reader_display_async(
-        reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2067,7 +2089,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_set_reader_display_async")
-    async def set_reader_display_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def set_reader_display_async(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
@@ -2091,6 +2113,7 @@ class Reader(
         def _cls_present_payment_method(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
@@ -2110,7 +2133,9 @@ class Reader(
         @overload
         @staticmethod
         def present_payment_method(
-            reader: str, **params: Unpack["ReaderPresentPaymentMethodParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -2127,7 +2152,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_present_payment_method")
-        def present_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+        def present_payment_method(
             self, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
@@ -2148,6 +2173,7 @@ class Reader(
         async def _cls_present_payment_method_async(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
@@ -2167,7 +2193,9 @@ class Reader(
         @overload
         @staticmethod
         async def present_payment_method_async(
-            reader: str, **params: Unpack["ReaderPresentPaymentMethodParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -2184,7 +2212,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_present_payment_method_async")
-        async def present_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def present_payment_method_async(
             self, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
@@ -2205,6 +2233,7 @@ class Reader(
         def _cls_succeed_input_collection(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2224,7 +2253,9 @@ class Reader(
         @overload
         @staticmethod
         def succeed_input_collection(
-            reader: str, **params: Unpack["ReaderSucceedInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to trigger a successful input collection on a simulated reader.
@@ -2241,7 +2272,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_succeed_input_collection")
-        def succeed_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+        def succeed_input_collection(
             self, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2262,6 +2293,7 @@ class Reader(
         async def _cls_succeed_input_collection_async(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2281,7 +2313,9 @@ class Reader(
         @overload
         @staticmethod
         async def succeed_input_collection_async(
-            reader: str, **params: Unpack["ReaderSucceedInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to trigger a successful input collection on a simulated reader.
@@ -2298,7 +2332,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_succeed_input_collection_async")
-        async def succeed_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def succeed_input_collection_async(
             self, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2319,6 +2353,7 @@ class Reader(
         def _cls_timeout_input_collection(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2338,7 +2373,9 @@ class Reader(
         @overload
         @staticmethod
         def timeout_input_collection(
-            reader: str, **params: Unpack["ReaderTimeoutInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to complete an input collection with a timeout error on a simulated reader.
@@ -2355,7 +2392,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_timeout_input_collection")
-        def timeout_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+        def timeout_input_collection(
             self, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2376,6 +2413,7 @@ class Reader(
         async def _cls_timeout_input_collection_async(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2395,7 +2433,9 @@ class Reader(
         @overload
         @staticmethod
         async def timeout_input_collection_async(
-            reader: str, **params: Unpack["ReaderTimeoutInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to complete an input collection with a timeout error on a simulated reader.
@@ -2412,7 +2452,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_timeout_input_collection_async")
-        async def timeout_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def timeout_input_collection_async(
             self, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """

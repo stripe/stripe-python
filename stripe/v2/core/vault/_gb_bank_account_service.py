@@ -109,6 +109,7 @@ class GbBankAccountService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["GbBankAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GbBankAccount":
@@ -131,6 +132,7 @@ class GbBankAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["GbBankAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GbBankAccount":
@@ -153,6 +155,7 @@ class GbBankAccountService(StripeService):
     def acknowledge_confirmation_of_payee(
         self,
         id: str,
+        /,
         params: Optional[
             "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
         ] = None,
@@ -180,6 +183,7 @@ class GbBankAccountService(StripeService):
     async def acknowledge_confirmation_of_payee_async(
         self,
         id: str,
+        /,
         params: Optional[
             "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
         ] = None,
@@ -207,6 +211,7 @@ class GbBankAccountService(StripeService):
     def archive(
         self,
         id: str,
+        /,
         params: Optional["GbBankAccountArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GbBankAccount":
@@ -230,6 +235,7 @@ class GbBankAccountService(StripeService):
     async def archive_async(
         self,
         id: str,
+        /,
         params: Optional["GbBankAccountArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GbBankAccount":
@@ -253,6 +259,7 @@ class GbBankAccountService(StripeService):
     def initiate_confirmation_of_payee(
         self,
         id: str,
+        /,
         params: Optional[
             "GbBankAccountInitiateConfirmationOfPayeeParams"
         ] = None,
@@ -280,6 +287,7 @@ class GbBankAccountService(StripeService):
     async def initiate_confirmation_of_payee_async(
         self,
         id: str,
+        /,
         params: Optional[
             "GbBankAccountInitiateConfirmationOfPayeeParams"
         ] = None,

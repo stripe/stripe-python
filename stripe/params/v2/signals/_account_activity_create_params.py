@@ -73,6 +73,12 @@ class AccountActivityCreateParamsAccountDetailsData(TypedDict):
     """
     Default account settings.
     """
+    identity: NotRequired[
+        "AccountActivityCreateParamsAccountDetailsDataIdentity"
+    ]
+    """
+    Identity data.
+    """
 
 
 class AccountActivityCreateParamsAccountDetailsDataDefaults(TypedDict):
@@ -94,6 +100,24 @@ class AccountActivityCreateParamsAccountDetailsDataDefaultsProfile(TypedDict):
     product_description: NotRequired[str]
     """
     Description of the account's product or service.
+    """
+
+
+class AccountActivityCreateParamsAccountDetailsDataIdentity(TypedDict):
+    business_details: (
+        "AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails"
+    )
+    """
+    Business details for identity data.
+    """
+
+
+class AccountActivityCreateParamsAccountDetailsDataIdentityBusinessDetails(
+    TypedDict,
+):
+    registered_name: NotRequired[str]
+    """
+    Registered business name.
     """
 
 

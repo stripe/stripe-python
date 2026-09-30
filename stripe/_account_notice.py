@@ -160,7 +160,7 @@ class AccountNotice(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["AccountNoticeModifyParams"]
+        cls, id: str, /, **params: Unpack["AccountNoticeModifyParams"]
     ) -> "AccountNotice":
         """
         Updates an AccountNotice object.
@@ -177,7 +177,7 @@ class AccountNotice(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["AccountNoticeModifyParams"]
+        cls, id: str, /, **params: Unpack["AccountNoticeModifyParams"]
     ) -> "AccountNotice":
         """
         Updates an AccountNotice object.

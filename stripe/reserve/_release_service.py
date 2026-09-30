@@ -57,6 +57,7 @@ class ReleaseService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ReleaseRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Release":
@@ -77,6 +78,7 @@ class ReleaseService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ReleaseRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Release":

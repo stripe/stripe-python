@@ -100,6 +100,7 @@ class DebitReversalService(StripeService):
     def retrieve(
         self,
         debit_reversal: str,
+        /,
         params: Optional["DebitReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DebitReversal":
@@ -122,6 +123,7 @@ class DebitReversalService(StripeService):
     async def retrieve_async(
         self,
         debit_reversal: str,
+        /,
         params: Optional["DebitReversalRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DebitReversal":

@@ -20,6 +20,7 @@ class RedactionJobValidationErrorService(StripeService):
     def list(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobValidationErrorListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RedactionJobValidationError]":
@@ -42,6 +43,7 @@ class RedactionJobValidationErrorService(StripeService):
     async def list_async(
         self,
         job: str,
+        /,
         params: Optional["RedactionJobValidationErrorListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RedactionJobValidationError]":

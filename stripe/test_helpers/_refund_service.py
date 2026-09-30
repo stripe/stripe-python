@@ -17,6 +17,7 @@ class RefundService(StripeService):
     def expire(
         self,
         refund: str,
+        /,
         params: Optional["RefundExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":
@@ -39,6 +40,7 @@ class RefundService(StripeService):
     async def expire_async(
         self,
         refund: str,
+        /,
         params: Optional["RefundExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Refund":

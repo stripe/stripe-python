@@ -6,15 +6,56 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.params.reserve._plan_list_params import PlanListParams
     from stripe.params.reserve._plan_retrieve_params import PlanRetrieveParams
     from stripe.reserve._plan import Plan
 
 
 class PlanService(StripeService):
+    def list(
+        self,
+        params: Optional["PlanListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Plan]":
+        """
+        Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+        """
+        return cast(
+            "ListObject[Plan]",
+            self._request(
+                "get",
+                "/v1/reserve/plans",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["PlanListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Plan]":
+        """
+        Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+        """
+        return cast(
+            "ListObject[Plan]",
+            await self._request_async(
+                "get",
+                "/v1/reserve/plans",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
@@ -35,6 +76,7 @@ class PlanService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":

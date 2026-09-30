@@ -112,6 +112,7 @@ class UsBankAccountService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -134,6 +135,7 @@ class UsBankAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -156,6 +158,7 @@ class UsBankAccountService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -178,6 +181,7 @@ class UsBankAccountService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -200,6 +204,7 @@ class UsBankAccountService(StripeService):
     def archive(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -224,6 +229,7 @@ class UsBankAccountService(StripeService):
     async def archive_async(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountArchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -248,6 +254,7 @@ class UsBankAccountService(StripeService):
     def confirm_microdeposits(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountConfirmMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -270,6 +277,7 @@ class UsBankAccountService(StripeService):
     async def confirm_microdeposits_async(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountConfirmMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -292,6 +300,7 @@ class UsBankAccountService(StripeService):
     def send_microdeposits(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountSendMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":
@@ -314,6 +323,7 @@ class UsBankAccountService(StripeService):
     async def send_microdeposits_async(
         self,
         id: str,
+        /,
         params: Optional["UsBankAccountSendMicrodepositsParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "UsBankAccount":

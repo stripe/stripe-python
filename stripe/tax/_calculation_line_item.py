@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class CalculationLineItem(StripeObject):
+    """
+    A Tax Calculation Line Item represents a single item in a tax calculation.
+    """
+
     OBJECT_NAME: ClassVar[Literal["tax.calculation_line_item"]] = (
         "tax.calculation_line_item"
     )
@@ -46,6 +50,7 @@ class CalculationLineItem(StripeObject):
                     "amusement_tax",
                     "attendance_tax",
                     "communications_tax",
+                    "digital_excise_tax",
                     "entertainment_tax",
                     "gross_receipts_tax",
                     "gst",
@@ -59,12 +64,14 @@ class CalculationLineItem(StripeObject):
                     "parking_tax",
                     "pst",
                     "qst",
+                    "recycling_fee",
                     "resort_tax",
                     "retail_delivery_fee",
                     "rst",
                     "sales_tax",
                     "service_tax",
                     "tourism_tax",
+                    "utility_users_tax",
                     "vat",
                 ],
                 str,

@@ -121,6 +121,7 @@ class TaxRate(
             Literal[
                 "amusement_tax",
                 "communications_tax",
+                "digital_excise_tax",
                 "gst",
                 "hst",
                 "igst",
@@ -134,6 +135,7 @@ class TaxRate(
                 "rst",
                 "sales_tax",
                 "service_tax",
+                "utility_users_tax",
                 "vat",
             ],
             str,
@@ -215,7 +217,7 @@ class TaxRate(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["TaxRateModifyParams"]
+        cls, id: str, /, **params: Unpack["TaxRateModifyParams"]
     ) -> "TaxRate":
         """
         Updates an existing tax rate.
@@ -232,7 +234,7 @@ class TaxRate(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TaxRateModifyParams"]
+        cls, id: str, /, **params: Unpack["TaxRateModifyParams"]
     ) -> "TaxRate":
         """
         Updates an existing tax rate.

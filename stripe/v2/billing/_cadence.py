@@ -179,7 +179,7 @@ class Cadence(StripeObject):
         """
         The ID of the Customer object.
         """
-        type: Literal["customer"]
+        type: Union[Literal["customer"], str]
         """
         A string identifying the type of the payer. Currently the only supported value is `customer`.
         """
@@ -391,7 +391,9 @@ class Cadence(StripeObject):
                     """
                     Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
                     """
-                    funding_type: Optional[Literal["bank_transfer"]]
+                    funding_type: Optional[
+                        Union[Literal["bank_transfer"], str]
+                    ]
                     """
                     The funding method type to be used when there are not enough funds in the customer balance. Currently the only supported value is `bank_transfer`.
                     """

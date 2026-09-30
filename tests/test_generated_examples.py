@@ -12958,7 +12958,7 @@ class TestGeneratedExamples(object):
                     "customer": "cus_xxxxxxxxxxxxx",
                 },
                 "permissions": ["payment_method", "balances"],
-                "filters": {"countries": ["US"]},
+                "filters": {"country": "US"},
             }
         )
         http_client_mock.assert_requested(
@@ -12966,7 +12966,7 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     def test_financial_connections_sessions_post_2(
@@ -12978,13 +12978,13 @@ class TestGeneratedExamples(object):
                 "customer": "cus_xxxxxxxxxxxxx",
             },
             permissions=["payment_method", "balances"],
-            filters={"countries": ["US"]},
+            filters={"country": "US"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     def test_financial_connections_sessions_post_2_service(
@@ -13006,7 +13006,7 @@ class TestGeneratedExamples(object):
                     "customer": "cus_xxxxxxxxxxxxx",
                 },
                 "permissions": ["payment_method", "balances"],
-                "filters": {"countries": ["US"]},
+                "filters": {"country": "US"},
             }
         )
         http_client_mock.assert_requested(
@@ -13014,7 +13014,7 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     @pytest.mark.anyio
@@ -13027,13 +13027,13 @@ class TestGeneratedExamples(object):
                 "customer": "cus_xxxxxxxxxxxxx",
             },
             permissions=["payment_method", "balances"],
-            filters={"countries": ["US"]},
+            filters={"country": "US"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/sessions",
             query_string="",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     @pytest.mark.anyio
@@ -13056,7 +13056,7 @@ class TestGeneratedExamples(object):
                     "customer": "cus_xxxxxxxxxxxxx",
                 },
                 "permissions": ["payment_method", "balances"],
-                "filters": {"countries": ["US"]},
+                "filters": {"country": "US"},
             }
         )
         http_client_mock.assert_requested(
@@ -13064,7 +13064,7 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[country]=US",
         )
 
     def test_financial_connections_transactions_get_service_non_namespaced(
@@ -44600,7 +44600,6 @@ class TestGeneratedExamples(object):
                             "fields": "eventually_due",
                             "future_requirements": "include",
                         },
-                        "configurations": ["merchant"],
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
@@ -44609,7 +44608,6 @@ class TestGeneratedExamples(object):
                             "fields": "eventually_due",
                             "future_requirements": "include",
                         },
-                        "configurations": ["merchant"],
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
@@ -44622,7 +44620,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_onboarding"}}',
+            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_onboarding"}}',
             is_json=True,
         )
 
@@ -45712,7 +45710,7 @@ class TestGeneratedExamples(object):
         client.v2.money_management.financial_addresses.create(
             {
                 "financial_account": "financial_account",
-                "type": "gb_bank_account",
+                "type": "bank_account",
             }
         )
         http_client_mock.assert_requested(
@@ -45720,7 +45718,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","type":"gb_bank_account"}',
+            post_data='{"financial_account":"financial_account","type":"bank_account"}',
             is_json=True,
         )
 
@@ -46375,6 +46373,55 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_money_management_test_helpers_financial_address_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/test_helpers/financial_addresses/id_123/credit",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.test_helpers.financial_addresses.credit(
+            "id_123",
+            {"amount": {"currency": "USD", "value": 96}, "network": "ach"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/test_helpers/financial_addresses/id_123/credit",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"amount":{"currency":"USD","value":96},"network":"ach"}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_test_helpers_financial_address_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/test_helpers/financial_addresses/id_123/generate_microdeposits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.test_helpers.financial_addresses.generate_microdeposits(
+            "id_123"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/test_helpers/financial_addresses/id_123/generate_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_money_management_transaction_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46610,21 +46657,21 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/signals/account_activity",
+            "/v2/signals/account_activities",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.signals.account_activity.create(
+        client.v2.signals.account_activities.create(
             {
                 "type": "registration_attempt",
             }
         )
         http_client_mock.assert_requested(
             "post",
-            path="/v2/signals/account_activity",
+            path="/v2/signals/account_activities",
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"type":"registration_attempt"}',
@@ -46636,17 +46683,17 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "delete",
-            "/v2/signals/account_activity/id_123",
+            "/v2/signals/account_activities/id_123",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.signals.account_activity.delete("id_123")
+        client.v2.signals.account_activities.delete("id_123")
         http_client_mock.assert_requested(
             "delete",
-            path="/v2/signals/account_activity/id_123",
+            path="/v2/signals/account_activities/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -46656,17 +46703,17 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "get",
-            "/v2/signals/account_activity/id_123",
+            "/v2/signals/account_activities/id_123",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.signals.account_activity.retrieve("id_123")
+        client.v2.signals.account_activities.retrieve("id_123")
         http_client_mock.assert_requested(
             "get",
-            path="/v2/signals/account_activity/id_123",
+            path="/v2/signals/account_activities/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -46696,9 +46743,14 @@ class TestGeneratedExamples(object):
                                 "product_description": "product_description",
                             },
                         },
+                        "identity": {
+                            "business_details": {
+                                "registered_name": "registered_name",
+                            },
+                        },
                     },
                 },
-                "requested_signals": ["user_account_sharing"],
+                "requested_signals": ["user_multi_accounting"],
             }
         )
         http_client_mock.assert_requested(
@@ -46706,7 +46758,7 @@ class TestGeneratedExamples(object):
             path="/v2/signals/account_evaluations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_details":{"account":"account","customer":"customer","data":{"defaults":{"profile":{"business_url":"business_url","doing_business_as":"doing_business_as","product_description":"product_description"}}}},"requested_signals":["user_account_sharing"]}',
+            post_data='{"account_details":{"account":"account","customer":"customer","data":{"defaults":{"profile":{"business_url":"business_url","doing_business_as":"doing_business_as","product_description":"product_description"}},"identity":{"business_details":{"registered_name":"registered_name"}}}},"requested_signals":["user_multi_accounting"]}',
             is_json=True,
         )
 
@@ -46775,55 +46827,6 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_test_helpers_financial_address_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/test_helpers/financial_addresses/id_123/credit",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.test_helpers.financial_addresses.credit(
-            "id_123",
-            {"amount": {"currency": "USD", "value": 96}, "network": "ach"},
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/test_helpers/financial_addresses/id_123/credit",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"network":"ach"}',
-            is_json=True,
-        )
-
-    def test_v2_test_helpers_financial_address_post_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/test_helpers/financial_addresses/id_123/generate_microdeposits",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.test_helpers.financial_addresses.generate_microdeposits(
-            "id_123",
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/test_helpers/financial_addresses/id_123/generate_microdeposits",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
     def test_already_canceled_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46887,8 +46890,8 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method"}}',
+            "/v2/core/vault/gb_bank_accounts",
+            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_gb_bank_account"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -46897,20 +46900,15 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.vault.us_bank_accounts.create(
-                {
-                    "account_number": "account_number",
-                    "currency": "usd",
-                }
-            )
+            client.v2.core.vault.gb_bank_accounts.create({"currency": "usd"})
         except _error.BlockedByStripeError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/vault/us_bank_accounts",
+            path="/v2/core/vault/gb_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number","currency":"usd"}',
+            post_data='{"currency":"usd"}',
             is_json=True,
         )
 
@@ -46919,8 +46917,8 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/vault/us_bank_accounts/id_123/archive",
-            rbody='{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
+            "/v2/core/vault/gb_bank_accounts",
+            rbody='{"error":{"type":"cannot_proceed","code":"default_gb_bank_account_cannot_be_archived"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -46929,15 +46927,15 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.vault.us_bank_accounts.archive("id_123")
+            client.v2.core.vault.gb_bank_accounts.create({"currency": "usd"})
         except _error.CannotProceedError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/vault/us_bank_accounts/id_123/archive",
+            path="/v2/core/vault/gb_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="{}",
+            post_data='{"currency":"usd"}',
             is_json=True,
         )
 
@@ -46946,8 +46944,8 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
-            rbody='{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
+            "/v2/core/vault/gb_bank_accounts/id_123/archive",
+            rbody='{"error":{"type":"controlled_by_alternate_resource","code":"gb_bank_account_cannot_be_archived"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -46956,41 +46954,12 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.vault.us_bank_accounts.confirm_microdeposits(
-                "id_123"
-            )
+            client.v2.core.vault.gb_bank_accounts.archive("id_123")
         except _error.ControlledByAlternateResourceError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_controlled_by_dashboard_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/vault/us_bank_accounts/id_123/archive",
-            rbody='{"error":{"type":"controlled_by_dashboard","code":"bank_account_cannot_be_archived"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.core.vault.us_bank_accounts.archive("id_123")
-        except _error.ControlledByDashboardError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/vault/us_bank_accounts/id_123/archive",
+            path="/v2/core/vault/gb_bank_accounts/id_123/archive",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -47046,7 +47015,7 @@ class TestGeneratedExamples(object):
             client.v2.money_management.financial_addresses.create(
                 {
                     "financial_account": "financial_account",
-                    "type": "gb_bank_account",
+                    "type": "bank_account",
                 }
             )
         except _error.FinancialAccountNotOpenError:
@@ -47056,7 +47025,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","type":"gb_bank_account"}',
+            post_data='{"financial_account":"financial_account","type":"bank_account"}',
             is_json=True,
         )
 
@@ -47155,6 +47124,33 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_invalid_vaulted_credential_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/gb_bank_accounts",
+            rbody='{"error":{"type":"invalid_vaulted_credential","code":"invalid_gb_bank_account"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.gb_bank_accounts.create({"currency": "usd"})
+        except _error.InvalidVaultedCredentialError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/gb_bank_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"currency":"usd"}',
+            is_json=True,
+        )
+
     def test_non_zero_balance_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47214,7 +47210,7 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/vault/us_bank_accounts",
+            "/v2/core/vault/gb_bank_accounts",
             rbody='{"error":{"type":"quota_exceeded","code":"archived_payout_method_card"}}',
             rcode=400,
         )
@@ -47224,20 +47220,15 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.vault.us_bank_accounts.create(
-                {
-                    "account_number": "account_number",
-                    "currency": "usd",
-                }
-            )
+            client.v2.core.vault.gb_bank_accounts.create({"currency": "usd"})
         except _error.QuotaExceededError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/vault/us_bank_accounts",
+            path="/v2/core/vault/gb_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number","currency":"usd"}',
+            post_data='{"currency":"usd"}',
             is_json=True,
         )
 
@@ -47335,5 +47326,92 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://meter-events.stripe.com",
             post_data='{"events":[{"event_name":"event_name","payload":{"key":"payload"}}]}',
+            is_json=True,
+        )
+
+    def test_verification_attempt_failed_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+            rbody='{"error":{"type":"verification_attempt_failed","code":"us_bank_account_confirm_microdeposits_failure"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.us_bank_accounts.confirm_microdeposits(
+                "id_123"
+            )
+        except _error.VerificationAttemptFailedError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_verification_expired_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+            rbody='{"error":{"type":"verification_expired","code":"us_bank_account_microdeposits_timed_out"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.us_bank_accounts.confirm_microdeposits(
+                "id_123"
+            )
+        except _error.VerificationExpiredError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_verification_not_initiated_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+            rbody='{"error":{"type":"verification_not_initiated","code":"us_bank_account_microdeposits_not_sent_before_confirming"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.us_bank_accounts.confirm_microdeposits(
+                "id_123"
+            )
+        except _error.VerificationNotInitiatedError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
             is_json=True,
         )

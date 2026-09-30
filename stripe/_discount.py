@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class Discount(StripeObject):
     """
-    A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+    A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
     It contains information about when the discount began, when it will end, and what it is applied to.
 
     Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -26,7 +26,7 @@ class Discount(StripeObject):
         """
         The coupon that was redeemed to create this discount.
         """
-        type: Literal["coupon"]
+        type: Union[Literal["coupon"], str]
         """
         The source type of the discount.
         """

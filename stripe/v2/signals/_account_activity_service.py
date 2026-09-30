@@ -33,7 +33,7 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             self._request(
                 "post",
-                "/v2/signals/account_activity",
+                "/v2/signals/account_activities",
                 base_address="api",
                 params=params,
                 options=options,
@@ -52,7 +52,7 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             await self._request_async(
                 "post",
-                "/v2/signals/account_activity",
+                "/v2/signals/account_activities",
                 base_address="api",
                 params=params,
                 options=options,
@@ -62,6 +62,7 @@ class AccountActivityService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -72,7 +73,9 @@ class AccountActivityService(StripeService):
             "DeletedObject",
             self._request(
                 "delete",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -82,6 +85,7 @@ class AccountActivityService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -92,7 +96,9 @@ class AccountActivityService(StripeService):
             "DeletedObject",
             await self._request_async(
                 "delete",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -102,6 +108,7 @@ class AccountActivityService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountActivity":
@@ -112,7 +119,9 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             self._request(
                 "get",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -122,6 +131,7 @@ class AccountActivityService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AccountActivityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountActivity":
@@ -132,7 +142,9 @@ class AccountActivityService(StripeService):
             "AccountActivity",
             await self._request_async(
                 "get",
-                "/v2/signals/account_activity/{id}".format(id=sanitize_id(id)),
+                "/v2/signals/account_activities/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

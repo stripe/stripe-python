@@ -1440,6 +1440,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             _inner_class_types = {"generated_from": GeneratedFrom}
 
+        class Sequra(StripeObject):
+            pass
+
         class Shopeepay(StripeObject):
             pass
 
@@ -1644,6 +1647,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
@@ -1706,6 +1710,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "satispay",
                 "scalapay",
                 "sepa_debit",
+                "sequra",
                 "shopeepay",
                 "sofort",
                 "stripe_balance",
@@ -1781,6 +1786,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,

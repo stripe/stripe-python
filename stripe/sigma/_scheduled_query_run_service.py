@@ -59,11 +59,12 @@ class ScheduledQueryRunService(StripeService):
     def retrieve(
         self,
         scheduled_query_run: str,
+        /,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ScheduledQueryRun":
         """
-        Retrieves the details of an scheduled query run.
+        Retrieves the details of a scheduled query run.
         """
         return cast(
             "ScheduledQueryRun",
@@ -81,11 +82,12 @@ class ScheduledQueryRunService(StripeService):
     async def retrieve_async(
         self,
         scheduled_query_run: str,
+        /,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ScheduledQueryRun":
         """
-        Retrieves the details of an scheduled query run.
+        Retrieves the details of a scheduled query run.
         """
         return cast(
             "ScheduledQueryRun",

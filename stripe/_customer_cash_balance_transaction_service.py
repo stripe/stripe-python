@@ -23,6 +23,7 @@ class CustomerCashBalanceTransactionService(StripeService):
     def list(
         self,
         customer: str,
+        /,
         params: Optional["CustomerCashBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerCashBalanceTransaction]":
@@ -45,6 +46,7 @@ class CustomerCashBalanceTransactionService(StripeService):
     async def list_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerCashBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerCashBalanceTransaction]":
@@ -68,6 +70,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
+        /,
         params: Optional[
             "CustomerCashBalanceTransactionRetrieveParams"
         ] = None,
@@ -94,6 +97,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
+        /,
         params: Optional[
             "CustomerCashBalanceTransactionRetrieveParams"
         ] = None,

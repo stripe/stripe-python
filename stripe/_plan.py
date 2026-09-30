@@ -28,10 +28,10 @@ class Plan(
     UpdateableAPIResource["Plan"],
 ):
     """
-    You can now model subscriptions more flexibly using the [Prices API](https://api.stripe.com#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
 
     Plans define the base price, currency, and billing cycle for recurring purchases of products.
-    [Products](https://api.stripe.com#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+    [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
 
     For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
 
@@ -193,7 +193,7 @@ class Plan(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["PlanDeleteParams"]
+        cls, sid: str, /, **params: Unpack["PlanDeleteParams"]
     ) -> "Plan":
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
@@ -210,7 +210,7 @@ class Plan(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["PlanDeleteParams"]) -> "Plan":
+    def delete(sid: str, /, **params: Unpack["PlanDeleteParams"]) -> "Plan":
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
@@ -224,9 +224,7 @@ class Plan(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PlanDeleteParams"]
-    ) -> "Plan":
+    def delete(self, **params: Unpack["PlanDeleteParams"]) -> "Plan":
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
@@ -238,7 +236,7 @@ class Plan(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["PlanDeleteParams"]
+        cls, sid: str, /, **params: Unpack["PlanDeleteParams"]
     ) -> "Plan":
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
@@ -256,7 +254,7 @@ class Plan(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["PlanDeleteParams"]
+        sid: str, /, **params: Unpack["PlanDeleteParams"]
     ) -> "Plan":
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
@@ -273,7 +271,7 @@ class Plan(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["PlanDeleteParams"]
     ) -> "Plan":
         """
@@ -324,7 +322,9 @@ class Plan(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["PlanModifyParams"]) -> "Plan":
+    def modify(
+        cls, id: str, /, **params: Unpack["PlanModifyParams"]
+    ) -> "Plan":
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
@@ -340,7 +340,7 @@ class Plan(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PlanModifyParams"]
+        cls, id: str, /, **params: Unpack["PlanModifyParams"]
     ) -> "Plan":
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.

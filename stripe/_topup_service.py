@@ -96,6 +96,7 @@ class TopupService(StripeService):
     def retrieve(
         self,
         topup: str,
+        /,
         params: Optional["TopupRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Topup":
@@ -116,6 +117,7 @@ class TopupService(StripeService):
     async def retrieve_async(
         self,
         topup: str,
+        /,
         params: Optional["TopupRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Topup":
@@ -136,6 +138,7 @@ class TopupService(StripeService):
     def update(
         self,
         topup: str,
+        /,
         params: Optional["TopupUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Topup":
@@ -156,6 +159,7 @@ class TopupService(StripeService):
     async def update_async(
         self,
         topup: str,
+        /,
         params: Optional["TopupUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Topup":
@@ -176,6 +180,7 @@ class TopupService(StripeService):
     def cancel(
         self,
         topup: str,
+        /,
         params: Optional["TopupCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Topup":
@@ -196,6 +201,7 @@ class TopupService(StripeService):
     async def cancel_async(
         self,
         topup: str,
+        /,
         params: Optional["TopupCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Topup":

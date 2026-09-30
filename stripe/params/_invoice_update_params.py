@@ -110,7 +110,7 @@ class InvoiceUpdateParams(TypedDict):
     """
     rendering: NotRequired["InvoiceUpdateParamsRendering"]
     """
-    The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
+    The rendering-related settings that control how invoices render in customer-facing interfaces such as the PDF or hosted invoice page.
     """
     shipping_cost: NotRequired["Literal['']|InvoiceUpdateParamsShippingCost"]
     """
@@ -376,7 +376,74 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact(
 
 
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillie(TypedDict):
-    pass
+    company_details: NotRequired[
+        "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails"
+    ]
+    """
+    Registration details about the buyer's organization.
+    """
+    reference: NotRequired[str]
+    """
+    An identifier or reference that this payment corresponds to.
+    """
+
+
+class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetails(
+    TypedDict,
+):
+    registered_address: NotRequired[
+        "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress"
+    ]
+    """
+    The address the company or entity is registered with.
+    """
+    registered_name: NotRequired[str]
+    """
+    Company or entity name.
+    """
+    registration_number: NotRequired[str]
+    """
+    The official registration number for the given registration type.
+    """
+    registration_type: NotRequired[
+        "Literal['']|Literal['ch_ein', 'de_hrb', 'dk_cvr', 'es_cif', 'fi_tunnus', 'fr_siren', 'fr_siret', 'it_rea', 'nl_kvk', 'no_org_number', 'no_pno', 'se_org_number', 'se_pno', 'uk_crn']|str"
+    ]
+    """
+    Type of registration the company or entity holds in their registered country.
+    """
+    vat: NotRequired[str]
+    """
+    VAT ID number.
+    """
+
+
+class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBillieCompanyDetailsRegisteredAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code.
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1 (for example, street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (for example, apartment, suite, unit, or building).
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
 
 
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik(TypedDict):
