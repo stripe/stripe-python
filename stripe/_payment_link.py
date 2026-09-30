@@ -141,7 +141,7 @@ class PaymentLink(
         class Label(StripeObject):
             custom: Optional[str]
             """
-            Custom text for the label, displayed to the customer. Up to 50 characters.
+            Custom text for the label, displayed to the customer. Up to 100 characters.
             """
             type: Literal["custom"]
             """
@@ -823,7 +823,7 @@ class PaymentLink(
     """
     custom_fields: List[CustomField]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: CustomText
     customer_creation: Union[Literal["always", "if_required"], str]
@@ -916,11 +916,13 @@ class PaymentLink(
                     "pay_by_bank",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "sofort",
                     "sunbit",
                     "swish",

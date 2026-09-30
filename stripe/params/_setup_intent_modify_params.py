@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class SetupIntentModifyParams(RequestOptions):
     allowed_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boku_promptpay', 'boleto', 'capchase_pay', 'card', 'cashapp', 'check_scan', 'click_to_pay', 'crypto', 'customer_balance', 'demo_pay', 'duitnow', 'dummy_auth_push', 'dummy_passthrough_card', 'edenred', 'eps', 'fpx', 'gcash', 'getbalance', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'knet', 'konbini', 'kr_card', 'kr_market', 'kriya', 'link', 'mb_way', 'mobilepay', 'momo', 'mondu', 'multibanco', 'naver_pay', 'netbanking', 'ng_bank', 'ng_bank_transfer', 'ng_card', 'ng_market', 'ng_ussd', 'ng_wallet', 'nz_bank_account', 'octopus', 'oxxo', 'p24', 'paper_check', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shop_pay', 'shopeepay', 'sofort', 'south_korea_market', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'test_pay', 'touch_n_go', 'truemoney', 'twint', 'upi', 'us_bank_account', 'us_cash_voucher', 'vipps', 'wechat_pay', 'wero', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boku_promptpay', 'boleto', 'capchase_pay', 'card', 'card_present', 'cashapp', 'check_scan', 'click_to_pay', 'crypto', 'customer_balance', 'demo_pay', 'duitnow', 'dummy_auth_push', 'dummy_passthrough_card', 'edenred', 'eps', 'fpx', 'gcash', 'getbalance', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'interac_present', 'kakao_pay', 'klarna', 'knet', 'konbini', 'kr_card', 'kr_market', 'kriya', 'link', 'mb_way', 'mobilepay', 'momo', 'mondu', 'multibanco', 'naver_pay', 'netbanking', 'ng_bank', 'ng_bank_transfer', 'ng_card', 'ng_market', 'ng_ussd', 'ng_wallet', 'nz_bank_account', 'octopus', 'oxxo', 'p24', 'paper_check', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shop_pay', 'shopeepay', 'sofort', 'south_korea_market', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'test_pay', 'touch_n_go', 'truemoney', 'twint', 'upi', 'us_bank_account', 'us_cash_voucher', 'vipps', 'wechat_pay', 'wero', 'zip'], str]]"
     ]
     """
     The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
@@ -36,7 +36,7 @@ class SetupIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -80,10 +80,6 @@ class SetupIntentModifyParams(RequestOptions):
     """
     Payment method-specific configuration for this SetupIntent.
     """
-    payment_method_types: NotRequired[List[str]]
-    """
-    The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    """
 
 
 class SetupIntentModifyParamsPaymentMethodData(TypedDict):
@@ -115,13 +111,13 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["SetupIntentModifyParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "SetupIntentModifyParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "SetupIntentModifyParamsPaymentMethodDataAuBecsDebit"
@@ -277,6 +273,10 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["SetupIntentModifyParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["SetupIntentModifyParamsPaymentMethodDataPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -320,6 +320,10 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+    """
+    sequra: NotRequired["SetupIntentModifyParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
     sofort: NotRequired["SetupIntentModifyParamsPaymentMethodDataSofort"]
     """
@@ -376,6 +380,7 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -384,6 +389,7 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -744,6 +750,10 @@ class SetupIntentModifyParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class SetupIntentModifyParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
 class SetupIntentModifyParamsPaymentMethodDataPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -795,6 +805,10 @@ class SetupIntentModifyParamsPaymentMethodDataSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class SetupIntentModifyParamsPaymentMethodDataSequra(TypedDict):
+    pass
 
 
 class SetupIntentModifyParamsPaymentMethodDataSofort(TypedDict):
@@ -897,6 +911,10 @@ class SetupIntentModifyParamsPaymentMethodOptions(TypedDict):
     bizum: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsBizum"]
     """
     If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
+    blik: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsBlik"]
+    """
+    If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     """
     card: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsCard"]
     """
@@ -1020,6 +1038,26 @@ class SetupIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(
 
 class SetupIntentModifyParamsPaymentMethodOptionsBizum(TypedDict):
     pass
+
+
+class SetupIntentModifyParamsPaymentMethodOptionsBlik(TypedDict):
+    code: NotRequired[str]
+    """
+    The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+    """
+    mandate_options: NotRequired[
+        "SetupIntentModifyParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+
+
+class SetupIntentModifyParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
+    """
 
 
 class SetupIntentModifyParamsPaymentMethodOptionsCard(TypedDict):

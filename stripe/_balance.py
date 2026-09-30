@@ -256,7 +256,7 @@ class Balance(SingletonAPIResource["Balance"]):
 
     available: List[Available]
     """
-    Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://api.stripe.com#transfers) or [Payouts API](https://api.stripe.com#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
+    Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://docs.stripe.com/api#transfers) or [Payouts API](https://docs.stripe.com/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     """
     connect_reserved: Optional[List[ConnectReserved]]
     """

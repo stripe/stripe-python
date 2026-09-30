@@ -235,6 +235,10 @@ class CalculationCreateParamsLineItem(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
     product: NotRequired[str]
     """
     If provided, the product's `tax_code` will be used as the line item's `tax_code`.

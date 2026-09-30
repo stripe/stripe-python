@@ -105,14 +105,14 @@ class ConfigurationModifyParamsBbposWiseposE(TypedDict):
 class ConfigurationModifyParamsCellular(TypedDict):
     enabled: bool
     """
-    Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+    Determines whether to allow the reader to connect to a cellular network.
     """
 
 
 class ConfigurationModifyParamsOffline(TypedDict):
     enabled: bool
     """
-    Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+    Determines whether to allow transactions to be collected while reader is offline.
     """
 
 

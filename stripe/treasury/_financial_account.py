@@ -92,7 +92,7 @@ class FinancialAccount(
         ABA Records contain U.S. bank account details per the ABA format.
         """
         supported_networks: Optional[
-            List[Union[Literal["ach", "us_domestic_wire"], str]]
+            List[Union[Literal["ach", "rtp", "us_domestic_wire"], str]]
         ]
         """
         The list of networks that the address supports

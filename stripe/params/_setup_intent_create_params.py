@@ -27,6 +27,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -47,6 +48,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -195,6 +197,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
@@ -203,6 +206,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "sofort",
                     "sunbit",
                     "swish",
@@ -263,10 +267,6 @@ class SetupIntentCreateParams(RequestOptions):
     ]
     """
     Payment method-specific configuration for this SetupIntent.
-    """
-    payment_method_types: NotRequired[List[str]]
-    """
-    The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
     return_url: NotRequired[str]
     """
@@ -375,13 +375,13 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["SetupIntentCreateParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "SetupIntentCreateParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "SetupIntentCreateParamsPaymentMethodDataAuBecsDebit"
@@ -537,6 +537,10 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["SetupIntentCreateParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["SetupIntentCreateParamsPaymentMethodDataPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -580,6 +584,10 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+    """
+    sequra: NotRequired["SetupIntentCreateParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
     sofort: NotRequired["SetupIntentCreateParamsPaymentMethodDataSofort"]
     """
@@ -636,6 +644,7 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -644,6 +653,7 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -1004,6 +1014,10 @@ class SetupIntentCreateParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class SetupIntentCreateParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
 class SetupIntentCreateParamsPaymentMethodDataPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -1055,6 +1069,10 @@ class SetupIntentCreateParamsPaymentMethodDataSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class SetupIntentCreateParamsPaymentMethodDataSequra(TypedDict):
+    pass
 
 
 class SetupIntentCreateParamsPaymentMethodDataSofort(TypedDict):
@@ -1157,6 +1175,10 @@ class SetupIntentCreateParamsPaymentMethodOptions(TypedDict):
     bizum: NotRequired["SetupIntentCreateParamsPaymentMethodOptionsBizum"]
     """
     If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
+    blik: NotRequired["SetupIntentCreateParamsPaymentMethodOptionsBlik"]
+    """
+    If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     """
     card: NotRequired["SetupIntentCreateParamsPaymentMethodOptionsCard"]
     """
@@ -1280,6 +1302,26 @@ class SetupIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(
 
 class SetupIntentCreateParamsPaymentMethodOptionsBizum(TypedDict):
     pass
+
+
+class SetupIntentCreateParamsPaymentMethodOptionsBlik(TypedDict):
+    code: NotRequired[str]
+    """
+    The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+    """
+    mandate_options: NotRequired[
+        "SetupIntentCreateParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+
+
+class SetupIntentCreateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
+    """
 
 
 class SetupIntentCreateParamsPaymentMethodOptionsCard(TypedDict):

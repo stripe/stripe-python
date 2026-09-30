@@ -35,6 +35,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesCardPayments as AccountCreateParamsConfigurationMerchantCapabilitiesCardPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesCartesBancairesPayments as AccountCreateParamsConfigurationMerchantCapabilitiesCartesBancairesPayments,
@@ -63,8 +64,10 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSequraPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSequraPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments,
@@ -78,6 +81,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptor as AccountCreateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountCreateParamsConfigurationMerchantSepaDebitPayments as AccountCreateParamsConfigurationMerchantSepaDebitPayments,
         AccountCreateParamsConfigurationMerchantStatementDescriptor as AccountCreateParamsConfigurationMerchantStatementDescriptor,
         AccountCreateParamsConfigurationMerchantSupport as AccountCreateParamsConfigurationMerchantSupport,
         AccountCreateParamsConfigurationMerchantSupportAddress as AccountCreateParamsConfigurationMerchantSupportAddress,
@@ -248,6 +252,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesBacsDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBacsDebitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBancontactPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBancontactPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesCardPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesCardPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesCartesBancairesPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesCartesBancairesPayments,
@@ -276,8 +281,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesPromptpayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesPromptpayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesRevolutPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesRevolutPayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments,
@@ -291,6 +298,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountUpdateParamsConfigurationMerchantSepaDebitPayments as AccountUpdateParamsConfigurationMerchantSepaDebitPayments,
         AccountUpdateParamsConfigurationMerchantStatementDescriptor as AccountUpdateParamsConfigurationMerchantStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantSupport as AccountUpdateParamsConfigurationMerchantSupport,
         AccountUpdateParamsConfigurationMerchantSupportAddress as AccountUpdateParamsConfigurationMerchantSupportAddress,
@@ -507,6 +515,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -619,11 +631,19 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSequraPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -676,6 +696,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantSepaDebitPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1308,6 +1332,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1420,11 +1448,19 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSequraPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1477,6 +1513,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantSepaDebitPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

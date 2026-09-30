@@ -64,10 +64,6 @@ class Session(CreateableAPIResource["Session"]):
         """
         Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         """
-        countries: Optional[List[str]]
-        """
-        List of countries from which to filter accounts.
-        """
         country: Optional[str]
         """
         Country from which to filter accounts.

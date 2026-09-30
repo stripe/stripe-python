@@ -71,13 +71,13 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit"
@@ -249,6 +249,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -298,6 +302,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+    """
+    sequra: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
     sofort: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSofort"]
     """
@@ -354,6 +362,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -362,6 +371,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -726,6 +736,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -777,6 +791,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataSequra(TypedDict):
+    pass
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataSofort(TypedDict):

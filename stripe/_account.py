@@ -189,6 +189,10 @@ class Account(
         """
         Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
         """
+        specified_commercial_transactions_act_url: Optional[str]
+        """
+        A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+        """
         support_address: Optional[SupportAddress]
         """
         A publicly available mailing address for sending support issues to.
@@ -293,6 +297,12 @@ class Account(
         ]
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
+        """
+        blik_recurring_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
         """
         boleto_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
@@ -486,6 +496,12 @@ class Account(
         """
         The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
         """
+        paypay_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+        """
         payto_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]
@@ -539,6 +555,12 @@ class Account(
         ]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
+        """
+        sequra_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
         """
         sofort_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
@@ -812,7 +834,7 @@ class Account(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
                 details: Optional[str]
                 """
@@ -824,7 +846,7 @@ class Account(
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
 
             document: Document
@@ -1030,8 +1052,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1211,8 +1235,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1538,6 +1564,53 @@ class Account(
             """
             _inner_class_types = {"schedule": Schedule}
 
+        class PaypayPayments(StripeObject):
+            class Site(StripeObject):
+                class Accessible(StripeObject):
+                    pass
+
+                class InDevelopment(StripeObject):
+                    password_provided: Optional[bool]
+                    """
+                    Field to indicate that the website password has been provided.
+                    """
+                    username: Optional[str]
+                    """
+                    The username needed to access your business's website.
+                    """
+
+                class Restricted(StripeObject):
+                    payment_flow_file: Optional[str]
+                    """
+                    File explaining the payment flow for your business.
+                    """
+
+                accessible: Optional[Accessible]
+                in_development: Optional[InDevelopment]
+                restricted: Optional[Restricted]
+                type: Optional[
+                    Literal["accessible", "in_development", "restricted"]
+                ]
+                """
+                The status of your business's website.
+                """
+                _inner_class_types = {
+                    "accessible": Accessible,
+                    "in_development": InDevelopment,
+                    "restricted": Restricted,
+                }
+
+            additional_files: Optional[List[str]]
+            """
+            Additional files that are required to support the onboarding process of your business.
+            """
+            goods_type: Optional[Literal["digital_content", "other"]]
+            """
+            The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+            """
+            site: Optional[Site]
+            _inner_class_types = {"site": Site}
+
         class SepaDebitPayments(StripeObject):
             creditor_id: Optional[str]
             """
@@ -1570,6 +1643,7 @@ class Account(
         invoices: Optional[Invoices]
         payments: Payments
         payouts: Optional[Payouts]
+        paypay_payments: Optional[PaypayPayments]
         sepa_debit_payments: Optional[SepaDebitPayments]
         treasury: Optional[Treasury]
         _inner_class_types = {
@@ -1581,6 +1655,7 @@ class Account(
             "invoices": Invoices,
             "payments": Payments,
             "payouts": Payouts,
+            "paypay_payments": PaypayPayments,
             "sepa_debit_payments": SepaDebitPayments,
             "treasury": Treasury,
         }

@@ -285,21 +285,32 @@ class Transaction(APIResource["Transaction"]):
                 """
                 tax_type: Union[
                     Literal[
+                        "admissions_tax",
                         "amusement_tax",
+                        "attendance_tax",
                         "communications_tax",
+                        "digital_excise_tax",
+                        "entertainment_tax",
+                        "gross_receipts_tax",
                         "gst",
+                        "hospitality_tax",
                         "hst",
                         "igst",
                         "jct",
                         "lease_tax",
+                        "luxury_tax",
                         "mass_transit_parking_tax",
                         "parking_tax",
                         "pst",
                         "qst",
+                        "recycling_fee",
+                        "resort_tax",
                         "retail_delivery_fee",
                         "rst",
                         "sales_tax",
                         "service_tax",
+                        "tourism_tax",
+                        "utility_users_tax",
                         "vat",
                     ],
                     str,
@@ -313,7 +324,9 @@ class Transaction(APIResource["Transaction"]):
             The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
             jurisdiction: Jurisdiction
-            sourcing: Union[Literal["destination", "origin"], str]
+            sourcing: Union[
+                Literal["destination", "origin", "performance"], str
+            ]
             """
             Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
             """

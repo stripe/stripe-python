@@ -297,7 +297,7 @@ class Customer(
 
     address: Optional[Address]
     """
-    The customer's address.
+    The customer's billing address.
     """
     balance: Optional[int]
     """
