@@ -61,6 +61,7 @@ class FinancingTransactionService(StripeService):
     def retrieve(
         self,
         financing_transaction: str,
+        /,
         params: Optional["FinancingTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingTransaction":
@@ -83,6 +84,7 @@ class FinancingTransactionService(StripeService):
     async def retrieve_async(
         self,
         financing_transaction: str,
+        /,
         params: Optional["FinancingTransactionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingTransaction":

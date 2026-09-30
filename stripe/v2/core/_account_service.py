@@ -160,6 +160,7 @@ class AccountService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -180,6 +181,7 @@ class AccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -200,6 +202,7 @@ class AccountService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -231,6 +234,7 @@ class AccountService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -262,6 +266,7 @@ class AccountService(StripeService):
     def close(
         self,
         id: str,
+        /,
         params: Optional["AccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -282,6 +287,7 @@ class AccountService(StripeService):
     async def close_async(
         self,
         id: str,
+        /,
         params: Optional["AccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":

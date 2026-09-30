@@ -95,6 +95,7 @@ class TaxRateService(StripeService):
     def retrieve(
         self,
         tax_rate: str,
+        /,
         params: Optional["TaxRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxRate":
@@ -117,6 +118,7 @@ class TaxRateService(StripeService):
     async def retrieve_async(
         self,
         tax_rate: str,
+        /,
         params: Optional["TaxRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxRate":
@@ -139,6 +141,7 @@ class TaxRateService(StripeService):
     def update(
         self,
         tax_rate: str,
+        /,
         params: Optional["TaxRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxRate":
@@ -161,6 +164,7 @@ class TaxRateService(StripeService):
     async def update_async(
         self,
         tax_rate: str,
+        /,
         params: Optional["TaxRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxRate":

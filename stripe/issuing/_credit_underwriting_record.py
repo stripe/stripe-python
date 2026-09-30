@@ -454,6 +454,7 @@ class CreditUnderwritingRecord(
     def _cls_correct(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -476,6 +477,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     def correct(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -493,7 +495,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_correct")
-    def correct(  # pyright: ignore[reportGeneralTypeIssues]
+    def correct(
         self, **params: Unpack["CreditUnderwritingRecordCorrectParams"]
     ) -> "CreditUnderwritingRecord":
         """
@@ -516,6 +518,7 @@ class CreditUnderwritingRecord(
     async def _cls_correct_async(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -538,6 +541,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     async def correct_async(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordCorrectParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -555,7 +559,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_correct_async")
-    async def correct_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def correct_async(
         self, **params: Unpack["CreditUnderwritingRecordCorrectParams"]
     ) -> "CreditUnderwritingRecord":
         """
@@ -694,6 +698,7 @@ class CreditUnderwritingRecord(
     def _cls_report_decision(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -716,6 +721,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     def report_decision(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -733,7 +739,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_report_decision")
-    def report_decision(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_decision(
         self, **params: Unpack["CreditUnderwritingRecordReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
         """
@@ -756,6 +762,7 @@ class CreditUnderwritingRecord(
     async def _cls_report_decision_async(
         cls,
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -778,6 +785,7 @@ class CreditUnderwritingRecord(
     @staticmethod
     async def report_decision_async(
         credit_underwriting_record: str,
+        /,
         **params: Unpack["CreditUnderwritingRecordReportDecisionParams"],
     ) -> "CreditUnderwritingRecord":
         """
@@ -795,7 +803,7 @@ class CreditUnderwritingRecord(
         ...
 
     @class_method_variant("_cls_report_decision_async")
-    async def report_decision_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_decision_async(
         self, **params: Unpack["CreditUnderwritingRecordReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
         """

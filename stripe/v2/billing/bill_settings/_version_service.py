@@ -21,6 +21,7 @@ class VersionService(StripeService):
     def list(
         self,
         bill_setting_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[BillSettingVersion]":
@@ -43,6 +44,7 @@ class VersionService(StripeService):
     async def list_async(
         self,
         bill_setting_id: str,
+        /,
         params: Optional["VersionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[BillSettingVersion]":
@@ -66,6 +68,7 @@ class VersionService(StripeService):
         self,
         bill_setting_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BillSettingVersion":
@@ -90,6 +93,7 @@ class VersionService(StripeService):
         self,
         bill_setting_id: str,
         id: str,
+        /,
         params: Optional["VersionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "BillSettingVersion":

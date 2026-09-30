@@ -44,11 +44,28 @@ class AccountEvaluation(StripeObject):
                 """
                 _inner_class_types = {"profile": Profile}
 
+            class Identity(StripeObject):
+                class BusinessDetails(StripeObject):
+                    registered_name: Optional[str]
+                    """
+                    Registered business name.
+                    """
+
+                business_details: BusinessDetails
+                """
+                Business details for identity data.
+                """
+                _inner_class_types = {"business_details": BusinessDetails}
+
             defaults: Optional[Defaults]
             """
             Default account settings.
             """
-            _inner_class_types = {"defaults": Defaults}
+            identity: Optional[Identity]
+            """
+            Identity data.
+            """
+            _inner_class_types = {"defaults": Defaults, "identity": Identity}
 
         account: Optional[str]
         """
@@ -65,6 +82,26 @@ class AccountEvaluation(StripeObject):
         _inner_class_types = {"data": Data}
 
     class EvaluatedSignals(StripeObject):
+        class FraudulentWebsite(StripeObject):
+            details: Optional[str]
+            """
+            Human-readable details about the fraudulent website evaluation, when available.
+            """
+            evaluated_at: Optional[str]
+            """
+            Timestamp at which the signal was evaluated.
+            """
+            risk_level: Literal[
+                "elevated", "highest", "low", "normal", "unknown"
+            ]
+            """
+            Categorical assessment of the fraudulent website risk.
+            """
+            signal: Optional[str]
+            """
+            The account signal ID containing the full fraudulent website signal result.
+            """
+
         class UserAccountSharing(StripeObject):
             evaluated_at: Optional[str]
             """
@@ -107,6 +144,10 @@ class AccountEvaluation(StripeObject):
             """
             _field_encodings = {"score": "decimal_string"}
 
+        fraudulent_website: Optional[FraudulentWebsite]
+        """
+        Fraudulent website result for the evaluation, when available.
+        """
         user_account_sharing: Optional[UserAccountSharing]
         """
         User account-sharing result for the evaluation, when available.
@@ -116,6 +157,7 @@ class AccountEvaluation(StripeObject):
         User multi-accounting result for the evaluation, when available.
         """
         _inner_class_types = {
+            "fraudulent_website": FraudulentWebsite,
             "user_account_sharing": UserAccountSharing,
             "user_multi_accounting": UserMultiAccounting,
         }
@@ -149,13 +191,27 @@ class AccountEvaluation(StripeObject):
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
     pending_signals: List[
-        Union[Literal["user_account_sharing", "user_multi_accounting"], str]
+        Union[
+            Literal[
+                "fraudulent_website",
+                "user_account_sharing",
+                "user_multi_accounting",
+            ],
+            str,
+        ]
     ]
     """
     List of signals still pending evaluation.
     """
     requested_signals: List[
-        Union[Literal["user_account_sharing", "user_multi_accounting"], str]
+        Union[
+            Literal[
+                "fraudulent_website",
+                "user_account_sharing",
+                "user_multi_accounting",
+            ],
+            str,
+        ]
     ]
     """
     List of signals requested for evaluation.

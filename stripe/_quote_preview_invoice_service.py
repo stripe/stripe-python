@@ -18,6 +18,7 @@ class QuotePreviewInvoiceService(StripeService):
     def list(
         self,
         quote: str,
+        /,
         params: Optional["QuotePreviewInvoiceListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[QuotePreviewInvoice]":
@@ -40,6 +41,7 @@ class QuotePreviewInvoiceService(StripeService):
     async def list_async(
         self,
         quote: str,
+        /,
         params: Optional["QuotePreviewInvoiceListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[QuotePreviewInvoice]":

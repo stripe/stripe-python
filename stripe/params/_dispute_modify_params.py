@@ -43,6 +43,10 @@ class DisputeModifyParamsEvidence(TypedDict):
     """
     Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity. Has a maximum character count of 20,000.
     """
+    appeal: NotRequired["Literal['']|DisputeModifyParamsEvidenceAppeal"]
+    """
+    Evidence to submit when appealing a dispute.
+    """
     billing_address: NotRequired[str]
     """
     The billing address provided by the customer.
@@ -152,6 +156,24 @@ class DisputeModifyParamsEvidence(TypedDict):
     uncategorized_text: NotRequired[str]
     """
     Any additional evidence or statements. Has a maximum character count of 20,000.
+    """
+
+
+class DisputeModifyParamsEvidenceAppeal(TypedDict):
+    card: NotRequired["Literal['']|DisputeModifyParamsEvidenceAppealCard"]
+    """
+    Evidence for a card dispute appeal.
+    """
+
+
+class DisputeModifyParamsEvidenceAppealCard(TypedDict):
+    reason_for_filing: NotRequired["Literal['']|str"]
+    """
+    An explanation of the reason for filing the appeal.
+    """
+    supporting_files: NotRequired["Literal['']|List[str]"]
+    """
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
     """
 
 

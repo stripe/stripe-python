@@ -58,6 +58,7 @@ class TokenService(StripeService):
     def retrieve(
         self,
         token: str,
+        /,
         params: Optional["TokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Token":
@@ -78,6 +79,7 @@ class TokenService(StripeService):
     async def retrieve_async(
         self,
         token: str,
+        /,
         params: Optional["TokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Token":
@@ -98,6 +100,7 @@ class TokenService(StripeService):
     def update(
         self,
         token: str,
+        /,
         params: "TokenUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Token":
@@ -118,6 +121,7 @@ class TokenService(StripeService):
     async def update_async(
         self,
         token: str,
+        /,
         params: "TokenUpdateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Token":

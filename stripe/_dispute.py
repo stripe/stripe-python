@@ -34,6 +34,20 @@ class Dispute(
     OBJECT_NAME: ClassVar[Literal["dispute"]] = "dispute"
 
     class Evidence(StripeObject):
+        class Appeal(StripeObject):
+            class Card(StripeObject):
+                reason_for_filing: Optional[str]
+                """
+                The reason for filing the appeal.
+                """
+                supporting_files: Optional[List[str]]
+                """
+                One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+                """
+
+            card: Optional[Card]
+            _inner_class_types = {"card": Card}
+
         class EnhancedEvidence(StripeObject):
             class MastercardCompliance(StripeObject):
                 fee_acknowledged: bool
@@ -198,6 +212,7 @@ class Dispute(
         """
         Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
         """
+        appeal: Optional[Appeal]
         billing_address: Optional[str]
         """
         The billing address provided by the customer.
@@ -303,7 +318,10 @@ class Dispute(
         """
         Any additional evidence or statements.
         """
-        _inner_class_types = {"enhanced_evidence": EnhancedEvidence}
+        _inner_class_types = {
+            "appeal": Appeal,
+            "enhanced_evidence": EnhancedEvidence,
+        }
 
     class EvidenceDetails(StripeObject):
         class EnhancedEligibility(StripeObject):
@@ -564,7 +582,7 @@ class Dispute(
 
     @classmethod
     def _cls_close(
-        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -585,7 +603,7 @@ class Dispute(
     @overload
     @staticmethod
     def close(
-        dispute: str, **params: Unpack["DisputeCloseParams"]
+        dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -604,9 +622,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_close")
-    def close(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["DisputeCloseParams"]
-    ) -> "Dispute":
+    def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
@@ -625,7 +641,7 @@ class Dispute(
 
     @classmethod
     async def _cls_close_async(
-        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+        cls, dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -646,7 +662,7 @@ class Dispute(
     @overload
     @staticmethod
     async def close_async(
-        dispute: str, **params: Unpack["DisputeCloseParams"]
+        dispute: str, /, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
@@ -667,7 +683,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_close_async")
-    async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def close_async(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
@@ -728,7 +744,7 @@ class Dispute(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["DisputeModifyParams"]
+        cls, id: str, /, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -747,7 +763,7 @@ class Dispute(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["DisputeModifyParams"]
+        cls, id: str, /, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.

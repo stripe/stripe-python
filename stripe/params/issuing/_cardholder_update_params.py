@@ -172,11 +172,11 @@ class CardholderUpdateParamsIndividualVerification(TypedDict):
 class CardholderUpdateParamsIndividualVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+    The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+    The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
     """
 
 

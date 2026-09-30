@@ -59,6 +59,7 @@ class AdjustmentService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AdjustmentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Adjustment":
@@ -81,6 +82,7 @@ class AdjustmentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AdjustmentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Adjustment":

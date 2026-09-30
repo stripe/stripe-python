@@ -59,6 +59,7 @@ class InstitutionService(StripeService):
     def retrieve(
         self,
         institution: str,
+        /,
         params: Optional["InstitutionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Institution":
@@ -81,6 +82,7 @@ class InstitutionService(StripeService):
     async def retrieve_async(
         self,
         institution: str,
+        /,
         params: Optional["InstitutionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Institution":

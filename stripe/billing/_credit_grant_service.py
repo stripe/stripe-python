@@ -109,6 +109,7 @@ class CreditGrantService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":
@@ -129,6 +130,7 @@ class CreditGrantService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":
@@ -149,6 +151,7 @@ class CreditGrantService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":
@@ -169,6 +172,7 @@ class CreditGrantService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":
@@ -189,6 +193,7 @@ class CreditGrantService(StripeService):
     def expire(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":
@@ -211,6 +216,7 @@ class CreditGrantService(StripeService):
     async def expire_async(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":
@@ -233,6 +239,7 @@ class CreditGrantService(StripeService):
     def void_grant(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantVoidGrantParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":
@@ -255,6 +262,7 @@ class CreditGrantService(StripeService):
     async def void_grant_async(
         self,
         id: str,
+        /,
         params: Optional["CreditGrantVoidGrantParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CreditGrant":

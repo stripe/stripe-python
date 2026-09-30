@@ -63,6 +63,7 @@ class WorkflowService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["WorkflowRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Workflow":
@@ -83,6 +84,7 @@ class WorkflowService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["WorkflowRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Workflow":
@@ -103,6 +105,7 @@ class WorkflowService(StripeService):
     def invoke(
         self,
         id: str,
+        /,
         params: "WorkflowInvokeParams",
         options: Optional["RequestOptions"] = None,
     ) -> "WorkflowRun":
@@ -123,6 +126,7 @@ class WorkflowService(StripeService):
     async def invoke_async(
         self,
         id: str,
+        /,
         params: "WorkflowInvokeParams",
         options: Optional["RequestOptions"] = None,
     ) -> "WorkflowRun":

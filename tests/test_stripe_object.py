@@ -126,6 +126,13 @@ class TestStripeObject(object):
         with pytest.raises(ValueError):
             obj.foo = ""
 
+    def test_access_request_field(self):
+        obj = StripeObject.construct_from(
+            {"request": {"id": "req_123"}}, "mykey"
+        )
+
+        assert obj.request.id == "req_123"
+
     def test_refresh_from(self, mocker):
         obj = StripeObject.construct_from(
             {"foo": "bar", "trans": "me"}, "mykey"

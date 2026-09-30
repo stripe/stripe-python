@@ -17,6 +17,7 @@ class GrantedTokenService(StripeService):
     def retrieve(
         self,
         shared_payment_granted_token: str,
+        /,
         params: Optional["GrantedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GrantedToken":
@@ -41,6 +42,7 @@ class GrantedTokenService(StripeService):
     async def retrieve_async(
         self,
         shared_payment_granted_token: str,
+        /,
         params: Optional["GrantedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GrantedToken":

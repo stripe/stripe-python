@@ -27,6 +27,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -47,6 +48,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -234,13 +236,13 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["SetupIntentConfirmParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAuBecsDebit"
@@ -466,6 +468,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    sequra: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
     shared_payment_granted_token: NotRequired[str]
     """
     ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -550,6 +556,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -1008,6 +1015,10 @@ class SetupIntentConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
     """
 
 
+class SetupIntentConfirmParamsPaymentMethodDataSequra(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataShopeepay(TypedDict):
     pass
 
@@ -1119,6 +1130,10 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     bizum: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsBizum"]
     """
     If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
+    blik: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsBlik"]
+    """
+    If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     """
     card: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsCard"]
     """
@@ -1244,6 +1259,28 @@ class SetupIntentConfirmParamsPaymentMethodOptionsBizum(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodOptionsBlik(TypedDict):
+    code: NotRequired[str]
+    """
+    The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+    """
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsBlikMandateOptions(
+    TypedDict
+):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
+    """
+
+
 class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     mandate_options: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsCardMandateOptions"
@@ -1268,6 +1305,12 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    """
+    setup_credential_usage: NotRequired[
+        "Literal['installment', 'recurring', 'unscheduled']|str"
+    ]
+    """
+    Set to indicate the future transaction type usage for the card being set up.
     """
     three_d_secure: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure"

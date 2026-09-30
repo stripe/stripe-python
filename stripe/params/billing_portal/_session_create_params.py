@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SessionCreateParams(RequestOptions):
+    after_expiration: NotRequired["SessionCreateParamsAfterExpiration"]
+    """
+    Behavior after the portal session expires.
+    """
     configuration: NotRequired[str]
     """
     The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configurations) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
@@ -39,6 +43,26 @@ class SessionCreateParams(RequestOptions):
     return_url: NotRequired[str]
     """
     The default URL to redirect customers to when they click on the portal's link to return to your website.
+    """
+
+
+class SessionCreateParamsAfterExpiration(TypedDict):
+    customer_login: NotRequired[
+        "SessionCreateParamsAfterExpirationCustomerLogin"
+    ]
+    """
+    Configuration for authenticating the customer after the session expires.
+    """
+    type: Union[Literal["customer_login"], str]
+    """
+    The behavior to apply when the session expires.
+    """
+
+
+class SessionCreateParamsAfterExpirationCustomerLogin(TypedDict):
+    expires_at: NotRequired[int]
+    """
+    The Unix timestamp after which the customer can no longer recover this session. Leave unset to allow recovery without a deadline.
     """
 
 

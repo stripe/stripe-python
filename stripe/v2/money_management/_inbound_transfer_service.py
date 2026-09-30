@@ -100,6 +100,7 @@ class InboundTransferService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
@@ -122,6 +123,7 @@ class InboundTransferService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":

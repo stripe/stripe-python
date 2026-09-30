@@ -16,7 +16,14 @@ class AccountEvaluationCreateParams(TypedDict):
     The account, customer, or inline account data to evaluate.
     """
     requested_signals: List[
-        Union[Literal["user_account_sharing", "user_multi_accounting"], str]
+        Union[
+            Literal[
+                "fraudulent_website",
+                "user_account_sharing",
+                "user_multi_accounting",
+            ],
+            str,
+        ]
     ]
     """
     List of signals to evaluate.
@@ -171,6 +178,12 @@ class AccountEvaluationCreateParamsAccountDetailsData(TypedDict):
     """
     Default account settings.
     """
+    identity: NotRequired[
+        "AccountEvaluationCreateParamsAccountDetailsDataIdentity"
+    ]
+    """
+    Identity data.
+    """
 
 
 class AccountEvaluationCreateParamsAccountDetailsDataDefaults(TypedDict):
@@ -194,4 +207,20 @@ class AccountEvaluationCreateParamsAccountDetailsDataDefaultsProfile(
     product_description: NotRequired[str]
     """
     Description of the account's product or service.
+    """
+
+
+class AccountEvaluationCreateParamsAccountDetailsDataIdentity(TypedDict):
+    business_details: "AccountEvaluationCreateParamsAccountDetailsDataIdentityBusinessDetails"
+    """
+    Business details for identity data.
+    """
+
+
+class AccountEvaluationCreateParamsAccountDetailsDataIdentityBusinessDetails(
+    TypedDict,
+):
+    registered_name: NotRequired[str]
+    """
+    Registered business name.
     """

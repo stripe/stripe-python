@@ -20,6 +20,7 @@ class AccountInferredBalanceService(StripeService):
     def list(
         self,
         account: str,
+        /,
         params: Optional["AccountInferredBalanceListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountInferredBalance]":
@@ -42,6 +43,7 @@ class AccountInferredBalanceService(StripeService):
     async def list_async(
         self,
         account: str,
+        /,
         params: Optional["AccountInferredBalanceListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountInferredBalance]":

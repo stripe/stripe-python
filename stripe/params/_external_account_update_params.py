@@ -92,5 +92,5 @@ class ExternalAccountUpdateParamsDocumentsBankAccountOwnershipVerification(
 ):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """

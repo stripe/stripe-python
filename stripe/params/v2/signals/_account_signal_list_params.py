@@ -15,7 +15,15 @@ class AccountSignalListParams(TypedDict):
     Maximum number of results to return per page. Defaults to 20.
     """
     type: List[
-        Union[Literal["user_account_sharing", "user_multi_accounting"], str]
+        Union[
+            Literal[
+                "fraudulent_merchant",
+                "fraudulent_website",
+                "user_account_sharing",
+                "user_multi_accounting",
+            ],
+            str,
+        ]
     ]
     """
     Signal types to filter by.

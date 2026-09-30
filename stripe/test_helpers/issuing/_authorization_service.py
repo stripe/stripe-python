@@ -73,6 +73,7 @@ class AuthorizationService(StripeService):
     def capture(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -95,6 +96,7 @@ class AuthorizationService(StripeService):
     async def capture_async(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -117,6 +119,7 @@ class AuthorizationService(StripeService):
     def expire(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -139,6 +142,7 @@ class AuthorizationService(StripeService):
     async def expire_async(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationExpireParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -161,6 +165,7 @@ class AuthorizationService(StripeService):
     def finalize_amount(
         self,
         authorization: str,
+        /,
         params: "AuthorizationFinalizeAmountParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -183,6 +188,7 @@ class AuthorizationService(StripeService):
     async def finalize_amount_async(
         self,
         authorization: str,
+        /,
         params: "AuthorizationFinalizeAmountParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -205,6 +211,7 @@ class AuthorizationService(StripeService):
     def respond(
         self,
         authorization: str,
+        /,
         params: "AuthorizationRespondParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -227,6 +234,7 @@ class AuthorizationService(StripeService):
     async def respond_async(
         self,
         authorization: str,
+        /,
         params: "AuthorizationRespondParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -249,6 +257,7 @@ class AuthorizationService(StripeService):
     def increment(
         self,
         authorization: str,
+        /,
         params: "AuthorizationIncrementParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -271,6 +280,7 @@ class AuthorizationService(StripeService):
     async def increment_async(
         self,
         authorization: str,
+        /,
         params: "AuthorizationIncrementParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -293,6 +303,7 @@ class AuthorizationService(StripeService):
     def reverse(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationReverseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
@@ -315,6 +326,7 @@ class AuthorizationService(StripeService):
     async def reverse_async(
         self,
         authorization: str,
+        /,
         params: Optional["AuthorizationReverseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Authorization":

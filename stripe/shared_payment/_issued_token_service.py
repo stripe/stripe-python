@@ -23,6 +23,7 @@ class IssuedTokenService(StripeService):
     def retrieve(
         self,
         shared_payment_issued_token: str,
+        /,
         params: Optional["IssuedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "IssuedToken":
@@ -47,6 +48,7 @@ class IssuedTokenService(StripeService):
     async def retrieve_async(
         self,
         shared_payment_issued_token: str,
+        /,
         params: Optional["IssuedTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "IssuedToken":
@@ -109,6 +111,7 @@ class IssuedTokenService(StripeService):
     def revoke(
         self,
         shared_payment_issued_token: str,
+        /,
         params: Optional["IssuedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "IssuedToken":
@@ -133,6 +136,7 @@ class IssuedTokenService(StripeService):
     async def revoke_async(
         self,
         shared_payment_issued_token: str,
+        /,
         params: Optional["IssuedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "IssuedToken":

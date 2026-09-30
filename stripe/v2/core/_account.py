@@ -117,6 +117,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -135,7 +143,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -260,6 +272,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -278,7 +298,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -293,6 +317,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -311,7 +343,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -326,6 +362,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -344,7 +388,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -359,6 +407,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -377,7 +433,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -392,6 +452,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -410,7 +478,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -425,6 +497,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -443,7 +523,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -458,6 +542,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -476,7 +568,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -491,6 +587,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -509,7 +613,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -524,6 +632,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -542,7 +658,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -557,6 +677,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -575,7 +703,56 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class BlikRecurringPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -590,6 +767,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -608,7 +793,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -623,6 +812,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -641,7 +838,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -656,6 +857,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -674,7 +883,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -689,6 +902,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -707,7 +928,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -722,6 +947,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -740,7 +973,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -755,6 +992,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -773,7 +1018,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -788,6 +1037,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -806,7 +1063,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -821,6 +1082,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -839,7 +1108,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -854,6 +1127,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -872,7 +1153,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -887,6 +1172,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -905,7 +1198,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -920,6 +1217,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -938,7 +1243,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -953,6 +1262,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -971,7 +1288,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -986,6 +1307,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1004,7 +1333,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1019,6 +1352,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1037,7 +1378,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1052,6 +1397,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1070,7 +1423,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1085,6 +1442,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1103,7 +1468,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1118,6 +1487,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1136,7 +1513,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1151,6 +1532,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1169,7 +1558,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1184,6 +1577,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1202,7 +1603,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1217,6 +1622,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1235,7 +1648,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1250,6 +1667,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1268,7 +1693,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1283,6 +1712,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1301,7 +1738,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1316,6 +1757,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1334,7 +1783,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1349,6 +1802,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1367,7 +1828,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1382,6 +1847,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1400,7 +1873,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1415,6 +1892,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1433,7 +1918,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1448,6 +1937,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1466,7 +1963,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1481,6 +1982,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1499,7 +2008,56 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class SatispayPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1514,6 +2072,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1532,7 +2098,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1547,6 +2117,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1565,7 +2143,56 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class SequraPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1581,6 +2208,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -1601,7 +2236,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -1622,6 +2261,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1640,7 +2287,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1655,6 +2306,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1673,7 +2332,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1688,6 +2351,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1706,7 +2377,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1721,6 +2396,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1739,7 +2422,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1754,6 +2441,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1772,7 +2467,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1822,6 +2521,10 @@ class Account(StripeObject):
                 blik_payments: Optional[BlikPayments]
                 """
                 Allow the merchant to process BLIK payments.
+                """
+                blik_recurring_payments: Optional[BlikRecurringPayments]
+                """
+                Allow the merchant to process recurring BLIK payments.
                 """
                 boleto_payments: Optional[BoletoPayments]
                 """
@@ -1935,6 +2638,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Samsung Pay payments.
                 """
+                satispay_payments: Optional[SatispayPayments]
+                """
+                Allow the merchant to process Satispay payments.
+                """
                 sepa_bank_transfer_payments: Optional[SepaBankTransferPayments]
                 """
                 Allow the merchant to process SEPA bank transfer payments.
@@ -1942,6 +2649,10 @@ class Account(StripeObject):
                 sepa_debit_payments: Optional[SepaDebitPayments]
                 """
                 Allow the merchant to process SEPA Direct Debit payments.
+                """
+                sequra_payments: Optional[SequraPayments]
+                """
+                Allow the merchant to process SeQura payments.
                 """
                 stripe_balance: Optional[StripeBalance]
                 """
@@ -1978,6 +2689,7 @@ class Account(StripeObject):
                     "bacs_debit_payments": BacsDebitPayments,
                     "bancontact_payments": BancontactPayments,
                     "blik_payments": BlikPayments,
+                    "blik_recurring_payments": BlikRecurringPayments,
                     "boleto_payments": BoletoPayments,
                     "card_payments": CardPayments,
                     "cartes_bancaires_payments": CartesBancairesPayments,
@@ -2006,8 +2718,10 @@ class Account(StripeObject):
                     "promptpay_payments": PromptpayPayments,
                     "revolut_pay_payments": RevolutPayPayments,
                     "samsung_pay_payments": SamsungPayPayments,
+                    "satispay_payments": SatispayPayments,
                     "sepa_bank_transfer_payments": SepaBankTransferPayments,
                     "sepa_debit_payments": SepaDebitPayments,
+                    "sequra_payments": SequraPayments,
                     "stripe_balance": StripeBalance,
                     "sunbit_payments": SunbitPayments,
                     "swish_payments": SwishPayments,
@@ -2247,6 +2961,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2269,6 +2991,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2287,6 +3010,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2309,6 +3040,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2327,6 +3059,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2349,6 +3089,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2367,6 +3108,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2389,6 +3138,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2407,6 +3157,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2429,6 +3187,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2476,6 +3235,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2498,6 +3265,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2516,6 +3284,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2538,6 +3314,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2556,6 +3333,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2578,6 +3363,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2596,6 +3382,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2618,6 +3412,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2636,6 +3431,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -2658,6 +3461,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -2718,6 +3522,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -2738,7 +3550,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -2760,6 +3576,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -2780,7 +3604,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -2795,6 +3623,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -2815,7 +3651,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -2830,6 +3670,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -2850,7 +3698,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -2884,6 +3736,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -2904,7 +3764,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -2919,6 +3783,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -2939,7 +3811,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -2968,6 +3844,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -2988,7 +3872,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -3010,6 +3898,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -3030,7 +3926,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -3097,6 +3997,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -3117,7 +4025,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -3132,6 +4044,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -3152,7 +4072,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -3177,6 +4101,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3195,7 +4127,11 @@ class Account(StripeObject):
                         """
 
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3211,6 +4147,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -3231,7 +4175,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -3246,6 +4194,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -3266,7 +4222,11 @@ class Account(StripeObject):
                             """
 
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -3648,8 +4608,10 @@ class Account(StripeObject):
                 code: Union[
                     Literal[
                         "invalid_address_city_state_postal_code",
+                        "invalid_address_cmra_address",
                         "invalid_address_highway_contract_box",
                         "invalid_address_private_mailbox",
+                        "invalid_address_registered_agent_address",
                         "invalid_business_profile_name",
                         "invalid_business_profile_name_denylisted",
                         "invalid_company_name_denylisted",
@@ -3779,6 +4741,7 @@ class Account(StripeObject):
                             "bank_accounts.local",
                             "bank_accounts.wire",
                             "blik_payments",
+                            "blik_recurring_payments",
                             "boleto_payments",
                             "business_storage.inbound.eur",
                             "business_storage.inbound.gbp",
@@ -3826,6 +4789,7 @@ class Account(StripeObject):
                             "received_debits.bank_accounts",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
+                            "satispay_payments",
                             "sepa_bank_transfer_payments",
                             "sepa_debit_payments",
                             "stripe_balance.payouts",
@@ -4183,7 +5147,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4193,7 +5157,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4203,7 +5167,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4213,7 +5177,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4223,7 +5187,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4233,7 +5197,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4253,7 +5217,7 @@ class Account(StripeObject):
                     """
                     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                     """
-                    type: Literal["front_back"]
+                    type: Union[Literal["front_back"], str]
                     """
                     The format of the verification document. Currently supports `front_back` only.
                     """
@@ -4264,7 +5228,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4284,7 +5248,7 @@ class Account(StripeObject):
                     """
                     Person that is signing the document.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4305,7 +5269,7 @@ class Account(StripeObject):
                     """
                     Person that is signing the document.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4836,7 +5800,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4846,7 +5810,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -4866,7 +5830,7 @@ class Account(StripeObject):
                     """
                     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                     """
-                    type: Literal["front_back"]
+                    type: Union[Literal["front_back"], str]
                     """
                     The format of the verification document. Currently supports `front_back` only.
                     """
@@ -4887,7 +5851,7 @@ class Account(StripeObject):
                     """
                     The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
                     """
-                    type: Literal["front_back"]
+                    type: Union[Literal["front_back"], str]
                     """
                     The format of the verification document. Currently supports `front_back` only.
                     """
@@ -4898,7 +5862,7 @@ class Account(StripeObject):
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                     """
-                    type: Literal["files"]
+                    type: Union[Literal["files"], str]
                     """
                     The format of the document. Currently supports `files` only.
                     """
@@ -5301,8 +6265,10 @@ class Account(StripeObject):
                 code: Union[
                     Literal[
                         "invalid_address_city_state_postal_code",
+                        "invalid_address_cmra_address",
                         "invalid_address_highway_contract_box",
                         "invalid_address_private_mailbox",
+                        "invalid_address_registered_agent_address",
                         "invalid_business_profile_name",
                         "invalid_business_profile_name_denylisted",
                         "invalid_company_name_denylisted",
@@ -5432,6 +6398,7 @@ class Account(StripeObject):
                             "bank_accounts.local",
                             "bank_accounts.wire",
                             "blik_payments",
+                            "blik_recurring_payments",
                             "boleto_payments",
                             "business_storage.inbound.eur",
                             "business_storage.inbound.gbp",
@@ -5479,6 +6446,7 @@ class Account(StripeObject):
                             "received_debits.bank_accounts",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
+                            "satispay_payments",
                             "sepa_bank_transfer_payments",
                             "sepa_debit_payments",
                             "stripe_balance.payouts",

@@ -67,6 +67,7 @@ class ApprovalRequestService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["ApprovalRequestRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApprovalRequest":
@@ -88,6 +89,7 @@ class ApprovalRequestService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["ApprovalRequestRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApprovalRequest":
@@ -109,6 +111,7 @@ class ApprovalRequestService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["ApprovalRequestUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApprovalRequest":
@@ -130,6 +133,7 @@ class ApprovalRequestService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["ApprovalRequestUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApprovalRequest":
@@ -151,6 +155,7 @@ class ApprovalRequestService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["ApprovalRequestCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApprovalRequest":
@@ -174,6 +179,7 @@ class ApprovalRequestService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["ApprovalRequestCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApprovalRequest":

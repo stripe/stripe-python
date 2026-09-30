@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, Union
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -26,6 +26,67 @@ class AccountSignal(StripeObject):
         customer: Optional[str]
         """
         The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+        """
+
+    class FraudulentMerchant(StripeObject):
+        class AdditionalDetails(StripeObject):
+            class Indicator(StripeObject):
+                explanation: str
+                """
+                A brief explanation of how this indicator contributed to the fraudulent merchant probability.
+                """
+                impact: Literal[
+                    "decrease", "neutral", "slight_increase", "strong_increase"
+                ]
+                """
+                The effect this indicator had on the overall risk level.
+                """
+                indicator: Literal[
+                    "bank_account",
+                    "business_information_and_account_activity",
+                    "disputes",
+                    "failures",
+                    "geolocation",
+                    "other",
+                    "other_related_accounts",
+                    "other_transaction_activity",
+                    "owner_email",
+                ]
+                """
+                The name of the specific indicator used in the risk assessment.
+                """
+
+            indicators: List[Indicator]
+            """
+            Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is unknown,
+            or when the user is not on a product tier that includes indicators.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
+        additional_details: Optional[AdditionalDetails]
+        """
+        Supplementary contextual data for the signal, including indicators.
+        """
+        probability: Optional[Decimal]
+        """
+        The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is unknown,
+        or when the user is not on a product tier that includes numeric scores.
+        """
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
+        """
+        Categorical assessment of the fraudulent merchant risk based on probability.
+        """
+        _inner_class_types = {"additional_details": AdditionalDetails}
+        _field_encodings = {"probability": "decimal_string"}
+
+    class FraudulentWebsite(StripeObject):
+        details: Optional[str]
+        """
+        Human-readable details about the fraudulent website evaluation.
+        """
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
+        """
+        Categorical assessment of the fraudulent website risk.
         """
 
     class UserAccountSharing(StripeObject):
@@ -64,6 +125,14 @@ class AccountSignal(StripeObject):
     """
     Timestamp at which the signal was created.
     """
+    fraudulent_merchant: Optional[FraudulentMerchant]
+    """
+    Data for the fraudulent merchant signal. Present only when type is fraudulent_merchant.
+    """
+    fraudulent_website: Optional[FraudulentWebsite]
+    """
+    Data for the fraudulent website signal. Present only when type is fraudulent_website.
+    """
     id: str
     """
     Unique identifier for the account signal.
@@ -76,7 +145,15 @@ class AccountSignal(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    type: Union[Literal["user_account_sharing", "user_multi_accounting"], str]
+    type: Union[
+        Literal[
+            "fraudulent_merchant",
+            "fraudulent_website",
+            "user_account_sharing",
+            "user_multi_accounting",
+        ],
+        str,
+    ]
     """
     The type of signal.
     """
@@ -90,6 +167,8 @@ class AccountSignal(StripeObject):
     """
     _inner_class_types = {
         "account_details": AccountDetails,
+        "fraudulent_merchant": FraudulentMerchant,
+        "fraudulent_website": FraudulentWebsite,
         "user_account_sharing": UserAccountSharing,
         "user_multi_accounting": UserMultiAccounting,
     }

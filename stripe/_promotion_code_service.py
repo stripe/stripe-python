@@ -106,6 +106,7 @@ class PromotionCodeService(StripeService):
     def retrieve(
         self,
         promotion_code: str,
+        /,
         params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PromotionCode":
@@ -128,6 +129,7 @@ class PromotionCodeService(StripeService):
     async def retrieve_async(
         self,
         promotion_code: str,
+        /,
         params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PromotionCode":
@@ -150,6 +152,7 @@ class PromotionCodeService(StripeService):
     def update(
         self,
         promotion_code: str,
+        /,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PromotionCode":
@@ -172,6 +175,7 @@ class PromotionCodeService(StripeService):
     async def update_async(
         self,
         promotion_code: str,
+        /,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PromotionCode":
@@ -216,6 +220,7 @@ class PromotionCodeService(StripeService):
     def serialize_batch_update(
         self,
         promotion_code: str,
+        /,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:

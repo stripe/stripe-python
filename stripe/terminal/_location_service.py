@@ -28,6 +28,7 @@ class LocationService(StripeService):
     def delete(
         self,
         location: str,
+        /,
         params: Optional["LocationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
@@ -50,6 +51,7 @@ class LocationService(StripeService):
     async def delete_async(
         self,
         location: str,
+        /,
         params: Optional["LocationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
@@ -72,6 +74,7 @@ class LocationService(StripeService):
     def retrieve(
         self,
         location: str,
+        /,
         params: Optional["LocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
@@ -94,6 +97,7 @@ class LocationService(StripeService):
     async def retrieve_async(
         self,
         location: str,
+        /,
         params: Optional["LocationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
@@ -116,6 +120,7 @@ class LocationService(StripeService):
     def update(
         self,
         location: str,
+        /,
         params: Optional["LocationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":
@@ -138,6 +143,7 @@ class LocationService(StripeService):
     async def update_async(
         self,
         location: str,
+        /,
         params: Optional["LocationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Location":

@@ -373,11 +373,77 @@ class Subscription(
                 """
 
             class Billie(StripeObject):
-                pass
+                class CompanyDetails(StripeObject):
+                    class RegisteredAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code.
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (for example, street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (for example, apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    registered_address: Optional[RegisteredAddress]
+                    registered_name: Optional[str]
+                    """
+                    Company or entity name.
+                    """
+                    registration_number: Optional[str]
+                    """
+                    The official registration number for the given registration type.
+                    """
+                    registration_type: Optional[
+                        Literal[
+                            "ch_ein",
+                            "de_hrb",
+                            "dk_cvr",
+                            "es_cif",
+                            "fi_tunnus",
+                            "fr_siren",
+                            "fr_siret",
+                            "it_rea",
+                            "nl_kvk",
+                            "no_org_number",
+                            "no_pno",
+                            "se_org_number",
+                            "se_pno",
+                            "uk_crn",
+                        ]
+                    ]
+                    """
+                    Type of registration the company or entity holds in their registered country.
+                    """
+                    vat: Optional[str]
+                    """
+                    VAT ID number.
+                    """
+                    _inner_class_types = {
+                        "registered_address": RegisteredAddress,
+                    }
+
+                company_details: Optional[CompanyDetails]
+                _inner_class_types = {"company_details": CompanyDetails}
 
             class Blik(StripeObject):
                 class MandateOptions(StripeObject):
-                    expires_after: Optional[int]
+                    expires_at: Optional[int]
                     """
                     Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
                     """
@@ -788,6 +854,10 @@ class Subscription(
         """
         If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
         """
+        cancel_at_period_end: Optional[bool]
+        """
+        Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+        """
         discount: Optional["Discount"]
         """
         The pending subscription-level discount that will be applied when the pending update is applied.
@@ -818,7 +888,7 @@ class Subscription(
         """
         trial_from_plan: Optional[bool]
         """
-        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
         """
 
     class Prebilling(StripeObject):
@@ -850,6 +920,8 @@ class Subscription(
             class Subscription(StripeObject):
                 type: Union[
                     Literal[
+                        "final_payment_failure",
+                        "first_payment_failure",
                         "pause_requested",
                         "system",
                         "trial_end_without_payment_method",
@@ -868,7 +940,7 @@ class Subscription(
             """
             Unix timestamp in seconds of when the subscription status transitioned to `paused`.
             """
-            type: Literal["subscription"]
+            type: Union[Literal["subscription"], str]
             """
             The type of pause.
             """
@@ -1104,7 +1176,7 @@ class Subscription(
 
     A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
 
-    A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+    A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials/free-trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
 
     If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
 
@@ -1139,6 +1211,7 @@ class Subscription(
     def _cls_cancel(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1165,6 +1238,7 @@ class Subscription(
     @staticmethod
     def cancel(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1190,7 +1264,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
@@ -1215,6 +1289,7 @@ class Subscription(
     async def _cls_cancel_async(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1241,6 +1316,7 @@ class Subscription(
     @staticmethod
     async def cancel_async(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
@@ -1266,7 +1342,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
@@ -1335,6 +1411,7 @@ class Subscription(
     def _cls_delete_discount(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1357,6 +1434,7 @@ class Subscription(
     @staticmethod
     def delete_discount(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1374,7 +1452,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_delete_discount")
-    def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete_discount(
         self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
@@ -1395,6 +1473,7 @@ class Subscription(
     async def _cls_delete_discount_async(
         cls,
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1417,6 +1496,7 @@ class Subscription(
     @staticmethod
     async def delete_discount_async(
         subscription_exposed_id: str,
+        /,
         **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
@@ -1434,7 +1514,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_delete_discount_async")
-    async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_discount_async(
         self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
@@ -1493,7 +1573,10 @@ class Subscription(
 
     @classmethod
     def _cls_migrate(
-        cls, subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        cls,
+        subscription: str,
+        /,
+        **params: Unpack["SubscriptionMigrateParams"],
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1512,7 +1595,7 @@ class Subscription(
     @overload
     @staticmethod
     def migrate(
-        subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        subscription: str, /, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1529,7 +1612,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_migrate")
-    def migrate(  # pyright: ignore[reportGeneralTypeIssues]
+    def migrate(
         self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
@@ -1548,7 +1631,10 @@ class Subscription(
 
     @classmethod
     async def _cls_migrate_async(
-        cls, subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        cls,
+        subscription: str,
+        /,
+        **params: Unpack["SubscriptionMigrateParams"],
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1567,7 +1653,7 @@ class Subscription(
     @overload
     @staticmethod
     async def migrate_async(
-        subscription: str, **params: Unpack["SubscriptionMigrateParams"]
+        subscription: str, /, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -1584,7 +1670,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_migrate_async")
-    async def migrate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def migrate_async(
         self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
@@ -1603,7 +1689,7 @@ class Subscription(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SubscriptionModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionModifyParams"]
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -1640,7 +1726,7 @@ class Subscription(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SubscriptionModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionModifyParams"]
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -1677,7 +1763,7 @@ class Subscription(
 
     @classmethod
     def _cls_pause(
-        cls, subscription: str, **params: Unpack["SubscriptionPauseParams"]
+        cls, subscription: str, /, **params: Unpack["SubscriptionPauseParams"]
     ) -> "Subscription":
         """
         Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
@@ -1696,7 +1782,7 @@ class Subscription(
     @overload
     @staticmethod
     def pause(
-        subscription: str, **params: Unpack["SubscriptionPauseParams"]
+        subscription: str, /, **params: Unpack["SubscriptionPauseParams"]
     ) -> "Subscription":
         """
         Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
@@ -1713,7 +1799,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_pause")
-    def pause(  # pyright: ignore[reportGeneralTypeIssues]
+    def pause(
         self, **params: Unpack["SubscriptionPauseParams"]
     ) -> "Subscription":
         """
@@ -1732,7 +1818,7 @@ class Subscription(
 
     @classmethod
     async def _cls_pause_async(
-        cls, subscription: str, **params: Unpack["SubscriptionPauseParams"]
+        cls, subscription: str, /, **params: Unpack["SubscriptionPauseParams"]
     ) -> "Subscription":
         """
         Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
@@ -1751,7 +1837,7 @@ class Subscription(
     @overload
     @staticmethod
     async def pause_async(
-        subscription: str, **params: Unpack["SubscriptionPauseParams"]
+        subscription: str, /, **params: Unpack["SubscriptionPauseParams"]
     ) -> "Subscription":
         """
         Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
@@ -1768,7 +1854,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_pause_async")
-    async def pause_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def pause_async(
         self, **params: Unpack["SubscriptionPauseParams"]
     ) -> "Subscription":
         """
@@ -1787,7 +1873,7 @@ class Subscription(
 
     @classmethod
     def _cls_resume(
-        cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        cls, subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
@@ -1806,7 +1892,7 @@ class Subscription(
     @overload
     @staticmethod
     def resume(
-        subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
@@ -1823,7 +1909,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_resume")
-    def resume(  # pyright: ignore[reportGeneralTypeIssues]
+    def resume(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
@@ -1842,7 +1928,7 @@ class Subscription(
 
     @classmethod
     async def _cls_resume_async(
-        cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        cls, subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
@@ -1861,7 +1947,7 @@ class Subscription(
     @overload
     @staticmethod
     async def resume_async(
-        subscription: str, **params: Unpack["SubscriptionResumeParams"]
+        subscription: str, /, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
@@ -1878,7 +1964,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_resume_async")
-    async def resume_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def resume_async(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """

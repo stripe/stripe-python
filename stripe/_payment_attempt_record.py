@@ -280,7 +280,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     """
 
                 card: Optional[Card]
-                type: Optional[Literal["card"]]
+                type: Optional[Union[Literal["card"], str]]
                 """
                 funding type of the underlying payment method.
                 """
@@ -565,7 +565,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 Additional information about why 3D Secure succeeded or failed, based on the `result`.
                 """
                 version: Optional[
-                    Union[Literal["1.0.2", "2.1.0", "2.2.0"], str]
+                    Union[
+                        Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"],
+                        str,
+                    ]
                 ]
                 """
                 The version of 3D Secure that was used.
@@ -581,19 +584,24 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 class GooglePay(StripeObject):
                     pass
 
+                class Link(StripeObject):
+                    pass
+
                 apple_pay: Optional[ApplePay]
                 dynamic_last4: Optional[str]
                 """
                 (For tokenized numbers only.) The last four digits of the device account number.
                 """
                 google_pay: Optional[GooglePay]
+                link: Optional[Link]
                 type: str
                 """
-                The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+                The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
                 """
                 _inner_class_types = {
                     "apple_pay": ApplePay,
                     "google_pay": GooglePay,
+                    "link": Link,
                 }
 
             authorization_code: Optional[str]
@@ -715,6 +723,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             network_transaction_id: Optional[str]
             """
             This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+            """
+            stored_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
             """
             three_d_secure: Optional[ThreeDSecure]
             """
@@ -1459,6 +1473,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
             """
+            funding_source_group: Optional[str]
+            """
+            The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+            """
 
         class MbWay(StripeObject):
             pass
@@ -1491,6 +1509,16 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             Internal card details
             """
             _inner_class_types = {"card": Card}
+
+        class Momo(StripeObject):
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular MoMo account. You can use this attribute to check whether two MoMo accounts are the same.
+            """
+            mandate: Optional[str]
+            """
+            ID of the multi-use Mandate created by, or used to make, this MoMo payment.
+            """
 
         class Multibanco(StripeObject):
             entity: Optional[str]
@@ -1826,7 +1854,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     """
 
                 card: Optional[Card]
-                type: Optional[Literal["card"]]
+                type: Optional[Union[Literal["card"], str]]
                 """
                 Funding type of the underlying payment method.
                 """
@@ -1903,6 +1931,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             mandate: Optional[str]
             """
             Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
+            """
+
+        class Sequra(StripeObject):
+            transaction_id: Optional[str]
+            """
+            The SeQura transaction ID associated with this payment.
             """
 
         class Shopeepay(StripeObject):
@@ -2101,6 +2135,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         link: Optional[Link]
         mb_way: Optional[MbWay]
         mobilepay: Optional[Mobilepay]
+        momo: Optional[Momo]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
         nz_bank_account: Optional[NzBankAccount]
@@ -2126,6 +2161,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         scalapay: Optional[Scalapay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
@@ -2182,6 +2218,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "link": Link,
             "mb_way": MbWay,
             "mobilepay": Mobilepay,
+            "momo": Momo,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
             "nz_bank_account": NzBankAccount,
@@ -2203,6 +2240,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "scalapay": Scalapay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,

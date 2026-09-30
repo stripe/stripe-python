@@ -103,6 +103,7 @@ class OutboundTransferService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OutboundTransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -125,6 +126,7 @@ class OutboundTransferService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundTransferRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -147,6 +149,7 @@ class OutboundTransferService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["OutboundTransferCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":
@@ -169,6 +172,7 @@ class OutboundTransferService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundTransferCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundTransfer":

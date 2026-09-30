@@ -5,6 +5,12 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAccountListParams(TypedDict):
+    include: NotRequired[
+        List[Literal["storage.deposit_insurance_eligibility"]]
+    ]
+    """
+    Additional fields to include in the response.
+    """
     limit: NotRequired[int]
     """
     The page limit.

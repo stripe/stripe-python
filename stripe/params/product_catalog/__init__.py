@@ -15,8 +15,14 @@ if TYPE_CHECKING:
         TrialOfferListParams as TrialOfferListParams,
         TrialOfferListParamsCreated as TrialOfferListParamsCreated,
     )
+    from stripe.params.product_catalog._trial_offer_modify_params import (
+        TrialOfferModifyParams as TrialOfferModifyParams,
+    )
     from stripe.params.product_catalog._trial_offer_retrieve_params import (
         TrialOfferRetrieveParams as TrialOfferRetrieveParams,
+    )
+    from stripe.params.product_catalog._trial_offer_update_params import (
+        TrialOfferUpdateParams as TrialOfferUpdateParams,
     )
 
 # name -> (import_target, is_submodule)
@@ -49,8 +55,16 @@ _import_map = {
         "stripe.params.product_catalog._trial_offer_list_params",
         False,
     ),
+    "TrialOfferModifyParams": (
+        "stripe.params.product_catalog._trial_offer_modify_params",
+        False,
+    ),
     "TrialOfferRetrieveParams": (
         "stripe.params.product_catalog._trial_offer_retrieve_params",
+        False,
+    ),
+    "TrialOfferUpdateParams": (
+        "stripe.params.product_catalog._trial_offer_update_params",
         False,
     ),
 }

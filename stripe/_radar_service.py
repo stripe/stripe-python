@@ -5,6 +5,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.radar._billing_evaluation_service import (
+        BillingEvaluationService,
+    )
     from stripe.radar._early_fraud_warning_service import (
         EarlyFraudWarningService,
     )
@@ -15,6 +18,10 @@ if TYPE_CHECKING:
     from stripe.radar._value_list_service import ValueListService
 
 _subservices = {
+    "billing_evaluations": [
+        "stripe.radar._billing_evaluation_service",
+        "BillingEvaluationService",
+    ],
     "early_fraud_warnings": [
         "stripe.radar._early_fraud_warning_service",
         "EarlyFraudWarningService",
@@ -32,6 +39,7 @@ _subservices = {
 
 
 class RadarService(StripeService):
+    billing_evaluations: "BillingEvaluationService"
     early_fraud_warnings: "EarlyFraudWarningService"
     payment_evaluations: "PaymentEvaluationService"
     value_lists: "ValueListService"

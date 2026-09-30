@@ -103,6 +103,7 @@ class OutboundPaymentService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -125,6 +126,7 @@ class OutboundPaymentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -147,6 +149,7 @@ class OutboundPaymentService(StripeService):
     def cancel(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
@@ -169,6 +172,7 @@ class OutboundPaymentService(StripeService):
     async def cancel_async(
         self,
         id: str,
+        /,
         params: Optional["OutboundPaymentCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":

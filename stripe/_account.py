@@ -304,6 +304,12 @@ class Account(
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
         """
+        blik_recurring_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+        """
         boleto_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]
@@ -591,6 +597,12 @@ class Account(
         ]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
+        """
+        sequra_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
         """
         shopeepay_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
@@ -894,7 +906,7 @@ class Account(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
                 details: Optional[str]
                 """
@@ -906,7 +918,7 @@ class Account(
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
 
             document: Document
@@ -1137,8 +1149,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1319,8 +1333,10 @@ class Account(
                 "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
+                "invalid_address_cmra_address",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
+                "invalid_address_registered_agent_address",
                 "invalid_business_profile_name",
                 "invalid_business_profile_name_denylisted",
                 "invalid_company_name_denylisted",
@@ -1971,7 +1987,7 @@ class Account(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["AccountDeleteParams"]
+        cls, sid: str, /, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -1994,7 +2010,9 @@ class Account(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["AccountDeleteParams"]) -> "Account":
+    def delete(
+        sid: str, /, **params: Unpack["AccountDeleteParams"]
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -2020,9 +2038,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AccountDeleteParams"]
-    ) -> "Account":
+    def delete(self, **params: Unpack["AccountDeleteParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -2040,7 +2056,7 @@ class Account(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["AccountDeleteParams"]
+        cls, sid: str, /, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -2064,7 +2080,7 @@ class Account(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["AccountDeleteParams"]
+        sid: str, /, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -2093,7 +2109,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
@@ -2153,7 +2169,7 @@ class Account(
 
     @classmethod
     def _cls_persons(
-        cls, account: str, **params: Unpack["AccountPersonsParams"]
+        cls, account: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2172,7 +2188,7 @@ class Account(
     @overload
     @staticmethod
     def persons(
-        account: str, **params: Unpack["AccountPersonsParams"]
+        account: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2189,7 +2205,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_persons")
-    def persons(  # pyright: ignore[reportGeneralTypeIssues]
+    def persons(
         self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
@@ -2208,7 +2224,7 @@ class Account(
 
     @classmethod
     async def _cls_persons_async(
-        cls, account: str, **params: Unpack["AccountPersonsParams"]
+        cls, account: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2227,7 +2243,7 @@ class Account(
     @overload
     @staticmethod
     async def persons_async(
-        account: str, **params: Unpack["AccountPersonsParams"]
+        account: str, /, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -2244,7 +2260,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_persons_async")
-    async def persons_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def persons_async(
         self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
@@ -2263,7 +2279,7 @@ class Account(
 
     @classmethod
     def _cls_reject(
-        cls, account: str, **params: Unpack["AccountRejectParams"]
+        cls, account: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2284,7 +2300,7 @@ class Account(
     @overload
     @staticmethod
     def reject(
-        account: str, **params: Unpack["AccountRejectParams"]
+        account: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2303,9 +2319,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_reject")
-    def reject(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AccountRejectParams"]
-    ) -> "Account":
+    def reject(self, **params: Unpack["AccountRejectParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
@@ -2324,7 +2338,7 @@ class Account(
 
     @classmethod
     async def _cls_reject_async(
-        cls, account: str, **params: Unpack["AccountRejectParams"]
+        cls, account: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2345,7 +2359,7 @@ class Account(
     @overload
     @staticmethod
     async def reject_async(
-        account: str, **params: Unpack["AccountRejectParams"]
+        account: str, /, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -2366,7 +2380,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_reject_async")
-    async def reject_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def reject_async(
         self, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
@@ -2387,7 +2401,7 @@ class Account(
 
     @classmethod
     def _cls_unreject(
-        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+        cls, account: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2410,7 +2424,7 @@ class Account(
     @overload
     @staticmethod
     def unreject(
-        account: str, **params: Unpack["AccountUnrejectParams"]
+        account: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2433,9 +2447,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_unreject")
-    def unreject(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AccountUnrejectParams"]
-    ) -> "Account":
+    def unreject(self, **params: Unpack["AccountUnrejectParams"]) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
 
@@ -2456,7 +2468,7 @@ class Account(
 
     @classmethod
     async def _cls_unreject_async(
-        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+        cls, account: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2479,7 +2491,7 @@ class Account(
     @overload
     @staticmethod
     async def unreject_async(
-        account: str, **params: Unpack["AccountUnrejectParams"]
+        account: str, /, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
@@ -2504,7 +2516,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_unreject_async")
-    async def unreject_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def unreject_async(
         self, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """
@@ -2577,7 +2589,7 @@ class Account(
 
     @classmethod
     def list_capabilities(
-        cls, account: str, **params: Unpack["AccountListCapabilitiesParams"]
+        cls, account: str, /, **params: Unpack["AccountListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
@@ -2595,7 +2607,7 @@ class Account(
 
     @classmethod
     async def list_capabilities_async(
-        cls, account: str, **params: Unpack["AccountListCapabilitiesParams"]
+        cls, account: str, /, **params: Unpack["AccountListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
@@ -2616,6 +2628,7 @@ class Account(
         cls,
         account: str,
         capability: str,
+        /,
         **params: Unpack["AccountRetrieveCapabilityParams"],
     ) -> "Capability":
         """
@@ -2638,6 +2651,7 @@ class Account(
         cls,
         account: str,
         capability: str,
+        /,
         **params: Unpack["AccountRetrieveCapabilityParams"],
     ) -> "Capability":
         """
@@ -2660,6 +2674,7 @@ class Account(
         cls,
         account: str,
         capability: str,
+        /,
         **params: Unpack["AccountModifyCapabilityParams"],
     ) -> "Capability":
         """
@@ -2682,6 +2697,7 @@ class Account(
         cls,
         account: str,
         capability: str,
+        /,
         **params: Unpack["AccountModifyCapabilityParams"],
     ) -> "Capability":
         """
@@ -2704,6 +2720,7 @@ class Account(
         cls,
         account: str,
         id: str,
+        /,
         **params: Unpack["AccountDeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2725,6 +2742,7 @@ class Account(
         cls,
         account: str,
         id: str,
+        /,
         **params: Unpack["AccountDeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2746,6 +2764,7 @@ class Account(
         cls,
         account: str,
         id: str,
+        /,
         **params: Unpack["AccountRetrieveExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2767,6 +2786,7 @@ class Account(
         cls,
         account: str,
         id: str,
+        /,
         **params: Unpack["AccountRetrieveExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2788,6 +2808,7 @@ class Account(
         cls,
         account: str,
         id: str,
+        /,
         **params: Unpack["AccountModifyExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2816,6 +2837,7 @@ class Account(
         cls,
         account: str,
         id: str,
+        /,
         **params: Unpack["AccountModifyExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2843,6 +2865,7 @@ class Account(
     def list_external_accounts(
         cls,
         account: str,
+        /,
         **params: Unpack["AccountListExternalAccountsParams"],
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
@@ -2863,6 +2886,7 @@ class Account(
     async def list_external_accounts_async(
         cls,
         account: str,
+        /,
         **params: Unpack["AccountListExternalAccountsParams"],
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
@@ -2883,6 +2907,7 @@ class Account(
     def create_external_account(
         cls,
         account: str,
+        /,
         **params: Unpack["AccountCreateExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2903,6 +2928,7 @@ class Account(
     async def create_external_account_async(
         cls,
         account: str,
+        /,
         **params: Unpack["AccountCreateExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
@@ -2921,7 +2947,7 @@ class Account(
 
     @classmethod
     def create_login_link(
-        cls, account: str, **params: Unpack["AccountCreateLoginLinkParams"]
+        cls, account: str, /, **params: Unpack["AccountCreateLoginLinkParams"]
     ) -> "LoginLink":
         """
         Creates a login link for a connected account to access the Express Dashboard.
@@ -2941,7 +2967,7 @@ class Account(
 
     @classmethod
     async def create_login_link_async(
-        cls, account: str, **params: Unpack["AccountCreateLoginLinkParams"]
+        cls, account: str, /, **params: Unpack["AccountCreateLoginLinkParams"]
     ) -> "LoginLink":
         """
         Creates a login link for a connected account to access the Express Dashboard.
@@ -2964,6 +2990,7 @@ class Account(
         cls,
         account: str,
         person: str,
+        /,
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
@@ -2985,6 +3012,7 @@ class Account(
         cls,
         account: str,
         person: str,
+        /,
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
@@ -3006,6 +3034,7 @@ class Account(
         cls,
         account: str,
         person: str,
+        /,
         **params: Unpack["AccountRetrievePersonParams"],
     ) -> "Person":
         """
@@ -3027,6 +3056,7 @@ class Account(
         cls,
         account: str,
         person: str,
+        /,
         **params: Unpack["AccountRetrievePersonParams"],
     ) -> "Person":
         """
@@ -3048,6 +3078,7 @@ class Account(
         cls,
         account: str,
         person: str,
+        /,
         **params: Unpack["AccountModifyPersonParams"],
     ) -> "Person":
         """
@@ -3069,6 +3100,7 @@ class Account(
         cls,
         account: str,
         person: str,
+        /,
         **params: Unpack["AccountModifyPersonParams"],
     ) -> "Person":
         """
@@ -3087,7 +3119,7 @@ class Account(
 
     @classmethod
     def list_persons(
-        cls, account: str, **params: Unpack["AccountListPersonsParams"]
+        cls, account: str, /, **params: Unpack["AccountListPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3105,7 +3137,7 @@ class Account(
 
     @classmethod
     async def list_persons_async(
-        cls, account: str, **params: Unpack["AccountListPersonsParams"]
+        cls, account: str, /, **params: Unpack["AccountListPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3123,7 +3155,7 @@ class Account(
 
     @classmethod
     def create_person(
-        cls, account: str, **params: Unpack["AccountCreatePersonParams"]
+        cls, account: str, /, **params: Unpack["AccountCreatePersonParams"]
     ) -> "Person":
         """
         Creates a new person.
@@ -3141,7 +3173,7 @@ class Account(
 
     @classmethod
     async def create_person_async(
-        cls, account: str, **params: Unpack["AccountCreatePersonParams"]
+        cls, account: str, /, **params: Unpack["AccountCreatePersonParams"]
     ) -> "Person":
         """
         Creates a new person.

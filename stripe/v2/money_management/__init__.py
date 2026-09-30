@@ -4,6 +4,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.money_management import test_helpers as test_helpers
     from stripe.v2.money_management._adjustment import Adjustment as Adjustment
     from stripe.v2.money_management._adjustment_service import (
         AdjustmentService as AdjustmentService,
@@ -16,6 +17,12 @@ if TYPE_CHECKING:
     )
     from stripe.v2.money_management._financial_address import (
         FinancialAddress as FinancialAddress,
+    )
+    from stripe.v2.money_management._financial_address_credit_simulation import (
+        FinancialAddressCreditSimulation as FinancialAddressCreditSimulation,
+    )
+    from stripe.v2.money_management._financial_address_generated_microdeposits import (
+        FinancialAddressGeneratedMicrodeposits as FinancialAddressGeneratedMicrodeposits,
     )
     from stripe.v2.money_management._financial_address_service import (
         FinancialAddressService as FinancialAddressService,
@@ -74,6 +81,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._received_debit_service import (
         ReceivedDebitService as ReceivedDebitService,
     )
+    from stripe.v2.money_management._test_helpers_service import (
+        TestHelpersService as TestHelpersService,
+    )
     from stripe.v2.money_management._transaction import (
         Transaction as Transaction,
     )
@@ -89,6 +99,7 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "test_helpers": ("stripe.v2.money_management.test_helpers", True),
     "Adjustment": ("stripe.v2.money_management._adjustment", False),
     "AdjustmentService": (
         "stripe.v2.money_management._adjustment_service",
@@ -104,6 +115,14 @@ _import_map = {
     ),
     "FinancialAddress": (
         "stripe.v2.money_management._financial_address",
+        False,
+    ),
+    "FinancialAddressCreditSimulation": (
+        "stripe.v2.money_management._financial_address_credit_simulation",
+        False,
+    ),
+    "FinancialAddressGeneratedMicrodeposits": (
+        "stripe.v2.money_management._financial_address_generated_microdeposits",
         False,
     ),
     "FinancialAddressService": (
@@ -165,6 +184,10 @@ _import_map = {
     "ReceivedDebit": ("stripe.v2.money_management._received_debit", False),
     "ReceivedDebitService": (
         "stripe.v2.money_management._received_debit_service",
+        False,
+    ),
+    "TestHelpersService": (
+        "stripe.v2.money_management._test_helpers_service",
         False,
     ),
     "Transaction": ("stripe.v2.money_management._transaction", False),

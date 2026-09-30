@@ -19,6 +19,7 @@ class TaxIdService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["TaxIdDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -39,6 +40,7 @@ class TaxIdService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["TaxIdDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -59,6 +61,7 @@ class TaxIdService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["TaxIdRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":
@@ -79,6 +82,7 @@ class TaxIdService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["TaxIdRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "TaxId":

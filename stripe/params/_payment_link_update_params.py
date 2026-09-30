@@ -42,11 +42,11 @@ class PaymentLinkUpdateParams(TypedDict):
         "Literal['']|List[PaymentLinkUpdateParamsCustomField]"
     ]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: NotRequired["PaymentLinkUpdateParamsCustomText"]
     """
-    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     """
     customer_creation: NotRequired["Literal['always', 'if_required']|str"]
     """
@@ -113,7 +113,7 @@ class PaymentLinkUpdateParams(TypedDict):
     Payment-method-specific configuration.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'satispay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -307,7 +307,7 @@ class PaymentLinkUpdateParamsCustomFieldDropdownOption(TypedDict):
 class PaymentLinkUpdateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """
@@ -1006,7 +1006,7 @@ class PaymentLinkUpdateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired["Literal['if_supported', 'never']|str"]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
     """
 
 

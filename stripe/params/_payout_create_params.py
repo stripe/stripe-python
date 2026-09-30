@@ -9,7 +9,7 @@ from typing_extensions import Literal, NotRequired
 class PayoutCreateParams(RequestOptions):
     amount: int
     """
-    A positive integer in cents representing how much to payout.
+    A positive integer in cents representing how much to pay out.
     """
     currency: str
     """

@@ -13,7 +13,6 @@ if TYPE_CHECKING:
         network as network,
         orchestrated_commerce as orchestrated_commerce,
         signals as signals,
-        test_helpers as test_helpers,
     )
 
 # name -> (import_target, is_submodule)
@@ -26,7 +25,6 @@ _import_map = {
     "network": ("stripe.params.v2.network", True),
     "orchestrated_commerce": ("stripe.params.v2.orchestrated_commerce", True),
     "signals": ("stripe.params.v2.signals", True),
-    "test_helpers": ("stripe.params.v2.test_helpers", True),
 }
 if not TYPE_CHECKING:
 

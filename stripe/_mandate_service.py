@@ -55,6 +55,7 @@ class MandateService(StripeService):
     def retrieve(
         self,
         mandate: str,
+        /,
         params: Optional["MandateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Mandate":
@@ -75,6 +76,7 @@ class MandateService(StripeService):
     async def retrieve_async(
         self,
         mandate: str,
+        /,
         params: Optional["MandateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Mandate":

@@ -142,7 +142,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_cancel(
-        cls, job: str, **params: Unpack["RedactionJobCancelParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -163,7 +163,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def cancel(
-        job: str, **params: Unpack["RedactionJobCancelParams"]
+        job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -184,7 +184,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
@@ -205,7 +205,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, job: str, **params: Unpack["RedactionJobCancelParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -226,7 +226,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def cancel_async(
-        job: str, **params: Unpack["RedactionJobCancelParams"]
+        job: str, /, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -247,7 +247,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
@@ -340,7 +340,7 @@ class RedactionJob(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["RedactionJobModifyParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobModifyParams"]
     ) -> "RedactionJob":
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -359,7 +359,7 @@ class RedactionJob(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["RedactionJobModifyParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobModifyParams"]
     ) -> "RedactionJob":
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -400,7 +400,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_run(
-        cls, job: str, **params: Unpack["RedactionJobRunParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -423,7 +423,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def run(
-        job: str, **params: Unpack["RedactionJobRunParams"]
+        job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -446,9 +446,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_run")
-    def run(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJobRunParams"]
-    ) -> "RedactionJob":
+    def run(self, **params: Unpack["RedactionJobRunParams"]) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
 
@@ -469,7 +467,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_run_async(
-        cls, job: str, **params: Unpack["RedactionJobRunParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -492,7 +490,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def run_async(
-        job: str, **params: Unpack["RedactionJobRunParams"]
+        job: str, /, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -517,7 +515,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_run_async")
-    async def run_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def run_async(
         self, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
@@ -540,7 +538,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_validate(
-        cls, job: str, **params: Unpack["RedactionJobValidateParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -563,7 +561,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def validate(
-        job: str, **params: Unpack["RedactionJobValidateParams"]
+        job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -588,7 +586,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_validate")
-    def validate(  # pyright: ignore[reportGeneralTypeIssues]
+    def validate(
         self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
@@ -611,7 +609,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_validate_async(
-        cls, job: str, **params: Unpack["RedactionJobValidateParams"]
+        cls, job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -634,7 +632,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def validate_async(
-        job: str, **params: Unpack["RedactionJobValidateParams"]
+        job: str, /, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -659,7 +657,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_validate_async")
-    async def validate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def validate_async(
         self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
@@ -684,6 +682,7 @@ class RedactionJob(
     def list_validation_errors(
         cls,
         job: str,
+        /,
         **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """
@@ -704,6 +703,7 @@ class RedactionJob(
     async def list_validation_errors_async(
         cls,
         job: str,
+        /,
         **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """

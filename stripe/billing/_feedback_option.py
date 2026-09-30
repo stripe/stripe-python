@@ -33,7 +33,11 @@ class FeedbackOption(
     UpdateableAPIResource["FeedbackOption"],
 ):
     """
-    A resource for the feedback options model (for custom cancellation reasons)
+    A feedback option is a reason you can present to customers when they cancel a
+    subscription through the customer portal. Configure the set of options a customer
+    can choose from on a [portal configuration](https://docs.stripe.com/api/customer_portal/configuration).
+
+    Related guide: [Customer management](https://docs.stripe.com/customer-management)
     """
 
     OBJECT_NAME: ClassVar[Literal["billing.feedback_option"]] = (
@@ -102,7 +106,7 @@ class FeedbackOption(
 
     @classmethod
     def _cls_deactivate(
-        cls, id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -121,7 +125,7 @@ class FeedbackOption(
     @overload
     @staticmethod
     def deactivate(
-        id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -138,7 +142,7 @@ class FeedbackOption(
         ...
 
     @class_method_variant("_cls_deactivate")
-    def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
+    def deactivate(
         self, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
@@ -157,7 +161,7 @@ class FeedbackOption(
 
     @classmethod
     async def _cls_deactivate_async(
-        cls, id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -176,7 +180,7 @@ class FeedbackOption(
     @overload
     @staticmethod
     async def deactivate_async(
-        id: str, **params: Unpack["FeedbackOptionDeactivateParams"]
+        id: str, /, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
         Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
@@ -193,7 +197,7 @@ class FeedbackOption(
         ...
 
     @class_method_variant("_cls_deactivate_async")
-    async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def deactivate_async(
         self, **params: Unpack["FeedbackOptionDeactivateParams"]
     ) -> "FeedbackOption":
         """
@@ -215,7 +219,7 @@ class FeedbackOption(
         cls, **params: Unpack["FeedbackOptionListParams"]
     ) -> ListObject["FeedbackOption"]:
         """
-        An API method for listing the feedback options model
+        Returns a list of your feedback options.
         """
         result = cls._static_request(
             "get",
@@ -235,7 +239,7 @@ class FeedbackOption(
         cls, **params: Unpack["FeedbackOptionListParams"]
     ) -> ListObject["FeedbackOption"]:
         """
-        An API method for listing the feedback options model
+        Returns a list of your feedback options.
         """
         result = await cls._static_request_async(
             "get",
@@ -252,7 +256,7 @@ class FeedbackOption(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FeedbackOptionModifyParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionModifyParams"]
     ) -> "FeedbackOption":
         """
         Updates the description of an existing feedback option.
@@ -269,7 +273,7 @@ class FeedbackOption(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FeedbackOptionModifyParams"]
+        cls, id: str, /, **params: Unpack["FeedbackOptionModifyParams"]
     ) -> "FeedbackOption":
         """
         Updates the description of an existing feedback option.
@@ -289,7 +293,7 @@ class FeedbackOption(
         cls, id: str, **params: Unpack["FeedbackOptionRetrieveParams"]
     ) -> "FeedbackOption":
         """
-        Retrieves a feedback options object given an ID.
+        Retrieves a feedback option object given an ID.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -300,7 +304,7 @@ class FeedbackOption(
         cls, id: str, **params: Unpack["FeedbackOptionRetrieveParams"]
     ) -> "FeedbackOption":
         """
-        Retrieves a feedback options object given an ID.
+        Retrieves a feedback option object given an ID.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

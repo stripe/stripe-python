@@ -6,6 +6,10 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class TrialOfferListParams(RequestOptions):
+    active: NotRequired[bool]
+    """
+    Only return trial offers that are active (`true`) or archived (`false`). If omitted, both active and archived trial offers are returned.
+    """
     created: NotRequired["TrialOfferListParamsCreated|int"]
     """
     Only return trial offers that were created during the given date interval.

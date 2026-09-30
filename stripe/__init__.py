@@ -172,6 +172,7 @@ if TYPE_CHECKING:
         tax as tax,
         terminal as terminal,
         test_helpers as test_helpers,
+        three_d_secure as three_d_secure,
         treasury as treasury,
         v2 as v2,
     )
@@ -333,7 +334,6 @@ if TYPE_CHECKING:
         CannotProceedError as CannotProceedError,
         CardError as CardError,
         ControlledByAlternateResourceError as ControlledByAlternateResourceError,
-        ControlledByDashboardError as ControlledByDashboardError,
         FeatureNotEnabledError as FeatureNotEnabledError,
         FinancialAccountNotOpenError as FinancialAccountNotOpenError,
         IdempotencyError as IdempotencyError,
@@ -341,6 +341,7 @@ if TYPE_CHECKING:
         InvalidPaymentMethodError as InvalidPaymentMethodError,
         InvalidPayoutMethodError as InvalidPayoutMethodError,
         InvalidRequestError as InvalidRequestError,
+        InvalidVaultedCredentialError as InvalidVaultedCredentialError,
         NonZeroBalanceError as NonZeroBalanceError,
         NotCancelableError as NotCancelableError,
         PermissionError as PermissionError,
@@ -351,6 +352,9 @@ if TYPE_CHECKING:
         StripeError as StripeError,
         StripeErrorWithParamCode as StripeErrorWithParamCode,
         TemporarySessionExpiredError as TemporarySessionExpiredError,
+        VerificationAttemptFailedError as VerificationAttemptFailedError,
+        VerificationExpiredError as VerificationExpiredError,
+        VerificationNotInitiatedError as VerificationNotInitiatedError,
     )
     from stripe._error_object import (
         ErrorObject as ErrorObject,
@@ -531,7 +535,6 @@ if TYPE_CHECKING:
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
-    from stripe._reversal import Reversal as Reversal
     from stripe._review import Review as Review
     from stripe._review_service import ReviewService as ReviewService
     from stripe._search_result_object import (
@@ -610,11 +613,15 @@ if TYPE_CHECKING:
     from stripe._test_helpers_service import (
         TestHelpersService as TestHelpersService,
     )
+    from stripe._three_d_secure_service import (
+        ThreeDSecureService as ThreeDSecureService,
+    )
     from stripe._token import Token as Token
     from stripe._token_service import TokenService as TokenService
     from stripe._topup import Topup as Topup
     from stripe._topup_service import TopupService as TopupService
     from stripe._transfer import Transfer as Transfer
+    from stripe._transfer_reversal import TransferReversal as TransferReversal
     from stripe._transfer_reversal_service import (
         TransferReversalService as TransferReversalService,
     )
@@ -664,6 +671,7 @@ _import_map = {
     "tax": ("stripe.tax", True),
     "terminal": ("stripe.terminal", True),
     "test_helpers": ("stripe.test_helpers", True),
+    "three_d_secure": ("stripe.three_d_secure", True),
     "treasury": ("stripe.treasury", True),
     "v2": ("stripe.v2", True),
     "Account": ("stripe._account", False),
@@ -791,7 +799,6 @@ _import_map = {
     "CannotProceedError": ("stripe._error", False),
     "CardError": ("stripe._error", False),
     "ControlledByAlternateResourceError": ("stripe._error", False),
-    "ControlledByDashboardError": ("stripe._error", False),
     "FeatureNotEnabledError": ("stripe._error", False),
     "FinancialAccountNotOpenError": ("stripe._error", False),
     "IdempotencyError": ("stripe._error", False),
@@ -799,6 +806,7 @@ _import_map = {
     "InvalidPaymentMethodError": ("stripe._error", False),
     "InvalidPayoutMethodError": ("stripe._error", False),
     "InvalidRequestError": ("stripe._error", False),
+    "InvalidVaultedCredentialError": ("stripe._error", False),
     "NonZeroBalanceError": ("stripe._error", False),
     "NotCancelableError": ("stripe._error", False),
     "PermissionError": ("stripe._error", False),
@@ -809,6 +817,9 @@ _import_map = {
     "StripeError": ("stripe._error", False),
     "StripeErrorWithParamCode": ("stripe._error", False),
     "TemporarySessionExpiredError": ("stripe._error", False),
+    "VerificationAttemptFailedError": ("stripe._error", False),
+    "VerificationExpiredError": ("stripe._error", False),
+    "VerificationNotInitiatedError": ("stripe._error", False),
     "ErrorObject": ("stripe._error_object", False),
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
@@ -969,7 +980,6 @@ _import_map = {
     "RequestorOptions": ("stripe._requestor_options", False),
     "ReserveService": ("stripe._reserve_service", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
-    "Reversal": ("stripe._reversal", False),
     "Review": ("stripe._review", False),
     "ReviewService": ("stripe._review_service", False),
     "SearchResultObject": ("stripe._search_result_object", False),
@@ -1018,11 +1028,13 @@ _import_map = {
     "TerminalService": ("stripe._terminal_service", False),
     "APIResourceTestHelpers": ("stripe._test_helpers", False),
     "TestHelpersService": ("stripe._test_helpers_service", False),
+    "ThreeDSecureService": ("stripe._three_d_secure_service", False),
     "Token": ("stripe._token", False),
     "TokenService": ("stripe._token_service", False),
     "Topup": ("stripe._topup", False),
     "TopupService": ("stripe._topup_service", False),
     "Transfer": ("stripe._transfer", False),
+    "TransferReversal": ("stripe._transfer_reversal", False),
     "TransferReversalService": ("stripe._transfer_reversal_service", False),
     "TransferService": ("stripe._transfer_service", False),
     "TreasuryService": ("stripe._treasury_service", False),

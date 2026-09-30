@@ -20,6 +20,7 @@ class PlanService(StripeService):
     def delete(
         self,
         plan: str,
+        /,
         params: Optional["PlanDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
@@ -40,6 +41,7 @@ class PlanService(StripeService):
     async def delete_async(
         self,
         plan: str,
+        /,
         params: Optional["PlanDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
@@ -60,6 +62,7 @@ class PlanService(StripeService):
     def retrieve(
         self,
         plan: str,
+        /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
@@ -80,6 +83,7 @@ class PlanService(StripeService):
     async def retrieve_async(
         self,
         plan: str,
+        /,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
@@ -100,6 +104,7 @@ class PlanService(StripeService):
     def update(
         self,
         plan: str,
+        /,
         params: Optional["PlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
@@ -120,6 +125,7 @@ class PlanService(StripeService):
     async def update_async(
         self,
         plan: str,
+        /,
         params: Optional["PlanUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
