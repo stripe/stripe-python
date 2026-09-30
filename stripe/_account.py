@@ -1305,7 +1305,7 @@ class Account(
             ]
         ]
         """
-        If the account is disabled, this string describes why the account can't create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+        This is typed as an enum for consistency with `requirements.disabled_reason`.
         """
         errors: Optional[List[Error]]
         """
@@ -1498,7 +1498,7 @@ class Account(
             ]
         ]
         """
-        If the account is disabled, this string describes why the account can't create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+        If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
         """
         errors: Optional[List[Error]]
         """
@@ -2034,7 +2034,7 @@ class Account(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["AccountDeleteParams"]
+        cls, sid: str, /, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -2057,7 +2057,9 @@ class Account(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["AccountDeleteParams"]) -> "Account":
+    def delete(
+        sid: str, /, **params: Unpack["AccountDeleteParams"]
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -2083,9 +2085,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AccountDeleteParams"]
-    ) -> "Account":
+    def delete(self, **params: Unpack["AccountDeleteParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -2103,7 +2103,7 @@ class Account(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["AccountDeleteParams"]
+        cls, sid: str, /, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -2127,7 +2127,7 @@ class Account(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["AccountDeleteParams"]
+        sid: str, /, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -2156,7 +2156,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
@@ -2252,7 +2252,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_persons")
-    def persons(  # pyright: ignore[reportGeneralTypeIssues]
+    def persons(
         self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
@@ -2307,7 +2307,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_persons_async")
-    async def persons_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def persons_async(
         self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
@@ -2366,9 +2366,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_reject")
-    def reject(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AccountRejectParams"]
-    ) -> "Account":
+    def reject(self, **params: Unpack["AccountRejectParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
@@ -2429,7 +2427,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_reject_async")
-    async def reject_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def reject_async(
         self, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
@@ -2496,9 +2494,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_unreject")
-    def unreject(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AccountUnrejectParams"]
-    ) -> "Account":
+    def unreject(self, **params: Unpack["AccountUnrejectParams"]) -> "Account":
         """
         With Connect, you can unreject accounts that you have previously rejected.
 
@@ -2567,7 +2563,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_unreject_async")
-    async def unreject_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def unreject_async(
         self, **params: Unpack["AccountUnrejectParams"]
     ) -> "Account":
         """

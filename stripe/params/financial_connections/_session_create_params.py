@@ -108,9 +108,9 @@ class SessionCreateParamsFilters(TypedDict):
     """
     Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
     """
-    countries: NotRequired[List[str]]
+    country: NotRequired[str]
     """
-    List of countries from which to filter accounts.
+    Country from which to collect accounts.
     """
     institution: NotRequired[str]
     """

@@ -55,9 +55,11 @@ class Card(
         """
         The cryptocurrency held in the wallet.
         """
-        type: Optional[Union[Literal["bridge_wallet", "standard"], str]]
+        type: Optional[
+            Union[Literal["bridge_wallet", "squads", "standard"], str]
+        ]
         """
-        The type of wallet (standard or bridge_wallet).
+        The type of crypto wallet.
         """
 
     class LatestFraudWarning(StripeObject):
@@ -1497,7 +1499,9 @@ class Card(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["CardModifyParams"]) -> "Card":
+    def modify(
+        cls, id: str, /, **params: Unpack["CardModifyParams"]
+    ) -> "Card":
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
@@ -1513,7 +1517,7 @@ class Card(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CardModifyParams"]
+        cls, id: str, /, **params: Unpack["CardModifyParams"]
     ) -> "Card":
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1591,7 +1595,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_deliver_card")
-        def deliver_card(  # pyright: ignore[reportGeneralTypeIssues]
+        def deliver_card(
             self, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
@@ -1646,7 +1650,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_deliver_card_async")
-        async def deliver_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def deliver_card_async(
             self, **params: Unpack["CardDeliverCardParams"]
         ) -> "Card":
             """
@@ -1699,9 +1703,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_fail_card")
-        def fail_card(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["CardFailCardParams"]
-        ) -> "Card":
+        def fail_card(self, **params: Unpack["CardFailCardParams"]) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to failure.
             """
@@ -1754,7 +1756,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_fail_card_async")
-        async def fail_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def fail_card_async(
             self, **params: Unpack["CardFailCardParams"]
         ) -> "Card":
             """
@@ -1809,7 +1811,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_return_card")
-        def return_card(  # pyright: ignore[reportGeneralTypeIssues]
+        def return_card(
             self, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
@@ -1864,7 +1866,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_return_card_async")
-        async def return_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def return_card_async(
             self, **params: Unpack["CardReturnCardParams"]
         ) -> "Card":
             """
@@ -1917,9 +1919,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_ship_card")
-        def ship_card(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["CardShipCardParams"]
-        ) -> "Card":
+        def ship_card(self, **params: Unpack["CardShipCardParams"]) -> "Card":
             """
             Updates the shipping status of the specified Issuing Card object to shipped.
             """
@@ -1972,7 +1972,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_ship_card_async")
-        async def ship_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def ship_card_async(
             self, **params: Unpack["CardShipCardParams"]
         ) -> "Card":
             """
@@ -2027,7 +2027,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_submit_card")
-        def submit_card(  # pyright: ignore[reportGeneralTypeIssues]
+        def submit_card(
             self, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """
@@ -2082,7 +2082,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_submit_card_async")
-        async def submit_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def submit_card_async(
             self, **params: Unpack["CardSubmitCardParams"]
         ) -> "Card":
             """

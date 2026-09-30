@@ -263,7 +263,7 @@ class PaymentPlan(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentPlanModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentPlanModifyParams"]
     ) -> "PaymentPlan":
         """
         Updates the schedule or metadata of an existing payment plan. Only unpaid installments can be updated.
@@ -280,7 +280,7 @@ class PaymentPlan(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentPlanModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentPlanModifyParams"]
     ) -> "PaymentPlan":
         """
         Updates the schedule or metadata of an existing payment plan. Only unpaid installments can be updated.

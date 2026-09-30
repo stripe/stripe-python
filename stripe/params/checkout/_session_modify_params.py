@@ -16,7 +16,7 @@ class SessionModifyParams(RequestOptions):
         "SessionModifyParamsCollectedInformation"
     ]
     """
-    Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
+    Information about the customer collected within the Checkout Session. Can only be set when updating `embedded_page` or `elements` sessions.
     """
     discounts: NotRequired["Literal['']|List[SessionModifyParamsDiscount]"]
     """

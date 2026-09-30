@@ -62,6 +62,10 @@ class FinancialAddress(StripeObject):
             """
             The name of the bank.
             """
+            bic: Optional[str]
+            """
+            The SWIFT/BIC code.
+            """
             last4: str
             """
             The last four digits of the account number.
@@ -97,6 +101,10 @@ class FinancialAddress(StripeObject):
             """
             The name of the bank.
             """
+            bic: Optional[str]
+            """
+            The SWIFT/BIC code.
+            """
             institution_number: str
             """
             The institution number.
@@ -119,6 +127,10 @@ class FinancialAddress(StripeObject):
             """
             The name of the bank.
             """
+            bic: str
+            """
+            The SWIFT/BIC code.
+            """
             country: str
             """
             The country of the bank account.
@@ -140,6 +152,14 @@ class FinancialAddress(StripeObject):
             account_number: Optional[str]
             """
             The full account number.
+            """
+            bic: Optional[str]
+            """
+            The SWIFT/BIC code.
+            """
+            iban: Optional[str]
+            """
+            The full IBAN.
             """
             last4: str
             """

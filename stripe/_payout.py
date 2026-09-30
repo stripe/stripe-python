@@ -211,9 +211,7 @@ class Payout(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PayoutCancelParams"]
-    ) -> "Payout":
+    def cancel(self, **params: Unpack["PayoutCancelParams"]) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
@@ -266,7 +264,7 @@ class Payout(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
@@ -363,7 +361,7 @@ class Payout(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PayoutModifyParams"]
+        cls, id: str, /, **params: Unpack["PayoutModifyParams"]
     ) -> "Payout":
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -380,7 +378,7 @@ class Payout(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PayoutModifyParams"]
+        cls, id: str, /, **params: Unpack["PayoutModifyParams"]
     ) -> "Payout":
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -459,9 +457,7 @@ class Payout(
         ...
 
     @class_method_variant("_cls_reverse")
-    def reverse(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PayoutReverseParams"]
-    ) -> "Payout":
+    def reverse(self, **params: Unpack["PayoutReverseParams"]) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
 
@@ -522,7 +518,7 @@ class Payout(
         ...
 
     @class_method_variant("_cls_reverse_async")
-    async def reverse_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def reverse_async(
         self, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """

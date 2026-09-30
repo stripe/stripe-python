@@ -2489,7 +2489,9 @@ class InvoiceCreatePreviewParamsScheduleDetailsPrebillingBillUntilDuration(
 
 
 class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
-    billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|str|int"]
+    billing_cycle_anchor: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsBillingCycleAnchor"
+    ]
     """
     For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
     """
@@ -2570,6 +2572,19 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     trial_end: NotRequired["Literal['now']|int"]
     """
     If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsBillingCycleAnchor(
+    TypedDict,
+):
+    timestamp: NotRequired[int]
+    """
+    A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp", "unchanged"], str]
+    """
+    Determines how the subscription's billing cycle anchor behaves for the invoice preview.
     """
 
 

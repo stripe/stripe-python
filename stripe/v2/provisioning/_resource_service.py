@@ -19,6 +19,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.provisioning._resource_retrieve_params import (
         ResourceRetrieveParams,
     )
+    from stripe.params.v2.provisioning._resource_reveal_access_configuration_params import (
+        ResourceRevealAccessConfigurationParams,
+    )
     from stripe.params.v2.provisioning._resource_rotate_credentials_params import (
         ResourceRotateCredentialsParams,
     )
@@ -32,6 +35,9 @@ if TYPE_CHECKING:
         ResourceUpdateParams,
     )
     from stripe.v2.provisioning._resource import Resource
+    from stripe.v2.provisioning._resource_access_configuration import (
+        ResourceAccessConfiguration,
+    )
 
 
 class ResourceService(StripeService):
@@ -233,6 +239,58 @@ class ResourceService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/provisioning/resources/{id}/remove".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def reveal_access_configuration(
+        self,
+        id: str,
+        /,
+        params: Optional["ResourceRevealAccessConfigurationParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ResourceAccessConfiguration":
+        """
+        Reveals the current provider-issued access configuration for a completed Resource.
+        This is a read-only disclosure: it does not create, refresh, mint, or rotate credentials.
+        Repeated calls are safe and do not require an idempotency key, but can return a newer
+        configuration after a separate Rotate operation completes.
+        """
+        return cast(
+            "ResourceAccessConfiguration",
+            self._request(
+                "post",
+                "/v2/provisioning/resources/{id}/reveal_access_configuration".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reveal_access_configuration_async(
+        self,
+        id: str,
+        /,
+        params: Optional["ResourceRevealAccessConfigurationParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ResourceAccessConfiguration":
+        """
+        Reveals the current provider-issued access configuration for a completed Resource.
+        This is a read-only disclosure: it does not create, refresh, mint, or rotate credentials.
+        Repeated calls are safe and do not require an idempotency key, but can return a newer
+        configuration after a separate Rotate operation completes.
+        """
+        return cast(
+            "ResourceAccessConfiguration",
+            await self._request_async(
+                "post",
+                "/v2/provisioning/resources/{id}/reveal_access_configuration".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

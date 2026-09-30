@@ -56,6 +56,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -82,6 +90,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -133,6 +142,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -159,6 +176,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -224,6 +242,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -250,6 +276,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -301,6 +328,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -327,6 +362,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -378,6 +414,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -404,6 +448,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -474,6 +519,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -500,6 +553,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -558,6 +612,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -584,6 +646,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -642,6 +705,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -668,6 +739,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -719,6 +791,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -745,6 +825,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -796,6 +877,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -822,6 +911,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -921,6 +1011,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -947,6 +1045,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -1007,6 +1106,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -1033,6 +1140,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -1091,6 +1199,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -1117,6 +1233,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -1168,6 +1285,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -1194,6 +1319,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -1391,6 +1517,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1413,7 +1547,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1540,6 +1678,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1562,7 +1708,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1653,6 +1803,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1675,7 +1833,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1720,6 +1882,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1742,7 +1912,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1787,6 +1961,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1809,7 +1991,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1854,6 +2040,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1876,7 +2070,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1921,6 +2119,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -1943,7 +2149,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -1988,6 +2198,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2010,7 +2228,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2055,6 +2277,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2077,7 +2307,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2122,6 +2356,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2144,7 +2386,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2189,6 +2435,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2211,7 +2465,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2256,6 +2514,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2278,7 +2544,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2323,6 +2593,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2345,7 +2623,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2390,6 +2672,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2412,7 +2702,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2457,6 +2751,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2479,7 +2781,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2524,6 +2830,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2546,7 +2860,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2591,6 +2909,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2613,7 +2939,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2658,6 +2988,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2680,7 +3018,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2725,6 +3067,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2747,7 +3097,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2792,6 +3146,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2814,7 +3176,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2859,6 +3225,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2881,7 +3255,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2926,6 +3304,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -2948,7 +3334,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -2993,6 +3383,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3015,7 +3413,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3060,6 +3462,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3082,7 +3492,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3127,6 +3541,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3149,7 +3571,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3194,6 +3620,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3216,7 +3650,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3261,6 +3699,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3283,7 +3729,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3328,6 +3778,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3350,7 +3808,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3395,6 +3857,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3417,7 +3887,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3462,6 +3936,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3484,7 +3966,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3529,6 +4015,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3551,7 +4045,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3596,6 +4094,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3618,7 +4124,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3663,6 +4173,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3685,7 +4203,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3730,6 +4252,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3752,7 +4282,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3797,6 +4331,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3819,7 +4361,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3864,6 +4410,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3886,7 +4440,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3931,6 +4489,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -3953,7 +4519,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -3998,6 +4568,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4020,7 +4598,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4065,6 +4647,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4087,7 +4677,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4132,6 +4726,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4154,7 +4756,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4199,6 +4805,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4221,7 +4835,90 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class SatispayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4266,6 +4963,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4288,7 +4993,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4333,6 +5042,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4355,7 +5072,90 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class SequraPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4406,6 +5206,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -4430,7 +5238,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -4481,6 +5293,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4503,7 +5323,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4548,6 +5372,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4570,7 +5402,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4615,6 +5451,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4637,7 +5481,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4682,6 +5530,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4704,7 +5560,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4749,6 +5609,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -4771,7 +5639,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -4941,6 +5813,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Samsung Pay payments.
                 """
+                satispay_payments: Optional[SatispayPayments]
+                """
+                Allow the merchant to process Satispay payments.
+                """
                 sepa_bank_transfer_payments: Optional[SepaBankTransferPayments]
                 """
                 Allow the merchant to process SEPA bank transfer payments.
@@ -4948,6 +5824,10 @@ class Account(StripeObject):
                 sepa_debit_payments: Optional[SepaDebitPayments]
                 """
                 Allow the merchant to process SEPA Direct Debit payments.
+                """
+                sequra_payments: Optional[SequraPayments]
+                """
+                Allow the merchant to process SeQura payments.
                 """
                 stripe_balance: Optional[StripeBalance]
                 """
@@ -5013,8 +5893,10 @@ class Account(StripeObject):
                     "promptpay_payments": PromptpayPayments,
                     "revolut_pay_payments": RevolutPayPayments,
                     "samsung_pay_payments": SamsungPayPayments,
+                    "satispay_payments": SatispayPayments,
                     "sepa_bank_transfer_payments": SepaBankTransferPayments,
                     "sepa_debit_payments": SepaDebitPayments,
+                    "sequra_payments": SequraPayments,
                     "stripe_balance": StripeBalance,
                     "sunbit_payments": SunbitPayments,
                     "swish_payments": SwishPayments,
@@ -5297,6 +6179,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5323,6 +6213,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5374,6 +6265,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5400,6 +6299,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5451,6 +6351,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5477,6 +6385,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5528,6 +6437,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5554,6 +6471,93 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
+                                "restricted",
+                                "unsupported",
+                            ]
+                            """
+                            The status of the Capability.
+                            """
+                            status_details: List[StatusDetail]
+                            """
+                            Additional details about the capability's status. This value is empty when `status` is `active`.
+                            """
+                            _inner_class_types = {
+                                "protections": Protections,
+                                "status_details": StatusDetail,
+                            }
+
+                        class Ousd(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
+                            class StatusDetail(StripeObject):
+                                code: Literal[
+                                    "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
+                                    "requirements_past_due",
+                                    "requirements_pending_verification",
+                                    "restricted_other",
+                                    "unsupported_business",
+                                    "unsupported_country",
+                                    "unsupported_entity_type",
+                                ]
+                                """
+                                Machine-readable code explaining the reason for the Capability to be in its current status.
+                                """
+                                resolution: Literal[
+                                    "contact_stripe",
+                                    "no_resolution",
+                                    "provide_info",
+                                ]
+                                """
+                                Machine-readable code explaining how to make the Capability active.
+                                """
+
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
+                            status: Literal[
+                                "active",
+                                "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5605,6 +6609,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5631,6 +6643,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5682,6 +6695,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5708,6 +6729,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5739,6 +6761,10 @@ class Account(StripeObject):
                         """
                         Can receive business storage-type funds on Stripe in GBP.
                         """
+                        ousd: Optional[Ousd]
+                        """
+                        Can receive business storage-type funds on Stripe in OUSD.
+                        """
                         usd: Optional[Usd]
                         """
                         Can receive business storage-type funds on Stripe in USD.
@@ -5752,6 +6778,7 @@ class Account(StripeObject):
                             "cad": Cad,
                             "eur": Eur,
                             "gbp": Gbp,
+                            "ousd": Ousd,
                             "usd": Usd,
                             "usdc": Usdc,
                         }
@@ -5793,6 +6820,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5819,6 +6854,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5870,6 +6906,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5896,6 +6940,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -5947,6 +6992,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -5973,6 +7026,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6024,6 +7078,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -6050,6 +7112,93 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
+                                "restricted",
+                                "unsupported",
+                            ]
+                            """
+                            The status of the Capability.
+                            """
+                            status_details: List[StatusDetail]
+                            """
+                            Additional details about the capability's status. This value is empty when `status` is `active`.
+                            """
+                            _inner_class_types = {
+                                "protections": Protections,
+                                "status_details": StatusDetail,
+                            }
+
+                        class Ousd(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
+                            class StatusDetail(StripeObject):
+                                code: Literal[
+                                    "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
+                                    "requirements_past_due",
+                                    "requirements_pending_verification",
+                                    "restricted_other",
+                                    "unsupported_business",
+                                    "unsupported_country",
+                                    "unsupported_entity_type",
+                                ]
+                                """
+                                Machine-readable code explaining the reason for the Capability to be in its current status.
+                                """
+                                resolution: Literal[
+                                    "contact_stripe",
+                                    "no_resolution",
+                                    "provide_info",
+                                ]
+                                """
+                                Machine-readable code explaining how to make the Capability active.
+                                """
+
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
+                            status: Literal[
+                                "active",
+                                "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6101,6 +7250,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -6127,6 +7284,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6178,6 +7336,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -6204,6 +7370,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6235,6 +7402,10 @@ class Account(StripeObject):
                         """
                         Can send business storage-type funds on Stripe in GBP.
                         """
+                        ousd: Optional[Ousd]
+                        """
+                        Can send business storage-type funds on Stripe in OUSD.
+                        """
                         usd: Optional[Usd]
                         """
                         Can send business storage-type funds on Stripe in USD.
@@ -6248,6 +7419,7 @@ class Account(StripeObject):
                             "cad": Cad,
                             "eur": Eur,
                             "gbp": Gbp,
+                            "ousd": Ousd,
                             "usd": Usd,
                             "usdc": Usdc,
                         }
@@ -6303,6 +7475,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -6329,6 +7509,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6380,6 +7561,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -6406,6 +7595,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6468,6 +7658,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -6494,6 +7692,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6545,6 +7744,14 @@ class Account(StripeObject):
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
                                     "requirements_past_due",
                                     "requirements_pending_verification",
                                     "restricted_other",
@@ -6571,6 +7778,7 @@ class Account(StripeObject):
                             status: Literal[
                                 "active",
                                 "pending",
+                                "rejected",
                                 "restricted",
                                 "unsupported",
                             ]
@@ -6646,6 +7854,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -6670,7 +7886,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -6727,6 +7947,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -6751,7 +7979,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -6801,6 +8033,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -6825,7 +8065,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -6875,6 +8119,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -6899,7 +8151,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -6949,6 +8205,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -6973,7 +8237,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7023,6 +8291,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7047,7 +8323,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7126,6 +8406,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7150,7 +8438,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7200,6 +8492,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7224,7 +8524,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7274,6 +8578,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7298,7 +8610,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7367,6 +8683,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7391,7 +8715,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7441,6 +8769,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7465,7 +8801,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7529,6 +8869,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7553,7 +8901,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7781,6 +9133,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7805,7 +9165,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7855,6 +9219,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7879,7 +9251,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -7929,6 +9305,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -7953,7 +9337,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8003,6 +9391,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8027,7 +9423,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8077,6 +9477,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8101,7 +9509,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8151,6 +9563,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8175,7 +9595,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8225,6 +9649,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8249,7 +9681,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8299,6 +9735,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8323,7 +9767,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8373,6 +9821,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8397,7 +9853,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8447,6 +9907,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8471,7 +9939,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8521,6 +9993,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8545,7 +10025,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8595,6 +10079,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8619,7 +10111,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8669,6 +10165,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -8693,7 +10197,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -8806,6 +10314,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -8828,7 +10344,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -8873,6 +10393,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -8895,7 +10423,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -8940,6 +10472,14 @@ class Account(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
                             "requirements_past_due",
                             "requirements_pending_verification",
                             "restricted_other",
@@ -8962,7 +10502,11 @@ class Account(StripeObject):
                     Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                     """
                     status: Literal[
-                        "active", "pending", "restricted", "unsupported"
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
                     ]
                     """
                     The status of the Capability.
@@ -9013,6 +10557,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -9037,7 +10589,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -9087,6 +10643,14 @@ class Account(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
                                 "requirements_past_due",
                                 "requirements_pending_verification",
                                 "restricted_other",
@@ -9111,7 +10675,11 @@ class Account(StripeObject):
                         Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
                         """
                         status: Literal[
-                            "active", "pending", "restricted", "unsupported"
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
                         ]
                         """
                         The status of the Capability.
@@ -9518,8 +11086,10 @@ class Account(StripeObject):
                 code: Union[
                     Literal[
                         "invalid_address_city_state_postal_code",
+                        "invalid_address_cmra_address",
                         "invalid_address_highway_contract_box",
                         "invalid_address_private_mailbox",
+                        "invalid_address_registered_agent_address",
                         "invalid_business_profile_name",
                         "invalid_business_profile_name_denylisted",
                         "invalid_company_name_denylisted",
@@ -9729,6 +11299,7 @@ class Account(StripeObject):
                             "received_debits.bank_accounts",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
+                            "satispay_payments",
                             "sepa_bank_transfer_payments",
                             "sepa_debit_payments",
                             "stripe_balance.payouts",
@@ -12360,7 +13931,7 @@ class Account(StripeObject):
         """
         type: Union[Literal["link", "network_business_profile"], str]
         """
-        Closed Enum. The type of related network object.
+        Open Enum. The type of related network object.
         """
 
     class Requirements(StripeObject):
@@ -12369,8 +13940,10 @@ class Account(StripeObject):
                 code: Union[
                     Literal[
                         "invalid_address_city_state_postal_code",
+                        "invalid_address_cmra_address",
                         "invalid_address_highway_contract_box",
                         "invalid_address_private_mailbox",
+                        "invalid_address_registered_agent_address",
                         "invalid_business_profile_name",
                         "invalid_business_profile_name_denylisted",
                         "invalid_company_name_denylisted",
@@ -12580,6 +14153,7 @@ class Account(StripeObject):
                             "received_debits.bank_accounts",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
+                            "satispay_payments",
                             "sepa_bank_transfer_payments",
                             "sepa_debit_payments",
                             "stripe_balance.payouts",

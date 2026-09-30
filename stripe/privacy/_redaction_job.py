@@ -184,7 +184,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
@@ -247,7 +247,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
@@ -340,7 +340,7 @@ class RedactionJob(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["RedactionJobModifyParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobModifyParams"]
     ) -> "RedactionJob":
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -359,7 +359,7 @@ class RedactionJob(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["RedactionJobModifyParams"]
+        cls, id: str, /, **params: Unpack["RedactionJobModifyParams"]
     ) -> "RedactionJob":
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -446,9 +446,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_run")
-    def run(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJobRunParams"]
-    ) -> "RedactionJob":
+    def run(self, **params: Unpack["RedactionJobRunParams"]) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
 
@@ -517,7 +515,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_run_async")
-    async def run_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def run_async(
         self, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
@@ -588,7 +586,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_validate")
-    def validate(  # pyright: ignore[reportGeneralTypeIssues]
+    def validate(
         self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
@@ -659,7 +657,7 @@ class RedactionJob(
         ...
 
     @class_method_variant("_cls_validate_async")
-    async def validate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def validate_async(
         self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """

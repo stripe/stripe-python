@@ -18,6 +18,7 @@ class FinancialAddressCreditParams(TypedDict):
             "fps",
             "rtp",
             "sepa_credit_transfer",
+            "swift",
             "wire",
         ],
         str,

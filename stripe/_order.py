@@ -1198,7 +1198,9 @@ class Order(
         return result
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["OrderModifyParams"]) -> "Order":
+    def modify(
+        cls, id: str, /, **params: Unpack["OrderModifyParams"]
+    ) -> "Order":
         """
         Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
@@ -1214,7 +1216,7 @@ class Order(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["OrderModifyParams"]
+        cls, id: str, /, **params: Unpack["OrderModifyParams"]
     ) -> "Order":
         """
         Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1283,9 +1285,7 @@ class Order(
         ...
 
     @class_method_variant("_cls_submit")
-    def submit(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderSubmitParams"]
-    ) -> "Order":
+    def submit(self, **params: Unpack["OrderSubmitParams"]) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
         """
@@ -1336,7 +1336,7 @@ class Order(
         ...
 
     @class_method_variant("_cls_submit_async")
-    async def submit_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def submit_async(
         self, **params: Unpack["OrderSubmitParams"]
     ) -> "Order":
         """

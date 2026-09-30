@@ -901,7 +901,7 @@ class RequestedSession(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm(
         self, **params: Unpack["RequestedSessionConfirmParams"]
     ) -> "RequestedSession":
         """
@@ -961,7 +961,7 @@ class RequestedSession(
         ...
 
     @class_method_variant("_cls_confirm_async")
-    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_async(
         self, **params: Unpack["RequestedSessionConfirmParams"]
     ) -> "RequestedSession":
         """
@@ -1053,7 +1053,7 @@ class RequestedSession(
         ...
 
     @class_method_variant("_cls_expire")
-    def expire(  # pyright: ignore[reportGeneralTypeIssues]
+    def expire(
         self, **params: Unpack["RequestedSessionExpireParams"]
     ) -> "RequestedSession":
         """
@@ -1113,7 +1113,7 @@ class RequestedSession(
         ...
 
     @class_method_variant("_cls_expire_async")
-    async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def expire_async(
         self, **params: Unpack["RequestedSessionExpireParams"]
     ) -> "RequestedSession":
         """
@@ -1173,7 +1173,7 @@ class RequestedSession(
         ...
 
     @class_method_variant("_cls_list_orders")
-    def list_orders(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_orders(
         self, **params: Unpack["RequestedSessionListOrdersParams"]
     ) -> ListObject["Order"]:
         """
@@ -1233,7 +1233,7 @@ class RequestedSession(
         ...
 
     @class_method_variant("_cls_list_orders_async")
-    async def list_orders_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_orders_async(
         self, **params: Unpack["RequestedSessionListOrdersParams"]
     ) -> ListObject["Order"]:
         """
@@ -1252,7 +1252,7 @@ class RequestedSession(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["RequestedSessionModifyParams"]
+        cls, id: str, /, **params: Unpack["RequestedSessionModifyParams"]
     ) -> "RequestedSession":
         """
         Updates a requested session
@@ -1269,7 +1269,7 @@ class RequestedSession(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["RequestedSessionModifyParams"]
+        cls, id: str, /, **params: Unpack["RequestedSessionModifyParams"]
     ) -> "RequestedSession":
         """
         Updates a requested session

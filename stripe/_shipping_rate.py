@@ -221,7 +221,7 @@ class ShippingRate(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ShippingRateModifyParams"]
+        cls, id: str, /, **params: Unpack["ShippingRateModifyParams"]
     ) -> "ShippingRate":
         """
         Updates an existing shipping rate object.
@@ -238,7 +238,7 @@ class ShippingRate(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ShippingRateModifyParams"]
+        cls, id: str, /, **params: Unpack["ShippingRateModifyParams"]
     ) -> "ShippingRate":
         """
         Updates an existing shipping rate object.

@@ -679,7 +679,7 @@ class Dispute(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["DisputeModifyParams"]
+        cls, id: str, /, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
@@ -696,7 +696,7 @@ class Dispute(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["DisputeModifyParams"]
+        cls, id: str, /, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
@@ -769,9 +769,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_submit")
-    def submit(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["DisputeSubmitParams"]
-    ) -> "Dispute":
+    def submit(self, **params: Unpack["DisputeSubmitParams"]) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
         """
@@ -824,7 +822,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_submit_async")
-    async def submit_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def submit_async(
         self, **params: Unpack["DisputeSubmitParams"]
     ) -> "Dispute":
         """
@@ -880,9 +878,7 @@ class Dispute(
             ...
 
         @class_method_variant("_cls_close")
-        def close(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["DisputeCloseParams"]
-        ) -> "Dispute":
+        def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
             """
             Test helper: closes a test-mode Issuing dispute as won or lost.
             """
@@ -935,7 +931,7 @@ class Dispute(
             ...
 
         @class_method_variant("_cls_close_async")
-        async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def close_async(
             self, **params: Unpack["DisputeCloseParams"]
         ) -> "Dispute":
             """
@@ -993,7 +989,7 @@ class Dispute(
             ...
 
         @class_method_variant("_cls_provisional_credit")
-        def provisional_credit(  # pyright: ignore[reportGeneralTypeIssues]
+        def provisional_credit(
             self, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
@@ -1051,7 +1047,7 @@ class Dispute(
             ...
 
         @class_method_variant("_cls_provisional_credit_async")
-        async def provisional_credit_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def provisional_credit_async(
             self, **params: Unpack["DisputeProvisionalCreditParams"]
         ) -> "Dispute":
             """
@@ -1120,7 +1116,7 @@ class Dispute(
         @class_method_variant(
             "_cls_simulate_network_lifecycle_dispute_response",
         )
-        def simulate_network_lifecycle_dispute_response(  # pyright: ignore[reportGeneralTypeIssues]
+        def simulate_network_lifecycle_dispute_response(
             self,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
@@ -1192,7 +1188,7 @@ class Dispute(
         @class_method_variant(
             "_cls_simulate_network_lifecycle_dispute_response_async",
         )
-        async def simulate_network_lifecycle_dispute_response_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def simulate_network_lifecycle_dispute_response_async(
             self,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecycleDisputeResponseParams"
@@ -1264,7 +1260,7 @@ class Dispute(
         @class_method_variant(
             "_cls_simulate_network_lifecycle_pre_arbitration_response",
         )
-        def simulate_network_lifecycle_pre_arbitration_response(  # pyright: ignore[reportGeneralTypeIssues]
+        def simulate_network_lifecycle_pre_arbitration_response(
             self,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
@@ -1336,7 +1332,7 @@ class Dispute(
         @class_method_variant(
             "_cls_simulate_network_lifecycle_pre_arbitration_response_async",
         )
-        async def simulate_network_lifecycle_pre_arbitration_response_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def simulate_network_lifecycle_pre_arbitration_response_async(
             self,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams"
@@ -1408,7 +1404,7 @@ class Dispute(
         @class_method_variant(
             "_cls_simulate_network_lifecycle_pre_arbitration_submission",
         )
-        def simulate_network_lifecycle_pre_arbitration_submission(  # pyright: ignore[reportGeneralTypeIssues]
+        def simulate_network_lifecycle_pre_arbitration_submission(
             self,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
@@ -1480,7 +1476,7 @@ class Dispute(
         @class_method_variant(
             "_cls_simulate_network_lifecycle_pre_arbitration_submission_async",
         )
-        async def simulate_network_lifecycle_pre_arbitration_submission_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def simulate_network_lifecycle_pre_arbitration_submission_async(
             self,
             **params: Unpack[
                 "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"

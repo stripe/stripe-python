@@ -18,6 +18,11 @@ class InboundTransferCreateParams(_InboundTransferCreateParamsBase):
     """
     An optional, freeform description field intended to store metadata.
     """
+    statement_descriptor: NotRequired[str]
+    """
+    An optional statement descriptor surfaced on the payer's bank statement. Max 10 characters.
+    When omitted, Stripe sends its default descriptor.
+    """
     to: "InboundTransferCreateParamsTo"
     """
     Object containing details about where the funds will land.

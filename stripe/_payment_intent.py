@@ -322,7 +322,7 @@ class PaymentIntent(
     class LastPaymentError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
@@ -383,6 +383,7 @@ class PaymentIntent(
                     "customer_session_expired",
                     "customer_tax_location_invalid",
                     "debit_not_authorized",
+                    "dispute_evidence_page_limit_exceeded",
                     "email_invalid",
                     "expired_card",
                     "expired_payment_method",
@@ -393,6 +394,8 @@ class PaymentIntent(
                     "financial_connections_account_inactive",
                     "financial_connections_account_pending_account_numbers",
                     "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_consent_locale_invalid",
+                    "financial_connections_consent_locale_unsupported",
                     "financial_connections_institution_unavailable",
                     "financial_connections_no_successful_transaction_refresh",
                     "forwarding_api_inactive",
@@ -447,6 +450,7 @@ class PaymentIntent(
                     "parameter_missing",
                     "parameter_unknown",
                     "parameters_exclusive",
+                    "payment_evaluation_on_api_version_not_supported",
                     "payment_intent_action_required",
                     "payment_intent_authentication_failure",
                     "payment_intent_incompatible_payment_method",
@@ -3927,6 +3931,12 @@ class PaymentIntent(
             """
             Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
             """
+            request_card_account_update: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Indicates whether Stripe may synchronously request a real-time card account update for this confirmation. `if_available` allows the update; `never` opts out. Defaults to `if_available` and is omitted from the response unless explicitly set on this confirmation. This does not affect batch Card Account Updater.
+            """
             request_decremental_authorization: Optional[
                 Union[Literal["if_available", "never"], str]
             ]
@@ -5597,6 +5607,7 @@ class PaymentIntent(
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -5617,6 +5628,7 @@ class PaymentIntent(
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -6055,7 +6067,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_apply_customer_balance")
-    def apply_customer_balance(  # pyright: ignore[reportGeneralTypeIssues]
+    def apply_customer_balance(
         self, **params: Unpack["PaymentIntentApplyCustomerBalanceParams"]
     ) -> "PaymentIntent":
         """
@@ -6115,7 +6127,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_apply_customer_balance_async")
-    async def apply_customer_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def apply_customer_balance_async(
         self, **params: Unpack["PaymentIntentApplyCustomerBalanceParams"]
     ) -> "PaymentIntent":
         """
@@ -6182,7 +6194,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["PaymentIntentCancelParams"]
     ) -> "PaymentIntent":
         """
@@ -6253,7 +6265,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["PaymentIntentCancelParams"]
     ) -> "PaymentIntent":
         """
@@ -6324,7 +6336,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_capture")
-    def capture(  # pyright: ignore[reportGeneralTypeIssues]
+    def capture(
         self, **params: Unpack["PaymentIntentCaptureParams"]
     ) -> "PaymentIntent":
         """
@@ -6395,7 +6407,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_capture_async")
-    async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def capture_async(
         self, **params: Unpack["PaymentIntentCaptureParams"]
     ) -> "PaymentIntent":
         """
@@ -6541,7 +6553,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm(
         self, **params: Unpack["PaymentIntentConfirmParams"]
     ) -> "PaymentIntent":
         """
@@ -6712,7 +6724,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_confirm_async")
-    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_async(
         self, **params: Unpack["PaymentIntentConfirmParams"]
     ) -> "PaymentIntent":
         """
@@ -6896,7 +6908,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_decrement_authorization")
-    def decrement_authorization(  # pyright: ignore[reportGeneralTypeIssues]
+    def decrement_authorization(
         self, **params: Unpack["PaymentIntentDecrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
@@ -7016,7 +7028,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_decrement_authorization_async")
-    async def decrement_authorization_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def decrement_authorization_async(
         self, **params: Unpack["PaymentIntentDecrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
@@ -7166,7 +7178,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_increment_authorization")
-    def increment_authorization(  # pyright: ignore[reportGeneralTypeIssues]
+    def increment_authorization(
         self, **params: Unpack["PaymentIntentIncrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
@@ -7326,7 +7338,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_increment_authorization_async")
-    async def increment_authorization_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def increment_authorization_async(
         self, **params: Unpack["PaymentIntentIncrementAuthorizationParams"]
     ) -> "PaymentIntent":
         """
@@ -7410,7 +7422,7 @@ class PaymentIntent(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentIntentModifyParams"]
     ) -> "PaymentIntent":
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -7433,7 +7445,7 @@ class PaymentIntent(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentIntentModifyParams"]
     ) -> "PaymentIntent":
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -7513,7 +7525,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_reauthorize")
-    def reauthorize(  # pyright: ignore[reportGeneralTypeIssues]
+    def reauthorize(
         self, **params: Unpack["PaymentIntentReauthorizeParams"]
     ) -> "PaymentIntent":
         """
@@ -7596,7 +7608,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_reauthorize_async")
-    async def reauthorize_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def reauthorize_async(
         self, **params: Unpack["PaymentIntentReauthorizeParams"]
     ) -> "PaymentIntent":
         """
@@ -7691,7 +7703,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_trigger_action")
-    def trigger_action(  # pyright: ignore[reportGeneralTypeIssues]
+    def trigger_action(
         self, **params: Unpack["PaymentIntentTriggerActionParams"]
     ) -> "PaymentIntent":
         """
@@ -7749,7 +7761,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_trigger_action_async")
-    async def trigger_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def trigger_action_async(
         self, **params: Unpack["PaymentIntentTriggerActionParams"]
     ) -> "PaymentIntent":
         """
@@ -7809,7 +7821,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_update_crypto_refund_address")
-    def update_crypto_refund_address(  # pyright: ignore[reportGeneralTypeIssues]
+    def update_crypto_refund_address(
         self, **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"]
     ) -> "PaymentIntent":
         """
@@ -7869,7 +7881,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_update_crypto_refund_address_async")
-    async def update_crypto_refund_address_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def update_crypto_refund_address_async(
         self, **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"]
     ) -> "PaymentIntent":
         """
@@ -7929,7 +7941,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
+    def verify_microdeposits(
         self, **params: Unpack["PaymentIntentVerifyMicrodepositsParams"]
     ) -> "PaymentIntent":
         """
@@ -7989,7 +8001,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits_async")
-    async def verify_microdeposits_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def verify_microdeposits_async(
         self, **params: Unpack["PaymentIntentVerifyMicrodepositsParams"]
     ) -> "PaymentIntent":
         """
@@ -8134,7 +8146,7 @@ class PaymentIntent(
             ...
 
         @class_method_variant("_cls_simulate_crypto_deposit")
-        def simulate_crypto_deposit(  # pyright: ignore[reportGeneralTypeIssues]
+        def simulate_crypto_deposit(
             self, **params: Unpack["PaymentIntentSimulateCryptoDepositParams"]
         ) -> "PaymentIntent":
             """
@@ -8194,7 +8206,7 @@ class PaymentIntent(
             ...
 
         @class_method_variant("_cls_simulate_crypto_deposit_async")
-        async def simulate_crypto_deposit_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def simulate_crypto_deposit_async(
             self, **params: Unpack["PaymentIntentSimulateCryptoDepositParams"]
         ) -> "PaymentIntent":
             """

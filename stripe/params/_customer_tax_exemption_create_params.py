@@ -17,6 +17,10 @@ class CustomerTaxExemptionCreateParams(TypedDict):
     """
     ISO 8601 date (YYYY-MM-DD) when the exemption becomes effective. Must be no more than one year after today's UTC date (inclusive).
     """
+    es: NotRequired["CustomerTaxExemptionCreateParamsEs"]
+    """
+    Spain-specific exemption details. Optional when country is ES; must be absent otherwise.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -39,6 +43,13 @@ class CustomerTaxExemptionCreateParamsCa(TypedDict):
     tax_type: Union[Literal["gst_hst", "pst", "qst", "rst"], str]
     """
     The type of Canadian tax (gst_hst, PST, QST, RST).
+    """
+
+
+class CustomerTaxExemptionCreateParamsEs(TypedDict):
+    state: str
+    """
+    Two-letter Spanish subdivision code (ISO 3166-2).
     """
 
 

@@ -45,6 +45,9 @@ if TYPE_CHECKING:
         ProviderServiceDetail as ProviderServiceDetail,
     )
     from stripe.v2.provisioning._resource import Resource as Resource
+    from stripe.v2.provisioning._resource_access_configuration import (
+        ResourceAccessConfiguration as ResourceAccessConfiguration,
+    )
     from stripe.v2.provisioning._resource_service import (
         ResourceService as ResourceService,
     )
@@ -95,6 +98,10 @@ _import_map = {
         False,
     ),
     "Resource": ("stripe.v2.provisioning._resource", False),
+    "ResourceAccessConfiguration": (
+        "stripe.v2.provisioning._resource_access_configuration",
+        False,
+    ),
     "ResourceService": ("stripe.v2.provisioning._resource_service", False),
 }
 if not TYPE_CHECKING:

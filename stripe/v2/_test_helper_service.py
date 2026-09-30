@@ -5,18 +5,11 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.test_helpers._financial_address_service import (
-        FinancialAddressService,
-    )
     from stripe.v2.test_helpers._money_management_service import (
         MoneyManagementService,
     )
 
 _subservices = {
-    "financial_addresses": [
-        "stripe.v2.test_helpers._financial_address_service",
-        "FinancialAddressService",
-    ],
     "money_management": [
         "stripe.v2.test_helpers._money_management_service",
         "MoneyManagementService",
@@ -25,7 +18,6 @@ _subservices = {
 
 
 class TestHelperService(StripeService):
-    financial_addresses: "FinancialAddressService"
     money_management: "MoneyManagementService"
 
     def __init__(self, requestor):

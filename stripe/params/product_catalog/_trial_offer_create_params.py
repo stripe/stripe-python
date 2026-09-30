@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class TrialOfferCreateParams(RequestOptions):
+    active: NotRequired[bool]
+    """
+    Whether the trial offer can be used for new subscriptions. Defaults to true.
+    """
     duration: "TrialOfferCreateParamsDuration"
     """
     Duration of one service period of the trial.
@@ -18,9 +22,9 @@ class TrialOfferCreateParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    name: NotRequired[str]
+    nickname: NotRequired[str]
     """
-    A brief, user-friendly name for the trial offer-for identification purposes.
+    A brief description of the trial offer, hidden from customers.
     """
     price: str
     """

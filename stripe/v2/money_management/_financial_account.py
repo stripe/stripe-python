@@ -229,9 +229,29 @@ class FinancialAccount(StripeObject):
             Describes who controls the private keys for the crypto storage.
             """
 
+        class DepositInsuranceEligibility(StripeObject):
+            bank_name: Union[Literal["fifth_third"], str]
+            """
+            The bank where funds are stored.
+            """
+            currencies: List[str]
+            """
+            Currencies eligible for deposit insurance at this bank under this scheme.
+            """
+            type: Union[Literal["fdic", "fdic_passthrough"], str]
+            """
+            The deposit insurance scheme.
+            """
+
         crypto: Optional[Crypto]
         """
         Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+        """
+        deposit_insurance_eligibility: Optional[
+            List[DepositInsuranceEligibility]
+        ]
+        """
+        Array of eligibility objects, segmented by bank name and deposit insurance scheme.
         """
         funds_usage_type: Optional[Union[Literal["business", "consumer"], str]]
         """
@@ -241,7 +261,10 @@ class FinancialAccount(StripeObject):
         """
         The currencies that this FinancialAccount can hold.
         """
-        _inner_class_types = {"crypto": Crypto}
+        _inner_class_types = {
+            "crypto": Crypto,
+            "deposit_insurance_eligibility": DepositInsuranceEligibility,
+        }
 
     accrued_fees: Optional[AccruedFees]
     """

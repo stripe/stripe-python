@@ -89,7 +89,7 @@ class SetupIntent(
     class LastSetupError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
@@ -150,6 +150,7 @@ class SetupIntent(
                     "customer_session_expired",
                     "customer_tax_location_invalid",
                     "debit_not_authorized",
+                    "dispute_evidence_page_limit_exceeded",
                     "email_invalid",
                     "expired_card",
                     "expired_payment_method",
@@ -160,6 +161,8 @@ class SetupIntent(
                     "financial_connections_account_inactive",
                     "financial_connections_account_pending_account_numbers",
                     "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_consent_locale_invalid",
+                    "financial_connections_consent_locale_unsupported",
                     "financial_connections_institution_unavailable",
                     "financial_connections_no_successful_transaction_refresh",
                     "forwarding_api_inactive",
@@ -214,6 +217,7 @@ class SetupIntent(
                     "parameter_missing",
                     "parameter_unknown",
                     "parameters_exclusive",
+                    "payment_evaluation_on_api_version_not_supported",
                     "payment_intent_action_required",
                     "payment_intent_authentication_failure",
                     "payment_intent_incompatible_payment_method",
@@ -1083,6 +1087,7 @@ class SetupIntent(
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -1103,6 +1108,7 @@ class SetupIntent(
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -1429,7 +1435,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1492,7 +1498,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1588,7 +1594,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1695,7 +1701,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm_async")
-    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_async(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1805,7 +1811,7 @@ class SetupIntent(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1822,7 +1828,7 @@ class SetupIntent(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1910,7 +1916,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
+    def verify_microdeposits(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
@@ -1970,7 +1976,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits_async")
-    async def verify_microdeposits_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def verify_microdeposits_async(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """

@@ -557,7 +557,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Risk level of this signal, based on the score.
             """
-            score: float
+            score: Optional[float]
             """
             Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
             """
@@ -581,7 +581,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Risk level of this signal, based on the score.
             """
-            score: float
+            score: Optional[float]
             """
             Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
             """
@@ -605,7 +605,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Risk level of this signal, based on the score.
             """
-            score: float
+            score: Optional[float]
             """
             Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
             """

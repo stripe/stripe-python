@@ -54,8 +54,17 @@ class SubscriptionItem(
 
     class CurrentTrial(StripeObject):
         end_date: int
+        """
+        The time the current trial ends.
+        """
         start_date: int
+        """
+        The time the current trial started.
+        """
         trial_offer: str
+        """
+        The Trial Offer ID applied to the subscription item.
+        """
 
     class Trial(StripeObject):
         converts_to: Optional[List[str]]
@@ -182,7 +191,7 @@ class SubscriptionItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -200,7 +209,7 @@ class SubscriptionItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -217,7 +226,7 @@ class SubscriptionItem(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
@@ -231,7 +240,7 @@ class SubscriptionItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -249,7 +258,7 @@ class SubscriptionItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -266,7 +275,7 @@ class SubscriptionItem(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
@@ -320,7 +329,7 @@ class SubscriptionItem(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SubscriptionItemModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionItemModifyParams"]
     ) -> "SubscriptionItem":
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -337,7 +346,7 @@ class SubscriptionItem(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SubscriptionItemModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionItemModifyParams"]
     ) -> "SubscriptionItem":
         """
         Updates the plan or quantity of an item on a current subscription.

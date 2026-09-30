@@ -4,14 +4,28 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.money_management.test_helpers._financial_address_credit_params import (
+        FinancialAddressCreditParams as FinancialAddressCreditParams,
+    )
     from stripe.params.v2.money_management.test_helpers._financial_address_debit_params import (
         FinancialAddressDebitParams as FinancialAddressDebitParams,
+    )
+    from stripe.params.v2.money_management.test_helpers._financial_address_generate_microdeposits_params import (
+        FinancialAddressGenerateMicrodepositsParams as FinancialAddressGenerateMicrodepositsParams,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "FinancialAddressCreditParams": (
+        "stripe.params.v2.money_management.test_helpers._financial_address_credit_params",
+        False,
+    ),
     "FinancialAddressDebitParams": (
         "stripe.params.v2.money_management.test_helpers._financial_address_debit_params",
+        False,
+    ),
+    "FinancialAddressGenerateMicrodepositsParams": (
+        "stripe.params.v2.money_management.test_helpers._financial_address_generate_microdeposits_params",
         False,
     ),
 }

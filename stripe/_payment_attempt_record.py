@@ -2179,6 +2179,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The ACH payment reference for this transaction.
             """
+            return_code: Optional[str]
+            """
+            NACHA ACH return code for a failed US bank account payment.
+            """
             routing_number: Optional[str]
             """
             The routing number for the bank account.
@@ -2645,7 +2649,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_authenticated")
-    def report_authenticated(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_authenticated(
         self, **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -2705,7 +2709,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_authenticated_async")
-    async def report_authenticated_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_authenticated_async(
         self, **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -2765,7 +2769,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_authorized")
-    def report_authorized(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_authorized(
         self, **params: Unpack["PaymentAttemptRecordReportAuthorizedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -2825,7 +2829,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_authorized_async")
-    async def report_authorized_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_authorized_async(
         self, **params: Unpack["PaymentAttemptRecordReportAuthorizedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -2885,7 +2889,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_canceled")
-    def report_canceled(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_canceled(
         self, **params: Unpack["PaymentAttemptRecordReportCanceledParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -2945,7 +2949,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_canceled_async")
-    async def report_canceled_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_canceled_async(
         self, **params: Unpack["PaymentAttemptRecordReportCanceledParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3006,7 +3010,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_early_fraud_warning")
-    def report_early_fraud_warning(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_early_fraud_warning(
         self,
         **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
     ) -> "PaymentAttemptRecord":
@@ -3068,7 +3072,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_early_fraud_warning_async")
-    async def report_early_fraud_warning_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_early_fraud_warning_async(
         self,
         **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
     ) -> "PaymentAttemptRecord":
@@ -3129,7 +3133,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_failed")
-    def report_failed(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_failed(
         self, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3189,7 +3193,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_failed_async")
-    async def report_failed_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_failed_async(
         self, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3249,7 +3253,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_guaranteed")
-    def report_guaranteed(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_guaranteed(
         self, **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3309,7 +3313,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_guaranteed_async")
-    async def report_guaranteed_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_guaranteed_async(
         self, **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3369,7 +3373,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_informational")
-    def report_informational(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_informational(
         self, **params: Unpack["PaymentAttemptRecordReportInformationalParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3429,7 +3433,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_informational_async")
-    async def report_informational_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_informational_async(
         self, **params: Unpack["PaymentAttemptRecordReportInformationalParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3489,7 +3493,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_refund")
-    def report_refund(  # pyright: ignore[reportGeneralTypeIssues]
+    def report_refund(
         self, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
     ) -> "PaymentAttemptRecord":
         """
@@ -3549,7 +3553,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ...
 
     @class_method_variant("_cls_report_refund_async")
-    async def report_refund_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def report_refund_async(
         self, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
     ) -> "PaymentAttemptRecord":
         """

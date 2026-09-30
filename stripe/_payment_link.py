@@ -759,6 +759,12 @@ class PaymentLink(
 
         class TrialSettings(StripeObject):
             class EndBehavior(StripeObject):
+                billing_cycle_anchor: Optional[
+                    Union[Literal["now", "unchanged"], str]
+                ]
+                """
+                Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+                """
                 missing_payment_method: Union[
                     Literal["cancel", "create_invoice", "pause"], str
                 ]
@@ -848,7 +854,7 @@ class PaymentLink(
     """
     custom_fields: List[CustomField]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: CustomText
     customer_creation: Union[Literal["always", "if_required"], str]
@@ -950,6 +956,7 @@ class PaymentLink(
                     "rechnung",
                     "satispay",
                     "sepa_debit",
+                    "sequra",
                     "shopeepay",
                     "sofort",
                     "sunbit",
@@ -1115,7 +1122,7 @@ class PaymentLink(
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1175,7 +1182,7 @@ class PaymentLink(
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1194,7 +1201,7 @@ class PaymentLink(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.
@@ -1211,7 +1218,7 @@ class PaymentLink(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.

@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from stripe.params.v2 import (
         billing as billing,
         core as core,
+        data as data,
         extend as extend,
         iam as iam,
         money_management as money_management,
@@ -25,6 +26,7 @@ if TYPE_CHECKING:
 _import_map = {
     "billing": ("stripe.params.v2.billing", True),
     "core": ("stripe.params.v2.core", True),
+    "data": ("stripe.params.v2.data", True),
     "extend": ("stripe.params.v2.extend", True),
     "iam": ("stripe.params.v2.iam", True),
     "money_management": ("stripe.params.v2.money_management", True),

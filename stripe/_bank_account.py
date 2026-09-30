@@ -409,7 +409,7 @@ class BankAccount(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["BankAccountDeleteParams"]
+        cls, sid: str, /, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -427,7 +427,7 @@ class BankAccount(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["BankAccountDeleteParams"]
+        sid: str, /, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -444,7 +444,7 @@ class BankAccount(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
@@ -458,7 +458,7 @@ class BankAccount(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["BankAccountDeleteParams"]
+        cls, sid: str, /, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -476,7 +476,7 @@ class BankAccount(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["BankAccountDeleteParams"]
+        sid: str, /, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -493,7 +493,7 @@ class BankAccount(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """

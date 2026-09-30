@@ -1540,7 +1540,7 @@ class Registration(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["RegistrationModifyParams"]
+        cls, id: str, /, **params: Unpack["RegistrationModifyParams"]
     ) -> "Registration":
         """
         Updates an existing Tax Registration object.
@@ -1559,7 +1559,7 @@ class Registration(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["RegistrationModifyParams"]
+        cls, id: str, /, **params: Unpack["RegistrationModifyParams"]
     ) -> "Registration":
         """
         Updates an existing Tax Registration object.

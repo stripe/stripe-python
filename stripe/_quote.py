@@ -1436,9 +1436,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_accept")
-    def accept(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["QuoteAcceptParams"]
-    ) -> "Quote":
+    def accept(self, **params: Unpack["QuoteAcceptParams"]) -> "Quote":
         """
         Accepts the specified quote.
         """
@@ -1489,7 +1487,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_accept_async")
-    async def accept_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def accept_async(
         self, **params: Unpack["QuoteAcceptParams"]
     ) -> "Quote":
         """
@@ -1540,9 +1538,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["QuoteCancelParams"]
-    ) -> "Quote":
+    def cancel(self, **params: Unpack["QuoteCancelParams"]) -> "Quote":
         """
         Cancels the quote.
         """
@@ -1593,7 +1589,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["QuoteCancelParams"]
     ) -> "Quote":
         """
@@ -1676,7 +1672,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_finalize_quote")
-    def finalize_quote(  # pyright: ignore[reportGeneralTypeIssues]
+    def finalize_quote(
         self, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
@@ -1729,7 +1725,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_finalize_quote_async")
-    async def finalize_quote_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def finalize_quote_async(
         self, **params: Unpack["QuoteFinalizeQuoteParams"]
     ) -> "Quote":
         """
@@ -1827,7 +1823,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_computed_upfront_line_items")
-    def list_computed_upfront_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_computed_upfront_line_items(
         self, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1887,7 +1883,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_computed_upfront_line_items_async")
-    async def list_computed_upfront_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_computed_upfront_line_items_async(
         self, **params: Unpack["QuoteListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1942,7 +1938,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -1997,7 +1993,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["QuoteListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -2050,7 +2046,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_lines")
-    def list_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_lines(
         self, **params: Unpack["QuoteListLinesParams"]
     ) -> ListObject["QuoteLine"]:
         """
@@ -2103,7 +2099,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_lines_async")
-    async def list_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_lines_async(
         self, **params: Unpack["QuoteListLinesParams"]
     ) -> ListObject["QuoteLine"]:
         """
@@ -2169,7 +2165,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_preview_invoice_lines")
-    def list_preview_invoice_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_preview_invoice_lines(
         self,
         preview_invoice: str,
         /,
@@ -2239,7 +2235,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_preview_invoice_lines_async")
-    async def list_preview_invoice_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_preview_invoice_lines_async(
         self,
         preview_invoice: str,
         /,
@@ -2296,9 +2292,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_mark_draft")
-    def mark_draft(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["QuoteMarkDraftParams"]
-    ) -> "Quote":
+    def mark_draft(self, **params: Unpack["QuoteMarkDraftParams"]) -> "Quote":
         """
         Converts a stale quote to draft.
         """
@@ -2351,7 +2345,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_mark_draft_async")
-    async def mark_draft_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def mark_draft_async(
         self, **params: Unpack["QuoteMarkDraftParams"]
     ) -> "Quote":
         """
@@ -2404,9 +2398,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_mark_stale")
-    def mark_stale(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["QuoteMarkStaleParams"]
-    ) -> "Quote":
+    def mark_stale(self, **params: Unpack["QuoteMarkStaleParams"]) -> "Quote":
         """
         Converts a draft or open quote to stale.
         """
@@ -2459,7 +2451,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_mark_stale_async")
-    async def mark_stale_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def mark_stale_async(
         self, **params: Unpack["QuoteMarkStaleParams"]
     ) -> "Quote":
         """
@@ -2477,7 +2469,9 @@ class Quote(
         )
 
     @classmethod
-    def modify(cls, id: str, **params: Unpack["QuoteModifyParams"]) -> "Quote":
+    def modify(
+        cls, id: str, /, **params: Unpack["QuoteModifyParams"]
+    ) -> "Quote":
         """
         A quote models prices and services for a customer.
         """
@@ -2493,7 +2487,7 @@ class Quote(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["QuoteModifyParams"]
+        cls, id: str, /, **params: Unpack["QuoteModifyParams"]
     ) -> "Quote":
         """
         A quote models prices and services for a customer.
@@ -2541,9 +2535,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_pdf")
-    def pdf(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["QuotePdfParams"]
-    ) -> Any:
+    def pdf(self, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -2594,9 +2586,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_pdf_async")
-    async def pdf_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["QuotePdfParams"]
-    ) -> Any:
+    async def pdf_async(self, **params: Unpack["QuotePdfParams"]) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
@@ -2648,9 +2638,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_reestimate")
-    def reestimate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["QuoteReestimateParams"]
-    ) -> "Quote":
+    def reestimate(self, **params: Unpack["QuoteReestimateParams"]) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
         """
@@ -2703,7 +2691,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_reestimate_async")
-    async def reestimate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def reestimate_async(
         self, **params: Unpack["QuoteReestimateParams"]
     ) -> "Quote":
         """

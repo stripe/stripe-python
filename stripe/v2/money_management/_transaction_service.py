@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._transaction_list_params import (
         TransactionListParams,
     )
+    from stripe.params.v2.money_management._transaction_refresh_regulatory_receipt_params import (
+        TransactionRefreshRegulatoryReceiptParams,
+    )
     from stripe.params.v2.money_management._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
@@ -143,6 +146,52 @@ class TransactionService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/money_management/transactions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def refresh_regulatory_receipt(
+        self,
+        id: str,
+        /,
+        params: Optional["TransactionRefreshRegulatoryReceiptParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Creates a fresh hosted URL for a Transaction's regulatory receipt.
+        """
+        return cast(
+            "Transaction",
+            self._request(
+                "post",
+                "/v2/money_management/transactions/{id}/refresh_regulatory_receipt".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def refresh_regulatory_receipt_async(
+        self,
+        id: str,
+        /,
+        params: Optional["TransactionRefreshRegulatoryReceiptParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Creates a fresh hosted URL for a Transaction's regulatory receipt.
+        """
+        return cast(
+            "Transaction",
+            await self._request_async(
+                "post",
+                "/v2/money_management/transactions/{id}/refresh_regulatory_receipt".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

@@ -1171,7 +1171,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_amend")
-    def amend(  # pyright: ignore[reportGeneralTypeIssues]
+    def amend(
         self, **params: Unpack["SubscriptionScheduleAmendParams"]
     ) -> "SubscriptionSchedule":
         """
@@ -1229,7 +1229,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_amend_async")
-    async def amend_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def amend_async(
         self, **params: Unpack["SubscriptionScheduleAmendParams"]
     ) -> "SubscriptionSchedule":
         """
@@ -1287,7 +1287,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["SubscriptionScheduleCancelParams"]
     ) -> "SubscriptionSchedule":
         """
@@ -1345,7 +1345,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["SubscriptionScheduleCancelParams"]
     ) -> "SubscriptionSchedule":
         """
@@ -1436,7 +1436,7 @@ class SubscriptionSchedule(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SubscriptionScheduleModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionScheduleModifyParams"]
     ) -> "SubscriptionSchedule":
         """
         Updates an existing subscription schedule.
@@ -1453,7 +1453,7 @@ class SubscriptionSchedule(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SubscriptionScheduleModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionScheduleModifyParams"]
     ) -> "SubscriptionSchedule":
         """
         Updates an existing subscription schedule.
@@ -1509,7 +1509,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_release")
-    def release(  # pyright: ignore[reportGeneralTypeIssues]
+    def release(
         self, **params: Unpack["SubscriptionScheduleReleaseParams"]
     ) -> "SubscriptionSchedule":
         """
@@ -1567,7 +1567,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_release_async")
-    async def release_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def release_async(
         self, **params: Unpack["SubscriptionScheduleReleaseParams"]
     ) -> "SubscriptionSchedule":
         """

@@ -381,7 +381,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
         ...
 
     @class_method_variant("_cls_revoke")
-    def revoke(  # pyright: ignore[reportGeneralTypeIssues]
+    def revoke(
         self, **params: Unpack["IssuedTokenRevokeParams"]
     ) -> "IssuedToken":
         """
@@ -445,7 +445,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
         ...
 
     @class_method_variant("_cls_revoke_async")
-    async def revoke_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def revoke_async(
         self, **params: Unpack["IssuedTokenRevokeParams"]
     ) -> "IssuedToken":
         """

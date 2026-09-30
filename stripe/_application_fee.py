@@ -245,7 +245,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         ...
 
     @class_method_variant("_cls_refund")
-    def refund(  # pyright: ignore[reportGeneralTypeIssues]
+    def refund(
         self, **params: Unpack["ApplicationFeeRefundParams"]
     ) -> "ApplicationFeeRefund":
         """
@@ -330,7 +330,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         ...
 
     @class_method_variant("_cls_refund_async")
-    async def refund_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def refund_async(
         self, **params: Unpack["ApplicationFeeRefundParams"]
     ) -> "ApplicationFeeRefund":
         """

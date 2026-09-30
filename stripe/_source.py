@@ -695,7 +695,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_list_source_transactions")
-    def list_source_transactions(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_source_transactions(
         self, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
@@ -753,7 +753,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_list_source_transactions_async")
-    async def list_source_transactions_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_source_transactions_async(
         self, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
@@ -772,7 +772,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SourceModifyParams"]
+        cls, id: str, /, **params: Unpack["SourceModifyParams"]
     ) -> "Source":
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -791,7 +791,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SourceModifyParams"]
+        cls, id: str, /, **params: Unpack["SourceModifyParams"]
     ) -> "Source":
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -866,9 +866,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_verify")
-    def verify(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SourceVerifyParams"]
-    ) -> "Source":
+    def verify(self, **params: Unpack["SourceVerifyParams"]) -> "Source":
         """
         Verify a given source.
         """
@@ -921,7 +919,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_verify_async")
-    async def verify_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def verify_async(
         self, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """

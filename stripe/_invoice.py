@@ -165,6 +165,29 @@ class Invoice(
         """
 
     class AutomaticTax(StripeObject):
+        class EnablementDetails(StripeObject):
+            class IntegrationConfigurationDisabledReason(StripeObject):
+                conflicting_field: str
+                """
+                The parameter that prevented `automatic_tax` from being enabled (for example `default_tax_rates`).
+                """
+
+            integration_configuration_disabled_reason: Optional[
+                IntegrationConfigurationDisabledReason
+            ]
+            """
+            Present when `source=tax_integration_configuration`, `automatic_tax[enabled]=false`, and a conflicting parameter is recorded.
+            """
+            source: Literal[
+                "explicit", "managed_payments", "tax_integration_configuration"
+            ]
+            """
+            How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+            """
+            _inner_class_types = {
+                "integration_configuration_disabled_reason": IntegrationConfigurationDisabledReason,
+            }
+
         class Liability(StripeObject):
             account: Optional[ExpandableField["Account"]]
             """
@@ -191,6 +214,10 @@ class Invoice(
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
         """
+        enablement_details: Optional[EnablementDetails]
+        """
+        How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+        """
         liability: Optional[Liability]
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
@@ -207,7 +234,10 @@ class Invoice(
         """
         The status of the most recent automated tax calculation for this invoice.
         """
-        _inner_class_types = {"liability": Liability}
+        _inner_class_types = {
+            "enablement_details": EnablementDetails,
+            "liability": Liability,
+        }
 
     class ConfirmationSecret(StripeObject):
         client_secret: str
@@ -470,7 +500,7 @@ class Invoice(
     class LastFinalizationError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
@@ -531,6 +561,7 @@ class Invoice(
                     "customer_session_expired",
                     "customer_tax_location_invalid",
                     "debit_not_authorized",
+                    "dispute_evidence_page_limit_exceeded",
                     "email_invalid",
                     "expired_card",
                     "expired_payment_method",
@@ -541,6 +572,8 @@ class Invoice(
                     "financial_connections_account_inactive",
                     "financial_connections_account_pending_account_numbers",
                     "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_consent_locale_invalid",
+                    "financial_connections_consent_locale_unsupported",
                     "financial_connections_institution_unavailable",
                     "financial_connections_no_successful_transaction_refresh",
                     "forwarding_api_inactive",
@@ -595,6 +628,7 @@ class Invoice(
                     "parameter_missing",
                     "parameter_unknown",
                     "parameters_exclusive",
+                    "payment_evaluation_on_api_version_not_supported",
                     "payment_intent_action_required",
                     "payment_intent_authentication_failure",
                     "payment_intent_incompatible_payment_method",
@@ -1510,6 +1544,27 @@ class Invoice(
         """
         _inner_class_types = {"address": Address}
 
+    class StatusDetails(StripeObject):
+        class Uncollectible(StripeObject):
+            reason: Optional[
+                Union[
+                    Literal[
+                        "max_payment_attempts",
+                        "payment_not_received",
+                        "subscription_canceled",
+                        "subscription_paused",
+                        "user_forgiven",
+                    ],
+                    str,
+                ]
+            ]
+            """
+            The reason why the invoice is uncollectible.
+            """
+
+        uncollectible: Optional[Uncollectible]
+        _inner_class_types = {"uncollectible": Uncollectible}
+
     class StatusTransitions(StripeObject):
         finalized_at: Optional[int]
         """
@@ -1961,6 +2016,7 @@ class Invoice(
     """
     The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     """
+    status_details: Optional[StatusDetails]
     status_transitions: StatusTransitions
     subtotal: int
     """
@@ -2042,7 +2098,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_add_lines")
-    def add_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def add_lines(
         self, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
@@ -2097,7 +2153,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_add_lines_async")
-    async def add_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def add_lines_async(
         self, **params: Unpack["InvoiceAddLinesParams"]
     ) -> "Invoice":
         """
@@ -2179,7 +2235,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_attach_payment")
-    def attach_payment(  # pyright: ignore[reportGeneralTypeIssues]
+    def attach_payment(
         self, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
@@ -2270,7 +2326,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_attach_payment_async")
-    async def attach_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def attach_payment_async(
         self, **params: Unpack["InvoiceAttachPaymentParams"]
     ) -> "Invoice":
         """
@@ -2376,7 +2432,7 @@ class Invoice(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["InvoiceDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
@@ -2393,7 +2449,9 @@ class Invoice(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["InvoiceDeleteParams"]) -> "Invoice":
+    def delete(
+        sid: str, /, **params: Unpack["InvoiceDeleteParams"]
+    ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
         """
@@ -2407,9 +2465,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InvoiceDeleteParams"]
-    ) -> "Invoice":
+    def delete(self, **params: Unpack["InvoiceDeleteParams"]) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
         """
@@ -2421,7 +2477,7 @@ class Invoice(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["InvoiceDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
@@ -2439,7 +2495,7 @@ class Invoice(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["InvoiceDeleteParams"]
+        sid: str, /, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
@@ -2456,7 +2512,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["InvoiceDeleteParams"]
     ) -> "Invoice":
         """
@@ -2506,7 +2562,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_detach_payment")
-    def detach_payment(  # pyright: ignore[reportGeneralTypeIssues]
+    def detach_payment(
         self, **params: Unpack["InvoiceDetachPaymentParams"]
     ) -> "Invoice":
         """
@@ -2561,7 +2617,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_detach_payment_async")
-    async def detach_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def detach_payment_async(
         self, **params: Unpack["InvoiceDetachPaymentParams"]
     ) -> "Invoice":
         """
@@ -2616,7 +2672,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_finalize_invoice")
-    def finalize_invoice(  # pyright: ignore[reportGeneralTypeIssues]
+    def finalize_invoice(
         self, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
@@ -2671,7 +2727,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_finalize_invoice_async")
-    async def finalize_invoice_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def finalize_invoice_async(
         self, **params: Unpack["InvoiceFinalizeInvoiceParams"]
     ) -> "Invoice":
         """
@@ -2769,7 +2825,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_mark_uncollectible")
-    def mark_uncollectible(  # pyright: ignore[reportGeneralTypeIssues]
+    def mark_uncollectible(
         self, **params: Unpack["InvoiceMarkUncollectibleParams"]
     ) -> "Invoice":
         """
@@ -2827,7 +2883,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_mark_uncollectible_async")
-    async def mark_uncollectible_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def mark_uncollectible_async(
         self, **params: Unpack["InvoiceMarkUncollectibleParams"]
     ) -> "Invoice":
         """
@@ -2846,7 +2902,7 @@ class Invoice(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["InvoiceModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceModifyParams"]
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
@@ -2869,7 +2925,7 @@ class Invoice(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["InvoiceModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceModifyParams"]
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
@@ -2926,9 +2982,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_pay")
-    def pay(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InvoicePayParams"]
-    ) -> "Invoice":
+    def pay(self, **params: Unpack["InvoicePayParams"]) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
         """
@@ -2981,7 +3035,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_pay_async")
-    async def pay_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def pay_async(
         self, **params: Unpack["InvoicePayParams"]
     ) -> "Invoice":
         """
@@ -3036,7 +3090,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_remove_lines")
-    def remove_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def remove_lines(
         self, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
@@ -3091,7 +3145,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_remove_lines_async")
-    async def remove_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def remove_lines_async(
         self, **params: Unpack["InvoiceRemoveLinesParams"]
     ) -> "Invoice":
         """
@@ -3174,7 +3228,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_send_invoice")
-    def send_invoice(  # pyright: ignore[reportGeneralTypeIssues]
+    def send_invoice(
         self, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
@@ -3237,7 +3291,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_send_invoice_async")
-    async def send_invoice_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def send_invoice_async(
         self, **params: Unpack["InvoiceSendInvoiceParams"]
     ) -> "Invoice":
         """
@@ -3294,7 +3348,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_update_lines")
-    def update_lines(  # pyright: ignore[reportGeneralTypeIssues]
+    def update_lines(
         self, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
@@ -3349,7 +3403,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_update_lines_async")
-    async def update_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def update_lines_async(
         self, **params: Unpack["InvoiceUpdateLinesParams"]
     ) -> "Invoice":
         """
@@ -3410,7 +3464,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_void_invoice")
-    def void_invoice(  # pyright: ignore[reportGeneralTypeIssues]
+    def void_invoice(
         self, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
@@ -3473,7 +3527,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_void_invoice_async")
-    async def void_invoice_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def void_invoice_async(
         self, **params: Unpack["InvoiceVoidInvoiceParams"]
     ) -> "Invoice":
         """
@@ -3584,6 +3638,7 @@ class Invoice(
         "rendering": Rendering,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
+        "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,

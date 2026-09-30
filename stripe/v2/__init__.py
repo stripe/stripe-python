@@ -31,12 +31,6 @@ if TYPE_CHECKING:
     from stripe.v2._data_service import DataService as DataService
     from stripe.v2._deleted_object import DeletedObject as DeletedObject
     from stripe.v2._extend_service import ExtendService as ExtendService
-    from stripe.v2._financial_address_credit_simulation import (
-        FinancialAddressCreditSimulation as FinancialAddressCreditSimulation,
-    )
-    from stripe.v2._financial_address_generated_microdeposits import (
-        FinancialAddressGeneratedMicrodeposits as FinancialAddressGeneratedMicrodeposits,
-    )
     from stripe.v2._iam_service import IamService as IamService
     from stripe.v2._money_management_service import (
         MoneyManagementService as MoneyManagementService,
@@ -83,14 +77,6 @@ _import_map = {
     "DataService": ("stripe.v2._data_service", False),
     "DeletedObject": ("stripe.v2._deleted_object", False),
     "ExtendService": ("stripe.v2._extend_service", False),
-    "FinancialAddressCreditSimulation": (
-        "stripe.v2._financial_address_credit_simulation",
-        False,
-    ),
-    "FinancialAddressGeneratedMicrodeposits": (
-        "stripe.v2._financial_address_generated_microdeposits",
-        False,
-    ),
     "IamService": ("stripe.v2._iam_service", False),
     "MoneyManagementService": ("stripe.v2._money_management_service", False),
     "NetworkService": ("stripe.v2._network_service", False),

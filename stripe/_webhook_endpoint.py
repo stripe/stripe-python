@@ -132,7 +132,7 @@ class WebhookEndpoint(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
+        cls, sid: str, /, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -150,7 +150,7 @@ class WebhookEndpoint(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
+        sid: str, /, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -167,7 +167,7 @@ class WebhookEndpoint(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
@@ -181,7 +181,7 @@ class WebhookEndpoint(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
+        cls, sid: str, /, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -199,7 +199,7 @@ class WebhookEndpoint(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
+        sid: str, /, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -216,7 +216,7 @@ class WebhookEndpoint(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
@@ -270,7 +270,7 @@ class WebhookEndpoint(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["WebhookEndpointModifyParams"]
+        cls, id: str, /, **params: Unpack["WebhookEndpointModifyParams"]
     ) -> "WebhookEndpoint":
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
@@ -287,7 +287,7 @@ class WebhookEndpoint(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["WebhookEndpointModifyParams"]
+        cls, id: str, /, **params: Unpack["WebhookEndpointModifyParams"]
     ) -> "WebhookEndpoint":
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.

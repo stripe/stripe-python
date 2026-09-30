@@ -49,6 +49,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.provisioning._resource_retrieve_params import (
         ResourceRetrieveParams as ResourceRetrieveParams,
     )
+    from stripe.params.v2.provisioning._resource_reveal_access_configuration_params import (
+        ResourceRevealAccessConfigurationParams as ResourceRevealAccessConfigurationParams,
+    )
     from stripe.params.v2.provisioning._resource_rotate_credentials_params import (
         ResourceRotateCredentialsParams as ResourceRotateCredentialsParams,
     )
@@ -127,6 +130,10 @@ _import_map = {
     ),
     "ResourceRetrieveParams": (
         "stripe.params.v2.provisioning._resource_retrieve_params",
+        False,
+    ),
+    "ResourceRevealAccessConfigurationParams": (
+        "stripe.params.v2.provisioning._resource_reveal_access_configuration_params",
         False,
     ),
     "ResourceRotateCredentialsParams": (

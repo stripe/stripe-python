@@ -338,7 +338,7 @@ class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettings(TypedDict):
         "Literal['invoice', 'pending_invoice_item']|str"
     ]
     """
-    Determines whether to generate an invoice for outstanding amounts when pausing.
+    Determines whether to generate an invoice for outstanding amounts when pausing. When adding a pause schedule, defaults to `pending_invoice_item`. On updates, the existing value is preserved if not provided.
     """
     type: NotRequired["Literal['subscription']|str"]
     """
@@ -368,7 +368,7 @@ class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForOutstandi
 ):
     type: NotRequired["Literal['none', 'pause_at']|str"]
     """
-    Determines whether to collect metered usage accrued up to the pause date.
+    Determines whether to collect metered usage accrued up to the pause date. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
     """
 
 
@@ -379,7 +379,7 @@ class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForUnusedTim
         "Literal['item_current_period_start', 'none', 'pause_at']|str"
     ]
     """
-    Determines which point in the billing period unused time is credited from.
+    Determines which point in the billing period unused time is credited from. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
     """
 
 
@@ -431,19 +431,19 @@ class SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAtDuration(
 class SubscriptionScheduleUpdateParamsPauseScheduleResumeSettings(TypedDict):
     billing_cycle_anchor: NotRequired["Literal['resume_at', 'unchanged']|str"]
     """
-    Controls the billing cycle anchor when the subscription resumes.
+    Controls the billing cycle anchor when the subscription resumes. When adding a pause schedule, defaults to `resume_at`. On updates, the existing value is preserved if not provided.
     """
     payment_behavior: NotRequired[
         "Literal['resume_on_payment_attempt', 'resume_on_payment_success']|str"
     ]
     """
-    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
+    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. When adding a pause schedule, defaults to `resume_on_payment_success`. On updates, the existing value is preserved if not provided.
     """
     proration_behavior: NotRequired[
         "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
-    Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
+    Determines how to handle prorations when the subscription resumes. When adding a pause schedule, defaults to `create_prorations`. On updates, the existing value is preserved if not provided.
     """
 
 

@@ -68,6 +68,10 @@ class Transaction(StripeObject):
         """
         If applicable, the ID of the Dispute that created this Transaction.
         """
+        earned_credit: Optional[str]
+        """
+        If applicable, the ID of the EarnedCredit that created this Transaction.
+        """
         fee_transaction: Optional[str]
         """
         If applicable, the ID of the FeeTransaction that created this Transaction.
@@ -177,6 +181,7 @@ class Transaction(StripeObject):
                 "currency_conversion",
                 "debit_dispute",
                 "dispute",
+                "earned_credit",
                 "fee_transaction",
                 "inbound_transfer",
                 "issuing_authorization",
@@ -208,6 +213,22 @@ class Transaction(StripeObject):
         ]
         """
         Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+        """
+
+    class RegulatoryReceipt(StripeObject):
+        status: Literal[
+            "available", "not_applicable", "pending", "url_expired"
+        ]
+        """
+        Current availability of the regulatory receipt.
+        """
+        url: Optional[str]
+        """
+        Hosted URL for the receipt.
+        """
+        url_expires_at: Optional[str]
+        """
+        Time until which `url` is valid.
         """
 
     class StatusTransitions(StripeObject):
@@ -245,6 +266,7 @@ class Transaction(StripeObject):
             "debit_dispute",
             "dispute",
             "dispute_reversal",
+            "earned_credit",
             "financing_paydown",
             "financing_paydown_reversal",
             "inbound_payment",
@@ -331,6 +353,10 @@ class Transaction(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    regulatory_receipt: RegulatoryReceipt
+    """
+    Hosted transaction receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. If not applicable, `regulatory_receipt.status` will be `not_applicable` and no URL will be provided.
+    """
     status: Literal["pending", "posted", "void"]
     """
     Closed Enum. Current status of the Transaction.
@@ -351,5 +377,6 @@ class Transaction(StripeObject):
         "balance_impact": BalanceImpact,
         "counterparty": Counterparty,
         "flow": Flow,
+        "regulatory_receipt": RegulatoryReceipt,
         "status_transitions": StatusTransitions,
     }
