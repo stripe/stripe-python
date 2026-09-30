@@ -108,7 +108,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Retrieves the details of an Financial Connections Account.
+        Retrieves the details of a Financial Connections Account.
         """
         return cast(
             "Account",
@@ -131,7 +131,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Retrieves the details of an Financial Connections Account.
+        Retrieves the details of a Financial Connections Account.
         """
         return cast(
             "Account",

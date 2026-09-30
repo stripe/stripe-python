@@ -121,7 +121,7 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
         cls, id: str, **params: Unpack["ScheduledQueryRunRetrieveParams"]
     ) -> "ScheduledQueryRun":
         """
-        Retrieves the details of an scheduled query run.
+        Retrieves the details of a scheduled query run.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -132,7 +132,7 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
         cls, id: str, **params: Unpack["ScheduledQueryRunRetrieveParams"]
     ) -> "ScheduledQueryRun":
         """
-        Retrieves the details of an scheduled query run.
+        Retrieves the details of a scheduled query run.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

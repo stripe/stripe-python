@@ -129,6 +129,7 @@ if TYPE_CHECKING:
         identity as identity,
         issuing as issuing,
         params as params,
+        product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
         reserve as reserve,
@@ -136,6 +137,7 @@ if TYPE_CHECKING:
         tax as tax,
         terminal as terminal,
         test_helpers as test_helpers,
+        three_d_secure as three_d_secure,
         treasury as treasury,
         v2 as v2,
     )
@@ -421,6 +423,9 @@ if TYPE_CHECKING:
     from stripe._price import Price as Price
     from stripe._price_service import PriceService as PriceService
     from stripe._product import Product as Product
+    from stripe._product_catalog_service import (
+        ProductCatalogService as ProductCatalogService,
+    )
     from stripe._product_feature import ProductFeature as ProductFeature
     from stripe._product_feature_service import (
         ProductFeatureService as ProductFeatureService,
@@ -447,7 +452,6 @@ if TYPE_CHECKING:
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
-    from stripe._transfer_reversal import TransferReversal as TransferReversal
     from stripe._review import Review as Review
     from stripe._review_service import ReviewService as ReviewService
     from stripe._search_result_object import (
@@ -523,11 +527,15 @@ if TYPE_CHECKING:
     from stripe._test_helpers_service import (
         TestHelpersService as TestHelpersService,
     )
+    from stripe._three_d_secure_service import (
+        ThreeDSecureService as ThreeDSecureService,
+    )
     from stripe._token import Token as Token
     from stripe._token_service import TokenService as TokenService
     from stripe._topup import Topup as Topup
     from stripe._topup_service import TopupService as TopupService
     from stripe._transfer import Transfer as Transfer
+    from stripe._transfer_reversal import TransferReversal as TransferReversal
     from stripe._transfer_reversal_service import (
         TransferReversalService as TransferReversalService,
     )
@@ -566,6 +574,7 @@ _import_map = {
     "identity": ("stripe.identity", True),
     "issuing": ("stripe.issuing", True),
     "params": ("stripe.params", True),
+    "product_catalog": ("stripe.product_catalog", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
     "reserve": ("stripe.reserve", True),
@@ -573,6 +582,7 @@ _import_map = {
     "tax": ("stripe.tax", True),
     "terminal": ("stripe.terminal", True),
     "test_helpers": ("stripe.test_helpers", True),
+    "three_d_secure": ("stripe.three_d_secure", True),
     "treasury": ("stripe.treasury", True),
     "v2": ("stripe.v2", True),
     "Account": ("stripe._account", False),
@@ -816,6 +826,7 @@ _import_map = {
     "Price": ("stripe._price", False),
     "PriceService": ("stripe._price_service", False),
     "Product": ("stripe._product", False),
+    "ProductCatalogService": ("stripe._product_catalog_service", False),
     "ProductFeature": ("stripe._product_feature", False),
     "ProductFeatureService": ("stripe._product_feature_service", False),
     "ProductService": ("stripe._product_service", False),
@@ -835,7 +846,6 @@ _import_map = {
     "RequestOptions": ("stripe._request_options", False),
     "RequestorOptions": ("stripe._requestor_options", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
-    "TransferReversal": ("stripe._transfer_reversal", False),
     "Review": ("stripe._review", False),
     "ReviewService": ("stripe._review_service", False),
     "SearchResultObject": ("stripe._search_result_object", False),
@@ -883,11 +893,13 @@ _import_map = {
     "TerminalService": ("stripe._terminal_service", False),
     "APIResourceTestHelpers": ("stripe._test_helpers", False),
     "TestHelpersService": ("stripe._test_helpers_service", False),
+    "ThreeDSecureService": ("stripe._three_d_secure_service", False),
     "Token": ("stripe._token", False),
     "TokenService": ("stripe._token_service", False),
     "Topup": ("stripe._topup", False),
     "TopupService": ("stripe._topup_service", False),
     "Transfer": ("stripe._transfer", False),
+    "TransferReversal": ("stripe._transfer_reversal", False),
     "TransferReversalService": ("stripe._transfer_reversal_service", False),
     "TransferService": ("stripe._transfer_service", False),
     "TreasuryService": ("stripe._treasury_service", False),

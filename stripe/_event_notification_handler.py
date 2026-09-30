@@ -39,11 +39,659 @@ if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
 
     # event-notification-types: The beginning of the section generated from our OpenAPI spec
+    from stripe.events._v1_account_application_authorized_event import (
+        V1AccountApplicationAuthorizedEventNotification,
+    )
+    from stripe.events._v1_account_application_deauthorized_event import (
+        V1AccountApplicationDeauthorizedEventNotification,
+    )
+    from stripe.events._v1_account_external_account_created_event import (
+        V1AccountExternalAccountCreatedEventNotification,
+    )
+    from stripe.events._v1_account_external_account_deleted_event import (
+        V1AccountExternalAccountDeletedEventNotification,
+    )
+    from stripe.events._v1_account_external_account_updated_event import (
+        V1AccountExternalAccountUpdatedEventNotification,
+    )
+    from stripe.events._v1_account_updated_event import (
+        V1AccountUpdatedEventNotification,
+    )
+    from stripe.events._v1_application_fee_created_event import (
+        V1ApplicationFeeCreatedEventNotification,
+    )
+    from stripe.events._v1_application_fee_refunded_event import (
+        V1ApplicationFeeRefundedEventNotification,
+    )
+    from stripe.events._v1_application_fee_refund_updated_event import (
+        V1ApplicationFeeRefundUpdatedEventNotification,
+    )
+    from stripe.events._v1_balance_available_event import (
+        V1BalanceAvailableEventNotification,
+    )
+    from stripe.events._v1_balance_settings_updated_event import (
+        V1BalanceSettingsUpdatedEventNotification,
+    )
+    from stripe.events._v1_billing_alert_triggered_event import (
+        V1BillingAlertTriggeredEventNotification,
+    )
+    from stripe.events._v1_billing_credit_balance_transaction_created_event import (
+        V1BillingCreditBalanceTransactionCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_credit_grant_created_event import (
+        V1BillingCreditGrantCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_credit_grant_updated_event import (
+        V1BillingCreditGrantUpdatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_created_event import (
+        V1BillingMeterCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_deactivated_event import (
+        V1BillingMeterDeactivatedEventNotification,
+    )
     from stripe.events._v1_billing_meter_error_report_triggered_event import (
         V1BillingMeterErrorReportTriggeredEventNotification,
     )
     from stripe.events._v1_billing_meter_no_meter_found_event import (
         V1BillingMeterNoMeterFoundEventNotification,
+    )
+    from stripe.events._v1_billing_meter_reactivated_event import (
+        V1BillingMeterReactivatedEventNotification,
+    )
+    from stripe.events._v1_billing_meter_updated_event import (
+        V1BillingMeterUpdatedEventNotification,
+    )
+    from stripe.events._v1_billing_portal_configuration_created_event import (
+        V1BillingPortalConfigurationCreatedEventNotification,
+    )
+    from stripe.events._v1_billing_portal_configuration_updated_event import (
+        V1BillingPortalConfigurationUpdatedEventNotification,
+    )
+    from stripe.events._v1_billing_portal_session_created_event import (
+        V1BillingPortalSessionCreatedEventNotification,
+    )
+    from stripe.events._v1_capability_updated_event import (
+        V1CapabilityUpdatedEventNotification,
+    )
+    from stripe.events._v1_cash_balance_funds_available_event import (
+        V1CashBalanceFundsAvailableEventNotification,
+    )
+    from stripe.events._v1_charge_captured_event import (
+        V1ChargeCapturedEventNotification,
+    )
+    from stripe.events._v1_charge_dispute_closed_event import (
+        V1ChargeDisputeClosedEventNotification,
+    )
+    from stripe.events._v1_charge_dispute_created_event import (
+        V1ChargeDisputeCreatedEventNotification,
+    )
+    from stripe.events._v1_charge_dispute_funds_reinstated_event import (
+        V1ChargeDisputeFundsReinstatedEventNotification,
+    )
+    from stripe.events._v1_charge_dispute_funds_withdrawn_event import (
+        V1ChargeDisputeFundsWithdrawnEventNotification,
+    )
+    from stripe.events._v1_charge_dispute_updated_event import (
+        V1ChargeDisputeUpdatedEventNotification,
+    )
+    from stripe.events._v1_charge_expired_event import (
+        V1ChargeExpiredEventNotification,
+    )
+    from stripe.events._v1_charge_failed_event import (
+        V1ChargeFailedEventNotification,
+    )
+    from stripe.events._v1_charge_pending_event import (
+        V1ChargePendingEventNotification,
+    )
+    from stripe.events._v1_charge_refunded_event import (
+        V1ChargeRefundedEventNotification,
+    )
+    from stripe.events._v1_charge_refund_updated_event import (
+        V1ChargeRefundUpdatedEventNotification,
+    )
+    from stripe.events._v1_charge_succeeded_event import (
+        V1ChargeSucceededEventNotification,
+    )
+    from stripe.events._v1_charge_updated_event import (
+        V1ChargeUpdatedEventNotification,
+    )
+    from stripe.events._v1_checkout_session_async_payment_failed_event import (
+        V1CheckoutSessionAsyncPaymentFailedEventNotification,
+    )
+    from stripe.events._v1_checkout_session_async_payment_succeeded_event import (
+        V1CheckoutSessionAsyncPaymentSucceededEventNotification,
+    )
+    from stripe.events._v1_checkout_session_completed_event import (
+        V1CheckoutSessionCompletedEventNotification,
+    )
+    from stripe.events._v1_checkout_session_expired_event import (
+        V1CheckoutSessionExpiredEventNotification,
+    )
+    from stripe.events._v1_climate_order_canceled_event import (
+        V1ClimateOrderCanceledEventNotification,
+    )
+    from stripe.events._v1_climate_order_created_event import (
+        V1ClimateOrderCreatedEventNotification,
+    )
+    from stripe.events._v1_climate_order_delayed_event import (
+        V1ClimateOrderDelayedEventNotification,
+    )
+    from stripe.events._v1_climate_order_delivered_event import (
+        V1ClimateOrderDeliveredEventNotification,
+    )
+    from stripe.events._v1_climate_order_product_substituted_event import (
+        V1ClimateOrderProductSubstitutedEventNotification,
+    )
+    from stripe.events._v1_climate_product_created_event import (
+        V1ClimateProductCreatedEventNotification,
+    )
+    from stripe.events._v1_climate_product_pricing_updated_event import (
+        V1ClimateProductPricingUpdatedEventNotification,
+    )
+    from stripe.events._v1_coupon_created_event import (
+        V1CouponCreatedEventNotification,
+    )
+    from stripe.events._v1_coupon_deleted_event import (
+        V1CouponDeletedEventNotification,
+    )
+    from stripe.events._v1_coupon_updated_event import (
+        V1CouponUpdatedEventNotification,
+    )
+    from stripe.events._v1_credit_note_created_event import (
+        V1CreditNoteCreatedEventNotification,
+    )
+    from stripe.events._v1_credit_note_updated_event import (
+        V1CreditNoteUpdatedEventNotification,
+    )
+    from stripe.events._v1_credit_note_voided_event import (
+        V1CreditNoteVoidedEventNotification,
+    )
+    from stripe.events._v1_customer_cash_balance_transaction_created_event import (
+        V1CustomerCashBalanceTransactionCreatedEventNotification,
+    )
+    from stripe.events._v1_customer_created_event import (
+        V1CustomerCreatedEventNotification,
+    )
+    from stripe.events._v1_customer_deleted_event import (
+        V1CustomerDeletedEventNotification,
+    )
+    from stripe.events._v1_customer_discount_created_event import (
+        V1CustomerDiscountCreatedEventNotification,
+    )
+    from stripe.events._v1_customer_discount_deleted_event import (
+        V1CustomerDiscountDeletedEventNotification,
+    )
+    from stripe.events._v1_customer_discount_updated_event import (
+        V1CustomerDiscountUpdatedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_created_event import (
+        V1CustomerSubscriptionCreatedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_deleted_event import (
+        V1CustomerSubscriptionDeletedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_paused_event import (
+        V1CustomerSubscriptionPausedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_pending_update_applied_event import (
+        V1CustomerSubscriptionPendingUpdateAppliedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_pending_update_expired_event import (
+        V1CustomerSubscriptionPendingUpdateExpiredEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_resumed_event import (
+        V1CustomerSubscriptionResumedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_trial_will_end_event import (
+        V1CustomerSubscriptionTrialWillEndEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_updated_event import (
+        V1CustomerSubscriptionUpdatedEventNotification,
+    )
+    from stripe.events._v1_customer_tax_id_created_event import (
+        V1CustomerTaxIdCreatedEventNotification,
+    )
+    from stripe.events._v1_customer_tax_id_deleted_event import (
+        V1CustomerTaxIdDeletedEventNotification,
+    )
+    from stripe.events._v1_customer_tax_id_updated_event import (
+        V1CustomerTaxIdUpdatedEventNotification,
+    )
+    from stripe.events._v1_customer_updated_event import (
+        V1CustomerUpdatedEventNotification,
+    )
+    from stripe.events._v1_entitlements_active_entitlement_summary_updated_event import (
+        V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification,
+    )
+    from stripe.events._v1_file_created_event import (
+        V1FileCreatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_account_numbers_updated_event import (
+        V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_created_event import (
+        V1FinancialConnectionsAccountCreatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_deactivated_event import (
+        V1FinancialConnectionsAccountDeactivatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_disconnected_event import (
+        V1FinancialConnectionsAccountDisconnectedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event import (
+        V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_reactivated_event import (
+        V1FinancialConnectionsAccountReactivatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_refreshed_balance_event import (
+        V1FinancialConnectionsAccountRefreshedBalanceEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_refreshed_ownership_event import (
+        V1FinancialConnectionsAccountRefreshedOwnershipEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_refreshed_transactions_event import (
+        V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event import (
+        V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event import (
+        V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_upcoming_deactivation_event import (
+        V1FinancialConnectionsAccountUpcomingDeactivationEventNotification,
+    )
+    from stripe.events._v1_identity_verification_session_canceled_event import (
+        V1IdentityVerificationSessionCanceledEventNotification,
+    )
+    from stripe.events._v1_identity_verification_session_created_event import (
+        V1IdentityVerificationSessionCreatedEventNotification,
+    )
+    from stripe.events._v1_identity_verification_session_processing_event import (
+        V1IdentityVerificationSessionProcessingEventNotification,
+    )
+    from stripe.events._v1_identity_verification_session_redacted_event import (
+        V1IdentityVerificationSessionRedactedEventNotification,
+    )
+    from stripe.events._v1_identity_verification_session_requires_input_event import (
+        V1IdentityVerificationSessionRequiresInputEventNotification,
+    )
+    from stripe.events._v1_identity_verification_session_verified_event import (
+        V1IdentityVerificationSessionVerifiedEventNotification,
+    )
+    from stripe.events._v1_invoice_created_event import (
+        V1InvoiceCreatedEventNotification,
+    )
+    from stripe.events._v1_invoice_deleted_event import (
+        V1InvoiceDeletedEventNotification,
+    )
+    from stripe.events._v1_invoice_finalization_failed_event import (
+        V1InvoiceFinalizationFailedEventNotification,
+    )
+    from stripe.events._v1_invoice_finalized_event import (
+        V1InvoiceFinalizedEventNotification,
+    )
+    from stripe.events._v1_invoiceitem_created_event import (
+        V1InvoiceitemCreatedEventNotification,
+    )
+    from stripe.events._v1_invoiceitem_deleted_event import (
+        V1InvoiceitemDeletedEventNotification,
+    )
+    from stripe.events._v1_invoice_marked_uncollectible_event import (
+        V1InvoiceMarkedUncollectibleEventNotification,
+    )
+    from stripe.events._v1_invoice_overdue_event import (
+        V1InvoiceOverdueEventNotification,
+    )
+    from stripe.events._v1_invoice_overpaid_event import (
+        V1InvoiceOverpaidEventNotification,
+    )
+    from stripe.events._v1_invoice_paid_event import (
+        V1InvoicePaidEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_action_required_event import (
+        V1InvoicePaymentActionRequiredEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_attempt_required_event import (
+        V1InvoicePaymentAttemptRequiredEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_failed_event import (
+        V1InvoicePaymentFailedEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_paid_event import (
+        V1InvoicePaymentPaidEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_succeeded_event import (
+        V1InvoicePaymentSucceededEventNotification,
+    )
+    from stripe.events._v1_invoice_sent_event import (
+        V1InvoiceSentEventNotification,
+    )
+    from stripe.events._v1_invoice_upcoming_event import (
+        V1InvoiceUpcomingEventNotification,
+    )
+    from stripe.events._v1_invoice_updated_event import (
+        V1InvoiceUpdatedEventNotification,
+    )
+    from stripe.events._v1_invoice_voided_event import (
+        V1InvoiceVoidedEventNotification,
+    )
+    from stripe.events._v1_invoice_will_be_due_event import (
+        V1InvoiceWillBeDueEventNotification,
+    )
+    from stripe.events._v1_issuing_authorization_created_event import (
+        V1IssuingAuthorizationCreatedEventNotification,
+    )
+    from stripe.events._v1_issuing_authorization_request_event import (
+        V1IssuingAuthorizationRequestEventNotification,
+    )
+    from stripe.events._v1_issuing_authorization_updated_event import (
+        V1IssuingAuthorizationUpdatedEventNotification,
+    )
+    from stripe.events._v1_issuing_card_created_event import (
+        V1IssuingCardCreatedEventNotification,
+    )
+    from stripe.events._v1_issuing_cardholder_created_event import (
+        V1IssuingCardholderCreatedEventNotification,
+    )
+    from stripe.events._v1_issuing_cardholder_updated_event import (
+        V1IssuingCardholderUpdatedEventNotification,
+    )
+    from stripe.events._v1_issuing_card_updated_event import (
+        V1IssuingCardUpdatedEventNotification,
+    )
+    from stripe.events._v1_issuing_dispute_closed_event import (
+        V1IssuingDisputeClosedEventNotification,
+    )
+    from stripe.events._v1_issuing_dispute_created_event import (
+        V1IssuingDisputeCreatedEventNotification,
+    )
+    from stripe.events._v1_issuing_dispute_funds_reinstated_event import (
+        V1IssuingDisputeFundsReinstatedEventNotification,
+    )
+    from stripe.events._v1_issuing_dispute_funds_rescinded_event import (
+        V1IssuingDisputeFundsRescindedEventNotification,
+    )
+    from stripe.events._v1_issuing_dispute_submitted_event import (
+        V1IssuingDisputeSubmittedEventNotification,
+    )
+    from stripe.events._v1_issuing_dispute_updated_event import (
+        V1IssuingDisputeUpdatedEventNotification,
+    )
+    from stripe.events._v1_issuing_personalization_design_activated_event import (
+        V1IssuingPersonalizationDesignActivatedEventNotification,
+    )
+    from stripe.events._v1_issuing_personalization_design_deactivated_event import (
+        V1IssuingPersonalizationDesignDeactivatedEventNotification,
+    )
+    from stripe.events._v1_issuing_personalization_design_rejected_event import (
+        V1IssuingPersonalizationDesignRejectedEventNotification,
+    )
+    from stripe.events._v1_issuing_personalization_design_updated_event import (
+        V1IssuingPersonalizationDesignUpdatedEventNotification,
+    )
+    from stripe.events._v1_issuing_token_created_event import (
+        V1IssuingTokenCreatedEventNotification,
+    )
+    from stripe.events._v1_issuing_token_updated_event import (
+        V1IssuingTokenUpdatedEventNotification,
+    )
+    from stripe.events._v1_issuing_transaction_created_event import (
+        V1IssuingTransactionCreatedEventNotification,
+    )
+    from stripe.events._v1_issuing_transaction_purchase_details_receipt_updated_event import (
+        V1IssuingTransactionPurchaseDetailsReceiptUpdatedEventNotification,
+    )
+    from stripe.events._v1_issuing_transaction_updated_event import (
+        V1IssuingTransactionUpdatedEventNotification,
+    )
+    from stripe.events._v1_mandate_updated_event import (
+        V1MandateUpdatedEventNotification,
+    )
+    from stripe.events._v1_payment_intent_amount_capturable_updated_event import (
+        V1PaymentIntentAmountCapturableUpdatedEventNotification,
+    )
+    from stripe.events._v1_payment_intent_canceled_event import (
+        V1PaymentIntentCanceledEventNotification,
+    )
+    from stripe.events._v1_payment_intent_created_event import (
+        V1PaymentIntentCreatedEventNotification,
+    )
+    from stripe.events._v1_payment_intent_partially_funded_event import (
+        V1PaymentIntentPartiallyFundedEventNotification,
+    )
+    from stripe.events._v1_payment_intent_payment_failed_event import (
+        V1PaymentIntentPaymentFailedEventNotification,
+    )
+    from stripe.events._v1_payment_intent_processing_event import (
+        V1PaymentIntentProcessingEventNotification,
+    )
+    from stripe.events._v1_payment_intent_requires_action_event import (
+        V1PaymentIntentRequiresActionEventNotification,
+    )
+    from stripe.events._v1_payment_intent_succeeded_event import (
+        V1PaymentIntentSucceededEventNotification,
+    )
+    from stripe.events._v1_payment_link_created_event import (
+        V1PaymentLinkCreatedEventNotification,
+    )
+    from stripe.events._v1_payment_link_updated_event import (
+        V1PaymentLinkUpdatedEventNotification,
+    )
+    from stripe.events._v1_payment_method_attached_event import (
+        V1PaymentMethodAttachedEventNotification,
+    )
+    from stripe.events._v1_payment_method_automatically_updated_event import (
+        V1PaymentMethodAutomaticallyUpdatedEventNotification,
+    )
+    from stripe.events._v1_payment_method_detached_event import (
+        V1PaymentMethodDetachedEventNotification,
+    )
+    from stripe.events._v1_payment_method_updated_event import (
+        V1PaymentMethodUpdatedEventNotification,
+    )
+    from stripe.events._v1_payout_canceled_event import (
+        V1PayoutCanceledEventNotification,
+    )
+    from stripe.events._v1_payout_created_event import (
+        V1PayoutCreatedEventNotification,
+    )
+    from stripe.events._v1_payout_failed_event import (
+        V1PayoutFailedEventNotification,
+    )
+    from stripe.events._v1_payout_paid_event import (
+        V1PayoutPaidEventNotification,
+    )
+    from stripe.events._v1_payout_reconciliation_completed_event import (
+        V1PayoutReconciliationCompletedEventNotification,
+    )
+    from stripe.events._v1_payout_updated_event import (
+        V1PayoutUpdatedEventNotification,
+    )
+    from stripe.events._v1_person_created_event import (
+        V1PersonCreatedEventNotification,
+    )
+    from stripe.events._v1_person_deleted_event import (
+        V1PersonDeletedEventNotification,
+    )
+    from stripe.events._v1_person_updated_event import (
+        V1PersonUpdatedEventNotification,
+    )
+    from stripe.events._v1_plan_created_event import (
+        V1PlanCreatedEventNotification,
+    )
+    from stripe.events._v1_plan_deleted_event import (
+        V1PlanDeletedEventNotification,
+    )
+    from stripe.events._v1_plan_updated_event import (
+        V1PlanUpdatedEventNotification,
+    )
+    from stripe.events._v1_price_created_event import (
+        V1PriceCreatedEventNotification,
+    )
+    from stripe.events._v1_price_deleted_event import (
+        V1PriceDeletedEventNotification,
+    )
+    from stripe.events._v1_price_updated_event import (
+        V1PriceUpdatedEventNotification,
+    )
+    from stripe.events._v1_product_created_event import (
+        V1ProductCreatedEventNotification,
+    )
+    from stripe.events._v1_product_deleted_event import (
+        V1ProductDeletedEventNotification,
+    )
+    from stripe.events._v1_product_updated_event import (
+        V1ProductUpdatedEventNotification,
+    )
+    from stripe.events._v1_promotion_code_created_event import (
+        V1PromotionCodeCreatedEventNotification,
+    )
+    from stripe.events._v1_promotion_code_updated_event import (
+        V1PromotionCodeUpdatedEventNotification,
+    )
+    from stripe.events._v1_quote_accepted_event import (
+        V1QuoteAcceptedEventNotification,
+    )
+    from stripe.events._v1_quote_canceled_event import (
+        V1QuoteCanceledEventNotification,
+    )
+    from stripe.events._v1_quote_created_event import (
+        V1QuoteCreatedEventNotification,
+    )
+    from stripe.events._v1_quote_finalized_event import (
+        V1QuoteFinalizedEventNotification,
+    )
+    from stripe.events._v1_radar_early_fraud_warning_created_event import (
+        V1RadarEarlyFraudWarningCreatedEventNotification,
+    )
+    from stripe.events._v1_radar_early_fraud_warning_updated_event import (
+        V1RadarEarlyFraudWarningUpdatedEventNotification,
+    )
+    from stripe.events._v1_refund_created_event import (
+        V1RefundCreatedEventNotification,
+    )
+    from stripe.events._v1_refund_failed_event import (
+        V1RefundFailedEventNotification,
+    )
+    from stripe.events._v1_refund_updated_event import (
+        V1RefundUpdatedEventNotification,
+    )
+    from stripe.events._v1_review_closed_event import (
+        V1ReviewClosedEventNotification,
+    )
+    from stripe.events._v1_review_opened_event import (
+        V1ReviewOpenedEventNotification,
+    )
+    from stripe.events._v1_setup_intent_canceled_event import (
+        V1SetupIntentCanceledEventNotification,
+    )
+    from stripe.events._v1_setup_intent_created_event import (
+        V1SetupIntentCreatedEventNotification,
+    )
+    from stripe.events._v1_setup_intent_requires_action_event import (
+        V1SetupIntentRequiresActionEventNotification,
+    )
+    from stripe.events._v1_setup_intent_setup_failed_event import (
+        V1SetupIntentSetupFailedEventNotification,
+    )
+    from stripe.events._v1_setup_intent_succeeded_event import (
+        V1SetupIntentSucceededEventNotification,
+    )
+    from stripe.events._v1_sigma_scheduled_query_run_created_event import (
+        V1SigmaScheduledQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v1_source_canceled_event import (
+        V1SourceCanceledEventNotification,
+    )
+    from stripe.events._v1_source_chargeable_event import (
+        V1SourceChargeableEventNotification,
+    )
+    from stripe.events._v1_source_failed_event import (
+        V1SourceFailedEventNotification,
+    )
+    from stripe.events._v1_source_refund_attributes_required_event import (
+        V1SourceRefundAttributesRequiredEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_aborted_event import (
+        V1SubscriptionScheduleAbortedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_canceled_event import (
+        V1SubscriptionScheduleCanceledEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_completed_event import (
+        V1SubscriptionScheduleCompletedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_created_event import (
+        V1SubscriptionScheduleCreatedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_expiring_event import (
+        V1SubscriptionScheduleExpiringEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_released_event import (
+        V1SubscriptionScheduleReleasedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_updated_event import (
+        V1SubscriptionScheduleUpdatedEventNotification,
+    )
+    from stripe.events._v1_tax_rate_created_event import (
+        V1TaxRateCreatedEventNotification,
+    )
+    from stripe.events._v1_tax_rate_updated_event import (
+        V1TaxRateUpdatedEventNotification,
+    )
+    from stripe.events._v1_tax_settings_updated_event import (
+        V1TaxSettingsUpdatedEventNotification,
+    )
+    from stripe.events._v1_terminal_reader_action_failed_event import (
+        V1TerminalReaderActionFailedEventNotification,
+    )
+    from stripe.events._v1_terminal_reader_action_succeeded_event import (
+        V1TerminalReaderActionSucceededEventNotification,
+    )
+    from stripe.events._v1_terminal_reader_action_updated_event import (
+        V1TerminalReaderActionUpdatedEventNotification,
+    )
+    from stripe.events._v1_test_helpers_test_clock_advancing_event import (
+        V1TestHelpersTestClockAdvancingEventNotification,
+    )
+    from stripe.events._v1_test_helpers_test_clock_created_event import (
+        V1TestHelpersTestClockCreatedEventNotification,
+    )
+    from stripe.events._v1_test_helpers_test_clock_deleted_event import (
+        V1TestHelpersTestClockDeletedEventNotification,
+    )
+    from stripe.events._v1_test_helpers_test_clock_internal_failure_event import (
+        V1TestHelpersTestClockInternalFailureEventNotification,
+    )
+    from stripe.events._v1_test_helpers_test_clock_ready_event import (
+        V1TestHelpersTestClockReadyEventNotification,
+    )
+    from stripe.events._v1_topup_canceled_event import (
+        V1TopupCanceledEventNotification,
+    )
+    from stripe.events._v1_topup_created_event import (
+        V1TopupCreatedEventNotification,
+    )
+    from stripe.events._v1_topup_failed_event import (
+        V1TopupFailedEventNotification,
+    )
+    from stripe.events._v1_topup_reversed_event import (
+        V1TopupReversedEventNotification,
+    )
+    from stripe.events._v1_topup_succeeded_event import (
+        V1TopupSucceededEventNotification,
+    )
+    from stripe.events._v1_transfer_created_event import (
+        V1TransferCreatedEventNotification,
+    )
+    from stripe.events._v1_transfer_reversed_event import (
+        V1TransferReversedEventNotification,
+    )
+    from stripe.events._v1_transfer_updated_event import (
+        V1TransferUpdatedEventNotification,
     )
     from stripe.events._v2_commerce_product_catalog_imports_failed_event import (
         V2CommerceProductCatalogImportsFailedEventNotification,
@@ -247,6 +895,227 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         return sorted(self._registered_handlers.keys())
 
     # event-notification-registration-methods: The beginning of the section generated from our OpenAPI spec
+    def on_v1_account_application_authorized(
+        self,
+        func: "Callable[[V1AccountApplicationAuthorizedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AccountApplicationAuthorizedEvent` (`v1.account.application.authorized`) event notification.
+        """
+        self._register(
+            "v1.account.application.authorized",
+            func,
+        )
+        return func
+
+    def on_v1_account_application_deauthorized(
+        self,
+        func: "Callable[[V1AccountApplicationDeauthorizedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AccountApplicationDeauthorizedEvent` (`v1.account.application.deauthorized`) event notification.
+        """
+        self._register(
+            "v1.account.application.deauthorized",
+            func,
+        )
+        return func
+
+    def on_v1_account_external_account_created(
+        self,
+        func: "Callable[[V1AccountExternalAccountCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AccountExternalAccountCreatedEvent` (`v1.account.external_account.created`) event notification.
+        """
+        self._register(
+            "v1.account.external_account.created",
+            func,
+        )
+        return func
+
+    def on_v1_account_external_account_deleted(
+        self,
+        func: "Callable[[V1AccountExternalAccountDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AccountExternalAccountDeletedEvent` (`v1.account.external_account.deleted`) event notification.
+        """
+        self._register(
+            "v1.account.external_account.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_account_external_account_updated(
+        self,
+        func: "Callable[[V1AccountExternalAccountUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AccountExternalAccountUpdatedEvent` (`v1.account.external_account.updated`) event notification.
+        """
+        self._register(
+            "v1.account.external_account.updated",
+            func,
+        )
+        return func
+
+    def on_v1_account_updated(
+        self,
+        func: "Callable[[V1AccountUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AccountUpdatedEvent` (`v1.account.updated`) event notification.
+        """
+        self._register(
+            "v1.account.updated",
+            func,
+        )
+        return func
+
+    def on_v1_application_fee_created(
+        self,
+        func: "Callable[[V1ApplicationFeeCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ApplicationFeeCreatedEvent` (`v1.application_fee.created`) event notification.
+        """
+        self._register(
+            "v1.application_fee.created",
+            func,
+        )
+        return func
+
+    def on_v1_application_fee_refunded(
+        self,
+        func: "Callable[[V1ApplicationFeeRefundedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ApplicationFeeRefundedEvent` (`v1.application_fee.refunded`) event notification.
+        """
+        self._register(
+            "v1.application_fee.refunded",
+            func,
+        )
+        return func
+
+    def on_v1_application_fee_refund_updated(
+        self,
+        func: "Callable[[V1ApplicationFeeRefundUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ApplicationFeeRefundUpdatedEvent` (`v1.application_fee.refund.updated`) event notification.
+        """
+        self._register(
+            "v1.application_fee.refund.updated",
+            func,
+        )
+        return func
+
+    def on_v1_balance_available(
+        self,
+        func: "Callable[[V1BalanceAvailableEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BalanceAvailableEvent` (`v1.balance.available`) event notification.
+        """
+        self._register(
+            "v1.balance.available",
+            func,
+        )
+        return func
+
+    def on_v1_balance_settings_updated(
+        self,
+        func: "Callable[[V1BalanceSettingsUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BalanceSettingsUpdatedEvent` (`v1.balance_settings.updated`) event notification.
+        """
+        self._register(
+            "v1.balance_settings.updated",
+            func,
+        )
+        return func
+
+    def on_v1_billing_alert_triggered(
+        self,
+        func: "Callable[[V1BillingAlertTriggeredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingAlertTriggeredEvent` (`v1.billing.alert.triggered`) event notification.
+        """
+        self._register(
+            "v1.billing.alert.triggered",
+            func,
+        )
+        return func
+
+    def on_v1_billing_credit_balance_transaction_created(
+        self,
+        func: "Callable[[V1BillingCreditBalanceTransactionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingCreditBalanceTransactionCreatedEvent` (`v1.billing.credit_balance_transaction.created`) event notification.
+        """
+        self._register(
+            "v1.billing.credit_balance_transaction.created",
+            func,
+        )
+        return func
+
+    def on_v1_billing_credit_grant_created(
+        self,
+        func: "Callable[[V1BillingCreditGrantCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingCreditGrantCreatedEvent` (`v1.billing.credit_grant.created`) event notification.
+        """
+        self._register(
+            "v1.billing.credit_grant.created",
+            func,
+        )
+        return func
+
+    def on_v1_billing_credit_grant_updated(
+        self,
+        func: "Callable[[V1BillingCreditGrantUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingCreditGrantUpdatedEvent` (`v1.billing.credit_grant.updated`) event notification.
+        """
+        self._register(
+            "v1.billing.credit_grant.updated",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_created(
+        self,
+        func: "Callable[[V1BillingMeterCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterCreatedEvent` (`v1.billing.meter.created`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.created",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_deactivated(
+        self,
+        func: "Callable[[V1BillingMeterDeactivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterDeactivatedEvent` (`v1.billing.meter.deactivated`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.deactivated",
+            func,
+        )
+        return func
+
     def on_v1_billing_meter_error_report_triggered(
         self,
         func: "Callable[[V1BillingMeterErrorReportTriggeredEventNotification, StripeClient], CallbackReturn]",
@@ -269,6 +1138,2593 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v1.billing.meter.no_meter_found",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_reactivated(
+        self,
+        func: "Callable[[V1BillingMeterReactivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterReactivatedEvent` (`v1.billing.meter.reactivated`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.reactivated",
+            func,
+        )
+        return func
+
+    def on_v1_billing_meter_updated(
+        self,
+        func: "Callable[[V1BillingMeterUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingMeterUpdatedEvent` (`v1.billing.meter.updated`) event notification.
+        """
+        self._register(
+            "v1.billing.meter.updated",
+            func,
+        )
+        return func
+
+    def on_v1_billing_portal_configuration_created(
+        self,
+        func: "Callable[[V1BillingPortalConfigurationCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingPortalConfigurationCreatedEvent` (`v1.billing_portal.configuration.created`) event notification.
+        """
+        self._register(
+            "v1.billing_portal.configuration.created",
+            func,
+        )
+        return func
+
+    def on_v1_billing_portal_configuration_updated(
+        self,
+        func: "Callable[[V1BillingPortalConfigurationUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingPortalConfigurationUpdatedEvent` (`v1.billing_portal.configuration.updated`) event notification.
+        """
+        self._register(
+            "v1.billing_portal.configuration.updated",
+            func,
+        )
+        return func
+
+    def on_v1_billing_portal_session_created(
+        self,
+        func: "Callable[[V1BillingPortalSessionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1BillingPortalSessionCreatedEvent` (`v1.billing_portal.session.created`) event notification.
+        """
+        self._register(
+            "v1.billing_portal.session.created",
+            func,
+        )
+        return func
+
+    def on_v1_capability_updated(
+        self,
+        func: "Callable[[V1CapabilityUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CapabilityUpdatedEvent` (`v1.capability.updated`) event notification.
+        """
+        self._register(
+            "v1.capability.updated",
+            func,
+        )
+        return func
+
+    def on_v1_cash_balance_funds_available(
+        self,
+        func: "Callable[[V1CashBalanceFundsAvailableEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CashBalanceFundsAvailableEvent` (`v1.cash_balance.funds_available`) event notification.
+        """
+        self._register(
+            "v1.cash_balance.funds_available",
+            func,
+        )
+        return func
+
+    def on_v1_charge_captured(
+        self,
+        func: "Callable[[V1ChargeCapturedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeCapturedEvent` (`v1.charge.captured`) event notification.
+        """
+        self._register(
+            "v1.charge.captured",
+            func,
+        )
+        return func
+
+    def on_v1_charge_dispute_closed(
+        self,
+        func: "Callable[[V1ChargeDisputeClosedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeDisputeClosedEvent` (`v1.charge.dispute.closed`) event notification.
+        """
+        self._register(
+            "v1.charge.dispute.closed",
+            func,
+        )
+        return func
+
+    def on_v1_charge_dispute_created(
+        self,
+        func: "Callable[[V1ChargeDisputeCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeDisputeCreatedEvent` (`v1.charge.dispute.created`) event notification.
+        """
+        self._register(
+            "v1.charge.dispute.created",
+            func,
+        )
+        return func
+
+    def on_v1_charge_dispute_funds_reinstated(
+        self,
+        func: "Callable[[V1ChargeDisputeFundsReinstatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeDisputeFundsReinstatedEvent` (`v1.charge.dispute.funds_reinstated`) event notification.
+        """
+        self._register(
+            "v1.charge.dispute.funds_reinstated",
+            func,
+        )
+        return func
+
+    def on_v1_charge_dispute_funds_withdrawn(
+        self,
+        func: "Callable[[V1ChargeDisputeFundsWithdrawnEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeDisputeFundsWithdrawnEvent` (`v1.charge.dispute.funds_withdrawn`) event notification.
+        """
+        self._register(
+            "v1.charge.dispute.funds_withdrawn",
+            func,
+        )
+        return func
+
+    def on_v1_charge_dispute_updated(
+        self,
+        func: "Callable[[V1ChargeDisputeUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeDisputeUpdatedEvent` (`v1.charge.dispute.updated`) event notification.
+        """
+        self._register(
+            "v1.charge.dispute.updated",
+            func,
+        )
+        return func
+
+    def on_v1_charge_expired(
+        self,
+        func: "Callable[[V1ChargeExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeExpiredEvent` (`v1.charge.expired`) event notification.
+        """
+        self._register(
+            "v1.charge.expired",
+            func,
+        )
+        return func
+
+    def on_v1_charge_failed(
+        self,
+        func: "Callable[[V1ChargeFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeFailedEvent` (`v1.charge.failed`) event notification.
+        """
+        self._register(
+            "v1.charge.failed",
+            func,
+        )
+        return func
+
+    def on_v1_charge_pending(
+        self,
+        func: "Callable[[V1ChargePendingEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargePendingEvent` (`v1.charge.pending`) event notification.
+        """
+        self._register(
+            "v1.charge.pending",
+            func,
+        )
+        return func
+
+    def on_v1_charge_refunded(
+        self,
+        func: "Callable[[V1ChargeRefundedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeRefundedEvent` (`v1.charge.refunded`) event notification.
+        """
+        self._register(
+            "v1.charge.refunded",
+            func,
+        )
+        return func
+
+    def on_v1_charge_refund_updated(
+        self,
+        func: "Callable[[V1ChargeRefundUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeRefundUpdatedEvent` (`v1.charge.refund.updated`) event notification.
+        """
+        self._register(
+            "v1.charge.refund.updated",
+            func,
+        )
+        return func
+
+    def on_v1_charge_succeeded(
+        self,
+        func: "Callable[[V1ChargeSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeSucceededEvent` (`v1.charge.succeeded`) event notification.
+        """
+        self._register(
+            "v1.charge.succeeded",
+            func,
+        )
+        return func
+
+    def on_v1_charge_updated(
+        self,
+        func: "Callable[[V1ChargeUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ChargeUpdatedEvent` (`v1.charge.updated`) event notification.
+        """
+        self._register(
+            "v1.charge.updated",
+            func,
+        )
+        return func
+
+    def on_v1_checkout_session_async_payment_failed(
+        self,
+        func: "Callable[[V1CheckoutSessionAsyncPaymentFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CheckoutSessionAsyncPaymentFailedEvent` (`v1.checkout.session.async_payment_failed`) event notification.
+        """
+        self._register(
+            "v1.checkout.session.async_payment_failed",
+            func,
+        )
+        return func
+
+    def on_v1_checkout_session_async_payment_succeeded(
+        self,
+        func: "Callable[[V1CheckoutSessionAsyncPaymentSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CheckoutSessionAsyncPaymentSucceededEvent` (`v1.checkout.session.async_payment_succeeded`) event notification.
+        """
+        self._register(
+            "v1.checkout.session.async_payment_succeeded",
+            func,
+        )
+        return func
+
+    def on_v1_checkout_session_completed(
+        self,
+        func: "Callable[[V1CheckoutSessionCompletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CheckoutSessionCompletedEvent` (`v1.checkout.session.completed`) event notification.
+        """
+        self._register(
+            "v1.checkout.session.completed",
+            func,
+        )
+        return func
+
+    def on_v1_checkout_session_expired(
+        self,
+        func: "Callable[[V1CheckoutSessionExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CheckoutSessionExpiredEvent` (`v1.checkout.session.expired`) event notification.
+        """
+        self._register(
+            "v1.checkout.session.expired",
+            func,
+        )
+        return func
+
+    def on_v1_climate_order_canceled(
+        self,
+        func: "Callable[[V1ClimateOrderCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ClimateOrderCanceledEvent` (`v1.climate.order.canceled`) event notification.
+        """
+        self._register(
+            "v1.climate.order.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_climate_order_created(
+        self,
+        func: "Callable[[V1ClimateOrderCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ClimateOrderCreatedEvent` (`v1.climate.order.created`) event notification.
+        """
+        self._register(
+            "v1.climate.order.created",
+            func,
+        )
+        return func
+
+    def on_v1_climate_order_delayed(
+        self,
+        func: "Callable[[V1ClimateOrderDelayedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ClimateOrderDelayedEvent` (`v1.climate.order.delayed`) event notification.
+        """
+        self._register(
+            "v1.climate.order.delayed",
+            func,
+        )
+        return func
+
+    def on_v1_climate_order_delivered(
+        self,
+        func: "Callable[[V1ClimateOrderDeliveredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ClimateOrderDeliveredEvent` (`v1.climate.order.delivered`) event notification.
+        """
+        self._register(
+            "v1.climate.order.delivered",
+            func,
+        )
+        return func
+
+    def on_v1_climate_order_product_substituted(
+        self,
+        func: "Callable[[V1ClimateOrderProductSubstitutedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ClimateOrderProductSubstitutedEvent` (`v1.climate.order.product_substituted`) event notification.
+        """
+        self._register(
+            "v1.climate.order.product_substituted",
+            func,
+        )
+        return func
+
+    def on_v1_climate_product_created(
+        self,
+        func: "Callable[[V1ClimateProductCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ClimateProductCreatedEvent` (`v1.climate.product.created`) event notification.
+        """
+        self._register(
+            "v1.climate.product.created",
+            func,
+        )
+        return func
+
+    def on_v1_climate_product_pricing_updated(
+        self,
+        func: "Callable[[V1ClimateProductPricingUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ClimateProductPricingUpdatedEvent` (`v1.climate.product.pricing_updated`) event notification.
+        """
+        self._register(
+            "v1.climate.product.pricing_updated",
+            func,
+        )
+        return func
+
+    def on_v1_coupon_created(
+        self,
+        func: "Callable[[V1CouponCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CouponCreatedEvent` (`v1.coupon.created`) event notification.
+        """
+        self._register(
+            "v1.coupon.created",
+            func,
+        )
+        return func
+
+    def on_v1_coupon_deleted(
+        self,
+        func: "Callable[[V1CouponDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CouponDeletedEvent` (`v1.coupon.deleted`) event notification.
+        """
+        self._register(
+            "v1.coupon.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_coupon_updated(
+        self,
+        func: "Callable[[V1CouponUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CouponUpdatedEvent` (`v1.coupon.updated`) event notification.
+        """
+        self._register(
+            "v1.coupon.updated",
+            func,
+        )
+        return func
+
+    def on_v1_credit_note_created(
+        self,
+        func: "Callable[[V1CreditNoteCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CreditNoteCreatedEvent` (`v1.credit_note.created`) event notification.
+        """
+        self._register(
+            "v1.credit_note.created",
+            func,
+        )
+        return func
+
+    def on_v1_credit_note_updated(
+        self,
+        func: "Callable[[V1CreditNoteUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CreditNoteUpdatedEvent` (`v1.credit_note.updated`) event notification.
+        """
+        self._register(
+            "v1.credit_note.updated",
+            func,
+        )
+        return func
+
+    def on_v1_credit_note_voided(
+        self,
+        func: "Callable[[V1CreditNoteVoidedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CreditNoteVoidedEvent` (`v1.credit_note.voided`) event notification.
+        """
+        self._register(
+            "v1.credit_note.voided",
+            func,
+        )
+        return func
+
+    def on_v1_customer_cash_balance_transaction_created(
+        self,
+        func: "Callable[[V1CustomerCashBalanceTransactionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerCashBalanceTransactionCreatedEvent` (`v1.customer_cash_balance_transaction.created`) event notification.
+        """
+        self._register(
+            "v1.customer_cash_balance_transaction.created",
+            func,
+        )
+        return func
+
+    def on_v1_customer_created(
+        self,
+        func: "Callable[[V1CustomerCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerCreatedEvent` (`v1.customer.created`) event notification.
+        """
+        self._register(
+            "v1.customer.created",
+            func,
+        )
+        return func
+
+    def on_v1_customer_deleted(
+        self,
+        func: "Callable[[V1CustomerDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerDeletedEvent` (`v1.customer.deleted`) event notification.
+        """
+        self._register(
+            "v1.customer.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_customer_discount_created(
+        self,
+        func: "Callable[[V1CustomerDiscountCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerDiscountCreatedEvent` (`v1.customer.discount.created`) event notification.
+        """
+        self._register(
+            "v1.customer.discount.created",
+            func,
+        )
+        return func
+
+    def on_v1_customer_discount_deleted(
+        self,
+        func: "Callable[[V1CustomerDiscountDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerDiscountDeletedEvent` (`v1.customer.discount.deleted`) event notification.
+        """
+        self._register(
+            "v1.customer.discount.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_customer_discount_updated(
+        self,
+        func: "Callable[[V1CustomerDiscountUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerDiscountUpdatedEvent` (`v1.customer.discount.updated`) event notification.
+        """
+        self._register(
+            "v1.customer.discount.updated",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_created(
+        self,
+        func: "Callable[[V1CustomerSubscriptionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionCreatedEvent` (`v1.customer.subscription.created`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.created",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_deleted(
+        self,
+        func: "Callable[[V1CustomerSubscriptionDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionDeletedEvent` (`v1.customer.subscription.deleted`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_paused(
+        self,
+        func: "Callable[[V1CustomerSubscriptionPausedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionPausedEvent` (`v1.customer.subscription.paused`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.paused",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_pending_update_applied(
+        self,
+        func: "Callable[[V1CustomerSubscriptionPendingUpdateAppliedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionPendingUpdateAppliedEvent` (`v1.customer.subscription.pending_update_applied`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.pending_update_applied",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_pending_update_expired(
+        self,
+        func: "Callable[[V1CustomerSubscriptionPendingUpdateExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionPendingUpdateExpiredEvent` (`v1.customer.subscription.pending_update_expired`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.pending_update_expired",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_resumed(
+        self,
+        func: "Callable[[V1CustomerSubscriptionResumedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionResumedEvent` (`v1.customer.subscription.resumed`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.resumed",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_trial_will_end(
+        self,
+        func: "Callable[[V1CustomerSubscriptionTrialWillEndEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionTrialWillEndEvent` (`v1.customer.subscription.trial_will_end`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.trial_will_end",
+            func,
+        )
+        return func
+
+    def on_v1_customer_subscription_updated(
+        self,
+        func: "Callable[[V1CustomerSubscriptionUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerSubscriptionUpdatedEvent` (`v1.customer.subscription.updated`) event notification.
+        """
+        self._register(
+            "v1.customer.subscription.updated",
+            func,
+        )
+        return func
+
+    def on_v1_customer_tax_id_created(
+        self,
+        func: "Callable[[V1CustomerTaxIdCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerTaxIdCreatedEvent` (`v1.customer.tax_id.created`) event notification.
+        """
+        self._register(
+            "v1.customer.tax_id.created",
+            func,
+        )
+        return func
+
+    def on_v1_customer_tax_id_deleted(
+        self,
+        func: "Callable[[V1CustomerTaxIdDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerTaxIdDeletedEvent` (`v1.customer.tax_id.deleted`) event notification.
+        """
+        self._register(
+            "v1.customer.tax_id.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_customer_tax_id_updated(
+        self,
+        func: "Callable[[V1CustomerTaxIdUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerTaxIdUpdatedEvent` (`v1.customer.tax_id.updated`) event notification.
+        """
+        self._register(
+            "v1.customer.tax_id.updated",
+            func,
+        )
+        return func
+
+    def on_v1_customer_updated(
+        self,
+        func: "Callable[[V1CustomerUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1CustomerUpdatedEvent` (`v1.customer.updated`) event notification.
+        """
+        self._register(
+            "v1.customer.updated",
+            func,
+        )
+        return func
+
+    def on_v1_entitlements_active_entitlement_summary_updated(
+        self,
+        func: "Callable[[V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1EntitlementsActiveEntitlementSummaryUpdatedEvent` (`v1.entitlements.active_entitlement_summary.updated`) event notification.
+        """
+        self._register(
+            "v1.entitlements.active_entitlement_summary.updated",
+            func,
+        )
+        return func
+
+    def on_v1_file_created(
+        self,
+        func: "Callable[[V1FileCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FileCreatedEvent` (`v1.file.created`) event notification.
+        """
+        self._register(
+            "v1.file.created",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_account_numbers_updated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountAccountNumbersUpdatedEvent` (`v1.financial_connections.account.account_numbers_updated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.account_numbers_updated",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_created(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountCreatedEvent` (`v1.financial_connections.account.created`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.created",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_deactivated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountDeactivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountDeactivatedEvent` (`v1.financial_connections.account.deactivated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.deactivated",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_disconnected(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountDisconnectedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountDisconnectedEvent` (`v1.financial_connections.account.disconnected`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.disconnected",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_expected_deactivation_date_updated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent` (`v1.financial_connections.account.expected_deactivation_date_updated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.expected_deactivation_date_updated",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_reactivated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountReactivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountReactivatedEvent` (`v1.financial_connections.account.reactivated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.reactivated",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_refreshed_balance(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountRefreshedBalanceEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountRefreshedBalanceEvent` (`v1.financial_connections.account.refreshed_balance`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.refreshed_balance",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_refreshed_ownership(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountRefreshedOwnershipEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountRefreshedOwnershipEvent` (`v1.financial_connections.account.refreshed_ownership`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.refreshed_ownership",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_refreshed_transactions(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountRefreshedTransactionsEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountRefreshedTransactionsEvent` (`v1.financial_connections.account.refreshed_transactions`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.refreshed_transactions",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_supported_payment_method_types_updated(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent` (`v1.financial_connections.account.supported_payment_method_types_updated`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.supported_payment_method_types_updated",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_upcoming_account_number_expiry(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent` (`v1.financial_connections.account.upcoming_account_number_expiry`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.upcoming_account_number_expiry",
+            func,
+        )
+        return func
+
+    def on_v1_financial_connections_account_upcoming_deactivation(
+        self,
+        func: "Callable[[V1FinancialConnectionsAccountUpcomingDeactivationEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1FinancialConnectionsAccountUpcomingDeactivationEvent` (`v1.financial_connections.account.upcoming_deactivation`) event notification.
+        """
+        self._register(
+            "v1.financial_connections.account.upcoming_deactivation",
+            func,
+        )
+        return func
+
+    def on_v1_identity_verification_session_canceled(
+        self,
+        func: "Callable[[V1IdentityVerificationSessionCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IdentityVerificationSessionCanceledEvent` (`v1.identity.verification_session.canceled`) event notification.
+        """
+        self._register(
+            "v1.identity.verification_session.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_identity_verification_session_created(
+        self,
+        func: "Callable[[V1IdentityVerificationSessionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IdentityVerificationSessionCreatedEvent` (`v1.identity.verification_session.created`) event notification.
+        """
+        self._register(
+            "v1.identity.verification_session.created",
+            func,
+        )
+        return func
+
+    def on_v1_identity_verification_session_processing(
+        self,
+        func: "Callable[[V1IdentityVerificationSessionProcessingEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IdentityVerificationSessionProcessingEvent` (`v1.identity.verification_session.processing`) event notification.
+        """
+        self._register(
+            "v1.identity.verification_session.processing",
+            func,
+        )
+        return func
+
+    def on_v1_identity_verification_session_redacted(
+        self,
+        func: "Callable[[V1IdentityVerificationSessionRedactedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IdentityVerificationSessionRedactedEvent` (`v1.identity.verification_session.redacted`) event notification.
+        """
+        self._register(
+            "v1.identity.verification_session.redacted",
+            func,
+        )
+        return func
+
+    def on_v1_identity_verification_session_requires_input(
+        self,
+        func: "Callable[[V1IdentityVerificationSessionRequiresInputEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IdentityVerificationSessionRequiresInputEvent` (`v1.identity.verification_session.requires_input`) event notification.
+        """
+        self._register(
+            "v1.identity.verification_session.requires_input",
+            func,
+        )
+        return func
+
+    def on_v1_identity_verification_session_verified(
+        self,
+        func: "Callable[[V1IdentityVerificationSessionVerifiedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IdentityVerificationSessionVerifiedEvent` (`v1.identity.verification_session.verified`) event notification.
+        """
+        self._register(
+            "v1.identity.verification_session.verified",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_created(
+        self,
+        func: "Callable[[V1InvoiceCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceCreatedEvent` (`v1.invoice.created`) event notification.
+        """
+        self._register(
+            "v1.invoice.created",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_deleted(
+        self,
+        func: "Callable[[V1InvoiceDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceDeletedEvent` (`v1.invoice.deleted`) event notification.
+        """
+        self._register(
+            "v1.invoice.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_finalization_failed(
+        self,
+        func: "Callable[[V1InvoiceFinalizationFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceFinalizationFailedEvent` (`v1.invoice.finalization_failed`) event notification.
+        """
+        self._register(
+            "v1.invoice.finalization_failed",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_finalized(
+        self,
+        func: "Callable[[V1InvoiceFinalizedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceFinalizedEvent` (`v1.invoice.finalized`) event notification.
+        """
+        self._register(
+            "v1.invoice.finalized",
+            func,
+        )
+        return func
+
+    def on_v1_invoiceitem_created(
+        self,
+        func: "Callable[[V1InvoiceitemCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceitemCreatedEvent` (`v1.invoiceitem.created`) event notification.
+        """
+        self._register(
+            "v1.invoiceitem.created",
+            func,
+        )
+        return func
+
+    def on_v1_invoiceitem_deleted(
+        self,
+        func: "Callable[[V1InvoiceitemDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceitemDeletedEvent` (`v1.invoiceitem.deleted`) event notification.
+        """
+        self._register(
+            "v1.invoiceitem.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_marked_uncollectible(
+        self,
+        func: "Callable[[V1InvoiceMarkedUncollectibleEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceMarkedUncollectibleEvent` (`v1.invoice.marked_uncollectible`) event notification.
+        """
+        self._register(
+            "v1.invoice.marked_uncollectible",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_overdue(
+        self,
+        func: "Callable[[V1InvoiceOverdueEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceOverdueEvent` (`v1.invoice.overdue`) event notification.
+        """
+        self._register(
+            "v1.invoice.overdue",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_overpaid(
+        self,
+        func: "Callable[[V1InvoiceOverpaidEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceOverpaidEvent` (`v1.invoice.overpaid`) event notification.
+        """
+        self._register(
+            "v1.invoice.overpaid",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_paid(
+        self,
+        func: "Callable[[V1InvoicePaidEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoicePaidEvent` (`v1.invoice.paid`) event notification.
+        """
+        self._register(
+            "v1.invoice.paid",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_payment_action_required(
+        self,
+        func: "Callable[[V1InvoicePaymentActionRequiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoicePaymentActionRequiredEvent` (`v1.invoice.payment_action_required`) event notification.
+        """
+        self._register(
+            "v1.invoice.payment_action_required",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_payment_attempt_required(
+        self,
+        func: "Callable[[V1InvoicePaymentAttemptRequiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoicePaymentAttemptRequiredEvent` (`v1.invoice.payment_attempt_required`) event notification.
+        """
+        self._register(
+            "v1.invoice.payment_attempt_required",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_payment_failed(
+        self,
+        func: "Callable[[V1InvoicePaymentFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoicePaymentFailedEvent` (`v1.invoice.payment_failed`) event notification.
+        """
+        self._register(
+            "v1.invoice.payment_failed",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_payment_paid(
+        self,
+        func: "Callable[[V1InvoicePaymentPaidEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoicePaymentPaidEvent` (`v1.invoice_payment.paid`) event notification.
+        """
+        self._register(
+            "v1.invoice_payment.paid",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_payment_succeeded(
+        self,
+        func: "Callable[[V1InvoicePaymentSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoicePaymentSucceededEvent` (`v1.invoice.payment_succeeded`) event notification.
+        """
+        self._register(
+            "v1.invoice.payment_succeeded",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_sent(
+        self,
+        func: "Callable[[V1InvoiceSentEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceSentEvent` (`v1.invoice.sent`) event notification.
+        """
+        self._register(
+            "v1.invoice.sent",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_upcoming(
+        self,
+        func: "Callable[[V1InvoiceUpcomingEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceUpcomingEvent` (`v1.invoice.upcoming`) event notification.
+        """
+        self._register(
+            "v1.invoice.upcoming",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_updated(
+        self,
+        func: "Callable[[V1InvoiceUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceUpdatedEvent` (`v1.invoice.updated`) event notification.
+        """
+        self._register(
+            "v1.invoice.updated",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_voided(
+        self,
+        func: "Callable[[V1InvoiceVoidedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceVoidedEvent` (`v1.invoice.voided`) event notification.
+        """
+        self._register(
+            "v1.invoice.voided",
+            func,
+        )
+        return func
+
+    def on_v1_invoice_will_be_due(
+        self,
+        func: "Callable[[V1InvoiceWillBeDueEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1InvoiceWillBeDueEvent` (`v1.invoice.will_be_due`) event notification.
+        """
+        self._register(
+            "v1.invoice.will_be_due",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_authorization_created(
+        self,
+        func: "Callable[[V1IssuingAuthorizationCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingAuthorizationCreatedEvent` (`v1.issuing_authorization.created`) event notification.
+        """
+        self._register(
+            "v1.issuing_authorization.created",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_authorization_request(
+        self,
+        func: "Callable[[V1IssuingAuthorizationRequestEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingAuthorizationRequestEvent` (`v1.issuing_authorization.request`) event notification.
+        """
+        self._register(
+            "v1.issuing_authorization.request",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_authorization_updated(
+        self,
+        func: "Callable[[V1IssuingAuthorizationUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingAuthorizationUpdatedEvent` (`v1.issuing_authorization.updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_authorization.updated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_card_created(
+        self,
+        func: "Callable[[V1IssuingCardCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingCardCreatedEvent` (`v1.issuing_card.created`) event notification.
+        """
+        self._register(
+            "v1.issuing_card.created",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_cardholder_created(
+        self,
+        func: "Callable[[V1IssuingCardholderCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingCardholderCreatedEvent` (`v1.issuing_cardholder.created`) event notification.
+        """
+        self._register(
+            "v1.issuing_cardholder.created",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_cardholder_updated(
+        self,
+        func: "Callable[[V1IssuingCardholderUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingCardholderUpdatedEvent` (`v1.issuing_cardholder.updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_cardholder.updated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_card_updated(
+        self,
+        func: "Callable[[V1IssuingCardUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingCardUpdatedEvent` (`v1.issuing_card.updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_card.updated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_dispute_closed(
+        self,
+        func: "Callable[[V1IssuingDisputeClosedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingDisputeClosedEvent` (`v1.issuing_dispute.closed`) event notification.
+        """
+        self._register(
+            "v1.issuing_dispute.closed",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_dispute_created(
+        self,
+        func: "Callable[[V1IssuingDisputeCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingDisputeCreatedEvent` (`v1.issuing_dispute.created`) event notification.
+        """
+        self._register(
+            "v1.issuing_dispute.created",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_dispute_funds_reinstated(
+        self,
+        func: "Callable[[V1IssuingDisputeFundsReinstatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingDisputeFundsReinstatedEvent` (`v1.issuing_dispute.funds_reinstated`) event notification.
+        """
+        self._register(
+            "v1.issuing_dispute.funds_reinstated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_dispute_funds_rescinded(
+        self,
+        func: "Callable[[V1IssuingDisputeFundsRescindedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingDisputeFundsRescindedEvent` (`v1.issuing_dispute.funds_rescinded`) event notification.
+        """
+        self._register(
+            "v1.issuing_dispute.funds_rescinded",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_dispute_submitted(
+        self,
+        func: "Callable[[V1IssuingDisputeSubmittedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingDisputeSubmittedEvent` (`v1.issuing_dispute.submitted`) event notification.
+        """
+        self._register(
+            "v1.issuing_dispute.submitted",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_dispute_updated(
+        self,
+        func: "Callable[[V1IssuingDisputeUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingDisputeUpdatedEvent` (`v1.issuing_dispute.updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_dispute.updated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_personalization_design_activated(
+        self,
+        func: "Callable[[V1IssuingPersonalizationDesignActivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingPersonalizationDesignActivatedEvent` (`v1.issuing_personalization_design.activated`) event notification.
+        """
+        self._register(
+            "v1.issuing_personalization_design.activated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_personalization_design_deactivated(
+        self,
+        func: "Callable[[V1IssuingPersonalizationDesignDeactivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingPersonalizationDesignDeactivatedEvent` (`v1.issuing_personalization_design.deactivated`) event notification.
+        """
+        self._register(
+            "v1.issuing_personalization_design.deactivated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_personalization_design_rejected(
+        self,
+        func: "Callable[[V1IssuingPersonalizationDesignRejectedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingPersonalizationDesignRejectedEvent` (`v1.issuing_personalization_design.rejected`) event notification.
+        """
+        self._register(
+            "v1.issuing_personalization_design.rejected",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_personalization_design_updated(
+        self,
+        func: "Callable[[V1IssuingPersonalizationDesignUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingPersonalizationDesignUpdatedEvent` (`v1.issuing_personalization_design.updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_personalization_design.updated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_token_created(
+        self,
+        func: "Callable[[V1IssuingTokenCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingTokenCreatedEvent` (`v1.issuing_token.created`) event notification.
+        """
+        self._register(
+            "v1.issuing_token.created",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_token_updated(
+        self,
+        func: "Callable[[V1IssuingTokenUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingTokenUpdatedEvent` (`v1.issuing_token.updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_token.updated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_transaction_created(
+        self,
+        func: "Callable[[V1IssuingTransactionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingTransactionCreatedEvent` (`v1.issuing_transaction.created`) event notification.
+        """
+        self._register(
+            "v1.issuing_transaction.created",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_transaction_purchase_details_receipt_updated(
+        self,
+        func: "Callable[[V1IssuingTransactionPurchaseDetailsReceiptUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent` (`v1.issuing_transaction.purchase_details_receipt_updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_transaction.purchase_details_receipt_updated",
+            func,
+        )
+        return func
+
+    def on_v1_issuing_transaction_updated(
+        self,
+        func: "Callable[[V1IssuingTransactionUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1IssuingTransactionUpdatedEvent` (`v1.issuing_transaction.updated`) event notification.
+        """
+        self._register(
+            "v1.issuing_transaction.updated",
+            func,
+        )
+        return func
+
+    def on_v1_mandate_updated(
+        self,
+        func: "Callable[[V1MandateUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1MandateUpdatedEvent` (`v1.mandate.updated`) event notification.
+        """
+        self._register(
+            "v1.mandate.updated",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_amount_capturable_updated(
+        self,
+        func: "Callable[[V1PaymentIntentAmountCapturableUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentAmountCapturableUpdatedEvent` (`v1.payment_intent.amount_capturable_updated`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.amount_capturable_updated",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_canceled(
+        self,
+        func: "Callable[[V1PaymentIntentCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentCanceledEvent` (`v1.payment_intent.canceled`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_created(
+        self,
+        func: "Callable[[V1PaymentIntentCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentCreatedEvent` (`v1.payment_intent.created`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.created",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_partially_funded(
+        self,
+        func: "Callable[[V1PaymentIntentPartiallyFundedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentPartiallyFundedEvent` (`v1.payment_intent.partially_funded`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.partially_funded",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_payment_failed(
+        self,
+        func: "Callable[[V1PaymentIntentPaymentFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentPaymentFailedEvent` (`v1.payment_intent.payment_failed`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.payment_failed",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_processing(
+        self,
+        func: "Callable[[V1PaymentIntentProcessingEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentProcessingEvent` (`v1.payment_intent.processing`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.processing",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_requires_action(
+        self,
+        func: "Callable[[V1PaymentIntentRequiresActionEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentRequiresActionEvent` (`v1.payment_intent.requires_action`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.requires_action",
+            func,
+        )
+        return func
+
+    def on_v1_payment_intent_succeeded(
+        self,
+        func: "Callable[[V1PaymentIntentSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentIntentSucceededEvent` (`v1.payment_intent.succeeded`) event notification.
+        """
+        self._register(
+            "v1.payment_intent.succeeded",
+            func,
+        )
+        return func
+
+    def on_v1_payment_link_created(
+        self,
+        func: "Callable[[V1PaymentLinkCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentLinkCreatedEvent` (`v1.payment_link.created`) event notification.
+        """
+        self._register(
+            "v1.payment_link.created",
+            func,
+        )
+        return func
+
+    def on_v1_payment_link_updated(
+        self,
+        func: "Callable[[V1PaymentLinkUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentLinkUpdatedEvent` (`v1.payment_link.updated`) event notification.
+        """
+        self._register(
+            "v1.payment_link.updated",
+            func,
+        )
+        return func
+
+    def on_v1_payment_method_attached(
+        self,
+        func: "Callable[[V1PaymentMethodAttachedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentMethodAttachedEvent` (`v1.payment_method.attached`) event notification.
+        """
+        self._register(
+            "v1.payment_method.attached",
+            func,
+        )
+        return func
+
+    def on_v1_payment_method_automatically_updated(
+        self,
+        func: "Callable[[V1PaymentMethodAutomaticallyUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentMethodAutomaticallyUpdatedEvent` (`v1.payment_method.automatically_updated`) event notification.
+        """
+        self._register(
+            "v1.payment_method.automatically_updated",
+            func,
+        )
+        return func
+
+    def on_v1_payment_method_detached(
+        self,
+        func: "Callable[[V1PaymentMethodDetachedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentMethodDetachedEvent` (`v1.payment_method.detached`) event notification.
+        """
+        self._register(
+            "v1.payment_method.detached",
+            func,
+        )
+        return func
+
+    def on_v1_payment_method_updated(
+        self,
+        func: "Callable[[V1PaymentMethodUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PaymentMethodUpdatedEvent` (`v1.payment_method.updated`) event notification.
+        """
+        self._register(
+            "v1.payment_method.updated",
+            func,
+        )
+        return func
+
+    def on_v1_payout_canceled(
+        self,
+        func: "Callable[[V1PayoutCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PayoutCanceledEvent` (`v1.payout.canceled`) event notification.
+        """
+        self._register(
+            "v1.payout.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_payout_created(
+        self,
+        func: "Callable[[V1PayoutCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PayoutCreatedEvent` (`v1.payout.created`) event notification.
+        """
+        self._register(
+            "v1.payout.created",
+            func,
+        )
+        return func
+
+    def on_v1_payout_failed(
+        self,
+        func: "Callable[[V1PayoutFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PayoutFailedEvent` (`v1.payout.failed`) event notification.
+        """
+        self._register(
+            "v1.payout.failed",
+            func,
+        )
+        return func
+
+    def on_v1_payout_paid(
+        self,
+        func: "Callable[[V1PayoutPaidEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PayoutPaidEvent` (`v1.payout.paid`) event notification.
+        """
+        self._register(
+            "v1.payout.paid",
+            func,
+        )
+        return func
+
+    def on_v1_payout_reconciliation_completed(
+        self,
+        func: "Callable[[V1PayoutReconciliationCompletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PayoutReconciliationCompletedEvent` (`v1.payout.reconciliation_completed`) event notification.
+        """
+        self._register(
+            "v1.payout.reconciliation_completed",
+            func,
+        )
+        return func
+
+    def on_v1_payout_updated(
+        self,
+        func: "Callable[[V1PayoutUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PayoutUpdatedEvent` (`v1.payout.updated`) event notification.
+        """
+        self._register(
+            "v1.payout.updated",
+            func,
+        )
+        return func
+
+    def on_v1_person_created(
+        self,
+        func: "Callable[[V1PersonCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PersonCreatedEvent` (`v1.person.created`) event notification.
+        """
+        self._register(
+            "v1.person.created",
+            func,
+        )
+        return func
+
+    def on_v1_person_deleted(
+        self,
+        func: "Callable[[V1PersonDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PersonDeletedEvent` (`v1.person.deleted`) event notification.
+        """
+        self._register(
+            "v1.person.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_person_updated(
+        self,
+        func: "Callable[[V1PersonUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PersonUpdatedEvent` (`v1.person.updated`) event notification.
+        """
+        self._register(
+            "v1.person.updated",
+            func,
+        )
+        return func
+
+    def on_v1_plan_created(
+        self,
+        func: "Callable[[V1PlanCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PlanCreatedEvent` (`v1.plan.created`) event notification.
+        """
+        self._register(
+            "v1.plan.created",
+            func,
+        )
+        return func
+
+    def on_v1_plan_deleted(
+        self,
+        func: "Callable[[V1PlanDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PlanDeletedEvent` (`v1.plan.deleted`) event notification.
+        """
+        self._register(
+            "v1.plan.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_plan_updated(
+        self,
+        func: "Callable[[V1PlanUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PlanUpdatedEvent` (`v1.plan.updated`) event notification.
+        """
+        self._register(
+            "v1.plan.updated",
+            func,
+        )
+        return func
+
+    def on_v1_price_created(
+        self,
+        func: "Callable[[V1PriceCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PriceCreatedEvent` (`v1.price.created`) event notification.
+        """
+        self._register(
+            "v1.price.created",
+            func,
+        )
+        return func
+
+    def on_v1_price_deleted(
+        self,
+        func: "Callable[[V1PriceDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PriceDeletedEvent` (`v1.price.deleted`) event notification.
+        """
+        self._register(
+            "v1.price.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_price_updated(
+        self,
+        func: "Callable[[V1PriceUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PriceUpdatedEvent` (`v1.price.updated`) event notification.
+        """
+        self._register(
+            "v1.price.updated",
+            func,
+        )
+        return func
+
+    def on_v1_product_created(
+        self,
+        func: "Callable[[V1ProductCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ProductCreatedEvent` (`v1.product.created`) event notification.
+        """
+        self._register(
+            "v1.product.created",
+            func,
+        )
+        return func
+
+    def on_v1_product_deleted(
+        self,
+        func: "Callable[[V1ProductDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ProductDeletedEvent` (`v1.product.deleted`) event notification.
+        """
+        self._register(
+            "v1.product.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_product_updated(
+        self,
+        func: "Callable[[V1ProductUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ProductUpdatedEvent` (`v1.product.updated`) event notification.
+        """
+        self._register(
+            "v1.product.updated",
+            func,
+        )
+        return func
+
+    def on_v1_promotion_code_created(
+        self,
+        func: "Callable[[V1PromotionCodeCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PromotionCodeCreatedEvent` (`v1.promotion_code.created`) event notification.
+        """
+        self._register(
+            "v1.promotion_code.created",
+            func,
+        )
+        return func
+
+    def on_v1_promotion_code_updated(
+        self,
+        func: "Callable[[V1PromotionCodeUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1PromotionCodeUpdatedEvent` (`v1.promotion_code.updated`) event notification.
+        """
+        self._register(
+            "v1.promotion_code.updated",
+            func,
+        )
+        return func
+
+    def on_v1_quote_accepted(
+        self,
+        func: "Callable[[V1QuoteAcceptedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1QuoteAcceptedEvent` (`v1.quote.accepted`) event notification.
+        """
+        self._register(
+            "v1.quote.accepted",
+            func,
+        )
+        return func
+
+    def on_v1_quote_canceled(
+        self,
+        func: "Callable[[V1QuoteCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1QuoteCanceledEvent` (`v1.quote.canceled`) event notification.
+        """
+        self._register(
+            "v1.quote.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_quote_created(
+        self,
+        func: "Callable[[V1QuoteCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1QuoteCreatedEvent` (`v1.quote.created`) event notification.
+        """
+        self._register(
+            "v1.quote.created",
+            func,
+        )
+        return func
+
+    def on_v1_quote_finalized(
+        self,
+        func: "Callable[[V1QuoteFinalizedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1QuoteFinalizedEvent` (`v1.quote.finalized`) event notification.
+        """
+        self._register(
+            "v1.quote.finalized",
+            func,
+        )
+        return func
+
+    def on_v1_radar_early_fraud_warning_created(
+        self,
+        func: "Callable[[V1RadarEarlyFraudWarningCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1RadarEarlyFraudWarningCreatedEvent` (`v1.radar.early_fraud_warning.created`) event notification.
+        """
+        self._register(
+            "v1.radar.early_fraud_warning.created",
+            func,
+        )
+        return func
+
+    def on_v1_radar_early_fraud_warning_updated(
+        self,
+        func: "Callable[[V1RadarEarlyFraudWarningUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1RadarEarlyFraudWarningUpdatedEvent` (`v1.radar.early_fraud_warning.updated`) event notification.
+        """
+        self._register(
+            "v1.radar.early_fraud_warning.updated",
+            func,
+        )
+        return func
+
+    def on_v1_refund_created(
+        self,
+        func: "Callable[[V1RefundCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1RefundCreatedEvent` (`v1.refund.created`) event notification.
+        """
+        self._register(
+            "v1.refund.created",
+            func,
+        )
+        return func
+
+    def on_v1_refund_failed(
+        self,
+        func: "Callable[[V1RefundFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1RefundFailedEvent` (`v1.refund.failed`) event notification.
+        """
+        self._register(
+            "v1.refund.failed",
+            func,
+        )
+        return func
+
+    def on_v1_refund_updated(
+        self,
+        func: "Callable[[V1RefundUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1RefundUpdatedEvent` (`v1.refund.updated`) event notification.
+        """
+        self._register(
+            "v1.refund.updated",
+            func,
+        )
+        return func
+
+    def on_v1_review_closed(
+        self,
+        func: "Callable[[V1ReviewClosedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ReviewClosedEvent` (`v1.review.closed`) event notification.
+        """
+        self._register(
+            "v1.review.closed",
+            func,
+        )
+        return func
+
+    def on_v1_review_opened(
+        self,
+        func: "Callable[[V1ReviewOpenedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1ReviewOpenedEvent` (`v1.review.opened`) event notification.
+        """
+        self._register(
+            "v1.review.opened",
+            func,
+        )
+        return func
+
+    def on_v1_setup_intent_canceled(
+        self,
+        func: "Callable[[V1SetupIntentCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SetupIntentCanceledEvent` (`v1.setup_intent.canceled`) event notification.
+        """
+        self._register(
+            "v1.setup_intent.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_setup_intent_created(
+        self,
+        func: "Callable[[V1SetupIntentCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SetupIntentCreatedEvent` (`v1.setup_intent.created`) event notification.
+        """
+        self._register(
+            "v1.setup_intent.created",
+            func,
+        )
+        return func
+
+    def on_v1_setup_intent_requires_action(
+        self,
+        func: "Callable[[V1SetupIntentRequiresActionEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SetupIntentRequiresActionEvent` (`v1.setup_intent.requires_action`) event notification.
+        """
+        self._register(
+            "v1.setup_intent.requires_action",
+            func,
+        )
+        return func
+
+    def on_v1_setup_intent_setup_failed(
+        self,
+        func: "Callable[[V1SetupIntentSetupFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SetupIntentSetupFailedEvent` (`v1.setup_intent.setup_failed`) event notification.
+        """
+        self._register(
+            "v1.setup_intent.setup_failed",
+            func,
+        )
+        return func
+
+    def on_v1_setup_intent_succeeded(
+        self,
+        func: "Callable[[V1SetupIntentSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SetupIntentSucceededEvent` (`v1.setup_intent.succeeded`) event notification.
+        """
+        self._register(
+            "v1.setup_intent.succeeded",
+            func,
+        )
+        return func
+
+    def on_v1_sigma_scheduled_query_run_created(
+        self,
+        func: "Callable[[V1SigmaScheduledQueryRunCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SigmaScheduledQueryRunCreatedEvent` (`v1.sigma.scheduled_query_run.created`) event notification.
+        """
+        self._register(
+            "v1.sigma.scheduled_query_run.created",
+            func,
+        )
+        return func
+
+    def on_v1_source_canceled(
+        self,
+        func: "Callable[[V1SourceCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SourceCanceledEvent` (`v1.source.canceled`) event notification.
+        """
+        self._register(
+            "v1.source.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_source_chargeable(
+        self,
+        func: "Callable[[V1SourceChargeableEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SourceChargeableEvent` (`v1.source.chargeable`) event notification.
+        """
+        self._register(
+            "v1.source.chargeable",
+            func,
+        )
+        return func
+
+    def on_v1_source_failed(
+        self,
+        func: "Callable[[V1SourceFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SourceFailedEvent` (`v1.source.failed`) event notification.
+        """
+        self._register(
+            "v1.source.failed",
+            func,
+        )
+        return func
+
+    def on_v1_source_refund_attributes_required(
+        self,
+        func: "Callable[[V1SourceRefundAttributesRequiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SourceRefundAttributesRequiredEvent` (`v1.source.refund_attributes_required`) event notification.
+        """
+        self._register(
+            "v1.source.refund_attributes_required",
+            func,
+        )
+        return func
+
+    def on_v1_subscription_schedule_aborted(
+        self,
+        func: "Callable[[V1SubscriptionScheduleAbortedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SubscriptionScheduleAbortedEvent` (`v1.subscription_schedule.aborted`) event notification.
+        """
+        self._register(
+            "v1.subscription_schedule.aborted",
+            func,
+        )
+        return func
+
+    def on_v1_subscription_schedule_canceled(
+        self,
+        func: "Callable[[V1SubscriptionScheduleCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SubscriptionScheduleCanceledEvent` (`v1.subscription_schedule.canceled`) event notification.
+        """
+        self._register(
+            "v1.subscription_schedule.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_subscription_schedule_completed(
+        self,
+        func: "Callable[[V1SubscriptionScheduleCompletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SubscriptionScheduleCompletedEvent` (`v1.subscription_schedule.completed`) event notification.
+        """
+        self._register(
+            "v1.subscription_schedule.completed",
+            func,
+        )
+        return func
+
+    def on_v1_subscription_schedule_created(
+        self,
+        func: "Callable[[V1SubscriptionScheduleCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SubscriptionScheduleCreatedEvent` (`v1.subscription_schedule.created`) event notification.
+        """
+        self._register(
+            "v1.subscription_schedule.created",
+            func,
+        )
+        return func
+
+    def on_v1_subscription_schedule_expiring(
+        self,
+        func: "Callable[[V1SubscriptionScheduleExpiringEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SubscriptionScheduleExpiringEvent` (`v1.subscription_schedule.expiring`) event notification.
+        """
+        self._register(
+            "v1.subscription_schedule.expiring",
+            func,
+        )
+        return func
+
+    def on_v1_subscription_schedule_released(
+        self,
+        func: "Callable[[V1SubscriptionScheduleReleasedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SubscriptionScheduleReleasedEvent` (`v1.subscription_schedule.released`) event notification.
+        """
+        self._register(
+            "v1.subscription_schedule.released",
+            func,
+        )
+        return func
+
+    def on_v1_subscription_schedule_updated(
+        self,
+        func: "Callable[[V1SubscriptionScheduleUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1SubscriptionScheduleUpdatedEvent` (`v1.subscription_schedule.updated`) event notification.
+        """
+        self._register(
+            "v1.subscription_schedule.updated",
+            func,
+        )
+        return func
+
+    def on_v1_tax_rate_created(
+        self,
+        func: "Callable[[V1TaxRateCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TaxRateCreatedEvent` (`v1.tax_rate.created`) event notification.
+        """
+        self._register(
+            "v1.tax_rate.created",
+            func,
+        )
+        return func
+
+    def on_v1_tax_rate_updated(
+        self,
+        func: "Callable[[V1TaxRateUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TaxRateUpdatedEvent` (`v1.tax_rate.updated`) event notification.
+        """
+        self._register(
+            "v1.tax_rate.updated",
+            func,
+        )
+        return func
+
+    def on_v1_tax_settings_updated(
+        self,
+        func: "Callable[[V1TaxSettingsUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TaxSettingsUpdatedEvent` (`v1.tax.settings.updated`) event notification.
+        """
+        self._register(
+            "v1.tax.settings.updated",
+            func,
+        )
+        return func
+
+    def on_v1_terminal_reader_action_failed(
+        self,
+        func: "Callable[[V1TerminalReaderActionFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TerminalReaderActionFailedEvent` (`v1.terminal.reader.action_failed`) event notification.
+        """
+        self._register(
+            "v1.terminal.reader.action_failed",
+            func,
+        )
+        return func
+
+    def on_v1_terminal_reader_action_succeeded(
+        self,
+        func: "Callable[[V1TerminalReaderActionSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TerminalReaderActionSucceededEvent` (`v1.terminal.reader.action_succeeded`) event notification.
+        """
+        self._register(
+            "v1.terminal.reader.action_succeeded",
+            func,
+        )
+        return func
+
+    def on_v1_terminal_reader_action_updated(
+        self,
+        func: "Callable[[V1TerminalReaderActionUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TerminalReaderActionUpdatedEvent` (`v1.terminal.reader.action_updated`) event notification.
+        """
+        self._register(
+            "v1.terminal.reader.action_updated",
+            func,
+        )
+        return func
+
+    def on_v1_test_helpers_test_clock_advancing(
+        self,
+        func: "Callable[[V1TestHelpersTestClockAdvancingEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TestHelpersTestClockAdvancingEvent` (`v1.test_helpers.test_clock.advancing`) event notification.
+        """
+        self._register(
+            "v1.test_helpers.test_clock.advancing",
+            func,
+        )
+        return func
+
+    def on_v1_test_helpers_test_clock_created(
+        self,
+        func: "Callable[[V1TestHelpersTestClockCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TestHelpersTestClockCreatedEvent` (`v1.test_helpers.test_clock.created`) event notification.
+        """
+        self._register(
+            "v1.test_helpers.test_clock.created",
+            func,
+        )
+        return func
+
+    def on_v1_test_helpers_test_clock_deleted(
+        self,
+        func: "Callable[[V1TestHelpersTestClockDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TestHelpersTestClockDeletedEvent` (`v1.test_helpers.test_clock.deleted`) event notification.
+        """
+        self._register(
+            "v1.test_helpers.test_clock.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_test_helpers_test_clock_internal_failure(
+        self,
+        func: "Callable[[V1TestHelpersTestClockInternalFailureEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TestHelpersTestClockInternalFailureEvent` (`v1.test_helpers.test_clock.internal_failure`) event notification.
+        """
+        self._register(
+            "v1.test_helpers.test_clock.internal_failure",
+            func,
+        )
+        return func
+
+    def on_v1_test_helpers_test_clock_ready(
+        self,
+        func: "Callable[[V1TestHelpersTestClockReadyEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TestHelpersTestClockReadyEvent` (`v1.test_helpers.test_clock.ready`) event notification.
+        """
+        self._register(
+            "v1.test_helpers.test_clock.ready",
+            func,
+        )
+        return func
+
+    def on_v1_topup_canceled(
+        self,
+        func: "Callable[[V1TopupCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TopupCanceledEvent` (`v1.topup.canceled`) event notification.
+        """
+        self._register(
+            "v1.topup.canceled",
+            func,
+        )
+        return func
+
+    def on_v1_topup_created(
+        self,
+        func: "Callable[[V1TopupCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TopupCreatedEvent` (`v1.topup.created`) event notification.
+        """
+        self._register(
+            "v1.topup.created",
+            func,
+        )
+        return func
+
+    def on_v1_topup_failed(
+        self,
+        func: "Callable[[V1TopupFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TopupFailedEvent` (`v1.topup.failed`) event notification.
+        """
+        self._register(
+            "v1.topup.failed",
+            func,
+        )
+        return func
+
+    def on_v1_topup_reversed(
+        self,
+        func: "Callable[[V1TopupReversedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TopupReversedEvent` (`v1.topup.reversed`) event notification.
+        """
+        self._register(
+            "v1.topup.reversed",
+            func,
+        )
+        return func
+
+    def on_v1_topup_succeeded(
+        self,
+        func: "Callable[[V1TopupSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TopupSucceededEvent` (`v1.topup.succeeded`) event notification.
+        """
+        self._register(
+            "v1.topup.succeeded",
+            func,
+        )
+        return func
+
+    def on_v1_transfer_created(
+        self,
+        func: "Callable[[V1TransferCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TransferCreatedEvent` (`v1.transfer.created`) event notification.
+        """
+        self._register(
+            "v1.transfer.created",
+            func,
+        )
+        return func
+
+    def on_v1_transfer_reversed(
+        self,
+        func: "Callable[[V1TransferReversedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TransferReversedEvent` (`v1.transfer.reversed`) event notification.
+        """
+        self._register(
+            "v1.transfer.reversed",
+            func,
+        )
+        return func
+
+    def on_v1_transfer_updated(
+        self,
+        func: "Callable[[V1TransferUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1TransferUpdatedEvent` (`v1.transfer.updated`) event notification.
+        """
+        self._register(
+            "v1.transfer.updated",
             func,
         )
         return func

@@ -121,6 +121,7 @@ class TaxRate(
             Literal[
                 "amusement_tax",
                 "communications_tax",
+                "digital_excise_tax",
                 "gst",
                 "hst",
                 "igst",
@@ -134,6 +135,7 @@ class TaxRate(
                 "rst",
                 "sales_tax",
                 "service_tax",
+                "utility_users_tax",
                 "vat",
             ],
             str,

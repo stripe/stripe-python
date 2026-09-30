@@ -11,7 +11,7 @@ class SessionUpdateParams(TypedDict):
         "SessionUpdateParamsCollectedInformation"
     ]
     """
-    Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
+    Information about the customer collected within the Checkout Session. Can only be set when updating `embedded_page` or `elements` sessions.
     """
     expand: NotRequired[List[str]]
     """
@@ -200,9 +200,26 @@ class SessionUpdateParamsLineItemPriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired[
+        "SessionUpdateParamsLineItemPriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired[str]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+
+
+class SessionUpdateParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 

@@ -47,7 +47,7 @@ class WebhookEndpoint(
     OBJECT_NAME: ClassVar[Literal["webhook_endpoint"]] = "webhook_endpoint"
     api_version: Optional[str]
     """
-    The API version events are rendered as for this webhook endpoint.
+    The API version that events are rendered as for this webhook endpoint. You can't change this value after you create the endpoint.
     """
     application: Optional[str]
     """

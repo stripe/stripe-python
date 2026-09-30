@@ -13,6 +13,10 @@ class SubscriptionItemUpdateParams(TypedDict):
     """
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     """
+    current_trial: NotRequired["SubscriptionItemUpdateParamsCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
     discounts: NotRequired[
         "Literal['']|List[SubscriptionItemUpdateParamsDiscount]"
     ]
@@ -45,11 +49,11 @@ class SubscriptionItemUpdateParams(TypedDict):
     """
     price: NotRequired[str]
     """
-    The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     """
     price_data: NotRequired["SubscriptionItemUpdateParamsPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     """
     proration_behavior: NotRequired[
         "Literal['always_invoice', 'create_prorations', 'none']|str"
@@ -75,6 +79,13 @@ class SubscriptionItemUpdateParamsBillingThresholds(TypedDict):
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class SubscriptionItemUpdateParamsCurrentTrial(TypedDict):
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 

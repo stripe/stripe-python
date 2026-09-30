@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class AccountUpdateParams(TypedDict):
     account_token: NotRequired[str]
     """
-    An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
+    An [account token](https://docs.stripe.com/api#create_account_token), used to securely provide details to the account.
     """
     business_profile: NotRequired["AccountUpdateParamsBusinessProfile"]
     """
@@ -128,6 +128,10 @@ class AccountUpdateParamsBusinessProfile(TypedDict):
     product_description: NotRequired[str]
     """
     Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
+    """
+    specified_commercial_transactions_act_url: NotRequired["Literal['']|str"]
+    """
+    A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
     """
     support_address: NotRequired[
         "AccountUpdateParamsBusinessProfileSupportAddress"
@@ -278,6 +282,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     blik_payments: NotRequired["AccountUpdateParamsCapabilitiesBlikPayments"]
     """
     The blik_payments capability.
+    """
+    blik_recurring_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesBlikRecurringPayments"
+    ]
+    """
+    The blik_recurring_payments capability.
     """
     boleto_payments: NotRequired[
         "AccountUpdateParamsCapabilitiesBoletoPayments"
@@ -451,6 +461,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The paynow_payments capability.
     """
+    paypay_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesPaypayPayments"
+    ]
+    """
+    The paypay_payments capability.
+    """
     payto_payments: NotRequired["AccountUpdateParamsCapabilitiesPaytoPayments"]
     """
     The payto_payments capability.
@@ -500,6 +516,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     ]
     """
     The sepa_debit_payments capability.
+    """
+    sequra_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesSequraPayments"
+    ]
+    """
+    The sequra_payments capability.
     """
     sofort_payments: NotRequired[
         "AccountUpdateParamsCapabilitiesSofortPayments"
@@ -648,6 +670,13 @@ class AccountUpdateParamsCapabilitiesBizumPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesBlikPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesBlikRecurringPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -878,6 +907,13 @@ class AccountUpdateParamsCapabilitiesPaynowPayments(TypedDict):
     """
 
 
+class AccountUpdateParamsCapabilitiesPaypayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountUpdateParamsCapabilitiesPaytoPayments(TypedDict):
     requested: NotRequired[bool]
     """
@@ -935,6 +971,13 @@ class AccountUpdateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesSepaDebitPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesSequraPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1356,11 +1399,11 @@ class AccountUpdateParamsCompanyVerification(TypedDict):
 class AccountUpdateParamsCompanyVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -1420,56 +1463,56 @@ class AccountUpdateParamsDocuments(TypedDict):
 class AccountUpdateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyLicense(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyMemorandumOfAssociation(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyMinisterialDecree(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyRegistrationVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyTaxIdVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsProofOfAddress(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsProofOfRegistration(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountUpdateParamsDocumentsProofOfRegistrationSigner"
@@ -1491,7 +1534,7 @@ class AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership(
 ):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner"
@@ -1841,22 +1884,22 @@ class AccountUpdateParamsIndividualVerification(TypedDict):
 class AccountUpdateParamsIndividualVerificationAdditionalDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountUpdateParamsIndividualVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -1890,6 +1933,10 @@ class AccountUpdateParamsSettings(TypedDict):
     payouts: NotRequired["AccountUpdateParamsSettingsPayouts"]
     """
     Settings specific to the account's payouts.
+    """
+    paypay_payments: NotRequired["AccountUpdateParamsSettingsPaypayPayments"]
+    """
+    Settings specific to the PayPay payments method.
     """
     sepa_debit_payments: NotRequired[
         "AccountUpdateParamsSettingsSepaDebitPayments"
@@ -2063,6 +2110,68 @@ class AccountUpdateParamsSettingsPayoutsSchedule(TypedDict):
     ]
     """
     The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPayments(TypedDict):
+    additional_files: NotRequired[List[str]]
+    """
+    Additional files that are required to support the onboarding process of your business.
+    """
+    goods_type: NotRequired[Literal["digital_content", "other"]]
+    """
+    The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+    """
+    site: NotRequired["AccountUpdateParamsSettingsPaypayPaymentsSite"]
+    """
+    Details regarding your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSite(TypedDict):
+    accessible: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    in_development: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    restricted: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    type: NotRequired[Literal["accessible", "in_development", "restricted"]]
+    """
+    The status of your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible(TypedDict):
+    pass
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment(TypedDict):
+    password: str
+    """
+    The password needed to access your business's website.
+    """
+    username: NotRequired[str]
+    """
+    The username needed to access your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted(TypedDict):
+    payment_flow_file: NotRequired[str]
+    """
+    The file explaining the payment flow for your business.
     """
 
 
