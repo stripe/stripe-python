@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1899
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 16.0.0
 ---
 
 * Add support for new resources `apps.Install`, `product_catalog.TrialOffer`, `tax.Location`, and `three_d_secure.Authentication`
