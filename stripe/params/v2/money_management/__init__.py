@@ -76,9 +76,16 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._financial_address_retrieve_params import (
         FinancialAddressRetrieveParams as FinancialAddressRetrieveParams,
     )
+    from stripe.params.v2.money_management._funding_session_create_params import (
+        FundingSessionCreateParams as FundingSessionCreateParams,
+        FundingSessionCreateParamsFinancialAddressOptions as FundingSessionCreateParamsFinancialAddressOptions,
+        FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet as FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet,
+    )
     from stripe.params.v2.money_management._inbound_transfer_create_params import (
         InboundTransferCreateParams as InboundTransferCreateParams,
         InboundTransferCreateParamsFrom as InboundTransferCreateParamsFrom,
+        InboundTransferCreateParamsNetworkDetails as InboundTransferCreateParamsNetworkDetails,
+        InboundTransferCreateParamsNetworkDetailsAch as InboundTransferCreateParamsNetworkDetailsAch,
         InboundTransferCreateParamsTo as InboundTransferCreateParamsTo,
     )
     from stripe.params.v2.money_management._inbound_transfer_list_params import (
@@ -411,11 +418,31 @@ _import_map = {
         "stripe.params.v2.money_management._financial_address_retrieve_params",
         False,
     ),
+    "FundingSessionCreateParams": (
+        "stripe.params.v2.money_management._funding_session_create_params",
+        False,
+    ),
+    "FundingSessionCreateParamsFinancialAddressOptions": (
+        "stripe.params.v2.money_management._funding_session_create_params",
+        False,
+    ),
+    "FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet": (
+        "stripe.params.v2.money_management._funding_session_create_params",
+        False,
+    ),
     "InboundTransferCreateParams": (
         "stripe.params.v2.money_management._inbound_transfer_create_params",
         False,
     ),
     "InboundTransferCreateParamsFrom": (
+        "stripe.params.v2.money_management._inbound_transfer_create_params",
+        False,
+    ),
+    "InboundTransferCreateParamsNetworkDetails": (
+        "stripe.params.v2.money_management._inbound_transfer_create_params",
+        False,
+    ),
+    "InboundTransferCreateParamsNetworkDetailsAch": (
         "stripe.params.v2.money_management._inbound_transfer_create_params",
         False,
     ),

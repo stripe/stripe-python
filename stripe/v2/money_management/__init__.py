@@ -63,6 +63,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._financial_address_service import (
         FinancialAddressService as FinancialAddressService,
     )
+    from stripe.v2.money_management._funding_session import (
+        FundingSession as FundingSession,
+    )
+    from stripe.v2.money_management._funding_session_service import (
+        FundingSessionService as FundingSessionService,
+    )
     from stripe.v2.money_management._inbound_transfer import (
         InboundTransfer as InboundTransfer,
     )
@@ -223,6 +229,11 @@ _import_map = {
     ),
     "FinancialAddressService": (
         "stripe.v2.money_management._financial_address_service",
+        False,
+    ),
+    "FundingSession": ("stripe.v2.money_management._funding_session", False),
+    "FundingSessionService": (
+        "stripe.v2.money_management._funding_session_service",
         False,
     ),
     "InboundTransfer": ("stripe.v2.money_management._inbound_transfer", False),

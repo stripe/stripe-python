@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, Union
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -80,43 +80,16 @@ class FinancialAddress(StripeObject):
 
         class Clabe(StripeObject):
             account_holder_name: str
-            """
-            The name of the account holder.
-            """
             clabe: str
-            """
-            The CLABE interbank code.
-            """
 
         class Cpa(StripeObject):
             account_holder_name: str
-            """
-            The name of the account holder.
-            """
             account_number: Optional[str]
-            """
-            The full account number.
-            """
             bank_name: str
-            """
-            The name of the bank.
-            """
             bic: Optional[str]
-            """
-            The SWIFT/BIC code.
-            """
             institution_number: str
-            """
-            The institution number.
-            """
             last4: str
-            """
-            The last four digits of the account number.
-            """
             transit_number: str
-            """
-            The transit number.
-            """
 
         class Iban(StripeObject):
             account_holder_name: str
@@ -175,17 +148,11 @@ class FinancialAddress(StripeObject):
         ABA bank account details (US).
         """
         clabe: Optional[Clabe]
-        """
-        CLABE bank account details (Mexico).
-        """
         country: Optional[str]
         """
         The country of the bank account.
         """
         cpa: Optional[Cpa]
-        """
-        CPA bank account details (Canada).
-        """
         currency: str
         """
         Open Enum. The currency of the bank account.
@@ -198,7 +165,12 @@ class FinancialAddress(StripeObject):
         """
         Sort code bank account details (UK).
         """
-        type: Union[Literal["aba", "clabe", "cpa", "iban", "sort_code"], str]
+        type: Union[
+            Literal[
+                "aba", "bre_b", "clabe", "cpa", "iban", "pix", "sort_code"
+            ],
+            str,
+        ]
         """
         Open Enum. The type of bank account details.
         """
@@ -211,19 +183,22 @@ class FinancialAddress(StripeObject):
         }
 
     class CryptoWallet(StripeObject):
+        class SupportedNetworkDetails(StripeObject):
+            supported_token_currencies: List[
+                Union[Literal["btc", "eth", "sol", "usdc", "usdt"], str]
+            ]
+            """
+            The token currencies supported on this network.
+            """
+
         address: str
-        """
-        The blockchain wallet address.
-        """
         memo: Optional[str]
-        """
-        An optional memo or tag required by some networks to identify the recipient.
-        """
         network: Union[
             Literal[
                 "arbitrum",
                 "avalanche_c_chain",
                 "base",
+                "bitcoin",
                 "ethereum",
                 "optimism",
                 "polygon",
@@ -233,10 +208,19 @@ class FinancialAddress(StripeObject):
             ],
             str,
         ]
+        supported_network_details: UntypedStripeObject[SupportedNetworkDetails]
         """
-        Open Enum. The blockchain network of the crypto wallet.
+        A map of supported network names to their details, including supported token currencies.
         """
+        _inner_class_types = {
+            "supported_network_details": SupportedNetworkDetails,
+        }
+        _inner_class_dicts = ["supported_network_details"]
 
+    account: Optional[str]
+    """
+    The ID of the Account that owns this FinancialAddress.
+    """
     bank_account: Optional[BankAccount]
     """
     Bank account details for this FinancialAddress.
@@ -246,9 +230,6 @@ class FinancialAddress(StripeObject):
     The creation timestamp of the FinancialAddress.
     """
     crypto_wallet: Optional[CryptoWallet]
-    """
-    Crypto wallet details for this FinancialAddress.
-    """
     financial_account: str
     """
     The ID of the FinancialAccount this FinancialAddress corresponds to.
@@ -266,9 +247,6 @@ class FinancialAddress(StripeObject):
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
     settlement_currency: Optional[str]
-    """
-    Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
-    """
     status: Literal["active", "archived", "failed", "pending"]
     """
     Closed Enum. The status of the FinancialAddress.

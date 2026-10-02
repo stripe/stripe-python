@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from stripe.params.radar._payment_evaluation_create_params import (
         PaymentEvaluationCreateParams,
     )
+    from stripe.radar._rule import Rule
 
 
 class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
@@ -371,15 +372,34 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
                 Describes the type of payment.
                 """
 
+            class UsBankAccount(StripeObject):
+                customer_presence: Optional[
+                    Union[Literal["off_session", "on_session"], str]
+                ]
+                """
+                Describes the presence of the customer during the payment.
+                """
+                payment_type: Optional[Literal["one_off", "recurring"]]
+                """
+                Describes the type of US bank account payment.
+                """
+
             card: Optional[Card]
             """
             Describes card money movement details.
             """
-            money_movement_type: Literal["card"]
+            money_movement_type: Union[Literal["card", "us_bank_account"], str]
             """
             Describes the type of money movement.
             """
-            _inner_class_types = {"card": Card}
+            us_bank_account: Optional[UsBankAccount]
+            """
+            Describes US bank account money movement details.
+            """
+            _inner_class_types = {
+                "card": Card,
+                "us_bank_account": UsBankAccount,
+            }
 
         class PaymentMethodDetails(StripeObject):
             class BillingDetails(StripeObject):
@@ -537,7 +557,41 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             "shipping_details": ShippingDetails,
         }
 
+    class Rules(StripeObject):
+        matched: Optional[List[ExpandableField["Rule"]]]
+        """
+        List of Radar rule tokens that matched during evaluation. Expandable to full rule objects.
+        """
+        selected: Optional[ExpandableField["Rule"]]
+        """
+        The Radar rule token selected as the decisive rule for this evaluation. Expandable to the full rule object.
+        """
+
     class Signals(StripeObject):
+        class BankInitiatedReturn(StripeObject):
+            evaluated_at: int
+            """
+            The time when this signal was evaluated.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Risk level of this signal, based on the score.
+            """
+            score: Optional[float]
+            """
+            Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+            """
+
         class EarlyFraudWarning(StripeObject):
             evaluated_at: int
             """
@@ -610,6 +664,10 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
             """
 
+        bank_initiated_return: Optional[BankInitiatedReturn]
+        """
+        The likelihood that this `PaymentEvaluation` results in a bank-initiated return.
+        """
         early_fraud_warning: Optional[EarlyFraudWarning]
         """
         The likelihood that this `PaymentEvaluation` results in an early fraud warning.
@@ -623,6 +681,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         A payment evaluation signal with evaluated_at, risk_level, and score fields.
         """
         _inner_class_types = {
+            "bank_initiated_return": BankInitiatedReturn,
             "early_fraud_warning": EarlyFraudWarning,
             "fraudulent_dispute": FraudulentDispute,
             "fraudulent_payment": FraudulentPayment,
@@ -668,9 +727,15 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     """
     Payment details attached to this payment evaluation.
     """
-    recommended_action: Union[Literal["block", "continue"], str]
+    recommended_action: Union[
+        Literal["block", "continue", "request_three_d_secure", "reroute"], str
+    ]
     """
     Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
+    """
+    rules: Optional[Rules]
+    """
+    Details about Radar Rules associated with the payment evaluation.
     """
     signals: Signals
     """
@@ -715,5 +780,6 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         "events": Event,
         "outcome": Outcome,
         "payment_details": PaymentDetails,
+        "rules": Rules,
         "signals": Signals,
     }

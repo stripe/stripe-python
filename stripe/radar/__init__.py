@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     from stripe.radar._payment_evaluation_service import (
         PaymentEvaluationService as PaymentEvaluationService,
     )
+    from stripe.radar._rule import Rule as Rule
     from stripe.radar._value_list import ValueList as ValueList
     from stripe.radar._value_list_item import ValueListItem as ValueListItem
     from stripe.radar._value_list_item_service import (
@@ -84,6 +85,7 @@ _import_map = {
         "stripe.radar._payment_evaluation_service",
         False,
     ),
+    "Rule": ("stripe.radar._rule", False),
     "ValueList": ("stripe.radar._value_list", False),
     "ValueListItem": ("stripe.radar._value_list_item", False),
     "ValueListItemService": ("stripe.radar._value_list_item_service", False),

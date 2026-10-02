@@ -37,6 +37,19 @@ class InboundTransfer(StripeObject):
         """
         _inner_class_types = {"payment_method": PaymentMethod}
 
+    class NetworkDetails(StripeObject):
+        class Ach(StripeObject):
+            addenda: Optional[str]
+            """
+            Freeform payment-related information from the type-7 ACH addenda record. Echoes the submitted value.
+            """
+
+        ach: Ach
+        """
+        ACH-specific network details.
+        """
+        _inner_class_types = {"ach": Ach}
+
     class To(StripeObject):
         credited: Amount
         """
@@ -164,6 +177,10 @@ class InboundTransfer(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    network_details: Optional[NetworkDetails]
+    """
+    Network-specific details for the InboundTransfer. Present only when supplied at creation.
+    """
     object: Literal["v2.money_management.inbound_transfer"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -186,6 +203,7 @@ class InboundTransfer(StripeObject):
     """
     _inner_class_types = {
         "from": From,
+        "network_details": NetworkDetails,
         "to": To,
         "transfer_history": TransferHistory,
     }

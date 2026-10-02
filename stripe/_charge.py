@@ -50,6 +50,7 @@ if TYPE_CHECKING:
         ChargeRetrieveRefundParams,
     )
     from stripe.params._charge_search_params import ChargeSearchParams
+    from stripe.radar._rule import Rule
 
 
 @nested_resource_class_methods("refund")
@@ -144,20 +145,6 @@ class Charge(
         _inner_class_types = {"line_items": LineItem}
 
     class Outcome(StripeObject):
-        class Rule(StripeObject):
-            action: str
-            """
-            The action taken on the payment.
-            """
-            id: str
-            """
-            Unique identifier for the object.
-            """
-            predicate: str
-            """
-            The predicate to evaluate the payment against.
-            """
-
         advice_code: Optional[
             Union[
                 Literal[
@@ -193,7 +180,7 @@ class Charge(
         """
         Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are between 0 and 100. For non-card payments, card-based payments predating the public assignment of risk scores, or in the event of an error during evaluation, this field will not be present. This field is only available with Radar for Fraud Teams.
         """
-        rule: Optional[ExpandableField[Rule]]
+        rule: Optional[ExpandableField["Rule"]]
         """
         The ID of the Radar rule that matched the payment, if applicable.
         """
@@ -205,7 +192,6 @@ class Charge(
         """
         Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://docs.stripe.com/declines) and [Radar reviews](https://docs.stripe.com/radar/reviews) for details.
         """
-        _inner_class_types = {"rule": Rule}
 
     class PaymentMethodDetails(StripeObject):
         class AchCreditTransfer(StripeObject):
@@ -1308,6 +1294,7 @@ class Charge(
             token_currency: Optional[
                 Union[
                     Literal[
+                        "ousd",
                         "phantom_cash",
                         "usdc",
                         "usdg",

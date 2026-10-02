@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -136,9 +136,15 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails(
     """
     Describes card money movement details.
     """
-    money_movement_type: Literal["card"]
+    money_movement_type: Union[Literal["card", "us_bank_account"], str]
     """
     Describes the type of money movement.
+    """
+    us_bank_account: NotRequired[
+        "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsUsBankAccount"
+    ]
+    """
+    Describes US bank account money movement details.
     """
 
 
@@ -154,6 +160,19 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard(
     ]
     """
     Describes the type of payment.
+    """
+
+
+class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsUsBankAccount(
+    TypedDict,
+):
+    customer_presence: NotRequired["Literal['off_session', 'on_session']|str"]
+    """
+    Describes the presence of the customer during the payment.
+    """
+    payment_type: NotRequired[Literal["one_off", "recurring"]]
+    """
+    Describes the type of US bank account payment.
     """
 
 

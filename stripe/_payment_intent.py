@@ -4072,6 +4072,46 @@ class PaymentIntent(
                 You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
                 """
 
+            class Fleet(StripeObject):
+                class TransactionDatum(StripeObject):
+                    prompt: Literal[
+                        "additional_fleet_data_1",
+                        "additional_fleet_data_2",
+                        "driver_id",
+                        "employee_number",
+                        "entered_data_alphanumeric",
+                        "entered_data_numeric",
+                        "generic_id",
+                        "invoice_number",
+                        "odometer",
+                        "postal_code",
+                        "reefer_hours",
+                        "replacement_car",
+                        "trailer_number",
+                        "trip_number",
+                        "unit_number",
+                        "vehicle_id",
+                        "vehicle_tag",
+                        "work_order",
+                    ]
+                    """
+                    The prompt that the Terminal SDK displays to collect this Fleet value.
+                    """
+                    receipt_behavior: Literal["omit", "print"]
+                    """
+                    Whether the collected value is printed on the receipt.
+                    """
+                    value: str
+                    """
+                    The value collected for this Fleet prompt.
+                    """
+
+                transaction_data: List[TransactionDatum]
+                """
+                Fleet prompts and values collected for this transaction.
+                """
+                _inner_class_types = {"transaction_data": TransactionDatum}
+
             class Routing(StripeObject):
                 requested_priority: Optional[
                     Union[Literal["domestic", "international"], str]
@@ -4098,6 +4138,10 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
+            fleet: Optional[Fleet]
+            """
+            Fleet prompting data for this payment.
+            """
             request_extended_authorization: Optional[bool]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
@@ -4122,6 +4166,7 @@ class PaymentIntent(
             _inner_class_types = {
                 "aade_data": AadeData,
                 "capture_delay": CaptureDelay,
+                "fleet": Fleet,
                 "routing": Routing,
             }
 
@@ -4742,6 +4787,10 @@ class PaymentIntent(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+            subscription_reference: Optional[str]
+            """
+            A reference to the merchant subscription this payment corresponds to.
             """
 
         class Payto(StripeObject):

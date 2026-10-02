@@ -5071,6 +5071,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    fleet: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleet"
+    ]
+    """
+    Fleet prompting data for this payment.
+    """
     payment_details: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails"
     ]
@@ -5135,6 +5141,51 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay(
 ):
     days: NotRequired[int]
     hours: NotRequired[int]
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleet(TypedDict):
+    transaction_data: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleetTransactionDatum]"
+    ]
+    """
+    Fleet prompts and values collected for this transaction.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleetTransactionDatum(
+    TypedDict,
+):
+    prompt: Literal[
+        "additional_fleet_data_1",
+        "additional_fleet_data_2",
+        "driver_id",
+        "employee_number",
+        "entered_data_alphanumeric",
+        "entered_data_numeric",
+        "generic_id",
+        "invoice_number",
+        "odometer",
+        "postal_code",
+        "reefer_hours",
+        "replacement_car",
+        "trailer_number",
+        "trip_number",
+        "unit_number",
+        "vehicle_id",
+        "vehicle_tag",
+        "work_order",
+    ]
+    """
+    The prompt that the Terminal SDK displays to collect this Fleet value.
+    """
+    receipt_behavior: NotRequired[Literal["omit", "print"]]
+    """
+    Whether the collected value is printed on the receipt. Defaults to `omit`.
+    """
+    value: Union[Literal[""], str]
+    """
+    The value collected for this Fleet prompt.
+    """
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails(
@@ -7037,6 +7088,10 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaypay(TypedDict):
     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
+    subscription_reference: NotRequired[str]
+    """
+    The merchant's subscription identifier for this off-session charge.
     """
 
 

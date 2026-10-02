@@ -133,7 +133,7 @@ class SetupIntentConfirmParams(RequestOptions):
     ]
     payment_method: NotRequired[str]
     """
-    ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    The ID of a PaymentMethod to attach to this SetupIntent.
     """
     payment_method_data: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodData"
