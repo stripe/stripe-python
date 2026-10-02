@@ -374,6 +374,10 @@ class SessionCreateParams(RequestOptions):
     """
     Payment-method-specific configuration.
     """
+    payment_settings: NotRequired["SessionCreateParamsPaymentSettings"]
+    """
+    A subset of parameters to configure the payment for this Checkout Session.
+    """
     permissions: NotRequired["SessionCreateParamsPermissions"]
     """
     This property is used to set up permissions for various actions (for example, update) on the CheckoutSession object. Can only be set when creating `embedded_page` or `elements` sessions.
@@ -2969,6 +2973,106 @@ class SessionCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
+
+
+class SessionCreateParamsPaymentSettings(TypedDict):
+    application_fee_data: NotRequired[
+        "SessionCreateParamsPaymentSettingsApplicationFeeData"
+    ]
+    """
+    Configures an application fee transferred to the application owner's Stripe account.
+    """
+    capture_method: NotRequired[
+        "Literal['automatic', 'automatic_async', 'manual']|str"
+    ]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+    setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
+    """
+    Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
+    method collected by this Checkout Session.
+
+    When setting this to `on_session`, Checkout will show a notice to the
+    customer that their payment details will be saved.
+
+    When setting this to `off_session`, Checkout will show a notice to the
+    customer that their payment details will be saved and used for future
+    payments.
+
+    If a Customer has been provided or Checkout creates a new Customer,
+    Checkout will attach the payment method to the Customer.
+
+    If Checkout does not create a Customer, the payment method is not attached
+    to a Customer. To reuse the payment method, you can retrieve it from the
+    Checkout Session's PaymentIntent.
+
+    When processing card payments, Checkout also uses `setup_future_usage`
+    to dynamically optimize your payment flow and comply with regional
+    legislation and network rules, such as SCA.
+    """
+    statement_descriptor: NotRequired[str]
+    """
+    Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+
+    Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+    """
+    transfer_data: NotRequired[
+        "SessionCreateParamsPaymentSettingsTransferData"
+    ]
+    """
+    Configures automatic transfers to a connected account when payments succeed.
+    """
+    transfer_group: NotRequired[str]
+    """
+    A string that identifies the initial payment as part of a group.
+    """
+
+
+class SessionCreateParamsPaymentSettingsApplicationFeeData(TypedDict):
+    initial_amount: NotRequired[int]
+    """
+    The amount of the application fee, in the currency's smallest unit, to apply to the initial payment and transfer to the application owner's Stripe account. The application fee is capped at the total amount captured.
+    """
+    percentage_decimal: NotRequired[Decimal]
+    """
+    A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of each payment total that will be transferred to the application owner's Stripe account.
+    """
+
+
+class SessionCreateParamsPaymentSettingsTransferData(TypedDict):
+    destination: str
+    """
+    If specified, successful charges will be attributed to the destination
+    account for tax reporting, and the funds from charges will be transferred
+    to the destination account. The ID of the resulting transfer will be
+    returned on the successful charge's `transfer` field.
+    """
+    transfer_amount: NotRequired[
+        "SessionCreateParamsPaymentSettingsTransferDataTransferAmount"
+    ]
+    """
+    Configures how much of each payment is transferred to the destination account. If omitted, the entire amount is transferred.
+    """
+
+
+class SessionCreateParamsPaymentSettingsTransferDataTransferAmount(TypedDict):
+    initial_amount: NotRequired[int]
+    """
+    The amount, in the currency's smallest unit, that will be transferred to the destination account when the initial payment succeeds.
+    """
+    percentage_decimal: NotRequired[Decimal]
+    """
+    A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of each payment total that will be transferred to the destination account.
     """
 
 

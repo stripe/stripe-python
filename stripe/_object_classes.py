@@ -364,6 +364,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.radar._payment_evaluation",
         "PaymentEvaluation",
     ),
+    "radar.rule": ("stripe.radar._rule", "Rule"),
     "radar.value_list": ("stripe.radar._value_list", "ValueList"),
     "radar.value_list_item": (
         "stripe.radar._value_list_item",
@@ -734,6 +735,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.financial_address_generated_microdeposits": (
         "stripe.v2.money_management._financial_address_generated_microdeposits",
         "FinancialAddressGeneratedMicrodeposits",
+    ),
+    "v2.money_management.funding_session": (
+        "stripe.v2.money_management._funding_session",
+        "FundingSession",
     ),
     "v2.money_management.inbound_transfer": (
         "stripe.v2.money_management._inbound_transfer",

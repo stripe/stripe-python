@@ -2672,6 +2672,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentFleet as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentFleet,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentFleetTransactionDatum as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentFleetTransactionDatum,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -3006,6 +3008,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresent as PaymentIntentCreateParamsPaymentMethodOptionsCardPresent,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentFleet as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentFleet,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentFleetTransactionDatum as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentFleetTransactionDatum,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -3394,6 +3398,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresent as PaymentIntentModifyParamsPaymentMethodOptionsCardPresent,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleet as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleet,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleetTransactionDatum as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleetTransactionDatum,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -3746,6 +3752,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentAadeData as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentAadeData,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentFleet as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentFleet,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentFleetTransactionDatum as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentFleetTransactionDatum,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -14908,6 +14916,14 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentFleet": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentFleetTransactionDatum": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -16233,6 +16249,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentFleet": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentFleetTransactionDatum": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -17748,6 +17772,14 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleet": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentFleetTransactionDatum": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -19097,6 +19129,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentFleet": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentFleetTransactionDatum": (
         "stripe.params._payment_intent_update_params",
         False,
     ),

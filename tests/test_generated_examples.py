@@ -48522,6 +48522,38 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_money_management_funding_session_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/funding_sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_sessions.create(
+            {
+                "account": "account",
+                "financial_account": "financial_account",
+                "financial_address_options": {
+                    "crypto_wallet": {"settlement_currency": "usd"},
+                },
+                "financial_address_types": ["bank_account"],
+                "return_url": "return_url",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/funding_sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","financial_account":"financial_account","financial_address_options":{"crypto_wallet":{"settlement_currency":"usd"}},"financial_address_types":["bank_account"],"return_url":"return_url"}',
+            is_json=True,
+        )
+
     def test_v2_money_management_inbound_transfer_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:

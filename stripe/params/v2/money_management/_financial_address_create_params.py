@@ -5,22 +5,20 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAddressCreateParams(TypedDict):
+    account: NotRequired[str]
+    """
+    The ID of the Account that owns this FinancialAddress.
+    """
     bank_account: NotRequired["FinancialAddressCreateParamsBankAccount"]
     """
     Properties for creating a bank account FinancialAddress.
     """
     crypto_wallet: NotRequired["FinancialAddressCreateParamsCryptoWallet"]
-    """
-    Properties for creating a crypto wallet FinancialAddress.
-    """
     financial_account: str
     """
     The ID of the FinancialAccount the new FinancialAddress should be associated with.
     """
     settlement_currency: NotRequired[str]
-    """
-    Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
-    """
     type: Union[Literal["bank_account", "crypto_wallet"], str]
     """
     The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
@@ -32,7 +30,9 @@ class FinancialAddressCreateParamsBankAccount(TypedDict):
     """
     The country for the bank account. Used to select the appropriate rails (e.g. for SEPA).
     """
-    currency: Union[Literal["cad", "eur", "gbp", "mxn", "usd"], str]
+    currency: Union[
+        Literal["brl", "cad", "cop", "eur", "gbp", "mxn", "usd"], str
+    ]
     """
     The currency of the bank account to provision.
     """
@@ -44,6 +44,7 @@ class FinancialAddressCreateParamsCryptoWallet(TypedDict):
             "arbitrum",
             "avalanche_c_chain",
             "base",
+            "bitcoin",
             "ethereum",
             "optimism",
             "polygon",

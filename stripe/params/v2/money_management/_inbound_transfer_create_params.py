@@ -18,6 +18,10 @@ class InboundTransferCreateParams(_InboundTransferCreateParamsBase):
     """
     An optional, freeform description field intended to store metadata.
     """
+    network_details: NotRequired["InboundTransferCreateParamsNetworkDetails"]
+    """
+    Network-specific details for the InboundTransfer.
+    """
     statement_descriptor: NotRequired[str]
     """
     An optional statement descriptor surfaced on the payer's bank statement. Max 10 characters.
@@ -38,6 +42,21 @@ class InboundTransferCreateParamsFrom(TypedDict):
     payment_method: str
     """
     ID of the Payment Method using which IBT will be made.
+    """
+
+
+class InboundTransferCreateParamsNetworkDetails(TypedDict):
+    ach: "InboundTransferCreateParamsNetworkDetailsAch"
+    """
+    ACH-specific network details. Only applied when the transfer routes over ACH.
+    """
+
+
+class InboundTransferCreateParamsNetworkDetailsAch(TypedDict):
+    addenda: NotRequired[str]
+    """
+    Optional freeform payment-related information written into the type-7 ACH
+    addenda record of the NACHA submission. Max 80 characters.
     """
 
 

@@ -23,6 +23,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._financial_address_service import (
         FinancialAddressService,
     )
+    from stripe.v2.money_management._funding_session_service import (
+        FundingSessionService,
+    )
     from stripe.v2.money_management._inbound_transfer_service import (
         InboundTransferService,
     )
@@ -94,6 +97,10 @@ _subservices = {
         "stripe.v2.money_management._financial_address_service",
         "FinancialAddressService",
     ],
+    "funding_sessions": [
+        "stripe.v2.money_management._funding_session_service",
+        "FundingSessionService",
+    ],
     "inbound_transfers": [
         "stripe.v2.money_management._inbound_transfer_service",
         "InboundTransferService",
@@ -164,6 +171,7 @@ class MoneyManagementService(StripeService):
     earned_credits: "EarnedCreditService"
     financial_accounts: "FinancialAccountService"
     financial_addresses: "FinancialAddressService"
+    funding_sessions: "FundingSessionService"
     inbound_transfers: "InboundTransferService"
     outbound_payments: "OutboundPaymentService"
     outbound_payment_quotes: "OutboundPaymentQuoteService"

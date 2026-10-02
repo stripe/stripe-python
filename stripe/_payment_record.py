@@ -1043,6 +1043,7 @@ class PaymentRecord(
             token_currency: Optional[
                 Union[
                     Literal[
+                        "ousd",
                         "phantom_cash",
                         "usdc",
                         "usdg",
