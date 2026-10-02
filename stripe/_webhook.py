@@ -150,7 +150,7 @@ class WebhookSignature(object):
                 header,
                 payload,
             )
-        if not secret:
+        if secret is None or secret.strip(" \t\r\n\f\v") == "":
             raise SignatureVerificationError(
                 "No webhook secret value was provided. It should start with `whsec_`",
                 header,
