@@ -22,8 +22,7 @@ from stripe.v2.core._event import (
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
 from stripe._webhook import WebhookPayload, WebhookSignature
 from tests.test_webhook import (
-    BLANK_WEBHOOK_SECRETS,
-    BLANK_WEBHOOK_SECRET_IDS,
+    ASCII_WHITESPACE_WEBHOOK_SECRETS,
     DUMMY_WEBHOOK_SECRET,
 )
 
@@ -241,9 +240,7 @@ class TestV2Event(object):
                 v2_payload_no_data, "bad header", DUMMY_WEBHOOK_SECRET
             )
 
-    @pytest.mark.parametrize(
-        "secret", BLANK_WEBHOOK_SECRETS, ids=BLANK_WEBHOOK_SECRET_IDS
-    )
+    @pytest.mark.parametrize("secret", [None, ""])
     def test_rejects_missing_secret(
         self,
         stripe_client: StripeClient,
@@ -259,7 +256,27 @@ class TestV2Event(object):
                 v2_payload_no_data,
                 WebhookSignature.generate_signature_header(
                     v2_payload_no_data,
-                    DUMMY_WEBHOOK_SECRET if secret is None else secret,
+                    DUMMY_WEBHOOK_SECRET,
+                ),
+                secret,
+            )
+
+    @pytest.mark.parametrize("secret", ASCII_WHITESPACE_WEBHOOK_SECRETS)
+    def test_rejects_ascii_whitespace_secret(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        secret: str,
+    ):
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_client.parse_event_notification(
+                v2_payload_no_data,
+                WebhookSignature.generate_signature_header(
+                    v2_payload_no_data,
+                    secret,
                 ),
                 secret,
             )

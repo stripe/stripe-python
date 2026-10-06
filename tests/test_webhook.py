@@ -23,27 +23,14 @@ DUMMY_V2_WEBHOOK_PAYLOAD = """{
 
 DUMMY_WEBHOOK_SECRET = "whsec_test_secret"
 
-BLANK_WEBHOOK_SECRETS = [
-    None,
-    "",
-    " ",
-    "\t",
-    "\r",
-    "\n",
-    "\f",
-    "\v",
-    " \t\r\n\f\v",
-]
-BLANK_WEBHOOK_SECRET_IDS = [
-    "none",
-    "empty",
-    "space",
-    "tab",
-    "carriage-return",
-    "line-feed",
-    "form-feed",
-    "vertical-tab",
-    "mixed",
+ASCII_WHITESPACE_WEBHOOK_SECRETS = [
+    pytest.param(" ", id="space"),
+    pytest.param("\t", id="tab"),
+    pytest.param("\r", id="carriage-return"),
+    pytest.param("\n", id="line-feed"),
+    pytest.param("\f", id="form-feed"),
+    pytest.param("\v", id="vertical-tab"),
+    pytest.param(" \t\r\n\f\v", id="mixed"),
 ]
 
 
@@ -122,13 +109,20 @@ class TestWebhook(object):
         )
         assert isinstance(event, stripe.Event)
 
-    @pytest.mark.parametrize(
-        "secret", BLANK_WEBHOOK_SECRETS, ids=BLANK_WEBHOOK_SECRET_IDS
-    )
+    @pytest.mark.parametrize("secret", [None, ""])
     def test_raise_on_missing_secret(self, secret):
-        header = generate_header(
-            secret=DUMMY_WEBHOOK_SECRET if secret is None else secret
-        )
+        header = generate_header()
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe.Webhook.construct_event(
+                DUMMY_WEBHOOK_PAYLOAD, header, secret
+            )
+
+    @pytest.mark.parametrize("secret", ASCII_WHITESPACE_WEBHOOK_SECRETS)
+    def test_raise_on_ascii_whitespace_secret(self, secret):
+        header = generate_header(secret=secret)
         with pytest.raises(
             SignatureVerificationError,
             match="No webhook secret value was provided",
@@ -157,13 +151,20 @@ class TestWebhookSignature(object):
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
             )
 
-    @pytest.mark.parametrize(
-        "secret", BLANK_WEBHOOK_SECRETS, ids=BLANK_WEBHOOK_SECRET_IDS
-    )
+    @pytest.mark.parametrize("secret", [None, ""])
     def test_raise_on_missing_secret(self, secret):
-        header = generate_header(
-            secret=DUMMY_WEBHOOK_SECRET if secret is None else secret
-        )
+        header = generate_header()
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe.WebhookSignature.verify_header(
+                DUMMY_WEBHOOK_PAYLOAD, header, secret
+            )
+
+    @pytest.mark.parametrize("secret", ASCII_WHITESPACE_WEBHOOK_SECRETS)
+    def test_raise_on_ascii_whitespace_secret(self, secret):
+        header = generate_header(secret=secret)
         with pytest.raises(
             SignatureVerificationError,
             match="No webhook secret value was provided",
@@ -318,13 +319,22 @@ class TestStripeClientConstructEvent(object):
             )
         assert "parse_event_notification" in str(e.value)
 
-    @pytest.mark.parametrize(
-        "secret", BLANK_WEBHOOK_SECRETS, ids=BLANK_WEBHOOK_SECRET_IDS
-    )
+    @pytest.mark.parametrize("secret", [None, ""])
     def test_raise_on_missing_secret(self, stripe_mock_stripe_client, secret):
-        header = generate_header(
-            secret=DUMMY_WEBHOOK_SECRET if secret is None else secret
-        )
+        header = generate_header()
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_mock_stripe_client.construct_event(
+                DUMMY_WEBHOOK_PAYLOAD, header, secret
+            )
+
+    @pytest.mark.parametrize("secret", ASCII_WHITESPACE_WEBHOOK_SECRETS)
+    def test_raise_on_ascii_whitespace_secret(
+        self, stripe_mock_stripe_client, secret
+    ):
+        header = generate_header(secret=secret)
         with pytest.raises(
             SignatureVerificationError,
             match="No webhook secret value was provided",
