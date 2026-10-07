@@ -40,11 +40,13 @@ def test_auto_paging_replays_original_post_body():
         "limit": 2,
         "future_field": {"enabled": True},
     }
-    first = make_result(["one"], "/v2/widgets/search?page=2")
+    first = make_result(
+        ["one"], "/v2/widgets/search?page=2&limit=2"
+    )
     first._retrieve_params = params
     TestSearchResult.requests = []
     TestSearchResult.pages = [
-        make_result([], "/v2/widgets/search?page=3"),
+        make_result([], "/v2/widgets/search?page=3&limit=2"),
         make_result(["two"], None),
     ]
 
