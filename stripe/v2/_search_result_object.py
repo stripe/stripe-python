@@ -1,4 +1,5 @@
 from copy import deepcopy
+from urllib.parse import quote
 from typing import (
     AsyncIterator,
     Generic,
@@ -7,6 +8,7 @@ from typing import (
     Mapping,
     Any,
     Optional,
+    Tuple,
     TypeVar,
 )
 
@@ -38,6 +40,22 @@ class SearchResultObject(StripeObject, Generic[T]):
     def _original_params(self) -> Mapping[str, Any]:
         return deepcopy(self._retrieve_params)
 
+    def _split_params(
+        self, url: str, params: Mapping[str, Any]
+    ) -> Tuple[str, Mapping[str, Any]]:
+        if "limit" not in params:
+            return url, params
+        body_params = dict(params)
+        limit = body_params.pop("limit")
+        if "limit=" not in url:
+            separator = "&" if "?" in url else "?"
+            url = "%s%slimit=%s" % (
+                url,
+                separator,
+                quote(str(limit), safe=""),
+            )
+        return url, body_params
+
     def _auto_paging_iter(self) -> Iterator[T]:
         page: SearchResultObject[T] = self
         params = self._original_params()
@@ -46,8 +64,9 @@ class SearchResultObject(StripeObject, Generic[T]):
                 yield item
             if page.next_page_url is None:
                 break
+            url, body_params = self._split_params(page.next_page_url, params)
             result = self._request(
-                "post", page.next_page_url, params=params, base_address="api"
+                "post", url, params=body_params, base_address="api"
             )
             assert isinstance(result, SearchResultObject)
             page = result
@@ -60,8 +79,9 @@ class SearchResultObject(StripeObject, Generic[T]):
                 yield item
             if page.next_page_url is None:
                 break
+            url, body_params = self._split_params(page.next_page_url, params)
             result = await self._request_async(
-                "post", page.next_page_url, params=params, base_address="api"
+                "post", url, params=body_params, base_address="api"
             )
             assert isinstance(result, SearchResultObject)
             page = result

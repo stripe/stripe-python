@@ -1,5 +1,7 @@
 import pytest
 
+import pytest
+
 from stripe.v2 import SearchResultObject
 
 
@@ -50,8 +52,24 @@ def test_auto_paging_replays_original_post_body():
     assert [
         (method, url, body) for method, url, body, _ in TestSearchResult.requests
     ] == [
-        ("post", "/v2/widgets/search?page=2", params),
-        ("post", "/v2/widgets/search?page=3", params),
+        (
+            "post",
+            "/v2/widgets/search?page=2&limit=2",
+            {
+                "query": 'status:"active"',
+                "sort": ["name", "-created"],
+                "future_field": {"enabled": True},
+            },
+        ),
+        (
+            "post",
+            "/v2/widgets/search?page=3&limit=2",
+            {
+                "query": 'status:"active"',
+                "sort": ["name", "-created"],
+                "future_field": {"enabled": True},
+            },
+        ),
     ]
 
 
