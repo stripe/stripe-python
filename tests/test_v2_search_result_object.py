@@ -1,8 +1,6 @@
 import pytest
 
-import pytest
-
-from stripe.v2 import SearchResultObject
+from stripe.v2._search_result_object import SearchResultObject
 
 
 class TestSearchResult(SearchResultObject):
@@ -40,9 +38,7 @@ def test_auto_paging_replays_original_post_body():
         "limit": 2,
         "future_field": {"enabled": True},
     }
-    first = make_result(
-        ["one"], "/v2/widgets/search?page=2&limit=2"
-    )
+    first = make_result(["one"], "/v2/widgets/search?page=2&limit=2")
     first._retrieve_params = params
     TestSearchResult.requests = []
     TestSearchResult.pages = [
@@ -52,7 +48,8 @@ def test_auto_paging_replays_original_post_body():
 
     assert list(first.auto_paging_iter()) == ["one", "two"]
     assert [
-        (method, url, body) for method, url, body, _ in TestSearchResult.requests
+        (method, url, body)
+        for method, url, body, _ in TestSearchResult.requests
     ] == [
         (
             "post",
@@ -75,7 +72,7 @@ def test_auto_paging_replays_original_post_body():
     ]
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_async_auto_paging_replays_original_post_body():
     first = make_result(["one"], "/v2/widgets/search?page=2")
     first._retrieve_params = {"query": "widgets"}

@@ -33,7 +33,9 @@ class SearchResultObject(StripeObject, Generic[T]):
         return getattr(self, "data", []).__len__()
 
     def auto_paging_iter(self) -> AnyIterator[T]:
-        return AnyIterator(self._auto_paging_iter(), self._auto_paging_iter_async())
+        return AnyIterator(
+            self._auto_paging_iter(), self._auto_paging_iter_async()
+        )
 
     def _original_params(self) -> Mapping[str, Any]:
         return deepcopy(self._retrieve_params)
