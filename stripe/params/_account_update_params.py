@@ -2283,6 +2283,10 @@ class AccountUpdateParamsSettingsBranding(TypedDict):
 
 
 class AccountUpdateParamsSettingsCapital(TypedDict):
+    excluded_payout_destinations: NotRequired["Literal['']|List[str]"]
+    """
+    The payout destinations excluded from Capital financing payouts.
+    """
     payout_destination: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Per-currency mapping of user-selected destination accounts used to pay out loans.

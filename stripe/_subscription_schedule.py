@@ -152,6 +152,31 @@ class SubscriptionSchedule(
 
     class DefaultSettings(StripeObject):
         class AutomaticTax(StripeObject):
+            class EnablementDetails(StripeObject):
+                class IntegrationConfigurationDisabledReason(StripeObject):
+                    conflicting_field: str
+                    """
+                    The parameter that prevented `automatic_tax` from being enabled (for example `default_tax_rates`).
+                    """
+
+                integration_configuration_disabled_reason: Optional[
+                    IntegrationConfigurationDisabledReason
+                ]
+                """
+                Present when `source=tax_integration_configuration`, `automatic_tax[enabled]=false`, and a conflicting parameter is recorded.
+                """
+                source: Literal[
+                    "explicit",
+                    "managed_payments",
+                    "tax_integration_configuration",
+                ]
+                """
+                How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+                """
+                _inner_class_types = {
+                    "integration_configuration_disabled_reason": IntegrationConfigurationDisabledReason,
+                }
+
             class Liability(StripeObject):
                 account: Optional[ExpandableField["Account"]]
                 """
@@ -170,11 +195,18 @@ class SubscriptionSchedule(
             """
             Whether Stripe automatically computes tax on invoices created during this phase.
             """
+            enablement_details: Optional[EnablementDetails]
+            """
+            How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+            """
             liability: Optional[Liability]
             """
             The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
             """
-            _inner_class_types = {"liability": Liability}
+            _inner_class_types = {
+                "enablement_details": EnablementDetails,
+                "liability": Liability,
+            }
 
         class BillingThresholds(StripeObject):
             amount_gte: Optional[int]
@@ -552,6 +584,31 @@ class SubscriptionSchedule(
             _inner_class_types = {"discounts": Discount, "period": Period}
 
         class AutomaticTax(StripeObject):
+            class EnablementDetails(StripeObject):
+                class IntegrationConfigurationDisabledReason(StripeObject):
+                    conflicting_field: str
+                    """
+                    The parameter that prevented `automatic_tax` from being enabled (for example `default_tax_rates`).
+                    """
+
+                integration_configuration_disabled_reason: Optional[
+                    IntegrationConfigurationDisabledReason
+                ]
+                """
+                Present when `source=tax_integration_configuration`, `automatic_tax[enabled]=false`, and a conflicting parameter is recorded.
+                """
+                source: Literal[
+                    "explicit",
+                    "managed_payments",
+                    "tax_integration_configuration",
+                ]
+                """
+                How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+                """
+                _inner_class_types = {
+                    "integration_configuration_disabled_reason": IntegrationConfigurationDisabledReason,
+                }
+
             class Liability(StripeObject):
                 account: Optional[ExpandableField["Account"]]
                 """
@@ -570,11 +627,18 @@ class SubscriptionSchedule(
             """
             Whether Stripe automatically computes tax on invoices created during this phase.
             """
+            enablement_details: Optional[EnablementDetails]
+            """
+            How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+            """
             liability: Optional[Liability]
             """
             The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
             """
-            _inner_class_types = {"liability": Liability}
+            _inner_class_types = {
+                "enablement_details": EnablementDetails,
+                "liability": Liability,
+            }
 
         class BillingThresholds(StripeObject):
             amount_gte: Optional[int]

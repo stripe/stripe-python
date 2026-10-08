@@ -23,9 +23,21 @@ class IntegrationConfiguration(StripeObject):
         Controls the default value of automatic_tax[enabled] on new Checkout Sessions.
         """
 
+    class Invoices(StripeObject):
+        automatic_tax_default_value: Literal[
+            "disabled", "enabled_when_possible"
+        ]
+        """
+        Controls the default value of automatic_tax[enabled] on new standalone Invoices.
+        """
+
     checkout_sessions: CheckoutSessions
     """
     Configuration for Checkout Sessions automatic tax behavior.
+    """
+    invoices: Invoices
+    """
+    Configuration for standalone Invoices automatic tax behavior.
     """
     livemode: bool
     """
@@ -35,4 +47,7 @@ class IntegrationConfiguration(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    _inner_class_types = {"checkout_sessions": CheckoutSessions}
+    _inner_class_types = {
+        "checkout_sessions": CheckoutSessions,
+        "invoices": Invoices,
+    }

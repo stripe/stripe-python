@@ -1917,6 +1917,7 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
         Literal[
             "admissions_tax",
             "attendance_tax",
+            "digital_excise_tax",
             "entertainment_tax",
             "gross_receipts_tax",
             "home_rule_tax",
@@ -1931,6 +1932,7 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
             "state_retail_delivery_fee",
             "state_sales_tax",
             "tourism_tax",
+            "utility_users_tax",
         ],
         str,
     ]
@@ -2035,7 +2037,7 @@ class RegistrationCreateParamsCountryOptionsUsStateSalesTax(TypedDict):
 class RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection(TypedDict):
     jurisdiction: NotRequired[str]
     """
-    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
+    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
     """
     type: Union[
         Literal[

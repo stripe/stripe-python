@@ -26,7 +26,7 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     capture: NotRequired["OffSessionPaymentCreateParamsCapture"]
     """
-    Details about the capture configuration for the OffSessionPayment.
+    Deprecated. Details about the capture configuration for the OffSessionPayment.
     """
     customer: str
     """

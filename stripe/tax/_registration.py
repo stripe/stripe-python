@@ -1131,6 +1131,12 @@ class Registration(
                 A [jurisdiction code](https://docs.stripe.com/tax/registering?type=tourism_tax#registration-types) representing the local jurisdiction.
                 """
 
+            class UtilityUsersTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=utility_users_tax#registration-types) representing the local jurisdiction.
+                """
+
             admissions_tax: Optional[AdmissionsTax]
             attendance_tax: Optional[AttendanceTax]
             entertainment_tax: Optional[EntertainmentTax]
@@ -1153,6 +1159,7 @@ class Registration(
                 Literal[
                     "admissions_tax",
                     "attendance_tax",
+                    "digital_excise_tax",
                     "entertainment_tax",
                     "gross_receipts_tax",
                     "home_rule_tax",
@@ -1167,12 +1174,14 @@ class Registration(
                     "state_retail_delivery_fee",
                     "state_sales_tax",
                     "tourism_tax",
+                    "utility_users_tax",
                 ],
                 str,
             ]
             """
             Type of registration in the US.
             """
+            utility_users_tax: Optional[UtilityUsersTax]
             _inner_class_types = {
                 "admissions_tax": AdmissionsTax,
                 "attendance_tax": AttendanceTax,
@@ -1188,6 +1197,7 @@ class Registration(
                 "resort_tax": ResortTax,
                 "state_sales_tax": StateSalesTax,
                 "tourism_tax": TourismTax,
+                "utility_users_tax": UtilityUsersTax,
             }
 
         class Uy(StripeObject):

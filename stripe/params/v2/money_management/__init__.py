@@ -76,14 +76,37 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._financial_address_retrieve_params import (
         FinancialAddressRetrieveParams as FinancialAddressRetrieveParams,
     )
+    from stripe.params.v2.money_management._funding_session_create_params import (
+        FundingSessionCreateParams as FundingSessionCreateParams,
+        FundingSessionCreateParamsFinancialAddressOptions as FundingSessionCreateParamsFinancialAddressOptions,
+        FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet as FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet,
+    )
     from stripe.params.v2.money_management._inbound_transfer_create_params import (
         InboundTransferCreateParams as InboundTransferCreateParams,
         InboundTransferCreateParamsFrom as InboundTransferCreateParamsFrom,
+        InboundTransferCreateParamsNetworkDetails as InboundTransferCreateParamsNetworkDetails,
+        InboundTransferCreateParamsNetworkDetailsAch as InboundTransferCreateParamsNetworkDetailsAch,
         InboundTransferCreateParamsTo as InboundTransferCreateParamsTo,
     )
     from stripe.params.v2.money_management._inbound_transfer_list_params import (
         InboundTransferListParams as InboundTransferListParams,
         InboundTransferListParamsCreated as InboundTransferListParamsCreated,
+    )
+    from stripe.params.v2.money_management._inbound_transfer_mandate_cancel_params import (
+        InboundTransferMandateCancelParams as InboundTransferMandateCancelParams,
+    )
+    from stripe.params.v2.money_management._inbound_transfer_mandate_create_params import (
+        InboundTransferMandateCreateParams as InboundTransferMandateCreateParams,
+        InboundTransferMandateCreateParamsAuBecs as InboundTransferMandateCreateParamsAuBecs,
+        InboundTransferMandateCreateParamsBacs as InboundTransferMandateCreateParamsBacs,
+        InboundTransferMandateCreateParamsUserAcceptedDetails as InboundTransferMandateCreateParamsUserAcceptedDetails,
+        InboundTransferMandateCreateParamsUserAcceptedDetailsOnline as InboundTransferMandateCreateParamsUserAcceptedDetailsOnline,
+    )
+    from stripe.params.v2.money_management._inbound_transfer_mandate_list_params import (
+        InboundTransferMandateListParams as InboundTransferMandateListParams,
+    )
+    from stripe.params.v2.money_management._inbound_transfer_mandate_retrieve_params import (
+        InboundTransferMandateRetrieveParams as InboundTransferMandateRetrieveParams,
     )
     from stripe.params.v2.money_management._inbound_transfer_retrieve_params import (
         InboundTransferRetrieveParams as InboundTransferRetrieveParams,
@@ -133,6 +156,7 @@ if TYPE_CHECKING:
         OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount as OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount,
         OutboundSetupIntentCreateParamsPayoutMethodDataCard as OutboundSetupIntentCreateParamsPayoutMethodDataCard,
         OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet as OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet,
+        OutboundSetupIntentCreateParamsPayoutMethodDataPix as OutboundSetupIntentCreateParamsPayoutMethodDataPix,
     )
     from stripe.params.v2.money_management._outbound_setup_intent_list_params import (
         OutboundSetupIntentListParams as OutboundSetupIntentListParams,
@@ -411,11 +435,31 @@ _import_map = {
         "stripe.params.v2.money_management._financial_address_retrieve_params",
         False,
     ),
+    "FundingSessionCreateParams": (
+        "stripe.params.v2.money_management._funding_session_create_params",
+        False,
+    ),
+    "FundingSessionCreateParamsFinancialAddressOptions": (
+        "stripe.params.v2.money_management._funding_session_create_params",
+        False,
+    ),
+    "FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet": (
+        "stripe.params.v2.money_management._funding_session_create_params",
+        False,
+    ),
     "InboundTransferCreateParams": (
         "stripe.params.v2.money_management._inbound_transfer_create_params",
         False,
     ),
     "InboundTransferCreateParamsFrom": (
+        "stripe.params.v2.money_management._inbound_transfer_create_params",
+        False,
+    ),
+    "InboundTransferCreateParamsNetworkDetails": (
+        "stripe.params.v2.money_management._inbound_transfer_create_params",
+        False,
+    ),
+    "InboundTransferCreateParamsNetworkDetailsAch": (
         "stripe.params.v2.money_management._inbound_transfer_create_params",
         False,
     ),
@@ -429,6 +473,38 @@ _import_map = {
     ),
     "InboundTransferListParamsCreated": (
         "stripe.params.v2.money_management._inbound_transfer_list_params",
+        False,
+    ),
+    "InboundTransferMandateCancelParams": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_cancel_params",
+        False,
+    ),
+    "InboundTransferMandateCreateParams": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_create_params",
+        False,
+    ),
+    "InboundTransferMandateCreateParamsAuBecs": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_create_params",
+        False,
+    ),
+    "InboundTransferMandateCreateParamsBacs": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_create_params",
+        False,
+    ),
+    "InboundTransferMandateCreateParamsUserAcceptedDetails": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_create_params",
+        False,
+    ),
+    "InboundTransferMandateCreateParamsUserAcceptedDetailsOnline": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_create_params",
+        False,
+    ),
+    "InboundTransferMandateListParams": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_list_params",
+        False,
+    ),
+    "InboundTransferMandateRetrieveParams": (
+        "stripe.params.v2.money_management._inbound_transfer_mandate_retrieve_params",
         False,
     ),
     "InboundTransferRetrieveParams": (
@@ -552,6 +628,10 @@ _import_map = {
         False,
     ),
     "OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet": (
+        "stripe.params.v2.money_management._outbound_setup_intent_create_params",
+        False,
+    ),
+    "OutboundSetupIntentCreateParamsPayoutMethodDataPix": (
         "stripe.params.v2.money_management._outbound_setup_intent_create_params",
         False,
     ),

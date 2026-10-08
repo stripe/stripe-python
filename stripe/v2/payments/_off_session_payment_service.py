@@ -209,7 +209,7 @@ class OffSessionPaymentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
         """
-        Captures an OffSessionPayment that has previously been created.
+        Deprecated. Captures an OffSessionPayment that has previously been created.
         """
         return cast(
             "OffSessionPayment",
@@ -232,7 +232,7 @@ class OffSessionPaymentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
         """
-        Captures an OffSessionPayment that has previously been created.
+        Deprecated. Captures an OffSessionPayment that has previously been created.
         """
         return cast(
             "OffSessionPayment",

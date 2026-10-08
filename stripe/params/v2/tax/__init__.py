@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.tax._integration_configuration_update_params import (
         IntegrationConfigurationUpdateParams as IntegrationConfigurationUpdateParams,
         IntegrationConfigurationUpdateParamsCheckoutSessions as IntegrationConfigurationUpdateParamsCheckoutSessions,
+        IntegrationConfigurationUpdateParamsInvoices as IntegrationConfigurationUpdateParamsInvoices,
     )
     from stripe.params.v2.tax._manual_rule_create_params import (
         ManualRuleCreateParams as ManualRuleCreateParams,
@@ -50,6 +51,10 @@ _import_map = {
         False,
     ),
     "IntegrationConfigurationUpdateParamsCheckoutSessions": (
+        "stripe.params.v2.tax._integration_configuration_update_params",
+        False,
+    ),
+    "IntegrationConfigurationUpdateParamsInvoices": (
         "stripe.params.v2.tax._integration_configuration_update_params",
         False,
     ),

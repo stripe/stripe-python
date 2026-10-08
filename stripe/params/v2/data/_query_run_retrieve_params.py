@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class QueryRunRetrieveParams(TypedDict):
     include: NotRequired[List[Union[Literal["result.inline"], str]]]
     """
-    Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+    Any optional includes (see [include-dependent response values](https://docs.stripe.com/api-includable-response-values)).
     """
     limit: NotRequired[int]
     """

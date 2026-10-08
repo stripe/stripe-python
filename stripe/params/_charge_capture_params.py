@@ -28,7 +28,7 @@ class ChargeCaptureParams(RequestOptions):
     """
     receipt_email: NotRequired[str]
     """
-    The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode.
+    The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts are only sent for payments in live mode.
     """
     statement_descriptor: NotRequired[str]
     """

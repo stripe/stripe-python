@@ -1028,6 +1028,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             token_currency: Optional[
                 Union[
                     Literal[
+                        "ousd",
                         "phantom_cash",
                         "usdc",
                         "usdg",
@@ -2117,9 +2118,17 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
             """
+            location: Optional[str]
+            """
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            """
             payment_reference: Optional[str]
             """
             Payer bank reference number for the payment
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             verified_phone_last4: Optional[str]
             """

@@ -1218,6 +1218,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event import (
         V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_activated_event import (
+        V2MoneyManagementInboundTransferMandateActivatedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_created_event import (
+        V2MoneyManagementInboundTransferMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_expired_event import (
+        V2MoneyManagementInboundTransferMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_refused_event import (
+        V2MoneyManagementInboundTransferMandateRefusedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_revoked_event import (
+        V2MoneyManagementInboundTransferMandateRevokedEventNotification,
+    )
     from stripe.events._v2_money_management_outbound_payment_canceled_event import (
         V2MoneyManagementOutboundPaymentCanceledEventNotification,
     )
@@ -6690,6 +6705,71 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.money_management.inbound_transfer.bank_debit_succeeded",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_inbound_transfer_mandate_activated(
+        self,
+        func: "Callable[[V2MoneyManagementInboundTransferMandateActivatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementInboundTransferMandateActivatedEvent` (`v2.money_management.inbound_transfer_mandate.activated`) event notification.
+        """
+        self._register(
+            "v2.money_management.inbound_transfer_mandate.activated",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_inbound_transfer_mandate_created(
+        self,
+        func: "Callable[[V2MoneyManagementInboundTransferMandateCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementInboundTransferMandateCreatedEvent` (`v2.money_management.inbound_transfer_mandate.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.inbound_transfer_mandate.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_inbound_transfer_mandate_expired(
+        self,
+        func: "Callable[[V2MoneyManagementInboundTransferMandateExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementInboundTransferMandateExpiredEvent` (`v2.money_management.inbound_transfer_mandate.expired`) event notification.
+        """
+        self._register(
+            "v2.money_management.inbound_transfer_mandate.expired",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_inbound_transfer_mandate_refused(
+        self,
+        func: "Callable[[V2MoneyManagementInboundTransferMandateRefusedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementInboundTransferMandateRefusedEvent` (`v2.money_management.inbound_transfer_mandate.refused`) event notification.
+        """
+        self._register(
+            "v2.money_management.inbound_transfer_mandate.refused",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_inbound_transfer_mandate_revoked(
+        self,
+        func: "Callable[[V2MoneyManagementInboundTransferMandateRevokedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementInboundTransferMandateRevokedEvent` (`v2.money_management.inbound_transfer_mandate.revoked`) event notification.
+        """
+        self._register(
+            "v2.money_management.inbound_transfer_mandate.revoked",
             func,
         )
         return func

@@ -2585,6 +2585,79 @@ class Session(
             "wechat_pay": WechatPay,
         }
 
+    class PaymentSettings(StripeObject):
+        class ApplicationFeeData(StripeObject):
+            initial_amount: Optional[int]
+            """
+            The application fee amount, in the currency's smallest unit, applied to the initial payment.
+            """
+            percentage_decimal: Optional[Decimal]
+            """
+            The percentage of each payment collected as an application fee.
+            """
+            _field_encodings = {"percentage_decimal": "decimal_string"}
+
+        class TransferData(StripeObject):
+            class TransferAmount(StripeObject):
+                initial_amount: Optional[int]
+                """
+                The amount, in the currency's smallest unit, transferred from the initial payment.
+                """
+                percentage_decimal: Optional[Decimal]
+                """
+                The percentage of each payment transferred to the destination account.
+                """
+                _field_encodings = {"percentage_decimal": "decimal_string"}
+
+            destination: str
+            """
+            The connected account that receives funds from payments created by this Checkout Session.
+            """
+            transfer_amount: Optional[TransferAmount]
+            """
+            Configures the amount transferred to the destination account.
+            """
+            _inner_class_types = {"transfer_amount": TransferAmount}
+
+        application_fee_data: Optional[ApplicationFeeData]
+        """
+        Configures an application fee transferred to the application owner's Stripe account.
+        """
+        capture_method: Optional[str]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        metadata: Optional[UntypedStripeObject[str]]
+        """
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+        setup_future_usage: Optional[
+            Union[Literal["off_session", "on_session"], str]
+        ]
+        """
+        Indicates that you intend to make future payments with the payment method collected by this Checkout Session.
+        """
+        statement_descriptor: Optional[str]
+        """
+        Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor.
+        """
+        transfer_data: Optional[TransferData]
+        """
+        Configures automatic transfers to a connected account when payments succeed.
+        """
+        transfer_group: Optional[str]
+        """
+        A string that identifies the initial payment as part of a group.
+        """
+        _inner_class_types = {
+            "application_fee_data": ApplicationFeeData,
+            "transfer_data": TransferData,
+        }
+
     class Permissions(StripeObject):
         class Update(StripeObject):
             line_items: Optional[
@@ -3158,7 +3231,7 @@ class Session(
 
     Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
 
-    When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+    When set to `manual`, you must approve the customer's attempt to pay by calling [approve](https://docs.stripe.com/api/checkout/sessions/approve) from your server.
     """
     automatic_surcharge: Optional[AutomaticSurcharge]
     automatic_tax: AutomaticTax
@@ -3359,6 +3432,10 @@ class Session(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    on_behalf_of: Optional[str]
+    """
+    The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
+    """
     optional_items: Optional[List[OptionalItem]]
     """
     The optional items presented to the customer at checkout.
@@ -3404,6 +3481,7 @@ class Session(
     """
     The ID of the Payment Reservation for this Checkout Session.
     """
+    payment_settings: Optional[PaymentSettings]
     payment_status: Union[
         Literal["no_payment_required", "paid", "unpaid"], str
     ]
@@ -3991,6 +4069,7 @@ class Session(
         "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
+        "payment_settings": PaymentSettings,
         "permissions": Permissions,
         "phone_number_collection": PhoneNumberCollection,
         "presentment_details": PresentmentDetails,

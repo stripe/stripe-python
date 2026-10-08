@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -54,9 +54,15 @@ class PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetails(
     """
     Information about the card payment method used to make this payment.
     """
-    type: Literal["card"]
+    type: Union[Literal["card", "us_bank_account"], str]
     """
     The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
+    """
+    us_bank_account: NotRequired[
+        "PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsUsBankAccount"
+    ]
+    """
+    Details about the US bank account payment method.
     """
 
 
@@ -95,6 +101,15 @@ class PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCardCheck
     ]
     """
     The result of the check on the card's CVC.
+    """
+
+
+class PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsUsBankAccount(
+    TypedDict,
+):
+    return_code: NotRequired[str]
+    """
+    NACHA ACH return code for a failed US bank account payment.
     """
 
 

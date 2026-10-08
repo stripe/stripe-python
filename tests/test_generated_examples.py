@@ -48522,6 +48522,38 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_money_management_funding_session_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/funding_sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_sessions.create(
+            {
+                "account": "account",
+                "financial_account": "financial_account",
+                "financial_address_options": {
+                    "crypto_wallet": {"settlement_currency": "usd"},
+                },
+                "financial_address_types": ["bank_account"],
+                "return_url": "return_url",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/funding_sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","financial_account":"financial_account","financial_address_options":{"crypto_wallet":{"settlement_currency":"usd"}},"financial_address_types":["bank_account"],"return_url":"return_url"}',
+            is_json=True,
+        )
+
     def test_v2_money_management_inbound_transfer_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -48594,6 +48626,95 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/inbound_transfers/id_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_inbound_transfer_mandate_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/inbound_transfer_mandates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.inbound_transfer_mandates.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/inbound_transfer_mandates",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_inbound_transfer_mandate_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/inbound_transfer_mandates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.inbound_transfer_mandates.create(
+            {
+                "credential": "credential",
+                "type": "nz_becs",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/inbound_transfer_mandates",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"credential":"credential","type":"nz_becs"}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_inbound_transfer_mandate_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/inbound_transfer_mandates/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.inbound_transfer_mandates.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/inbound_transfer_mandates/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_inbound_transfer_mandate_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/inbound_transfer_mandates/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.inbound_transfer_mandates.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/inbound_transfer_mandates/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_money_management_outbound_payment_get_service(
@@ -50867,18 +50988,17 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "get",
             "/v2/risk/inquiries",
-            "account=account",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.risk.inquiries.list({"account": "account"})
+        client.v2.risk.inquiries.list()
         http_client_mock.assert_requested(
             "get",
             path="/v2/risk/inquiries",
-            query_string="account=account",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 

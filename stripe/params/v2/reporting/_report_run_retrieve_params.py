@@ -7,5 +7,5 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class ReportRunRetrieveParams(TypedDict):
     include: NotRequired[List[Union[Literal["result.file.schema"], str]]]
     """
-    Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+    Any optional includes (see [include-dependent response values](https://docs.stripe.com/api-includable-response-values)).
     """
