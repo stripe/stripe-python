@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1937
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 16.1.0a2
 ---
 
 * Add support for new resources `radar.Rule`, `v2.money_management.FundingSession`, and `v2.money_management.InboundTransferMandate`
