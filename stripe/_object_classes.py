@@ -344,6 +344,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
 }
 
 V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
+    "v2.search_result": (
+        "stripe.v2._search_result_object",
+        "SearchResultObject",
+    ),
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
     "v2.billing.meter_event": ("stripe.v2.billing._meter_event", "MeterEvent"),
     "v2.billing.meter_event_adjustment": (
