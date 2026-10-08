@@ -15,7 +15,7 @@ class SchemaListParams(TypedDict):
     """
     limit: NotRequired[int]
     """
-    The maximum number of results per page. Defaults to 10. Maximum is 100.
+    The maximum number of results per page. Defaults to 10. Maximum is 1,000.
     """
     name: NotRequired[str]
     """

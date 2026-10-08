@@ -197,6 +197,10 @@ class ReceivedCredit(StripeObject):
                 """
                 The bank name the transfer was received from.
                 """
+                bic: Optional[str]
+                """
+                The BIC/SWIFT code of the account that originated the transfer.
+                """
                 last4: Optional[str]
                 """
                 The last 4 digits of the account number that originated the transfer.
@@ -290,6 +294,10 @@ class ReceivedCredit(StripeObject):
                 bank_name: Optional[str]
                 """
                 The bank name the transfer was received from.
+                """
+                bic: Optional[str]
+                """
+                The BIC/SWIFT code of the account that originated the transfer.
                 """
                 last4: Optional[str]
                 """
@@ -481,6 +489,35 @@ class ReceivedCredit(StripeObject):
                     "arbitrum",
                     "avalanche_c_chain",
                     "base",
+                    "bitcoin",
+                    "ethereum",
+                    "optimism",
+                    "polygon",
+                    "solana",
+                    "stellar",
+                    "tempo",
+                ],
+                str,
+            ]
+            """
+            The network the crypto was received from.
+            """
+
+        class OriginatingCryptoWallet(StripeObject):
+            address: str
+            """
+            The address of the wallet the crypto was received from.
+            """
+            memo: str
+            """
+            A memo also for identifying the recipient for memo-based blockchains (e.g., Stellar),.
+            """
+            network: Union[
+                Literal[
+                    "arbitrum",
+                    "avalanche_c_chain",
+                    "base",
+                    "bitcoin",
                     "ethereum",
                     "optimism",
                     "polygon",
@@ -502,15 +539,45 @@ class ReceivedCredit(StripeObject):
         """
         Financial Address on which funds for ReceivedCredit were received.
         """
+        originating_crypto_wallet: Optional[OriginatingCryptoWallet]
+        """
+        Hash containing details about the crypto wallet that originated this ReceivedCredit.
+        """
         statement_descriptor: Optional[str]
         """
         Freeform string set by originator of the external ReceivedCredit.
+        """
+        token_currency: Optional[
+            Union[
+                Literal[
+                    "btc",
+                    "cash",
+                    "eth",
+                    "ousd",
+                    "sol",
+                    "usdc",
+                    "usdg",
+                    "usdsui",
+                    "usdt",
+                ],
+                str,
+            ]
+        ]
+        """
+        Open Enum. The currency of the crypto tokens received.
+        """
+        transaction_hash: Optional[str]
+        """
+        Hash of the deposit transaction on-chain (incoming to Stripe).
         """
         type: Union[Literal["crypto_wallet"], str]
         """
         Open Enum. The type of crypto wallet transfer that originated this ReceivedCredit.
         """
-        _inner_class_types = {"crypto_wallet": CryptoWallet}
+        _inner_class_types = {
+            "crypto_wallet": CryptoWallet,
+            "originating_crypto_wallet": OriginatingCryptoWallet,
+        }
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):

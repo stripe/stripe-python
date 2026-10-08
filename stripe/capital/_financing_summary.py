@@ -50,7 +50,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         """
         advance_paid_out_at: Optional[float]
         """
-        The time at which the funds were paid out to the connected account's Stripe balance. Given in milliseconds since unix epoch.
+        The time at which the funds were paid out to the connected account's Stripe balance. Given in seconds since unix epoch.
         """
         currency: str
         """

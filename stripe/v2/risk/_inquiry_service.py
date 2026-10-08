@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 class InquiryService(StripeService):
     def list(
         self,
-        params: "InquiryListParams",
+        params: Optional["InquiryListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Inquiry]":
         """
@@ -40,7 +40,7 @@ class InquiryService(StripeService):
 
     async def list_async(
         self,
-        params: "InquiryListParams",
+        params: Optional["InquiryListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Inquiry]":
         """

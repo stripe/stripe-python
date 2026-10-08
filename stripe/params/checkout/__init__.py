@@ -147,6 +147,10 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsUsBankAccount as SessionCreateParamsPaymentMethodOptionsUsBankAccount,
         SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SessionCreateParamsPaymentMethodOptionsWechatPay as SessionCreateParamsPaymentMethodOptionsWechatPay,
+        SessionCreateParamsPaymentSettings as SessionCreateParamsPaymentSettings,
+        SessionCreateParamsPaymentSettingsApplicationFeeData as SessionCreateParamsPaymentSettingsApplicationFeeData,
+        SessionCreateParamsPaymentSettingsTransferData as SessionCreateParamsPaymentSettingsTransferData,
+        SessionCreateParamsPaymentSettingsTransferDataTransferAmount as SessionCreateParamsPaymentSettingsTransferDataTransferAmount,
         SessionCreateParamsPermissions as SessionCreateParamsPermissions,
         SessionCreateParamsPermissionsUpdate as SessionCreateParamsPermissionsUpdate,
         SessionCreateParamsPhoneNumberCollection as SessionCreateParamsPhoneNumberCollection,
@@ -813,6 +817,22 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsWechatPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentSettings": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentSettingsApplicationFeeData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentSettingsTransferData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentSettingsTransferDataTransferAmount": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

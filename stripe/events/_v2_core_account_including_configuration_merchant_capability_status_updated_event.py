@@ -148,6 +148,7 @@ class V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent(
                 "swish_payments",
                 "twint_payments",
                 "us_bank_transfer_payments",
+                "vipps_payments",
                 "zip_payments",
             ],
             str,

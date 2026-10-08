@@ -9,11 +9,11 @@ class ReportListParams(TypedDict):
         List[Union[Literal["default_sql", "parameters"], str]]
     ]
     """
-    Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+    Any optional includes (see [include-dependent response values](https://docs.stripe.com/api-includable-response-values)).
     """
     limit: NotRequired[int]
     """
-    The maximum number of results per page. Defaults to 10. Maximum is 100.
+    The maximum number of results per page. Defaults to 10. Maximum is 1,000.
     """
     name: NotRequired[str]
     """

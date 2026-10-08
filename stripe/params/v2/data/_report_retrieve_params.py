@@ -9,5 +9,5 @@ class ReportRetrieveParams(TypedDict):
         List[Union[Literal["default_sql", "parameters"], str]]
     ]
     """
-    Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+    Any optional includes (see [include-dependent response values](https://docs.stripe.com/api-includable-response-values)).
     """

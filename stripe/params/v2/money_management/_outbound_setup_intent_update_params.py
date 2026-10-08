@@ -37,6 +37,7 @@ class OutboundSetupIntentUpdateParamsPayoutMethodData(TypedDict):
             "card",
             "crypto_wallet",
             "network_business_profile_wallet",
+            "pix",
         ],
         str,
     ]

@@ -492,6 +492,32 @@ class Transaction(
                 "unit_cost_decimal": "decimal_string",
             }
 
+        class Fuels(StripeObject):
+            industry_product_code: Optional[str]
+            """
+            [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+            """
+            quantity_decimal: Optional[Decimal]
+            """
+            The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+            """
+            type: str
+            """
+            The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
+            """
+            unit: str
+            """
+            The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
+            """
+            unit_cost_decimal: Decimal
+            """
+            The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+            """
+            _field_encodings = {
+                "quantity_decimal": "decimal_string",
+                "unit_cost_decimal": "decimal_string",
+            }
+
         class Lodging(StripeObject):
             check_in_at: Optional[int]
             """
@@ -532,6 +558,10 @@ class Transaction(
         """
         Information about fuel that was purchased with this transaction.
         """
+        fuels: Optional[List[Fuels]]
+        """
+        Information about the list of fuel items that were purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
+        """
         lodging: Optional[Lodging]
         """
         Information about lodging that was purchased with this transaction.
@@ -548,6 +578,7 @@ class Transaction(
             "fleet": Fleet,
             "flight": Flight,
             "fuel": Fuel,
+            "fuels": Fuels,
             "lodging": Lodging,
             "receipt": Receipt,
         }

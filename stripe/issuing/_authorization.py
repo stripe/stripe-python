@@ -787,6 +787,31 @@ class Authorization(
             "reported_breakdown": ReportedBreakdown,
         }
 
+    class FlexibleCredential(StripeObject):
+        class SecondaryCredential(StripeObject):
+            funding: Optional[Union[Literal["credit"], str]]
+            """
+            The funding source that this credential can support.
+            """
+            key: Optional[str]
+            """
+            Unique reference of this credential within this array.
+            """
+
+        product_eligibility_inquiry: Optional[str]
+        """
+        The authorization identifier of a prior product eligibility inquiry that selected the credential for this authorization, if exists.
+        """
+        secondary_credentials: Optional[List[SecondaryCredential]]
+        """
+        Details about the eligible secondary credentials for this authorization.
+        """
+        selected_secondary: Optional[str]
+        """
+        The `key` of the selected secondary credential for this authorization. Null if the card's primary credential was selected.
+        """
+        _inner_class_types = {"secondary_credentials": SecondaryCredential}
+
     class FraudChallenge(StripeObject):
         channel: Literal["sms"]
         """
@@ -1935,6 +1960,10 @@ class Authorization(
     fleet: Optional[Fleet]
     """
     Fleet-specific information for authorizations using Fleet cards.
+    """
+    flexible_credential: Optional[FlexibleCredential]
+    """
+    Details about the flexible credential options for this authorization. This is only populated when enrolled to flex credentials
     """
     fraud_challenges: Optional[List[FraudChallenge]]
     """
@@ -3176,6 +3205,7 @@ class Authorization(
         "crypto_transactions": CryptoTransaction,
         "enriched_merchant_data": EnrichedMerchantData,
         "fleet": Fleet,
+        "flexible_credential": FlexibleCredential,
         "fraud_challenges": FraudChallenge,
         "fuel": Fuel,
         "fuels": Fuels,

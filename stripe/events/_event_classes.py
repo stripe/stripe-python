@@ -1186,6 +1186,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event import (
         V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_activated_event import (
+        V2MoneyManagementInboundTransferMandateActivatedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_created_event import (
+        V2MoneyManagementInboundTransferMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_expired_event import (
+        V2MoneyManagementInboundTransferMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_refused_event import (
+        V2MoneyManagementInboundTransferMandateRefusedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_revoked_event import (
+        V2MoneyManagementInboundTransferMandateRevokedEventNotification,
+    )
     from stripe.events._v2_money_management_outbound_payment_canceled_event import (
         V2MoneyManagementOutboundPaymentCanceledEventNotification,
     )
@@ -2991,6 +3006,26 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.inbound_transfer.bank_debit_succeeded": (
         "stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event",
         "V2MoneyManagementInboundTransferBankDebitSucceededEvent",
+    ),
+    "v2.money_management.inbound_transfer_mandate.activated": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_activated_event",
+        "V2MoneyManagementInboundTransferMandateActivatedEvent",
+    ),
+    "v2.money_management.inbound_transfer_mandate.created": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_created_event",
+        "V2MoneyManagementInboundTransferMandateCreatedEvent",
+    ),
+    "v2.money_management.inbound_transfer_mandate.expired": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_expired_event",
+        "V2MoneyManagementInboundTransferMandateExpiredEvent",
+    ),
+    "v2.money_management.inbound_transfer_mandate.refused": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_refused_event",
+        "V2MoneyManagementInboundTransferMandateRefusedEvent",
+    ),
+    "v2.money_management.inbound_transfer_mandate.revoked": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_revoked_event",
+        "V2MoneyManagementInboundTransferMandateRevokedEvent",
     ),
     "v2.money_management.outbound_payment.canceled": (
         "stripe.events._v2_money_management_outbound_payment_canceled_event",
@@ -4887,6 +4922,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event",
         "V2MoneyManagementInboundTransferBankDebitSucceededEventNotification",
     ),
+    "v2.money_management.inbound_transfer_mandate.activated": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_activated_event",
+        "V2MoneyManagementInboundTransferMandateActivatedEventNotification",
+    ),
+    "v2.money_management.inbound_transfer_mandate.created": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_created_event",
+        "V2MoneyManagementInboundTransferMandateCreatedEventNotification",
+    ),
+    "v2.money_management.inbound_transfer_mandate.expired": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_expired_event",
+        "V2MoneyManagementInboundTransferMandateExpiredEventNotification",
+    ),
+    "v2.money_management.inbound_transfer_mandate.refused": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_refused_event",
+        "V2MoneyManagementInboundTransferMandateRefusedEventNotification",
+    ),
+    "v2.money_management.inbound_transfer_mandate.revoked": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_revoked_event",
+        "V2MoneyManagementInboundTransferMandateRevokedEventNotification",
+    ),
     "v2.money_management.outbound_payment.canceled": (
         "stripe.events._v2_money_management_outbound_payment_canceled_event",
         "V2MoneyManagementOutboundPaymentCanceledEventNotification",
@@ -5603,6 +5658,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementInboundTransferBankDebitQueuedEventNotification",
     "V2MoneyManagementInboundTransferBankDebitReturnedEventNotification",
     "V2MoneyManagementInboundTransferBankDebitSucceededEventNotification",
+    "V2MoneyManagementInboundTransferMandateActivatedEventNotification",
+    "V2MoneyManagementInboundTransferMandateCreatedEventNotification",
+    "V2MoneyManagementInboundTransferMandateExpiredEventNotification",
+    "V2MoneyManagementInboundTransferMandateRefusedEventNotification",
+    "V2MoneyManagementInboundTransferMandateRevokedEventNotification",
     "V2MoneyManagementOutboundPaymentCanceledEventNotification",
     "V2MoneyManagementOutboundPaymentCreatedEventNotification",
     "V2MoneyManagementOutboundPaymentFailedEventNotification",

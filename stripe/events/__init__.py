@@ -1587,6 +1587,26 @@ if TYPE_CHECKING:
         V2MoneyManagementInboundTransferBankDebitSucceededEvent as V2MoneyManagementInboundTransferBankDebitSucceededEvent,
         V2MoneyManagementInboundTransferBankDebitSucceededEventNotification as V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_activated_event import (
+        V2MoneyManagementInboundTransferMandateActivatedEvent as V2MoneyManagementInboundTransferMandateActivatedEvent,
+        V2MoneyManagementInboundTransferMandateActivatedEventNotification as V2MoneyManagementInboundTransferMandateActivatedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_created_event import (
+        V2MoneyManagementInboundTransferMandateCreatedEvent as V2MoneyManagementInboundTransferMandateCreatedEvent,
+        V2MoneyManagementInboundTransferMandateCreatedEventNotification as V2MoneyManagementInboundTransferMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_expired_event import (
+        V2MoneyManagementInboundTransferMandateExpiredEvent as V2MoneyManagementInboundTransferMandateExpiredEvent,
+        V2MoneyManagementInboundTransferMandateExpiredEventNotification as V2MoneyManagementInboundTransferMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_refused_event import (
+        V2MoneyManagementInboundTransferMandateRefusedEvent as V2MoneyManagementInboundTransferMandateRefusedEvent,
+        V2MoneyManagementInboundTransferMandateRefusedEventNotification as V2MoneyManagementInboundTransferMandateRefusedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_mandate_revoked_event import (
+        V2MoneyManagementInboundTransferMandateRevokedEvent as V2MoneyManagementInboundTransferMandateRevokedEvent,
+        V2MoneyManagementInboundTransferMandateRevokedEventNotification as V2MoneyManagementInboundTransferMandateRevokedEventNotification,
+    )
     from stripe.events._v2_money_management_outbound_payment_canceled_event import (
         V2MoneyManagementOutboundPaymentCanceledEvent as V2MoneyManagementOutboundPaymentCanceledEvent,
         V2MoneyManagementOutboundPaymentCanceledEventNotification as V2MoneyManagementOutboundPaymentCanceledEventNotification,
@@ -4930,6 +4950,46 @@ _import_map = {
     ),
     "V2MoneyManagementInboundTransferBankDebitSucceededEventNotification": (
         "stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateActivatedEvent": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_activated_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateActivatedEventNotification": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_activated_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateCreatedEvent": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_created_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateCreatedEventNotification": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_created_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateExpiredEvent": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_expired_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateExpiredEventNotification": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_expired_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateRefusedEvent": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_refused_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateRefusedEventNotification": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_refused_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateRevokedEvent": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_revoked_event",
+        False,
+    ),
+    "V2MoneyManagementInboundTransferMandateRevokedEventNotification": (
+        "stripe.events._v2_money_management_inbound_transfer_mandate_revoked_event",
         False,
     ),
     "V2MoneyManagementOutboundPaymentCanceledEvent": (

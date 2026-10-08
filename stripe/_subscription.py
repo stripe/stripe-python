@@ -89,6 +89,29 @@ class Subscription(
     OBJECT_NAME: ClassVar[Literal["subscription"]] = "subscription"
 
     class AutomaticTax(StripeObject):
+        class EnablementDetails(StripeObject):
+            class IntegrationConfigurationDisabledReason(StripeObject):
+                conflicting_field: str
+                """
+                The parameter that prevented `automatic_tax` from being enabled (for example `default_tax_rates`).
+                """
+
+            integration_configuration_disabled_reason: Optional[
+                IntegrationConfigurationDisabledReason
+            ]
+            """
+            Present when `source=tax_integration_configuration`, `automatic_tax[enabled]=false`, and a conflicting parameter is recorded.
+            """
+            source: Literal[
+                "explicit", "managed_payments", "tax_integration_configuration"
+            ]
+            """
+            How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+            """
+            _inner_class_types = {
+                "integration_configuration_disabled_reason": IntegrationConfigurationDisabledReason,
+            }
+
         class Liability(StripeObject):
             account: Optional[ExpandableField["Account"]]
             """
@@ -107,11 +130,18 @@ class Subscription(
         """
         Whether Stripe automatically computes tax on this subscription.
         """
+        enablement_details: Optional[EnablementDetails]
+        """
+        How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+        """
         liability: Optional[Liability]
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
-        _inner_class_types = {"liability": Liability}
+        _inner_class_types = {
+            "enablement_details": EnablementDetails,
+            "liability": Liability,
+        }
 
     class BillingCycleAnchorConfig(StripeObject):
         day_of_month: int
@@ -630,7 +660,7 @@ class Subscription(
 
                 expires_after_seconds: Optional[int]
                 """
-                The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+                The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
                 """
                 mandate_options: Optional[MandateOptions]
                 _inner_class_types = {"mandate_options": MandateOptions}

@@ -14,6 +14,10 @@ class ReaderActivateGiftCardParams(RequestOptions):
     """
     The brand of the gift card.
     """
+    enable_customer_cancellation: NotRequired[bool]
+    """
+    Enables cancel button on gift card operation screens.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.

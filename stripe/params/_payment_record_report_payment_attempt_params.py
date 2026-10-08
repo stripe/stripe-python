@@ -183,9 +183,15 @@ class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetails(TypedDict):
     """
     ID of the Stripe Payment Method used to make this payment.
     """
-    type: NotRequired["Literal['card', 'custom']|str"]
+    type: NotRequired["Literal['card', 'custom', 'us_bank_account']|str"]
     """
     The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
+    """
+    us_bank_account: NotRequired[
+        "PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsUsBankAccount"
+    ]
+    """
+    Details about the US bank account payment method.
     """
 
 
@@ -285,6 +291,15 @@ class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCustom(
     type: NotRequired[str]
     """
     The custom payment method type associated with this payment.
+    """
+
+
+class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsUsBankAccount(
+    TypedDict,
+):
+    return_code: NotRequired[str]
+    """
+    NACHA ACH return code for a failed US bank account payment.
     """
 
 

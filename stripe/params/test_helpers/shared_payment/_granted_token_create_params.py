@@ -54,7 +54,7 @@ class GrantedTokenCreateParamsUsageLimits(TypedDict):
 
 
 class GrantedTokenCreateParamsUsageLimitsRecurring(TypedDict):
-    interval: Union[Literal["day", "month", "week", "year"], str]
+    interval: Union[Literal["day", "hour", "month", "week", "year"], str]
     """
     The interval at which the shared payment token's amount usage restrictions reset.
     """

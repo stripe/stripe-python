@@ -100,7 +100,12 @@ class CustomerCashBalanceTransaction(StripeObject):
 
             class UsBankTransfer(StripeObject):
                 network: Optional[
-                    Union[Literal["ach", "domestic_wire_us", "swift"], str]
+                    Union[
+                        Literal[
+                            "ach", "domestic_wire_us", "fednow", "rtp", "swift"
+                        ],
+                        str,
+                    ]
                 ]
                 """
                 The banking network used for this funding.

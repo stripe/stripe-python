@@ -18,6 +18,10 @@ class ReaderReloadGiftCardParams(RequestOptions):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    enable_customer_cancellation: NotRequired[bool]
+    """
+    Enables cancel button on gift card operation screens.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.

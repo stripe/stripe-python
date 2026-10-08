@@ -705,6 +705,12 @@ class Account(
         """
         The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
         """
+        wero_payments: Optional[
+            Union[Literal["active", "inactive", "pending"], str]
+        ]
+        """
+        The status of the Wero capability of the account, or whether the account can directly process Wero payments.
+        """
         zip_payments: Optional[
             Union[Literal["active", "inactive", "pending"], str]
         ]
