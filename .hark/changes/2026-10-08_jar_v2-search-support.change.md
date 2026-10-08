@@ -1,9 +1,9 @@
 ---
-title: Add API v2 Search support
+title: Adds API v2 Search results type and auto pagination support
 pr_url: https://github.com/stripe/stripe-python/pull/1939
 semver_level: minor
 jira_tickets_closed:
 - DEVSDK-3316
 ---
 
-Adds typed API v2 Search results and POST-based pagination while preserving search filters and request context across pages.
+Adds `stripe.v2.SearchResultObject[T]` and auto pagination support.
