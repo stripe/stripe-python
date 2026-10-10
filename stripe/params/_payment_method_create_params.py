@@ -73,6 +73,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly.
     """
+    carecredit: NotRequired["PaymentMethodCreateParamsCarecredit"]
+    """
+    If this is a `carecredit` PaymentMethod, this hash contains details about the CareCredit payment method.
+    """
     cashapp: NotRequired["PaymentMethodCreateParamsCashapp"]
     """
     If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
@@ -104,6 +108,10 @@ class PaymentMethodCreateParams(RequestOptions):
     fpx: NotRequired["PaymentMethodCreateParamsFpx"]
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
+    """
+    getflex: NotRequired["PaymentMethodCreateParamsGetflex"]
+    """
+    If this is a `getflex` PaymentMethod, this hash contains details about the GetFlex payment method.
     """
     gift_card: NotRequired["PaymentMethodCreateParamsGiftCard"]
     """
@@ -257,6 +265,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
+    sezzle: NotRequired["PaymentMethodCreateParamsSezzle"]
+    """
+    If this is a `sezzle` PaymentMethod, this hash contains details about the Sezzle payment method.
+    """
     shopeepay: NotRequired["PaymentMethodCreateParamsShopeepay"]
     """
     If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -286,7 +298,7 @@ class PaymentMethodCreateParams(RequestOptions):
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
     type: NotRequired[
-        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip']|str"
+        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip']|str"
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -481,6 +493,10 @@ class PaymentMethodCreateParamsCardNetworks(TypedDict):
     """
 
 
+class PaymentMethodCreateParamsCarecredit(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsCashapp(TypedDict):
     pass
 
@@ -547,6 +563,10 @@ class PaymentMethodCreateParamsFpx(TypedDict):
     """
     The customer's bank.
     """
+
+
+class PaymentMethodCreateParamsGetflex(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsGiftCard(TypedDict):
@@ -782,6 +802,10 @@ class PaymentMethodCreateParamsSepaDebit(TypedDict):
 
 
 class PaymentMethodCreateParamsSequra(TypedDict):
+    pass
+
+
+class PaymentMethodCreateParamsSezzle(TypedDict):
     pass
 
 

@@ -350,7 +350,7 @@ class SessionCreateParams(RequestOptions):
     A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
     """
     payment_method_collection: NotRequired[
-        "Literal['always', 'if_required']|str"
+        "Literal['always', 'auto', 'if_required']|str"
     ]
     """
     Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.
@@ -2039,6 +2039,12 @@ class SessionCreateParamsPaymentMethodOptionsCard(TypedDict):
     """
     Installment options for card payments
     """
+    mandate_options: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsCardMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate for cards issued in India.
+    """
     request_decremental_authorization: NotRequired[
         "Literal['if_available', 'never']|str"
     ]
@@ -2102,6 +2108,51 @@ class SessionCreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
     """
     Setting to true enables installments for this Checkout Session.
     Setting to false will prevent any installment plan from applying to a payment.
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Maximum or fixed amount for future payments, specified in the Checkout Session's integration currency.
+    """
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+    """
+    interval: NotRequired[
+        "Literal['day', 'month', 'sporadic', 'week', 'year']|str"
+    ]
+    """
+    Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+    """
+    reference: NotRequired[str]
+    """
+    Unique identifier for the mandate or subscription.
+    """
+    start_date: NotRequired[int]
+    """
+    Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+    """
+    supported_types: NotRequired[List[Literal["india"]]]
+    """
+    Specifies the type of mandates supported. Possible values are `india`.
     """
 
 

@@ -3453,7 +3453,7 @@ class Session(
     The ID of the Payment Link that created this Session.
     """
     payment_method_collection: Optional[
-        Union[Literal["always", "if_required"], str]
+        Union[Literal["always", "auto", "if_required"], str]
     ]
     """
     Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.

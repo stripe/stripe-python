@@ -1392,9 +1392,6 @@ if TYPE_CHECKING:
     from stripe.events._v2_payments_off_session_payment_paused_event import (
         V2PaymentsOffSessionPaymentPausedEventNotification,
     )
-    from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
-        V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-    )
     from stripe.events._v2_payments_off_session_payment_resumed_event import (
         V2PaymentsOffSessionPaymentResumedEventNotification,
     )
@@ -7459,19 +7456,6 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.payments.off_session_payment.paused",
-            func,
-        )
-        return func
-
-    def on_v2_payments_off_session_payment_requires_capture(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentRequiresCaptureEventNotification, StripeClient], CallbackReturn]",
-    ):
-        """
-        Registers a callback for the `V2PaymentsOffSessionPaymentRequiresCaptureEvent` (`v2.payments.off_session_payment.requires_capture`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.requires_capture",
             func,
         )
         return func

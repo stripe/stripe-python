@@ -119,6 +119,12 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
     """
+    carecredit: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataCarecredit"
+    ]
+    """
+    If this is a `carecredit` PaymentMethod, this hash contains details about the CareCredit payment method.
+    """
     cashapp: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataCashapp"
     ]
@@ -142,6 +148,12 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     fpx: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataFpx"]
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
+    """
+    getflex: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataGetflex"
+    ]
+    """
+    If this is a `getflex` PaymentMethod, this hash contains details about the GetFlex payment method.
     """
     gift_card: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataGiftCard"
@@ -333,6 +345,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
+    sezzle: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSezzle"]
+    """
+    If this is a `sezzle` PaymentMethod, this hash contains details about the Sezzle payment method.
+    """
     shared_payment_granted_token: NotRequired[str]
     """
     ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -384,11 +400,13 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "bizum",
             "blik",
             "boleto",
+            "carecredit",
             "cashapp",
             "crypto",
             "customer_balance",
             "eps",
             "fpx",
+            "getflex",
             "gift_card",
             "giropay",
             "gopay",
@@ -423,6 +441,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "scalapay",
             "sepa_debit",
             "sequra",
+            "sezzle",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -603,6 +622,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataBoleto(TypedDict):
     """
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataCarecredit(TypedDict):
+    pass
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataCashapp(TypedDict):
     pass
 
@@ -662,6 +685,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataFpx(TypedDict):
     """
     The customer's bank.
     """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataGetflex(TypedDict):
+    pass
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataGiftCard(TypedDict):
@@ -897,6 +924,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataSequra(TypedDict):
+    pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataSezzle(TypedDict):
     pass
 
 
