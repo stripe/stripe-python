@@ -47179,30 +47179,6 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.vault.gb_bank_accounts.acknowledge_confirmation_of_payee(
-            "id_123",
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_core_vault_gb_bank_account_post_3_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
             "/v2/core/vault/gb_bank_accounts/id_123/archive",
         )
         client = StripeClient(
@@ -47214,30 +47190,6 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/vault/gb_bank_accounts/id_123/archive",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_core_vault_gb_bank_account_post_4_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.vault.gb_bank_accounts.initiate_confirmation_of_payee(
-            "id_123",
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -49658,14 +49610,14 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.test_helpers.financial_addresses.credit(
             "id_123",
-            {"amount": {"currency": "USD", "value": 96}, "network": "swift"},
+            {"amount": {"currency": "USD", "value": 96}, "network": "ach"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v2/money_management/test_helpers/financial_addresses/id_123/credit",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"network":"swift"}',
+            post_data='{"amount":{"currency":"USD","value":96},"network":"ach"}',
             is_json=True,
         )
 
@@ -50089,28 +50041,6 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/payments/off_session_payments/id_123/capture",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.payments.off_session_payments.capture("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/payments/off_session_payments/id_123/capture",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_payments_off_session_payment_post_4_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
             "/v2/payments/off_session_payments/id_123/pause",
         )
         client = StripeClient(
@@ -50128,7 +50058,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_payments_off_session_payment_post_5_service(
+    def test_v2_payments_off_session_payment_post_4_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -51124,6 +51054,7 @@ class TestGeneratedExamples(object):
                     "account": "account",
                     "customer": "customer",
                     "data": {
+                        "contact_email": "contact_email",
                         "defaults": {
                             "profile": {
                                 "business_url": "business_url",
@@ -51146,7 +51077,7 @@ class TestGeneratedExamples(object):
             path="/v2/signals/account_evaluations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_details":{"account":"account","customer":"customer","data":{"defaults":{"profile":{"business_url":"business_url","doing_business_as":"doing_business_as","product_description":"product_description"}},"identity":{"business_details":{"registered_name":"registered_name"}}}},"requested_signals":["user_multi_accounting"]}',
+            post_data='{"account_details":{"account":"account","customer":"customer","data":{"contact_email":"contact_email","defaults":{"profile":{"business_url":"business_url","doing_business_as":"doing_business_as","product_description":"product_description"}},"identity":{"business_details":{"registered_name":"registered_name"}}}},"requested_signals":["user_multi_accounting"]}',
             is_json=True,
         )
 

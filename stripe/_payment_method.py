@@ -879,6 +879,9 @@ class PaymentMethod(
             "wallet": Wallet,
         }
 
+    class Carecredit(StripeObject):
+        pass
+
     class Cashapp(StripeObject):
         buyer_id: Optional[str]
         """
@@ -1008,6 +1011,9 @@ class PaymentMethod(
         """
         The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
         """
+
+    class Getflex(StripeObject):
+        pass
 
     class GiftCard(StripeObject):
         brand: Union[Literal["svs"], str]
@@ -1502,6 +1508,9 @@ class PaymentMethod(
     class Sequra(StripeObject):
         pass
 
+    class Sezzle(StripeObject):
+        pass
+
     class Shopeepay(StripeObject):
         pass
 
@@ -1669,6 +1678,7 @@ class PaymentMethod(
     boleto: Optional[Boleto]
     card: Optional[Card]
     card_present: Optional[CardPresent]
+    carecredit: Optional[Carecredit]
     cashapp: Optional[Cashapp]
     created: int
     """
@@ -1684,6 +1694,7 @@ class PaymentMethod(
     customer_balance: Optional[CustomerBalance]
     eps: Optional[Eps]
     fpx: Optional[Fpx]
+    getflex: Optional[Getflex]
     gift_card: Optional[GiftCard]
     giropay: Optional[Giropay]
     gopay: Optional[Gopay]
@@ -1747,6 +1758,7 @@ class PaymentMethod(
     scalapay: Optional[Scalapay]
     sepa_debit: Optional[SepaDebit]
     sequra: Optional[Sequra]
+    sezzle: Optional[Sezzle]
     shared_payment_granted_token: Optional[str]
     """
     ID of the shared payment granted token used in the creation of this PaymentMethod.
@@ -1775,12 +1787,14 @@ class PaymentMethod(
             "boleto",
             "card",
             "card_present",
+            "carecredit",
             "cashapp",
             "crypto",
             "custom",
             "customer_balance",
             "eps",
             "fpx",
+            "getflex",
             "gift_card",
             "giropay",
             "gopay",
@@ -1816,6 +1830,7 @@ class PaymentMethod(
             "scalapay",
             "sepa_debit",
             "sequra",
+            "sezzle",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -2437,12 +2452,14 @@ class PaymentMethod(
         "boleto": Boleto,
         "card": Card,
         "card_present": CardPresent,
+        "carecredit": Carecredit,
         "cashapp": Cashapp,
         "crypto": Crypto,
         "custom": Custom,
         "customer_balance": CustomerBalance,
         "eps": Eps,
         "fpx": Fpx,
+        "getflex": Getflex,
         "gift_card": GiftCard,
         "giropay": Giropay,
         "gopay": Gopay,
@@ -2480,6 +2497,7 @@ class PaymentMethod(
         "scalapay": Scalapay,
         "sepa_debit": SepaDebit,
         "sequra": Sequra,
+        "sezzle": Sezzle,
         "shopeepay": Shopeepay,
         "sofort": Sofort,
         "stripe_balance": StripeBalance,

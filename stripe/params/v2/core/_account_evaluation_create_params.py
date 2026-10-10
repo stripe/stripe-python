@@ -29,6 +29,10 @@ class AccountEvaluationCreateParams(TypedDict):
 
 
 class AccountEvaluationCreateParamsAccountData(TypedDict):
+    contact_email: NotRequired[str]
+    """
+    The account's contact email.
+    """
     defaults: NotRequired["AccountEvaluationCreateParamsAccountDataDefaults"]
     """
     Default account settings.

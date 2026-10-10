@@ -2237,11 +2237,11 @@ class AccountUpdateParamsSettings(TypedDict):
     """
     Settings specific to the account's Treasury FinancialAccounts.
     """
-    wechat_pay_payments: NotRequired[
-        "AccountUpdateParamsSettingsWechatPayPayments"
+    wechat_pay_mobile_web_payments: NotRequired[
+        "AccountUpdateParamsSettingsWechatPayMobileWebPayments"
     ]
     """
-    Settings specific to the WeChat Pay payments method.
+    Settings specific to WeChat Pay payments made through a mobile web browser.
     """
 
 
@@ -2556,10 +2556,10 @@ class AccountUpdateParamsSettingsTreasuryTosAcceptance(TypedDict):
     """
 
 
-class AccountUpdateParamsSettingsWechatPayPayments(TypedDict):
-    mobile_web_domains: NotRequired["Literal['']|List[str]"]
+class AccountUpdateParamsSettingsWechatPayMobileWebPayments(TypedDict):
+    domains: NotRequired["Literal['']|List[str]"]
     """
-    The domains of the user's mobile web checkout pages for WeChat Pay payments. At most 4 domains are allowed.
+    The domains of the user's mobile web checkout pages for WeChat Pay payments.
     """
 
 

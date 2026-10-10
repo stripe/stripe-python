@@ -1360,9 +1360,6 @@ if TYPE_CHECKING:
     from stripe.events._v2_payments_off_session_payment_paused_event import (
         V2PaymentsOffSessionPaymentPausedEventNotification,
     )
-    from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
-        V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-    )
     from stripe.events._v2_payments_off_session_payment_resumed_event import (
         V2PaymentsOffSessionPaymentResumedEventNotification,
     )
@@ -3238,10 +3235,6 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.payments.off_session_payment.paused": (
         "stripe.events._v2_payments_off_session_payment_paused_event",
         "V2PaymentsOffSessionPaymentPausedEvent",
-    ),
-    "v2.payments.off_session_payment.requires_capture": (
-        "stripe.events._v2_payments_off_session_payment_requires_capture_event",
-        "V2PaymentsOffSessionPaymentRequiresCaptureEvent",
     ),
     "v2.payments.off_session_payment.resumed": (
         "stripe.events._v2_payments_off_session_payment_resumed_event",
@@ -5154,10 +5147,6 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_payments_off_session_payment_paused_event",
         "V2PaymentsOffSessionPaymentPausedEventNotification",
     ),
-    "v2.payments.off_session_payment.requires_capture": (
-        "stripe.events._v2_payments_off_session_payment_requires_capture_event",
-        "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
-    ),
     "v2.payments.off_session_payment.resumed": (
         "stripe.events._v2_payments_off_session_payment_resumed_event",
         "V2PaymentsOffSessionPaymentResumedEventNotification",
@@ -5716,7 +5705,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2PaymentsOffSessionPaymentCreatedEventNotification",
     "V2PaymentsOffSessionPaymentFailedEventNotification",
     "V2PaymentsOffSessionPaymentPausedEventNotification",
-    "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
     "V2PaymentsOffSessionPaymentResumedEventNotification",
     "V2PaymentsOffSessionPaymentSucceededEventNotification",
     "V2PaymentsSettlementAllocationIntentCanceledEventNotification",

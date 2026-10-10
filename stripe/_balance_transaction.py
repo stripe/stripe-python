@@ -83,6 +83,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
             "payments",
             "refund_and_dispute_prefunding",
             "risk_reserved",
+            "settlement_reserved",
             "transit",
         ],
         str,

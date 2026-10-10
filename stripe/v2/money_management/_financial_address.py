@@ -78,6 +78,16 @@ class FinancialAddress(StripeObject):
                 "account_holder_address": AccountHolderAddress,
             }
 
+        class BreB(StripeObject):
+            account_holder_name: str
+            """
+            The name of the account holder.
+            """
+            bre_b_key: str
+            """
+            The BRE-B payment key.
+            """
+
         class Clabe(StripeObject):
             account_holder_name: str
             clabe: str
@@ -117,6 +127,34 @@ class FinancialAddress(StripeObject):
             The last four digits of the IBAN.
             """
 
+        class Nip(StripeObject):
+            account_holder_name: str
+            """
+            The name of the account holder.
+            """
+            bank_code: str
+            """
+            The NIP bank code.
+            """
+            bank_name: str
+            """
+            The name of the bank.
+            """
+            nuban: str
+            """
+            The NUBAN account number.
+            """
+
+        class Pix(StripeObject):
+            account_holder_name: str
+            """
+            The name of the account holder.
+            """
+            br_code: str
+            """
+            The Pix BR code.
+            """
+
         class SortCode(StripeObject):
             account_holder_name: str
             """
@@ -147,6 +185,10 @@ class FinancialAddress(StripeObject):
         """
         ABA bank account details (US).
         """
+        bre_b: Optional[BreB]
+        """
+        BRE-B bank account details (Colombia).
+        """
         clabe: Optional[Clabe]
         country: Optional[str]
         """
@@ -160,6 +202,14 @@ class FinancialAddress(StripeObject):
         iban: Optional[Iban]
         """
         IBAN bank account details.
+        """
+        nip: Optional[Nip]
+        """
+        NIP bank account details (Nigeria).
+        """
+        pix: Optional[Pix]
+        """
+        Pix bank account details (Brazil).
         """
         sort_code: Optional[SortCode]
         """
@@ -183,9 +233,12 @@ class FinancialAddress(StripeObject):
         """
         _inner_class_types = {
             "aba": Aba,
+            "bre_b": BreB,
             "clabe": Clabe,
             "cpa": Cpa,
             "iban": Iban,
+            "nip": Nip,
+            "pix": Pix,
             "sort_code": SortCode,
         }
 

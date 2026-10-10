@@ -4170,6 +4170,24 @@ class PaymentIntent(
                 "routing": Routing,
             }
 
+        class Carecredit(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Cashapp(StripeObject):
             capture_method: Optional[Literal["manual"]]
             """
@@ -4345,6 +4363,24 @@ class PaymentIntent(
 
         class Fpx(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class Getflex(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5068,6 +5104,22 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Sezzle(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Shopeepay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -5383,11 +5435,13 @@ class PaymentIntent(
         boleto: Optional[Boleto]
         card: Optional[Card]
         card_present: Optional[CardPresent]
+        carecredit: Optional[Carecredit]
         cashapp: Optional[Cashapp]
         crypto: Optional[Crypto]
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
+        getflex: Optional[Getflex]
         gift_card: Optional[GiftCard]
         giropay: Optional[Giropay]
         gopay: Optional[Gopay]
@@ -5423,6 +5477,7 @@ class PaymentIntent(
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sequra: Optional[Sequra]
+        sezzle: Optional[Sezzle]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
@@ -5450,11 +5505,13 @@ class PaymentIntent(
             "boleto": Boleto,
             "card": Card,
             "card_present": CardPresent,
+            "carecredit": Carecredit,
             "cashapp": Cashapp,
             "crypto": Crypto,
             "customer_balance": CustomerBalance,
             "eps": Eps,
             "fpx": Fpx,
+            "getflex": Getflex,
             "gift_card": GiftCard,
             "giropay": Giropay,
             "gopay": Gopay,
@@ -5490,6 +5547,7 @@ class PaymentIntent(
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sequra": Sequra,
+            "sezzle": Sezzle,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
@@ -5657,6 +5715,7 @@ class PaymentIntent(
                     "capchase_pay",
                     "card",
                     "card_present",
+                    "carecredit",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -5671,6 +5730,7 @@ class PaymentIntent(
                     "fpx",
                     "gcash",
                     "getbalance",
+                    "getflex",
                     "gift_card",
                     "giropay",
                     "gopay",
@@ -5720,6 +5780,7 @@ class PaymentIntent(
                     "scalapay",
                     "sepa_debit",
                     "sequra",
+                    "sezzle",
                     "shop_pay",
                     "shopeepay",
                     "sofort",
@@ -5859,11 +5920,13 @@ class PaymentIntent(
                     "blik",
                     "boleto",
                     "card",
+                    "carecredit",
                     "cashapp",
                     "crypto",
                     "customer_balance",
                     "eps",
                     "fpx",
+                    "getflex",
                     "gift_card",
                     "giropay",
                     "gopay",
@@ -5897,6 +5960,7 @@ class PaymentIntent(
                     "scalapay",
                     "sepa_debit",
                     "sequra",
+                    "sezzle",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",

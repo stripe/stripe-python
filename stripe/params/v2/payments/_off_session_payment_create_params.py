@@ -24,10 +24,6 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     The frequency of the underlying payment.
     """
-    capture: NotRequired["OffSessionPaymentCreateParamsCapture"]
-    """
-    Deprecated. Details about the capture configuration for the OffSessionPayment.
-    """
     customer: str
     """
     ID of the Customer to which this OffSessionPayment belongs.
@@ -195,13 +191,6 @@ class OffSessionPaymentCreateParamsAmountDetailsTax(TypedDict):
     total_tax_amount: int
     """
     Total portion of the amount that is for tax.
-    """
-
-
-class OffSessionPaymentCreateParamsCapture(TypedDict):
-    capture_method: Union[Literal["automatic", "manual"], str]
-    """
-    The method to use to capture the payment.
     """
 
 

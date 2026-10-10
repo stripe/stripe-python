@@ -124,16 +124,6 @@ class OffSessionPayment(StripeObject):
             "tax": Tax,
         }
 
-    class Capture(StripeObject):
-        capture_before: Optional[str]
-        """
-        The timestamp when this payment is no longer eligible to be captured.
-        """
-        capture_method: Union[Literal["automatic", "manual"], str]
-        """
-        The method to use to capture the payment.
-        """
-
     class LatestPaymentAttemptRecordDetails(StripeObject):
         class FailureDetails(StripeObject):
             code: Optional[str]
@@ -251,10 +241,6 @@ class OffSessionPayment(StripeObject):
         where funds from the payment are transferred to after payment success.
         """
 
-    amount_capturable: Optional[Amount]
-    """
-    The amount available to be captured.
-    """
     amount_details: Optional[AmountDetails]
     """
     Provides industry-specific information about the amount.
@@ -274,10 +260,6 @@ class OffSessionPayment(StripeObject):
     cadence: Union[Literal["recurring", "unscheduled"], str]
     """
     The frequency of the underlying payment.
-    """
-    capture: Optional[Capture]
-    """
-    Details about the capture configuration for the OffSessionPayment.
     """
     created: str
     """
@@ -408,7 +390,6 @@ class OffSessionPayment(StripeObject):
     """
     _inner_class_types = {
         "amount_details": AmountDetails,
-        "capture": Capture,
         "latest_payment_attempt_record_details": LatestPaymentAttemptRecordDetails,
         "payment_details": PaymentDetails,
         "payments_orchestration": PaymentsOrchestration,

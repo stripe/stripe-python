@@ -1819,10 +1819,6 @@ if TYPE_CHECKING:
         V2PaymentsOffSessionPaymentPausedEvent as V2PaymentsOffSessionPaymentPausedEvent,
         V2PaymentsOffSessionPaymentPausedEventNotification as V2PaymentsOffSessionPaymentPausedEventNotification,
     )
-    from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
-        V2PaymentsOffSessionPaymentRequiresCaptureEvent as V2PaymentsOffSessionPaymentRequiresCaptureEvent,
-        V2PaymentsOffSessionPaymentRequiresCaptureEventNotification as V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-    )
     from stripe.events._v2_payments_off_session_payment_resumed_event import (
         V2PaymentsOffSessionPaymentResumedEvent as V2PaymentsOffSessionPaymentResumedEvent,
         V2PaymentsOffSessionPaymentResumedEventNotification as V2PaymentsOffSessionPaymentResumedEventNotification,
@@ -5414,14 +5410,6 @@ _import_map = {
     ),
     "V2PaymentsOffSessionPaymentPausedEventNotification": (
         "stripe.events._v2_payments_off_session_payment_paused_event",
-        False,
-    ),
-    "V2PaymentsOffSessionPaymentRequiresCaptureEvent": (
-        "stripe.events._v2_payments_off_session_payment_requires_capture_event",
-        False,
-    ),
-    "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification": (
-        "stripe.events._v2_payments_off_session_payment_requires_capture_event",
         False,
     ),
     "V2PaymentsOffSessionPaymentResumedEvent": (

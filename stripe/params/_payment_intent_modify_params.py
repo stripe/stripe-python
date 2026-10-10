@@ -32,6 +32,7 @@ class PaymentIntentModifyParams(RequestOptions):
                     "capchase_pay",
                     "card",
                     "card_present",
+                    "carecredit",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -46,6 +47,7 @@ class PaymentIntentModifyParams(RequestOptions):
                     "fpx",
                     "gcash",
                     "getbalance",
+                    "getflex",
                     "gift_card",
                     "giropay",
                     "gopay",
@@ -95,6 +97,7 @@ class PaymentIntentModifyParams(RequestOptions):
                     "scalapay",
                     "sepa_debit",
                     "sequra",
+                    "sezzle",
                     "shop_pay",
                     "shopeepay",
                     "sofort",
@@ -167,7 +170,7 @@ class PaymentIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -2984,6 +2987,12 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
     """
+    carecredit: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodDataCarecredit"
+    ]
+    """
+    If this is a `carecredit` PaymentMethod, this hash contains details about the CareCredit payment method.
+    """
     cashapp: NotRequired["PaymentIntentModifyParamsPaymentMethodDataCashapp"]
     """
     If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
@@ -3005,6 +3014,10 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     fpx: NotRequired["PaymentIntentModifyParamsPaymentMethodDataFpx"]
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
+    """
+    getflex: NotRequired["PaymentIntentModifyParamsPaymentMethodDataGetflex"]
+    """
+    If this is a `getflex` PaymentMethod, this hash contains details about the GetFlex payment method.
     """
     gift_card: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodDataGiftCard"
@@ -3182,6 +3195,10 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
+    sezzle: NotRequired["PaymentIntentModifyParamsPaymentMethodDataSezzle"]
+    """
+    If this is a `sezzle` PaymentMethod, this hash contains details about the Sezzle payment method.
+    """
     shared_payment_granted_token: NotRequired[str]
     """
     ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
@@ -3233,11 +3250,13 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
             "bizum",
             "blik",
             "boleto",
+            "carecredit",
             "cashapp",
             "crypto",
             "customer_balance",
             "eps",
             "fpx",
+            "getflex",
             "gift_card",
             "giropay",
             "gopay",
@@ -3272,6 +3291,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
             "scalapay",
             "sepa_debit",
             "sequra",
+            "sezzle",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -3450,6 +3470,10 @@ class PaymentIntentModifyParamsPaymentMethodDataBoleto(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodDataCarecredit(TypedDict):
+    pass
+
+
 class PaymentIntentModifyParamsPaymentMethodDataCashapp(TypedDict):
     pass
 
@@ -3509,6 +3533,10 @@ class PaymentIntentModifyParamsPaymentMethodDataFpx(TypedDict):
     """
     The customer's bank.
     """
+
+
+class PaymentIntentModifyParamsPaymentMethodDataGetflex(TypedDict):
+    pass
 
 
 class PaymentIntentModifyParamsPaymentMethodDataGiftCard(TypedDict):
@@ -3747,6 +3775,10 @@ class PaymentIntentModifyParamsPaymentMethodDataSequra(TypedDict):
     pass
 
 
+class PaymentIntentModifyParamsPaymentMethodDataSezzle(TypedDict):
+    pass
+
+
 class PaymentIntentModifyParamsPaymentMethodDataShopeepay(TypedDict):
     pass
 
@@ -3935,6 +3967,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `card_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
     """
+    carecredit: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCarecredit"
+    ]
+    """
+    If this is a `carecredit` PaymentMethod, this sub-hash contains details about the CareCredit payment method options.
+    """
     cashapp: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCashapp"
     ]
@@ -3964,6 +4002,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
+    """
+    getflex: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsGetflex"
+    ]
+    """
+    If this is a `getflex` PaymentMethod, this sub-hash contains details about the GetFlex payment method options.
     """
     gift_card: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsGiftCard"
@@ -4174,6 +4218,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `sequra` PaymentMethod, this sub-hash contains details about the SeQura payment method options.
+    """
+    sezzle: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsSezzle"
+    ]
+    """
+    If this is a `sezzle` PaymentMethod, this sub-hash contains details about the Sezzle payment method options.
     """
     shopeepay: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsShopeepay"
@@ -5230,6 +5280,29 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentRouting(
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodOptionsCarecredit(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']|str"
+    ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
+
+
 class PaymentIntentModifyParamsPaymentMethodOptionsCashapp(TypedDict):
     capture_method: NotRequired["Literal['']|Literal['manual']"]
     """
@@ -5439,6 +5512,29 @@ class PaymentIntentModifyParamsPaymentMethodOptionsFpx(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsGetflex(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']|str"
+    ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
 
 
@@ -7389,6 +7485,27 @@ class PaymentIntentModifyParamsPaymentMethodOptionsSequra(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsSezzle(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
 
 

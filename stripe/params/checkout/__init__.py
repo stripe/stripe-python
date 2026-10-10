@@ -99,6 +99,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsBoleto as SessionCreateParamsPaymentMethodOptionsBoleto,
         SessionCreateParamsPaymentMethodOptionsCard as SessionCreateParamsPaymentMethodOptionsCard,
         SessionCreateParamsPaymentMethodOptionsCardInstallments as SessionCreateParamsPaymentMethodOptionsCardInstallments,
+        SessionCreateParamsPaymentMethodOptionsCardMandateOptions as SessionCreateParamsPaymentMethodOptionsCardMandateOptions,
         SessionCreateParamsPaymentMethodOptionsCardRestrictions as SessionCreateParamsPaymentMethodOptionsCardRestrictions,
         SessionCreateParamsPaymentMethodOptionsCashapp as SessionCreateParamsPaymentMethodOptionsCashapp,
         SessionCreateParamsPaymentMethodOptionsCrypto as SessionCreateParamsPaymentMethodOptionsCrypto,
@@ -625,6 +626,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsCardInstallments": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCardMandateOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
