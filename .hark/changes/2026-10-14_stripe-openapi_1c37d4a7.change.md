@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1943
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 16.1.0a3
 ---
 
 * ⚠️ Remove support for `capture` method on resource `v2.payments.OffSessionPayment`
