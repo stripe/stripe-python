@@ -649,7 +649,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             cls, **params: Unpack["GrantedTokenCreateParams"]
         ) -> "GrantedToken":
             """
-            Creates a new test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to create SharedPaymentGrantedTokens for testing their integration
+            Creates a new test SharedPaymentGrantedToken object. This test helper allows sellers to create SharedPaymentGrantedTokens for testing their integration.
             """
             return cast(
                 "GrantedToken",
@@ -665,7 +665,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             cls, **params: Unpack["GrantedTokenCreateParams"]
         ) -> "GrantedToken":
             """
-            Creates a new test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to create SharedPaymentGrantedTokens for testing their integration
+            Creates a new test SharedPaymentGrantedToken object. This test helper allows sellers to create SharedPaymentGrantedTokens for testing their integration.
             """
             return cast(
                 "GrantedToken",
@@ -684,7 +684,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             return cast(
                 "GrantedToken",
@@ -707,7 +707,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             ...
 
@@ -716,7 +716,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             ...
 
@@ -725,7 +725,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             return cast(
                 "GrantedToken",
@@ -748,7 +748,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             return cast(
                 "GrantedToken",
@@ -771,7 +771,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             ...
 
@@ -780,7 +780,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             ...
 
@@ -789,7 +789,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
-            Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+            Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
             """
             return cast(
                 "GrantedToken",

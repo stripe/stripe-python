@@ -10,16 +10,6 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._off_session_payment_cancel_params import (
         OffSessionPaymentCancelParams as OffSessionPaymentCancelParams,
     )
-    from stripe.params.v2.payments._off_session_payment_capture_params import (
-        OffSessionPaymentCaptureParams as OffSessionPaymentCaptureParams,
-        OffSessionPaymentCaptureParamsAmountDetails as OffSessionPaymentCaptureParamsAmountDetails,
-        OffSessionPaymentCaptureParamsAmountDetailsLineItem as OffSessionPaymentCaptureParamsAmountDetailsLineItem,
-        OffSessionPaymentCaptureParamsAmountDetailsLineItemTax as OffSessionPaymentCaptureParamsAmountDetailsLineItemTax,
-        OffSessionPaymentCaptureParamsAmountDetailsShipping as OffSessionPaymentCaptureParamsAmountDetailsShipping,
-        OffSessionPaymentCaptureParamsAmountDetailsTax as OffSessionPaymentCaptureParamsAmountDetailsTax,
-        OffSessionPaymentCaptureParamsPaymentDetails as OffSessionPaymentCaptureParamsPaymentDetails,
-        OffSessionPaymentCaptureParamsTransferData as OffSessionPaymentCaptureParamsTransferData,
-    )
     from stripe.params.v2.payments._off_session_payment_create_params import (
         OffSessionPaymentCreateParams as OffSessionPaymentCreateParams,
         OffSessionPaymentCreateParamsAmountDetails as OffSessionPaymentCreateParamsAmountDetails,
@@ -27,7 +17,6 @@ if TYPE_CHECKING:
         OffSessionPaymentCreateParamsAmountDetailsLineItemTax as OffSessionPaymentCreateParamsAmountDetailsLineItemTax,
         OffSessionPaymentCreateParamsAmountDetailsShipping as OffSessionPaymentCreateParamsAmountDetailsShipping,
         OffSessionPaymentCreateParamsAmountDetailsTax as OffSessionPaymentCreateParamsAmountDetailsTax,
-        OffSessionPaymentCreateParamsCapture as OffSessionPaymentCreateParamsCapture,
         OffSessionPaymentCreateParamsPaymentDetails as OffSessionPaymentCreateParamsPaymentDetails,
         OffSessionPaymentCreateParamsPaymentMethodData as OffSessionPaymentCreateParamsPaymentMethodData,
         OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails as OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails,
@@ -80,38 +69,6 @@ _import_map = {
         "stripe.params.v2.payments._off_session_payment_cancel_params",
         False,
     ),
-    "OffSessionPaymentCaptureParams": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
-    "OffSessionPaymentCaptureParamsAmountDetails": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
-    "OffSessionPaymentCaptureParamsAmountDetailsLineItem": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
-    "OffSessionPaymentCaptureParamsAmountDetailsLineItemTax": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
-    "OffSessionPaymentCaptureParamsAmountDetailsShipping": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
-    "OffSessionPaymentCaptureParamsAmountDetailsTax": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
-    "OffSessionPaymentCaptureParamsPaymentDetails": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
-    "OffSessionPaymentCaptureParamsTransferData": (
-        "stripe.params.v2.payments._off_session_payment_capture_params",
-        False,
-    ),
     "OffSessionPaymentCreateParams": (
         "stripe.params.v2.payments._off_session_payment_create_params",
         False,
@@ -133,10 +90,6 @@ _import_map = {
         False,
     ),
     "OffSessionPaymentCreateParamsAmountDetailsTax": (
-        "stripe.params.v2.payments._off_session_payment_create_params",
-        False,
-    ),
-    "OffSessionPaymentCreateParamsCapture": (
         "stripe.params.v2.payments._off_session_payment_create_params",
         False,
     ),

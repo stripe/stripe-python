@@ -28,6 +28,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "capchase_pay",
                     "card",
                     "card_present",
+                    "carecredit",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -42,6 +43,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "fpx",
                     "gcash",
                     "getbalance",
+                    "getflex",
                     "gift_card",
                     "giropay",
                     "gopay",
@@ -84,6 +86,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "pix",
                     "promptpay",
                     "qris",
+                    "rakuten_pay",
                     "rechnung",
                     "revolut_pay",
                     "samsung_pay",
@@ -91,6 +94,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "scalapay",
                     "sepa_debit",
                     "sequra",
+                    "sezzle",
                     "shop_pay",
                     "shopeepay",
                     "sofort",
@@ -174,11 +178,13 @@ class SetupIntentCreateParams(RequestOptions):
                     "blik",
                     "boleto",
                     "card",
+                    "carecredit",
                     "cashapp",
                     "crypto",
                     "customer_balance",
                     "eps",
                     "fpx",
+                    "getflex",
                     "gift_card",
                     "giropay",
                     "gopay",
@@ -205,6 +211,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "pix",
                     "promptpay",
                     "qris",
+                    "rakuten_pay",
                     "rechnung",
                     "revolut_pay",
                     "samsung_pay",
@@ -212,6 +219,7 @@ class SetupIntentCreateParams(RequestOptions):
                     "scalapay",
                     "sepa_debit",
                     "sequra",
+                    "sezzle",
                     "shopeepay",
                     "sofort",
                     "stripe_balance",
@@ -436,6 +444,12 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
     """
+    carecredit: NotRequired[
+        "SetupIntentCreateParamsPaymentMethodDataCarecredit"
+    ]
+    """
+    If this is a `carecredit` PaymentMethod, this hash contains details about the CareCredit payment method.
+    """
     cashapp: NotRequired["SetupIntentCreateParamsPaymentMethodDataCashapp"]
     """
     If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
@@ -457,6 +471,10 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     fpx: NotRequired["SetupIntentCreateParamsPaymentMethodDataFpx"]
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
+    """
+    getflex: NotRequired["SetupIntentCreateParamsPaymentMethodDataGetflex"]
+    """
+    If this is a `getflex` PaymentMethod, this hash contains details about the GetFlex payment method.
     """
     gift_card: NotRequired["SetupIntentCreateParamsPaymentMethodDataGiftCard"]
     """
@@ -590,6 +608,12 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     """
     Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
+    rakuten_pay: NotRequired[
+        "SetupIntentCreateParamsPaymentMethodDataRakutenPay"
+    ]
+    """
+    If this is a `rakuten_pay` PaymentMethod, this hash contains details about the Rakuten Pay payment method.
+    """
     rechnung: NotRequired["SetupIntentCreateParamsPaymentMethodDataRechnung"]
     """
     If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
@@ -623,6 +647,10 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     sequra: NotRequired["SetupIntentCreateParamsPaymentMethodDataSequra"]
     """
     If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
+    sezzle: NotRequired["SetupIntentCreateParamsPaymentMethodDataSezzle"]
+    """
+    If this is a `sezzle` PaymentMethod, this hash contains details about the Sezzle payment method.
     """
     shared_payment_granted_token: NotRequired[str]
     """
@@ -673,11 +701,13 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
             "bizum",
             "blik",
             "boleto",
+            "carecredit",
             "cashapp",
             "crypto",
             "customer_balance",
             "eps",
             "fpx",
+            "getflex",
             "gift_card",
             "giropay",
             "gopay",
@@ -705,6 +735,7 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
             "pix",
             "promptpay",
             "qris",
+            "rakuten_pay",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
@@ -712,6 +743,7 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
             "scalapay",
             "sepa_debit",
             "sequra",
+            "sezzle",
             "shopeepay",
             "sofort",
             "stripe_balance",
@@ -888,6 +920,10 @@ class SetupIntentCreateParamsPaymentMethodDataBoleto(TypedDict):
     """
 
 
+class SetupIntentCreateParamsPaymentMethodDataCarecredit(TypedDict):
+    pass
+
+
 class SetupIntentCreateParamsPaymentMethodDataCashapp(TypedDict):
     pass
 
@@ -947,6 +983,10 @@ class SetupIntentCreateParamsPaymentMethodDataFpx(TypedDict):
     """
     The customer's bank.
     """
+
+
+class SetupIntentCreateParamsPaymentMethodDataGetflex(TypedDict):
+    pass
 
 
 class SetupIntentCreateParamsPaymentMethodDataGiftCard(TypedDict):
@@ -1136,6 +1176,10 @@ class SetupIntentCreateParamsPaymentMethodDataRadarOptions(TypedDict):
     """
 
 
+class SetupIntentCreateParamsPaymentMethodDataRakutenPay(TypedDict):
+    pass
+
+
 class SetupIntentCreateParamsPaymentMethodDataRechnung(TypedDict):
     dob: "SetupIntentCreateParamsPaymentMethodDataRechnungDob"
     """
@@ -1182,6 +1226,10 @@ class SetupIntentCreateParamsPaymentMethodDataSepaDebit(TypedDict):
 
 
 class SetupIntentCreateParamsPaymentMethodDataSequra(TypedDict):
+    pass
+
+
+class SetupIntentCreateParamsPaymentMethodDataSezzle(TypedDict):
     pass
 
 

@@ -29,11 +29,13 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataBizum as ConfirmationTokenCreateParamsPaymentMethodDataBizum,
         ConfirmationTokenCreateParamsPaymentMethodDataBlik as ConfirmationTokenCreateParamsPaymentMethodDataBlik,
         ConfirmationTokenCreateParamsPaymentMethodDataBoleto as ConfirmationTokenCreateParamsPaymentMethodDataBoleto,
+        ConfirmationTokenCreateParamsPaymentMethodDataCarecredit as ConfirmationTokenCreateParamsPaymentMethodDataCarecredit,
         ConfirmationTokenCreateParamsPaymentMethodDataCashapp as ConfirmationTokenCreateParamsPaymentMethodDataCashapp,
         ConfirmationTokenCreateParamsPaymentMethodDataCrypto as ConfirmationTokenCreateParamsPaymentMethodDataCrypto,
         ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance as ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance,
         ConfirmationTokenCreateParamsPaymentMethodDataEps as ConfirmationTokenCreateParamsPaymentMethodDataEps,
         ConfirmationTokenCreateParamsPaymentMethodDataFpx as ConfirmationTokenCreateParamsPaymentMethodDataFpx,
+        ConfirmationTokenCreateParamsPaymentMethodDataGetflex as ConfirmationTokenCreateParamsPaymentMethodDataGetflex,
         ConfirmationTokenCreateParamsPaymentMethodDataGiftCard as ConfirmationTokenCreateParamsPaymentMethodDataGiftCard,
         ConfirmationTokenCreateParamsPaymentMethodDataGiropay as ConfirmationTokenCreateParamsPaymentMethodDataGiropay,
         ConfirmationTokenCreateParamsPaymentMethodDataGopay as ConfirmationTokenCreateParamsPaymentMethodDataGopay,
@@ -64,6 +66,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataPromptpay as ConfirmationTokenCreateParamsPaymentMethodDataPromptpay,
         ConfirmationTokenCreateParamsPaymentMethodDataQris as ConfirmationTokenCreateParamsPaymentMethodDataQris,
         ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions as ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions,
+        ConfirmationTokenCreateParamsPaymentMethodDataRakutenPay as ConfirmationTokenCreateParamsPaymentMethodDataRakutenPay,
         ConfirmationTokenCreateParamsPaymentMethodDataRechnung as ConfirmationTokenCreateParamsPaymentMethodDataRechnung,
         ConfirmationTokenCreateParamsPaymentMethodDataRechnungDob as ConfirmationTokenCreateParamsPaymentMethodDataRechnungDob,
         ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay as ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay,
@@ -72,6 +75,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataScalapay as ConfirmationTokenCreateParamsPaymentMethodDataScalapay,
         ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit as ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit,
         ConfirmationTokenCreateParamsPaymentMethodDataSequra as ConfirmationTokenCreateParamsPaymentMethodDataSequra,
+        ConfirmationTokenCreateParamsPaymentMethodDataSezzle as ConfirmationTokenCreateParamsPaymentMethodDataSezzle,
         ConfirmationTokenCreateParamsPaymentMethodDataShopeepay as ConfirmationTokenCreateParamsPaymentMethodDataShopeepay,
         ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
         ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance as ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance,
@@ -192,6 +196,10 @@ _import_map = {
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataCarecredit": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataCashapp": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
@@ -209,6 +217,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataFpx": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataGetflex": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
@@ -332,6 +344,10 @@ _import_map = {
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataRakutenPay": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataRechnung": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
@@ -361,6 +377,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataSequra": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataSezzle": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

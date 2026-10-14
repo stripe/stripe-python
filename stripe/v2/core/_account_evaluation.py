@@ -49,6 +49,10 @@ class AccountEvaluation(StripeObject):
             """
             _inner_class_types = {"business_details": BusinessDetails}
 
+        contact_email: Optional[str]
+        """
+        The account's contact email.
+        """
         defaults: Optional[Defaults]
         """
         Default account settings.
@@ -76,6 +80,7 @@ class AccountEvaluation(StripeObject):
             Literal[
                 "fraudulent_website",
                 "user_account_sharing",
+                "user_merchant_fit",
                 "user_multi_accounting",
             ],
             str,

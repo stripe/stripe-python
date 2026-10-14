@@ -10,9 +10,6 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._off_session_payment_cancel_params import (
         OffSessionPaymentCancelParams,
     )
-    from stripe.params.v2.payments._off_session_payment_capture_params import (
-        OffSessionPaymentCaptureParams,
-    )
     from stripe.params.v2.payments._off_session_payment_create_params import (
         OffSessionPaymentCreateParams,
     )
@@ -193,52 +190,6 @@ class OffSessionPaymentService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/payments/off_session_payments/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def capture(
-        self,
-        id: str,
-        /,
-        params: Optional["OffSessionPaymentCaptureParams"] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "OffSessionPayment":
-        """
-        Deprecated. Captures an OffSessionPayment that has previously been created.
-        """
-        return cast(
-            "OffSessionPayment",
-            self._request(
-                "post",
-                "/v2/payments/off_session_payments/{id}/capture".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def capture_async(
-        self,
-        id: str,
-        /,
-        params: Optional["OffSessionPaymentCaptureParams"] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "OffSessionPayment":
-        """
-        Deprecated. Captures an OffSessionPayment that has previously been created.
-        """
-        return cast(
-            "OffSessionPayment",
-            await self._request_async(
-                "post",
-                "/v2/payments/off_session_payments/{id}/capture".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

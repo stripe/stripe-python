@@ -73,7 +73,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAccount]":
         """
-        Lists FinancialAccounts in this compartment.
+        Lists FinancialAccounts in this account.
         """
         return cast(
             "ListObject[FinancialAccount]",
@@ -92,7 +92,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAccount]":
         """
-        Lists FinancialAccounts in this compartment.
+        Lists FinancialAccounts in this account.
         """
         return cast(
             "ListObject[FinancialAccount]",

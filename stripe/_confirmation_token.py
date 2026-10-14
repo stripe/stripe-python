@@ -933,6 +933,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "wallet": Wallet,
             }
 
+        class Carecredit(StripeObject):
+            pass
+
         class Cashapp(StripeObject):
             buyer_id: Optional[str]
             """
@@ -1029,6 +1032,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
             """
+
+        class Getflex(StripeObject):
+            pass
 
         class GiftCard(StripeObject):
             brand: Union[Literal["svs"], str]
@@ -1437,6 +1443,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Qris(StripeObject):
             pass
 
+        class RakutenPay(StripeObject):
+            pass
+
         class Rechnung(StripeObject):
             class Dob(StripeObject):
                 day: int
@@ -1509,6 +1518,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             _inner_class_types = {"generated_from": GeneratedFrom}
 
         class Sequra(StripeObject):
+            pass
+
+        class Sezzle(StripeObject):
             pass
 
         class Shopeepay(StripeObject):
@@ -1678,6 +1690,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         boleto: Optional[Boleto]
         card: Optional[Card]
         card_present: Optional[CardPresent]
+        carecredit: Optional[Carecredit]
         cashapp: Optional[Cashapp]
         crypto: Optional[Crypto]
         customer: Optional[ExpandableField["Customer"]]
@@ -1688,6 +1701,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
+        getflex: Optional[Getflex]
         gift_card: Optional[GiftCard]
         giropay: Optional[Giropay]
         gopay: Optional[Gopay]
@@ -1716,6 +1730,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         qris: Optional[Qris]
+        rakuten_pay: Optional[RakutenPay]
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
@@ -1723,6 +1738,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sequra: Optional[Sequra]
+        sezzle: Optional[Sezzle]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
@@ -1747,12 +1763,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "boleto",
                 "card",
                 "card_present",
+                "carecredit",
                 "cashapp",
                 "crypto",
                 "custom",
                 "customer_balance",
                 "eps",
                 "fpx",
+                "getflex",
                 "gift_card",
                 "giropay",
                 "gopay",
@@ -1781,6 +1799,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "pix",
                 "promptpay",
                 "qris",
+                "rakuten_pay",
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
@@ -1788,6 +1807,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "scalapay",
                 "sepa_debit",
                 "sequra",
+                "sezzle",
                 "shopeepay",
                 "sofort",
                 "stripe_balance",
@@ -1828,11 +1848,13 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "boleto": Boleto,
             "card": Card,
             "card_present": CardPresent,
+            "carecredit": Carecredit,
             "cashapp": Cashapp,
             "crypto": Crypto,
             "customer_balance": CustomerBalance,
             "eps": Eps,
             "fpx": Fpx,
+            "getflex": Getflex,
             "gift_card": GiftCard,
             "giropay": Giropay,
             "gopay": Gopay,
@@ -1861,6 +1883,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "pix": Pix,
             "promptpay": Promptpay,
             "qris": Qris,
+            "rakuten_pay": RakutenPay,
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
@@ -1868,6 +1891,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sequra": Sequra,
+            "sezzle": Sezzle,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,

@@ -1842,10 +1842,10 @@ class Account(
             tos_acceptance: Optional[TosAcceptance]
             _inner_class_types = {"tos_acceptance": TosAcceptance}
 
-        class WechatPayPayments(StripeObject):
-            mobile_web_domains: Optional[List[str]]
+        class WechatPayMobileWebPayments(StripeObject):
+            domains: Optional[List[str]]
             """
-            The domains of the user's mobile web checkout pages for WeChat Pay payments. At most 4 domains are allowed.
+            The domains of the user's mobile web checkout pages for WeChat Pay payments.
             """
 
         bacs_debit_payments: Optional[BacsDebitPayments]
@@ -1863,7 +1863,7 @@ class Account(
         smart_disputes: Optional[SmartDisputes]
         tax_forms: Optional[TaxForms]
         treasury: Optional[Treasury]
-        wechat_pay_payments: Optional[WechatPayPayments]
+        wechat_pay_mobile_web_payments: Optional[WechatPayMobileWebPayments]
         _inner_class_types = {
             "bacs_debit_payments": BacsDebitPayments,
             "bank_bca_onboarding": BankBcaOnboarding,
@@ -1880,7 +1880,7 @@ class Account(
             "smart_disputes": SmartDisputes,
             "tax_forms": TaxForms,
             "treasury": Treasury,
-            "wechat_pay_payments": WechatPayPayments,
+            "wechat_pay_mobile_web_payments": WechatPayMobileWebPayments,
         }
 
     class TosAcceptance(StripeObject):

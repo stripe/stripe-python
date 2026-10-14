@@ -57,6 +57,10 @@ class AccountEvaluation(StripeObject):
                 """
                 _inner_class_types = {"business_details": BusinessDetails}
 
+            contact_email: Optional[str]
+            """
+            The account's contact email.
+            """
             defaults: Optional[Defaults]
             """
             Default account settings.
@@ -73,7 +77,7 @@ class AccountEvaluation(StripeObject):
         """
         customer: Optional[str]
         """
-        The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+        The v1 customer ID of the account, for users not yet migrated to v2 accounts.
         """
         data: Optional[Data]
         """
@@ -123,6 +127,27 @@ class AccountEvaluation(StripeObject):
             """
             _field_encodings = {"score": "decimal_string"}
 
+        class UserMerchantFit(StripeObject):
+            evaluated_at: Optional[str]
+            """
+            Timestamp at which the signal was evaluated.
+            """
+            fit_level: Union[
+                Literal["standard", "strong", "unknown", "very_strong"], str
+            ]
+            """
+            Categorical assessment of the user-merchant fit.
+            """
+            score: Optional[Decimal]
+            """
+            The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+            """
+            signal: Optional[str]
+            """
+            The account signal ID containing the full user-merchant fit signal result.
+            """
+            _field_encodings = {"score": "decimal_string"}
+
         class UserMultiAccounting(StripeObject):
             evaluated_at: Optional[str]
             """
@@ -152,6 +177,10 @@ class AccountEvaluation(StripeObject):
         """
         User account-sharing result for the evaluation, when available.
         """
+        user_merchant_fit: Optional[UserMerchantFit]
+        """
+        User-merchant fit result for the evaluation, when available.
+        """
         user_multi_accounting: Optional[UserMultiAccounting]
         """
         User multi-accounting result for the evaluation, when available.
@@ -159,6 +188,7 @@ class AccountEvaluation(StripeObject):
         _inner_class_types = {
             "fraudulent_website": FraudulentWebsite,
             "user_account_sharing": UserAccountSharing,
+            "user_merchant_fit": UserMerchantFit,
             "user_multi_accounting": UserMultiAccounting,
         }
 
@@ -195,6 +225,7 @@ class AccountEvaluation(StripeObject):
             Literal[
                 "fraudulent_website",
                 "user_account_sharing",
+                "user_merchant_fit",
                 "user_multi_accounting",
             ],
             str,
@@ -208,6 +239,7 @@ class AccountEvaluation(StripeObject):
             Literal[
                 "fraudulent_website",
                 "user_account_sharing",
+                "user_merchant_fit",
                 "user_multi_accounting",
             ],
             str,

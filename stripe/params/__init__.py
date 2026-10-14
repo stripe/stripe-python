@@ -212,7 +212,7 @@ if TYPE_CHECKING:
         AccountCreateParamsSettingsTaxForms as AccountCreateParamsSettingsTaxForms,
         AccountCreateParamsSettingsTreasury as AccountCreateParamsSettingsTreasury,
         AccountCreateParamsSettingsTreasuryTosAcceptance as AccountCreateParamsSettingsTreasuryTosAcceptance,
-        AccountCreateParamsSettingsWechatPayPayments as AccountCreateParamsSettingsWechatPayPayments,
+        AccountCreateParamsSettingsWechatPayMobileWebPayments as AccountCreateParamsSettingsWechatPayMobileWebPayments,
         AccountCreateParamsTosAcceptance as AccountCreateParamsTosAcceptance,
     )
     from stripe.params._account_create_person_params import (
@@ -662,7 +662,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsTaxForms as AccountUpdateParamsSettingsTaxForms,
         AccountUpdateParamsSettingsTreasury as AccountUpdateParamsSettingsTreasury,
         AccountUpdateParamsSettingsTreasuryTosAcceptance as AccountUpdateParamsSettingsTreasuryTosAcceptance,
-        AccountUpdateParamsSettingsWechatPayPayments as AccountUpdateParamsSettingsWechatPayPayments,
+        AccountUpdateParamsSettingsWechatPayMobileWebPayments as AccountUpdateParamsSettingsWechatPayMobileWebPayments,
         AccountUpdateParamsTosAcceptance as AccountUpdateParamsTosAcceptance,
     )
     from stripe.params._apple_pay_domain_create_params import (
@@ -1034,11 +1034,13 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataBizum as ConfirmationTokenCreateParamsPaymentMethodDataBizum,
         ConfirmationTokenCreateParamsPaymentMethodDataBlik as ConfirmationTokenCreateParamsPaymentMethodDataBlik,
         ConfirmationTokenCreateParamsPaymentMethodDataBoleto as ConfirmationTokenCreateParamsPaymentMethodDataBoleto,
+        ConfirmationTokenCreateParamsPaymentMethodDataCarecredit as ConfirmationTokenCreateParamsPaymentMethodDataCarecredit,
         ConfirmationTokenCreateParamsPaymentMethodDataCashapp as ConfirmationTokenCreateParamsPaymentMethodDataCashapp,
         ConfirmationTokenCreateParamsPaymentMethodDataCrypto as ConfirmationTokenCreateParamsPaymentMethodDataCrypto,
         ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance as ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance,
         ConfirmationTokenCreateParamsPaymentMethodDataEps as ConfirmationTokenCreateParamsPaymentMethodDataEps,
         ConfirmationTokenCreateParamsPaymentMethodDataFpx as ConfirmationTokenCreateParamsPaymentMethodDataFpx,
+        ConfirmationTokenCreateParamsPaymentMethodDataGetflex as ConfirmationTokenCreateParamsPaymentMethodDataGetflex,
         ConfirmationTokenCreateParamsPaymentMethodDataGiftCard as ConfirmationTokenCreateParamsPaymentMethodDataGiftCard,
         ConfirmationTokenCreateParamsPaymentMethodDataGiropay as ConfirmationTokenCreateParamsPaymentMethodDataGiropay,
         ConfirmationTokenCreateParamsPaymentMethodDataGopay as ConfirmationTokenCreateParamsPaymentMethodDataGopay,
@@ -1069,6 +1071,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataPromptpay as ConfirmationTokenCreateParamsPaymentMethodDataPromptpay,
         ConfirmationTokenCreateParamsPaymentMethodDataQris as ConfirmationTokenCreateParamsPaymentMethodDataQris,
         ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions as ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions,
+        ConfirmationTokenCreateParamsPaymentMethodDataRakutenPay as ConfirmationTokenCreateParamsPaymentMethodDataRakutenPay,
         ConfirmationTokenCreateParamsPaymentMethodDataRechnung as ConfirmationTokenCreateParamsPaymentMethodDataRechnung,
         ConfirmationTokenCreateParamsPaymentMethodDataRechnungDob as ConfirmationTokenCreateParamsPaymentMethodDataRechnungDob,
         ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay as ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay,
@@ -1077,6 +1080,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataScalapay as ConfirmationTokenCreateParamsPaymentMethodDataScalapay,
         ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit as ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit,
         ConfirmationTokenCreateParamsPaymentMethodDataSequra as ConfirmationTokenCreateParamsPaymentMethodDataSequra,
+        ConfirmationTokenCreateParamsPaymentMethodDataSezzle as ConfirmationTokenCreateParamsPaymentMethodDataSezzle,
         ConfirmationTokenCreateParamsPaymentMethodDataShopeepay as ConfirmationTokenCreateParamsPaymentMethodDataShopeepay,
         ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
         ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance as ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance,
@@ -2587,11 +2591,13 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataBizum as PaymentIntentConfirmParamsPaymentMethodDataBizum,
         PaymentIntentConfirmParamsPaymentMethodDataBlik as PaymentIntentConfirmParamsPaymentMethodDataBlik,
         PaymentIntentConfirmParamsPaymentMethodDataBoleto as PaymentIntentConfirmParamsPaymentMethodDataBoleto,
+        PaymentIntentConfirmParamsPaymentMethodDataCarecredit as PaymentIntentConfirmParamsPaymentMethodDataCarecredit,
         PaymentIntentConfirmParamsPaymentMethodDataCashapp as PaymentIntentConfirmParamsPaymentMethodDataCashapp,
         PaymentIntentConfirmParamsPaymentMethodDataCrypto as PaymentIntentConfirmParamsPaymentMethodDataCrypto,
         PaymentIntentConfirmParamsPaymentMethodDataCustomerBalance as PaymentIntentConfirmParamsPaymentMethodDataCustomerBalance,
         PaymentIntentConfirmParamsPaymentMethodDataEps as PaymentIntentConfirmParamsPaymentMethodDataEps,
         PaymentIntentConfirmParamsPaymentMethodDataFpx as PaymentIntentConfirmParamsPaymentMethodDataFpx,
+        PaymentIntentConfirmParamsPaymentMethodDataGetflex as PaymentIntentConfirmParamsPaymentMethodDataGetflex,
         PaymentIntentConfirmParamsPaymentMethodDataGiftCard as PaymentIntentConfirmParamsPaymentMethodDataGiftCard,
         PaymentIntentConfirmParamsPaymentMethodDataGiropay as PaymentIntentConfirmParamsPaymentMethodDataGiropay,
         PaymentIntentConfirmParamsPaymentMethodDataGopay as PaymentIntentConfirmParamsPaymentMethodDataGopay,
@@ -2622,6 +2628,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataPromptpay as PaymentIntentConfirmParamsPaymentMethodDataPromptpay,
         PaymentIntentConfirmParamsPaymentMethodDataQris as PaymentIntentConfirmParamsPaymentMethodDataQris,
         PaymentIntentConfirmParamsPaymentMethodDataRadarOptions as PaymentIntentConfirmParamsPaymentMethodDataRadarOptions,
+        PaymentIntentConfirmParamsPaymentMethodDataRakutenPay as PaymentIntentConfirmParamsPaymentMethodDataRakutenPay,
         PaymentIntentConfirmParamsPaymentMethodDataRechnung as PaymentIntentConfirmParamsPaymentMethodDataRechnung,
         PaymentIntentConfirmParamsPaymentMethodDataRechnungDob as PaymentIntentConfirmParamsPaymentMethodDataRechnungDob,
         PaymentIntentConfirmParamsPaymentMethodDataRevolutPay as PaymentIntentConfirmParamsPaymentMethodDataRevolutPay,
@@ -2630,6 +2637,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataScalapay as PaymentIntentConfirmParamsPaymentMethodDataScalapay,
         PaymentIntentConfirmParamsPaymentMethodDataSepaDebit as PaymentIntentConfirmParamsPaymentMethodDataSepaDebit,
         PaymentIntentConfirmParamsPaymentMethodDataSequra as PaymentIntentConfirmParamsPaymentMethodDataSequra,
+        PaymentIntentConfirmParamsPaymentMethodDataSezzle as PaymentIntentConfirmParamsPaymentMethodDataSezzle,
         PaymentIntentConfirmParamsPaymentMethodDataShopeepay as PaymentIntentConfirmParamsPaymentMethodDataShopeepay,
         PaymentIntentConfirmParamsPaymentMethodDataSofort as PaymentIntentConfirmParamsPaymentMethodDataSofort,
         PaymentIntentConfirmParamsPaymentMethodDataStripeBalance as PaymentIntentConfirmParamsPaymentMethodDataStripeBalance,
@@ -2684,6 +2692,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure as PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions as PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCarecredit as PaymentIntentConfirmParamsPaymentMethodOptionsCarecredit,
         PaymentIntentConfirmParamsPaymentMethodOptionsCashapp as PaymentIntentConfirmParamsPaymentMethodOptionsCashapp,
         PaymentIntentConfirmParamsPaymentMethodOptionsCrypto as PaymentIntentConfirmParamsPaymentMethodOptionsCrypto,
         PaymentIntentConfirmParamsPaymentMethodOptionsCryptoAmountReconciliation as PaymentIntentConfirmParamsPaymentMethodOptionsCryptoAmountReconciliation,
@@ -2694,6 +2703,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         PaymentIntentConfirmParamsPaymentMethodOptionsEps as PaymentIntentConfirmParamsPaymentMethodOptionsEps,
         PaymentIntentConfirmParamsPaymentMethodOptionsFpx as PaymentIntentConfirmParamsPaymentMethodOptionsFpx,
+        PaymentIntentConfirmParamsPaymentMethodOptionsGetflex as PaymentIntentConfirmParamsPaymentMethodOptionsGetflex,
         PaymentIntentConfirmParamsPaymentMethodOptionsGiftCard as PaymentIntentConfirmParamsPaymentMethodOptionsGiftCard,
         PaymentIntentConfirmParamsPaymentMethodOptionsGiropay as PaymentIntentConfirmParamsPaymentMethodOptionsGiropay,
         PaymentIntentConfirmParamsPaymentMethodOptionsGopay as PaymentIntentConfirmParamsPaymentMethodOptionsGopay,
@@ -2773,6 +2783,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsSepaDebit as PaymentIntentConfirmParamsPaymentMethodOptionsSepaDebit,
         PaymentIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsSequra as PaymentIntentConfirmParamsPaymentMethodOptionsSequra,
+        PaymentIntentConfirmParamsPaymentMethodOptionsSezzle as PaymentIntentConfirmParamsPaymentMethodOptionsSezzle,
         PaymentIntentConfirmParamsPaymentMethodOptionsShopeepay as PaymentIntentConfirmParamsPaymentMethodOptionsShopeepay,
         PaymentIntentConfirmParamsPaymentMethodOptionsSofort as PaymentIntentConfirmParamsPaymentMethodOptionsSofort,
         PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalance as PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalance,
@@ -2923,11 +2934,13 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataBizum as PaymentIntentCreateParamsPaymentMethodDataBizum,
         PaymentIntentCreateParamsPaymentMethodDataBlik as PaymentIntentCreateParamsPaymentMethodDataBlik,
         PaymentIntentCreateParamsPaymentMethodDataBoleto as PaymentIntentCreateParamsPaymentMethodDataBoleto,
+        PaymentIntentCreateParamsPaymentMethodDataCarecredit as PaymentIntentCreateParamsPaymentMethodDataCarecredit,
         PaymentIntentCreateParamsPaymentMethodDataCashapp as PaymentIntentCreateParamsPaymentMethodDataCashapp,
         PaymentIntentCreateParamsPaymentMethodDataCrypto as PaymentIntentCreateParamsPaymentMethodDataCrypto,
         PaymentIntentCreateParamsPaymentMethodDataCustomerBalance as PaymentIntentCreateParamsPaymentMethodDataCustomerBalance,
         PaymentIntentCreateParamsPaymentMethodDataEps as PaymentIntentCreateParamsPaymentMethodDataEps,
         PaymentIntentCreateParamsPaymentMethodDataFpx as PaymentIntentCreateParamsPaymentMethodDataFpx,
+        PaymentIntentCreateParamsPaymentMethodDataGetflex as PaymentIntentCreateParamsPaymentMethodDataGetflex,
         PaymentIntentCreateParamsPaymentMethodDataGiftCard as PaymentIntentCreateParamsPaymentMethodDataGiftCard,
         PaymentIntentCreateParamsPaymentMethodDataGiropay as PaymentIntentCreateParamsPaymentMethodDataGiropay,
         PaymentIntentCreateParamsPaymentMethodDataGopay as PaymentIntentCreateParamsPaymentMethodDataGopay,
@@ -2958,6 +2971,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataPromptpay as PaymentIntentCreateParamsPaymentMethodDataPromptpay,
         PaymentIntentCreateParamsPaymentMethodDataQris as PaymentIntentCreateParamsPaymentMethodDataQris,
         PaymentIntentCreateParamsPaymentMethodDataRadarOptions as PaymentIntentCreateParamsPaymentMethodDataRadarOptions,
+        PaymentIntentCreateParamsPaymentMethodDataRakutenPay as PaymentIntentCreateParamsPaymentMethodDataRakutenPay,
         PaymentIntentCreateParamsPaymentMethodDataRechnung as PaymentIntentCreateParamsPaymentMethodDataRechnung,
         PaymentIntentCreateParamsPaymentMethodDataRechnungDob as PaymentIntentCreateParamsPaymentMethodDataRechnungDob,
         PaymentIntentCreateParamsPaymentMethodDataRevolutPay as PaymentIntentCreateParamsPaymentMethodDataRevolutPay,
@@ -2966,6 +2980,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataScalapay as PaymentIntentCreateParamsPaymentMethodDataScalapay,
         PaymentIntentCreateParamsPaymentMethodDataSepaDebit as PaymentIntentCreateParamsPaymentMethodDataSepaDebit,
         PaymentIntentCreateParamsPaymentMethodDataSequra as PaymentIntentCreateParamsPaymentMethodDataSequra,
+        PaymentIntentCreateParamsPaymentMethodDataSezzle as PaymentIntentCreateParamsPaymentMethodDataSezzle,
         PaymentIntentCreateParamsPaymentMethodDataShopeepay as PaymentIntentCreateParamsPaymentMethodDataShopeepay,
         PaymentIntentCreateParamsPaymentMethodDataSofort as PaymentIntentCreateParamsPaymentMethodDataSofort,
         PaymentIntentCreateParamsPaymentMethodDataStripeBalance as PaymentIntentCreateParamsPaymentMethodDataStripeBalance,
@@ -3020,6 +3035,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecure as PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecure,
         PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions as PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
+        PaymentIntentCreateParamsPaymentMethodOptionsCarecredit as PaymentIntentCreateParamsPaymentMethodOptionsCarecredit,
         PaymentIntentCreateParamsPaymentMethodOptionsCashapp as PaymentIntentCreateParamsPaymentMethodOptionsCashapp,
         PaymentIntentCreateParamsPaymentMethodOptionsCrypto as PaymentIntentCreateParamsPaymentMethodOptionsCrypto,
         PaymentIntentCreateParamsPaymentMethodOptionsCryptoAmountReconciliation as PaymentIntentCreateParamsPaymentMethodOptionsCryptoAmountReconciliation,
@@ -3030,6 +3046,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         PaymentIntentCreateParamsPaymentMethodOptionsEps as PaymentIntentCreateParamsPaymentMethodOptionsEps,
         PaymentIntentCreateParamsPaymentMethodOptionsFpx as PaymentIntentCreateParamsPaymentMethodOptionsFpx,
+        PaymentIntentCreateParamsPaymentMethodOptionsGetflex as PaymentIntentCreateParamsPaymentMethodOptionsGetflex,
         PaymentIntentCreateParamsPaymentMethodOptionsGiftCard as PaymentIntentCreateParamsPaymentMethodOptionsGiftCard,
         PaymentIntentCreateParamsPaymentMethodOptionsGiropay as PaymentIntentCreateParamsPaymentMethodOptionsGiropay,
         PaymentIntentCreateParamsPaymentMethodOptionsGopay as PaymentIntentCreateParamsPaymentMethodOptionsGopay,
@@ -3109,6 +3126,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsSepaDebit as PaymentIntentCreateParamsPaymentMethodOptionsSepaDebit,
         PaymentIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsSequra as PaymentIntentCreateParamsPaymentMethodOptionsSequra,
+        PaymentIntentCreateParamsPaymentMethodOptionsSezzle as PaymentIntentCreateParamsPaymentMethodOptionsSezzle,
         PaymentIntentCreateParamsPaymentMethodOptionsShopeepay as PaymentIntentCreateParamsPaymentMethodOptionsShopeepay,
         PaymentIntentCreateParamsPaymentMethodOptionsSofort as PaymentIntentCreateParamsPaymentMethodOptionsSofort,
         PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance as PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance,
@@ -3313,11 +3331,13 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataBizum as PaymentIntentModifyParamsPaymentMethodDataBizum,
         PaymentIntentModifyParamsPaymentMethodDataBlik as PaymentIntentModifyParamsPaymentMethodDataBlik,
         PaymentIntentModifyParamsPaymentMethodDataBoleto as PaymentIntentModifyParamsPaymentMethodDataBoleto,
+        PaymentIntentModifyParamsPaymentMethodDataCarecredit as PaymentIntentModifyParamsPaymentMethodDataCarecredit,
         PaymentIntentModifyParamsPaymentMethodDataCashapp as PaymentIntentModifyParamsPaymentMethodDataCashapp,
         PaymentIntentModifyParamsPaymentMethodDataCrypto as PaymentIntentModifyParamsPaymentMethodDataCrypto,
         PaymentIntentModifyParamsPaymentMethodDataCustomerBalance as PaymentIntentModifyParamsPaymentMethodDataCustomerBalance,
         PaymentIntentModifyParamsPaymentMethodDataEps as PaymentIntentModifyParamsPaymentMethodDataEps,
         PaymentIntentModifyParamsPaymentMethodDataFpx as PaymentIntentModifyParamsPaymentMethodDataFpx,
+        PaymentIntentModifyParamsPaymentMethodDataGetflex as PaymentIntentModifyParamsPaymentMethodDataGetflex,
         PaymentIntentModifyParamsPaymentMethodDataGiftCard as PaymentIntentModifyParamsPaymentMethodDataGiftCard,
         PaymentIntentModifyParamsPaymentMethodDataGiropay as PaymentIntentModifyParamsPaymentMethodDataGiropay,
         PaymentIntentModifyParamsPaymentMethodDataGopay as PaymentIntentModifyParamsPaymentMethodDataGopay,
@@ -3348,6 +3368,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataPromptpay as PaymentIntentModifyParamsPaymentMethodDataPromptpay,
         PaymentIntentModifyParamsPaymentMethodDataQris as PaymentIntentModifyParamsPaymentMethodDataQris,
         PaymentIntentModifyParamsPaymentMethodDataRadarOptions as PaymentIntentModifyParamsPaymentMethodDataRadarOptions,
+        PaymentIntentModifyParamsPaymentMethodDataRakutenPay as PaymentIntentModifyParamsPaymentMethodDataRakutenPay,
         PaymentIntentModifyParamsPaymentMethodDataRechnung as PaymentIntentModifyParamsPaymentMethodDataRechnung,
         PaymentIntentModifyParamsPaymentMethodDataRechnungDob as PaymentIntentModifyParamsPaymentMethodDataRechnungDob,
         PaymentIntentModifyParamsPaymentMethodDataRevolutPay as PaymentIntentModifyParamsPaymentMethodDataRevolutPay,
@@ -3356,6 +3377,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataScalapay as PaymentIntentModifyParamsPaymentMethodDataScalapay,
         PaymentIntentModifyParamsPaymentMethodDataSepaDebit as PaymentIntentModifyParamsPaymentMethodDataSepaDebit,
         PaymentIntentModifyParamsPaymentMethodDataSequra as PaymentIntentModifyParamsPaymentMethodDataSequra,
+        PaymentIntentModifyParamsPaymentMethodDataSezzle as PaymentIntentModifyParamsPaymentMethodDataSezzle,
         PaymentIntentModifyParamsPaymentMethodDataShopeepay as PaymentIntentModifyParamsPaymentMethodDataShopeepay,
         PaymentIntentModifyParamsPaymentMethodDataSofort as PaymentIntentModifyParamsPaymentMethodDataSofort,
         PaymentIntentModifyParamsPaymentMethodDataStripeBalance as PaymentIntentModifyParamsPaymentMethodDataStripeBalance,
@@ -3410,6 +3432,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecure as PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecure,
         PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions as PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
+        PaymentIntentModifyParamsPaymentMethodOptionsCarecredit as PaymentIntentModifyParamsPaymentMethodOptionsCarecredit,
         PaymentIntentModifyParamsPaymentMethodOptionsCashapp as PaymentIntentModifyParamsPaymentMethodOptionsCashapp,
         PaymentIntentModifyParamsPaymentMethodOptionsCrypto as PaymentIntentModifyParamsPaymentMethodOptionsCrypto,
         PaymentIntentModifyParamsPaymentMethodOptionsCryptoAmountReconciliation as PaymentIntentModifyParamsPaymentMethodOptionsCryptoAmountReconciliation,
@@ -3420,6 +3443,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         PaymentIntentModifyParamsPaymentMethodOptionsEps as PaymentIntentModifyParamsPaymentMethodOptionsEps,
         PaymentIntentModifyParamsPaymentMethodOptionsFpx as PaymentIntentModifyParamsPaymentMethodOptionsFpx,
+        PaymentIntentModifyParamsPaymentMethodOptionsGetflex as PaymentIntentModifyParamsPaymentMethodOptionsGetflex,
         PaymentIntentModifyParamsPaymentMethodOptionsGiftCard as PaymentIntentModifyParamsPaymentMethodOptionsGiftCard,
         PaymentIntentModifyParamsPaymentMethodOptionsGiropay as PaymentIntentModifyParamsPaymentMethodOptionsGiropay,
         PaymentIntentModifyParamsPaymentMethodOptionsGopay as PaymentIntentModifyParamsPaymentMethodOptionsGopay,
@@ -3499,6 +3523,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsSepaDebit as PaymentIntentModifyParamsPaymentMethodOptionsSepaDebit,
         PaymentIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsSequra as PaymentIntentModifyParamsPaymentMethodOptionsSequra,
+        PaymentIntentModifyParamsPaymentMethodOptionsSezzle as PaymentIntentModifyParamsPaymentMethodOptionsSezzle,
         PaymentIntentModifyParamsPaymentMethodOptionsShopeepay as PaymentIntentModifyParamsPaymentMethodOptionsShopeepay,
         PaymentIntentModifyParamsPaymentMethodOptionsSofort as PaymentIntentModifyParamsPaymentMethodOptionsSofort,
         PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance as PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance,
@@ -3667,11 +3692,13 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataBizum as PaymentIntentUpdateParamsPaymentMethodDataBizum,
         PaymentIntentUpdateParamsPaymentMethodDataBlik as PaymentIntentUpdateParamsPaymentMethodDataBlik,
         PaymentIntentUpdateParamsPaymentMethodDataBoleto as PaymentIntentUpdateParamsPaymentMethodDataBoleto,
+        PaymentIntentUpdateParamsPaymentMethodDataCarecredit as PaymentIntentUpdateParamsPaymentMethodDataCarecredit,
         PaymentIntentUpdateParamsPaymentMethodDataCashapp as PaymentIntentUpdateParamsPaymentMethodDataCashapp,
         PaymentIntentUpdateParamsPaymentMethodDataCrypto as PaymentIntentUpdateParamsPaymentMethodDataCrypto,
         PaymentIntentUpdateParamsPaymentMethodDataCustomerBalance as PaymentIntentUpdateParamsPaymentMethodDataCustomerBalance,
         PaymentIntentUpdateParamsPaymentMethodDataEps as PaymentIntentUpdateParamsPaymentMethodDataEps,
         PaymentIntentUpdateParamsPaymentMethodDataFpx as PaymentIntentUpdateParamsPaymentMethodDataFpx,
+        PaymentIntentUpdateParamsPaymentMethodDataGetflex as PaymentIntentUpdateParamsPaymentMethodDataGetflex,
         PaymentIntentUpdateParamsPaymentMethodDataGiftCard as PaymentIntentUpdateParamsPaymentMethodDataGiftCard,
         PaymentIntentUpdateParamsPaymentMethodDataGiropay as PaymentIntentUpdateParamsPaymentMethodDataGiropay,
         PaymentIntentUpdateParamsPaymentMethodDataGopay as PaymentIntentUpdateParamsPaymentMethodDataGopay,
@@ -3702,6 +3729,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataPromptpay as PaymentIntentUpdateParamsPaymentMethodDataPromptpay,
         PaymentIntentUpdateParamsPaymentMethodDataQris as PaymentIntentUpdateParamsPaymentMethodDataQris,
         PaymentIntentUpdateParamsPaymentMethodDataRadarOptions as PaymentIntentUpdateParamsPaymentMethodDataRadarOptions,
+        PaymentIntentUpdateParamsPaymentMethodDataRakutenPay as PaymentIntentUpdateParamsPaymentMethodDataRakutenPay,
         PaymentIntentUpdateParamsPaymentMethodDataRechnung as PaymentIntentUpdateParamsPaymentMethodDataRechnung,
         PaymentIntentUpdateParamsPaymentMethodDataRechnungDob as PaymentIntentUpdateParamsPaymentMethodDataRechnungDob,
         PaymentIntentUpdateParamsPaymentMethodDataRevolutPay as PaymentIntentUpdateParamsPaymentMethodDataRevolutPay,
@@ -3710,6 +3738,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataScalapay as PaymentIntentUpdateParamsPaymentMethodDataScalapay,
         PaymentIntentUpdateParamsPaymentMethodDataSepaDebit as PaymentIntentUpdateParamsPaymentMethodDataSepaDebit,
         PaymentIntentUpdateParamsPaymentMethodDataSequra as PaymentIntentUpdateParamsPaymentMethodDataSequra,
+        PaymentIntentUpdateParamsPaymentMethodDataSezzle as PaymentIntentUpdateParamsPaymentMethodDataSezzle,
         PaymentIntentUpdateParamsPaymentMethodDataShopeepay as PaymentIntentUpdateParamsPaymentMethodDataShopeepay,
         PaymentIntentUpdateParamsPaymentMethodDataSofort as PaymentIntentUpdateParamsPaymentMethodDataSofort,
         PaymentIntentUpdateParamsPaymentMethodDataStripeBalance as PaymentIntentUpdateParamsPaymentMethodDataStripeBalance,
@@ -3764,6 +3793,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecure as PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecure,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions as PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCarecredit as PaymentIntentUpdateParamsPaymentMethodOptionsCarecredit,
         PaymentIntentUpdateParamsPaymentMethodOptionsCashapp as PaymentIntentUpdateParamsPaymentMethodOptionsCashapp,
         PaymentIntentUpdateParamsPaymentMethodOptionsCrypto as PaymentIntentUpdateParamsPaymentMethodOptionsCrypto,
         PaymentIntentUpdateParamsPaymentMethodOptionsCryptoAmountReconciliation as PaymentIntentUpdateParamsPaymentMethodOptionsCryptoAmountReconciliation,
@@ -3774,6 +3804,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         PaymentIntentUpdateParamsPaymentMethodOptionsEps as PaymentIntentUpdateParamsPaymentMethodOptionsEps,
         PaymentIntentUpdateParamsPaymentMethodOptionsFpx as PaymentIntentUpdateParamsPaymentMethodOptionsFpx,
+        PaymentIntentUpdateParamsPaymentMethodOptionsGetflex as PaymentIntentUpdateParamsPaymentMethodOptionsGetflex,
         PaymentIntentUpdateParamsPaymentMethodOptionsGiftCard as PaymentIntentUpdateParamsPaymentMethodOptionsGiftCard,
         PaymentIntentUpdateParamsPaymentMethodOptionsGiropay as PaymentIntentUpdateParamsPaymentMethodOptionsGiropay,
         PaymentIntentUpdateParamsPaymentMethodOptionsGopay as PaymentIntentUpdateParamsPaymentMethodOptionsGopay,
@@ -3853,6 +3884,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsSepaDebit as PaymentIntentUpdateParamsPaymentMethodOptionsSepaDebit,
         PaymentIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsSequra as PaymentIntentUpdateParamsPaymentMethodOptionsSequra,
+        PaymentIntentUpdateParamsPaymentMethodOptionsSezzle as PaymentIntentUpdateParamsPaymentMethodOptionsSezzle,
         PaymentIntentUpdateParamsPaymentMethodOptionsShopeepay as PaymentIntentUpdateParamsPaymentMethodOptionsShopeepay,
         PaymentIntentUpdateParamsPaymentMethodOptionsSofort as PaymentIntentUpdateParamsPaymentMethodOptionsSofort,
         PaymentIntentUpdateParamsPaymentMethodOptionsStripeBalance as PaymentIntentUpdateParamsPaymentMethodOptionsStripeBalance,
@@ -4525,12 +4557,14 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsBoleto as PaymentMethodCreateParamsBoleto,
         PaymentMethodCreateParamsCard as PaymentMethodCreateParamsCard,
         PaymentMethodCreateParamsCardNetworks as PaymentMethodCreateParamsCardNetworks,
+        PaymentMethodCreateParamsCarecredit as PaymentMethodCreateParamsCarecredit,
         PaymentMethodCreateParamsCashapp as PaymentMethodCreateParamsCashapp,
         PaymentMethodCreateParamsCrypto as PaymentMethodCreateParamsCrypto,
         PaymentMethodCreateParamsCustom as PaymentMethodCreateParamsCustom,
         PaymentMethodCreateParamsCustomerBalance as PaymentMethodCreateParamsCustomerBalance,
         PaymentMethodCreateParamsEps as PaymentMethodCreateParamsEps,
         PaymentMethodCreateParamsFpx as PaymentMethodCreateParamsFpx,
+        PaymentMethodCreateParamsGetflex as PaymentMethodCreateParamsGetflex,
         PaymentMethodCreateParamsGiftCard as PaymentMethodCreateParamsGiftCard,
         PaymentMethodCreateParamsGiropay as PaymentMethodCreateParamsGiropay,
         PaymentMethodCreateParamsGopay as PaymentMethodCreateParamsGopay,
@@ -4561,6 +4595,7 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsPromptpay as PaymentMethodCreateParamsPromptpay,
         PaymentMethodCreateParamsQris as PaymentMethodCreateParamsQris,
         PaymentMethodCreateParamsRadarOptions as PaymentMethodCreateParamsRadarOptions,
+        PaymentMethodCreateParamsRakutenPay as PaymentMethodCreateParamsRakutenPay,
         PaymentMethodCreateParamsRechnung as PaymentMethodCreateParamsRechnung,
         PaymentMethodCreateParamsRechnungDob as PaymentMethodCreateParamsRechnungDob,
         PaymentMethodCreateParamsRevolutPay as PaymentMethodCreateParamsRevolutPay,
@@ -4569,6 +4604,7 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsScalapay as PaymentMethodCreateParamsScalapay,
         PaymentMethodCreateParamsSepaDebit as PaymentMethodCreateParamsSepaDebit,
         PaymentMethodCreateParamsSequra as PaymentMethodCreateParamsSequra,
+        PaymentMethodCreateParamsSezzle as PaymentMethodCreateParamsSezzle,
         PaymentMethodCreateParamsShopeepay as PaymentMethodCreateParamsShopeepay,
         PaymentMethodCreateParamsSofort as PaymentMethodCreateParamsSofort,
         PaymentMethodCreateParamsStripeBalance as PaymentMethodCreateParamsStripeBalance,
@@ -5320,11 +5356,13 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataBizum as SetupIntentConfirmParamsPaymentMethodDataBizum,
         SetupIntentConfirmParamsPaymentMethodDataBlik as SetupIntentConfirmParamsPaymentMethodDataBlik,
         SetupIntentConfirmParamsPaymentMethodDataBoleto as SetupIntentConfirmParamsPaymentMethodDataBoleto,
+        SetupIntentConfirmParamsPaymentMethodDataCarecredit as SetupIntentConfirmParamsPaymentMethodDataCarecredit,
         SetupIntentConfirmParamsPaymentMethodDataCashapp as SetupIntentConfirmParamsPaymentMethodDataCashapp,
         SetupIntentConfirmParamsPaymentMethodDataCrypto as SetupIntentConfirmParamsPaymentMethodDataCrypto,
         SetupIntentConfirmParamsPaymentMethodDataCustomerBalance as SetupIntentConfirmParamsPaymentMethodDataCustomerBalance,
         SetupIntentConfirmParamsPaymentMethodDataEps as SetupIntentConfirmParamsPaymentMethodDataEps,
         SetupIntentConfirmParamsPaymentMethodDataFpx as SetupIntentConfirmParamsPaymentMethodDataFpx,
+        SetupIntentConfirmParamsPaymentMethodDataGetflex as SetupIntentConfirmParamsPaymentMethodDataGetflex,
         SetupIntentConfirmParamsPaymentMethodDataGiftCard as SetupIntentConfirmParamsPaymentMethodDataGiftCard,
         SetupIntentConfirmParamsPaymentMethodDataGiropay as SetupIntentConfirmParamsPaymentMethodDataGiropay,
         SetupIntentConfirmParamsPaymentMethodDataGopay as SetupIntentConfirmParamsPaymentMethodDataGopay,
@@ -5355,6 +5393,7 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataPromptpay as SetupIntentConfirmParamsPaymentMethodDataPromptpay,
         SetupIntentConfirmParamsPaymentMethodDataQris as SetupIntentConfirmParamsPaymentMethodDataQris,
         SetupIntentConfirmParamsPaymentMethodDataRadarOptions as SetupIntentConfirmParamsPaymentMethodDataRadarOptions,
+        SetupIntentConfirmParamsPaymentMethodDataRakutenPay as SetupIntentConfirmParamsPaymentMethodDataRakutenPay,
         SetupIntentConfirmParamsPaymentMethodDataRechnung as SetupIntentConfirmParamsPaymentMethodDataRechnung,
         SetupIntentConfirmParamsPaymentMethodDataRechnungDob as SetupIntentConfirmParamsPaymentMethodDataRechnungDob,
         SetupIntentConfirmParamsPaymentMethodDataRevolutPay as SetupIntentConfirmParamsPaymentMethodDataRevolutPay,
@@ -5363,6 +5402,7 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataScalapay as SetupIntentConfirmParamsPaymentMethodDataScalapay,
         SetupIntentConfirmParamsPaymentMethodDataSepaDebit as SetupIntentConfirmParamsPaymentMethodDataSepaDebit,
         SetupIntentConfirmParamsPaymentMethodDataSequra as SetupIntentConfirmParamsPaymentMethodDataSequra,
+        SetupIntentConfirmParamsPaymentMethodDataSezzle as SetupIntentConfirmParamsPaymentMethodDataSezzle,
         SetupIntentConfirmParamsPaymentMethodDataShopeepay as SetupIntentConfirmParamsPaymentMethodDataShopeepay,
         SetupIntentConfirmParamsPaymentMethodDataSofort as SetupIntentConfirmParamsPaymentMethodDataSofort,
         SetupIntentConfirmParamsPaymentMethodDataStripeBalance as SetupIntentConfirmParamsPaymentMethodDataStripeBalance,
@@ -5440,11 +5480,13 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataBizum as SetupIntentCreateParamsPaymentMethodDataBizum,
         SetupIntentCreateParamsPaymentMethodDataBlik as SetupIntentCreateParamsPaymentMethodDataBlik,
         SetupIntentCreateParamsPaymentMethodDataBoleto as SetupIntentCreateParamsPaymentMethodDataBoleto,
+        SetupIntentCreateParamsPaymentMethodDataCarecredit as SetupIntentCreateParamsPaymentMethodDataCarecredit,
         SetupIntentCreateParamsPaymentMethodDataCashapp as SetupIntentCreateParamsPaymentMethodDataCashapp,
         SetupIntentCreateParamsPaymentMethodDataCrypto as SetupIntentCreateParamsPaymentMethodDataCrypto,
         SetupIntentCreateParamsPaymentMethodDataCustomerBalance as SetupIntentCreateParamsPaymentMethodDataCustomerBalance,
         SetupIntentCreateParamsPaymentMethodDataEps as SetupIntentCreateParamsPaymentMethodDataEps,
         SetupIntentCreateParamsPaymentMethodDataFpx as SetupIntentCreateParamsPaymentMethodDataFpx,
+        SetupIntentCreateParamsPaymentMethodDataGetflex as SetupIntentCreateParamsPaymentMethodDataGetflex,
         SetupIntentCreateParamsPaymentMethodDataGiftCard as SetupIntentCreateParamsPaymentMethodDataGiftCard,
         SetupIntentCreateParamsPaymentMethodDataGiropay as SetupIntentCreateParamsPaymentMethodDataGiropay,
         SetupIntentCreateParamsPaymentMethodDataGopay as SetupIntentCreateParamsPaymentMethodDataGopay,
@@ -5475,6 +5517,7 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataPromptpay as SetupIntentCreateParamsPaymentMethodDataPromptpay,
         SetupIntentCreateParamsPaymentMethodDataQris as SetupIntentCreateParamsPaymentMethodDataQris,
         SetupIntentCreateParamsPaymentMethodDataRadarOptions as SetupIntentCreateParamsPaymentMethodDataRadarOptions,
+        SetupIntentCreateParamsPaymentMethodDataRakutenPay as SetupIntentCreateParamsPaymentMethodDataRakutenPay,
         SetupIntentCreateParamsPaymentMethodDataRechnung as SetupIntentCreateParamsPaymentMethodDataRechnung,
         SetupIntentCreateParamsPaymentMethodDataRechnungDob as SetupIntentCreateParamsPaymentMethodDataRechnungDob,
         SetupIntentCreateParamsPaymentMethodDataRevolutPay as SetupIntentCreateParamsPaymentMethodDataRevolutPay,
@@ -5483,6 +5526,7 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataScalapay as SetupIntentCreateParamsPaymentMethodDataScalapay,
         SetupIntentCreateParamsPaymentMethodDataSepaDebit as SetupIntentCreateParamsPaymentMethodDataSepaDebit,
         SetupIntentCreateParamsPaymentMethodDataSequra as SetupIntentCreateParamsPaymentMethodDataSequra,
+        SetupIntentCreateParamsPaymentMethodDataSezzle as SetupIntentCreateParamsPaymentMethodDataSezzle,
         SetupIntentCreateParamsPaymentMethodDataShopeepay as SetupIntentCreateParamsPaymentMethodDataShopeepay,
         SetupIntentCreateParamsPaymentMethodDataSofort as SetupIntentCreateParamsPaymentMethodDataSofort,
         SetupIntentCreateParamsPaymentMethodDataStripeBalance as SetupIntentCreateParamsPaymentMethodDataStripeBalance,
@@ -5560,11 +5604,13 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataBizum as SetupIntentModifyParamsPaymentMethodDataBizum,
         SetupIntentModifyParamsPaymentMethodDataBlik as SetupIntentModifyParamsPaymentMethodDataBlik,
         SetupIntentModifyParamsPaymentMethodDataBoleto as SetupIntentModifyParamsPaymentMethodDataBoleto,
+        SetupIntentModifyParamsPaymentMethodDataCarecredit as SetupIntentModifyParamsPaymentMethodDataCarecredit,
         SetupIntentModifyParamsPaymentMethodDataCashapp as SetupIntentModifyParamsPaymentMethodDataCashapp,
         SetupIntentModifyParamsPaymentMethodDataCrypto as SetupIntentModifyParamsPaymentMethodDataCrypto,
         SetupIntentModifyParamsPaymentMethodDataCustomerBalance as SetupIntentModifyParamsPaymentMethodDataCustomerBalance,
         SetupIntentModifyParamsPaymentMethodDataEps as SetupIntentModifyParamsPaymentMethodDataEps,
         SetupIntentModifyParamsPaymentMethodDataFpx as SetupIntentModifyParamsPaymentMethodDataFpx,
+        SetupIntentModifyParamsPaymentMethodDataGetflex as SetupIntentModifyParamsPaymentMethodDataGetflex,
         SetupIntentModifyParamsPaymentMethodDataGiftCard as SetupIntentModifyParamsPaymentMethodDataGiftCard,
         SetupIntentModifyParamsPaymentMethodDataGiropay as SetupIntentModifyParamsPaymentMethodDataGiropay,
         SetupIntentModifyParamsPaymentMethodDataGopay as SetupIntentModifyParamsPaymentMethodDataGopay,
@@ -5595,6 +5641,7 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataPromptpay as SetupIntentModifyParamsPaymentMethodDataPromptpay,
         SetupIntentModifyParamsPaymentMethodDataQris as SetupIntentModifyParamsPaymentMethodDataQris,
         SetupIntentModifyParamsPaymentMethodDataRadarOptions as SetupIntentModifyParamsPaymentMethodDataRadarOptions,
+        SetupIntentModifyParamsPaymentMethodDataRakutenPay as SetupIntentModifyParamsPaymentMethodDataRakutenPay,
         SetupIntentModifyParamsPaymentMethodDataRechnung as SetupIntentModifyParamsPaymentMethodDataRechnung,
         SetupIntentModifyParamsPaymentMethodDataRechnungDob as SetupIntentModifyParamsPaymentMethodDataRechnungDob,
         SetupIntentModifyParamsPaymentMethodDataRevolutPay as SetupIntentModifyParamsPaymentMethodDataRevolutPay,
@@ -5603,6 +5650,7 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataScalapay as SetupIntentModifyParamsPaymentMethodDataScalapay,
         SetupIntentModifyParamsPaymentMethodDataSepaDebit as SetupIntentModifyParamsPaymentMethodDataSepaDebit,
         SetupIntentModifyParamsPaymentMethodDataSequra as SetupIntentModifyParamsPaymentMethodDataSequra,
+        SetupIntentModifyParamsPaymentMethodDataSezzle as SetupIntentModifyParamsPaymentMethodDataSezzle,
         SetupIntentModifyParamsPaymentMethodDataShopeepay as SetupIntentModifyParamsPaymentMethodDataShopeepay,
         SetupIntentModifyParamsPaymentMethodDataSofort as SetupIntentModifyParamsPaymentMethodDataSofort,
         SetupIntentModifyParamsPaymentMethodDataStripeBalance as SetupIntentModifyParamsPaymentMethodDataStripeBalance,
@@ -5678,11 +5726,13 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataBizum as SetupIntentUpdateParamsPaymentMethodDataBizum,
         SetupIntentUpdateParamsPaymentMethodDataBlik as SetupIntentUpdateParamsPaymentMethodDataBlik,
         SetupIntentUpdateParamsPaymentMethodDataBoleto as SetupIntentUpdateParamsPaymentMethodDataBoleto,
+        SetupIntentUpdateParamsPaymentMethodDataCarecredit as SetupIntentUpdateParamsPaymentMethodDataCarecredit,
         SetupIntentUpdateParamsPaymentMethodDataCashapp as SetupIntentUpdateParamsPaymentMethodDataCashapp,
         SetupIntentUpdateParamsPaymentMethodDataCrypto as SetupIntentUpdateParamsPaymentMethodDataCrypto,
         SetupIntentUpdateParamsPaymentMethodDataCustomerBalance as SetupIntentUpdateParamsPaymentMethodDataCustomerBalance,
         SetupIntentUpdateParamsPaymentMethodDataEps as SetupIntentUpdateParamsPaymentMethodDataEps,
         SetupIntentUpdateParamsPaymentMethodDataFpx as SetupIntentUpdateParamsPaymentMethodDataFpx,
+        SetupIntentUpdateParamsPaymentMethodDataGetflex as SetupIntentUpdateParamsPaymentMethodDataGetflex,
         SetupIntentUpdateParamsPaymentMethodDataGiftCard as SetupIntentUpdateParamsPaymentMethodDataGiftCard,
         SetupIntentUpdateParamsPaymentMethodDataGiropay as SetupIntentUpdateParamsPaymentMethodDataGiropay,
         SetupIntentUpdateParamsPaymentMethodDataGopay as SetupIntentUpdateParamsPaymentMethodDataGopay,
@@ -5713,6 +5763,7 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataPromptpay as SetupIntentUpdateParamsPaymentMethodDataPromptpay,
         SetupIntentUpdateParamsPaymentMethodDataQris as SetupIntentUpdateParamsPaymentMethodDataQris,
         SetupIntentUpdateParamsPaymentMethodDataRadarOptions as SetupIntentUpdateParamsPaymentMethodDataRadarOptions,
+        SetupIntentUpdateParamsPaymentMethodDataRakutenPay as SetupIntentUpdateParamsPaymentMethodDataRakutenPay,
         SetupIntentUpdateParamsPaymentMethodDataRechnung as SetupIntentUpdateParamsPaymentMethodDataRechnung,
         SetupIntentUpdateParamsPaymentMethodDataRechnungDob as SetupIntentUpdateParamsPaymentMethodDataRechnungDob,
         SetupIntentUpdateParamsPaymentMethodDataRevolutPay as SetupIntentUpdateParamsPaymentMethodDataRevolutPay,
@@ -5721,6 +5772,7 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataScalapay as SetupIntentUpdateParamsPaymentMethodDataScalapay,
         SetupIntentUpdateParamsPaymentMethodDataSepaDebit as SetupIntentUpdateParamsPaymentMethodDataSepaDebit,
         SetupIntentUpdateParamsPaymentMethodDataSequra as SetupIntentUpdateParamsPaymentMethodDataSequra,
+        SetupIntentUpdateParamsPaymentMethodDataSezzle as SetupIntentUpdateParamsPaymentMethodDataSezzle,
         SetupIntentUpdateParamsPaymentMethodDataShopeepay as SetupIntentUpdateParamsPaymentMethodDataShopeepay,
         SetupIntentUpdateParamsPaymentMethodDataSofort as SetupIntentUpdateParamsPaymentMethodDataSofort,
         SetupIntentUpdateParamsPaymentMethodDataStripeBalance as SetupIntentUpdateParamsPaymentMethodDataStripeBalance,
@@ -7325,7 +7377,7 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
-    "AccountCreateParamsSettingsWechatPayPayments": (
+    "AccountCreateParamsSettingsWechatPayMobileWebPayments": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -8786,7 +8838,7 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
-    "AccountUpdateParamsSettingsWechatPayPayments": (
+    "AccountUpdateParamsSettingsWechatPayMobileWebPayments": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -9972,6 +10024,10 @@ _import_map = {
         "stripe.params._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataCarecredit": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataCashapp": (
         "stripe.params._confirmation_token_create_params",
         False,
@@ -9989,6 +10045,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataFpx": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataGetflex": (
         "stripe.params._confirmation_token_create_params",
         False,
     ),
@@ -10112,6 +10172,10 @@ _import_map = {
         "stripe.params._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataRechnung": (
         "stripe.params._confirmation_token_create_params",
         False,
@@ -10141,6 +10205,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataSequra": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataSezzle": (
         "stripe.params._confirmation_token_create_params",
         False,
     ),
@@ -14580,6 +14648,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodDataCarecredit": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodDataCashapp": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14597,6 +14669,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodDataFpx": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodDataGetflex": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -14720,6 +14796,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodDataRechnung": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14749,6 +14829,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodDataSequra": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodDataSezzle": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -14968,6 +15052,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCarecredit": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCashapp": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -15005,6 +15093,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsFpx": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsGetflex": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15321,6 +15413,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsSequra": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsSezzle": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15916,6 +16012,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodDataCarecredit": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodDataCashapp": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -15933,6 +16033,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodDataFpx": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodDataGetflex": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -16056,6 +16160,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodDataRechnung": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -16085,6 +16193,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodDataSequra": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodDataSezzle": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -16304,6 +16416,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCarecredit": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCashapp": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -16341,6 +16457,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsFpx": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsGetflex": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -16657,6 +16777,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsSequra": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsSezzle": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -17436,6 +17560,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodDataCarecredit": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodDataCashapp": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17453,6 +17581,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodDataFpx": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodDataGetflex": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -17576,6 +17708,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodDataRechnung": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17605,6 +17741,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodDataSequra": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodDataSezzle": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -17824,6 +17964,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCarecredit": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCashapp": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17861,6 +18005,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsFpx": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsGetflex": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -18177,6 +18325,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsSequra": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsSezzle": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -18796,6 +18948,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodDataCarecredit": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodDataCashapp": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -18813,6 +18969,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodDataFpx": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodDataGetflex": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -18936,6 +19096,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodDataRechnung": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -18965,6 +19129,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodDataSequra": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodDataSezzle": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -19184,6 +19352,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCarecredit": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCashapp": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -19221,6 +19393,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsFpx": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsGetflex": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -19537,6 +19713,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsSequra": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsSezzle": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -22020,6 +22200,10 @@ _import_map = {
         "stripe.params._payment_method_create_params",
         False,
     ),
+    "PaymentMethodCreateParamsCarecredit": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
     "PaymentMethodCreateParamsCashapp": (
         "stripe.params._payment_method_create_params",
         False,
@@ -22041,6 +22225,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodCreateParamsFpx": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsGetflex": (
         "stripe.params._payment_method_create_params",
         False,
     ),
@@ -22164,6 +22352,10 @@ _import_map = {
         "stripe.params._payment_method_create_params",
         False,
     ),
+    "PaymentMethodCreateParamsRakutenPay": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
     "PaymentMethodCreateParamsRechnung": (
         "stripe.params._payment_method_create_params",
         False,
@@ -22193,6 +22385,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodCreateParamsSequra": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsSezzle": (
         "stripe.params._payment_method_create_params",
         False,
     ),
@@ -24180,6 +24376,10 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodDataCarecredit": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodDataCashapp": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -24197,6 +24397,10 @@ _import_map = {
         False,
     ),
     "SetupIntentConfirmParamsPaymentMethodDataFpx": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodDataGetflex": (
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
@@ -24320,6 +24524,10 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodDataRechnung": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -24349,6 +24557,10 @@ _import_map = {
         False,
     ),
     "SetupIntentConfirmParamsPaymentMethodDataSequra": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodDataSezzle": (
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
@@ -24652,6 +24864,10 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodDataCarecredit": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodDataCashapp": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -24669,6 +24885,10 @@ _import_map = {
         False,
     ),
     "SetupIntentCreateParamsPaymentMethodDataFpx": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodDataGetflex": (
         "stripe.params._setup_intent_create_params",
         False,
     ),
@@ -24792,6 +25012,10 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodDataRechnung": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -24821,6 +25045,10 @@ _import_map = {
         False,
     ),
     "SetupIntentCreateParamsPaymentMethodDataSequra": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodDataSezzle": (
         "stripe.params._setup_intent_create_params",
         False,
     ),
@@ -25116,6 +25344,10 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodDataCarecredit": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodDataCashapp": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -25133,6 +25365,10 @@ _import_map = {
         False,
     ),
     "SetupIntentModifyParamsPaymentMethodDataFpx": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodDataGetflex": (
         "stripe.params._setup_intent_modify_params",
         False,
     ),
@@ -25256,6 +25492,10 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodDataRechnung": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -25285,6 +25525,10 @@ _import_map = {
         False,
     ),
     "SetupIntentModifyParamsPaymentMethodDataSequra": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodDataSezzle": (
         "stripe.params._setup_intent_modify_params",
         False,
     ),
@@ -25572,6 +25816,10 @@ _import_map = {
         "stripe.params._setup_intent_update_params",
         False,
     ),
+    "SetupIntentUpdateParamsPaymentMethodDataCarecredit": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
     "SetupIntentUpdateParamsPaymentMethodDataCashapp": (
         "stripe.params._setup_intent_update_params",
         False,
@@ -25589,6 +25837,10 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodDataFpx": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodDataGetflex": (
         "stripe.params._setup_intent_update_params",
         False,
     ),
@@ -25712,6 +25964,10 @@ _import_map = {
         "stripe.params._setup_intent_update_params",
         False,
     ),
+    "SetupIntentUpdateParamsPaymentMethodDataRakutenPay": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
     "SetupIntentUpdateParamsPaymentMethodDataRechnung": (
         "stripe.params._setup_intent_update_params",
         False,
@@ -25741,6 +25997,10 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodDataSequra": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodDataSezzle": (
         "stripe.params._setup_intent_update_params",
         False,
     ),
