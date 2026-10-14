@@ -22,6 +22,7 @@ class AccountSignalListParams(TypedDict):
                 "merchant_delinquency",
                 "payment_delinquency_exposure",
                 "user_account_sharing",
+                "user_merchant_fit",
                 "user_multi_accounting",
             ],
             str,

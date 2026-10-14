@@ -4,18 +4,12 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.core.vault._gb_bank_account_acknowledge_confirmation_of_payee_params import (
-        GbBankAccountAcknowledgeConfirmationOfPayeeParams as GbBankAccountAcknowledgeConfirmationOfPayeeParams,
-    )
     from stripe.params.v2.core.vault._gb_bank_account_archive_params import (
         GbBankAccountArchiveParams as GbBankAccountArchiveParams,
     )
     from stripe.params.v2.core.vault._gb_bank_account_create_params import (
         GbBankAccountCreateParams as GbBankAccountCreateParams,
         GbBankAccountCreateParamsConfirmationOfPayee as GbBankAccountCreateParamsConfirmationOfPayee,
-    )
-    from stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params import (
-        GbBankAccountInitiateConfirmationOfPayeeParams as GbBankAccountInitiateConfirmationOfPayeeParams,
     )
     from stripe.params.v2.core.vault._gb_bank_account_list_params import (
         GbBankAccountListParams as GbBankAccountListParams,
@@ -62,10 +56,6 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "GbBankAccountAcknowledgeConfirmationOfPayeeParams": (
-        "stripe.params.v2.core.vault._gb_bank_account_acknowledge_confirmation_of_payee_params",
-        False,
-    ),
     "GbBankAccountArchiveParams": (
         "stripe.params.v2.core.vault._gb_bank_account_archive_params",
         False,
@@ -76,10 +66,6 @@ _import_map = {
     ),
     "GbBankAccountCreateParamsConfirmationOfPayee": (
         "stripe.params.v2.core.vault._gb_bank_account_create_params",
-        False,
-    ),
-    "GbBankAccountInitiateConfirmationOfPayeeParams": (
-        "stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params",
         False,
     ),
     "GbBankAccountListParams": (

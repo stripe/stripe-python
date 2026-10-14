@@ -18,6 +18,7 @@ class AccountEvaluationCreateParams(TypedDict):
             Literal[
                 "fraudulent_website",
                 "user_account_sharing",
+                "user_merchant_fit",
                 "user_multi_accounting",
             ],
             str,
@@ -29,6 +30,10 @@ class AccountEvaluationCreateParams(TypedDict):
 
 
 class AccountEvaluationCreateParamsAccountData(TypedDict):
+    contact_email: NotRequired[str]
+    """
+    The account's contact email.
+    """
     defaults: NotRequired["AccountEvaluationCreateParamsAccountDataDefaults"]
     """
     Default account settings.

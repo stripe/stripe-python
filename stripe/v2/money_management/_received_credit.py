@@ -216,6 +216,20 @@ class ReceivedCredit(StripeObject):
                 The routing number of the account that originated the transfer.
                 """
 
+            class BreB(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that sent the payment.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                network: Union[Literal["bre_b"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+
             class Clabe(StripeObject):
                 account_holder_name: Optional[str]
                 """
@@ -286,6 +300,46 @@ class ReceivedCredit(StripeObject):
                 Open Enum. The money transmission network used to send funds for this ReceivedCredit.
                 """
 
+            class Nip(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that sent the payment.
+                """
+                bank_code: Optional[str]
+                """
+                The Nigerian bank code of the bank that originated the transfer.
+                """
+                bank_name: Optional[str]
+                """
+                The name of the bank that originated the transfer.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                network: Union[Literal["nip"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+
+            class Pix(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that sent the payment.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                br_code: Optional[str]
+                """
+                The Pix BR code of the account that originated the transfer.
+                """
+                network: Union[Literal["pix"], str]
+                """
+                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+                """
+
             class SortCode(StripeObject):
                 account_holder_name: Optional[str]
                 """
@@ -316,6 +370,10 @@ class ReceivedCredit(StripeObject):
             """
             Hash containing the transaction bank details. Present if `type` field value is `aba`.
             """
+            bre_b: Optional[BreB]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `bre_b`.
+            """
             clabe: Optional[Clabe]
             """
             Hash containing the transaction bank details. Present if `type` field value is `clabe`.
@@ -328,21 +386,42 @@ class ReceivedCredit(StripeObject):
             """
             Hash containing the transaction bank details. Present if `type` field value is `iban`.
             """
+            nip: Optional[Nip]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `nip`.
+            """
+            pix: Optional[Pix]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `pix`.
+            """
             sort_code: Optional[SortCode]
             """
             Hash containing the transaction bank details. Present if `type` field value is `sort_code`.
             """
             type: Union[
-                Literal["aba", "clabe", "cpa", "iban", "sort_code"], str
+                Literal[
+                    "aba",
+                    "bre_b",
+                    "clabe",
+                    "cpa",
+                    "iban",
+                    "nip",
+                    "pix",
+                    "sort_code",
+                ],
+                str,
             ]
             """
             Open Enum. The type of bank transfer that originated this ReceivedCredit.
             """
             _inner_class_types = {
                 "aba": Aba,
+                "bre_b": BreB,
                 "clabe": Clabe,
                 "cpa": Cpa,
                 "iban": Iban,
+                "nip": Nip,
+                "pix": Pix,
                 "sort_code": SortCode,
             }
 

@@ -210,6 +210,19 @@ class AccountSignal(StripeObject):
         """
         _field_encodings = {"score": "decimal_string"}
 
+    class UserMerchantFit(StripeObject):
+        fit_level: Union[
+            Literal["standard", "strong", "unknown", "very_strong"], str
+        ]
+        """
+        Categorical assessment of the user-merchant fit.
+        """
+        score: Optional[Decimal]
+        """
+        The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+        """
+        _field_encodings = {"score": "decimal_string"}
+
     class UserMultiAccounting(StripeObject):
         risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
@@ -269,6 +282,7 @@ class AccountSignal(StripeObject):
             "merchant_delinquency",
             "payment_delinquency_exposure",
             "user_account_sharing",
+            "user_merchant_fit",
             "user_multi_accounting",
         ],
         str,
@@ -279,6 +293,10 @@ class AccountSignal(StripeObject):
     user_account_sharing: Optional[UserAccountSharing]
     """
     Data for the user account-sharing signal. Present only when type is user_account_sharing.
+    """
+    user_merchant_fit: Optional[UserMerchantFit]
+    """
+    Data for the user-merchant fit signal. Present only when type is user_merchant_fit.
     """
     user_multi_accounting: Optional[UserMultiAccounting]
     """
@@ -291,5 +309,6 @@ class AccountSignal(StripeObject):
         "merchant_delinquency": MerchantDelinquency,
         "payment_delinquency_exposure": PaymentDelinquencyExposure,
         "user_account_sharing": UserAccountSharing,
+        "user_merchant_fit": UserMerchantFit,
         "user_multi_accounting": UserMultiAccounting,
     }

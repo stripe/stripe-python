@@ -112,7 +112,7 @@ class PersonUpdateParamsAdditionalAddress(TypedDict):
     """
     ZIP or postal code.
     """
-    purpose: Literal["registered"]
+    purpose: Literal["birthplace", "registered"]
     """
     Purpose of additional address.
     """

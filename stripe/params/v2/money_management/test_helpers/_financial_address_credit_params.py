@@ -14,8 +14,10 @@ class FinancialAddressCreditParams(TypedDict):
         Literal[
             "ach",
             "acss",
+            "bre_b",
             "chaps",
             "fps",
+            "pix",
             "rtp",
             "sepa_credit_transfer",
             "swift",
