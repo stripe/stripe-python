@@ -21,7 +21,10 @@ from stripe.v2.core._event import (
 )
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
 from stripe._webhook import WebhookPayload, WebhookSignature
-from tests.test_webhook import DUMMY_WEBHOOK_SECRET
+from tests.test_webhook import (
+    ASCII_WHITESPACE_WEBHOOK_SECRETS,
+    DUMMY_WEBHOOK_SECRET,
+)
 
 EventParser = Callable[[str], ALL_EVENT_NOTIFICATIONS]
 
@@ -252,7 +255,28 @@ class TestV2Event(object):
             stripe_client.parse_event_notification(
                 v2_payload_no_data,
                 WebhookSignature.generate_signature_header(
-                    v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+                    v2_payload_no_data,
+                    DUMMY_WEBHOOK_SECRET,
+                ),
+                secret,
+            )
+
+    @pytest.mark.parametrize("secret", ASCII_WHITESPACE_WEBHOOK_SECRETS)
+    def test_rejects_ascii_whitespace_secret(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        secret: str,
+    ):
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_client.parse_event_notification(
+                v2_payload_no_data,
+                WebhookSignature.generate_signature_header(
+                    v2_payload_no_data,
+                    secret,
                 ),
                 secret,
             )
