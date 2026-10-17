@@ -15,10 +15,15 @@ if TYPE_CHECKING:
         AccountActivityCreateParamsAccountRestricted as AccountActivityCreateParamsAccountRestricted,
         AccountActivityCreateParamsAccountReviewed as AccountActivityCreateParamsAccountReviewed,
         AccountActivityCreateParamsAccountSuspended as AccountActivityCreateParamsAccountSuspended,
+        AccountActivityCreateParamsAccountTakeoverConfirmation as AccountActivityCreateParamsAccountTakeoverConfirmation,
+        AccountActivityCreateParamsAccountTakeoverReport as AccountActivityCreateParamsAccountTakeoverReport,
+        AccountActivityCreateParamsCredentialChange as AccountActivityCreateParamsCredentialChange,
         AccountActivityCreateParamsLoginAttempt as AccountActivityCreateParamsLoginAttempt,
         AccountActivityCreateParamsLoginAttemptClientDetails as AccountActivityCreateParamsLoginAttemptClientDetails,
         AccountActivityCreateParamsLoginAttemptClientDetailsData as AccountActivityCreateParamsLoginAttemptClientDetailsData,
         AccountActivityCreateParamsLoginDecision as AccountActivityCreateParamsLoginDecision,
+        AccountActivityCreateParamsMfaAddition as AccountActivityCreateParamsMfaAddition,
+        AccountActivityCreateParamsMfaRemoval as AccountActivityCreateParamsMfaRemoval,
         AccountActivityCreateParamsRegistrationAttempt as AccountActivityCreateParamsRegistrationAttempt,
         AccountActivityCreateParamsRegistrationAttemptClientDetails as AccountActivityCreateParamsRegistrationAttemptClientDetails,
         AccountActivityCreateParamsRegistrationAttemptClientDetailsData as AccountActivityCreateParamsRegistrationAttemptClientDetailsData,
@@ -34,9 +39,14 @@ if TYPE_CHECKING:
         AccountEvaluationCreateParams as AccountEvaluationCreateParams,
         AccountEvaluationCreateParamsAccountActivityDetails as AccountEvaluationCreateParamsAccountActivityDetails,
         AccountEvaluationCreateParamsAccountActivityDetailsData as AccountEvaluationCreateParamsAccountActivityDetailsData,
+        AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverConfirmation as AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverConfirmation,
+        AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverReport as AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverReport,
+        AccountEvaluationCreateParamsAccountActivityDetailsDataCredentialChange as AccountEvaluationCreateParamsAccountActivityDetailsDataCredentialChange,
         AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttempt as AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttempt,
         AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttemptClientDetails as AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttemptClientDetails,
         AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttemptClientDetailsData as AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttemptClientDetailsData,
+        AccountEvaluationCreateParamsAccountActivityDetailsDataMfaAddition as AccountEvaluationCreateParamsAccountActivityDetailsDataMfaAddition,
+        AccountEvaluationCreateParamsAccountActivityDetailsDataMfaRemoval as AccountEvaluationCreateParamsAccountActivityDetailsDataMfaRemoval,
         AccountEvaluationCreateParamsAccountActivityDetailsDataRegistrationAttempt as AccountEvaluationCreateParamsAccountActivityDetailsDataRegistrationAttempt,
         AccountEvaluationCreateParamsAccountActivityDetailsDataRegistrationAttemptClientDetails as AccountEvaluationCreateParamsAccountActivityDetailsDataRegistrationAttemptClientDetails,
         AccountEvaluationCreateParamsAccountActivityDetailsDataRegistrationAttemptClientDetailsData as AccountEvaluationCreateParamsAccountActivityDetailsDataRegistrationAttemptClientDetailsData,
@@ -115,6 +125,18 @@ _import_map = {
         "stripe.params.v2.signals._account_activity_create_params",
         False,
     ),
+    "AccountActivityCreateParamsAccountTakeoverConfirmation": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsAccountTakeoverReport": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsCredentialChange": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
     "AccountActivityCreateParamsLoginAttempt": (
         "stripe.params.v2.signals._account_activity_create_params",
         False,
@@ -128,6 +150,14 @@ _import_map = {
         False,
     ),
     "AccountActivityCreateParamsLoginDecision": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsMfaAddition": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsMfaRemoval": (
         "stripe.params.v2.signals._account_activity_create_params",
         False,
     ),
@@ -167,6 +197,18 @@ _import_map = {
         "stripe.params.v2.signals._account_evaluation_create_params",
         False,
     ),
+    "AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverConfirmation": (
+        "stripe.params.v2.signals._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverReport": (
+        "stripe.params.v2.signals._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountActivityDetailsDataCredentialChange": (
+        "stripe.params.v2.signals._account_evaluation_create_params",
+        False,
+    ),
     "AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttempt": (
         "stripe.params.v2.signals._account_evaluation_create_params",
         False,
@@ -176,6 +218,14 @@ _import_map = {
         False,
     ),
     "AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttemptClientDetailsData": (
+        "stripe.params.v2.signals._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountActivityDetailsDataMfaAddition": (
+        "stripe.params.v2.signals._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountActivityDetailsDataMfaRemoval": (
         "stripe.params.v2.signals._account_evaluation_create_params",
         False,
     ),

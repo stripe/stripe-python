@@ -17,6 +17,8 @@ class AccountSignalListParams(TypedDict):
     type: List[
         Union[
             Literal[
+                "account_takeover",
+                "customer_risk",
                 "fraudulent_merchant",
                 "fraudulent_website",
                 "merchant_delinquency",

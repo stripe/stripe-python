@@ -381,6 +381,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "ReserveTransaction",
     ),
     "review": ("stripe._review", "Review"),
+    "risk.form": ("stripe.risk._form", "Form"),
     "risk_signals": ("stripe._risk_signals", "RiskSignals"),
     "setup_attempt": ("stripe._setup_attempt", "SetupAttempt"),
     "setup_intent": ("stripe._setup_intent", "SetupIntent"),
@@ -509,6 +510,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
 }
 
 V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
+    "v2.search_result": (
+        "stripe.v2._search_result_object",
+        "SearchResultObject",
+    ),
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
     "v2.billing.bill_setting": (
         "stripe.v2.billing._bill_setting",

@@ -1414,6 +1414,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_signals_account_evaluation_complete_event import (
         V2SignalsAccountEvaluationCompleteEventNotification,
     )
+    from stripe.events._v2_signals_account_signal_customer_risk_ready_event import (
+        V2SignalsAccountSignalCustomerRiskReadyEventNotification,
+    )
     from stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event import (
         V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
     )
@@ -3307,6 +3310,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.signals.account_evaluation.complete": (
         "stripe.events._v2_signals_account_evaluation_complete_event",
         "V2SignalsAccountEvaluationCompleteEvent",
+    ),
+    "v2.signals.account_signal.customer_risk_ready": (
+        "stripe.events._v2_signals_account_signal_customer_risk_ready_event",
+        "V2SignalsAccountSignalCustomerRiskReadyEvent",
     ),
     "v2.signals.account_signal.fraudulent_merchant_ready": (
         "stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event",
@@ -5219,6 +5226,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_signals_account_evaluation_complete_event",
         "V2SignalsAccountEvaluationCompleteEventNotification",
     ),
+    "v2.signals.account_signal.customer_risk_ready": (
+        "stripe.events._v2_signals_account_signal_customer_risk_ready_event",
+        "V2SignalsAccountSignalCustomerRiskReadyEventNotification",
+    ),
     "v2.signals.account_signal.fraudulent_merchant_ready": (
         "stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event",
         "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
@@ -5723,6 +5734,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2ReportingReportRunSucceededEventNotification",
     "V2ReportingReportRunUpdatedEventNotification",
     "V2SignalsAccountEvaluationCompleteEventNotification",
+    "V2SignalsAccountSignalCustomerRiskReadyEventNotification",
     "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
     "V2SignalsAccountSignalFraudulentWebsiteReadyEventNotification",
     "V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification",

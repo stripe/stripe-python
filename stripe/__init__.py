@@ -170,6 +170,7 @@ if TYPE_CHECKING:
         radar as radar,
         reporting as reporting,
         reserve as reserve,
+        risk as risk,
         shared_payment as shared_payment,
         sigma as sigma,
         tax as tax,
@@ -591,6 +592,7 @@ if TYPE_CHECKING:
     )
     from stripe._review import Review as Review
     from stripe._review_service import ReviewService as ReviewService
+    from stripe._risk_service import RiskService as RiskService
     from stripe._risk_signals import RiskSignals as RiskSignals
     from stripe._search_result_object import (
         SearchResultObject as SearchResultObject,
@@ -727,6 +729,7 @@ _import_map = {
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
     "reserve": ("stripe.reserve", True),
+    "risk": ("stripe.risk", True),
     "shared_payment": ("stripe.shared_payment", True),
     "sigma": ("stripe.sigma", True),
     "tax": ("stripe.tax", True),
@@ -1077,6 +1080,7 @@ _import_map = {
     "ReserveTransaction": ("stripe._reserve_transaction", False),
     "Review": ("stripe._review", False),
     "ReviewService": ("stripe._review_service", False),
+    "RiskService": ("stripe._risk_service", False),
     "RiskSignals": ("stripe._risk_signals", False),
     "SearchResultObject": ("stripe._search_result_object", False),
     "SearchableAPIResource": ("stripe._searchable_api_resource", False),

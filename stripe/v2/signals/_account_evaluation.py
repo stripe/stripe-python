@@ -86,6 +86,22 @@ class AccountEvaluation(StripeObject):
         _inner_class_types = {"data": Data}
 
     class EvaluatedSignals(StripeObject):
+        class AccountTakeover(StripeObject):
+            evaluated_at: Optional[str]
+            """
+            Timestamp at which the signal was evaluated.
+            """
+            risk_level: Literal[
+                "elevated", "highest", "low", "normal", "unknown"
+            ]
+            """
+            Categorical assessment of the account takeover risk.
+            """
+            signal: Optional[str]
+            """
+            The account signal ID containing the full account takeover signal result.
+            """
+
         class FraudulentWebsite(StripeObject):
             details: Optional[str]
             """
@@ -169,6 +185,10 @@ class AccountEvaluation(StripeObject):
             """
             _field_encodings = {"score": "decimal_string"}
 
+        account_takeover: Optional[AccountTakeover]
+        """
+        Synchronous account takeover result for the evaluation, when requested.
+        """
         fraudulent_website: Optional[FraudulentWebsite]
         """
         Fraudulent website result for the evaluation, when available.
@@ -186,6 +206,7 @@ class AccountEvaluation(StripeObject):
         User multi-accounting result for the evaluation, when available.
         """
         _inner_class_types = {
+            "account_takeover": AccountTakeover,
             "fraudulent_website": FraudulentWebsite,
             "user_account_sharing": UserAccountSharing,
             "user_merchant_fit": UserMerchantFit,
@@ -223,6 +244,7 @@ class AccountEvaluation(StripeObject):
     pending_signals: List[
         Union[
             Literal[
+                "account_takeover",
                 "fraudulent_website",
                 "user_account_sharing",
                 "user_merchant_fit",
@@ -237,6 +259,7 @@ class AccountEvaluation(StripeObject):
     requested_signals: List[
         Union[
             Literal[
+                "account_takeover",
                 "fraudulent_website",
                 "user_account_sharing",
                 "user_merchant_fit",
