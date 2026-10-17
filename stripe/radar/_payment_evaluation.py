@@ -670,7 +670,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         """
         early_fraud_warning: Optional[EarlyFraudWarning]
         """
-        The likelihood that this `PaymentEvaluation` results in an early fraud warning.
+        A payment evaluation signal with evaluated_at, risk_level, and score fields.
         """
         fraudulent_dispute: Optional[FraudulentDispute]
         """

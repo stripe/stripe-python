@@ -213,6 +213,9 @@ class Dispute(
         Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
         """
         appeal: Optional[Appeal]
+        """
+        Appeal evidence submitted during the appeal stage.
+        """
         billing_address: Optional[str]
         """
         The billing address provided by the customer.
@@ -394,8 +397,8 @@ class Dispute(
         """
         The number of times evidence has been submitted. Typically, you may only submit evidence once.
         """
-        submission_method: Optional[
-            Union[Literal["manual", "not_submitted", "smart_disputes"], str]
+        submission_method: Union[
+            Literal["manual", "not_submitted", "smart_disputes"], str
         ]
         """
         Whether the dispute was submitted manually, with Smart Disputes, or not submitted.

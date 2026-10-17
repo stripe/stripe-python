@@ -50986,13 +50986,17 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.signals.account_activities.create({"type": "login_attempt"})
+        client.v2.signals.account_activities.create(
+            {
+                "type": "registration_decision",
+            }
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v2/signals/account_activities",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"type":"login_attempt"}',
+            post_data='{"type":"registration_decision"}',
             is_json=True,
         )
 
@@ -51069,7 +51073,7 @@ class TestGeneratedExamples(object):
                         },
                     },
                 },
-                "requested_signals": ["user_merchant_fit"],
+                "requested_signals": ["fraudulent_website"],
             }
         )
         http_client_mock.assert_requested(
@@ -51077,7 +51081,7 @@ class TestGeneratedExamples(object):
             path="/v2/signals/account_evaluations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_details":{"account":"account","customer":"customer","data":{"contact_email":"contact_email","defaults":{"profile":{"business_url":"business_url","doing_business_as":"doing_business_as","product_description":"product_description"}},"identity":{"business_details":{"registered_name":"registered_name"}}}},"requested_signals":["user_merchant_fit"]}',
+            post_data='{"account_details":{"account":"account","customer":"customer","data":{"contact_email":"contact_email","defaults":{"profile":{"business_url":"business_url","doing_business_as":"doing_business_as","product_description":"product_description"}},"identity":{"business_details":{"registered_name":"registered_name"}}}},"requested_signals":["fraudulent_website"]}',
             is_json=True,
         )
 
@@ -51107,22 +51111,18 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "get",
             "/v2/signals/account_signals",
-            "type[0]=payment_delinquency_exposure",
+            "type[0]=account_takeover",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.signals.account_signals.list(
-            {
-                "type": ["payment_delinquency_exposure"],
-            }
-        )
+        client.v2.signals.account_signals.list({"type": ["account_takeover"]})
         http_client_mock.assert_requested(
             "get",
             path="/v2/signals/account_signals",
-            query_string="type[0]=payment_delinquency_exposure",
+            query_string="type[0]=account_takeover",
             api_base="https://api.stripe.com",
         )
 

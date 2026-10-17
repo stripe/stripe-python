@@ -28,6 +28,18 @@ class AccountSignal(StripeObject):
         The v1 customer ID of the account, for users not yet migrated to v2/accounts.
         """
 
+    class AccountTakeover(StripeObject):
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
+        """
+        Categorical assessment of the account takeover risk.
+        """
+
+    class CustomerRisk(StripeObject):
+        risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
+        """
+        Categorical assessment of the customer's risk of fraudulent or abusive activity.
+        """
+
     class FraudulentMerchant(StripeObject):
         class AdditionalDetails(StripeObject):
             class Indicator(StripeObject):
@@ -243,9 +255,17 @@ class AccountSignal(StripeObject):
     """
     The account evaluation that produced this signal, if applicable.
     """
+    account_takeover: Optional[AccountTakeover]
+    """
+    Data for the account takeover signal. Present only when type is account_takeover.
+    """
     created: str
     """
     Timestamp at which the signal was created.
+    """
+    customer_risk: Optional[CustomerRisk]
+    """
+    Data for the customer risk signal. Present only when type is customer_risk.
     """
     fraudulent_merchant: Optional[FraudulentMerchant]
     """
@@ -277,6 +297,8 @@ class AccountSignal(StripeObject):
     """
     type: Union[
         Literal[
+            "account_takeover",
+            "customer_risk",
             "fraudulent_merchant",
             "fraudulent_website",
             "merchant_delinquency",
@@ -304,6 +326,8 @@ class AccountSignal(StripeObject):
     """
     _inner_class_types = {
         "account_details": AccountDetails,
+        "account_takeover": AccountTakeover,
+        "customer_risk": CustomerRisk,
         "fraudulent_merchant": FraudulentMerchant,
         "fraudulent_website": FraudulentWebsite,
         "merchant_delinquency": MerchantDelinquency,

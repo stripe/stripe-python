@@ -69,6 +69,8 @@ if TYPE_CHECKING:
         SessionCreateParamsLineItemPriceDataProductDataTaxDetails as SessionCreateParamsLineItemPriceDataProductDataTaxDetails,
         SessionCreateParamsLineItemPriceDataRecurring as SessionCreateParamsLineItemPriceDataRecurring,
         SessionCreateParamsManagedPayments as SessionCreateParamsManagedPayments,
+        SessionCreateParamsMarketingAttribution as SessionCreateParamsMarketingAttribution,
+        SessionCreateParamsMarketingAttributionAdConversion as SessionCreateParamsMarketingAttributionAdConversion,
         SessionCreateParamsNameCollection as SessionCreateParamsNameCollection,
         SessionCreateParamsNameCollectionBusiness as SessionCreateParamsNameCollectionBusiness,
         SessionCreateParamsNameCollectionIndividual as SessionCreateParamsNameCollectionIndividual,
@@ -506,6 +508,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsManagedPayments": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsMarketingAttribution": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsMarketingAttributionAdConversion": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

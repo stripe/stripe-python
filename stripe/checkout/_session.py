@@ -349,7 +349,9 @@ class Session(
                     "ao_tin",
                     "ar_cuit",
                     "au_abn",
+                    "au_acn",
                     "au_arn",
+                    "au_wpn",
                     "aw_tin",
                     "az_tin",
                     "ba_tin",
@@ -379,6 +381,7 @@ class Session(
                     "co_nit",
                     "cr_tin",
                     "cv_nif",
+                    "cz_dic",
                     "de_stn",
                     "do_rcn",
                     "ec_ruc",
@@ -388,6 +391,9 @@ class Session(
                     "eu_oss_vat",
                     "eu_vat",
                     "fo_vat",
+                    "fr_siren",
+                    "fr_siret",
+                    "fr_spi",
                     "gb_vat",
                     "ge_vat",
                     "gi_tin",
@@ -399,6 +405,7 @@ class Session(
                     "id_npwp",
                     "il_vat",
                     "in_gst",
+                    "is_kt",
                     "is_vat",
                     "it_cf",
                     "jp_cn",
@@ -414,23 +421,28 @@ class Session(
                     "li_vat",
                     "lk_vat",
                     "ma_vat",
+                    "md_cf",
                     "md_vat",
                     "me_pib",
                     "mk_vat",
                     "mr_nif",
+                    "mu_vat",
                     "mx_rfc",
                     "my_frp",
                     "my_itn",
                     "my_sst",
+                    "mz_nuit",
                     "ng_tin",
                     "no_vat",
                     "no_voec",
                     "np_pan",
+                    "nz_bn",
                     "nz_gst",
                     "om_vat",
                     "pe_ruc",
                     "ph_tin",
                     "pl_nip",
+                    "pt_nif",
                     "py_ruc",
                     "ro_tin",
                     "rs_pib",
@@ -440,12 +452,15 @@ class Session(
                     "sg_gst",
                     "sg_uen",
                     "si_tin",
+                    "sm_coe",
                     "sn_ninea",
                     "sr_fin",
                     "sv_nit",
                     "th_vat",
                     "tj_tin",
                     "tr_tin",
+                    "tt_bir",
+                    "tt_vat",
                     "tw_vat",
                     "tz_vat",
                     "ua_vat",
@@ -464,7 +479,7 @@ class Session(
                 str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
             """
             value: Optional[str]
             """
@@ -977,7 +992,9 @@ class Session(
                     "ao_tin",
                     "ar_cuit",
                     "au_abn",
+                    "au_acn",
                     "au_arn",
+                    "au_wpn",
                     "aw_tin",
                     "az_tin",
                     "ba_tin",
@@ -1007,6 +1024,7 @@ class Session(
                     "co_nit",
                     "cr_tin",
                     "cv_nif",
+                    "cz_dic",
                     "de_stn",
                     "do_rcn",
                     "ec_ruc",
@@ -1016,6 +1034,9 @@ class Session(
                     "eu_oss_vat",
                     "eu_vat",
                     "fo_vat",
+                    "fr_siren",
+                    "fr_siret",
+                    "fr_spi",
                     "gb_vat",
                     "ge_vat",
                     "gi_tin",
@@ -1027,6 +1048,7 @@ class Session(
                     "id_npwp",
                     "il_vat",
                     "in_gst",
+                    "is_kt",
                     "is_vat",
                     "it_cf",
                     "jp_cn",
@@ -1042,23 +1064,28 @@ class Session(
                     "li_vat",
                     "lk_vat",
                     "ma_vat",
+                    "md_cf",
                     "md_vat",
                     "me_pib",
                     "mk_vat",
                     "mr_nif",
+                    "mu_vat",
                     "mx_rfc",
                     "my_frp",
                     "my_itn",
                     "my_sst",
+                    "mz_nuit",
                     "ng_tin",
                     "no_vat",
                     "no_voec",
                     "np_pan",
+                    "nz_bn",
                     "nz_gst",
                     "om_vat",
                     "pe_ruc",
                     "ph_tin",
                     "pl_nip",
+                    "pt_nif",
                     "py_ruc",
                     "ro_tin",
                     "rs_pib",
@@ -1068,12 +1095,15 @@ class Session(
                     "sg_gst",
                     "sg_uen",
                     "si_tin",
+                    "sm_coe",
                     "sn_ninea",
                     "sr_fin",
                     "sv_nit",
                     "th_vat",
                     "tj_tin",
                     "tr_tin",
+                    "tt_bir",
+                    "tt_vat",
                     "tw_vat",
                     "tz_vat",
                     "ua_vat",
@@ -1092,7 +1122,7 @@ class Session(
                 str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1335,6 +1365,48 @@ class Session(
         """
         Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
         """
+
+    class MarketingAttribution(StripeObject):
+        class AdConversion(StripeObject):
+            consent_collected: bool
+            """
+            Whether the customer consented to sending conversion data to an advertising platform.
+            """
+
+        ad_conversion: AdConversion
+        click_id: Optional[str]
+        """
+        The advertising platform's click identifier.
+        """
+        occurred_at: Optional[int]
+        """
+        The Unix timestamp when the advertising interaction occurred.
+        """
+        utm_adgroup: Optional[str]
+        """
+        The advertising group ID from the `utm_adgroup` parameter.
+        """
+        utm_content: Optional[str]
+        """
+        The advertising content identifier from the `utm_content` parameter.
+        """
+        utm_id: Optional[str]
+        """
+        The advertising campaign ID from the `utm_id` parameter.
+        """
+        utm_medium: Optional[str]
+        """
+        The marketing medium from the `utm_medium` parameter.
+        """
+        utm_source: Optional[str]
+        """
+        The referral source from the `utm_source` parameter.
+        """
+        utm_term: Optional[str]
+        """
+        The paid search term from the `utm_term` parameter.
+        """
+        _inner_class_types = {"ad_conversion": AdConversion}
 
     class NameCollection(StripeObject):
         class Business(StripeObject):
@@ -1615,6 +1687,53 @@ class Session(
                 Indicates if installments are enabled
                 """
 
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Maximum or fixed amount for future payments, in the mandate's currency.
+                """
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
+                """
+                One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                description: Optional[str]
+                """
+                A description of the mandate or subscription that is meant to be displayed to the customer.
+                """
+                end_date: Optional[int]
+                """
+                End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                """
+                interval: Optional[
+                    Union[
+                        Literal["day", "month", "sporadic", "week", "year"],
+                        str,
+                    ]
+                ]
+                """
+                Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+                """
+                interval_count: Optional[int]
+                """
+                The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+                """
+                reference: Optional[str]
+                """
+                Unique identifier for the mandate or subscription.
+                """
+                start_date: Optional[int]
+                """
+                Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+                """
+                supported_types: Optional[List[Literal["india"]]]
+                """
+                Specifies the type of mandates supported. Possible values are `india`.
+                """
+
             class Restrictions(StripeObject):
                 brands_blocked: Optional[
                     List[
@@ -1644,6 +1763,7 @@ class Session(
             Controls when the funds will be captured from the customer's account.
             """
             installments: Optional[Installments]
+            mandate_options: Optional[MandateOptions]
             request_decremental_authorization: Optional[
                 Union[Literal["if_available", "never"], str]
             ]
@@ -1703,6 +1823,7 @@ class Session(
             """
             _inner_class_types = {
                 "installments": Installments,
+                "mandate_options": MandateOptions,
                 "restrictions": Restrictions,
             }
 
@@ -3419,6 +3540,10 @@ class Session(
     """
     Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
     """
+    marketing_attributions: Optional[List[MarketingAttribution]]
+    """
+    Advertising attribution information for this Checkout Session.
+    """
     metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -3456,7 +3581,7 @@ class Session(
         Union[Literal["always", "auto", "if_required"], str]
     ]
     """
-    Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
+    Configure whether a Checkout Session should collect a payment method. Can only be set in `subscription` mode. Defaults to `always`.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails
@@ -4065,6 +4190,7 @@ class Session(
         "invoice_creation": InvoiceCreation,
         "items": Item,
         "managed_payments": ManagedPayments,
+        "marketing_attributions": MarketingAttribution,
         "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,

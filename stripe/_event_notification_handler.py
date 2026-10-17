@@ -1446,6 +1446,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_signals_account_evaluation_complete_event import (
         V2SignalsAccountEvaluationCompleteEventNotification,
     )
+    from stripe.events._v2_signals_account_signal_customer_risk_ready_event import (
+        V2SignalsAccountSignalCustomerRiskReadyEventNotification,
+    )
     from stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event import (
         V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
     )
@@ -7690,6 +7693,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.signals.account_evaluation.complete",
+            func,
+        )
+        return func
+
+    def on_v2_signals_account_signal_customer_risk_ready(
+        self,
+        func: "Callable[[V2SignalsAccountSignalCustomerRiskReadyEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsAccountSignalCustomerRiskReadyEvent` (`v2.signals.account_signal.customer_risk_ready`) event notification.
+        """
+        self._register(
+            "v2.signals.account_signal.customer_risk_ready",
             func,
         )
         return func

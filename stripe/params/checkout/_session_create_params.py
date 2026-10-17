@@ -309,6 +309,12 @@ class SessionCreateParams(RequestOptions):
     """
     Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
     """
+    marketing_attributions: NotRequired[
+        List["SessionCreateParamsMarketingAttribution"]
+    ]
+    """
+    Advertising attribution information for this Checkout Session. Only one attribution is supported.
+    """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1205,7 +1211,7 @@ class SessionCreateParamsLineItem(TypedDict):
     """
     price_data: NotRequired["SessionCreateParamsLineItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
     """
     quantity: NotRequired[int]
     """
@@ -1326,6 +1332,52 @@ class SessionCreateParamsManagedPayments(TypedDict):
     enabled: NotRequired[bool]
     """
     Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+    """
+
+
+class SessionCreateParamsMarketingAttribution(TypedDict):
+    ad_conversion: "SessionCreateParamsMarketingAttributionAdConversion"
+    """
+    Information used when sending conversions to an advertising platform.
+    """
+    click_id: NotRequired[str]
+    """
+    The advertising platform's click identifier.
+    """
+    occurred_at: NotRequired[int]
+    """
+    The Unix timestamp when the advertising interaction occurred.
+    """
+    utm_adgroup: NotRequired[str]
+    """
+    The advertising group ID from the `utm_adgroup` parameter.
+    """
+    utm_content: NotRequired[str]
+    """
+    The advertising content identifier from the `utm_content` parameter.
+    """
+    utm_id: NotRequired[str]
+    """
+    The advertising campaign ID from the `utm_id` parameter.
+    """
+    utm_medium: NotRequired[str]
+    """
+    The marketing medium from the `utm_medium` parameter.
+    """
+    utm_source: NotRequired[str]
+    """
+    The referral source from the `utm_source` parameter.
+    """
+    utm_term: NotRequired[str]
+    """
+    The paid search term from the `utm_term` parameter.
+    """
+
+
+class SessionCreateParamsMarketingAttributionAdConversion(TypedDict):
+    consent_collected: bool
+    """
+    Whether the customer consented to sending conversion data to an advertising platform.
     """
 
 

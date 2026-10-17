@@ -96,6 +96,30 @@ class AccountActivity(StripeObject):
         The reason the customer was suspended.
         """
 
+    class AccountTakeoverConfirmation(StripeObject):
+        credential_type: Union[
+            Literal["api_key", "login_password", "other"], str
+        ]
+        """
+        The type of credential involved in the confirmed takeover.
+        """
+
+    class AccountTakeoverReport(StripeObject):
+        credential_type: Union[
+            Literal["api_key", "login_password", "other"], str
+        ]
+        """
+        The type of credential involved in the reported takeover.
+        """
+
+    class CredentialChange(StripeObject):
+        credential_type: Union[
+            Literal["api_key", "login_password", "other"], str
+        ]
+        """
+        The type of credential that changed.
+        """
+
     class LoginAttempt(StripeObject):
         class ClientDetails(StripeObject):
             class Data(StripeObject):
@@ -132,6 +156,28 @@ class AccountActivity(StripeObject):
         status: Literal["allowed", "blocked", "restricted"]
         """
         The action the merchant took following the evaluation.
+        """
+
+    class MfaAddition(StripeObject):
+        mfa_type: Union[
+            Literal[
+                "authenticator_app", "email", "hardware_key", "other", "sms"
+            ],
+            str,
+        ]
+        """
+        The authentication method added to the account.
+        """
+
+    class MfaRemoval(StripeObject):
+        mfa_type: Union[
+            Literal[
+                "authenticator_app", "email", "hardware_key", "other", "sms"
+            ],
+            str,
+        ]
+        """
+        The authentication method removed from the account.
         """
 
     class RegistrationAttempt(StripeObject):
@@ -195,9 +241,21 @@ class AccountActivity(StripeObject):
     Details for the account suspension. Present only when type is account_suspended. The activity
     requires an existing account_details.customer; account_details.account and inline data are unsupported.
     """
+    account_takeover_confirmation: Optional[AccountTakeoverConfirmation]
+    """
+    Details for the merchant's takeover confirmation. Present only when type is account_takeover_confirmation.
+    """
+    account_takeover_report: Optional[AccountTakeoverReport]
+    """
+    Details for the account holder's takeover report. Present only when type is account_takeover_report.
+    """
     created: str
     """
     Timestamp at which the account activity was created.
+    """
+    credential_change: Optional[CredentialChange]
+    """
+    Details for the credential change. Present only when type is credential_change.
     """
     id: str
     """
@@ -218,6 +276,14 @@ class AccountActivity(StripeObject):
     metadata: Optional[UntypedStripeObject[str]]
     """
     Additional information about the activity.
+    """
+    mfa_addition: Optional[MfaAddition]
+    """
+    Details for the MFA addition. Present only when type is mfa_addition.
+    """
+    mfa_removal: Optional[MfaRemoval]
+    """
+    Details for the MFA removal. Present only when type is mfa_removal.
     """
     object: Literal["v2.signals.account_activity"]
     """
@@ -240,8 +306,14 @@ class AccountActivity(StripeObject):
             "account_restricted",
             "account_reviewed",
             "account_suspended",
+            "account_takeover_confirmation",
+            "account_takeover_mitigation",
+            "account_takeover_report",
+            "credential_change",
             "login_attempt",
             "login_decision",
+            "mfa_addition",
+            "mfa_removal",
             "registration_attempt",
             "registration_decision",
         ],
@@ -255,8 +327,13 @@ class AccountActivity(StripeObject):
         "account_restricted": AccountRestricted,
         "account_reviewed": AccountReviewed,
         "account_suspended": AccountSuspended,
+        "account_takeover_confirmation": AccountTakeoverConfirmation,
+        "account_takeover_report": AccountTakeoverReport,
+        "credential_change": CredentialChange,
         "login_attempt": LoginAttempt,
         "login_decision": LoginDecision,
+        "mfa_addition": MfaAddition,
+        "mfa_removal": MfaRemoval,
         "registration_attempt": RegistrationAttempt,
         "registration_decision": RegistrationDecision,
     }

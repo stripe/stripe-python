@@ -225,7 +225,7 @@ class SessionModifyParamsLineItem(TypedDict):
     """
     price_data: NotRequired["SessionModifyParamsLineItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
     """
     quantity: NotRequired[int]
     """
