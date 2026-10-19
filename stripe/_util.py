@@ -288,6 +288,7 @@ def _convert_to_stripe_object(
             and (
                 (getattr(obj, "object") == "list")
                 or (getattr(obj, "object") == "search_result")
+                or (getattr(obj, "object") == "v2.search_result")
             )
         ):
             obj._retrieve_params = params
