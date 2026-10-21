@@ -118,6 +118,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
                 "paper_checks",
                 "stripe_balance.payouts",
                 "pix",
+                "stripe_balance.stablecoin_custodial",
                 "stripe_balance.stripe_transfers",
                 "stripe.transfers",
             ],

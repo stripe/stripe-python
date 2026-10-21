@@ -1891,6 +1891,10 @@ if TYPE_CHECKING:
         V2SignalsAccountEvaluationCompleteEvent as V2SignalsAccountEvaluationCompleteEvent,
         V2SignalsAccountEvaluationCompleteEventNotification as V2SignalsAccountEvaluationCompleteEventNotification,
     )
+    from stripe.events._v2_signals_account_signal_customer_risk_ready_event import (
+        V2SignalsAccountSignalCustomerRiskReadyEvent as V2SignalsAccountSignalCustomerRiskReadyEvent,
+        V2SignalsAccountSignalCustomerRiskReadyEventNotification as V2SignalsAccountSignalCustomerRiskReadyEventNotification,
+    )
     from stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event import (
         V2SignalsAccountSignalFraudulentMerchantReadyEvent as V2SignalsAccountSignalFraudulentMerchantReadyEvent,
         V2SignalsAccountSignalFraudulentMerchantReadyEventNotification as V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
@@ -5554,6 +5558,14 @@ _import_map = {
     ),
     "V2SignalsAccountEvaluationCompleteEventNotification": (
         "stripe.events._v2_signals_account_evaluation_complete_event",
+        False,
+    ),
+    "V2SignalsAccountSignalCustomerRiskReadyEvent": (
+        "stripe.events._v2_signals_account_signal_customer_risk_ready_event",
+        False,
+    ),
+    "V2SignalsAccountSignalCustomerRiskReadyEventNotification": (
+        "stripe.events._v2_signals_account_signal_customer_risk_ready_event",
         False,
     ),
     "V2SignalsAccountSignalFraudulentMerchantReadyEvent": (

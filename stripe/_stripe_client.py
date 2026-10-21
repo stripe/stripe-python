@@ -135,6 +135,7 @@ if TYPE_CHECKING:
     from stripe._reporting_service import ReportingService
     from stripe._reserve_service import ReserveService
     from stripe._review_service import ReviewService
+    from stripe._risk_service import RiskService
     from stripe._setup_attempt_service import SetupAttemptService
     from stripe._setup_intent_service import SetupIntentService
     from stripe._shared_payment_service import SharedPaymentService
@@ -1224,6 +1225,17 @@ class StripeClient(object):
     )
     def reviews(self) -> "ReviewService":
         return self.v1.reviews
+
+    @property
+    @deprecated(
+        """
+        StripeClient.risk is deprecated, use StripeClient.v1.risk instead.
+          All functionality under it has been copied over to StripeClient.v1.risk.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def risk(self) -> "RiskService":
+        return self.v1.risk
 
     @property
     @deprecated(

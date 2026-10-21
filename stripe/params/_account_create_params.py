@@ -38,7 +38,7 @@ class AccountCreateParams(RequestOptions):
     """
     controller: NotRequired["AccountCreateParamsController"]
     """
-    A hash of configuration describing the account controller's attributes.
+    Configures the account's Dashboard access, loss liability, requirements collection, and Stripe fee responsibility.
     """
     country: NotRequired[str]
     """
@@ -1657,14 +1657,14 @@ class AccountCreateParamsControllerDashboard(TypedDict):
 class AccountCreateParamsControllerFees(TypedDict):
     payer: NotRequired["Literal['account', 'application']|str"]
     """
-    A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
+    Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. Setting `controller.losses.payments=application` requires `controller.fees.payer=application`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
     """
 
 
 class AccountCreateParamsControllerLosses(TypedDict):
     payments: NotRequired["Literal['application', 'stripe']|str"]
     """
-    A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
+    Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk). Defaults to `stripe`.
     """
 
 

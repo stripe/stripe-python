@@ -33,6 +33,24 @@ class AccountActivityCreateParams(TypedDict):
     Details for the account suspension. Provide only when type is account_suspended. The activity
     requires an existing account_details.customer; account_details.account and inline data are unsupported.
     """
+    account_takeover_confirmation: NotRequired[
+        "AccountActivityCreateParamsAccountTakeoverConfirmation"
+    ]
+    """
+    Required when type is account_takeover_confirmation. Requires an existing customer or account with a customer configuration.
+    """
+    account_takeover_report: NotRequired[
+        "AccountActivityCreateParamsAccountTakeoverReport"
+    ]
+    """
+    Required when type is account_takeover_report. Requires an existing customer or account with a customer configuration.
+    """
+    credential_change: NotRequired[
+        "AccountActivityCreateParamsCredentialChange"
+    ]
+    """
+    Required when type is credential_change. Requires an existing customer or account with a customer configuration.
+    """
     login_attempt: NotRequired["AccountActivityCreateParamsLoginAttempt"]
     """
     Details for the login attempt. Provide only when type is login_attempt.
@@ -44,6 +62,14 @@ class AccountActivityCreateParams(TypedDict):
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Additional information about the activity.
+    """
+    mfa_addition: NotRequired["AccountActivityCreateParamsMfaAddition"]
+    """
+    Required when type is mfa_addition. Requires an existing customer or account with a customer configuration.
+    """
+    mfa_removal: NotRequired["AccountActivityCreateParamsMfaRemoval"]
+    """
+    Required when type is mfa_removal. Requires an existing customer or account with a customer configuration.
     """
     occurred_at: NotRequired[str]
     """
@@ -66,8 +92,14 @@ class AccountActivityCreateParams(TypedDict):
             "account_restricted",
             "account_reviewed",
             "account_suspended",
+            "account_takeover_confirmation",
+            "account_takeover_mitigation",
+            "account_takeover_report",
+            "credential_change",
             "login_attempt",
             "login_decision",
+            "mfa_addition",
+            "mfa_removal",
             "registration_attempt",
             "registration_decision",
         ],
@@ -173,6 +205,27 @@ class AccountActivityCreateParamsAccountSuspended(TypedDict):
     """
 
 
+class AccountActivityCreateParamsAccountTakeoverConfirmation(TypedDict):
+    credential_type: Union[Literal["api_key", "login_password", "other"], str]
+    """
+    The type of credential involved in the confirmed takeover.
+    """
+
+
+class AccountActivityCreateParamsAccountTakeoverReport(TypedDict):
+    credential_type: Union[Literal["api_key", "login_password", "other"], str]
+    """
+    The type of credential involved in the reported takeover.
+    """
+
+
+class AccountActivityCreateParamsCredentialChange(TypedDict):
+    credential_type: Union[Literal["api_key", "login_password", "other"], str]
+    """
+    The type of credential that changed.
+    """
+
+
 class AccountActivityCreateParamsLoginAttempt(TypedDict):
     client_details: "AccountActivityCreateParamsLoginAttemptClientDetails"
     """
@@ -212,6 +265,26 @@ class AccountActivityCreateParamsLoginDecision(TypedDict):
     status: Literal["allowed", "blocked", "restricted"]
     """
     The action the merchant took following the evaluation.
+    """
+
+
+class AccountActivityCreateParamsMfaAddition(TypedDict):
+    mfa_type: Union[
+        Literal["authenticator_app", "email", "hardware_key", "other", "sms"],
+        str,
+    ]
+    """
+    The authentication method added to the account.
+    """
+
+
+class AccountActivityCreateParamsMfaRemoval(TypedDict):
+    mfa_type: Union[
+        Literal["authenticator_app", "email", "hardware_key", "other", "sms"],
+        str,
+    ]
+    """
+    The authentication method removed from the account.
     """
 
 

@@ -16,6 +16,7 @@ class AccountEvaluationCreateParams(TypedDict):
     signals: List[
         Union[
             Literal[
+                "account_takeover",
                 "fraudulent_website",
                 "user_account_sharing",
                 "user_merchant_fit",

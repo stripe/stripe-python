@@ -2,8 +2,37 @@
 
 
 import json
+import pickle
 
-from stripe._error import StripeError, CardError, APIConnectionError
+import pytest
+
+from stripe._error import (
+    APIConnectionError,
+    APIError,
+    AuthenticationError,
+    CardError,
+    IdempotencyError,
+    InvalidRequestError,
+    PermissionError,
+    RateLimitError,
+    SignatureVerificationError,
+    StripeError,
+    StripeErrorWithParamCode,
+    TemporarySessionExpiredError,
+)
+
+
+def assert_error_round_trips(err):
+    json_args = json.loads(json.dumps(err.args))
+    round_tripped_errors = (
+        pickle.loads(pickle.dumps(err)),
+        type(err)(*json_args),
+    )
+
+    for round_tripped in round_tripped_errors:
+        assert type(round_tripped) is type(err)
+        assert round_tripped.args == err.args
+        assert vars(round_tripped) == vars(err)
 
 
 class TestStripeError(object):
@@ -114,3 +143,66 @@ class TestApiConnectionError(object):
 
         err = APIConnectionError("msg", should_retry=True)
         assert err.should_retry
+
+
+@pytest.mark.parametrize(
+    "error_class",
+    [
+        StripeError,
+        APIError,
+        AuthenticationError,
+        IdempotencyError,
+        PermissionError,
+        RateLimitError,
+        StripeErrorWithParamCode,
+        TemporarySessionExpiredError,
+    ],
+)
+def test_stripe_error_round_trips(error_class):
+    err = error_class(
+        message="message",
+        http_body=b"body",
+        http_status=400,
+        json_body={"error": {"code": "error_code"}},
+        headers={"request-id": "req_123"},
+        code="error_code",
+    )
+
+    assert_error_round_trips(err)
+
+
+@pytest.mark.parametrize(
+    "err",
+    [
+        APIConnectionError(
+            "message",
+            b"body",
+            400,
+            {"error": {"code": "error_code"}},
+            {"request-id": "req_123"},
+            "error_code",
+            True,
+        ),
+        CardError(
+            "message",
+            "param",
+            "error_code",
+            b"body",
+            402,
+            {"error": {"code": "error_code"}},
+            {"request-id": "req_123"},
+        ),
+        InvalidRequestError(
+            message="message",
+            param="param",
+            code="error_code",
+            http_body=b"body",
+            http_status=400,
+            json_body={"error": {"code": "error_code"}},
+            headers={"request-id": "req_123"},
+        ),
+        SignatureVerificationError("message", "signature", b"body"),
+    ],
+)
+def test_stripe_error_with_custom_constructor_round_trips(err):
+    assert_error_round_trips(err)

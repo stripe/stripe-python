@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.v2.data._analytics_service import AnalyticsService
+    from stripe.v2.data._operation_service import OperationService
     from stripe.v2.data._query_run_service import QueryRunService
     from stripe.v2.data._report_run_service import ReportRunService
     from stripe.v2.data._report_service import ReportService
@@ -14,6 +15,7 @@ if TYPE_CHECKING:
 
 _subservices = {
     "analytics": ["stripe.v2.data._analytics_service", "AnalyticsService"],
+    "operations": ["stripe.v2.data._operation_service", "OperationService"],
     "query_runs": ["stripe.v2.data._query_run_service", "QueryRunService"],
     "reports": ["stripe.v2.data._report_service", "ReportService"],
     "report_runs": ["stripe.v2.data._report_run_service", "ReportRunService"],
@@ -24,6 +26,7 @@ _subservices = {
 
 class DataService(StripeService):
     analytics: "AnalyticsService"
+    operations: "OperationService"
     query_runs: "QueryRunService"
     reports: "ReportService"
     report_runs: "ReportRunService"

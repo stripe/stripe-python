@@ -58,6 +58,10 @@ class AuthorizationCreateParams(TypedDict):
     """
     The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
+    merchant_amount_exchange_rate: NotRequired[float]
+    """
+    Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+    """
     merchant_currency: NotRequired[str]
     """
     The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -88,6 +92,10 @@ class AuthorizationCreateParams(TypedDict):
     risk_assessment: NotRequired["AuthorizationCreateParamsRiskAssessment"]
     """
     Stripe's assessment of the fraud risk for this authorization.
+    """
+    type: NotRequired[Literal["payment"]]
+    """
+    The type of the authorization object, for example a payment authorization, an original credit authorization, or a refund authorization.
     """
     verification_data: NotRequired["AuthorizationCreateParamsVerificationData"]
     """

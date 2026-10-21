@@ -349,7 +349,9 @@ class Session(
                     "ao_tin",
                     "ar_cuit",
                     "au_abn",
+                    "au_acn",
                     "au_arn",
+                    "au_wpn",
                     "aw_tin",
                     "az_tin",
                     "ba_tin",
@@ -379,6 +381,7 @@ class Session(
                     "co_nit",
                     "cr_tin",
                     "cv_nif",
+                    "cz_dic",
                     "de_stn",
                     "do_rcn",
                     "ec_ruc",
@@ -388,6 +391,9 @@ class Session(
                     "eu_oss_vat",
                     "eu_vat",
                     "fo_vat",
+                    "fr_siren",
+                    "fr_siret",
+                    "fr_spi",
                     "gb_vat",
                     "ge_vat",
                     "gi_tin",
@@ -399,6 +405,7 @@ class Session(
                     "id_npwp",
                     "il_vat",
                     "in_gst",
+                    "is_kt",
                     "is_vat",
                     "it_cf",
                     "jp_cn",
@@ -414,23 +421,28 @@ class Session(
                     "li_vat",
                     "lk_vat",
                     "ma_vat",
+                    "md_cf",
                     "md_vat",
                     "me_pib",
                     "mk_vat",
                     "mr_nif",
+                    "mu_vat",
                     "mx_rfc",
                     "my_frp",
                     "my_itn",
                     "my_sst",
+                    "mz_nuit",
                     "ng_tin",
                     "no_vat",
                     "no_voec",
                     "np_pan",
+                    "nz_bn",
                     "nz_gst",
                     "om_vat",
                     "pe_ruc",
                     "ph_tin",
                     "pl_nip",
+                    "pt_nif",
                     "py_ruc",
                     "ro_tin",
                     "rs_pib",
@@ -440,12 +452,15 @@ class Session(
                     "sg_gst",
                     "sg_uen",
                     "si_tin",
+                    "sm_coe",
                     "sn_ninea",
                     "sr_fin",
                     "sv_nit",
                     "th_vat",
                     "tj_tin",
                     "tr_tin",
+                    "tt_bir",
+                    "tt_vat",
                     "tw_vat",
                     "tz_vat",
                     "ua_vat",
@@ -464,7 +479,7 @@ class Session(
                 str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
             """
             value: Optional[str]
             """
@@ -977,7 +992,9 @@ class Session(
                     "ao_tin",
                     "ar_cuit",
                     "au_abn",
+                    "au_acn",
                     "au_arn",
+                    "au_wpn",
                     "aw_tin",
                     "az_tin",
                     "ba_tin",
@@ -1007,6 +1024,7 @@ class Session(
                     "co_nit",
                     "cr_tin",
                     "cv_nif",
+                    "cz_dic",
                     "de_stn",
                     "do_rcn",
                     "ec_ruc",
@@ -1016,6 +1034,9 @@ class Session(
                     "eu_oss_vat",
                     "eu_vat",
                     "fo_vat",
+                    "fr_siren",
+                    "fr_siret",
+                    "fr_spi",
                     "gb_vat",
                     "ge_vat",
                     "gi_tin",
@@ -1027,6 +1048,7 @@ class Session(
                     "id_npwp",
                     "il_vat",
                     "in_gst",
+                    "is_kt",
                     "is_vat",
                     "it_cf",
                     "jp_cn",
@@ -1042,23 +1064,28 @@ class Session(
                     "li_vat",
                     "lk_vat",
                     "ma_vat",
+                    "md_cf",
                     "md_vat",
                     "me_pib",
                     "mk_vat",
                     "mr_nif",
+                    "mu_vat",
                     "mx_rfc",
                     "my_frp",
                     "my_itn",
                     "my_sst",
+                    "mz_nuit",
                     "ng_tin",
                     "no_vat",
                     "no_voec",
                     "np_pan",
+                    "nz_bn",
                     "nz_gst",
                     "om_vat",
                     "pe_ruc",
                     "ph_tin",
                     "pl_nip",
+                    "pt_nif",
                     "py_ruc",
                     "ro_tin",
                     "rs_pib",
@@ -1068,12 +1095,15 @@ class Session(
                     "sg_gst",
                     "sg_uen",
                     "si_tin",
+                    "sm_coe",
                     "sn_ninea",
                     "sr_fin",
                     "sv_nit",
                     "th_vat",
                     "tj_tin",
                     "tr_tin",
+                    "tt_bir",
+                    "tt_vat",
                     "tw_vat",
                     "tz_vat",
                     "ua_vat",
@@ -1092,7 +1122,7 @@ class Session(
                 str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1218,6 +1248,226 @@ class Session(
         _inner_class_types = {"invoice_data": InvoiceData}
 
     class Item(StripeObject):
+        class MetronomeCommit(StripeObject):
+            class Commit(StripeObject):
+                class AccessSchedule(StripeObject):
+                    class ScheduleItem(StripeObject):
+                        amount: Decimal
+                        """
+                        The access amount in credit_type_id units.
+                        """
+                        ending_before: str
+                        """
+                        Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount ends (exclusive).
+                        """
+                        starting_at: str
+                        """
+                        Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount starts (inclusive).
+                        """
+                        _field_encodings = {"amount": "decimal_string"}
+
+                    price_amount: int
+                    """
+                    The fixed price the buyer pays, in minor currency units.
+                    """
+                    schedule_items: List[ScheduleItem]
+                    """
+                    When and how many credits become available.
+                    """
+                    _inner_class_types = {"schedule_items": ScheduleItem}
+
+                class CommitOptions(StripeObject):
+                    class CustomAmount(StripeObject):
+                        enabled: bool
+                        """
+                        Whether custom amount input is enabled.
+                        """
+                        maximum: Optional[int]
+                        """
+                        Maximum `access_amount` the customer can enter. `null` means the effective maximum is `999999999999999`.
+                        """
+                        minimum: Optional[int]
+                        """
+                        Minimum `access_amount` the customer can enter. `null` means the effective minimum is `1`.
+                        """
+
+                    class DiscountTier(StripeObject):
+                        discount_percentage: int
+                        """
+                        Percentage discount applied to the full access_amount.
+                        """
+                        up_to: Optional[int]
+                        """
+                        Upper bound (inclusive) in credit_type_id units. Null means unbounded.
+                        """
+
+                    class Option(StripeObject):
+                        access_amount: int
+                        """
+                        The access amount for this option.
+                        """
+                        default_option: Optional[bool]
+                        """
+                        Whether this option is pre-selected in the Checkout UI.
+                        """
+
+                    custom_amount: Optional[CustomAmount]
+                    """
+                    Custom access amount configuration.
+                    """
+                    discount_tiers: Optional[List[DiscountTier]]
+                    """
+                    Volume-based discount tiers.
+                    """
+                    ending_before: str
+                    """
+                    When access for the purchased credits ends.
+                    """
+                    options: List[Option]
+                    """
+                    Access-amount presets for the buyer to choose from.
+                    """
+                    selected_access_amount: Optional[int]
+                    """
+                    The selected access amount. It matches an `options[].access_amount` for a preset selection, but may be a custom value when `custom_amount` is enabled. New sessions initialize it from the option marked `default_option`, or from the first option when none is marked. It is not necessarily the item's monetary price; use `amount_details` for display and totals.
+                    """
+                    starting_at: str
+                    """
+                    When access for the purchased credits starts.
+                    """
+                    _inner_class_types = {
+                        "custom_amount": CustomAmount,
+                        "discount_tiers": DiscountTier,
+                        "options": Option,
+                    }
+
+                class Specifier(StripeObject):
+                    presentation_group_values: Optional[
+                        UntypedStripeObject[str]
+                    ]
+                    """
+                    Key-value pairs for presentation group filters.
+                    """
+                    pricing_group_values: Optional[UntypedStripeObject[str]]
+                    """
+                    Key-value pairs for pricing group filters.
+                    """
+                    product_id: Optional[str]
+                    """
+                    Metronome product ID to scope this specifier to.
+                    """
+                    product_tags: Optional[List[str]]
+                    """
+                    Metronome product tags to scope this specifier to. Products must have all specified tags.
+                    """
+
+                class TaxDetails(StripeObject):
+                    tax_code: str
+                    """
+                    Stripe [tax code](https://docs.stripe.com/tax/tax-codes) for this commit (for example, `txcd_10103000`).
+                    """
+
+                access_schedule: Optional[AccessSchedule]
+                """
+                Sets the balance amount and release schedule. Mutually exclusive with `commit_options`.
+                """
+                applicable_metronome_product_tags: Optional[List[str]]
+                """
+                Metronome product tags this commit can be drawn down against. Products must have all specified tags. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [applicable_product_tags](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-tags).
+                """
+                applicable_metronome_products: Optional[List[str]]
+                """
+                Metronome product IDs this commit can be drawn down against. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [applicable_product_ids](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-ids).
+                """
+                commit_options: Optional[CommitOptions]
+                """
+                Customer selects the balance amount to purchase. Mutually exclusive with `access_schedule`.
+                """
+                credit_type_id: Optional[str]
+                """
+                The Metronome Custom Pricing Unit credit type ID for this commit. Null when the commit prices in fiat.
+                """
+                custom_fields: Optional[UntypedStripeObject[str]]
+                """
+                Key-value pairs forwarded to the Metronome commit's [custom_fields](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-custom-fields).
+                """
+                description: Optional[str]
+                """
+                Free-form description. Forwarded to the Metronome commit's description.
+                """
+                metronome_commit: Optional[str]
+                """
+                The Metronome commit ID, populated after successful activation.
+                """
+                metronome_product: str
+                """
+                The Metronome product ID for this commit.
+                """
+                name: str
+                """
+                Display name for the commit. Surfaced on the Metronome commit's name.
+                """
+                priority: Optional[Decimal]
+                """
+                Priority for applying the commit. Lower priority values apply first. Forwarded to Metronome as-is.
+                """
+                rate_type: Optional[str]
+                """
+                Specifies which rates are used to draw down the commit. Accepts `commit_rate`, `list_rate`, `COMMIT_RATE`, or `LIST_RATE`.
+                """
+                rollover_fraction: Optional[Decimal]
+                """
+                Fraction of unused balance that rolls over on a Metronome contract transition. Must be between `0` and `1`. Forwarded to Metronome as-is.
+                """
+                specifiers: Optional[List[Specifier]]
+                """
+                Usage filters that determine what draws down the commit. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [specifiers](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-specifiers).
+                """
+                tax_details: Optional[TaxDetails]
+                """
+                Tax details for the Stripe product created for this commit. If provided, `tax_code` is required.
+                """
+                _inner_class_types = {
+                    "access_schedule": AccessSchedule,
+                    "commit_options": CommitOptions,
+                    "specifiers": Specifier,
+                    "tax_details": TaxDetails,
+                }
+                _field_encodings = {
+                    "priority": "decimal_string",
+                    "rollover_fraction": "decimal_string",
+                }
+
+            class PriceConfiguration(StripeObject):
+                currency: str
+                """
+                The currency for this commit purchase, as an ISO 4217 lowercase string (for example, `usd`).
+                """
+                tax_behavior: Optional[
+                    Union[Literal["exclusive", "inclusive"], str]
+                ]
+                """
+                Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
+                """
+
+            commits: List[Commit]
+            """
+            The list of commits for this Metronome contract.
+            """
+            metronome_contract: str
+            """
+            The Metronome contract ID associated with this checkout item.
+            """
+            metronome_customer: Optional[str]
+            """
+            The Metronome customer ID associated with this checkout item, resolved during validation.
+            """
+            price_configuration: PriceConfiguration
+            _inner_class_types = {
+                "commits": Commit,
+                "price_configuration": PriceConfiguration,
+            }
+
         class Subscription(StripeObject):
             class Item(StripeObject):
                 class CurrentTrial(StripeObject):
@@ -1323,18 +1573,64 @@ class Session(
         """
         The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         """
+        metronome_commit: Optional[MetronomeCommit]
         subscription: Optional[Subscription]
-        type: Union[Literal["subscription"], str]
+        type: Union[Literal["metronome_commit", "subscription"], str]
         """
         The type of the item.
         """
-        _inner_class_types = {"subscription": Subscription}
+        _inner_class_types = {
+            "metronome_commit": MetronomeCommit,
+            "subscription": Subscription,
+        }
 
     class ManagedPayments(StripeObject):
         enabled: bool
         """
         Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
         """
+
+    class MarketingAttribution(StripeObject):
+        class AdConversion(StripeObject):
+            consent_collected: bool
+            """
+            Whether the customer consented to sending conversion data to an advertising platform.
+            """
+
+        ad_conversion: AdConversion
+        click_id: Optional[str]
+        """
+        The advertising platform's click identifier.
+        """
+        occurred_at: Optional[int]
+        """
+        The Unix timestamp when the advertising interaction occurred.
+        """
+        utm_adgroup: Optional[str]
+        """
+        The advertising group ID from the `utm_adgroup` parameter.
+        """
+        utm_content: Optional[str]
+        """
+        The advertising content identifier from the `utm_content` parameter.
+        """
+        utm_id: Optional[str]
+        """
+        The advertising campaign ID from the `utm_id` parameter.
+        """
+        utm_medium: Optional[str]
+        """
+        The marketing medium from the `utm_medium` parameter.
+        """
+        utm_source: Optional[str]
+        """
+        The referral source from the `utm_source` parameter.
+        """
+        utm_term: Optional[str]
+        """
+        The paid search term from the `utm_term` parameter.
+        """
+        _inner_class_types = {"ad_conversion": AdConversion}
 
     class NameCollection(StripeObject):
         class Business(StripeObject):
@@ -1615,6 +1911,53 @@ class Session(
                 Indicates if installments are enabled
                 """
 
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Maximum or fixed amount for future payments, in the mandate's currency.
+                """
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
+                """
+                One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                description: Optional[str]
+                """
+                A description of the mandate or subscription that is meant to be displayed to the customer.
+                """
+                end_date: Optional[int]
+                """
+                End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                """
+                interval: Optional[
+                    Union[
+                        Literal["day", "month", "sporadic", "week", "year"],
+                        str,
+                    ]
+                ]
+                """
+                Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+                """
+                interval_count: Optional[int]
+                """
+                The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+                """
+                reference: Optional[str]
+                """
+                Unique identifier for the mandate or subscription.
+                """
+                start_date: Optional[int]
+                """
+                Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+                """
+                supported_types: Optional[List[Literal["india"]]]
+                """
+                Specifies the type of mandates supported. Possible values are `india`.
+                """
+
             class Restrictions(StripeObject):
                 brands_blocked: Optional[
                     List[
@@ -1644,6 +1987,7 @@ class Session(
             Controls when the funds will be captured from the customer's account.
             """
             installments: Optional[Installments]
+            mandate_options: Optional[MandateOptions]
             request_decremental_authorization: Optional[
                 Union[Literal["if_available", "never"], str]
             ]
@@ -1703,6 +2047,7 @@ class Session(
             """
             _inner_class_types = {
                 "installments": Installments,
+                "mandate_options": MandateOptions,
                 "restrictions": Restrictions,
             }
 
@@ -3419,6 +3764,10 @@ class Session(
     """
     Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
     """
+    marketing_attributions: Optional[List[MarketingAttribution]]
+    """
+    Advertising attribution information for this Checkout Session.
+    """
     metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -3456,7 +3805,7 @@ class Session(
         Union[Literal["always", "auto", "if_required"], str]
     ]
     """
-    Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
+    Configure whether a Checkout Session should collect a payment method. Can only be set in `subscription` mode. Defaults to `always`.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails
@@ -4065,6 +4414,7 @@ class Session(
         "invoice_creation": InvoiceCreation,
         "items": Item,
         "managed_payments": ManagedPayments,
+        "marketing_attributions": MarketingAttribution,
         "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
