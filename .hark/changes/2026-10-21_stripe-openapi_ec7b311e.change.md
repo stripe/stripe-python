@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1945
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 16.1.0a4
 ---
 
 * Add support for new resources `risk.Form` and `v2.data.SearchResultList`
