@@ -17,9 +17,9 @@ if TYPE_CHECKING:
         AuthorizationCaptureParamsPurchaseDetailsFlight as AuthorizationCaptureParamsPurchaseDetailsFlight,
         AuthorizationCaptureParamsPurchaseDetailsFlightSegment as AuthorizationCaptureParamsPurchaseDetailsFlightSegment,
         AuthorizationCaptureParamsPurchaseDetailsFuel as AuthorizationCaptureParamsPurchaseDetailsFuel,
-        AuthorizationCaptureParamsPurchaseDetailsHealthcare as AuthorizationCaptureParamsPurchaseDetailsHealthcare,
         AuthorizationCaptureParamsPurchaseDetailsLodging as AuthorizationCaptureParamsPurchaseDetailsLodging,
         AuthorizationCaptureParamsPurchaseDetailsReceipt as AuthorizationCaptureParamsPurchaseDetailsReceipt,
+        AuthorizationCaptureParamsSettlementDetails as AuthorizationCaptureParamsSettlementDetails,
     )
     from stripe.params.test_helpers.issuing._authorization_create_params import (
         AuthorizationCreateParams as AuthorizationCreateParams,
@@ -121,9 +121,9 @@ if TYPE_CHECKING:
         TransactionCreateForceCaptureParamsPurchaseDetailsFlight as TransactionCreateForceCaptureParamsPurchaseDetailsFlight,
         TransactionCreateForceCaptureParamsPurchaseDetailsFlightSegment as TransactionCreateForceCaptureParamsPurchaseDetailsFlightSegment,
         TransactionCreateForceCaptureParamsPurchaseDetailsFuel as TransactionCreateForceCaptureParamsPurchaseDetailsFuel,
-        TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare as TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare,
         TransactionCreateForceCaptureParamsPurchaseDetailsLodging as TransactionCreateForceCaptureParamsPurchaseDetailsLodging,
         TransactionCreateForceCaptureParamsPurchaseDetailsReceipt as TransactionCreateForceCaptureParamsPurchaseDetailsReceipt,
+        TransactionCreateForceCaptureParamsSettlementDetails as TransactionCreateForceCaptureParamsSettlementDetails,
     )
     from stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params import (
         TransactionCreateUnlinkedRefundParams as TransactionCreateUnlinkedRefundParams,
@@ -138,7 +138,6 @@ if TYPE_CHECKING:
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlight as TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlight,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlightSegment as TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlightSegment,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel as TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel,
-        TransactionCreateUnlinkedRefundParamsPurchaseDetailsHealthcare as TransactionCreateUnlinkedRefundParamsPurchaseDetailsHealthcare,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsLodging as TransactionCreateUnlinkedRefundParamsPurchaseDetailsLodging,
         TransactionCreateUnlinkedRefundParamsPurchaseDetailsReceipt as TransactionCreateUnlinkedRefundParamsPurchaseDetailsReceipt,
     )
@@ -196,15 +195,15 @@ _import_map = {
         "stripe.params.test_helpers.issuing._authorization_capture_params",
         False,
     ),
-    "AuthorizationCaptureParamsPurchaseDetailsHealthcare": (
-        "stripe.params.test_helpers.issuing._authorization_capture_params",
-        False,
-    ),
     "AuthorizationCaptureParamsPurchaseDetailsLodging": (
         "stripe.params.test_helpers.issuing._authorization_capture_params",
         False,
     ),
     "AuthorizationCaptureParamsPurchaseDetailsReceipt": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsSettlementDetails": (
         "stripe.params.test_helpers.issuing._authorization_capture_params",
         False,
     ),
@@ -452,15 +451,15 @@ _import_map = {
         "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
         False,
     ),
-    "TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare": (
-        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-        False,
-    ),
     "TransactionCreateForceCaptureParamsPurchaseDetailsLodging": (
         "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
         False,
     ),
     "TransactionCreateForceCaptureParamsPurchaseDetailsReceipt": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsSettlementDetails": (
         "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
         False,
     ),
@@ -509,10 +508,6 @@ _import_map = {
         False,
     ),
     "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel": (
-        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-        False,
-    ),
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsHealthcare": (
         "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
         False,
     ),

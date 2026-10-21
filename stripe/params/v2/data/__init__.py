@@ -8,6 +8,9 @@ if TYPE_CHECKING:
         analytics as analytics,
         reporting as reporting,
     )
+    from stripe.params.v2.data._operation_search_params import (
+        OperationSearchParams as OperationSearchParams,
+    )
     from stripe.params.v2.data._query_run_create_params import (
         QueryRunCreateParams as QueryRunCreateParams,
         QueryRunCreateParamsQuery as QueryRunCreateParamsQuery,
@@ -41,6 +44,10 @@ if TYPE_CHECKING:
 _import_map = {
     "analytics": ("stripe.params.v2.data.analytics", True),
     "reporting": ("stripe.params.v2.data.reporting", True),
+    "OperationSearchParams": (
+        "stripe.params.v2.data._operation_search_params",
+        False,
+    ),
     "QueryRunCreateParams": (
         "stripe.params.v2.data._query_run_create_params",
         False,

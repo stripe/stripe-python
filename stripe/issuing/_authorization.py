@@ -1205,6 +1205,16 @@ class Authorization(
             "hold_amount_details": HoldAmountDetails,
         }
 
+    class ProductEligibilityInquiry(StripeObject):
+        anticipated_amount: Optional[int]
+        """
+        The anticipated amount that merchants can send before a payment authorization, in the smallest currency unit.
+        """
+        anticipated_currency: Optional[str]
+        """
+        The currency of the anticipated amount that merchants can send before a payment authorization.
+        """
+
     class Redaction(StripeObject):
         status: Union[Literal["processing", "redacted", "validated"], str]
         """
@@ -2033,6 +2043,10 @@ class Authorization(
     """
     The point-of-sale initiation condition. This is null when the card network did not provide one.
     """
+    product_eligibility_inquiry: Optional[ProductEligibilityInquiry]
+    """
+    Details about the authorization specific to product eligibility inquiries. This field is only populated for `product_eligibility_inquiry` type authorizations.
+    """
     redaction: Optional[Redaction]
     """
     Redaction status of this authorization. If the authorization is not redacted, this field will be null.
@@ -2061,6 +2075,17 @@ class Authorization(
     treasury: Optional[Treasury]
     """
     [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
+    """
+    type: Optional[
+        Union[
+            Literal[
+                "balance_inquiry", "payment", "product_eligibility_inquiry"
+            ],
+            str,
+        ]
+    ]
+    """
+    The type of the authorization, whether it is for a payment or another type.
     """
     verification_data: VerificationData
     verified_by_fraud_challenge: Optional[bool]
@@ -3213,6 +3238,7 @@ class Authorization(
         "merchant_data": MerchantData,
         "network_data": NetworkData,
         "pending_request": PendingRequest,
+        "product_eligibility_inquiry": ProductEligibilityInquiry,
         "redaction": Redaction,
         "request_history": RequestHistory,
         "terminal_data": TerminalData,

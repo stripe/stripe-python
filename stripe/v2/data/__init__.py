@@ -8,6 +8,9 @@ if TYPE_CHECKING:
     from stripe.v2.data._analytics_service import (
         AnalyticsService as AnalyticsService,
     )
+    from stripe.v2.data._operation_service import (
+        OperationService as OperationService,
+    )
     from stripe.v2.data._query_run import QueryRun as QueryRun
     from stripe.v2.data._query_run_service import (
         QueryRunService as QueryRunService,
@@ -23,12 +26,16 @@ if TYPE_CHECKING:
     )
     from stripe.v2.data._schema import Schema as Schema
     from stripe.v2.data._schema_service import SchemaService as SchemaService
+    from stripe.v2.data._search_result_list import (
+        SearchResultList as SearchResultList,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
     "analytics": ("stripe.v2.data.analytics", True),
     "reporting": ("stripe.v2.data.reporting", True),
     "AnalyticsService": ("stripe.v2.data._analytics_service", False),
+    "OperationService": ("stripe.v2.data._operation_service", False),
     "QueryRun": ("stripe.v2.data._query_run", False),
     "QueryRunService": ("stripe.v2.data._query_run_service", False),
     "Report": ("stripe.v2.data._report", False),
@@ -38,6 +45,7 @@ _import_map = {
     "ReportingService": ("stripe.v2.data._reporting_service", False),
     "Schema": ("stripe.v2.data._schema", False),
     "SchemaService": ("stripe.v2.data._schema_service", False),
+    "SearchResultList": ("stripe.v2.data._search_result_list", False),
 }
 if not TYPE_CHECKING:
 

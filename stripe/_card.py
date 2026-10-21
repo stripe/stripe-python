@@ -22,6 +22,8 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     later. You can also store multiple debit cards on a recipient in order to
     transfer to those cards later.
 
+    This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
+
     Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
     """
 

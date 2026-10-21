@@ -284,7 +284,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
         class IdBankTransfer(StripeObject):
             bank: Optional[
-                Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+                Union[
+                    Literal["bca", "bni", "bri", "cimb", "mandiri", "permata"],
+                    str,
+                ]
             ]
             """
             Bank where the account is located.

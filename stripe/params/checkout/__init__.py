@@ -49,11 +49,23 @@ if TYPE_CHECKING:
         SessionCreateParamsInvoiceCreationInvoiceDataIssuer as SessionCreateParamsInvoiceCreationInvoiceDataIssuer,
         SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions as SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions,
         SessionCreateParamsItem as SessionCreateParamsItem,
+        SessionCreateParamsItemMetronomeCommit as SessionCreateParamsItemMetronomeCommit,
+        SessionCreateParamsItemMetronomeCommitCommit as SessionCreateParamsItemMetronomeCommitCommit,
+        SessionCreateParamsItemMetronomeCommitCommitAccessSchedule as SessionCreateParamsItemMetronomeCommitCommitAccessSchedule,
+        SessionCreateParamsItemMetronomeCommitCommitAccessScheduleScheduleItem as SessionCreateParamsItemMetronomeCommitCommitAccessScheduleScheduleItem,
+        SessionCreateParamsItemMetronomeCommitCommitCommitOptions as SessionCreateParamsItemMetronomeCommitCommitCommitOptions,
+        SessionCreateParamsItemMetronomeCommitCommitCommitOptionsCustomAmount as SessionCreateParamsItemMetronomeCommitCommitCommitOptionsCustomAmount,
+        SessionCreateParamsItemMetronomeCommitCommitCommitOptionsDiscountTier as SessionCreateParamsItemMetronomeCommitCommitCommitOptionsDiscountTier,
+        SessionCreateParamsItemMetronomeCommitCommitCommitOptionsOption as SessionCreateParamsItemMetronomeCommitCommitCommitOptionsOption,
+        SessionCreateParamsItemMetronomeCommitCommitSpecifier as SessionCreateParamsItemMetronomeCommitCommitSpecifier,
+        SessionCreateParamsItemMetronomeCommitCommitTaxDetails as SessionCreateParamsItemMetronomeCommitCommitTaxDetails,
+        SessionCreateParamsItemMetronomeCommitPriceConfiguration as SessionCreateParamsItemMetronomeCommitPriceConfiguration,
         SessionCreateParamsItemSubscription as SessionCreateParamsItemSubscription,
         SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig as SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig,
         SessionCreateParamsItemSubscriptionBillingMode as SessionCreateParamsItemSubscriptionBillingMode,
         SessionCreateParamsItemSubscriptionBillingModeFlexible as SessionCreateParamsItemSubscriptionBillingModeFlexible,
         SessionCreateParamsItemSubscriptionItem as SessionCreateParamsItemSubscriptionItem,
+        SessionCreateParamsItemSubscriptionItemAdjustableQuantity as SessionCreateParamsItemSubscriptionItemAdjustableQuantity,
         SessionCreateParamsItemSubscriptionItemCurrentTrial as SessionCreateParamsItemSubscriptionItemCurrentTrial,
         SessionCreateParamsItemSubscriptionItemPriceData as SessionCreateParamsItemSubscriptionItemPriceData,
         SessionCreateParamsItemSubscriptionItemPriceDataProductData as SessionCreateParamsItemSubscriptionItemPriceDataProductData,
@@ -69,6 +81,8 @@ if TYPE_CHECKING:
         SessionCreateParamsLineItemPriceDataProductDataTaxDetails as SessionCreateParamsLineItemPriceDataProductDataTaxDetails,
         SessionCreateParamsLineItemPriceDataRecurring as SessionCreateParamsLineItemPriceDataRecurring,
         SessionCreateParamsManagedPayments as SessionCreateParamsManagedPayments,
+        SessionCreateParamsMarketingAttribution as SessionCreateParamsMarketingAttribution,
+        SessionCreateParamsMarketingAttributionAdConversion as SessionCreateParamsMarketingAttributionAdConversion,
         SessionCreateParamsNameCollection as SessionCreateParamsNameCollection,
         SessionCreateParamsNameCollectionBusiness as SessionCreateParamsNameCollectionBusiness,
         SessionCreateParamsNameCollectionIndividual as SessionCreateParamsNameCollectionIndividual,
@@ -429,6 +443,50 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsItemMetronomeCommit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitAccessSchedule": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitAccessScheduleScheduleItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitCommitOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitCommitOptionsCustomAmount": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitCommitOptionsDiscountTier": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitCommitOptionsOption": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitSpecifier": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitCommitTaxDetails": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemMetronomeCommitPriceConfiguration": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsItemSubscription": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -446,6 +504,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsItemSubscriptionItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionItemAdjustableQuantity": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -506,6 +568,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsManagedPayments": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsMarketingAttribution": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsMarketingAttributionAdConversion": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

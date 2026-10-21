@@ -88,6 +88,7 @@ if TYPE_CHECKING:
     from stripe._reporting_service import ReportingService
     from stripe._reserve_service import ReserveService
     from stripe._review_service import ReviewService
+    from stripe._risk_service import RiskService
     from stripe._setup_attempt_service import SetupAttemptService
     from stripe._setup_intent_service import SetupIntentService
     from stripe._shared_payment_service import SharedPaymentService
@@ -263,6 +264,7 @@ _subservices = {
     "reporting": ["stripe._reporting_service", "ReportingService"],
     "reserve": ["stripe._reserve_service", "ReserveService"],
     "reviews": ["stripe._review_service", "ReviewService"],
+    "risk": ["stripe._risk_service", "RiskService"],
     "setup_attempts": ["stripe._setup_attempt_service", "SetupAttemptService"],
     "setup_intents": ["stripe._setup_intent_service", "SetupIntentService"],
     "shared_payment": [
@@ -375,6 +377,7 @@ class V1Services(StripeService):
     reporting: "ReportingService"
     reserve: "ReserveService"
     reviews: "ReviewService"
+    risk: "RiskService"
     setup_attempts: "SetupAttemptService"
     setup_intents: "SetupIntentService"
     shared_payment: "SharedPaymentService"

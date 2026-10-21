@@ -345,9 +345,7 @@ class VerificationSession(
     """
     Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://docs.stripe.com/identity/how-sessions-work).
     """
-    type: Union[
-        Literal["document", "email", "id_number", "verification_flow"], str
-    ]
+    type: Union[Literal["document", "id_number", "verification_flow"], str]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """

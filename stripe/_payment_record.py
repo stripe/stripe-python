@@ -1257,7 +1257,9 @@ class PaymentRecord(
             """
             Account number of the bank account to transfer funds to.
             """
-            bank: Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+            bank: Union[
+                Literal["bca", "bni", "bri", "cimb", "mandiri", "permata"], str
+            ]
             """
             Bank where the account is located.
             """

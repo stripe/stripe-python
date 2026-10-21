@@ -135,6 +135,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class BusinessProfileManagement(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class CapitalFinancing(StripeObject):
             class Features(StripeObject):
                 pass
@@ -634,6 +645,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class ReportingChart(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class TaxRegistrations(StripeObject):
             class Features(StripeObject):
                 pass
@@ -690,6 +712,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the [Bills](https://docs.stripe.com/connect/supported-embedded-components/bills/) embedded component.
         """
+        business_profile_management: Optional[BusinessProfileManagement]
+        """
+        Configuration for the [Business profile management](https://docs.stripe.com/connect/supported-embedded-components/business-profile-management/) embedded component.
+        """
         capital_financing: Optional[CapitalFinancing]
         capital_financing_application: Optional[CapitalFinancingApplication]
         capital_financing_manual_payment: Optional[
@@ -741,16 +767,11 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the [recipients list](https://docs.stripe.com/connect/supported-embedded-components/recipients-list/) embedded component.
         """
+        reporting_chart: ReportingChart
         tax_registrations: TaxRegistrations
         tax_settings: TaxSettings
-        terminal_hardware_orders: Optional[TerminalHardwareOrders]
-        """
-        Configuration for the [Terminal hardware orders](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
-        """
-        terminal_hardware_shop: Optional[TerminalHardwareShop]
-        """
-        Configuration for the [Terminal hardware shop](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
-        """
+        terminal_hardware_orders: TerminalHardwareOrders
+        terminal_hardware_shop: TerminalHardwareShop
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
@@ -758,6 +779,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "balance_report": BalanceReport,
             "balances": Balances,
             "bills": Bills,
+            "business_profile_management": BusinessProfileManagement,
             "capital_financing": CapitalFinancing,
             "capital_financing_application": CapitalFinancingApplication,
             "capital_financing_manual_payment": CapitalFinancingManualPayment,
@@ -784,6 +806,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payouts": Payouts,
             "payouts_list": PayoutsList,
             "recipients_list": RecipientsList,
+            "reporting_chart": ReportingChart,
             "tax_registrations": TaxRegistrations,
             "tax_settings": TaxSettings,
             "terminal_hardware_orders": TerminalHardwareOrders,

@@ -18,6 +18,7 @@ class AccountEvaluationCreateParams(TypedDict):
     requested_signals: List[
         Union[
             Literal[
+                "account_takeover",
                 "fraudulent_website",
                 "user_account_sharing",
                 "user_merchant_fit",
@@ -45,11 +46,41 @@ class AccountEvaluationCreateParamsAccountActivityDetails(TypedDict):
 
 
 class AccountEvaluationCreateParamsAccountActivityDetailsData(TypedDict):
+    account_takeover_confirmation: NotRequired[
+        "AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverConfirmation"
+    ]
+    """
+    Required when type is account_takeover_confirmation. Requires an existing customer or account with a customer configuration.
+    """
+    account_takeover_report: NotRequired[
+        "AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverReport"
+    ]
+    """
+    Required when type is account_takeover_report. Requires an existing customer or account with a customer configuration.
+    """
+    credential_change: NotRequired[
+        "AccountEvaluationCreateParamsAccountActivityDetailsDataCredentialChange"
+    ]
+    """
+    Required when type is credential_change. Requires an existing customer or account with a customer configuration.
+    """
     login_attempt: NotRequired[
         "AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttempt"
     ]
     """
     Details for the login attempt. Provide only when type is login_attempt.
+    """
+    mfa_addition: NotRequired[
+        "AccountEvaluationCreateParamsAccountActivityDetailsDataMfaAddition"
+    ]
+    """
+    Required when type is mfa_addition. Requires an existing customer or account with a customer configuration.
+    """
+    mfa_removal: NotRequired[
+        "AccountEvaluationCreateParamsAccountActivityDetailsDataMfaRemoval"
+    ]
+    """
+    Required when type is mfa_removal. Requires an existing customer or account with a customer configuration.
     """
     occurred_at: NotRequired[str]
     """
@@ -66,15 +97,49 @@ class AccountEvaluationCreateParamsAccountActivityDetailsData(TypedDict):
             "account_restricted",
             "account_reviewed",
             "account_suspended",
+            "account_takeover_confirmation",
+            "account_takeover_mitigation",
+            "account_takeover_report",
+            "credential_change",
             "login_attempt",
             "login_decision",
+            "mfa_addition",
+            "mfa_removal",
             "registration_attempt",
             "registration_decision",
         ],
         str,
     ]
     """
-    The type of activity. Must be registration_attempt or login_attempt.
+    The type of activity. Supports registration_attempt, login_attempt, mfa_addition, mfa_removal,
+    credential_change, account_takeover_report, account_takeover_confirmation, or account_takeover_mitigation.
+    """
+
+
+class AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverConfirmation(
+    TypedDict,
+):
+    credential_type: Union[Literal["api_key", "login_password", "other"], str]
+    """
+    The type of credential involved in the confirmed takeover.
+    """
+
+
+class AccountEvaluationCreateParamsAccountActivityDetailsDataAccountTakeoverReport(
+    TypedDict,
+):
+    credential_type: Union[Literal["api_key", "login_password", "other"], str]
+    """
+    The type of credential involved in the reported takeover.
+    """
+
+
+class AccountEvaluationCreateParamsAccountActivityDetailsDataCredentialChange(
+    TypedDict,
+):
+    credential_type: Union[Literal["api_key", "login_password", "other"], str]
+    """
+    The type of credential that changed.
     """
 
 
@@ -116,6 +181,30 @@ class AccountEvaluationCreateParamsAccountActivityDetailsDataLoginAttemptClientD
     user_agent: NotRequired[str]
     """
     The user agent associated with the activity.
+    """
+
+
+class AccountEvaluationCreateParamsAccountActivityDetailsDataMfaAddition(
+    TypedDict,
+):
+    mfa_type: Union[
+        Literal["authenticator_app", "email", "hardware_key", "other", "sms"],
+        str,
+    ]
+    """
+    The authentication method added to the account.
+    """
+
+
+class AccountEvaluationCreateParamsAccountActivityDetailsDataMfaRemoval(
+    TypedDict,
+):
+    mfa_type: Union[
+        Literal["authenticator_app", "email", "hardware_key", "other", "sms"],
+        str,
+    ]
+    """
+    The authentication method removed from the account.
     """
 
 

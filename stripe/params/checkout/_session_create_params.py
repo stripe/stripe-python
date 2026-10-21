@@ -309,6 +309,12 @@ class SessionCreateParams(RequestOptions):
     """
     Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
     """
+    marketing_attributions: NotRequired[
+        List["SessionCreateParamsMarketingAttribution"]
+    ]
+    """
+    Advertising attribution information for this Checkout Session. Only one attribution is supported.
+    """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -929,13 +935,246 @@ class SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
 
 
 class SessionCreateParamsItem(TypedDict):
+    metronome_commit: NotRequired["SessionCreateParamsItemMetronomeCommit"]
+    """
+    Configuration for the Metronome commit item.
+    """
     subscription: NotRequired["SessionCreateParamsItemSubscription"]
     """
     Configuration for the subscription item.
     """
-    type: Union[Literal["subscription"], str]
+    type: Union[Literal["metronome_commit", "subscription"], str]
     """
     The type of item.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommit(TypedDict):
+    commits: List["SessionCreateParamsItemMetronomeCommitCommit"]
+    """
+    The list of commits to create for this Metronome contract.
+    """
+    metronome_contract: str
+    """
+    The Metronome contract ID to associate with this checkout item.
+    """
+    price_configuration: (
+        "SessionCreateParamsItemMetronomeCommitPriceConfiguration"
+    )
+    """
+    The currency and tax behavior configuration for this commit purchase.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommit(TypedDict):
+    access_schedule: NotRequired[
+        "SessionCreateParamsItemMetronomeCommitCommitAccessSchedule"
+    ]
+    """
+    Sets the balance amount and release schedule. Mutually exclusive with `commit_options`.
+    """
+    applicable_metronome_product_tags: NotRequired[List[str]]
+    """
+    Metronome product tags this commit can be drawn down against. A product matches if it has at least one of the specified tags. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_tags](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-tags).
+    """
+    applicable_metronome_products: NotRequired[List[str]]
+    """
+    Metronome product IDs this commit can be drawn down against. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_ids](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-ids).
+    """
+    commit_options: NotRequired[
+        "SessionCreateParamsItemMetronomeCommitCommitCommitOptions"
+    ]
+    """
+    Customer selects the balance amount to purchase. Mutually exclusive with `access_schedule`.
+    """
+    credit_type_id: NotRequired[str]
+    """
+    The Metronome Custom Pricing Unit credit type ID for this commit, whose access amounts are credit counts. Omit it to price in fiat, where access amounts are in the smallest unit of `price_configuration[currency]`. Fiat credit type IDs are not accepted.
+    """
+    custom_fields: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Key-value pairs forwarded to the Metronome commit's [custom_fields](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-custom-fields).
+    """
+    description: NotRequired[str]
+    """
+    Free-form description. Forwarded to the Metronome commit's description.
+    """
+    metronome_product: str
+    """
+    The Metronome product ID for this commit.
+    """
+    name: str
+    """
+    Display name for the commit. Surfaced on the Metronome commit's name.
+    """
+    priority: NotRequired[Decimal]
+    """
+    Priority for applying the commit. Lower priority values apply first. Forwarded to Metronome as-is.
+    """
+    rate_type: NotRequired["Literal['commit_rate', 'list_rate']|str"]
+    """
+    Specifies which rates are used to draw down the commit. Accepts `commit_rate`, `list_rate`, `COMMIT_RATE`, or `LIST_RATE`.
+    """
+    rollover_fraction: NotRequired[Decimal]
+    """
+    Fraction of unused balance that rolls over on a Metronome contract transition. Must be between `0` and `1`. Forwarded to Metronome as-is.
+    """
+    specifiers: NotRequired[
+        List["SessionCreateParamsItemMetronomeCommitCommitSpecifier"]
+    ]
+    """
+    Usage filters that determine what draws down the commit. If multiple specifiers are provided, a product only needs to match one. Mutually exclusive with `applicable_metronome_products` and `applicable_metronome_product_tags`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [specifiers](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-specifiers).
+    """
+    tax_details: NotRequired[
+        "SessionCreateParamsItemMetronomeCommitCommitTaxDetails"
+    ]
+    """
+    Tax details for this commit. If omitted, Stripe uses the tax code from the Stripe product linked to the Metronome commit product. If there is no linked Stripe product or the Stripe product has no tax code configured, the [preset tax rate on your account](https://docs.stripe.com/api/tax/settings/object#tax_settings_object-defaults-tax_code) will be used. If provided, `tax_code` is required.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitAccessSchedule(TypedDict):
+    price_amount: int
+    """
+    The fixed price the buyer pays, in minor currency units.
+    """
+    schedule_items: List[
+        "SessionCreateParamsItemMetronomeCommitCommitAccessScheduleScheduleItem"
+    ]
+    """
+    When and how many credits become available.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitAccessScheduleScheduleItem(
+    TypedDict,
+):
+    amount: Decimal
+    """
+    The access amount in credit_type_id units.
+    """
+    ending_before: str
+    """
+    Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount ends (exclusive).
+    """
+    starting_at: str
+    """
+    Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount starts (inclusive).
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitCommitOptions(TypedDict):
+    custom_amount: NotRequired[
+        "SessionCreateParamsItemMetronomeCommitCommitCommitOptionsCustomAmount"
+    ]
+    """
+    Optionally let the buyer enter a custom access amount.
+    """
+    discount_tiers: NotRequired[
+        List[
+            "SessionCreateParamsItemMetronomeCommitCommitCommitOptionsDiscountTier"
+        ]
+    ]
+    """
+    Volume-based discount tiers.
+    """
+    ending_before: str
+    """
+    When access for the purchased credits ends. Hour-aligned UTC timestamp.
+    """
+    options: List[
+        "SessionCreateParamsItemMetronomeCommitCommitCommitOptionsOption"
+    ]
+    """
+    Access-amount presets for the buyer to choose from.
+    """
+    starting_at: str
+    """
+    When access for the purchased credits starts. Hour-aligned UTC timestamp.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitCommitOptionsCustomAmount(
+    TypedDict,
+):
+    enabled: bool
+    """
+    Must be `true` when `custom_amount` is present. Omit `custom_amount` to disable custom amounts.
+    """
+    maximum: NotRequired[int]
+    """
+    Maximum `access_amount` the customer can enter. Defaults to `999999999999999` when omitted.
+    """
+    minimum: NotRequired[int]
+    """
+    Minimum `access_amount` the customer can enter. Defaults to `1` when omitted.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitCommitOptionsDiscountTier(
+    TypedDict,
+):
+    discount_percentage: int
+    """
+    Percentage discount applied to the full access_amount when it falls in this tier.
+    """
+    up_to: Union[int, Literal["inf"]]
+    """
+    Upper bound (inclusive) in credit_type_id units. Use `inf` to define an unbounded tier.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitCommitOptionsOption(
+    TypedDict,
+):
+    access_amount: int
+    """
+    The access amount for this option, in credit_type_id units.
+    """
+    default_option: NotRequired[bool]
+    """
+    Whether this option is pre-selected in the Checkout UI. At most one option may be marked true.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitSpecifier(TypedDict):
+    presentation_group_values: NotRequired[
+        "Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Key-value pairs for presentation group filters.
+    """
+    pricing_group_values: NotRequired[
+        "Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Key-value pairs for pricing group filters.
+    """
+    product_id: NotRequired[str]
+    """
+    Metronome product ID to scope this specifier to.
+    """
+    product_tags: NotRequired[List[str]]
+    """
+    Metronome product tags to scope this specifier to. A product matches this filter only if it has all specified tags.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitCommitTaxDetails(TypedDict):
+    tax_code: str
+    """
+    Stripe [tax code](https://docs.stripe.com/tax/tax-codes) for this commit (for example, `txcd_10103000`). If the linked Stripe Product has a tax code, this value must match it.
+    """
+
+
+class SessionCreateParamsItemMetronomeCommitPriceConfiguration(TypedDict):
+    currency: str
+    """
+    The currency for this commit purchase, as an ISO 4217 lowercase string (for example, `usd`).
+    """
+    tax_behavior: NotRequired["Literal['exclusive', 'inclusive']|str"]
+    """
+    Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
     """
 
 
@@ -1036,6 +1275,12 @@ class SessionCreateParamsItemSubscriptionBillingModeFlexible(TypedDict):
 
 
 class SessionCreateParamsItemSubscriptionItem(TypedDict):
+    adjustable_quantity: NotRequired[
+        "SessionCreateParamsItemSubscriptionItemAdjustableQuantity"
+    ]
+    """
+    When set, provides configuration for this item's quantity to be adjusted by the customer during Checkout.
+    """
     current_trial: NotRequired[
         "SessionCreateParamsItemSubscriptionItemCurrentTrial"
     ]
@@ -1053,6 +1298,21 @@ class SessionCreateParamsItemSubscriptionItem(TypedDict):
     quantity: NotRequired[int]
     """
     Quantity for this item.
+    """
+
+
+class SessionCreateParamsItemSubscriptionItemAdjustableQuantity(TypedDict):
+    enabled: bool
+    """
+    Set to true if the quantity can be adjusted to any non-negative integer.
+    """
+    maximum: NotRequired[int]
+    """
+    The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+    """
+    minimum: NotRequired[int]
+    """
+    The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
     """
 
 
@@ -1205,7 +1465,7 @@ class SessionCreateParamsLineItem(TypedDict):
     """
     price_data: NotRequired["SessionCreateParamsLineItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
     """
     quantity: NotRequired[int]
     """
@@ -1326,6 +1586,52 @@ class SessionCreateParamsManagedPayments(TypedDict):
     enabled: NotRequired[bool]
     """
     Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+    """
+
+
+class SessionCreateParamsMarketingAttribution(TypedDict):
+    ad_conversion: "SessionCreateParamsMarketingAttributionAdConversion"
+    """
+    Information used when sending conversions to an advertising platform.
+    """
+    click_id: NotRequired[str]
+    """
+    The advertising platform's click identifier.
+    """
+    occurred_at: NotRequired[int]
+    """
+    The Unix timestamp when the advertising interaction occurred.
+    """
+    utm_adgroup: NotRequired[str]
+    """
+    The advertising group ID from the `utm_adgroup` parameter.
+    """
+    utm_content: NotRequired[str]
+    """
+    The advertising content identifier from the `utm_content` parameter.
+    """
+    utm_id: NotRequired[str]
+    """
+    The advertising campaign ID from the `utm_id` parameter.
+    """
+    utm_medium: NotRequired[str]
+    """
+    The marketing medium from the `utm_medium` parameter.
+    """
+    utm_source: NotRequired[str]
+    """
+    The referral source from the `utm_source` parameter.
+    """
+    utm_term: NotRequired[str]
+    """
+    The paid search term from the `utm_term` parameter.
+    """
+
+
+class SessionCreateParamsMarketingAttributionAdConversion(TypedDict):
+    consent_collected: bool
+    """
+    Whether the customer consented to sending conversion data to an advertising platform.
     """
 
 

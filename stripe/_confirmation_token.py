@@ -1069,7 +1069,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
         class IdBankTransfer(StripeObject):
             bank: Optional[
-                Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+                Union[
+                    Literal["bca", "bni", "bri", "cimb", "mandiri", "permata"],
+                    str,
+                ]
             ]
             bank_code: Optional[str]
             bank_name: Optional[str]

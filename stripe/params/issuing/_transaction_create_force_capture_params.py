@@ -23,6 +23,10 @@ class TransactionCreateForceCaptureParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    merchant_amount_exchange_rate: NotRequired[float]
+    """
+    Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0. The supplied amount remains the merchant amount.
+    """
     merchant_data: NotRequired[
         "TransactionCreateForceCaptureParamsMerchantData"
     ]
@@ -38,6 +42,12 @@ class TransactionCreateForceCaptureParams(RequestOptions):
     ]
     """
     Additional purchase information that is optionally provided by the merchant.
+    """
+    settlement_details: NotRequired[
+        "TransactionCreateForceCaptureParamsSettlementDetails"
+    ]
+    """
+    Synthetic settlement values for this purchase force capture. If omitted, defaults to the final signed transaction amount, transaction currency, and effective merchant-to-cardholder exchange rate. Supply all three fields to override. This does not create a settlement or change funding.
     """
 
 
@@ -113,12 +123,6 @@ class TransactionCreateForceCaptureParamsPurchaseDetails(TypedDict):
     fuel: NotRequired["TransactionCreateForceCaptureParamsPurchaseDetailsFuel"]
     """
     Information about fuel that was purchased with this transaction.
-    """
-    healthcare: NotRequired[
-        "TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare"
-    ]
-    """
-    Healthcare sub-amounts for IIAS-eligible transactions.
     """
     lodging: NotRequired[
         "TransactionCreateForceCaptureParamsPurchaseDetailsLodging"
@@ -325,46 +329,6 @@ class TransactionCreateForceCaptureParamsPurchaseDetailsFuel(TypedDict):
     """
 
 
-class TransactionCreateForceCaptureParamsPurchaseDetailsHealthcare(TypedDict):
-    clinic_amount: NotRequired[int]
-    """
-    Clinic and urgent care sub-amount for Visa only.
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-    """
-    dental_amount: NotRequired[int]
-    """
-    Dental care sub-amount for Visa only.
-    """
-    prescription_amount: NotRequired[int]
-    """
-    Prescription drug sub-amount. Null if the merchant did not send this amount.
-    """
-    purchase_type: NotRequired[Literal["medical", "transit_for_healthcare"]]
-    """
-    The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-    """
-    total_qualified_amount: int
-    """
-    Total FSA/HSA-eligible amount in the smallest currency unit.
-    """
-    verification_status: Literal[
-        "iias_merchant_exempt",
-        "iias_merchant_not_certified",
-        "iias_verified",
-        "not_verified",
-    ]
-    """
-    IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-    """
-    vision_amount: NotRequired[int]
-    """
-    Vision/optical sub-amount. Null if the merchant did not send this amount.
-    """
-
-
 class TransactionCreateForceCaptureParamsPurchaseDetailsLodging(TypedDict):
     check_in_at: NotRequired[int]
     """
@@ -381,3 +345,18 @@ class TransactionCreateForceCaptureParamsPurchaseDetailsReceipt(TypedDict):
     quantity: NotRequired[Decimal]
     total: NotRequired[int]
     unit_cost: NotRequired[int]
+
+
+class TransactionCreateForceCaptureParamsSettlementDetails(TypedDict):
+    amount: int
+    """
+    Positive settlement amount magnitude in the smallest currency unit. Must match the converted merchant amount and, when settlement and cardholder currencies are the same, this capture's finalized transaction amount magnitude. The transaction type determines the output sign.
+    """
+    currency: str
+    """
+    Settlement currency.
+    """
+    exchange_rate: float
+    """
+    Exchange rate from merchant amount to settlement amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+    """

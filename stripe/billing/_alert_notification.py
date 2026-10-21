@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class AlertNotification(StripeObject):
+    """
+    A Billing Alert Notification records a notification sent when a billing alert is triggered or recovered. It identifies the alert, customer, and notification event, along with the observed value and the time the notification was sent.
+    """
+
     OBJECT_NAME: ClassVar[Literal["billing.alert_notification"]] = (
         "billing.alert_notification"
     )
