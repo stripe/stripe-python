@@ -19,9 +19,9 @@
       "commands": [
         "[ -d .venv ] || ( python -m venv .venv && .venv/bin/python -I -m pip install -e . --quiet --disable-pip-version-check )",
         "python -I -m pip install -r deps/dev-requirements.txt --disable-pip-version-check --quiet",
-        "ruff format . --quiet"
+        "ruff format . > /dev/null"
       ],
-      "sourceHash": "sha256:b59ff1a2e8e8f6b19971211312f25dbd1e43cd0024f5f7c1d6ca2cdbe1505ccd"
+      "sourceHash": "sha256:7c786a6bd5b0a9c4488bf1f9fff4d2692bb0894ffe24308121dc83279520a1ca"
     },
     "build": {
       "commands": [
@@ -31,7 +31,7 @@
         "python -m build",
         "python -m twine check dist/*"
       ],
-      "sourceHash": "sha256:b59ff1a2e8e8f6b19971211312f25dbd1e43cd0024f5f7c1d6ca2cdbe1505ccd"
+      "sourceHash": "sha256:7c786a6bd5b0a9c4488bf1f9fff4d2692bb0894ffe24308121dc83279520a1ca"
     }
   }
 }

@@ -7,7 +7,7 @@ import re
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlsplit
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -260,8 +260,12 @@ def _convert_to_stripe_object(
                 klass = get_object_class(api_mode, klass_name)
         # TODO: this is a horrible hack. The API needs
         # to return something for `object` here.
-
-        elif "data" in resp and "next_page_url" in resp:
+        #
+        # Gated on V2: this runs recursively over every nested value, so without
+        # the mode check any nested map in a v1 payload carrying `data` and
+        # `next_page_url` becomes an auto-paginating v2 collection. A malicious webhook
+        # could potentially choose the host of a subsequent authenticated request.
+        elif api_mode == "V2" and "data" in resp and "next_page_url" in resp:
             klass = stripe.v2.ListObject
         elif klass_ is not None:
             klass = klass_
@@ -284,6 +288,7 @@ def _convert_to_stripe_object(
             and (
                 (getattr(obj, "object") == "list")
                 or (getattr(obj, "object") == "search_result")
+                or (getattr(obj, "object") == "v2.search_result")
             )
         ):
             obj._retrieve_params = params
@@ -346,6 +351,34 @@ def sanitize_id(id):
     return quotedId
 
 
+def validate_path(path: str) -> None:
+    """
+    Assert that a request path is origin-relative: that it begins with a single
+    "/" and carries no scheme, authority or userinfo.
+
+    The absolute URL is built by concatenating a base address onto this path, and
+    no base address ends in a slash. A path like "@evil.example/v1/x" or
+    ".evil.example/v1/x" would modify the resulting host and direct the request
+    (including the API key) to a non-Stripe host.
+
+    Because some relative urls arrive from potentially untrusted sources (like
+    webhook bodies), we have to be a little defensive.
+
+    So, we require that a path starts with a leading slash and that urlsplit
+    finds no scheme or authority in it.
+    """
+    if not path.startswith("/") or path.startswith("//"):
+        raise ValueError(
+            f'Request path must be a string beginning with a single "/", got: {path!r}'
+        )
+
+    parts = urlsplit(path)
+    if parts.scheme or parts.netloc:
+        raise ValueError(
+            f"Request path may not contain a scheme or authority, got: {path!r}"
+        )
+
+
 def get_api_mode(url: str) -> ApiMode:
     if url.startswith("/v2"):
         return "V2"
@@ -389,3 +422,20 @@ class class_method_variant(object):
                 return class_method(*args, **kwargs)
 
         return _wrapper
+
+
+# If we detect environment variables that indicate we're running in a Claude Code
+# session, emit a hint to the parent process so it can load the plugin.
+# https://code.claude.com/docs/en/plugin-hints
+def claude_code_hint_line() -> str:
+    return '<claude-code-hint v="1" type="plugin" value="stripe@claude-plugins-official" />\n'
+
+
+def _emit_claude_code_hint() -> None:
+    try:
+        if os.environ.get("CLAUDECODE") or os.environ.get(
+            "CLAUDE_CODE_CHILD_SESSION"
+        ):
+            sys.stderr.write(claude_code_hint_line())
+    except Exception:
+        pass
