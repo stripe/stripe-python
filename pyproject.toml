@@ -1,6 +1,6 @@
 [project]
 name = "stripe"
-version = "15.2.1"
+version = "16.0.0"
 description = "Python bindings for the Stripe API"
 requires-python = ">=3.9"
 classifiers = [
