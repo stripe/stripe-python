@@ -1,4 +1,7 @@
 # Changelog
+## 6.7.1 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's updated trusted root certificates (see https://docs.stripe.com/tls-certificates for more info). The previous bundle contained several certificates not used by Stripe, including emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## 6.7.0 - 2023-10-05
 * [#1065](https://github.com/stripe/stripe-python/pull/1065) Update generated code
   * Add support for new resource `Issuing.Token`
