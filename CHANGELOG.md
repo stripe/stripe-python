@@ -1,3 +1,6 @@
+## 8.11.1 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's root certificates, published at https://stripe.com/files/tls/root_certificates.pem. The previous bundle trusted emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## 8.11.0 - 2024-04-09
 * [#1295](https://github.com/stripe/stripe-python/pull/1295) Update generated code
   * Add support for `fees`, `losses`, `requirement_collection` & `stripe_dashboard` on resource class `stripe.Account.Controller`
