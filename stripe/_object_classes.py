@@ -420,7 +420,12 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
 }
 
 V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
+    "v2.search_result": (
+        "stripe.v2._search_result_object",
+        "SearchResultObject",
+    ),
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    "list": ("stripe.v2._list_object", "ListObject"),
     "v2.billing.bill_setting": (
         "stripe.v2.billing._bill_setting",
         "BillSetting",
