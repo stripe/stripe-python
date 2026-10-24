@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, Union
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -86,6 +86,12 @@ class AccountActivityCreateParams(TypedDict):
     ]
     """
     Details for the registration decision. Provide only when type is registration_decision.
+    """
+    triggering_signal: NotRequired[str]
+    """
+    An accessible AccountSignal that prompted this activity. The signal must be within its
+    90-day retrieval window and match the existing account or customer in account_details.
+    Inline data is unsupported. May be supplied together with account_evaluation.
     """
     type: Union[
         Literal[
@@ -262,9 +268,29 @@ class AccountActivityCreateParamsLoginAttemptClientDetailsData(TypedDict):
 
 
 class AccountActivityCreateParamsLoginDecision(TypedDict):
+    mfa_challenges: NotRequired[
+        List["AccountActivityCreateParamsLoginDecisionMfaChallenge"]
+    ]
+    """
+    Multi-factor authentication challenges performed during the login process.
+    """
     status: Literal["allowed", "blocked", "restricted"]
     """
     The action the merchant took following the evaluation.
+    """
+
+
+class AccountActivityCreateParamsLoginDecisionMfaChallenge(TypedDict):
+    mfa_type: Union[
+        Literal["authenticator_app", "email", "hardware_key", "other", "sms"],
+        str,
+    ]
+    """
+    The authentication method used for the challenge.
+    """
+    status: Union[Literal["failed", "other", "succeeded"], str]
+    """
+    The outcome of the authentication challenge.
     """
 
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional, Union
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -153,10 +153,34 @@ class AccountActivity(StripeObject):
         _inner_class_types = {"client_details": ClientDetails}
 
     class LoginDecision(StripeObject):
+        class MfaChallenge(StripeObject):
+            mfa_type: Union[
+                Literal[
+                    "authenticator_app",
+                    "email",
+                    "hardware_key",
+                    "other",
+                    "sms",
+                ],
+                str,
+            ]
+            """
+            The authentication method used for the challenge.
+            """
+            status: Union[Literal["failed", "other", "succeeded"], str]
+            """
+            The outcome of the authentication challenge.
+            """
+
+        mfa_challenges: Optional[List[MfaChallenge]]
+        """
+        Multi-factor authentication challenges performed during the login process.
+        """
         status: Literal["allowed", "blocked", "restricted"]
         """
         The action the merchant took following the evaluation.
         """
+        _inner_class_types = {"mfa_challenges": MfaChallenge}
 
     class MfaAddition(StripeObject):
         mfa_type: Union[
@@ -300,6 +324,11 @@ class AccountActivity(StripeObject):
     registration_decision: Optional[RegistrationDecision]
     """
     Details for the registration decision. Present only when type is registration_decision.
+    """
+    triggering_signal: Optional[str]
+    """
+    The AccountSignal that prompted this activity, when applicable. This historical reference
+    may coexist with account_evaluation and remains present after the signal expires.
     """
     type: Union[
         Literal[

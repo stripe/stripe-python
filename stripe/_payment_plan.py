@@ -46,7 +46,7 @@ class PaymentPlan(
         invoice_details: InvoiceDetails
         type: str
         """
-        The type of object this plan collects against. Currently always `invoice_details`.
+        The type of object this plan collects against. This is always `invoice_details`.
         """
         _inner_class_types = {"invoice_details": InvoiceDetails}
 
@@ -155,7 +155,7 @@ class PaymentPlan(
         amounts_due: AmountsDue
         type: str
         """
-        The type of schedule. Currently always `amounts_due`.
+        The type of schedule. This is always `amounts_due`.
         """
         _inner_class_types = {"amounts_due": AmountsDue}
 

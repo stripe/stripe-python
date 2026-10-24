@@ -196,6 +196,10 @@ class AlertCreateParamsSpendThresholdFilters(TypedDict):
     """
     Filter by billing cadence ID.
     """
+    billing_group: NotRequired[str]
+    """
+    Filter by billing group ID.
+    """
     pricing_plan: NotRequired[str]
     """
     Filter by pricing plan ID.

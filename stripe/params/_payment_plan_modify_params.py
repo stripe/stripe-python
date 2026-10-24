@@ -24,18 +24,18 @@ class PaymentPlanModifyParams(RequestOptions):
 class PaymentPlanModifyParamsSchedule(TypedDict):
     amounts_due: "PaymentPlanModifyParamsScheduleAmountsDue"
     """
-    Required when type is 'amounts_due'. Must contain at least 2 installment entries.
+    Required when type is 'amounts_due'. Must contain at least two installment entries.
     """
     type: Literal["amounts_due"]
     """
-    The schedule type. Currently only 'amounts_due' is supported.
+    The schedule type. It only supports 'amounts_due'.
     """
 
 
 class PaymentPlanModifyParamsScheduleAmountsDue(TypedDict):
     amounts: List["PaymentPlanModifyParamsScheduleAmountsDueAmount"]
     """
-    The list of installment entries. Must contain at least 2 entries.
+    The list of installment entries. Must contain at least two entries.
     """
 
 

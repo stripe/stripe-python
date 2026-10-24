@@ -77,6 +77,7 @@ class SessionCreateParams(RequestOptions):
                     "sequra",
                     "shopeepay",
                     "sofort",
+                    "stripe_balance",
                     "sunbit",
                     "swish",
                     "twint",
@@ -103,6 +104,12 @@ class SessionCreateParams(RequestOptions):
     Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
 
     When set to `manual`, you must approve the customer's attempt to pay by calling [approve](https://docs.stripe.com/api/checkout/sessions/approve) from your server.
+    """
+    automatic_pass_through_fee: NotRequired[
+        "SessionCreateParamsAutomaticPassThroughFee"
+    ]
+    """
+    Settings for calculating and adding a pass-through fee (a convenience or service fee) to this session.
     """
     automatic_surcharge: NotRequired["SessionCreateParamsAutomaticSurcharge"]
     """
@@ -256,6 +263,7 @@ class SessionCreateParams(RequestOptions):
                     "sequra",
                     "shopeepay",
                     "sofort",
+                    "stripe_balance",
                     "sunbit",
                     "swish",
                     "twint",
@@ -494,6 +502,23 @@ class SessionCreateParamsAfterExpirationRecovery(TypedDict):
     If `true`, a recovery URL will be generated to recover this Checkout Session if it
     expires before a successful transaction is completed. It will be attached to the
     Checkout Session object upon expiration.
+    """
+
+
+class SessionCreateParamsAutomaticPassThroughFee(TypedDict):
+    calculation_basis: NotRequired[
+        "Literal['total_after_tax', 'total_before_tax']|str"
+    ]
+    """
+    Whether the fee is calculated on the amount due before or after tax. Required when `enabled` is `true`.
+    """
+    enabled: bool
+    """
+    Set to `true` to calculate a pass-through fee using the customer's payment method details and location.
+    """
+    type: NotRequired["Literal['convenience_fee', 'service_fee']|str"]
+    """
+    The type of fee to calculate. Required when `enabled` is `true`.
     """
 
 
@@ -1285,15 +1310,15 @@ class SessionCreateParamsItemSubscriptionItem(TypedDict):
         "SessionCreateParamsItemSubscriptionItemCurrentTrial"
     ]
     """
-    The trial offer to apply to this subscription item.
+    The [Trial Offer](https://docs.stripe.com/api/product-catalog/trial-offer?api-version=2026-03-25.preview) to apply to this subscription item. One of `price`, `price_data` or `current_trial` is required.
     """
     price: NotRequired[str]
     """
-    The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
+    The ID of the [Price](https://docs.stripe.com/api/prices). One of `price`, `price_data` or `current_trial` is required.
     """
     price_data: NotRequired["SessionCreateParamsItemSubscriptionItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price`, `price_data` or `current_trial` is required.
     """
     quantity: NotRequired[int]
     """
@@ -1319,7 +1344,7 @@ class SessionCreateParamsItemSubscriptionItemAdjustableQuantity(TypedDict):
 class SessionCreateParamsItemSubscriptionItemCurrentTrial(TypedDict):
     trial_offer: str
     """
-    The ID of the trial offer to apply to the subscription item.
+    The ID of the [Trial Offer](https://docs.stripe.com/api/product-catalog/trial-offer?api-version=2026-03-25.preview).
     """
 
 
@@ -1590,7 +1615,9 @@ class SessionCreateParamsManagedPayments(TypedDict):
 
 
 class SessionCreateParamsMarketingAttribution(TypedDict):
-    ad_conversion: "SessionCreateParamsMarketingAttributionAdConversion"
+    ad_conversion: NotRequired[
+        "SessionCreateParamsMarketingAttributionAdConversion"
+    ]
     """
     Information used when sending conversions to an advertising platform.
     """
@@ -2003,6 +2030,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     paypal: NotRequired["SessionCreateParamsPaymentMethodOptionsPaypal"]
     """
     contains details about the PayPal payment method options.
+    """
+    paypay: NotRequired["SessionCreateParamsPaymentMethodOptionsPaypay"]
+    """
+    contains details about the PayPay payment method options.
     """
     payto: NotRequired["SessionCreateParamsPaymentMethodOptionsPayto"]
     """
@@ -2958,6 +2989,13 @@ class SessionCreateParamsPaymentMethodOptionsPaypal(TypedDict):
     subsellers: NotRequired[List[str]]
     """
     The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsPaypay(TypedDict):
+    subscription_reference: NotRequired[str]
+    """
+    The merchant's subscription identifier for this off-session charge.
     """
 
 

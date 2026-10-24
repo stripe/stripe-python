@@ -16,6 +16,7 @@ if TYPE_CHECKING:
         SessionCreateParamsAdaptivePricing as SessionCreateParamsAdaptivePricing,
         SessionCreateParamsAfterExpiration as SessionCreateParamsAfterExpiration,
         SessionCreateParamsAfterExpirationRecovery as SessionCreateParamsAfterExpirationRecovery,
+        SessionCreateParamsAutomaticPassThroughFee as SessionCreateParamsAutomaticPassThroughFee,
         SessionCreateParamsAutomaticSurcharge as SessionCreateParamsAutomaticSurcharge,
         SessionCreateParamsAutomaticTax as SessionCreateParamsAutomaticTax,
         SessionCreateParamsAutomaticTaxLiability as SessionCreateParamsAutomaticTaxLiability,
@@ -142,6 +143,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsPayco as SessionCreateParamsPaymentMethodOptionsPayco,
         SessionCreateParamsPaymentMethodOptionsPaynow as SessionCreateParamsPaymentMethodOptionsPaynow,
         SessionCreateParamsPaymentMethodOptionsPaypal as SessionCreateParamsPaymentMethodOptionsPaypal,
+        SessionCreateParamsPaymentMethodOptionsPaypay as SessionCreateParamsPaymentMethodOptionsPaypay,
         SessionCreateParamsPaymentMethodOptionsPayto as SessionCreateParamsPaymentMethodOptionsPayto,
         SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions as SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         SessionCreateParamsPaymentMethodOptionsPix as SessionCreateParamsPaymentMethodOptionsPix,
@@ -308,6 +310,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsAfterExpirationRecovery": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAutomaticPassThroughFee": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -812,6 +818,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsPaypal": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPaypay": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

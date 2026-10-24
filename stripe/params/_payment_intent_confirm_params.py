@@ -108,6 +108,7 @@ class PaymentIntentConfirmParams(RequestOptions):
                     "swish",
                     "tamara",
                     "test_pay",
+                    "toss_pay",
                     "touch_n_go",
                     "truemoney",
                     "twint",
@@ -157,7 +158,7 @@ class PaymentIntentConfirmParams(RequestOptions):
     Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://docs.stripe.com/payments/save-card-without-authentication).
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'toss_pay', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -2705,6 +2706,10 @@ class PaymentIntentConfirmParamsPaymentDetailsMoneyServices(TypedDict):
 class PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    merchant_of_record: NotRequired["Literal['stripe']|str"]
+    """
+    The merchant of record for this account funding transaction. Can only be set when creating a PaymentIntent.
+    """
     sender_details: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails"
     ]
@@ -3259,6 +3264,10 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
     """
+    toss_pay: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataTossPay"]
+    """
+    If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+    """
     twint: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataTwint"]
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -3327,6 +3336,7 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
             "sunbit",
             "swish",
             "tamara",
+            "toss_pay",
             "twint",
             "upi",
             "us_bank_account",
@@ -3842,6 +3852,10 @@ class PaymentIntentConfirmParamsPaymentMethodDataTamara(TypedDict):
     pass
 
 
+class PaymentIntentConfirmParamsPaymentMethodDataTossPay(TypedDict):
+    pass
+
+
 class PaymentIntentConfirmParamsPaymentMethodDataTwint(TypedDict):
     pass
 
@@ -4287,6 +4301,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
+    """
+    toss_pay: NotRequired[
+        "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsTossPay"
+    ]
+    """
+    If this is a `toss_pay` PaymentMethod, this sub-hash contains details about the Toss Pay payment method options.
     """
     twint: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsTwint"
@@ -7659,6 +7679,21 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsSwish(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentMethodOptionsTossPay(TypedDict):
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']|str"
+    ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
 
 

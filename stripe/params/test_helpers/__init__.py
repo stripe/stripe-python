@@ -82,6 +82,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataSunbit as ConfirmationTokenCreateParamsPaymentMethodDataSunbit,
         ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
         ConfirmationTokenCreateParamsPaymentMethodDataTamara as ConfirmationTokenCreateParamsPaymentMethodDataTamara,
+        ConfirmationTokenCreateParamsPaymentMethodDataTossPay as ConfirmationTokenCreateParamsPaymentMethodDataTossPay,
         ConfirmationTokenCreateParamsPaymentMethodDataTwint as ConfirmationTokenCreateParamsPaymentMethodDataTwint,
         ConfirmationTokenCreateParamsPaymentMethodDataUpi as ConfirmationTokenCreateParamsPaymentMethodDataUpi,
         ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions as ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions,
@@ -405,6 +406,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataTamara": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataTossPay": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

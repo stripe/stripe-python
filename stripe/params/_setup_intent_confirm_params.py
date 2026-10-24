@@ -104,6 +104,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "swish",
                     "tamara",
                     "test_pay",
+                    "toss_pay",
                     "touch_n_go",
                     "truemoney",
                     "twint",
@@ -536,6 +537,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
     """
+    toss_pay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataTossPay"]
+    """
+    If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+    """
     twint: NotRequired["SetupIntentConfirmParamsPaymentMethodDataTwint"]
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -604,6 +609,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "sunbit",
             "swish",
             "tamara",
+            "toss_pay",
             "twint",
             "upi",
             "us_bank_account",
@@ -1116,6 +1122,10 @@ class SetupIntentConfirmParamsPaymentMethodDataSwish(TypedDict):
 
 
 class SetupIntentConfirmParamsPaymentMethodDataTamara(TypedDict):
+    pass
+
+
+class SetupIntentConfirmParamsPaymentMethodDataTossPay(TypedDict):
     pass
 
 

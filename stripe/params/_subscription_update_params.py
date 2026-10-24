@@ -1283,7 +1283,10 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
     TypedDict,
 ):
-    pass
+    debit_behavior: NotRequired[str]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
 
 
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUpi(

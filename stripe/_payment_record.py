@@ -1915,7 +1915,10 @@ class PaymentRecord(
             }
 
         class Paypay(StripeObject):
-            pass
+            mandate: Optional[str]
+            """
+            ID of the multi-use Mandate created by, or used to make, this PayPay payment.
+            """
 
         class Payto(StripeObject):
             bsb_number: Optional[str]
@@ -2170,6 +2173,12 @@ class PaymentRecord(
             The Tamara transaction ID associated with this payment.
             """
 
+        class TossPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            The buyer identifier provided by NICE for this Toss Pay account, when available.
+            """
+
         class Twint(StripeObject):
             mandate: Optional[str]
             """
@@ -2337,6 +2346,7 @@ class PaymentRecord(
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         tamara: Optional[Tamara]
+        toss_pay: Optional[TossPay]
         twint: Optional[Twint]
         type: str
         """
@@ -2422,6 +2432,7 @@ class PaymentRecord(
             "sunbit": Sunbit,
             "swish": Swish,
             "tamara": Tamara,
+            "toss_pay": TossPay,
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
