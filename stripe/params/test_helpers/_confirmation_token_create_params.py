@@ -387,6 +387,12 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
     """
+    toss_pay: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataTossPay"
+    ]
+    """
+    If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+    """
     twint: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataTwint"]
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -455,6 +461,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "sunbit",
             "swish",
             "tamara",
+            "toss_pay",
             "twint",
             "upi",
             "us_bank_account",
@@ -969,6 +976,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataSwish(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataTamara(TypedDict):
+    pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataTossPay(TypedDict):
     pass
 
 

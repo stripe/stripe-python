@@ -1540,6 +1540,12 @@ class PaymentMethod(
     class Tamara(StripeObject):
         pass
 
+    class TossPay(StripeObject):
+        buyer_id: Optional[str]
+        """
+        The buyer identifier provided by NICE for this Toss Pay account, when available.
+        """
+
     class Twint(StripeObject):
         pass
 
@@ -1775,6 +1781,7 @@ class PaymentMethod(
     sunbit: Optional[Sunbit]
     swish: Optional[Swish]
     tamara: Optional[Tamara]
+    toss_pay: Optional[TossPay]
     twint: Optional[Twint]
     type: Union[
         Literal[
@@ -1844,6 +1851,7 @@ class PaymentMethod(
             "sunbit",
             "swish",
             "tamara",
+            "toss_pay",
             "twint",
             "upi",
             "us_bank_account",
@@ -2512,6 +2520,7 @@ class PaymentMethod(
         "sunbit": Sunbit,
         "swish": Swish,
         "tamara": Tamara,
+        "toss_pay": TossPay,
         "twint": Twint,
         "upi": Upi,
         "us_bank_account": UsBankAccount,

@@ -9,7 +9,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class PaymentPlanCreateParams(RequestOptions):
     collects_on: List["PaymentPlanCreateParamsCollectsOn"]
     """
-    The invoice(s) this payment plan collects on. Currently must contain exactly one invoice entry.
+    The invoices this payment plan collects on. It must contain exactly one invoice entry.
     """
     expand: NotRequired[List[str]]
     """
@@ -32,7 +32,7 @@ class PaymentPlanCreateParamsCollectsOn(TypedDict):
     """
     type: Literal["invoice_details"]
     """
-    The type of object this plan collects on. Currently always `invoice_details`.
+    The type of object this plan collects on. This is always `invoice_details`.
     """
 
 
@@ -46,18 +46,18 @@ class PaymentPlanCreateParamsCollectsOnInvoiceDetails(TypedDict):
 class PaymentPlanCreateParamsSchedule(TypedDict):
     amounts_due: "PaymentPlanCreateParamsScheduleAmountsDue"
     """
-    Required when type is 'amounts_due'. Must contain at least 2 installment entries.
+    Required when type is 'amounts_due'. Must contain at least two installment entries.
     """
     type: Literal["amounts_due"]
     """
-    The schedule type. Currently only 'amounts_due' is supported.
+    The schedule type. It only supports 'amounts_due'.
     """
 
 
 class PaymentPlanCreateParamsScheduleAmountsDue(TypedDict):
     amounts: List["PaymentPlanCreateParamsScheduleAmountsDueAmount"]
     """
-    The list of installment entries. Must contain at least 2 entries.
+    The list of installment entries. Must contain at least two entries.
     """
 
 

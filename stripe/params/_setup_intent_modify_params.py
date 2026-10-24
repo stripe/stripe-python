@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class SetupIntentModifyParams(RequestOptions):
     allowed_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boku_promptpay', 'boleto', 'capchase_pay', 'card', 'card_present', 'carecredit', 'cashapp', 'check_scan', 'click_to_pay', 'crypto', 'customer_balance', 'demo_pay', 'duitnow', 'dummy_auth_push', 'dummy_passthrough_card', 'edenred', 'eps', 'fpx', 'gcash', 'getbalance', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'interac_present', 'kakao_pay', 'klarna', 'knet', 'konbini', 'kr_card', 'kr_market', 'kriya', 'link', 'mb_way', 'mobilepay', 'momo', 'mondu', 'multibanco', 'naver_pay', 'netbanking', 'ng_bank', 'ng_bank_transfer', 'ng_card', 'ng_market', 'ng_ussd', 'ng_wallet', 'nz_bank_account', 'octopus', 'oxxo', 'p24', 'paper_check', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shop_pay', 'shopeepay', 'sofort', 'south_korea_market', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'test_pay', 'touch_n_go', 'truemoney', 'twint', 'upi', 'us_bank_account', 'us_cash_voucher', 'vipps', 'wechat_pay', 'wero', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boku_promptpay', 'boleto', 'capchase_pay', 'card', 'card_present', 'carecredit', 'cashapp', 'check_scan', 'click_to_pay', 'crypto', 'customer_balance', 'demo_pay', 'duitnow', 'dummy_auth_push', 'dummy_passthrough_card', 'edenred', 'eps', 'fpx', 'gcash', 'getbalance', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'interac_present', 'kakao_pay', 'klarna', 'knet', 'konbini', 'kr_card', 'kr_market', 'kriya', 'link', 'mb_way', 'mobilepay', 'momo', 'mondu', 'multibanco', 'naver_pay', 'netbanking', 'ng_bank', 'ng_bank_transfer', 'ng_card', 'ng_market', 'ng_ussd', 'ng_wallet', 'nz_bank_account', 'octopus', 'oxxo', 'p24', 'paper_check', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shop_pay', 'shopeepay', 'sofort', 'south_korea_market', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'test_pay', 'toss_pay', 'touch_n_go', 'truemoney', 'twint', 'upi', 'us_bank_account', 'us_cash_voucher', 'vipps', 'wechat_pay', 'wero', 'zip'], str]]"
     ]
     """
     The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
@@ -36,7 +36,7 @@ class SetupIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'toss_pay', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -401,6 +401,10 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
     """
+    toss_pay: NotRequired["SetupIntentModifyParamsPaymentMethodDataTossPay"]
+    """
+    If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+    """
     twint: NotRequired["SetupIntentModifyParamsPaymentMethodDataTwint"]
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -469,6 +473,7 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
             "sunbit",
             "swish",
             "tamara",
+            "toss_pay",
             "twint",
             "upi",
             "us_bank_account",
@@ -979,6 +984,10 @@ class SetupIntentModifyParamsPaymentMethodDataSwish(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodDataTamara(TypedDict):
+    pass
+
+
+class SetupIntentModifyParamsPaymentMethodDataTossPay(TypedDict):
     pass
 
 

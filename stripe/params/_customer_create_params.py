@@ -47,6 +47,12 @@ class CustomerCreateParams(RequestOptions):
     """
     Default invoice settings for this customer.
     """
+    marketing_attributions: NotRequired[
+        List["CustomerCreateParamsMarketingAttribution"]
+    ]
+    """
+    Advertising attribution information for this customer. Only one attribution is supported.
+    """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
     ]
@@ -184,6 +190,54 @@ class CustomerCreateParamsInvoiceSettingsRenderingOptions(TypedDict):
     template: NotRequired[str]
     """
     ID of the invoice rendering template to use for future invoices.
+    """
+
+
+class CustomerCreateParamsMarketingAttribution(TypedDict):
+    ad_conversion: NotRequired[
+        "CustomerCreateParamsMarketingAttributionAdConversion"
+    ]
+    """
+    Information used when sending conversions to an advertising platform.
+    """
+    click_id: NotRequired[str]
+    """
+    The advertising platform's click identifier.
+    """
+    occurred_at: NotRequired[int]
+    """
+    The Unix timestamp when the advertising interaction occurred.
+    """
+    utm_adgroup: NotRequired[str]
+    """
+    The advertising group ID from the `utm_adgroup` parameter.
+    """
+    utm_content: NotRequired[str]
+    """
+    The advertising content identifier from the `utm_content` parameter.
+    """
+    utm_id: NotRequired[str]
+    """
+    The advertising campaign ID from the `utm_id` parameter.
+    """
+    utm_medium: NotRequired[str]
+    """
+    The marketing medium from the `utm_medium` parameter.
+    """
+    utm_source: NotRequired[str]
+    """
+    The referral source from the `utm_source` parameter.
+    """
+    utm_term: NotRequired[str]
+    """
+    The paid search term from the `utm_term` parameter.
+    """
+
+
+class CustomerCreateParamsMarketingAttributionAdConversion(TypedDict):
+    consent_collected: bool
+    """
+    Whether the customer consented to sending conversion data to an advertising platform.
     """
 
 

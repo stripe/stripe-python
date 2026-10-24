@@ -106,6 +106,32 @@ class Session(
         """
         _inner_class_types = {"recovery": Recovery}
 
+    class AutomaticPassThroughFee(StripeObject):
+        calculation_basis: Optional[
+            Union[Literal["total_after_tax", "total_before_tax"], str]
+        ]
+        """
+        Whether the fee is calculated on the amount due before or after tax.
+        """
+        enabled: bool
+        """
+        Indicates whether a pass-through fee is calculated and added to this session.
+        """
+        provider: Optional[str]
+        """
+        The provider that performed this session's latest pass-through fee calculation.
+        """
+        status: Optional[
+            Literal["complete", "failed", "not_applicable", "requires_input"]
+        ]
+        """
+        The status of the most recent pass-through fee calculation for this session.
+        """
+        type: Optional[Union[Literal["convenience_fee", "service_fee"], str]]
+        """
+        The type of fee calculated for this session.
+        """
+
     class AutomaticSurcharge(StripeObject):
         calculation_basis: Optional[
             Union[Literal["total_after_tax", "total_before_tax"], str]
@@ -365,6 +391,7 @@ class Session(
                     "br_cnpj",
                     "br_cpf",
                     "bs_tin",
+                    "bw_vat",
                     "by_tin",
                     "ca_bn",
                     "ca_gst_hst",
@@ -375,6 +402,7 @@ class Session(
                     "cd_nif",
                     "ch_uid",
                     "ch_vat",
+                    "ci_vat",
                     "cl_tin",
                     "cm_niu",
                     "cn_tin",
@@ -396,6 +424,7 @@ class Session(
                     "fr_spi",
                     "gb_vat",
                     "ge_vat",
+                    "gh_tin",
                     "gi_tin",
                     "gn_nif",
                     "hk_br",
@@ -479,7 +508,7 @@ class Session(
                 str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, `gh_tin`, `bw_vat`, `ci_vat`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1008,6 +1037,7 @@ class Session(
                     "br_cnpj",
                     "br_cpf",
                     "bs_tin",
+                    "bw_vat",
                     "by_tin",
                     "ca_bn",
                     "ca_gst_hst",
@@ -1018,6 +1048,7 @@ class Session(
                     "cd_nif",
                     "ch_uid",
                     "ch_vat",
+                    "ci_vat",
                     "cl_tin",
                     "cm_niu",
                     "cn_tin",
@@ -1039,6 +1070,7 @@ class Session(
                     "fr_spi",
                     "gb_vat",
                     "ge_vat",
+                    "gh_tin",
                     "gi_tin",
                     "gn_nif",
                     "hk_br",
@@ -1122,7 +1154,7 @@ class Session(
                 str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, `gh_tin`, `bw_vat`, `ci_vat`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1470,12 +1502,30 @@ class Session(
 
         class Subscription(StripeObject):
             class Item(StripeObject):
+                class AdjustableQuantity(StripeObject):
+                    enabled: bool
+                    """
+                    Whether the quantity is adjustable.
+                    """
+                    maximum: Optional[int]
+                    """
+                    The maximum quantity the customer can purchase.
+                    """
+                    minimum: Optional[int]
+                    """
+                    The minimum quantity the customer can purchase.
+                    """
+
                 class CurrentTrial(StripeObject):
                     trial_offer: str
                     """
                     The ID of the trial offer applied to this subscription item.
                     """
 
+                adjustable_quantity: Optional[AdjustableQuantity]
+                """
+                The adjustable quantity settings for this subscription item.
+                """
                 current_trial: Optional[CurrentTrial]
                 """
                 The trial offer applied to this subscription item.
@@ -1488,7 +1538,10 @@ class Session(
                 """
                 The quantity for this subscription item.
                 """
-                _inner_class_types = {"current_trial": CurrentTrial}
+                _inner_class_types = {
+                    "adjustable_quantity": AdjustableQuantity,
+                    "current_trial": CurrentTrial,
+                }
 
             class PendingInvoiceItemInterval(StripeObject):
                 interval: Union[Literal["day", "month", "week", "year"], str]
@@ -1597,7 +1650,7 @@ class Session(
             Whether the customer consented to sending conversion data to an advertising platform.
             """
 
-        ad_conversion: AdConversion
+        ad_conversion: Optional[AdConversion]
         click_id: Optional[str]
         """
         The advertising platform's click identifier.
@@ -2413,6 +2466,12 @@ class Session(
             The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
+        class Paypay(StripeObject):
+            subscription_reference: Optional[str]
+            """
+            A reference to the merchant subscription this payment corresponds to.
+            """
+
         class Payto(StripeObject):
             class MandateOptions(StripeObject):
                 amount: Optional[int]
@@ -2864,6 +2923,7 @@ class Session(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
@@ -2913,6 +2973,7 @@ class Session(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "revolut_pay": RevolutPay,
@@ -3578,6 +3639,7 @@ class Session(
 
     When set to `manual`, you must approve the customer's attempt to pay by calling [approve](https://docs.stripe.com/api/checkout/sessions/approve) from your server.
     """
+    automatic_pass_through_fee: Optional[AutomaticPassThroughFee]
     automatic_surcharge: Optional[AutomaticSurcharge]
     automatic_tax: AutomaticTax
     billing_address_collection: Optional[
@@ -4398,6 +4460,7 @@ class Session(
     _inner_class_types = {
         "adaptive_pricing": AdaptivePricing,
         "after_expiration": AfterExpiration,
+        "automatic_pass_through_fee": AutomaticPassThroughFee,
         "automatic_surcharge": AutomaticSurcharge,
         "automatic_tax": AutomaticTax,
         "branding_settings": BrandingSettings,
