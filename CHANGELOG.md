@@ -1,3 +1,6 @@
+## 14.4.2 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's updated trusted root certificates (see https://docs.stripe.com/tls-certificates for more info). The previous bundle contained several certificates not used by Stripe, including emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## 14.4.1 - 2026-03-06
 * [#1748](https://github.com/stripe/stripe-python/pull/1748) Add Stripe-Request-Trigger header
 * [#1743](https://github.com/stripe/stripe-python/pull/1743) Add agent information to UserAgent
