@@ -1,3 +1,6 @@
+## 15.6.2 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's updated trusted root certificates (see https://docs.stripe.com/tls-certificates for more info). The previous bundle contained several certificates not used by Stripe, including emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## 15.6.1 - 2026-09-01
 * [#1896](https://github.com/stripe/stripe-python/pull/1896) Harden API requestor code against malicious URLs
 * [#1898](https://github.com/stripe/stripe-python/pull/1898) Use cryptographically secure boundaries for multipart file uploads
