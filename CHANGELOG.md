@@ -1,3 +1,6 @@
+## 12.5.2 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's root certificates, published at https://stripe.com/files/tls/root_certificates.pem. The previous bundle trusted emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## 12.5.1 - 2025-09-05
 * [#1563](https://github.com/stripe/stripe-python/pull/1563) fix: Paginate backwards if `starting_after == None`
   * Addresses an [issue](https://github.com/stripe/stripe-python/issues/1562) where List iteration would be forwards when `starting_after` was set to `None` but backwards if it was not set at all. Now, it will paginate backwards in both cases.
