@@ -5,6 +5,9 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 # Changelog
 
+## <a id="16-0-1"></a>16.0.1 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's root certificates, published at https://stripe.com/files/tls/root_certificates.pem. The previous bundle trusted emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## <a id="16-0-0"></a>16.0.0 - 2026-09-30
 This release changes the pinned API version to `2026-09-30.endive`.
 
