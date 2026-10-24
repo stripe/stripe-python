@@ -1,3 +1,6 @@
+## 7.14.1 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's root certificates, published at https://stripe.com/files/tls/root_certificates.pem. The previous bundle trusted emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## 7.14.0 - 2024-01-25
 * [#1199](https://github.com/stripe/stripe-python/pull/1199) Update generated code
   * Add support for `annual_revenue` and `estimated_worker_count` on `Account.business_profile`, `Account.CreateParams.business_profile`, and `Account.UpdateParams.business_profile`
