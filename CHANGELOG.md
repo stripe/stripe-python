@@ -1,3 +1,6 @@
+## 9.12.1 - 2026-10-23
+* Replace the bundled CA certificates with Stripe's root certificates, published at https://stripe.com/files/tls/root_certificates.pem. The previous bundle trusted emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+
 ## 9.12.0 - 2024-06-17
 * [#1348](https://github.com/stripe/stripe-python/pull/1348) Update generated code
   * Add support for `tax_id_collection` on parameter class `stripe.PaymentLink.ModifyParams`
