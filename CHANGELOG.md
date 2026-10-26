@@ -1,7 +1,7 @@
 # Changelog
 
 ## 4.2.1 - 2026-10-23
-* Replace the bundled CA certificates with Stripe's root certificates, published at https://stripe.com/files/tls/root_certificates.pem. The previous bundle trusted emSign ECC Root CA - G3, whose intermediate CAs were compromised.
+* Replace the bundled CA certificates with Stripe's updated trusted root certificates (see https://docs.stripe.com/tls-certificates for more info). The previous bundle contained several certificates not used by Stripe, including emSign ECC Root CA - G3, whose intermediate CAs were compromised.
 
 ## 4.2.0 - 2022-09-23
 * [#877](https://github.com/stripe/stripe-python/pull/877) API Updates
