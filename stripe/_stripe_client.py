@@ -52,8 +52,6 @@ from stripe._v1_services import V1Services
 from stripe._v2_services import V2Services
 
 # service-types: The beginning of the section generated from our OpenAPI spec
-if TYPE_CHECKING:
-    pass
 # service-types: The end of the section generated from our OpenAPI spec
 
 if TYPE_CHECKING:
