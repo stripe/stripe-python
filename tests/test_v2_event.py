@@ -14,6 +14,9 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterErrorReportTriggeredEvent,
 )
+from stripe.events._v1_product_updated_event import (
+    V1ProductUpdatedEventNotification,
+)
 from stripe.v2.core._event import (
     EventNotification,
     RelatedSingletonObject,
@@ -398,3 +401,117 @@ class TestV2Event(object):
 
         assert isinstance(meter, Meter)
         assert meter.event_name == "cool event"
+
+    def test_related_object_retains_event_context(
+        self, http_client_mock: HTTPClientMock
+    ):
+        payload = json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.product.updated",
+                "created": "2022-02-15T00:27:45.330Z",
+                "livemode": False,
+                "context": "acct_child",
+                "related_object": {
+                    "id": "prod_shared",
+                    "type": "product",
+                    "url": "/v1/products/prod_shared",
+                },
+            }
+        )
+        path = "/v1/products/prod_shared"
+        http_client_mock.stub_request(
+            "get",
+            path=path,
+            rbody=json.dumps({"id": "prod_shared", "object": "product"}),
+        )
+        http_client_mock.stub_request(
+            "delete",
+            path=path,
+            rbody=json.dumps(
+                {"id": "prod_shared", "object": "product", "deleted": True}
+            ),
+        )
+        client = StripeClient(
+            api_key="sk_test_1234",
+            stripe_context="acct_platform",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        notification = client.parse_event_notification(
+            payload,
+            WebhookSignature.generate_signature_header(
+                payload, DUMMY_WEBHOOK_SECRET
+            ),
+            DUMMY_WEBHOOK_SECRET,
+        )
+        assert isinstance(notification, V1ProductUpdatedEventNotification)
+
+        product = notification.fetch_related_object()
+        product.delete()
+
+        http_client_mock.assert_requested(
+            "get", path=path, stripe_context="acct_child"
+        )
+        http_client_mock.assert_requested(
+            "delete", path=path, stripe_context="acct_child"
+        )
+
+    @pytest.mark.anyio
+    async def test_related_object_retains_event_context_async(
+        self, http_client_mock: HTTPClientMock
+    ):
+        payload = json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.product.updated",
+                "created": "2022-02-15T00:27:45.330Z",
+                "livemode": False,
+                "context": "acct_child",
+                "related_object": {
+                    "id": "prod_shared",
+                    "type": "product",
+                    "url": "/v1/products/prod_shared",
+                },
+            }
+        )
+        path = "/v1/products/prod_shared"
+        http_client_mock.stub_request(
+            "get",
+            path=path,
+            query_string="usage[0]=fetch_related_object",
+            rbody=json.dumps({"id": "prod_shared", "object": "product"}),
+        )
+        http_client_mock.stub_request(
+            "delete",
+            path=path,
+            rbody=json.dumps(
+                {"id": "prod_shared", "object": "product", "deleted": True}
+            ),
+        )
+        client = StripeClient(
+            api_key="sk_test_1234",
+            stripe_context="acct_platform",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        notification = client.parse_event_notification(
+            payload,
+            WebhookSignature.generate_signature_header(
+                payload, DUMMY_WEBHOOK_SECRET
+            ),
+            DUMMY_WEBHOOK_SECRET,
+        )
+        assert isinstance(notification, V1ProductUpdatedEventNotification)
+
+        product = await notification.fetch_related_object_async()
+        await product.delete_async()
+
+        http_client_mock.assert_requested(
+            "get", path=path, stripe_context="acct_child"
+        )
+        http_client_mock.assert_requested(
+            "delete", path=path, stripe_context="acct_child"
+        )
