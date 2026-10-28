@@ -65,61 +65,11 @@ def _now_ms():
 
 
 def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
-    """
-    This method creates and returns a new HTTPClient based on what libraries are available. It uses the following precedence rules:
-
-    1. Urlfetch (this is provided by Google App Engine, so if it's present you probably want it)
-    2. Requests (popular library, the top priority for all environments outside Google App Engine, but not always present)
-    3. Pycurl (another library, not always present, not as preferred as Requests but at least it verifies SSL certs)
-    4. urllib with a warning (basically always present, a reasonable final default)
-
-    For performance, it only imports what it's actually going to use. But, it re-calculates every time its called, so probably save its result instead of calling it multiple times.
-    """
-    try:
-        from google.appengine.api import urlfetch  # type: ignore # noqa: F401
-    except ImportError:
-        pass
-    else:
-        return UrlFetchClient(*args, **kwargs)
-
-    try:
-        import requests  # noqa: F401
-    except ImportError:
-        pass
-    else:
-        return RequestsClient(*args, **kwargs)
-
-    try:
-        import pycurl  # type: ignore # noqa: F401
-    except ImportError:
-        pass
-    else:
-        return PycurlClient(*args, **kwargs)
-
-    return UrllibClient(*args, **kwargs)
+    return _default_sync_client(*args, **kwargs)
 
 
 def new_http_client_async_fallback(*args: Any, **kwargs: Any) -> "HTTPClient":
-    """
-    Similar to `new_default_http_client` above, this returns a client that can handle async HTTP requests, if available.
-    """
-
-    try:
-        import httpx  # noqa: F401
-        import anyio  # noqa: F401
-    except ImportError:
-        pass
-    else:
-        return HTTPXClient(*args, **kwargs)
-
-    try:
-        import aiohttp  # noqa: F401
-    except ImportError:
-        pass
-    else:
-        return AIOHTTPClient(*args, **kwargs)
-
-    return NoImportFoundAsyncClient(*args, **kwargs)
+    return _default_async_client(*args, **kwargs)
 
 
 class HTTPClient(object):
@@ -135,7 +85,6 @@ class HTTPClient(object):
 
     MAX_DELAY = 5
     INITIAL_DELAY = 0.5
-    MAX_RETRY_AFTER = 60
     _proxy: Optional[_Proxy]
     _verify_ssl_certs: bool
 
@@ -212,23 +161,7 @@ class HTTPClient(object):
 
         return False
 
-    def _retry_after_header(
-        self, response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None
-    ):
-        if response is None:
-            return None
-        _, _, rheaders = response
-
-        try:
-            return int(rheaders["retry-after"])
-        except (KeyError, ValueError):
-            return None
-
-    def _sleep_time_seconds(
-        self,
-        num_retries: int,
-        response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None,
-    ) -> float:
+    def _sleep_time_seconds(self, num_retries: int) -> float:
         """
         Apply exponential backoff with initial_network_retry_delay on the number of num_retries so far as inputs.
         Do not allow the number to exceed `max_network_retry_delay`.
@@ -242,11 +175,6 @@ class HTTPClient(object):
 
         # But never sleep less than the base sleep seconds.
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
-
-        # And never sleep less than the time the API asks us to wait, assuming it's a reasonable ask.
-        retry_after = self._retry_after_header(response) or 0
-        if retry_after <= HTTPClient.MAX_RETRY_AFTER:
-            sleep_seconds = max(retry_after, sleep_seconds)
 
         return sleep_seconds
 
@@ -361,7 +289,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries, response)
+                sleep_time = self._sleep_time_seconds(num_retries)
                 _util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
@@ -519,7 +447,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries, response)
+                sleep_time = self._sleep_time_seconds(num_retries)
                 _util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
@@ -1550,3 +1478,76 @@ class NoImportFoundAsyncClient(HTTPClient):
 
     async def close_async(self):
         self.raise_async_client_import_error()
+
+
+# --- Client resolution ---
+# Detect available HTTP libraries at module load time so the expensive imports
+# (e.g. requests, httpx) happen during Python's init phase rather than when
+# StripeClient() is constructed. This matters in environments like AWS Lambda
+# where module loading has a generous timeout (10s) but handler invocation
+# does not (often 3s).
+#
+# Sync client precedence:
+#   1. Urlfetch (Google App Engine — if present, you probably want it)
+#   2. Requests (popular, top priority outside GAE)
+#   3. Pycurl (verifies SSL certs, but less preferred than Requests)
+#   4. urllib (stdlib fallback, basically always present)
+#
+# Async client precedence:
+#   1. httpx + anyio (both required)
+#   2. aiohttp
+#   3. NoImportFoundAsyncClient (raises on use)
+#
+# To add a new client: define the class above, then add it to the appropriate
+# cascade below. The resolved class is stored directly — new_default_http_client()
+# and new_http_client_async_fallback() just call it.
+
+
+def _resolve_sync_client():
+    try:
+        from google.appengine.api import urlfetch  # type: ignore # noqa: F401
+
+        return UrlFetchClient
+    except ImportError:
+        pass
+
+    try:
+        import requests  # noqa: F401
+
+        return RequestsClient
+    except ImportError:
+        pass
+
+    try:
+        import pycurl  # type: ignore # noqa: F401
+
+        return PycurlClient
+    except ImportError:
+        pass
+
+    return UrllibClient
+
+
+def _resolve_async_client():
+    try:
+        import httpx  # noqa: F401
+        import anyio  # noqa: F401
+
+        return HTTPXClient
+    except ImportError:
+        pass
+
+    try:
+        import aiohttp  # noqa: F401
+
+        return AIOHTTPClient
+    except ImportError:
+        pass
+
+    return NoImportFoundAsyncClient
+
+
+# Called at module load time so HTTP library imports happen during Python's init
+# phase rather than inside StripeClient.__init__().
+_default_sync_client = _resolve_sync_client()
+_default_async_client = _resolve_async_client()
