@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1938
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 16.2.0b1
 ---
 
 * Add support for new resources `PaymentPlan`, `v2.data.QueryRun`, `v2.data.ReportRun`, `v2.data.Report`, and `v2.data.Schema`
