@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1949
 semver_level: minor
 is_stripe_api_change: true
+released_in_version: 16.1.0
 ---
 
 * Add support for new resources `v2.core.vault.GbBankAccount`, `v2.core.vault.UsBankAccount`, `v2.money_management.Adjustment`, `v2.money_management.FinancialAccount`, `v2.money_management.FinancialAddressCreditSimulation`, `v2.money_management.FinancialAddress`, `v2.money_management.InboundTransfer`, `v2.money_management.OutboundPayment`, `v2.money_management.OutboundSetupIntent`, `v2.money_management.PayoutIntent`, `v2.money_management.PayoutMethod`, `v2.money_management.PayoutMethodsBankAccountSpec`, `v2.money_management.ReceivedCredit`, `v2.money_management.RecipientVerification`, `v2.money_management.TransactionEntry`, and `v2.money_management.Transaction`
