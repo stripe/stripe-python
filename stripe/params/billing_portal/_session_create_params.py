@@ -77,6 +77,12 @@ class SessionCreateParamsFlowData(TypedDict):
     """
     Configuration when `flow_data.type=subscription_cancel`.
     """
+    subscription_pause: NotRequired[
+        "SessionCreateParamsFlowDataSubscriptionPause"
+    ]
+    """
+    Configuration when `flow_data.type=subscription_pause`.
+    """
     subscription_update: NotRequired[
         "SessionCreateParamsFlowDataSubscriptionUpdate"
     ]
@@ -94,6 +100,7 @@ class SessionCreateParamsFlowData(TypedDict):
             "customer_update",
             "payment_method_update",
             "subscription_cancel",
+            "subscription_pause",
             "subscription_update",
             "subscription_update_confirm",
         ],
@@ -169,6 +176,13 @@ class SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer(
     coupon: str
     """
     The ID of the coupon to be offered.
+    """
+
+
+class SessionCreateParamsFlowDataSubscriptionPause(TypedDict):
+    subscription: str
+    """
+    The ID of the subscription to be paused.
     """
 
 

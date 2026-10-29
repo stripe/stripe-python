@@ -118,9 +118,15 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationRecipient as AccountCreateParamsConfigurationRecipient,
         AccountCreateParamsConfigurationRecipientCapabilities as AccountCreateParamsConfigurationRecipientCapabilities,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift,
         AccountCreateParamsConfigurationRecipientCapabilitiesCards as AccountCreateParamsConfigurationRecipientCapabilitiesCards,
+        AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets as AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountCreateParamsDefaults as AccountCreateParamsDefaults,
@@ -149,6 +155,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification as AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification,
         AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
+        AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
@@ -223,6 +230,7 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
@@ -371,9 +379,15 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationRecipient as AccountUpdateParamsConfigurationRecipient,
         AccountUpdateParamsConfigurationRecipientCapabilities as AccountUpdateParamsConfigurationRecipientCapabilities,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsAch as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsAch,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift,
         AccountUpdateParamsConfigurationRecipientCapabilitiesCards as AccountUpdateParamsConfigurationRecipientCapabilitiesCards,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesCryptoWallets as AccountUpdateParamsConfigurationRecipientCapabilitiesCryptoWallets,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountUpdateParamsDefaults as AccountUpdateParamsDefaults,
@@ -403,6 +417,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerification as AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerification,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
+        AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
@@ -942,15 +957,39 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire": (
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesCards": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1063,6 +1102,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1324,6 +1367,10 @@ _import_map = {
         False,
     ),
     "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence": (
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
@@ -1903,15 +1950,39 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsAch": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire": (
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesCards": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesCryptoWallets": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -2028,6 +2099,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

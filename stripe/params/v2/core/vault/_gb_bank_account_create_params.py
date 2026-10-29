@@ -8,9 +8,7 @@ class GbBankAccountCreateParams(TypedDict):
     """
     The Account Number of the bank account.
     """
-    bank_account_type: NotRequired[
-        Literal["checking", "futsu", "savings", "toza"]
-    ]
+    bank_account_type: NotRequired[Literal["checking", "savings"]]
     """
     Closed Enum. The type of the bank account (checking or savings).
     """

@@ -33,7 +33,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAccount]":
         """
-        Lists FinancialAccounts in this compartment.
+        Returns a list of FinancialAccounts in your account that match the provided filters.
         """
         return cast(
             "ListObject[FinancialAccount]",
@@ -52,7 +52,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FinancialAccount]":
         """
-        Lists FinancialAccounts in this compartment.
+        Returns a list of FinancialAccounts in your account that match the provided filters.
         """
         return cast(
             "ListObject[FinancialAccount]",
@@ -157,7 +157,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
         """
-        Updates an existing FinancialAccount.
+        Updates an existing FinancialAccount using the provided parameters.
         """
         return cast(
             "FinancialAccount",
@@ -180,7 +180,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
         """
-        Updates an existing FinancialAccount.
+        Updates an existing FinancialAccount using the provided parameters.
         """
         return cast(
             "FinancialAccount",
@@ -203,7 +203,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
         """
-        Closes a FinancialAccount with or without forwarding settings.
+        Closes a FinancialAccount. You must provide forwarding settings if it has a non-zero balance.
         """
         return cast(
             "FinancialAccount",
@@ -226,7 +226,7 @@ class FinancialAccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccount":
         """
-        Closes a FinancialAccount with or without forwarding settings.
+        Closes a FinancialAccount. You must provide forwarding settings if it has a non-zero balance.
         """
         return cast(
             "FinancialAccount",

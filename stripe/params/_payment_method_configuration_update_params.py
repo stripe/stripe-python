@@ -299,6 +299,10 @@ class PaymentMethodConfigurationUpdateParams(TypedDict):
     """
     WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://docs.stripe.com/payments/wechat-pay) for more details.
     """
+    wero: NotRequired["PaymentMethodConfigurationUpdateParamsWero"]
+    """
+    Wero is a pan-European payment method that enables secure and instant money transfers between bank accounts. Learn more about the [Wero](https://docs.stripe.com/payments/wero) payment method.
+    """
     zip: NotRequired["PaymentMethodConfigurationUpdateParamsZip"]
     """
     Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://docs.stripe.com/payments/zip) for more details like country availability.
@@ -1403,6 +1407,22 @@ class PaymentMethodConfigurationUpdateParamsWechatPay(TypedDict):
 class PaymentMethodConfigurationUpdateParamsWechatPayDisplayPreference(
     TypedDict,
 ):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationUpdateParamsWero(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationUpdateParamsWeroDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationUpdateParamsWeroDisplayPreference(TypedDict):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.

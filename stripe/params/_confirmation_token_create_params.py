@@ -422,6 +422,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "upi",
             "us_bank_account",
             "wechat_pay",
+            "wero",
             "zip",
         ],
         str,
@@ -444,6 +445,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
+    """
+    wero: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataWero"]
+    """
+    If this is a Wero PaymentMethod, this hash contains details about the Wero payment method.
     """
     zip: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataZip"]
     """
@@ -661,7 +666,9 @@ class ConfirmationTokenCreateParamsPaymentMethodDataGrabpay(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
-    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
+    bank: NotRequired[
+        "Literal['bca', 'bni', 'bri', 'cimb', 'mandiri', 'permata']|str"
+    ]
     """
     Bank where the account is held.
     """
@@ -950,6 +957,12 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
+    external_token: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken"
+    ]
+    """
+    An external token used to create a payment method.
+    """
     financial_connections_account: NotRequired[str]
     """
     The ID of a Financial Connections Account to use as a payment method.
@@ -960,7 +973,24 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken(
+    TypedDict,
+):
+    plaid_processor_token: NotRequired[str]
+    """
+    The Plaid processor token to use for this bank account.
+    """
+    type: Union[Literal["plaid_processor_token"], str]
+    """
+    The type of external token.
+    """
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataWechatPay(TypedDict):
+    pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataWero(TypedDict):
     pass
 
 

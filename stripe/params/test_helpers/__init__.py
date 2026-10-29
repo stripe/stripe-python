@@ -79,7 +79,9 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataUpi as ConfirmationTokenCreateParamsPaymentMethodDataUpi,
         ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions as ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions,
         ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount,
+        ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken,
         ConfirmationTokenCreateParamsPaymentMethodDataWechatPay as ConfirmationTokenCreateParamsPaymentMethodDataWechatPay,
+        ConfirmationTokenCreateParamsPaymentMethodDataWero as ConfirmationTokenCreateParamsPaymentMethodDataWero,
         ConfirmationTokenCreateParamsPaymentMethodDataZip as ConfirmationTokenCreateParamsPaymentMethodDataZip,
         ConfirmationTokenCreateParamsPaymentMethodOptions as ConfirmationTokenCreateParamsPaymentMethodOptions,
         ConfirmationTokenCreateParamsPaymentMethodOptionsCard as ConfirmationTokenCreateParamsPaymentMethodOptionsCard,
@@ -388,7 +390,15 @@ _import_map = {
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataWechatPay": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataWero": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

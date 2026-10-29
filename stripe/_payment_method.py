@@ -969,7 +969,9 @@ class PaymentMethod(
 
     class IdBankTransfer(StripeObject):
         bank: Optional[
-            Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+            Union[
+                Literal["bca", "bni", "bri", "cimb", "mandiri", "permata"], str
+            ]
         ]
         bank_code: Optional[str]
         bank_name: Optional[str]
@@ -1561,6 +1563,9 @@ class PaymentMethod(
     class WechatPay(StripeObject):
         pass
 
+    class Wero(StripeObject):
+        pass
+
     class Zip(StripeObject):
         pass
 
@@ -1739,6 +1744,7 @@ class PaymentMethod(
             "upi",
             "us_bank_account",
             "wechat_pay",
+            "wero",
             "zip",
         ],
         str,
@@ -1749,6 +1755,7 @@ class PaymentMethod(
     upi: Optional[Upi]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
+    wero: Optional[Wero]
     zip: Optional[Zip]
 
     @classmethod
@@ -2279,5 +2286,6 @@ class PaymentMethod(
         "upi": Upi,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
+        "wero": Wero,
         "zip": Zip,
     }

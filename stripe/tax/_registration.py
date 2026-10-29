@@ -198,6 +198,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Bw(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class By(StripeObject):
             type: Literal["simplified"]
             """
@@ -241,6 +247,12 @@ class Registration(
             Type of registration in `country`.
             """
             _inner_class_types = {"standard": Standard}
+
+        class Ci(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
 
         class Cl(StripeObject):
             type: Literal["simplified"]
@@ -461,6 +473,12 @@ class Registration(
             _inner_class_types = {"standard": Standard}
 
         class Ge(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Gh(StripeObject):
             type: Literal["simplified"]
             """
             Type of registration in `country`.
@@ -739,6 +757,12 @@ class Registration(
             Type of registration in an EU country.
             """
             _inner_class_types = {"standard": Standard}
+
+        class Mu(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
 
         class Mx(StripeObject):
             type: Literal["simplified"]
@@ -1125,6 +1149,12 @@ class Registration(
                 A [jurisdiction code](https://docs.stripe.com/tax/registering?type=tourism_tax#registration-types) representing the local jurisdiction.
                 """
 
+            class UtilityUsersTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=utility_users_tax#registration-types) representing the local jurisdiction.
+                """
+
             admissions_tax: Optional[AdmissionsTax]
             attendance_tax: Optional[AttendanceTax]
             entertainment_tax: Optional[EntertainmentTax]
@@ -1146,6 +1176,7 @@ class Registration(
                 Literal[
                     "admissions_tax",
                     "attendance_tax",
+                    "digital_excise_tax",
                     "entertainment_tax",
                     "gross_receipts_tax",
                     "hospitality_tax",
@@ -1159,12 +1190,14 @@ class Registration(
                     "state_retail_delivery_fee",
                     "state_sales_tax",
                     "tourism_tax",
+                    "utility_users_tax",
                 ],
                 str,
             ]
             """
             Type of registration in the US.
             """
+            utility_users_tax: Optional[UtilityUsersTax]
             _inner_class_types = {
                 "admissions_tax": AdmissionsTax,
                 "attendance_tax": AttendanceTax,
@@ -1179,6 +1212,7 @@ class Registration(
                 "resort_tax": ResortTax,
                 "state_sales_tax": StateSalesTax,
                 "tourism_tax": TourismTax,
+                "utility_users_tax": UtilityUsersTax,
             }
 
         class Uy(StripeObject):
@@ -1234,10 +1268,12 @@ class Registration(
         bh: Optional[Bh]
         bj: Optional[Bj]
         bs: Optional[Bs]
+        bw: Optional[Bw]
         by: Optional[By]
         ca: Optional[Ca]
         cd: Optional[Cd]
         ch: Optional[Ch]
+        ci: Optional[Ci]
         cl: Optional[Cl]
         cm: Optional[Cm]
         co: Optional[Co]
@@ -1256,6 +1292,7 @@ class Registration(
         fr: Optional[Fr]
         gb: Optional[Gb]
         ge: Optional[Ge]
+        gh: Optional[Gh]
         gn: Optional[Gn]
         gr: Optional[Gr]
         hr: Optional[Hr]
@@ -1282,6 +1319,7 @@ class Registration(
         mk: Optional[Mk]
         mr: Optional[Mr]
         mt: Optional[Mt]
+        mu: Optional[Mu]
         mx: Optional[Mx]
         my: Optional[My]
         ng: Optional[Ng]
@@ -1336,10 +1374,12 @@ class Registration(
             "bh": Bh,
             "bj": Bj,
             "bs": Bs,
+            "bw": Bw,
             "by": By,
             "ca": Ca,
             "cd": Cd,
             "ch": Ch,
+            "ci": Ci,
             "cl": Cl,
             "cm": Cm,
             "co": Co,
@@ -1358,6 +1398,7 @@ class Registration(
             "fr": Fr,
             "gb": Gb,
             "ge": Ge,
+            "gh": Gh,
             "gn": Gn,
             "gr": Gr,
             "hr": Hr,
@@ -1384,6 +1425,7 @@ class Registration(
             "mk": Mk,
             "mr": Mr,
             "mt": Mt,
+            "mu": Mu,
             "mx": Mx,
             "my": My,
             "ng": Ng,

@@ -158,6 +158,7 @@ if TYPE_CHECKING:
         OutboundPaymentCreateParamsDestinationPaymentMethodDataBillingDetails as OutboundPaymentCreateParamsDestinationPaymentMethodDataBillingDetails,
         OutboundPaymentCreateParamsDestinationPaymentMethodDataBillingDetailsAddress as OutboundPaymentCreateParamsDestinationPaymentMethodDataBillingDetailsAddress,
         OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccount as OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccount,
+        OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccountExternalToken as OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccountExternalToken,
         OutboundPaymentCreateParamsDestinationPaymentMethodOptions as OutboundPaymentCreateParamsDestinationPaymentMethodOptions,
         OutboundPaymentCreateParamsDestinationPaymentMethodOptionsUsBankAccount as OutboundPaymentCreateParamsDestinationPaymentMethodOptionsUsBankAccount,
         OutboundPaymentCreateParamsEndUserDetails as OutboundPaymentCreateParamsEndUserDetails,
@@ -682,6 +683,10 @@ _import_map = {
         False,
     ),
     "OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccount": (
+        "stripe.params.treasury._outbound_payment_create_params",
+        False,
+    ),
+    "OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccountExternalToken": (
         "stripe.params.treasury._outbound_payment_create_params",
         False,
     ),

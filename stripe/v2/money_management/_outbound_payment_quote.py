@@ -42,17 +42,7 @@ class OutboundPaymentQuote(StripeObject):
 
             network: Union[
                 Literal[
-                    "ach",
-                    "becs",
-                    "eft",
-                    "fedwire",
-                    "fps",
-                    "local",
-                    "npp",
-                    "rtp",
-                    "sepa",
-                    "sepa_instant",
-                    "swift",
+                    "ach", "fedwire", "fps", "local", "rtp", "sepa", "swift"
                 ],
                 str,
             ]
@@ -65,6 +55,16 @@ class OutboundPaymentQuote(StripeObject):
             """
             _inner_class_types = {"network_options": NetworkOptions}
 
+        class TaxAmount(StripeObject):
+            currency: str
+            """
+            Currency code.
+            """
+            value_decimal: str
+            """
+            Tax amount value represented as a decimal string in major units.
+            """
+
         amount: Amount
         """
         The fee amount for corresponding fee type.
@@ -73,12 +73,17 @@ class OutboundPaymentQuote(StripeObject):
         """
         Details about the network and options associated with this fee. Present when type is network_fee.
         """
+        tax_amount: Optional[TaxAmount]
+        """
+        Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
+        """
         type: Union[
             Literal[
                 "cross_border_payout_fee",
                 "foreign_exchange_fee",
                 "instant_payout_fee",
                 "network_fee",
+                "next_day_payout_fee",
                 "standard_payout_fee",
                 "wire_payout_fee",
             ],
@@ -87,7 +92,10 @@ class OutboundPaymentQuote(StripeObject):
         """
         The fee type.
         """
-        _inner_class_types = {"network_fee_details": NetworkFeeDetails}
+        _inner_class_types = {
+            "network_fee_details": NetworkFeeDetails,
+            "tax_amount": TaxAmount,
+        }
 
     class From(StripeObject):
         debited: Amount
@@ -130,6 +138,56 @@ class OutboundPaymentQuote(StripeObject):
         _inner_class_dicts = ["rates"]
 
     class To(StripeObject):
+        class PayoutMethodOptions(StripeObject):
+            class BankAccount(StripeObject):
+                class PreferredNetworkOptions(StripeObject):
+                    class Ach(StripeObject):
+                        submission: Optional[
+                            Union[Literal["next_day", "same_day"], str]
+                        ]
+                        """
+                        Open Enum. ACH submission timing.
+                        """
+                        transaction_purpose: Optional[
+                            Union[Literal["payroll"], str]
+                        ]
+                        """
+                        The transaction purpose for this ACH payment.
+                        """
+
+                    ach: Optional[Ach]
+                    """
+                    ACH-specific network options.
+                    """
+                    _inner_class_types = {"ach": Ach}
+
+                preferred_network_options: Optional[PreferredNetworkOptions]
+                """
+                Per-network configuration options.
+                """
+                preferred_networks: Optional[
+                    List[
+                        Union[
+                            Literal[
+                                "ach", "fedwire", "fps", "rtp", "sepa", "swift"
+                            ],
+                            str,
+                        ]
+                    ]
+                ]
+                """
+                The preferred networks to use for this OutboundPayment.
+                """
+                _inner_class_types = {
+                    "preferred_network_options": PreferredNetworkOptions,
+                }
+
+            bank_account: Optional[BankAccount]
+            """
+            Options for bank account payout methods.
+            """
+            _inner_class_types = {"bank_account": BankAccount}
+
         credited: Amount
         """
         The monetary amount being credited to the destination.
@@ -138,10 +196,15 @@ class OutboundPaymentQuote(StripeObject):
         """
         The payout method which the OutboundPayment uses to send payout.
         """
+        payout_method_options: Optional[PayoutMethodOptions]
+        """
+        Payout method options for the OutboundPaymentQuote.
+        """
         recipient: str
         """
         To which account the OutboundPayment is sent.
         """
+        _inner_class_types = {"payout_method_options": PayoutMethodOptions}
 
     amount: Amount
     """

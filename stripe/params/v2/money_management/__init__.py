@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._financial_account_create_params import (
         FinancialAccountCreateParams as FinancialAccountCreateParams,
         FinancialAccountCreateParamsStorage as FinancialAccountCreateParamsStorage,
-        FinancialAccountCreateParamsStorageDepositInsuranceEligibility as FinancialAccountCreateParamsStorageDepositInsuranceEligibility,
     )
     from stripe.params.v2.money_management._financial_account_list_params import (
         FinancialAccountListParams as FinancialAccountListParams,
@@ -61,15 +60,24 @@ if TYPE_CHECKING:
         OutboundPaymentCreateParamsFrom as OutboundPaymentCreateParamsFrom,
         OutboundPaymentCreateParamsRecipientNotification as OutboundPaymentCreateParamsRecipientNotification,
         OutboundPaymentCreateParamsTo as OutboundPaymentCreateParamsTo,
+        OutboundPaymentCreateParamsToPayoutMethodOptions as OutboundPaymentCreateParamsToPayoutMethodOptions,
+        OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount as OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount,
+        OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
+        OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
     )
     from stripe.params.v2.money_management._outbound_payment_list_params import (
         OutboundPaymentListParams as OutboundPaymentListParams,
+        OutboundPaymentListParamsCreated as OutboundPaymentListParamsCreated,
     )
     from stripe.params.v2.money_management._outbound_payment_quote_create_params import (
         OutboundPaymentQuoteCreateParams as OutboundPaymentQuoteCreateParams,
         OutboundPaymentQuoteCreateParamsDeliveryOptions as OutboundPaymentQuoteCreateParamsDeliveryOptions,
         OutboundPaymentQuoteCreateParamsFrom as OutboundPaymentQuoteCreateParamsFrom,
         OutboundPaymentQuoteCreateParamsTo as OutboundPaymentQuoteCreateParamsTo,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptions as OutboundPaymentQuoteCreateParamsToPayoutMethodOptions,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount as OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
+        OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
     )
     from stripe.params.v2.money_management._outbound_payment_quote_retrieve_params import (
         OutboundPaymentQuoteRetrieveParams as OutboundPaymentQuoteRetrieveParams,
@@ -85,6 +93,7 @@ if TYPE_CHECKING:
         OutboundSetupIntentCreateParamsPayoutMethodData as OutboundSetupIntentCreateParamsPayoutMethodData,
         OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount as OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount,
         OutboundSetupIntentCreateParamsPayoutMethodDataCard as OutboundSetupIntentCreateParamsPayoutMethodDataCard,
+        OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet as OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet,
     )
     from stripe.params.v2.money_management._outbound_setup_intent_list_params import (
         OutboundSetupIntentListParams as OutboundSetupIntentListParams,
@@ -106,12 +115,55 @@ if TYPE_CHECKING:
         OutboundTransferCreateParamsDeliveryOptions as OutboundTransferCreateParamsDeliveryOptions,
         OutboundTransferCreateParamsFrom as OutboundTransferCreateParamsFrom,
         OutboundTransferCreateParamsTo as OutboundTransferCreateParamsTo,
+        OutboundTransferCreateParamsToPayoutMethodOptions as OutboundTransferCreateParamsToPayoutMethodOptions,
+        OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount as OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount,
+        OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
+        OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
     )
     from stripe.params.v2.money_management._outbound_transfer_list_params import (
         OutboundTransferListParams as OutboundTransferListParams,
     )
     from stripe.params.v2.money_management._outbound_transfer_retrieve_params import (
         OutboundTransferRetrieveParams as OutboundTransferRetrieveParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_cancel_params import (
+        PayoutIntentCancelParams as PayoutIntentCancelParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_confirm_params import (
+        PayoutIntentConfirmParams as PayoutIntentConfirmParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_create_params import (
+        PayoutIntentCreateParams as PayoutIntentCreateParams,
+        PayoutIntentCreateParamsFrom as PayoutIntentCreateParamsFrom,
+        PayoutIntentCreateParamsRecipientNotification as PayoutIntentCreateParamsRecipientNotification,
+        PayoutIntentCreateParamsScheduleOptions as PayoutIntentCreateParamsScheduleOptions,
+        PayoutIntentCreateParamsTo as PayoutIntentCreateParamsTo,
+        PayoutIntentCreateParamsToPayoutMethodOptions as PayoutIntentCreateParamsToPayoutMethodOptions,
+        PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount,
+        PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
+        PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
+    )
+    from stripe.params.v2.money_management._payout_intent_list_params import (
+        PayoutIntentListParams as PayoutIntentListParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_refresh_fx_quote_params import (
+        PayoutIntentRefreshFxQuoteParams as PayoutIntentRefreshFxQuoteParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_refresh_recipient_verification_params import (
+        PayoutIntentRefreshRecipientVerificationParams as PayoutIntentRefreshRecipientVerificationParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_retrieve_params import (
+        PayoutIntentRetrieveParams as PayoutIntentRetrieveParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_update_params import (
+        PayoutIntentUpdateParams as PayoutIntentUpdateParams,
+        PayoutIntentUpdateParamsRecipientNotification as PayoutIntentUpdateParamsRecipientNotification,
+        PayoutIntentUpdateParamsScheduleOptions as PayoutIntentUpdateParamsScheduleOptions,
+        PayoutIntentUpdateParamsTo as PayoutIntentUpdateParamsTo,
+        PayoutIntentUpdateParamsToPayoutMethodOptions as PayoutIntentUpdateParamsToPayoutMethodOptions,
+        PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount as PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount,
+        PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
+        PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
     )
     from stripe.params.v2.money_management._payout_method_archive_params import (
         PayoutMethodArchiveParams as PayoutMethodArchiveParams,
@@ -145,6 +197,15 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._received_debit_retrieve_params import (
         ReceivedDebitRetrieveParams as ReceivedDebitRetrieveParams,
     )
+    from stripe.params.v2.money_management._recipient_verification_acknowledge_params import (
+        RecipientVerificationAcknowledgeParams as RecipientVerificationAcknowledgeParams,
+    )
+    from stripe.params.v2.money_management._recipient_verification_create_params import (
+        RecipientVerificationCreateParams as RecipientVerificationCreateParams,
+    )
+    from stripe.params.v2.money_management._recipient_verification_retrieve_params import (
+        RecipientVerificationRetrieveParams as RecipientVerificationRetrieveParams,
+    )
     from stripe.params.v2.money_management._transaction_entry_list_params import (
         TransactionEntryListParams as TransactionEntryListParams,
         TransactionEntryListParamsCreated as TransactionEntryListParamsCreated,
@@ -156,8 +217,14 @@ if TYPE_CHECKING:
         TransactionListParams as TransactionListParams,
         TransactionListParamsCreated as TransactionListParamsCreated,
     )
+    from stripe.params.v2.money_management._transaction_refresh_regulatory_receipt_params import (
+        TransactionRefreshRegulatoryReceiptParams as TransactionRefreshRegulatoryReceiptParams,
+    )
     from stripe.params.v2.money_management._transaction_retrieve_params import (
         TransactionRetrieveParams as TransactionRetrieveParams,
+    )
+    from stripe.params.v2.money_management._transaction_update_params import (
+        TransactionUpdateParams as TransactionUpdateParams,
     )
 
 # name -> (import_target, is_submodule)
@@ -188,10 +255,6 @@ _import_map = {
         False,
     ),
     "FinancialAccountCreateParamsStorage": (
-        "stripe.params.v2.money_management._financial_account_create_params",
-        False,
-    ),
-    "FinancialAccountCreateParamsStorageDepositInsuranceEligibility": (
         "stripe.params.v2.money_management._financial_account_create_params",
         False,
     ),
@@ -271,7 +334,27 @@ _import_map = {
         "stripe.params.v2.money_management._outbound_payment_create_params",
         False,
     ),
+    "OutboundPaymentCreateParamsToPayoutMethodOptions": (
+        "stripe.params.v2.money_management._outbound_payment_create_params",
+        False,
+    ),
+    "OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount": (
+        "stripe.params.v2.money_management._outbound_payment_create_params",
+        False,
+    ),
+    "OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions": (
+        "stripe.params.v2.money_management._outbound_payment_create_params",
+        False,
+    ),
+    "OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
+        "stripe.params.v2.money_management._outbound_payment_create_params",
+        False,
+    ),
     "OutboundPaymentListParams": (
+        "stripe.params.v2.money_management._outbound_payment_list_params",
+        False,
+    ),
+    "OutboundPaymentListParamsCreated": (
         "stripe.params.v2.money_management._outbound_payment_list_params",
         False,
     ),
@@ -288,6 +371,22 @@ _import_map = {
         False,
     ),
     "OutboundPaymentQuoteCreateParamsTo": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptions": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions": (
+        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
+        False,
+    ),
+    "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
         "stripe.params.v2.money_management._outbound_payment_quote_create_params",
         False,
     ),
@@ -316,6 +415,10 @@ _import_map = {
         False,
     ),
     "OutboundSetupIntentCreateParamsPayoutMethodDataCard": (
+        "stripe.params.v2.money_management._outbound_setup_intent_create_params",
+        False,
+    ),
+    "OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet": (
         "stripe.params.v2.money_management._outbound_setup_intent_create_params",
         False,
     ),
@@ -363,12 +466,120 @@ _import_map = {
         "stripe.params.v2.money_management._outbound_transfer_create_params",
         False,
     ),
+    "OutboundTransferCreateParamsToPayoutMethodOptions": (
+        "stripe.params.v2.money_management._outbound_transfer_create_params",
+        False,
+    ),
+    "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount": (
+        "stripe.params.v2.money_management._outbound_transfer_create_params",
+        False,
+    ),
+    "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions": (
+        "stripe.params.v2.money_management._outbound_transfer_create_params",
+        False,
+    ),
+    "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
+        "stripe.params.v2.money_management._outbound_transfer_create_params",
+        False,
+    ),
     "OutboundTransferListParams": (
         "stripe.params.v2.money_management._outbound_transfer_list_params",
         False,
     ),
     "OutboundTransferRetrieveParams": (
         "stripe.params.v2.money_management._outbound_transfer_retrieve_params",
+        False,
+    ),
+    "PayoutIntentCancelParams": (
+        "stripe.params.v2.money_management._payout_intent_cancel_params",
+        False,
+    ),
+    "PayoutIntentConfirmParams": (
+        "stripe.params.v2.money_management._payout_intent_confirm_params",
+        False,
+    ),
+    "PayoutIntentCreateParams": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsFrom": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsRecipientNotification": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsScheduleOptions": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsTo": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsToPayoutMethodOptions": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
+    "PayoutIntentListParams": (
+        "stripe.params.v2.money_management._payout_intent_list_params",
+        False,
+    ),
+    "PayoutIntentRefreshFxQuoteParams": (
+        "stripe.params.v2.money_management._payout_intent_refresh_fx_quote_params",
+        False,
+    ),
+    "PayoutIntentRefreshRecipientVerificationParams": (
+        "stripe.params.v2.money_management._payout_intent_refresh_recipient_verification_params",
+        False,
+    ),
+    "PayoutIntentRetrieveParams": (
+        "stripe.params.v2.money_management._payout_intent_retrieve_params",
+        False,
+    ),
+    "PayoutIntentUpdateParams": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsRecipientNotification": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsScheduleOptions": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsTo": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsToPayoutMethodOptions": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
         False,
     ),
     "PayoutMethodArchiveParams": (
@@ -419,6 +630,18 @@ _import_map = {
         "stripe.params.v2.money_management._received_debit_retrieve_params",
         False,
     ),
+    "RecipientVerificationAcknowledgeParams": (
+        "stripe.params.v2.money_management._recipient_verification_acknowledge_params",
+        False,
+    ),
+    "RecipientVerificationCreateParams": (
+        "stripe.params.v2.money_management._recipient_verification_create_params",
+        False,
+    ),
+    "RecipientVerificationRetrieveParams": (
+        "stripe.params.v2.money_management._recipient_verification_retrieve_params",
+        False,
+    ),
     "TransactionEntryListParams": (
         "stripe.params.v2.money_management._transaction_entry_list_params",
         False,
@@ -439,8 +662,16 @@ _import_map = {
         "stripe.params.v2.money_management._transaction_list_params",
         False,
     ),
+    "TransactionRefreshRegulatoryReceiptParams": (
+        "stripe.params.v2.money_management._transaction_refresh_regulatory_receipt_params",
+        False,
+    ),
     "TransactionRetrieveParams": (
         "stripe.params.v2.money_management._transaction_retrieve_params",
+        False,
+    ),
+    "TransactionUpdateParams": (
+        "stripe.params.v2.money_management._transaction_update_params",
         False,
     ),
 }

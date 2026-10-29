@@ -10,7 +10,9 @@ class FinancialAddressCreditParams(TypedDict):
     """
     Object containing the amount value and currency to credit.
     """
-    network: Union[Literal["ach", "chaps", "fps", "rtp", "wire"], str]
+    network: Union[
+        Literal["ach", "chaps", "fedwire", "fps", "rtp", "sepa", "wire"], str
+    ]
     """
     Open Enum. The network to use in simulating the funds flow. This will be the reflected in the resulting ReceivedCredit.
     """

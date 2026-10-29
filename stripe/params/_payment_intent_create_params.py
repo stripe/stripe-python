@@ -248,6 +248,7 @@ class PaymentIntentCreateParams(RequestOptions):
                     "upi",
                     "us_bank_account",
                     "wechat_pay",
+                    "wero",
                     "zip",
                 ],
                 str,
@@ -297,7 +298,7 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     payment_method: NotRequired[str]
     """
-    ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
+    The ID of a PaymentMethod to attach to this PaymentIntent.
 
     If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
     If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://docs.stripe.com/api#create_payment_intent-customer) parameter of this PaymentIntent.
@@ -2800,6 +2801,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
             "upi",
             "us_bank_account",
             "wechat_pay",
+            "wero",
             "zip",
         ],
         str,
@@ -2822,6 +2824,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
+    """
+    wero: NotRequired["PaymentIntentCreateParamsPaymentMethodDataWero"]
+    """
+    If this is a Wero PaymentMethod, this hash contains details about the Wero payment method.
     """
     zip: NotRequired["PaymentIntentCreateParamsPaymentMethodDataZip"]
     """
@@ -3037,7 +3043,9 @@ class PaymentIntentCreateParamsPaymentMethodDataGrabpay(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
-    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
+    bank: NotRequired[
+        "Literal['bca', 'bni', 'bri', 'cimb', 'mandiri', 'permata']|str"
+    ]
     """
     Bank where the account is held.
     """
@@ -3324,6 +3332,12 @@ class PaymentIntentCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
+    external_token: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodDataUsBankAccountExternalToken"
+    ]
+    """
+    An external token used to create a payment method.
+    """
     financial_connections_account: NotRequired[str]
     """
     The ID of a Financial Connections Account to use as a payment method.
@@ -3334,7 +3348,24 @@ class PaymentIntentCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
 
 
+class PaymentIntentCreateParamsPaymentMethodDataUsBankAccountExternalToken(
+    TypedDict,
+):
+    plaid_processor_token: NotRequired[str]
+    """
+    The Plaid processor token to use for this bank account.
+    """
+    type: Union[Literal["plaid_processor_token"], str]
+    """
+    The type of external token.
+    """
+
+
 class PaymentIntentCreateParamsPaymentMethodDataWechatPay(TypedDict):
+    pass
+
+
+class PaymentIntentCreateParamsPaymentMethodDataWero(TypedDict):
     pass
 
 
@@ -3720,6 +3751,12 @@ class PaymentIntentCreateParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
+    """
+    wero: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsWero"
+    ]
+    """
+    If this is a `wero` PaymentMethod, this sub-hash contains details about the Wero payment method options.
     """
     zip: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsZip"
@@ -6316,11 +6353,11 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPix(TypedDict):
     """
     expires_after_seconds: NotRequired[int]
     """
-    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
     """
     expires_at: NotRequired[int]
     """
-    The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+    The absolute Unix timestamp at which the Pix expires, between 60 and 1209600 seconds from the current time. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
     """
     mandate_options: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodOptionsPixMandateOptions"
@@ -6847,6 +6884,21 @@ class PaymentIntentCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The client type that the end customer will pay from
     """
+    setup_future_usage: NotRequired["Literal['none']|str"]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsWero(TypedDict):
     setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.

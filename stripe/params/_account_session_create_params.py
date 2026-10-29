@@ -207,6 +207,18 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [tax threshold monitoring](https://docs.stripe.com/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
     """
+    terminal_hardware_orders: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareOrders"
+    ]
+    """
+    Configuration for the [Terminal hardware orders](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+    """
+    terminal_hardware_shop: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareShop"
+    ]
+    """
+    Configuration for the [Terminal hardware shop](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+    """
 
 
 class AccountSessionCreateParamsComponentsAccountManagement(TypedDict):
@@ -994,6 +1006,44 @@ class AccountSessionCreateParamsComponentsTaxThresholdMonitoring(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures(
+    TypedDict,
+):
+    pass
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareOrders(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures(
+    TypedDict,
+):
+    pass
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareShop(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures(
     TypedDict,
 ):
     pass

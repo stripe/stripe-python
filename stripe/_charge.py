@@ -977,7 +977,7 @@ class Charge(
                 Union[Literal["installment", "recurring", "unscheduled"], str]
             ]
             """
-            The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction, one of `recurring`, `unscheduled`, `on_session`, or `installment`
+            The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction.
             """
             three_d_secure: Optional[ThreeDSecure]
             """
@@ -1227,6 +1227,7 @@ class Charge(
             token_currency: Optional[
                 Union[
                     Literal[
+                        "ousd",
                         "phantom_cash",
                         "usdc",
                         "usdg",
@@ -1373,7 +1374,9 @@ class Charge(
             """
             Account number of the bank account to transfer funds to.
             """
-            bank: Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+            bank: Union[
+                Literal["bca", "bni", "bri", "cimb", "mandiri", "permata"], str
+            ]
             """
             Bank where the account is located.
             """
@@ -2339,6 +2342,9 @@ class Charge(
             Transaction ID of this particular WeChat Pay transaction.
             """
 
+        class Wero(StripeObject):
+            pass
+
         class Zip(StripeObject):
             pass
 
@@ -2416,6 +2422,7 @@ class Charge(
         us_bank_account: Optional[UsBankAccount]
         wechat: Optional[Wechat]
         wechat_pay: Optional[WechatPay]
+        wero: Optional[Wero]
         zip: Optional[Zip]
         _inner_class_types = {
             "ach_credit_transfer": AchCreditTransfer,
@@ -2486,6 +2493,7 @@ class Charge(
             "us_bank_account": UsBankAccount,
             "wechat": Wechat,
             "wechat_pay": WechatPay,
+            "wero": Wero,
             "zip": Zip,
         }
 

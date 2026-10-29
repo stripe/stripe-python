@@ -223,7 +223,7 @@ class SessionModifyParamsLineItem(TypedDict):
     """
     price_data: NotRequired["SessionModifyParamsLineItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
     """
     quantity: NotRequired[int]
     """
@@ -367,6 +367,7 @@ class SessionModifyParamsPaymentIntentData(TypedDict):
 
     When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
 
+    You must wrap any Checkout Session update that mutates `setup_future_usage` in [`runServerUpdate`](https://docs.stripe.com/js/custom_checkout/run_server_update) and await it before continuing with the payment.
     Pass an empty string to remove a previously supplied configuration.
     """
     statement_descriptor: NotRequired["Literal['']|str"]

@@ -6,15 +6,17 @@ from typing_extensions import NotRequired, TypedDict
 class TransactionListParams(TypedDict):
     created: NotRequired["TransactionListParamsCreated"]
     """
-    Set of filters to query Transactions within a range of `created` timestamps.
+    Filter for Transactions created within a specified time range.
     """
     financial_account: NotRequired[str]
     """
-    Filter for Transactions belonging to a FinancialAccount.
+    Filter for Transactions belonging to a specific FinancialAccount. This filter only supports filtering by the FinancialAccount's ID.
     """
     flow: NotRequired[str]
     """
-    Filter for Transactions corresponding to a Flow.
+    Filter for Transactions created by a specific flow object. This filter only supports filtering by
+    the flow object's ID, such as `ibt_123` for an InboundTransfer. A value that doesn't match a flow ID
+    returns an empty list.
     """
     limit: NotRequired[int]
     """
@@ -25,17 +27,17 @@ class TransactionListParams(TypedDict):
 class TransactionListParamsCreated(TypedDict):
     gt: NotRequired[str]
     """
-    Filter for Transactions created after the specified timestamp.
+    Filter for objects created after the specified timestamp.
     """
     gte: NotRequired[str]
     """
-    Filter for Transactions created at or after the specified timestamp.
+    Filter for objects created at or after the specified timestamp.
     """
     lt: NotRequired[str]
     """
-    Filter for Transactions created before the specified timestamp.
+    Filter for objects created before the specified timestamp.
     """
     lte: NotRequired[str]
     """
-    Filter for Transactions created at or before the specified timestamp.
+    Filter for objects created at or before the specified timestamp.
     """

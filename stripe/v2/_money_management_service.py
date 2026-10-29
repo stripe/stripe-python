@@ -29,6 +29,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._outbound_transfer_service import (
         OutboundTransferService,
     )
+    from stripe.v2.money_management._payout_intent_service import (
+        PayoutIntentService,
+    )
     from stripe.v2.money_management._payout_method_service import (
         PayoutMethodService,
     )
@@ -40,6 +43,9 @@ if TYPE_CHECKING:
     )
     from stripe.v2.money_management._received_debit_service import (
         ReceivedDebitService,
+    )
+    from stripe.v2.money_management._recipient_verification_service import (
+        RecipientVerificationService,
     )
     from stripe.v2.money_management._test_helpers_service import (
         TestHelpersService,
@@ -84,6 +90,10 @@ _subservices = {
         "stripe.v2.money_management._outbound_transfer_service",
         "OutboundTransferService",
     ],
+    "payout_intents": [
+        "stripe.v2.money_management._payout_intent_service",
+        "PayoutIntentService",
+    ],
     "payout_methods": [
         "stripe.v2.money_management._payout_method_service",
         "PayoutMethodService",
@@ -99,6 +109,10 @@ _subservices = {
     "received_debits": [
         "stripe.v2.money_management._received_debit_service",
         "ReceivedDebitService",
+    ],
+    "recipient_verifications": [
+        "stripe.v2.money_management._recipient_verification_service",
+        "RecipientVerificationService",
     ],
     "test_helpers": [
         "stripe.v2.money_management._test_helpers_service",
@@ -124,10 +138,12 @@ class MoneyManagementService(StripeService):
     outbound_payment_quotes: "OutboundPaymentQuoteService"
     outbound_setup_intents: "OutboundSetupIntentService"
     outbound_transfers: "OutboundTransferService"
+    payout_intents: "PayoutIntentService"
     payout_methods: "PayoutMethodService"
     payout_methods_bank_account_spec: "PayoutMethodsBankAccountSpecService"
     received_credits: "ReceivedCreditService"
     received_debits: "ReceivedDebitService"
+    recipient_verifications: "RecipientVerificationService"
     test_helpers: "TestHelpersService"
     transactions: "TransactionService"
     transaction_entries: "TransactionEntryService"

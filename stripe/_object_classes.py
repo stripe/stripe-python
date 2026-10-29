@@ -240,6 +240,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._payment_method_domain",
         "PaymentMethodDomain",
     ),
+    "payment_plan": ("stripe._payment_plan", "PaymentPlan"),
     "payment_record": ("stripe._payment_record", "PaymentRecord"),
     "payout": ("stripe._payout", "Payout"),
     "person": ("stripe._person", "Person"),
@@ -420,7 +421,12 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
 }
 
 V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
+    "v2.search_result": (
+        "stripe.v2._search_result_object",
+        "SearchResultObject",
+    ),
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    "list": ("stripe.v2._list_object", "ListObject"),
     "v2.billing.bill_setting": (
         "stripe.v2.billing._bill_setting",
         "BillSetting",
@@ -481,10 +487,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core.vault._us_bank_account",
         "UsBankAccount",
     ),
+    "v2.data.query_run": ("stripe.v2.data._query_run", "QueryRun"),
+    "v2.data.report": ("stripe.v2.data._report", "Report"),
     "v2.data.reporting.query_run": (
         "stripe.v2.data.reporting._query_run",
         "QueryRun",
     ),
+    "v2.data.report_run": ("stripe.v2.data._report_run", "ReportRun"),
+    "v2.data.schema": ("stripe.v2.data._schema", "Schema"),
     "v2.extend.workflow": ("stripe.v2.extend._workflow", "Workflow"),
     "v2.extend.workflow_run": (
         "stripe.v2.extend._workflow_run",
@@ -531,6 +541,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._outbound_transfer",
         "OutboundTransfer",
     ),
+    "v2.money_management.payout_intent": (
+        "stripe.v2.money_management._payout_intent",
+        "PayoutIntent",
+    ),
     "v2.money_management.payout_method": (
         "stripe.v2.money_management._payout_method",
         "PayoutMethod",
@@ -546,6 +560,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.received_debit": (
         "stripe.v2.money_management._received_debit",
         "ReceivedDebit",
+    ),
+    "v2.money_management.recipient_verification": (
+        "stripe.v2.money_management._recipient_verification",
+        "RecipientVerification",
     ),
     "v2.money_management.transaction": (
         "stripe.v2.money_management._transaction",

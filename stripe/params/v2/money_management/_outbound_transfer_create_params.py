@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
-from typing import Dict
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 _OutboundTransferCreateParamsBase = TypedDict(
@@ -29,6 +29,10 @@ class OutboundTransferCreateParams(_OutboundTransferCreateParamsBase):
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    statement_descriptor: NotRequired[str]
+    """
+    The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long for most destinations (500 for FinancialAccount destinations), and not contain profanity.
     """
     to: "OutboundTransferCreateParamsTo"
     """
@@ -69,3 +73,50 @@ class OutboundTransferCreateParamsTo(TypedDict):
     """
     The payout method which the OutboundTransfer uses to send payout.
     """
+    payout_method_options: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptions"
+    ]
+    """
+    Payout method options for the OutboundTransfer.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptions(TypedDict):
+    bank_account: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount"
+    ]
+    """
+    Options for bank account payout methods.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
+    preferred_network_options: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions"
+    ]
+    """
+    Per-network configuration options.
+    """
+    preferred_networks: List[
+        Union[Literal["ach", "fedwire", "fps", "sepa", "swift"], str]
+    ]
+    """
+    The preferred networks to use for this OutboundTransfer.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions(
+    TypedDict,
+):
+    ach: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch"
+    ]
+    """
+    ACH-specific network options.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch(
+    TypedDict,
+):
+    pass

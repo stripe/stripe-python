@@ -136,6 +136,7 @@ if TYPE_CHECKING:
         SessionCreateParamsSubscriptionDataBillingMode as SessionCreateParamsSubscriptionDataBillingMode,
         SessionCreateParamsSubscriptionDataBillingModeFlexible as SessionCreateParamsSubscriptionDataBillingModeFlexible,
         SessionCreateParamsSubscriptionDataInvoiceSettings as SessionCreateParamsSubscriptionDataInvoiceSettings,
+        SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField as SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField,
         SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer as SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer,
         SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval as SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval,
         SessionCreateParamsSubscriptionDataTransferData as SessionCreateParamsSubscriptionDataTransferData,
@@ -748,6 +749,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsSubscriptionDataInvoiceSettings": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

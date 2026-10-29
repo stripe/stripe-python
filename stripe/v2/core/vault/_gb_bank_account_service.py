@@ -7,23 +7,20 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._request_options import RequestOptions
-    from stripe.params.v2.core.vault._gb_bank_account_acknowledge_confirmation_of_payee_params import (
-        GbBankAccountAcknowledgeConfirmationOfPayeeParams,
-    )
     from stripe.params.v2.core.vault._gb_bank_account_archive_params import (
         GbBankAccountArchiveParams,
     )
     from stripe.params.v2.core.vault._gb_bank_account_create_params import (
         GbBankAccountCreateParams,
     )
-    from stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params import (
-        GbBankAccountInitiateConfirmationOfPayeeParams,
-    )
     from stripe.params.v2.core.vault._gb_bank_account_list_params import (
         GbBankAccountListParams,
     )
     from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
         GbBankAccountRetrieveParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_unarchive_params import (
+        GbBankAccountUnarchiveParams,
     )
     from stripe.v2._list_object import ListObject
     from stripe.v2.core.vault._gb_bank_account import GbBankAccount
@@ -152,62 +149,6 @@ class GbBankAccountService(StripeService):
             ),
         )
 
-    def acknowledge_confirmation_of_payee(
-        self,
-        id: str,
-        /,
-        params: Optional[
-            "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
-        ] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "GbBankAccount":
-        """
-        Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
-        proceeding to pay out to this bank account despite the account not matching, partially matching, or the service
-        being unavailable. Once you confirm this, you will be able to send OutboundPayments, but this may lead to
-        funds being sent to the wrong account, which we might not be able to recover.
-        """
-        return cast(
-            "GbBankAccount",
-            self._request(
-                "post",
-                "/v2/core/vault/gb_bank_accounts/{id}/acknowledge_confirmation_of_payee".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def acknowledge_confirmation_of_payee_async(
-        self,
-        id: str,
-        /,
-        params: Optional[
-            "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
-        ] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "GbBankAccount":
-        """
-        Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
-        proceeding to pay out to this bank account despite the account not matching, partially matching, or the service
-        being unavailable. Once you confirm this, you will be able to send OutboundPayments, but this may lead to
-        funds being sent to the wrong account, which we might not be able to recover.
-        """
-        return cast(
-            "GbBankAccount",
-            await self._request_async(
-                "post",
-                "/v2/core/vault/gb_bank_accounts/{id}/acknowledge_confirmation_of_payee".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def archive(
         self,
         id: str,
@@ -256,26 +197,21 @@ class GbBankAccountService(StripeService):
             ),
         )
 
-    def initiate_confirmation_of_payee(
+    def unarchive(
         self,
         id: str,
         /,
-        params: Optional[
-            "GbBankAccountInitiateConfirmationOfPayeeParams"
-        ] = None,
+        params: Optional["GbBankAccountUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GbBankAccount":
         """
-        Initiate Confirmation of Payee (CoP) in order to verify that the owner of a UK bank account matches
-        who you expect. This must be done on all UK bank accounts before sending domestic OutboundPayments. If
-        the result is a partial match or a non match, explicit acknowledgement using AcknowledgeConfirmationOfPayee
-        is required before sending funds.
+        Unarchive a GBBankAccount object.
         """
         return cast(
             "GbBankAccount",
             self._request(
                 "post",
-                "/v2/core/vault/gb_bank_accounts/{id}/initiate_confirmation_of_payee".format(
+                "/v2/core/vault/gb_bank_accounts/{id}/unarchive".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -284,26 +220,21 @@ class GbBankAccountService(StripeService):
             ),
         )
 
-    async def initiate_confirmation_of_payee_async(
+    async def unarchive_async(
         self,
         id: str,
         /,
-        params: Optional[
-            "GbBankAccountInitiateConfirmationOfPayeeParams"
-        ] = None,
+        params: Optional["GbBankAccountUnarchiveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GbBankAccount":
         """
-        Initiate Confirmation of Payee (CoP) in order to verify that the owner of a UK bank account matches
-        who you expect. This must be done on all UK bank accounts before sending domestic OutboundPayments. If
-        the result is a partial match or a non match, explicit acknowledgement using AcknowledgeConfirmationOfPayee
-        is required before sending funds.
+        Unarchive a GBBankAccount object.
         """
         return cast(
             "GbBankAccount",
             await self._request_async(
                 "post",
-                "/v2/core/vault/gb_bank_accounts/{id}/initiate_confirmation_of_payee".format(
+                "/v2/core/vault/gb_bank_accounts/{id}/unarchive".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

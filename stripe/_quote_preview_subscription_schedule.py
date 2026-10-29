@@ -23,6 +23,12 @@ if TYPE_CHECKING:
 
 
 class QuotePreviewSubscriptionSchedule(StripeObject):
+    """
+    A subscription schedule allows you to create and manage the lifecycle of a subscription by
+    predefining expected changes. A quote preview subscription schedule shows the subscription schedule
+    that would be created by accepting the quote.
+    """
+
     OBJECT_NAME: ClassVar[Literal["quote_preview_subscription_schedule"]] = (
         "quote_preview_subscription_schedule"
     )
@@ -897,7 +903,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    pause_schedules: Optional[List[PauseSchedule]]
+    pause_schedules: List[PauseSchedule]
     """
     The pause schedules for this subscription schedule.
     """

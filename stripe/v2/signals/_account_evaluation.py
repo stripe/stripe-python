@@ -57,6 +57,10 @@ class AccountEvaluation(StripeObject):
                 """
                 _inner_class_types = {"business_details": BusinessDetails}
 
+            contact_email: Optional[str]
+            """
+            The account's contact email.
+            """
             defaults: Optional[Defaults]
             """
             Default account settings.
@@ -73,7 +77,7 @@ class AccountEvaluation(StripeObject):
         """
         customer: Optional[str]
         """
-        The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+        The v1 customer ID of the account, for users not yet migrated to v2 accounts.
         """
         data: Optional[Data]
         """

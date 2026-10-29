@@ -428,12 +428,16 @@ class _APIRequestor(object):
                 **error_args,
                 reason=error_data.get("reason"),
             )
+        elif type == "capability_not_enabled":
+            return error.CapabilityNotEnabledError(**error_args)
         elif type == "controlled_by_alternate_resource":
             return error.ControlledByAlternateResourceError(**error_args)
         elif type == "feature_not_enabled":
             return error.FeatureNotEnabledError(**error_args)
         elif type == "financial_account_not_open":
             return error.FinancialAccountNotOpenError(**error_args)
+        elif type == "fx_quote_needs_refresh":
+            return error.FxQuoteNeedsRefreshError(**error_args)
         elif type == "insufficient_funds":
             return error.InsufficientFundsError(**error_args)
         elif type == "invalid_payment_method":

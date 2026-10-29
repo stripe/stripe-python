@@ -51,28 +51,6 @@ class ReceivedCredit(StripeObject):
         """
 
     class BankTransfer(StripeObject):
-        class GbBankAccount(StripeObject):
-            account_holder_name: Optional[str]
-            """
-            The bank name the transfer was received from.
-            """
-            bank_name: Optional[str]
-            """
-            The bank name the transfer was received from.
-            """
-            last4: Optional[str]
-            """
-            The last 4 digits of the account number that originated the transfer.
-            """
-            network: Union[Literal["chaps", "fps"], str]
-            """
-            Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            """
-            sort_code: Optional[str]
-            """
-            The sort code of the account that originated the transfer.
-            """
-
         class OriginatingBankAccount(StripeObject):
             class Aba(StripeObject):
                 account_holder_name: Optional[str]
@@ -86,10 +64,6 @@ class ReceivedCredit(StripeObject):
                 last4: Optional[str]
                 """
                 The last 4 digits of the account number that originated the transfer.
-                """
-                network: Union[Literal["ach", "rtp", "us_domestic_wire"], str]
-                """
-                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
                 """
                 routing_number: Optional[str]
                 """
@@ -117,10 +91,6 @@ class ReceivedCredit(StripeObject):
                 """
                 The IBAN that originated the transfer.
                 """
-                network: Union[Literal["sepa_credit_transfer"], str]
-                """
-                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-                """
 
             class SortCode(StripeObject):
                 account_holder_name: Optional[str]
@@ -134,10 +104,6 @@ class ReceivedCredit(StripeObject):
                 last4: Optional[str]
                 """
                 The last 4 digits of the account number that originated the transfer.
-                """
-                network: Union[Literal["chaps", "fps"], str]
-                """
-                Open Enum. The money transmission network used to send funds for this ReceivedCredit.
                 """
                 sort_code: Optional[str]
                 """
@@ -166,83 +132,29 @@ class ReceivedCredit(StripeObject):
                 "sort_code": SortCode,
             }
 
-        class SepaBankAccount(StripeObject):
-            account_holder_name: Optional[str]
-            """
-            The account holder name of the bank account the transfer was received from.
-            """
-            bank_name: Optional[str]
-            """
-            The bank name the transfer was received from.
-            """
-            bic: Optional[str]
-            """
-            The BIC of the SEPA account.
-            """
-            country: Optional[str]
-            """
-            The origination country of the bank transfer.
-            """
-            iban: Optional[str]
-            """
-            The IBAN that originated the transfer.
-            """
-            network: Union[Literal["sepa_credit_transfer"], str]
-            """
-            The money transmission network used to send funds for this ReceivedCredit.
-            """
-
-        class UsBankAccount(StripeObject):
-            account_holder_name: Optional[str]
-            """
-            The name of the account holder that sent the payment.
-            """
-            bank_name: Optional[str]
-            """
-            The bank name the transfer was received from.
-            """
-            last4: Optional[str]
-            """
-            The last 4 digits of the account number that originated the transfer.
-            """
-            network: Union[Literal["ach", "rtp", "us_domestic_wire"], str]
-            """
-            Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            """
-            routing_number: Optional[str]
-            """
-            The routing number of the account that originated the transfer.
-            """
-
         financial_address: str
         """
         Financial Address on which funds for ReceivedCredit were received.
         """
-        gb_bank_account: Optional[GbBankAccount]
+        network: Union[
+            Literal[
+                "ach", "chaps", "fedwire", "fps", "rtp", "sepa", "sepa_instant"
+            ],
+            str,
+        ]
         """
-        Deprecated. Use `originating_bank_account.sort_code` instead.
+        The money transmission network used to send funds for this ReceivedCredit.
         """
         originating_bank_account: OriginatingBankAccount
         """
         Hash containing the originating bank account details and type for this bank transfer.
         """
-        sepa_bank_account: Optional[SepaBankAccount]
-        """
-        Deprecated. Use `originating_bank_account.iban` instead.
-        """
         statement_descriptor: Optional[str]
         """
         Freeform string set by originator of the external ReceivedCredit.
         """
-        us_bank_account: Optional[UsBankAccount]
-        """
-        Deprecated. Use `originating_bank_account.aba` instead.
-        """
         _inner_class_types = {
-            "gb_bank_account": GbBankAccount,
             "originating_bank_account": OriginatingBankAccount,
-            "sepa_bank_account": SepaBankAccount,
-            "us_bank_account": UsBankAccount,
         }
 
     class StatusDetails(StripeObject):
@@ -295,11 +207,11 @@ class ReceivedCredit(StripeObject):
 
     amount: Amount
     """
-    The amount and currency of the ReceivedCredit.
+    The amount and currency credited to the FinancialAccount.
     """
     amount_received: Amount
     """
-    The amount and currency of the ReceivedCredit that was received.
+    The amount and currency Stripe received from the external source, before any conversion or fees.
     """
     balance_transfer: Optional[BalanceTransfer]
     """

@@ -16,7 +16,7 @@ class FinancialAddress(StripeObject):
 
     class BankAccount(StripeObject):
         class Aba(StripeObject):
-            class AccountHolderAddress(StripeObject):
+            class Address(StripeObject):
                 city: str
                 """
                 City.
@@ -46,33 +46,27 @@ class FinancialAddress(StripeObject):
                 Town or suburb.
                 """
 
-            account_holder_address: Optional[AccountHolderAddress]
-            """
-            The address of the account holder.
-            """
             account_holder_name: Optional[str]
             """
             The name of the account holder.
             """
-            account_number: Optional[str]
+            account_number: str
             """
-            The full account number.
+            The full account number. Empty while the bank account is pending allocation.
+            """
+            address: Optional[Address]
+            """
+            The address of the account holder.
             """
             bank_name: Optional[str]
             """
             The name of the bank.
             """
-            last4: str
-            """
-            The last four digits of the account number.
-            """
             routing_number: str
             """
             The ABA routing number.
             """
-            _inner_class_types = {
-                "account_holder_address": AccountHolderAddress,
-            }
+            _inner_class_types = {"address": Address}
 
         class Iban(StripeObject):
             account_holder_name: str
@@ -83,17 +77,9 @@ class FinancialAddress(StripeObject):
             """
             The name of the bank.
             """
-            country: str
+            iban: str
             """
-            The country of the bank account.
-            """
-            iban: Optional[str]
-            """
-            The full IBAN.
-            """
-            last4: str
-            """
-            The last four digits of the IBAN.
+            The full IBAN. Empty while the bank account is pending allocation.
             """
 
         class SortCode(StripeObject):
@@ -101,13 +87,9 @@ class FinancialAddress(StripeObject):
             """
             The name of the account holder.
             """
-            account_number: Optional[str]
+            account_number: str
             """
-            The full account number.
-            """
-            last4: str
-            """
-            The last four digits of the account number.
+            The full account number. Empty while the bank account is pending allocation.
             """
             sort_code: str
             """
@@ -120,7 +102,8 @@ class FinancialAddress(StripeObject):
         """
         country: Optional[str]
         """
-        The country of the bank account.
+        The country of the bank account. Always included in the response, but null while the bank
+        account is pending and its country is not yet known.
         """
         currency: str
         """
@@ -164,10 +147,7 @@ class FinancialAddress(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    settlement_currency: Optional[str]
-    """
-    Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
-    """
+    settlement_currency: str
     status: Literal["active", "archived", "failed", "pending"]
     """
     Closed Enum. The status of the FinancialAddress.

@@ -332,10 +332,12 @@ if TYPE_CHECKING:
         AuthenticationError as AuthenticationError,
         BlockedByStripeError as BlockedByStripeError,
         CannotProceedError as CannotProceedError,
+        CapabilityNotEnabledError as CapabilityNotEnabledError,
         CardError as CardError,
         ControlledByAlternateResourceError as ControlledByAlternateResourceError,
         FeatureNotEnabledError as FeatureNotEnabledError,
         FinancialAccountNotOpenError as FinancialAccountNotOpenError,
+        FxQuoteNeedsRefreshError as FxQuoteNeedsRefreshError,
         IdempotencyError as IdempotencyError,
         InsufficientFundsError as InsufficientFundsError,
         InvalidPaymentMethodError as InvalidPaymentMethodError,
@@ -477,6 +479,10 @@ if TYPE_CHECKING:
     )
     from stripe._payment_method_service import (
         PaymentMethodService as PaymentMethodService,
+    )
+    from stripe._payment_plan import PaymentPlan as PaymentPlan
+    from stripe._payment_plan_service import (
+        PaymentPlanService as PaymentPlanService,
     )
     from stripe._payment_record import PaymentRecord as PaymentRecord
     from stripe._payment_record_service import (
@@ -797,10 +803,12 @@ _import_map = {
     "AuthenticationError": ("stripe._error", False),
     "BlockedByStripeError": ("stripe._error", False),
     "CannotProceedError": ("stripe._error", False),
+    "CapabilityNotEnabledError": ("stripe._error", False),
     "CardError": ("stripe._error", False),
     "ControlledByAlternateResourceError": ("stripe._error", False),
     "FeatureNotEnabledError": ("stripe._error", False),
     "FinancialAccountNotOpenError": ("stripe._error", False),
+    "FxQuoteNeedsRefreshError": ("stripe._error", False),
     "IdempotencyError": ("stripe._error", False),
     "InsufficientFundsError": ("stripe._error", False),
     "InvalidPaymentMethodError": ("stripe._error", False),
@@ -933,6 +941,8 @@ _import_map = {
         False,
     ),
     "PaymentMethodService": ("stripe._payment_method_service", False),
+    "PaymentPlan": ("stripe._payment_plan", False),
+    "PaymentPlanService": ("stripe._payment_plan_service", False),
     "PaymentRecord": ("stripe._payment_record", False),
     "PaymentRecordService": ("stripe._payment_record_service", False),
     "Payout": ("stripe._payout", False),

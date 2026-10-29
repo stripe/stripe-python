@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class UsBankAccountListParams(TypedDict):
@@ -8,7 +8,14 @@ class UsBankAccountListParams(TypedDict):
     """
     Optionally set the maximum number of results per page. Defaults to 10.
     """
-    verification_status: NotRequired[str]
+    verification_status: NotRequired[
+        Literal[
+            "awaiting_verification",
+            "unverified",
+            "verification_failed",
+            "verified",
+        ]
+    ]
     """
-    Optionally filter by verification status. Mutually exclusive with `unverified`, `verified`, `awaiting_verification`, and `verification_failed`.
+    Closed Enum. Optionally filter by verification status.
     """

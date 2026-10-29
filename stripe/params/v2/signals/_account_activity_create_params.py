@@ -58,7 +58,7 @@ class AccountActivityCreateParamsAccountDetails(TypedDict):
     """
     customer: NotRequired[str]
     """
-    The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+    The v1 customer ID of the account, for users not yet migrated to v2 accounts.
     """
     data: NotRequired["AccountActivityCreateParamsAccountDetailsData"]
     """
@@ -67,6 +67,10 @@ class AccountActivityCreateParamsAccountDetails(TypedDict):
 
 
 class AccountActivityCreateParamsAccountDetailsData(TypedDict):
+    contact_email: NotRequired[str]
+    """
+    The account's contact email.
+    """
     defaults: NotRequired[
         "AccountActivityCreateParamsAccountDetailsDataDefaults"
     ]

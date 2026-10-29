@@ -3,5 +3,5 @@
 from typing_extensions import TypedDict
 
 
-class GbBankAccountAcknowledgeConfirmationOfPayeeParams(TypedDict):
+class PayoutIntentRefreshFxQuoteParams(TypedDict):
     pass

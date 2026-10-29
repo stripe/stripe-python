@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.v2._amount import AmountParam
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 _OutboundPaymentQuoteCreateParamsBase = TypedDict(
@@ -59,7 +60,67 @@ class OutboundPaymentQuoteCreateParamsTo(TypedDict):
     """
     The payout method which the OutboundPayment uses to send payout.
     """
+    payout_method_options: NotRequired[
+        "OutboundPaymentQuoteCreateParamsToPayoutMethodOptions"
+    ]
+    """
+    Payout method options for the OutboundPaymentQuote.
+    """
     recipient: str
     """
     To which account the OutboundPayment is sent.
+    """
+
+
+class OutboundPaymentQuoteCreateParamsToPayoutMethodOptions(TypedDict):
+    bank_account: NotRequired[
+        "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount"
+    ]
+    """
+    Options for bank account payout methods.
+    """
+
+
+class OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccount(
+    TypedDict,
+):
+    preferred_network_options: NotRequired[
+        "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions"
+    ]
+    """
+    Per-network configuration options.
+    """
+    preferred_networks: NotRequired[
+        List[
+            Union[
+                Literal["ach", "fedwire", "fps", "rtp", "sepa", "swift"], str
+            ]
+        ]
+    ]
+    """
+    The preferred networks to use for this OutboundPayment.
+    """
+
+
+class OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions(
+    TypedDict,
+):
+    ach: NotRequired[
+        "OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch"
+    ]
+    """
+    ACH-specific network options.
+    """
+
+
+class OutboundPaymentQuoteCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch(
+    TypedDict,
+):
+    submission: NotRequired["Literal['next_day', 'same_day']|str"]
+    """
+    Open Enum. ACH submission timing.
+    """
+    transaction_purpose: NotRequired["Literal['payroll']|str"]
+    """
+    The transaction purpose for this ACH payment.
     """
