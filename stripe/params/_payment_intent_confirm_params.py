@@ -177,7 +177,7 @@ class PaymentIntentConfirmParams(RequestOptions):
     """
     payment_method: NotRequired[str]
     """
-    ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+    The ID of a PaymentMethod to attach to this PaymentIntent.
     If the payment method is attached to a Customer, it must match the [customer](https://docs.stripe.com/api#create_payment_intent-customer) that is set on this PaymentIntent.
     """
     payment_method_data: NotRequired[
@@ -2136,6 +2136,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     """
     When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
     """
+    setup_credential_usage: NotRequired[
+        "Literal['installment', 'recurring', 'unscheduled']|str"
+    ]
+    """
+    Set to indicate the future transaction type usage for the card being set up.
+    """
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session', 'on_session']|str"
     ]
@@ -2157,6 +2163,18 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
     """
     Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+    """
+    stored_credential_usage: NotRequired[
+        "Literal['installment', 'recurring', 'unscheduled']|str"
+    ]
+    """
+    Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
+
+     When making an off session payment with a previously saved card (that was saved with a SetupIntent or with a PaymentIntent with `setup_future_usage`), set this parameter to indicate the type of transaction.
+
+     You can set this parameter at any time before or during PaymentIntent confirmation, and confirm this PaymentIntent with `off_session=true`.
+
+     Note that this parameter is currently unsupported with the `setup_future_usage` parameter.
     """
     three_d_secure: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure"
@@ -3054,11 +3072,11 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsPix(TypedDict):
     """
     expires_after_seconds: NotRequired[int]
     """
-    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
     """
     expires_at: NotRequired[int]
     """
-    The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+    The absolute Unix timestamp at which the Pix expires, between 60 and 1209600 seconds from the current time. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
     """
     mandate_options: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodOptionsPixMandateOptions"

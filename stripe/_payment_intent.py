@@ -387,11 +387,13 @@ class PaymentIntent(
                     "shipping_calculation_failed",
                     "siret_invalid",
                     "sku_inactive",
+                    "smart_disputes_not_available",
                     "state_unsupported",
                     "status_transition_invalid",
                     "storer_capability_missing",
                     "storer_capability_not_active",
                     "stripe_tax_inactive",
+                    "subscription_update_trial_after_billing_cycle_anchor",
                     "tax_id_invalid",
                     "tax_id_prohibited",
                     "taxes_calculation_failed",
@@ -403,6 +405,8 @@ class PaymentIntent(
                     "terminal_reader_offline",
                     "terminal_reader_timeout",
                     "testmode_charges_only",
+                    "three_d_secure_authentication_not_supported",
+                    "three_d_secure_authentication_upstream_error",
                     "tls_version_unsupported",
                     "token_already_used",
                     "token_card_network_invalid",
@@ -2049,6 +2053,12 @@ class PaymentIntent(
             """
             When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
             """
+            setup_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            Set to indicate the future transaction type usage for the card being set up.
+            """
             setup_future_usage: Optional[
                 Union[Literal["none", "off_session", "on_session"], str]
             ]
@@ -2068,6 +2078,12 @@ class PaymentIntent(
             statement_descriptor_suffix_kanji: Optional[str]
             """
             Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+            """
+            stored_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            Selected usage to indicate the transaction type of the off-session payment.
             """
             _inner_class_types = {
                 "installments": Installments,
@@ -2660,11 +2676,11 @@ class PaymentIntent(
             """
             expires_after_seconds: Optional[int]
             """
-            The number of seconds (between 10 and 1209600) after which Pix payment will expire.
+            The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
             """
             expires_at: Optional[int]
             """
-            The timestamp at which the Pix expires.
+            The absolute Unix timestamp at which the Pix expires. When supplied as an input, it must be between 60 and 1209600 seconds from the current time at validation, inclusive. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
             """
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[

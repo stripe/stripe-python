@@ -38,7 +38,7 @@ class AccountCreateParams(RequestOptions):
     """
     controller: NotRequired["AccountCreateParamsController"]
     """
-    A hash of configuration describing the account controller's attributes.
+    Configures the account's Dashboard access, loss liability, requirements collection, and Stripe fee responsibility.
     """
     country: NotRequired[str]
     """
@@ -592,6 +592,10 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The us_bank_transfer_payments capability.
     """
+    wero_payments: NotRequired["AccountCreateParamsCapabilitiesWeroPayments"]
+    """
+    The wero_payments capability.
+    """
     zip_payments: NotRequired["AccountCreateParamsCapabilitiesZipPayments"]
     """
     The zip_payments capability.
@@ -1074,6 +1078,13 @@ class AccountCreateParamsCapabilitiesUsBankTransferPayments(TypedDict):
     """
 
 
+class AccountCreateParamsCapabilitiesWeroPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountCreateParamsCapabilitiesZipPayments(TypedDict):
     requested: NotRequired[bool]
     """
@@ -1153,6 +1164,10 @@ class AccountCreateParamsCompany(TypedDict):
     phone: NotRequired[str]
     """
     The company's phone number (used for verification).
+    """
+    physical_address: NotRequired["AccountCreateParamsCompanyPhysicalAddress"]
+    """
+    A location where the business has a meaningful physical operating presence.
     """
     principal_place_of_business: NotRequired[
         "AccountCreateParamsCompanyPrincipalPlaceOfBusiness"
@@ -1348,6 +1363,33 @@ class AccountCreateParamsCompanyOwnershipDeclaration(TypedDict):
     """
 
 
+class AccountCreateParamsCompanyPhysicalAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
 class AccountCreateParamsCompanyPrincipalPlaceOfBusiness(TypedDict):
     city: NotRequired[str]
     """
@@ -1447,14 +1489,14 @@ class AccountCreateParamsController(TypedDict):
 class AccountCreateParamsControllerFees(TypedDict):
     payer: NotRequired["Literal['account', 'application']|str"]
     """
-    A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
+    Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. Setting `controller.losses.payments=application` requires `controller.fees.payer=application`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
     """
 
 
 class AccountCreateParamsControllerLosses(TypedDict):
     payments: NotRequired["Literal['application', 'stripe']|str"]
     """
-    A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
+    Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk). Defaults to `stripe`.
     """
 
 
@@ -1503,6 +1545,12 @@ class AccountCreateParamsDocuments(TypedDict):
     proof_of_address: NotRequired["AccountCreateParamsDocumentsProofOfAddress"]
     """
     One or more documents that demonstrate proof of address.
+    """
+    proof_of_business_presence: NotRequired[
+        "AccountCreateParamsDocumentsProofOfBusinessPresence"
+    ]
+    """
+    One or more documents that demonstrate proof of business presence.
     """
     proof_of_ultimate_beneficial_ownership: NotRequired[
         "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership"
@@ -1555,6 +1603,13 @@ class AccountCreateParamsDocumentsCompanyTaxIdVerification(TypedDict):
 
 
 class AccountCreateParamsDocumentsProofOfAddress(TypedDict):
+    files: NotRequired[List[str]]
+    """
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
+    """
+
+
+class AccountCreateParamsDocumentsProofOfBusinessPresence(TypedDict):
     files: NotRequired[List[str]]
     """
     One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.

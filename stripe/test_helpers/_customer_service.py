@@ -24,7 +24,7 @@ class CustomerService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":
         """
-        Create an incoming testmode bank transfer
+        Create a test incoming bank transfer
         """
         return cast(
             "CustomerCashBalanceTransaction",
@@ -47,7 +47,7 @@ class CustomerService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":
         """
-        Create an incoming testmode bank transfer
+        Create a test incoming bank transfer
         """
         return cast(
             "CustomerCashBalanceTransaction",

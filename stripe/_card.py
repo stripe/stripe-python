@@ -22,6 +22,8 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     later. You can also store multiple debit cards on a recipient in order to
     transfer to those cards later.
 
+    This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
+
     Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
     """
 
@@ -34,6 +36,9 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         """
 
     account: Optional[ExpandableField["Account"]]
+    """
+    The account this card belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](https://docs.stripe.com/api/external_account_cards/object) where [controller.is_controller](https://docs.stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
+    """
     address_city: Optional[str]
     """
     City/District/Suburb/Town/Village.

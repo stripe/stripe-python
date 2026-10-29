@@ -100,7 +100,13 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
     ):
         updated_capability: Union[
             Literal[
+                "bank_accounts.ach",
+                "bank_accounts.fedwire",
+                "bank_accounts.fps",
                 "bank_accounts.local",
+                "bank_accounts.rtp",
+                "bank_accounts.sepa",
+                "bank_accounts.swift",
                 "bank_accounts.wire",
                 "cards",
                 "stripe_balance.payouts",

@@ -4,7 +4,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.core import accounts as accounts
+    from stripe.params.v2.core import accounts as accounts, vault as vault
     from stripe.params.v2.core._account_close_params import (
         AccountCloseParams as AccountCloseParams,
     )
@@ -87,6 +87,15 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantSupportAddress as AccountCreateParamsConfigurationMerchantSupportAddress,
         AccountCreateParamsConfigurationRecipient as AccountCreateParamsConfigurationRecipient,
         AccountCreateParamsConfigurationRecipientCapabilities as AccountCreateParamsConfigurationRecipientCapabilities,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift,
+        AccountCreateParamsConfigurationRecipientCapabilitiesCards as AccountCreateParamsConfigurationRecipientCapabilitiesCards,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountCreateParamsDefaults as AccountCreateParamsDefaults,
@@ -304,6 +313,15 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantSupportAddress as AccountUpdateParamsConfigurationMerchantSupportAddress,
         AccountUpdateParamsConfigurationRecipient as AccountUpdateParamsConfigurationRecipient,
         AccountUpdateParamsConfigurationRecipientCapabilities as AccountUpdateParamsConfigurationRecipientCapabilities,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsAch as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsAch,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesCards as AccountUpdateParamsConfigurationRecipientCapabilitiesCards,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountUpdateParamsDefaults as AccountUpdateParamsDefaults,
@@ -407,6 +425,7 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "accounts": ("stripe.params.v2.core.accounts", True),
+    "vault": ("stripe.params.v2.core.vault", True),
     "AccountCloseParams": (
         "stripe.params.v2.core._account_close_params",
         False,
@@ -720,6 +739,42 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationRecipientCapabilities": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesCards": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1537,6 +1592,42 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationRecipientCapabilities": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsAch": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesCards": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
