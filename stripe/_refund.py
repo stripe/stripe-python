@@ -46,7 +46,14 @@ class Refund(
             pass
 
         class AfterpayClearpay(StripeObject):
-            pass
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
 
         class Alipay(StripeObject):
             pass
@@ -154,7 +161,14 @@ class Refund(
             """
 
         class Klarna(StripeObject):
-            pass
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
 
         class MbWay(StripeObject):
             reference: Optional[str]
@@ -206,6 +220,14 @@ class Refund(
             network_decline_code: Optional[str]
             """
             For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
             """
 
         class Pix(StripeObject):

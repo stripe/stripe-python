@@ -183,6 +183,10 @@ class Card(
         """
         Additional information that may be required for clearing customs.
         """
+        delivered_at: Optional[int]
+        """
+        The time the card was reported as delivered. Null for undelivered or untracked shipments, or if Stripe has not recorded a delivery time.
+        """
         eta: Optional[int]
         """
         A unix timestamp representing a best estimate of when the card will be delivered.
@@ -202,6 +206,10 @@ class Card(
         service: Union[Literal["express", "priority", "standard"], str]
         """
         Shipment service, such as `standard` or `express`.
+        """
+        shipped_at: Optional[int]
+        """
+        The time the card was reported as shipped. Null if Stripe has not recorded a shipment time.
         """
         status: Optional[
             Union[

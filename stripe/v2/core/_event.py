@@ -76,7 +76,7 @@ class Event(StripeObject):
     """
     snapshot_event: Optional[str]
     """
-    For interop events, this is the snapshot event ID.
+    For thin events with a corresponding snapshot event, this is the snapshot event ID.
     """
     type: str
     """

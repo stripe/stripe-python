@@ -937,6 +937,18 @@ class Charge(
             """
             Status of a card based on the card issuer.
             """
+            setup_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
+            """
+            stored_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction.
+            """
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
@@ -1183,6 +1195,7 @@ class Charge(
             token_currency: Optional[
                 Union[
                     Literal[
+                        "ousd",
                         "phantom_cash",
                         "usdc",
                         "usdg",

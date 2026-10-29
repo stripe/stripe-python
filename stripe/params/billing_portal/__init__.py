@@ -13,6 +13,9 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsFeaturesPaymentMethodUpdate as ConfigurationCreateParamsFeaturesPaymentMethodUpdate,
         ConfigurationCreateParamsFeaturesSubscriptionCancel as ConfigurationCreateParamsFeaturesSubscriptionCancel,
         ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason as ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason,
+        ConfigurationCreateParamsFeaturesSubscriptionPause as ConfigurationCreateParamsFeaturesSubscriptionPause,
+        ConfigurationCreateParamsFeaturesSubscriptionPauseDuration as ConfigurationCreateParamsFeaturesSubscriptionPauseDuration,
+        ConfigurationCreateParamsFeaturesSubscriptionPauseDurationIntervalOption as ConfigurationCreateParamsFeaturesSubscriptionPauseDurationIntervalOption,
         ConfigurationCreateParamsFeaturesSubscriptionUpdate as ConfigurationCreateParamsFeaturesSubscriptionUpdate,
         ConfigurationCreateParamsFeaturesSubscriptionUpdateProduct as ConfigurationCreateParamsFeaturesSubscriptionUpdateProduct,
         ConfigurationCreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity as ConfigurationCreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity,
@@ -32,6 +35,9 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsFeaturesPaymentMethodUpdate as ConfigurationModifyParamsFeaturesPaymentMethodUpdate,
         ConfigurationModifyParamsFeaturesSubscriptionCancel as ConfigurationModifyParamsFeaturesSubscriptionCancel,
         ConfigurationModifyParamsFeaturesSubscriptionCancelCancellationReason as ConfigurationModifyParamsFeaturesSubscriptionCancelCancellationReason,
+        ConfigurationModifyParamsFeaturesSubscriptionPause as ConfigurationModifyParamsFeaturesSubscriptionPause,
+        ConfigurationModifyParamsFeaturesSubscriptionPauseDuration as ConfigurationModifyParamsFeaturesSubscriptionPauseDuration,
+        ConfigurationModifyParamsFeaturesSubscriptionPauseDurationIntervalOption as ConfigurationModifyParamsFeaturesSubscriptionPauseDurationIntervalOption,
         ConfigurationModifyParamsFeaturesSubscriptionUpdate as ConfigurationModifyParamsFeaturesSubscriptionUpdate,
         ConfigurationModifyParamsFeaturesSubscriptionUpdateProduct as ConfigurationModifyParamsFeaturesSubscriptionUpdateProduct,
         ConfigurationModifyParamsFeaturesSubscriptionUpdateProductAdjustableQuantity as ConfigurationModifyParamsFeaturesSubscriptionUpdateProductAdjustableQuantity,
@@ -51,6 +57,9 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsFeaturesPaymentMethodUpdate as ConfigurationUpdateParamsFeaturesPaymentMethodUpdate,
         ConfigurationUpdateParamsFeaturesSubscriptionCancel as ConfigurationUpdateParamsFeaturesSubscriptionCancel,
         ConfigurationUpdateParamsFeaturesSubscriptionCancelCancellationReason as ConfigurationUpdateParamsFeaturesSubscriptionCancelCancellationReason,
+        ConfigurationUpdateParamsFeaturesSubscriptionPause as ConfigurationUpdateParamsFeaturesSubscriptionPause,
+        ConfigurationUpdateParamsFeaturesSubscriptionPauseDuration as ConfigurationUpdateParamsFeaturesSubscriptionPauseDuration,
+        ConfigurationUpdateParamsFeaturesSubscriptionPauseDurationIntervalOption as ConfigurationUpdateParamsFeaturesSubscriptionPauseDurationIntervalOption,
         ConfigurationUpdateParamsFeaturesSubscriptionUpdate as ConfigurationUpdateParamsFeaturesSubscriptionUpdate,
         ConfigurationUpdateParamsFeaturesSubscriptionUpdateProduct as ConfigurationUpdateParamsFeaturesSubscriptionUpdateProduct,
         ConfigurationUpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity as ConfigurationUpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity,
@@ -60,6 +69,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.billing_portal._session_create_params import (
         SessionCreateParams as SessionCreateParams,
+        SessionCreateParamsAfterExpiration as SessionCreateParamsAfterExpiration,
+        SessionCreateParamsAfterExpirationCustomerLogin as SessionCreateParamsAfterExpirationCustomerLogin,
         SessionCreateParamsFlowData as SessionCreateParamsFlowData,
         SessionCreateParamsFlowDataAfterCompletion as SessionCreateParamsFlowDataAfterCompletion,
         SessionCreateParamsFlowDataAfterCompletionHostedConfirmation as SessionCreateParamsFlowDataAfterCompletionHostedConfirmation,
@@ -67,6 +78,7 @@ if TYPE_CHECKING:
         SessionCreateParamsFlowDataSubscriptionCancel as SessionCreateParamsFlowDataSubscriptionCancel,
         SessionCreateParamsFlowDataSubscriptionCancelRetention as SessionCreateParamsFlowDataSubscriptionCancelRetention,
         SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer as SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer,
+        SessionCreateParamsFlowDataSubscriptionPause as SessionCreateParamsFlowDataSubscriptionPause,
         SessionCreateParamsFlowDataSubscriptionUpdate as SessionCreateParamsFlowDataSubscriptionUpdate,
         SessionCreateParamsFlowDataSubscriptionUpdateConfirm as SessionCreateParamsFlowDataSubscriptionUpdateConfirm,
         SessionCreateParamsFlowDataSubscriptionUpdateConfirmDiscount as SessionCreateParamsFlowDataSubscriptionUpdateConfirmDiscount,
@@ -104,6 +116,18 @@ _import_map = {
         False,
     ),
     "ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionPause": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionPauseDuration": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionPauseDurationIntervalOption": (
         "stripe.params.billing_portal._configuration_create_params",
         False,
     ),
@@ -167,6 +191,18 @@ _import_map = {
         "stripe.params.billing_portal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsFeaturesSubscriptionPause": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionPauseDuration": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionPauseDurationIntervalOption": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsFeaturesSubscriptionUpdate": (
         "stripe.params.billing_portal._configuration_modify_params",
         False,
@@ -227,6 +263,18 @@ _import_map = {
         "stripe.params.billing_portal._configuration_update_params",
         False,
     ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionPause": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionPauseDuration": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionPauseDurationIntervalOption": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
     "ConfigurationUpdateParamsFeaturesSubscriptionUpdate": (
         "stripe.params.billing_portal._configuration_update_params",
         False,
@@ -255,6 +303,14 @@ _import_map = {
         "stripe.params.billing_portal._session_create_params",
         False,
     ),
+    "SessionCreateParamsAfterExpiration": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAfterExpirationCustomerLogin": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
     "SessionCreateParamsFlowData": (
         "stripe.params.billing_portal._session_create_params",
         False,
@@ -280,6 +336,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionPause": (
         "stripe.params.billing_portal._session_create_params",
         False,
     ),

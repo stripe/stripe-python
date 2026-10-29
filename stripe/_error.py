@@ -214,8 +214,188 @@ class SignatureVerificationError(StripeError):
 
 
 # classDefinitions: The beginning of the section generated from our OpenAPI spec
+class AlreadyCanceledError(StripeError):
+    pass
+
+
+class BlockedByStripeError(StripeError):
+    pass
+
+
+class CannotProceedError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        reason=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.reason = reason
+
+
+class CapabilityNotEnabledError(StripeError):
+    pass
+
+
+class ControlledByAlternateResourceError(StripeError):
+    pass
+
+
+class FeatureNotEnabledError(StripeError):
+    pass
+
+
+class FinancialAccountNotOpenError(StripeError):
+    pass
+
+
+class FxQuoteNeedsRefreshError(StripeError):
+    pass
+
+
+class InsufficientFundsError(StripeError):
+    pass
+
+
+class InvalidPaymentMethodError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        invalid_param=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.invalid_param = invalid_param
+
+
+class InvalidPayoutMethodError(StripeError):
+    pass
+
+
+class InvalidVaultedCredentialError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        invalid_param=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.invalid_param = invalid_param
+
+
+class NotCancelableError(StripeError):
+    pass
+
+
+class QuotaExceededError(StripeError):
+    pass
+
+
+class RecipientNotNotifiableError(StripeError):
+    pass
+
+
 class TemporarySessionExpiredError(StripeError):
     pass
+
+
+class VerificationAttemptFailedError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        verification_status=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.verification_status = verification_status
+
+
+class VerificationExpiredError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        verification_status=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.verification_status = verification_status
+
+
+class VerificationNotInitiatedError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        verification_status=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.verification_status = verification_status
 
 
 # classDefinitions: The end of the section generated from our OpenAPI spec

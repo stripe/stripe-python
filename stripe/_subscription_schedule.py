@@ -760,7 +760,7 @@ class SubscriptionSchedule(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    pause_schedules: Optional[List[PauseSchedule]]
+    pause_schedules: List[PauseSchedule]
     """
     The pause schedules for this subscription schedule.
     """

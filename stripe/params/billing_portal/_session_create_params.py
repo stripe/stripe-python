@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SessionCreateParams(RequestOptions):
+    after_expiration: NotRequired["SessionCreateParamsAfterExpiration"]
+    """
+    Behavior after the portal session expires.
+    """
     configuration: NotRequired[str]
     """
     The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configurations) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
@@ -42,6 +46,26 @@ class SessionCreateParams(RequestOptions):
     """
 
 
+class SessionCreateParamsAfterExpiration(TypedDict):
+    customer_login: NotRequired[
+        "SessionCreateParamsAfterExpirationCustomerLogin"
+    ]
+    """
+    Configuration for authenticating the customer after the session expires.
+    """
+    type: Union[Literal["customer_login"], str]
+    """
+    The behavior to apply when the session expires.
+    """
+
+
+class SessionCreateParamsAfterExpirationCustomerLogin(TypedDict):
+    expires_at: NotRequired[int]
+    """
+    The Unix timestamp after which the customer can no longer recover this session. Leave unset to allow recovery without a deadline.
+    """
+
+
 class SessionCreateParamsFlowData(TypedDict):
     after_completion: NotRequired["SessionCreateParamsFlowDataAfterCompletion"]
     """
@@ -52,6 +76,12 @@ class SessionCreateParamsFlowData(TypedDict):
     ]
     """
     Configuration when `flow_data.type=subscription_cancel`.
+    """
+    subscription_pause: NotRequired[
+        "SessionCreateParamsFlowDataSubscriptionPause"
+    ]
+    """
+    Configuration when `flow_data.type=subscription_pause`.
     """
     subscription_update: NotRequired[
         "SessionCreateParamsFlowDataSubscriptionUpdate"
@@ -70,6 +100,7 @@ class SessionCreateParamsFlowData(TypedDict):
             "customer_update",
             "payment_method_update",
             "subscription_cancel",
+            "subscription_pause",
             "subscription_update",
             "subscription_update_confirm",
         ],
@@ -145,6 +176,13 @@ class SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer(
     coupon: str
     """
     The ID of the coupon to be offered.
+    """
+
+
+class SessionCreateParamsFlowDataSubscriptionPause(TypedDict):
+    subscription: str
+    """
+    The ID of the subscription to be paused.
     """
 
 

@@ -231,7 +231,7 @@ class InvoiceCreateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to the invoice's PaymentIntent.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sequra', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -548,7 +548,7 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
     """
     expires_after_seconds: NotRequired[int]
     """
-    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
     """
 
 
