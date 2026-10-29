@@ -190,14 +190,50 @@ if TYPE_CHECKING:
     from stripe.events._v1_customer_discount_deleted_event import (
         V1CustomerDiscountDeletedEventNotification,
     )
+    from stripe.events._v1_customer_discount_source_changed_event import (
+        V1CustomerDiscountSourceChangedEventNotification,
+    )
     from stripe.events._v1_customer_discount_updated_event import (
         V1CustomerDiscountUpdatedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_active_event import (
+        V1CustomerSubscriptionActiveEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_cancel_at_changed_event import (
+        V1CustomerSubscriptionCancelAtChangedEventNotification,
     )
     from stripe.events._v1_customer_subscription_created_event import (
         V1CustomerSubscriptionCreatedEventNotification,
     )
+    from stripe.events._v1_customer_subscription_default_payment_method_changed_event import (
+        V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification,
+    )
     from stripe.events._v1_customer_subscription_deleted_event import (
         V1CustomerSubscriptionDeletedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_incomplete_event import (
+        V1CustomerSubscriptionIncompleteEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_incomplete_expired_event import (
+        V1CustomerSubscriptionIncompleteExpiredEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_item_added_event import (
+        V1CustomerSubscriptionItemAddedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_item_price_changed_event import (
+        V1CustomerSubscriptionItemPriceChangedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_item_quantity_changed_event import (
+        V1CustomerSubscriptionItemQuantityChangedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_item_removed_event import (
+        V1CustomerSubscriptionItemRemovedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_item_tax_rates_changed_event import (
+        V1CustomerSubscriptionItemTaxRatesChangedEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_past_due_event import (
+        V1CustomerSubscriptionPastDueEventNotification,
     )
     from stripe.events._v1_customer_subscription_paused_event import (
         V1CustomerSubscriptionPausedEventNotification,
@@ -211,8 +247,14 @@ if TYPE_CHECKING:
     from stripe.events._v1_customer_subscription_resumed_event import (
         V1CustomerSubscriptionResumedEventNotification,
     )
+    from stripe.events._v1_customer_subscription_trialing_event import (
+        V1CustomerSubscriptionTrialingEventNotification,
+    )
     from stripe.events._v1_customer_subscription_trial_will_end_event import (
         V1CustomerSubscriptionTrialWillEndEventNotification,
+    )
+    from stripe.events._v1_customer_subscription_unpaid_event import (
+        V1CustomerSubscriptionUnpaidEventNotification,
     )
     from stripe.events._v1_customer_subscription_updated_event import (
         V1CustomerSubscriptionUpdatedEventNotification,
@@ -229,6 +271,12 @@ if TYPE_CHECKING:
     from stripe.events._v1_customer_updated_event import (
         V1CustomerUpdatedEventNotification,
     )
+    from stripe.events._v1_entitlements_active_entitlement_summary_entitlement_added_event import (
+        V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification,
+    )
+    from stripe.events._v1_entitlements_active_entitlement_summary_entitlement_removed_event import (
+        V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification,
+    )
     from stripe.events._v1_entitlements_active_entitlement_summary_updated_event import (
         V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification,
     )
@@ -237,6 +285,12 @@ if TYPE_CHECKING:
     )
     from stripe.events._v1_financial_connections_account_account_numbers_updated_event import (
         V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_balance_refresh_failed_event import (
+        V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_balance_refresh_succeeded_event import (
+        V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification,
     )
     from stripe.events._v1_financial_connections_account_created_event import (
         V1FinancialConnectionsAccountCreatedEventNotification,
@@ -250,6 +304,18 @@ if TYPE_CHECKING:
     from stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event import (
         V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
     )
+    from stripe.events._v1_financial_connections_account_inferred_balances_refresh_failed_event import (
+        V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_inferred_balances_refresh_succeeded_event import (
+        V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_ownership_refresh_failed_event import (
+        V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_ownership_refresh_succeeded_event import (
+        V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification,
+    )
     from stripe.events._v1_financial_connections_account_reactivated_event import (
         V1FinancialConnectionsAccountReactivatedEventNotification,
     )
@@ -262,8 +328,20 @@ if TYPE_CHECKING:
     from stripe.events._v1_financial_connections_account_refreshed_transactions_event import (
         V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
     )
+    from stripe.events._v1_financial_connections_account_risk_intelligence_refresh_failed_event import (
+        V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_risk_intelligence_refresh_succeeded_event import (
+        V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification,
+    )
     from stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event import (
         V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_transactions_refresh_failed_event import (
+        V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification,
+    )
+    from stripe.events._v1_financial_connections_account_transactions_refresh_succeeded_event import (
+        V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification,
     )
     from stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event import (
         V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
@@ -295,17 +373,44 @@ if TYPE_CHECKING:
     from stripe.events._v1_invoice_deleted_event import (
         V1InvoiceDeletedEventNotification,
     )
+    from stripe.events._v1_invoice_discount_added_event import (
+        V1InvoiceDiscountAddedEventNotification,
+    )
+    from stripe.events._v1_invoice_discount_removed_event import (
+        V1InvoiceDiscountRemovedEventNotification,
+    )
     from stripe.events._v1_invoice_finalization_failed_event import (
         V1InvoiceFinalizationFailedEventNotification,
     )
     from stripe.events._v1_invoice_finalized_event import (
         V1InvoiceFinalizedEventNotification,
     )
+    from stripe.events._v1_invoiceitem_amount_changed_event import (
+        V1InvoiceitemAmountChangedEventNotification,
+    )
     from stripe.events._v1_invoiceitem_created_event import (
         V1InvoiceitemCreatedEventNotification,
     )
     from stripe.events._v1_invoiceitem_deleted_event import (
         V1InvoiceitemDeletedEventNotification,
+    )
+    from stripe.events._v1_invoiceitem_discount_added_event import (
+        V1InvoiceitemDiscountAddedEventNotification,
+    )
+    from stripe.events._v1_invoiceitem_discount_removed_event import (
+        V1InvoiceitemDiscountRemovedEventNotification,
+    )
+    from stripe.events._v1_invoice_line_item_added_event import (
+        V1InvoiceLineItemAddedEventNotification,
+    )
+    from stripe.events._v1_invoice_line_item_pricing_changed_event import (
+        V1InvoiceLineItemPricingChangedEventNotification,
+    )
+    from stripe.events._v1_invoice_line_item_quantity_changed_event import (
+        V1InvoiceLineItemQuantityChangedEventNotification,
+    )
+    from stripe.events._v1_invoice_line_item_removed_event import (
+        V1InvoiceLineItemRemovedEventNotification,
     )
     from stripe.events._v1_invoice_marked_uncollectible_event import (
         V1InvoiceMarkedUncollectibleEventNotification,
@@ -325,8 +430,14 @@ if TYPE_CHECKING:
     from stripe.events._v1_invoice_payment_attempt_required_event import (
         V1InvoicePaymentAttemptRequiredEventNotification,
     )
+    from stripe.events._v1_invoice_payment_canceled_event import (
+        V1InvoicePaymentCanceledEventNotification,
+    )
     from stripe.events._v1_invoice_payment_failed_event import (
         V1InvoicePaymentFailedEventNotification,
+    )
+    from stripe.events._v1_invoice_payment_open_event import (
+        V1InvoicePaymentOpenEventNotification,
     )
     from stripe.events._v1_invoice_payment_paid_event import (
         V1InvoicePaymentPaidEventNotification,
@@ -496,26 +607,53 @@ if TYPE_CHECKING:
     from stripe.events._v1_plan_updated_event import (
         V1PlanUpdatedEventNotification,
     )
+    from stripe.events._v1_price_activated_event import (
+        V1PriceActivatedEventNotification,
+    )
     from stripe.events._v1_price_created_event import (
         V1PriceCreatedEventNotification,
+    )
+    from stripe.events._v1_price_deactivated_event import (
+        V1PriceDeactivatedEventNotification,
     )
     from stripe.events._v1_price_deleted_event import (
         V1PriceDeletedEventNotification,
     )
+    from stripe.events._v1_price_lookup_key_changed_event import (
+        V1PriceLookupKeyChangedEventNotification,
+    )
+    from stripe.events._v1_price_tax_behavior_changed_event import (
+        V1PriceTaxBehaviorChangedEventNotification,
+    )
     from stripe.events._v1_price_updated_event import (
         V1PriceUpdatedEventNotification,
+    )
+    from stripe.events._v1_product_activated_event import (
+        V1ProductActivatedEventNotification,
     )
     from stripe.events._v1_product_created_event import (
         V1ProductCreatedEventNotification,
     )
+    from stripe.events._v1_product_deactivated_event import (
+        V1ProductDeactivatedEventNotification,
+    )
+    from stripe.events._v1_product_default_price_changed_event import (
+        V1ProductDefaultPriceChangedEventNotification,
+    )
     from stripe.events._v1_product_deleted_event import (
         V1ProductDeletedEventNotification,
+    )
+    from stripe.events._v1_product_tax_code_changed_event import (
+        V1ProductTaxCodeChangedEventNotification,
     )
     from stripe.events._v1_product_updated_event import (
         V1ProductUpdatedEventNotification,
     )
     from stripe.events._v1_promotion_code_created_event import (
         V1PromotionCodeCreatedEventNotification,
+    )
+    from stripe.events._v1_promotion_code_fully_redeemed_event import (
+        V1PromotionCodeFullyRedeemedEventNotification,
     )
     from stripe.events._v1_promotion_code_updated_event import (
         V1PromotionCodeUpdatedEventNotification,
@@ -597,6 +735,21 @@ if TYPE_CHECKING:
     )
     from stripe.events._v1_subscription_schedule_expiring_event import (
         V1SubscriptionScheduleExpiringEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_phase_added_event import (
+        V1SubscriptionSchedulePhaseAddedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_phase_default_tax_rates_changed_event import (
+        V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_phase_end_date_changed_event import (
+        V1SubscriptionSchedulePhaseEndDateChangedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_phase_removed_event import (
+        V1SubscriptionSchedulePhaseRemovedEventNotification,
+    )
+    from stripe.events._v1_subscription_schedule_phase_trial_end_changed_event import (
+        V1SubscriptionSchedulePhaseTrialEndChangedEventNotification,
     )
     from stripe.events._v1_subscription_schedule_released_event import (
         V1SubscriptionScheduleReleasedEventNotification,
@@ -787,6 +940,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
         V2CoreHealthEventGenerationFailureResolvedEventNotification,
     )
+    from stripe.events._v2_data_query_run_created_event import (
+        V2DataQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_query_run_failed_event import (
+        V2DataQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_query_run_succeeded_event import (
+        V2DataQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_query_run_updated_event import (
+        V2DataQueryRunUpdatedEventNotification,
+    )
     from stripe.events._v2_data_reporting_query_run_created_event import (
         V2DataReportingQueryRunCreatedEventNotification,
     )
@@ -798,6 +963,18 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_data_reporting_query_run_updated_event import (
         V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_created_event import (
+        V2DataReportRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_failed_event import (
+        V2DataReportRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_report_run_succeeded_event import (
+        V2DataReportRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_report_run_updated_event import (
+        V2DataReportRunUpdatedEventNotification,
     )
     from stripe.events._v2_extend_workflow_run_failed_event import (
         V2ExtendWorkflowRunFailedEventNotification,
@@ -883,6 +1060,27 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_intent_canceled_event import (
+        V2MoneyManagementPayoutIntentCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_created_event import (
+        V2MoneyManagementPayoutIntentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_pending_event import (
+        V2MoneyManagementPayoutIntentPendingEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_posted_event import (
+        V2MoneyManagementPayoutIntentPostedEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_processing_event import (
+        V2MoneyManagementPayoutIntentProcessingEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_requires_action_event import (
+        V2MoneyManagementPayoutIntentRequiresActionEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_intent_updated_event import (
+        V2MoneyManagementPayoutIntentUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_created_event import (
         V2MoneyManagementPayoutMethodCreatedEventNotification,
     )
@@ -915,6 +1113,12 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_received_debit_updated_event import (
         V2MoneyManagementReceivedDebitUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_recipient_verification_created_event import (
+        V2MoneyManagementRecipientVerificationCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_recipient_verification_updated_event import (
+        V2MoneyManagementRecipientVerificationUpdatedEventNotification,
     )
     from stripe.events._v2_money_management_transaction_created_event import (
         V2MoneyManagementTransactionCreatedEventNotification,
@@ -1190,17 +1394,65 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_customer_discount_deleted_event",
         "V1CustomerDiscountDeletedEvent",
     ),
+    "v1.customer.discount.source_changed": (
+        "stripe.events._v1_customer_discount_source_changed_event",
+        "V1CustomerDiscountSourceChangedEvent",
+    ),
     "v1.customer.discount.updated": (
         "stripe.events._v1_customer_discount_updated_event",
         "V1CustomerDiscountUpdatedEvent",
+    ),
+    "v1.customer.subscription.active": (
+        "stripe.events._v1_customer_subscription_active_event",
+        "V1CustomerSubscriptionActiveEvent",
+    ),
+    "v1.customer.subscription.cancel_at_changed": (
+        "stripe.events._v1_customer_subscription_cancel_at_changed_event",
+        "V1CustomerSubscriptionCancelAtChangedEvent",
     ),
     "v1.customer.subscription.created": (
         "stripe.events._v1_customer_subscription_created_event",
         "V1CustomerSubscriptionCreatedEvent",
     ),
+    "v1.customer.subscription.default_payment_method_changed": (
+        "stripe.events._v1_customer_subscription_default_payment_method_changed_event",
+        "V1CustomerSubscriptionDefaultPaymentMethodChangedEvent",
+    ),
     "v1.customer.subscription.deleted": (
         "stripe.events._v1_customer_subscription_deleted_event",
         "V1CustomerSubscriptionDeletedEvent",
+    ),
+    "v1.customer.subscription.incomplete": (
+        "stripe.events._v1_customer_subscription_incomplete_event",
+        "V1CustomerSubscriptionIncompleteEvent",
+    ),
+    "v1.customer.subscription.incomplete_expired": (
+        "stripe.events._v1_customer_subscription_incomplete_expired_event",
+        "V1CustomerSubscriptionIncompleteExpiredEvent",
+    ),
+    "v1.customer.subscription.item_added": (
+        "stripe.events._v1_customer_subscription_item_added_event",
+        "V1CustomerSubscriptionItemAddedEvent",
+    ),
+    "v1.customer.subscription.item_price_changed": (
+        "stripe.events._v1_customer_subscription_item_price_changed_event",
+        "V1CustomerSubscriptionItemPriceChangedEvent",
+    ),
+    "v1.customer.subscription.item_quantity_changed": (
+        "stripe.events._v1_customer_subscription_item_quantity_changed_event",
+        "V1CustomerSubscriptionItemQuantityChangedEvent",
+    ),
+    "v1.customer.subscription.item_removed": (
+        "stripe.events._v1_customer_subscription_item_removed_event",
+        "V1CustomerSubscriptionItemRemovedEvent",
+    ),
+    "v1.customer.subscription.item_tax_rates_changed": (
+        "stripe.events._v1_customer_subscription_item_tax_rates_changed_event",
+        "V1CustomerSubscriptionItemTaxRatesChangedEvent",
+    ),
+    "v1.customer.subscription.past_due": (
+        "stripe.events._v1_customer_subscription_past_due_event",
+        "V1CustomerSubscriptionPastDueEvent",
     ),
     "v1.customer.subscription.paused": (
         "stripe.events._v1_customer_subscription_paused_event",
@@ -1218,9 +1470,17 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_customer_subscription_resumed_event",
         "V1CustomerSubscriptionResumedEvent",
     ),
+    "v1.customer.subscription.trialing": (
+        "stripe.events._v1_customer_subscription_trialing_event",
+        "V1CustomerSubscriptionTrialingEvent",
+    ),
     "v1.customer.subscription.trial_will_end": (
         "stripe.events._v1_customer_subscription_trial_will_end_event",
         "V1CustomerSubscriptionTrialWillEndEvent",
+    ),
+    "v1.customer.subscription.unpaid": (
+        "stripe.events._v1_customer_subscription_unpaid_event",
+        "V1CustomerSubscriptionUnpaidEvent",
     ),
     "v1.customer.subscription.updated": (
         "stripe.events._v1_customer_subscription_updated_event",
@@ -1242,6 +1502,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_customer_updated_event",
         "V1CustomerUpdatedEvent",
     ),
+    "v1.entitlements.active_entitlement_summary.entitlement_added": (
+        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_added_event",
+        "V1EntitlementsActiveEntitlementSummaryEntitlementAddedEvent",
+    ),
+    "v1.entitlements.active_entitlement_summary.entitlement_removed": (
+        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_removed_event",
+        "V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEvent",
+    ),
     "v1.entitlements.active_entitlement_summary.updated": (
         "stripe.events._v1_entitlements_active_entitlement_summary_updated_event",
         "V1EntitlementsActiveEntitlementSummaryUpdatedEvent",
@@ -1253,6 +1521,14 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.financial_connections.account.account_numbers_updated": (
         "stripe.events._v1_financial_connections_account_account_numbers_updated_event",
         "V1FinancialConnectionsAccountAccountNumbersUpdatedEvent",
+    ),
+    "v1.financial_connections.account.balance_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_balance_refresh_failed_event",
+        "V1FinancialConnectionsAccountBalanceRefreshFailedEvent",
+    ),
+    "v1.financial_connections.account.balance_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_balance_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountBalanceRefreshSucceededEvent",
     ),
     "v1.financial_connections.account.created": (
         "stripe.events._v1_financial_connections_account_created_event",
@@ -1270,6 +1546,22 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event",
         "V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent",
     ),
+    "v1.financial_connections.account.inferred_balances_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_failed_event",
+        "V1FinancialConnectionsAccountInferredBalancesRefreshFailedEvent",
+    ),
+    "v1.financial_connections.account.inferred_balances_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEvent",
+    ),
+    "v1.financial_connections.account.ownership_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_ownership_refresh_failed_event",
+        "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent",
+    ),
+    "v1.financial_connections.account.ownership_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_ownership_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountOwnershipRefreshSucceededEvent",
+    ),
     "v1.financial_connections.account.reactivated": (
         "stripe.events._v1_financial_connections_account_reactivated_event",
         "V1FinancialConnectionsAccountReactivatedEvent",
@@ -1286,9 +1578,25 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_financial_connections_account_refreshed_transactions_event",
         "V1FinancialConnectionsAccountRefreshedTransactionsEvent",
     ),
+    "v1.financial_connections.account.risk_intelligence_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_failed_event",
+        "V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEvent",
+    ),
+    "v1.financial_connections.account.risk_intelligence_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEvent",
+    ),
     "v1.financial_connections.account.supported_payment_method_types_updated": (
         "stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event",
         "V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent",
+    ),
+    "v1.financial_connections.account.transactions_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_transactions_refresh_failed_event",
+        "V1FinancialConnectionsAccountTransactionsRefreshFailedEvent",
+    ),
+    "v1.financial_connections.account.transactions_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_transactions_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountTransactionsRefreshSucceededEvent",
     ),
     "v1.financial_connections.account.upcoming_account_number_expiry": (
         "stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event",
@@ -1330,6 +1638,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_invoice_deleted_event",
         "V1InvoiceDeletedEvent",
     ),
+    "v1.invoice.discount_added": (
+        "stripe.events._v1_invoice_discount_added_event",
+        "V1InvoiceDiscountAddedEvent",
+    ),
+    "v1.invoice.discount_removed": (
+        "stripe.events._v1_invoice_discount_removed_event",
+        "V1InvoiceDiscountRemovedEvent",
+    ),
     "v1.invoice.finalization_failed": (
         "stripe.events._v1_invoice_finalization_failed_event",
         "V1InvoiceFinalizationFailedEvent",
@@ -1338,6 +1654,10 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_invoice_finalized_event",
         "V1InvoiceFinalizedEvent",
     ),
+    "v1.invoiceitem.amount_changed": (
+        "stripe.events._v1_invoiceitem_amount_changed_event",
+        "V1InvoiceitemAmountChangedEvent",
+    ),
     "v1.invoiceitem.created": (
         "stripe.events._v1_invoiceitem_created_event",
         "V1InvoiceitemCreatedEvent",
@@ -1345,6 +1665,30 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.invoiceitem.deleted": (
         "stripe.events._v1_invoiceitem_deleted_event",
         "V1InvoiceitemDeletedEvent",
+    ),
+    "v1.invoiceitem.discount_added": (
+        "stripe.events._v1_invoiceitem_discount_added_event",
+        "V1InvoiceitemDiscountAddedEvent",
+    ),
+    "v1.invoiceitem.discount_removed": (
+        "stripe.events._v1_invoiceitem_discount_removed_event",
+        "V1InvoiceitemDiscountRemovedEvent",
+    ),
+    "v1.invoice.line_item_added": (
+        "stripe.events._v1_invoice_line_item_added_event",
+        "V1InvoiceLineItemAddedEvent",
+    ),
+    "v1.invoice.line_item_pricing_changed": (
+        "stripe.events._v1_invoice_line_item_pricing_changed_event",
+        "V1InvoiceLineItemPricingChangedEvent",
+    ),
+    "v1.invoice.line_item_quantity_changed": (
+        "stripe.events._v1_invoice_line_item_quantity_changed_event",
+        "V1InvoiceLineItemQuantityChangedEvent",
+    ),
+    "v1.invoice.line_item_removed": (
+        "stripe.events._v1_invoice_line_item_removed_event",
+        "V1InvoiceLineItemRemovedEvent",
     ),
     "v1.invoice.marked_uncollectible": (
         "stripe.events._v1_invoice_marked_uncollectible_event",
@@ -1370,9 +1714,17 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_invoice_payment_attempt_required_event",
         "V1InvoicePaymentAttemptRequiredEvent",
     ),
+    "v1.invoice_payment.canceled": (
+        "stripe.events._v1_invoice_payment_canceled_event",
+        "V1InvoicePaymentCanceledEvent",
+    ),
     "v1.invoice.payment_failed": (
         "stripe.events._v1_invoice_payment_failed_event",
         "V1InvoicePaymentFailedEvent",
+    ),
+    "v1.invoice_payment.open": (
+        "stripe.events._v1_invoice_payment_open_event",
+        "V1InvoicePaymentOpenEvent",
     ),
     "v1.invoice_payment.paid": (
         "stripe.events._v1_invoice_payment_paid_event",
@@ -1598,25 +1950,57 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_plan_updated_event",
         "V1PlanUpdatedEvent",
     ),
+    "v1.price.activated": (
+        "stripe.events._v1_price_activated_event",
+        "V1PriceActivatedEvent",
+    ),
     "v1.price.created": (
         "stripe.events._v1_price_created_event",
         "V1PriceCreatedEvent",
+    ),
+    "v1.price.deactivated": (
+        "stripe.events._v1_price_deactivated_event",
+        "V1PriceDeactivatedEvent",
     ),
     "v1.price.deleted": (
         "stripe.events._v1_price_deleted_event",
         "V1PriceDeletedEvent",
     ),
+    "v1.price.lookup_key_changed": (
+        "stripe.events._v1_price_lookup_key_changed_event",
+        "V1PriceLookupKeyChangedEvent",
+    ),
+    "v1.price.tax_behavior_changed": (
+        "stripe.events._v1_price_tax_behavior_changed_event",
+        "V1PriceTaxBehaviorChangedEvent",
+    ),
     "v1.price.updated": (
         "stripe.events._v1_price_updated_event",
         "V1PriceUpdatedEvent",
+    ),
+    "v1.product.activated": (
+        "stripe.events._v1_product_activated_event",
+        "V1ProductActivatedEvent",
     ),
     "v1.product.created": (
         "stripe.events._v1_product_created_event",
         "V1ProductCreatedEvent",
     ),
+    "v1.product.deactivated": (
+        "stripe.events._v1_product_deactivated_event",
+        "V1ProductDeactivatedEvent",
+    ),
+    "v1.product.default_price_changed": (
+        "stripe.events._v1_product_default_price_changed_event",
+        "V1ProductDefaultPriceChangedEvent",
+    ),
     "v1.product.deleted": (
         "stripe.events._v1_product_deleted_event",
         "V1ProductDeletedEvent",
+    ),
+    "v1.product.tax_code_changed": (
+        "stripe.events._v1_product_tax_code_changed_event",
+        "V1ProductTaxCodeChangedEvent",
     ),
     "v1.product.updated": (
         "stripe.events._v1_product_updated_event",
@@ -1625,6 +2009,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.promotion_code.created": (
         "stripe.events._v1_promotion_code_created_event",
         "V1PromotionCodeCreatedEvent",
+    ),
+    "v1.promotion_code.fully_redeemed": (
+        "stripe.events._v1_promotion_code_fully_redeemed_event",
+        "V1PromotionCodeFullyRedeemedEvent",
     ),
     "v1.promotion_code.updated": (
         "stripe.events._v1_promotion_code_updated_event",
@@ -1733,6 +2121,26 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.subscription_schedule.expiring": (
         "stripe.events._v1_subscription_schedule_expiring_event",
         "V1SubscriptionScheduleExpiringEvent",
+    ),
+    "v1.subscription_schedule.phase_added": (
+        "stripe.events._v1_subscription_schedule_phase_added_event",
+        "V1SubscriptionSchedulePhaseAddedEvent",
+    ),
+    "v1.subscription_schedule.phase_default_tax_rates_changed": (
+        "stripe.events._v1_subscription_schedule_phase_default_tax_rates_changed_event",
+        "V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEvent",
+    ),
+    "v1.subscription_schedule.phase_end_date_changed": (
+        "stripe.events._v1_subscription_schedule_phase_end_date_changed_event",
+        "V1SubscriptionSchedulePhaseEndDateChangedEvent",
+    ),
+    "v1.subscription_schedule.phase_removed": (
+        "stripe.events._v1_subscription_schedule_phase_removed_event",
+        "V1SubscriptionSchedulePhaseRemovedEvent",
+    ),
+    "v1.subscription_schedule.phase_trial_end_changed": (
+        "stripe.events._v1_subscription_schedule_phase_trial_end_changed_event",
+        "V1SubscriptionSchedulePhaseTrialEndChangedEvent",
     ),
     "v1.subscription_schedule.released": (
         "stripe.events._v1_subscription_schedule_released_event",
@@ -1986,6 +2394,22 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         "V2CoreHealthEventGenerationFailureResolvedEvent",
     ),
+    "v2.data.query_run.created": (
+        "stripe.events._v2_data_query_run_created_event",
+        "V2DataQueryRunCreatedEvent",
+    ),
+    "v2.data.query_run.failed": (
+        "stripe.events._v2_data_query_run_failed_event",
+        "V2DataQueryRunFailedEvent",
+    ),
+    "v2.data.query_run.succeeded": (
+        "stripe.events._v2_data_query_run_succeeded_event",
+        "V2DataQueryRunSucceededEvent",
+    ),
+    "v2.data.query_run.updated": (
+        "stripe.events._v2_data_query_run_updated_event",
+        "V2DataQueryRunUpdatedEvent",
+    ),
     "v2.data.reporting.query_run.created": (
         "stripe.events._v2_data_reporting_query_run_created_event",
         "V2DataReportingQueryRunCreatedEvent",
@@ -2001,6 +2425,22 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.data.reporting.query_run.updated": (
         "stripe.events._v2_data_reporting_query_run_updated_event",
         "V2DataReportingQueryRunUpdatedEvent",
+    ),
+    "v2.data.report_run.created": (
+        "stripe.events._v2_data_report_run_created_event",
+        "V2DataReportRunCreatedEvent",
+    ),
+    "v2.data.report_run.failed": (
+        "stripe.events._v2_data_report_run_failed_event",
+        "V2DataReportRunFailedEvent",
+    ),
+    "v2.data.report_run.succeeded": (
+        "stripe.events._v2_data_report_run_succeeded_event",
+        "V2DataReportRunSucceededEvent",
+    ),
+    "v2.data.report_run.updated": (
+        "stripe.events._v2_data_report_run_updated_event",
+        "V2DataReportRunUpdatedEvent",
     ),
     "v2.extend.workflow_run.failed": (
         "stripe.events._v2_extend_workflow_run_failed_event",
@@ -2114,6 +2554,34 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEvent",
     ),
+    "v2.money_management.payout_intent.canceled": (
+        "stripe.events._v2_money_management_payout_intent_canceled_event",
+        "V2MoneyManagementPayoutIntentCanceledEvent",
+    ),
+    "v2.money_management.payout_intent.created": (
+        "stripe.events._v2_money_management_payout_intent_created_event",
+        "V2MoneyManagementPayoutIntentCreatedEvent",
+    ),
+    "v2.money_management.payout_intent.pending": (
+        "stripe.events._v2_money_management_payout_intent_pending_event",
+        "V2MoneyManagementPayoutIntentPendingEvent",
+    ),
+    "v2.money_management.payout_intent.posted": (
+        "stripe.events._v2_money_management_payout_intent_posted_event",
+        "V2MoneyManagementPayoutIntentPostedEvent",
+    ),
+    "v2.money_management.payout_intent.processing": (
+        "stripe.events._v2_money_management_payout_intent_processing_event",
+        "V2MoneyManagementPayoutIntentProcessingEvent",
+    ),
+    "v2.money_management.payout_intent.requires_action": (
+        "stripe.events._v2_money_management_payout_intent_requires_action_event",
+        "V2MoneyManagementPayoutIntentRequiresActionEvent",
+    ),
+    "v2.money_management.payout_intent.updated": (
+        "stripe.events._v2_money_management_payout_intent_updated_event",
+        "V2MoneyManagementPayoutIntentUpdatedEvent",
+    ),
     "v2.money_management.payout_method.created": (
         "stripe.events._v2_money_management_payout_method_created_event",
         "V2MoneyManagementPayoutMethodCreatedEvent",
@@ -2157,6 +2625,14 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.received_debit.updated": (
         "stripe.events._v2_money_management_received_debit_updated_event",
         "V2MoneyManagementReceivedDebitUpdatedEvent",
+    ),
+    "v2.money_management.recipient_verification.created": (
+        "stripe.events._v2_money_management_recipient_verification_created_event",
+        "V2MoneyManagementRecipientVerificationCreatedEvent",
+    ),
+    "v2.money_management.recipient_verification.updated": (
+        "stripe.events._v2_money_management_recipient_verification_updated_event",
+        "V2MoneyManagementRecipientVerificationUpdatedEvent",
     ),
     "v2.money_management.transaction.created": (
         "stripe.events._v2_money_management_transaction_created_event",
@@ -2453,17 +2929,65 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_customer_discount_deleted_event",
         "V1CustomerDiscountDeletedEventNotification",
     ),
+    "v1.customer.discount.source_changed": (
+        "stripe.events._v1_customer_discount_source_changed_event",
+        "V1CustomerDiscountSourceChangedEventNotification",
+    ),
     "v1.customer.discount.updated": (
         "stripe.events._v1_customer_discount_updated_event",
         "V1CustomerDiscountUpdatedEventNotification",
+    ),
+    "v1.customer.subscription.active": (
+        "stripe.events._v1_customer_subscription_active_event",
+        "V1CustomerSubscriptionActiveEventNotification",
+    ),
+    "v1.customer.subscription.cancel_at_changed": (
+        "stripe.events._v1_customer_subscription_cancel_at_changed_event",
+        "V1CustomerSubscriptionCancelAtChangedEventNotification",
     ),
     "v1.customer.subscription.created": (
         "stripe.events._v1_customer_subscription_created_event",
         "V1CustomerSubscriptionCreatedEventNotification",
     ),
+    "v1.customer.subscription.default_payment_method_changed": (
+        "stripe.events._v1_customer_subscription_default_payment_method_changed_event",
+        "V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification",
+    ),
     "v1.customer.subscription.deleted": (
         "stripe.events._v1_customer_subscription_deleted_event",
         "V1CustomerSubscriptionDeletedEventNotification",
+    ),
+    "v1.customer.subscription.incomplete": (
+        "stripe.events._v1_customer_subscription_incomplete_event",
+        "V1CustomerSubscriptionIncompleteEventNotification",
+    ),
+    "v1.customer.subscription.incomplete_expired": (
+        "stripe.events._v1_customer_subscription_incomplete_expired_event",
+        "V1CustomerSubscriptionIncompleteExpiredEventNotification",
+    ),
+    "v1.customer.subscription.item_added": (
+        "stripe.events._v1_customer_subscription_item_added_event",
+        "V1CustomerSubscriptionItemAddedEventNotification",
+    ),
+    "v1.customer.subscription.item_price_changed": (
+        "stripe.events._v1_customer_subscription_item_price_changed_event",
+        "V1CustomerSubscriptionItemPriceChangedEventNotification",
+    ),
+    "v1.customer.subscription.item_quantity_changed": (
+        "stripe.events._v1_customer_subscription_item_quantity_changed_event",
+        "V1CustomerSubscriptionItemQuantityChangedEventNotification",
+    ),
+    "v1.customer.subscription.item_removed": (
+        "stripe.events._v1_customer_subscription_item_removed_event",
+        "V1CustomerSubscriptionItemRemovedEventNotification",
+    ),
+    "v1.customer.subscription.item_tax_rates_changed": (
+        "stripe.events._v1_customer_subscription_item_tax_rates_changed_event",
+        "V1CustomerSubscriptionItemTaxRatesChangedEventNotification",
+    ),
+    "v1.customer.subscription.past_due": (
+        "stripe.events._v1_customer_subscription_past_due_event",
+        "V1CustomerSubscriptionPastDueEventNotification",
     ),
     "v1.customer.subscription.paused": (
         "stripe.events._v1_customer_subscription_paused_event",
@@ -2481,9 +3005,17 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_customer_subscription_resumed_event",
         "V1CustomerSubscriptionResumedEventNotification",
     ),
+    "v1.customer.subscription.trialing": (
+        "stripe.events._v1_customer_subscription_trialing_event",
+        "V1CustomerSubscriptionTrialingEventNotification",
+    ),
     "v1.customer.subscription.trial_will_end": (
         "stripe.events._v1_customer_subscription_trial_will_end_event",
         "V1CustomerSubscriptionTrialWillEndEventNotification",
+    ),
+    "v1.customer.subscription.unpaid": (
+        "stripe.events._v1_customer_subscription_unpaid_event",
+        "V1CustomerSubscriptionUnpaidEventNotification",
     ),
     "v1.customer.subscription.updated": (
         "stripe.events._v1_customer_subscription_updated_event",
@@ -2505,6 +3037,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_customer_updated_event",
         "V1CustomerUpdatedEventNotification",
     ),
+    "v1.entitlements.active_entitlement_summary.entitlement_added": (
+        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_added_event",
+        "V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification",
+    ),
+    "v1.entitlements.active_entitlement_summary.entitlement_removed": (
+        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_removed_event",
+        "V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification",
+    ),
     "v1.entitlements.active_entitlement_summary.updated": (
         "stripe.events._v1_entitlements_active_entitlement_summary_updated_event",
         "V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification",
@@ -2516,6 +3056,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.financial_connections.account.account_numbers_updated": (
         "stripe.events._v1_financial_connections_account_account_numbers_updated_event",
         "V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification",
+    ),
+    "v1.financial_connections.account.balance_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_balance_refresh_failed_event",
+        "V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification",
+    ),
+    "v1.financial_connections.account.balance_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_balance_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification",
     ),
     "v1.financial_connections.account.created": (
         "stripe.events._v1_financial_connections_account_created_event",
@@ -2533,6 +3081,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event",
         "V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification",
     ),
+    "v1.financial_connections.account.inferred_balances_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_failed_event",
+        "V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification",
+    ),
+    "v1.financial_connections.account.inferred_balances_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification",
+    ),
+    "v1.financial_connections.account.ownership_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_ownership_refresh_failed_event",
+        "V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification",
+    ),
+    "v1.financial_connections.account.ownership_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_ownership_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification",
+    ),
     "v1.financial_connections.account.reactivated": (
         "stripe.events._v1_financial_connections_account_reactivated_event",
         "V1FinancialConnectionsAccountReactivatedEventNotification",
@@ -2549,9 +3113,25 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_financial_connections_account_refreshed_transactions_event",
         "V1FinancialConnectionsAccountRefreshedTransactionsEventNotification",
     ),
+    "v1.financial_connections.account.risk_intelligence_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_failed_event",
+        "V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification",
+    ),
+    "v1.financial_connections.account.risk_intelligence_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification",
+    ),
     "v1.financial_connections.account.supported_payment_method_types_updated": (
         "stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event",
         "V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification",
+    ),
+    "v1.financial_connections.account.transactions_refresh_failed": (
+        "stripe.events._v1_financial_connections_account_transactions_refresh_failed_event",
+        "V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification",
+    ),
+    "v1.financial_connections.account.transactions_refresh_succeeded": (
+        "stripe.events._v1_financial_connections_account_transactions_refresh_succeeded_event",
+        "V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification",
     ),
     "v1.financial_connections.account.upcoming_account_number_expiry": (
         "stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event",
@@ -2593,6 +3173,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_invoice_deleted_event",
         "V1InvoiceDeletedEventNotification",
     ),
+    "v1.invoice.discount_added": (
+        "stripe.events._v1_invoice_discount_added_event",
+        "V1InvoiceDiscountAddedEventNotification",
+    ),
+    "v1.invoice.discount_removed": (
+        "stripe.events._v1_invoice_discount_removed_event",
+        "V1InvoiceDiscountRemovedEventNotification",
+    ),
     "v1.invoice.finalization_failed": (
         "stripe.events._v1_invoice_finalization_failed_event",
         "V1InvoiceFinalizationFailedEventNotification",
@@ -2601,6 +3189,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_invoice_finalized_event",
         "V1InvoiceFinalizedEventNotification",
     ),
+    "v1.invoiceitem.amount_changed": (
+        "stripe.events._v1_invoiceitem_amount_changed_event",
+        "V1InvoiceitemAmountChangedEventNotification",
+    ),
     "v1.invoiceitem.created": (
         "stripe.events._v1_invoiceitem_created_event",
         "V1InvoiceitemCreatedEventNotification",
@@ -2608,6 +3200,30 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.invoiceitem.deleted": (
         "stripe.events._v1_invoiceitem_deleted_event",
         "V1InvoiceitemDeletedEventNotification",
+    ),
+    "v1.invoiceitem.discount_added": (
+        "stripe.events._v1_invoiceitem_discount_added_event",
+        "V1InvoiceitemDiscountAddedEventNotification",
+    ),
+    "v1.invoiceitem.discount_removed": (
+        "stripe.events._v1_invoiceitem_discount_removed_event",
+        "V1InvoiceitemDiscountRemovedEventNotification",
+    ),
+    "v1.invoice.line_item_added": (
+        "stripe.events._v1_invoice_line_item_added_event",
+        "V1InvoiceLineItemAddedEventNotification",
+    ),
+    "v1.invoice.line_item_pricing_changed": (
+        "stripe.events._v1_invoice_line_item_pricing_changed_event",
+        "V1InvoiceLineItemPricingChangedEventNotification",
+    ),
+    "v1.invoice.line_item_quantity_changed": (
+        "stripe.events._v1_invoice_line_item_quantity_changed_event",
+        "V1InvoiceLineItemQuantityChangedEventNotification",
+    ),
+    "v1.invoice.line_item_removed": (
+        "stripe.events._v1_invoice_line_item_removed_event",
+        "V1InvoiceLineItemRemovedEventNotification",
     ),
     "v1.invoice.marked_uncollectible": (
         "stripe.events._v1_invoice_marked_uncollectible_event",
@@ -2633,9 +3249,17 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_invoice_payment_attempt_required_event",
         "V1InvoicePaymentAttemptRequiredEventNotification",
     ),
+    "v1.invoice_payment.canceled": (
+        "stripe.events._v1_invoice_payment_canceled_event",
+        "V1InvoicePaymentCanceledEventNotification",
+    ),
     "v1.invoice.payment_failed": (
         "stripe.events._v1_invoice_payment_failed_event",
         "V1InvoicePaymentFailedEventNotification",
+    ),
+    "v1.invoice_payment.open": (
+        "stripe.events._v1_invoice_payment_open_event",
+        "V1InvoicePaymentOpenEventNotification",
     ),
     "v1.invoice_payment.paid": (
         "stripe.events._v1_invoice_payment_paid_event",
@@ -2861,25 +3485,57 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_plan_updated_event",
         "V1PlanUpdatedEventNotification",
     ),
+    "v1.price.activated": (
+        "stripe.events._v1_price_activated_event",
+        "V1PriceActivatedEventNotification",
+    ),
     "v1.price.created": (
         "stripe.events._v1_price_created_event",
         "V1PriceCreatedEventNotification",
+    ),
+    "v1.price.deactivated": (
+        "stripe.events._v1_price_deactivated_event",
+        "V1PriceDeactivatedEventNotification",
     ),
     "v1.price.deleted": (
         "stripe.events._v1_price_deleted_event",
         "V1PriceDeletedEventNotification",
     ),
+    "v1.price.lookup_key_changed": (
+        "stripe.events._v1_price_lookup_key_changed_event",
+        "V1PriceLookupKeyChangedEventNotification",
+    ),
+    "v1.price.tax_behavior_changed": (
+        "stripe.events._v1_price_tax_behavior_changed_event",
+        "V1PriceTaxBehaviorChangedEventNotification",
+    ),
     "v1.price.updated": (
         "stripe.events._v1_price_updated_event",
         "V1PriceUpdatedEventNotification",
+    ),
+    "v1.product.activated": (
+        "stripe.events._v1_product_activated_event",
+        "V1ProductActivatedEventNotification",
     ),
     "v1.product.created": (
         "stripe.events._v1_product_created_event",
         "V1ProductCreatedEventNotification",
     ),
+    "v1.product.deactivated": (
+        "stripe.events._v1_product_deactivated_event",
+        "V1ProductDeactivatedEventNotification",
+    ),
+    "v1.product.default_price_changed": (
+        "stripe.events._v1_product_default_price_changed_event",
+        "V1ProductDefaultPriceChangedEventNotification",
+    ),
     "v1.product.deleted": (
         "stripe.events._v1_product_deleted_event",
         "V1ProductDeletedEventNotification",
+    ),
+    "v1.product.tax_code_changed": (
+        "stripe.events._v1_product_tax_code_changed_event",
+        "V1ProductTaxCodeChangedEventNotification",
     ),
     "v1.product.updated": (
         "stripe.events._v1_product_updated_event",
@@ -2888,6 +3544,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.promotion_code.created": (
         "stripe.events._v1_promotion_code_created_event",
         "V1PromotionCodeCreatedEventNotification",
+    ),
+    "v1.promotion_code.fully_redeemed": (
+        "stripe.events._v1_promotion_code_fully_redeemed_event",
+        "V1PromotionCodeFullyRedeemedEventNotification",
     ),
     "v1.promotion_code.updated": (
         "stripe.events._v1_promotion_code_updated_event",
@@ -2996,6 +3656,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.subscription_schedule.expiring": (
         "stripe.events._v1_subscription_schedule_expiring_event",
         "V1SubscriptionScheduleExpiringEventNotification",
+    ),
+    "v1.subscription_schedule.phase_added": (
+        "stripe.events._v1_subscription_schedule_phase_added_event",
+        "V1SubscriptionSchedulePhaseAddedEventNotification",
+    ),
+    "v1.subscription_schedule.phase_default_tax_rates_changed": (
+        "stripe.events._v1_subscription_schedule_phase_default_tax_rates_changed_event",
+        "V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification",
+    ),
+    "v1.subscription_schedule.phase_end_date_changed": (
+        "stripe.events._v1_subscription_schedule_phase_end_date_changed_event",
+        "V1SubscriptionSchedulePhaseEndDateChangedEventNotification",
+    ),
+    "v1.subscription_schedule.phase_removed": (
+        "stripe.events._v1_subscription_schedule_phase_removed_event",
+        "V1SubscriptionSchedulePhaseRemovedEventNotification",
+    ),
+    "v1.subscription_schedule.phase_trial_end_changed": (
+        "stripe.events._v1_subscription_schedule_phase_trial_end_changed_event",
+        "V1SubscriptionSchedulePhaseTrialEndChangedEventNotification",
     ),
     "v1.subscription_schedule.released": (
         "stripe.events._v1_subscription_schedule_released_event",
@@ -3249,6 +3929,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         "V2CoreHealthEventGenerationFailureResolvedEventNotification",
     ),
+    "v2.data.query_run.created": (
+        "stripe.events._v2_data_query_run_created_event",
+        "V2DataQueryRunCreatedEventNotification",
+    ),
+    "v2.data.query_run.failed": (
+        "stripe.events._v2_data_query_run_failed_event",
+        "V2DataQueryRunFailedEventNotification",
+    ),
+    "v2.data.query_run.succeeded": (
+        "stripe.events._v2_data_query_run_succeeded_event",
+        "V2DataQueryRunSucceededEventNotification",
+    ),
+    "v2.data.query_run.updated": (
+        "stripe.events._v2_data_query_run_updated_event",
+        "V2DataQueryRunUpdatedEventNotification",
+    ),
     "v2.data.reporting.query_run.created": (
         "stripe.events._v2_data_reporting_query_run_created_event",
         "V2DataReportingQueryRunCreatedEventNotification",
@@ -3264,6 +3960,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.data.reporting.query_run.updated": (
         "stripe.events._v2_data_reporting_query_run_updated_event",
         "V2DataReportingQueryRunUpdatedEventNotification",
+    ),
+    "v2.data.report_run.created": (
+        "stripe.events._v2_data_report_run_created_event",
+        "V2DataReportRunCreatedEventNotification",
+    ),
+    "v2.data.report_run.failed": (
+        "stripe.events._v2_data_report_run_failed_event",
+        "V2DataReportRunFailedEventNotification",
+    ),
+    "v2.data.report_run.succeeded": (
+        "stripe.events._v2_data_report_run_succeeded_event",
+        "V2DataReportRunSucceededEventNotification",
+    ),
+    "v2.data.report_run.updated": (
+        "stripe.events._v2_data_report_run_updated_event",
+        "V2DataReportRunUpdatedEventNotification",
     ),
     "v2.extend.workflow_run.failed": (
         "stripe.events._v2_extend_workflow_run_failed_event",
@@ -3377,6 +4089,34 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEventNotification",
     ),
+    "v2.money_management.payout_intent.canceled": (
+        "stripe.events._v2_money_management_payout_intent_canceled_event",
+        "V2MoneyManagementPayoutIntentCanceledEventNotification",
+    ),
+    "v2.money_management.payout_intent.created": (
+        "stripe.events._v2_money_management_payout_intent_created_event",
+        "V2MoneyManagementPayoutIntentCreatedEventNotification",
+    ),
+    "v2.money_management.payout_intent.pending": (
+        "stripe.events._v2_money_management_payout_intent_pending_event",
+        "V2MoneyManagementPayoutIntentPendingEventNotification",
+    ),
+    "v2.money_management.payout_intent.posted": (
+        "stripe.events._v2_money_management_payout_intent_posted_event",
+        "V2MoneyManagementPayoutIntentPostedEventNotification",
+    ),
+    "v2.money_management.payout_intent.processing": (
+        "stripe.events._v2_money_management_payout_intent_processing_event",
+        "V2MoneyManagementPayoutIntentProcessingEventNotification",
+    ),
+    "v2.money_management.payout_intent.requires_action": (
+        "stripe.events._v2_money_management_payout_intent_requires_action_event",
+        "V2MoneyManagementPayoutIntentRequiresActionEventNotification",
+    ),
+    "v2.money_management.payout_intent.updated": (
+        "stripe.events._v2_money_management_payout_intent_updated_event",
+        "V2MoneyManagementPayoutIntentUpdatedEventNotification",
+    ),
     "v2.money_management.payout_method.created": (
         "stripe.events._v2_money_management_payout_method_created_event",
         "V2MoneyManagementPayoutMethodCreatedEventNotification",
@@ -3420,6 +4160,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.money_management.received_debit.updated": (
         "stripe.events._v2_money_management_received_debit_updated_event",
         "V2MoneyManagementReceivedDebitUpdatedEventNotification",
+    ),
+    "v2.money_management.recipient_verification.created": (
+        "stripe.events._v2_money_management_recipient_verification_created_event",
+        "V2MoneyManagementRecipientVerificationCreatedEventNotification",
+    ),
+    "v2.money_management.recipient_verification.updated": (
+        "stripe.events._v2_money_management_recipient_verification_updated_event",
+        "V2MoneyManagementRecipientVerificationUpdatedEventNotification",
     ),
     "v2.money_management.transaction.created": (
         "stripe.events._v2_money_management_transaction_created_event",
@@ -3533,31 +4281,57 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1CustomerDeletedEventNotification",
     "V1CustomerDiscountCreatedEventNotification",
     "V1CustomerDiscountDeletedEventNotification",
+    "V1CustomerDiscountSourceChangedEventNotification",
     "V1CustomerDiscountUpdatedEventNotification",
+    "V1CustomerSubscriptionActiveEventNotification",
+    "V1CustomerSubscriptionCancelAtChangedEventNotification",
     "V1CustomerSubscriptionCreatedEventNotification",
+    "V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification",
     "V1CustomerSubscriptionDeletedEventNotification",
+    "V1CustomerSubscriptionIncompleteEventNotification",
+    "V1CustomerSubscriptionIncompleteExpiredEventNotification",
+    "V1CustomerSubscriptionItemAddedEventNotification",
+    "V1CustomerSubscriptionItemPriceChangedEventNotification",
+    "V1CustomerSubscriptionItemQuantityChangedEventNotification",
+    "V1CustomerSubscriptionItemRemovedEventNotification",
+    "V1CustomerSubscriptionItemTaxRatesChangedEventNotification",
+    "V1CustomerSubscriptionPastDueEventNotification",
     "V1CustomerSubscriptionPausedEventNotification",
     "V1CustomerSubscriptionPendingUpdateAppliedEventNotification",
     "V1CustomerSubscriptionPendingUpdateExpiredEventNotification",
     "V1CustomerSubscriptionResumedEventNotification",
+    "V1CustomerSubscriptionTrialingEventNotification",
     "V1CustomerSubscriptionTrialWillEndEventNotification",
+    "V1CustomerSubscriptionUnpaidEventNotification",
     "V1CustomerSubscriptionUpdatedEventNotification",
     "V1CustomerTaxIdCreatedEventNotification",
     "V1CustomerTaxIdDeletedEventNotification",
     "V1CustomerTaxIdUpdatedEventNotification",
     "V1CustomerUpdatedEventNotification",
+    "V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification",
+    "V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification",
     "V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification",
     "V1FileCreatedEventNotification",
     "V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification",
+    "V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification",
+    "V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification",
     "V1FinancialConnectionsAccountCreatedEventNotification",
     "V1FinancialConnectionsAccountDeactivatedEventNotification",
     "V1FinancialConnectionsAccountDisconnectedEventNotification",
     "V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification",
+    "V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification",
+    "V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification",
+    "V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification",
+    "V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification",
     "V1FinancialConnectionsAccountReactivatedEventNotification",
     "V1FinancialConnectionsAccountRefreshedBalanceEventNotification",
     "V1FinancialConnectionsAccountRefreshedOwnershipEventNotification",
     "V1FinancialConnectionsAccountRefreshedTransactionsEventNotification",
+    "V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification",
+    "V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification",
     "V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification",
+    "V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification",
+    "V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification",
     "V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification",
     "V1FinancialConnectionsAccountUpcomingDeactivationEventNotification",
     "V1IdentityVerificationSessionCanceledEventNotification",
@@ -3568,17 +4342,28 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1IdentityVerificationSessionVerifiedEventNotification",
     "V1InvoiceCreatedEventNotification",
     "V1InvoiceDeletedEventNotification",
+    "V1InvoiceDiscountAddedEventNotification",
+    "V1InvoiceDiscountRemovedEventNotification",
     "V1InvoiceFinalizationFailedEventNotification",
     "V1InvoiceFinalizedEventNotification",
+    "V1InvoiceitemAmountChangedEventNotification",
     "V1InvoiceitemCreatedEventNotification",
     "V1InvoiceitemDeletedEventNotification",
+    "V1InvoiceitemDiscountAddedEventNotification",
+    "V1InvoiceitemDiscountRemovedEventNotification",
+    "V1InvoiceLineItemAddedEventNotification",
+    "V1InvoiceLineItemPricingChangedEventNotification",
+    "V1InvoiceLineItemQuantityChangedEventNotification",
+    "V1InvoiceLineItemRemovedEventNotification",
     "V1InvoiceMarkedUncollectibleEventNotification",
     "V1InvoiceOverdueEventNotification",
     "V1InvoiceOverpaidEventNotification",
     "V1InvoicePaidEventNotification",
     "V1InvoicePaymentActionRequiredEventNotification",
     "V1InvoicePaymentAttemptRequiredEventNotification",
+    "V1InvoicePaymentCanceledEventNotification",
     "V1InvoicePaymentFailedEventNotification",
+    "V1InvoicePaymentOpenEventNotification",
     "V1InvoicePaymentPaidEventNotification",
     "V1InvoicePaymentSucceededEventNotification",
     "V1InvoiceSentEventNotification",
@@ -3635,13 +4420,22 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1PlanCreatedEventNotification",
     "V1PlanDeletedEventNotification",
     "V1PlanUpdatedEventNotification",
+    "V1PriceActivatedEventNotification",
     "V1PriceCreatedEventNotification",
+    "V1PriceDeactivatedEventNotification",
     "V1PriceDeletedEventNotification",
+    "V1PriceLookupKeyChangedEventNotification",
+    "V1PriceTaxBehaviorChangedEventNotification",
     "V1PriceUpdatedEventNotification",
+    "V1ProductActivatedEventNotification",
     "V1ProductCreatedEventNotification",
+    "V1ProductDeactivatedEventNotification",
+    "V1ProductDefaultPriceChangedEventNotification",
     "V1ProductDeletedEventNotification",
+    "V1ProductTaxCodeChangedEventNotification",
     "V1ProductUpdatedEventNotification",
     "V1PromotionCodeCreatedEventNotification",
+    "V1PromotionCodeFullyRedeemedEventNotification",
     "V1PromotionCodeUpdatedEventNotification",
     "V1QuoteAcceptedEventNotification",
     "V1QuoteCanceledEventNotification",
@@ -3669,6 +4463,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1SubscriptionScheduleCompletedEventNotification",
     "V1SubscriptionScheduleCreatedEventNotification",
     "V1SubscriptionScheduleExpiringEventNotification",
+    "V1SubscriptionSchedulePhaseAddedEventNotification",
+    "V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification",
+    "V1SubscriptionSchedulePhaseEndDateChangedEventNotification",
+    "V1SubscriptionSchedulePhaseRemovedEventNotification",
+    "V1SubscriptionSchedulePhaseTrialEndChangedEventNotification",
     "V1SubscriptionScheduleReleasedEventNotification",
     "V1SubscriptionScheduleUpdatedEventNotification",
     "V1TaxRateCreatedEventNotification",
@@ -3732,10 +4531,18 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreBatchJobValidationFailedEventNotification",
     "V2CoreEventDestinationPingEventNotification",
     "V2CoreHealthEventGenerationFailureResolvedEventNotification",
+    "V2DataQueryRunCreatedEventNotification",
+    "V2DataQueryRunFailedEventNotification",
+    "V2DataQueryRunSucceededEventNotification",
+    "V2DataQueryRunUpdatedEventNotification",
     "V2DataReportingQueryRunCreatedEventNotification",
     "V2DataReportingQueryRunFailedEventNotification",
     "V2DataReportingQueryRunSucceededEventNotification",
     "V2DataReportingQueryRunUpdatedEventNotification",
+    "V2DataReportRunCreatedEventNotification",
+    "V2DataReportRunFailedEventNotification",
+    "V2DataReportRunSucceededEventNotification",
+    "V2DataReportRunUpdatedEventNotification",
     "V2ExtendWorkflowRunFailedEventNotification",
     "V2ExtendWorkflowRunStartedEventNotification",
     "V2ExtendWorkflowRunSucceededEventNotification",
@@ -3764,6 +4571,13 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementOutboundTransferReturnedEventNotification",
     "V2MoneyManagementOutboundTransferUnderReviewEventNotification",
     "V2MoneyManagementOutboundTransferUpdatedEventNotification",
+    "V2MoneyManagementPayoutIntentCanceledEventNotification",
+    "V2MoneyManagementPayoutIntentCreatedEventNotification",
+    "V2MoneyManagementPayoutIntentPendingEventNotification",
+    "V2MoneyManagementPayoutIntentPostedEventNotification",
+    "V2MoneyManagementPayoutIntentProcessingEventNotification",
+    "V2MoneyManagementPayoutIntentRequiresActionEventNotification",
+    "V2MoneyManagementPayoutIntentUpdatedEventNotification",
     "V2MoneyManagementPayoutMethodCreatedEventNotification",
     "V2MoneyManagementPayoutMethodUpdatedEventNotification",
     "V2MoneyManagementReceivedCreditAvailableEventNotification",
@@ -3775,6 +4589,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementReceivedDebitPendingEventNotification",
     "V2MoneyManagementReceivedDebitSucceededEventNotification",
     "V2MoneyManagementReceivedDebitUpdatedEventNotification",
+    "V2MoneyManagementRecipientVerificationCreatedEventNotification",
+    "V2MoneyManagementRecipientVerificationUpdatedEventNotification",
     "V2MoneyManagementTransactionCreatedEventNotification",
     "V2MoneyManagementTransactionUpdatedEventNotification",
     "V2OrchestratedCommerceAgreementConfirmedEventNotification",

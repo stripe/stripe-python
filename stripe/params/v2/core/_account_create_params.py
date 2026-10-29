@@ -332,11 +332,11 @@ class AccountCreateParamsConfigurationMerchantBacsDebitPayments(TypedDict):
 class AccountCreateParamsConfigurationMerchantBranding(TypedDict):
     icon: NotRequired[str]
     """
-    ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+    ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
     """
     logo: NotRequired[str]
     """
-    ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+    ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
     """
     primary_color: NotRequired[str]
     """
@@ -1655,6 +1655,12 @@ class AccountCreateParamsConfigurationRecipientCapabilities(TypedDict):
     """
     Capabilities that enable OutboundPayments to a card linked to this Account.
     """
+    crypto_wallets: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets"
+    ]
+    """
+    Capabilities that enable OutboundPayments to a crypto wallet linked to this Account.
+    """
     stripe_balance: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance"
     ]
@@ -1666,17 +1672,74 @@ class AccountCreateParamsConfigurationRecipientCapabilities(TypedDict):
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
     TypedDict,
 ):
+    ach: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
+    """
+    fedwire: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over Fedwire or CHIPS.
+    """
+    fps: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
+    """
     local: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal"
     ]
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
     """
-    wire: NotRequired[
-        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire"
+    rtp: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp"
     ]
     """
-    Enables this Account to receive OutboundPayments to linked bank accounts over wire.
+    Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
+    """
+    sepa: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
+    """
+    swift: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
     """
 
 
@@ -1689,7 +1752,25 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal(
     """
 
 
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire(
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift(
     TypedDict,
 ):
     requested: bool
@@ -1699,6 +1780,15 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire(
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesCards(TypedDict):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets(
+    TypedDict,
+):
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -2006,7 +2096,7 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
         "AccountCreateParamsIdentityAttestationsTermsOfServiceAccount"
     ]
     """
-    Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+    Details on the Account's acceptance of the Stripe Services Agreement.
     """
     money_manager: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager"
@@ -2142,7 +2232,9 @@ class AccountCreateParamsIdentityBusinessDetailsAdditionalAddress(TypedDict):
     """
     ZIP or postal code.
     """
-    purpose: Literal["administrative", "principal_place_of_business"]
+    purpose: Literal[
+        "administrative", "physical", "principal_place_of_business"
+    ]
     """
     Purpose of additional address.
     """
@@ -2247,6 +2339,12 @@ class AccountCreateParamsIdentityBusinessDetailsDocuments(TypedDict):
     """
     One or more documents that demonstrate proof of address.
     """
+    proof_of_business_presence: NotRequired[
+        "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence"
+    ]
+    """
+    One or more documents that demonstrate proof of business presence.
+    """
     proof_of_registration: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
     ]
@@ -2266,7 +2364,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVer
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2279,7 +2377,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2292,7 +2390,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumOfAsso
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2305,7 +2403,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyMinisterialDecre
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2318,7 +2416,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyRegistrationVeri
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2331,7 +2429,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerificatio
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2344,7 +2442,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification(
 ):
     front_back: "AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -2357,11 +2455,11 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFron
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: str
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -2370,7 +2468,20 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
+    """
+    type: Union[Literal["files"], str]
+    """
+    The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence(
+    TypedDict,
+):
+    files: List[str]
+    """
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2383,7 +2494,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
@@ -2411,7 +2522,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
@@ -2921,7 +3032,7 @@ class AccountCreateParamsIdentityIndividualDocumentsCompanyAuthorization(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2932,7 +3043,7 @@ class AccountCreateParamsIdentityIndividualDocumentsCompanyAuthorization(
 class AccountCreateParamsIdentityIndividualDocumentsPassport(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -2945,7 +3056,7 @@ class AccountCreateParamsIdentityIndividualDocumentsPrimaryVerification(
 ):
     front_back: "AccountCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -2958,11 +3069,11 @@ class AccountCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: str
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -2971,7 +3082,7 @@ class AccountCreateParamsIdentityIndividualDocumentsSecondaryVerification(
 ):
     front_back: "AccountCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -2984,18 +3095,18 @@ class AccountCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBa
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: str
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountCreateParamsIdentityIndividualDocumentsVisa(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """

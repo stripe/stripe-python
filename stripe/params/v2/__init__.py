@@ -7,24 +7,28 @@ if TYPE_CHECKING:
     from stripe.params.v2 import (
         billing as billing,
         core as core,
+        data as data,
         extend as extend,
         iam as iam,
         money_management as money_management,
         network as network,
         orchestrated_commerce as orchestrated_commerce,
         signals as signals,
+        test_helpers as test_helpers,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
     "billing": ("stripe.params.v2.billing", True),
     "core": ("stripe.params.v2.core", True),
+    "data": ("stripe.params.v2.data", True),
     "extend": ("stripe.params.v2.extend", True),
     "iam": ("stripe.params.v2.iam", True),
     "money_management": ("stripe.params.v2.money_management", True),
     "network": ("stripe.params.v2.network", True),
     "orchestrated_commerce": ("stripe.params.v2.orchestrated_commerce", True),
     "signals": ("stripe.params.v2.signals", True),
+    "test_helpers": ("stripe.params.v2.test_helpers", True),
 }
 if not TYPE_CHECKING:
 

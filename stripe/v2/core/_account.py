@@ -252,11 +252,11 @@ class Account(StripeObject):
             class Branding(StripeObject):
                 icon: Optional[str]
                 """
-                ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+                ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
                 """
                 logo: Optional[str]
                 """
-                ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+                ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
                 """
                 primary_color: Optional[str]
                 """
@@ -3993,6 +3993,147 @@ class Account(StripeObject):
         class Recipient(StripeObject):
             class Capabilities(StripeObject):
                 class BankAccounts(StripeObject):
+                    class Ach(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        status: Literal[
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    class Fedwire(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        status: Literal[
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    class Fps(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        status: Literal[
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     class Local(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
@@ -4040,7 +4181,7 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
-                    class Wire(StripeObject):
+                    class Rtp(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -4087,17 +4228,184 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    class Sepa(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        status: Literal[
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    class Swift(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        status: Literal[
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    ach: Optional[Ach]
+                    """
+                    Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
+                    """
+                    fedwire: Optional[Fedwire]
+                    """
+                    Enables this Account to receive OutboundPayments to linked bank accounts over Fedwire or CHIPS.
+                    """
+                    fps: Optional[Fps]
+                    """
+                    Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
+                    """
                     local: Optional[Local]
                     """
                     Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                     """
-                    wire: Optional[Wire]
+                    rtp: Optional[Rtp]
                     """
-                    Enables this Account to receive OutboundPayments to linked bank accounts over wire.
+                    Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
                     """
-                    _inner_class_types = {"local": Local, "wire": Wire}
+                    sepa: Optional[Sepa]
+                    """
+                    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
+                    """
+                    swift: Optional[Swift]
+                    """
+                    Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
+                    """
+                    _inner_class_types = {
+                        "ach": Ach,
+                        "fedwire": Fedwire,
+                        "fps": Fps,
+                        "local": Local,
+                        "rtp": Rtp,
+                        "sepa": Sepa,
+                        "swift": Swift,
+                    }
 
                 class Cards(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class CryptoWallets(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -4258,6 +4566,10 @@ class Account(StripeObject):
                 """
                 Enables this Account to receive OutboundPayments to a linked debit card.
                 """
+                crypto_wallets: Optional[CryptoWallets]
+                """
+                Enables this Account to receive OutboundPayments to a linked crypto wallet.
+                """
                 stripe_balance: Optional[StripeBalance]
                 """
                 Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
@@ -4265,145 +4577,9 @@ class Account(StripeObject):
                 _inner_class_types = {
                     "bank_accounts": BankAccounts,
                     "cards": Cards,
+                    "crypto_wallets": CryptoWallets,
                     "stripe_balance": StripeBalance,
                 }
-
-            class DefaultOutboundDestination(StripeObject):
-                id: str
-                """
-                The payout method ID of the default outbound destination.
-                """
-                type: Literal[
-                    "ae_bank_account",
-                    "ag_bank_account",
-                    "al_bank_account",
-                    "am_bank_account",
-                    "ao_bank_account",
-                    "ar_bank_account",
-                    "at_bank_account",
-                    "au_bank_account",
-                    "az_bank_account",
-                    "ba_bank_account",
-                    "bd_bank_account",
-                    "be_bank_account",
-                    "bg_bank_account",
-                    "bh_bank_account",
-                    "bj_bank_account",
-                    "bn_bank_account",
-                    "bo_bank_account",
-                    "br_bank_account",
-                    "bs_bank_account",
-                    "bt_bank_account",
-                    "bw_bank_account",
-                    "card",
-                    "ca_bank_account",
-                    "ch_bank_account",
-                    "ci_bank_account",
-                    "cl_bank_account",
-                    "cn_bank_account",
-                    "co_bank_account",
-                    "crypto_wallet",
-                    "cr_bank_account",
-                    "cy_bank_account",
-                    "cz_bank_account",
-                    "de_bank_account",
-                    "dk_bank_account",
-                    "do_bank_account",
-                    "dz_bank_account",
-                    "ec_bank_account",
-                    "ee_bank_account",
-                    "eg_bank_account",
-                    "es_bank_account",
-                    "et_bank_account",
-                    "fi_bank_account",
-                    "fr_bank_account",
-                    "ga_bank_account",
-                    "gb_bank_account",
-                    "gh_bank_account",
-                    "gi_bank_account",
-                    "gm_bank_account",
-                    "gr_bank_account",
-                    "gt_bank_account",
-                    "gy_bank_account",
-                    "hk_bank_account",
-                    "hn_bank_account",
-                    "hr_bank_account",
-                    "hu_bank_account",
-                    "id_bank_account",
-                    "ie_bank_account",
-                    "il_bank_account",
-                    "in_bank_account",
-                    "is_bank_account",
-                    "it_bank_account",
-                    "jm_bank_account",
-                    "jo_bank_account",
-                    "jp_bank_account",
-                    "ke_bank_account",
-                    "kh_bank_account",
-                    "kr_bank_account",
-                    "kw_bank_account",
-                    "kz_bank_account",
-                    "la_bank_account",
-                    "lc_bank_account",
-                    "li_bank_account",
-                    "lk_bank_account",
-                    "lt_bank_account",
-                    "lu_bank_account",
-                    "lv_bank_account",
-                    "ma_bank_account",
-                    "mc_bank_account",
-                    "md_bank_account",
-                    "mg_bank_account",
-                    "mk_bank_account",
-                    "mn_bank_account",
-                    "mo_bank_account",
-                    "mt_bank_account",
-                    "mu_bank_account",
-                    "mx_bank_account",
-                    "my_bank_account",
-                    "mz_bank_account",
-                    "na_bank_account",
-                    "ne_bank_account",
-                    "ng_bank_account",
-                    "ni_bank_account",
-                    "nl_bank_account",
-                    "no_bank_account",
-                    "nz_bank_account",
-                    "om_bank_account",
-                    "pa_bank_account",
-                    "pe_bank_account",
-                    "ph_bank_account",
-                    "pk_bank_account",
-                    "pl_bank_account",
-                    "pt_bank_account",
-                    "py_bank_account",
-                    "qa_bank_account",
-                    "ro_bank_account",
-                    "rs_bank_account",
-                    "rw_bank_account",
-                    "sa_bank_account",
-                    "se_bank_account",
-                    "sg_bank_account",
-                    "si_bank_account",
-                    "sk_bank_account",
-                    "sm_bank_account",
-                    "sn_bank_account",
-                    "sv_bank_account",
-                    "th_bank_account",
-                    "tn_bank_account",
-                    "tr_bank_account",
-                    "tt_bank_account",
-                    "tw_bank_account",
-                    "tz_bank_account",
-                    "us_bank_account",
-                    "uy_bank_account",
-                    "uz_bank_account",
-                    "vn_bank_account",
-                    "za_bank_account",
-                ]
-                """
-                Closed Enum. The payout method type of the default outbound destination.
-                """
 
             applied: bool
             """
@@ -4413,14 +4589,7 @@ class Account(StripeObject):
             """
             Capabilities that have been requested on the Recipient Configuration.
             """
-            default_outbound_destination: Optional[DefaultOutboundDestination]
-            """
-            The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
-            """
-            _inner_class_types = {
-                "capabilities": Capabilities,
-                "default_outbound_destination": DefaultOutboundDestination,
-            }
+            _inner_class_types = {"capabilities": Capabilities}
 
         customer: Optional[Customer]
         """
@@ -4603,6 +4772,206 @@ class Account(StripeObject):
         }
 
     class FutureRequirements(StripeObject):
+        class Alternative(StripeObject):
+            class Option(StripeObject):
+                class Entry(StripeObject):
+                    class Error(StripeObject):
+                        code: Union[
+                            Literal[
+                                "invalid_address_city_state_postal_code",
+                                "invalid_address_cmra_address",
+                                "invalid_address_highway_contract_box",
+                                "invalid_address_private_mailbox",
+                                "invalid_address_registered_agent_address",
+                                "invalid_business_profile_name",
+                                "invalid_business_profile_name_denylisted",
+                                "invalid_company_name_denylisted",
+                                "invalid_dob_age_over_maximum",
+                                "invalid_dob_age_under_18",
+                                "invalid_dob_age_under_minimum",
+                                "invalid_product_description_length",
+                                "invalid_product_description_url_match",
+                                "invalid_representative_country",
+                                "invalid_statement_descriptor_business_mismatch",
+                                "invalid_statement_descriptor_denylisted",
+                                "invalid_statement_descriptor_length",
+                                "invalid_statement_descriptor_prefix_denylisted",
+                                "invalid_statement_descriptor_prefix_mismatch",
+                                "invalid_street_address",
+                                "invalid_tax_id",
+                                "invalid_tax_id_format",
+                                "invalid_tos_acceptance",
+                                "invalid_url_denylisted",
+                                "invalid_url_format",
+                                "invalid_url_website_business_information_mismatch",
+                                "invalid_url_website_empty",
+                                "invalid_url_website_inaccessible",
+                                "invalid_url_website_inaccessible_geoblocked",
+                                "invalid_url_website_inaccessible_password_protected",
+                                "invalid_url_website_incomplete",
+                                "invalid_url_website_incomplete_cancellation_policy",
+                                "invalid_url_website_incomplete_customer_service_details",
+                                "invalid_url_website_incomplete_legal_restrictions",
+                                "invalid_url_website_incomplete_refund_policy",
+                                "invalid_url_website_incomplete_return_policy",
+                                "invalid_url_website_incomplete_terms_and_conditions",
+                                "invalid_url_website_incomplete_under_construction",
+                                "invalid_url_website_other",
+                                "invalid_url_web_presence_detected",
+                                "invalid_value_other",
+                                "unresolvable_ip_address",
+                                "unresolvable_postal_code",
+                                "verification_directors_mismatch",
+                                "verification_document_address_mismatch",
+                                "verification_document_address_missing",
+                                "verification_document_corrupt",
+                                "verification_document_country_not_supported",
+                                "verification_document_directors_mismatch",
+                                "verification_document_dob_mismatch",
+                                "verification_document_duplicate_type",
+                                "verification_document_expired",
+                                "verification_document_failed_copy",
+                                "verification_document_failed_greyscale",
+                                "verification_document_failed_other",
+                                "verification_document_failed_test_mode",
+                                "verification_document_fraudulent",
+                                "verification_document_id_number_mismatch",
+                                "verification_document_id_number_missing",
+                                "verification_document_incomplete",
+                                "verification_document_invalid",
+                                "verification_document_issue_or_expiry_date_missing",
+                                "verification_document_manipulated",
+                                "verification_document_missing_back",
+                                "verification_document_missing_front",
+                                "verification_document_name_mismatch",
+                                "verification_document_name_missing",
+                                "verification_document_nationality_mismatch",
+                                "verification_document_not_readable",
+                                "verification_document_not_signed",
+                                "verification_document_not_uploaded",
+                                "verification_document_photo_mismatch",
+                                "verification_document_too_large",
+                                "verification_document_type_not_supported",
+                                "verification_extraneous_directors",
+                                "verification_failed_address_match",
+                                "verification_failed_business_iec_number",
+                                "verification_failed_document_match",
+                                "verification_failed_id_number_match",
+                                "verification_failed_keyed_identity",
+                                "verification_failed_keyed_match",
+                                "verification_failed_name_match",
+                                "verification_failed_other",
+                                "verification_failed_representative_authority",
+                                "verification_failed_residential_address",
+                                "verification_failed_tax_id_match",
+                                "verification_failed_tax_id_not_issued",
+                                "verification_missing_directors",
+                                "verification_missing_executives",
+                                "verification_missing_owners",
+                                "verification_requires_additional_memorandum_of_associations",
+                                "verification_requires_additional_proof_of_registration",
+                                "verification_selfie_document_missing_photo",
+                                "verification_selfie_face_mismatch",
+                                "verification_selfie_manipulated",
+                                "verification_selfie_unverified_other",
+                                "verification_supportability",
+                                "verification_token_stale",
+                            ],
+                            str,
+                        ]
+                        """
+                        Machine-readable code describing the error.
+                        """
+                        description: str
+                        """
+                        Human-readable description of the error.
+                        """
+
+                    class Reference(StripeObject):
+                        inquiry: Optional[str]
+                        """
+                        If `inquiry` is the type, the inquiry token.
+                        """
+                        resource: Optional[str]
+                        """
+                        If `resource` is the type, the resource token.
+                        """
+                        type: Union[
+                            Literal["inquiry", "payment_method", "person"], str
+                        ]
+                        """
+                        The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                        Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                        """
+
+                    awaiting_action_from: Literal["stripe", "user"]
+                    """
+                    Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+                    """
+                    description: str
+                    """
+                    Machine-readable string describing the requirement.
+                    """
+                    errors: List[Error]
+                    """
+                    Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+                    """
+                    reference: Optional[Reference]
+                    """
+                    A reference to the location of the requirement.
+                    """
+                    _inner_class_types = {
+                        "errors": Error,
+                        "reference": Reference,
+                    }
+
+                entries: List[Entry]
+                """
+                The requirements that must all be provided to satisfy this option.
+                """
+                _inner_class_types = {"entries": Entry}
+
+            class OriginalEntry(StripeObject):
+                class Reference(StripeObject):
+                    inquiry: Optional[str]
+                    """
+                    If `inquiry` is the type, the inquiry token.
+                    """
+                    resource: Optional[str]
+                    """
+                    If `resource` is the type, the resource token.
+                    """
+                    type: Union[
+                        Literal["inquiry", "payment_method", "person"], str
+                    ]
+                    """
+                    The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                    Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                    """
+
+                description: str
+                """
+                Machine-readable string describing the requirement.
+                """
+                reference: Optional[Reference]
+                """
+                A reference to the location of the requirement.
+                """
+                _inner_class_types = {"reference": Reference}
+
+            options: List[Option]
+            """
+            The alternative sets of requirements that can be provided. Providing every entry in any one of these options resolves all of the requirements in `original_entries`.
+            """
+            original_entries: List[OriginalEntry]
+            """
+            The requirements that can be satisfied either directly, or by providing every entry in any one of `options`.
+            """
+            _inner_class_types = {
+                "options": Option,
+                "original_entries": OriginalEntry,
+            }
+
         class Entry(StripeObject):
             class Error(StripeObject):
                 code: Union[
@@ -4738,7 +5107,13 @@ class Account(StripeObject):
                             "au_becs_debit_payments",
                             "bacs_debit_payments",
                             "bancontact_payments",
+                            "bank_accounts.ach",
+                            "bank_accounts.fedwire",
+                            "bank_accounts.fps",
                             "bank_accounts.local",
+                            "bank_accounts.rtp",
+                            "bank_accounts.sepa",
+                            "bank_accounts.swift",
                             "bank_accounts.wire",
                             "blik_payments",
                             "blik_recurring_payments",
@@ -4753,6 +5128,7 @@ class Account(StripeObject):
                             "card_payments",
                             "cartes_bancaires_payments",
                             "cashapp_payments",
+                            "crypto_wallets",
                             "eps_payments",
                             "financial_addresses.bank_accounts",
                             "fpx_payments",
@@ -4862,7 +5238,7 @@ class Account(StripeObject):
 
             awaiting_action_from: Literal["stripe", "user"]
             """
-            Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+            Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             """
             description: str
             """
@@ -4913,6 +5289,10 @@ class Account(StripeObject):
             """
             _inner_class_types = {"minimum_deadline": MinimumDeadline}
 
+        alternatives: Optional[List[Alternative]]
+        """
+        A list of alternative sets of requirements that can be provided in lieu of requirements in `entries`.
+        """
         entries: Optional[List[Entry]]
         """
         A list of requirements for the Account.
@@ -4925,7 +5305,11 @@ class Account(StripeObject):
         """
         An object containing an overview of requirements for the Account.
         """
-        _inner_class_types = {"entries": Entry, "summary": Summary}
+        _inner_class_types = {
+            "alternatives": Alternative,
+            "entries": Entry,
+            "summary": Summary,
+        }
 
     class Identity(StripeObject):
         class Attestations(StripeObject):
@@ -5025,7 +5409,7 @@ class Account(StripeObject):
 
                 account: Optional[Account]
                 """
-                Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+                Details on the Account's acceptance of the Stripe Services Agreement.
                 """
                 money_manager: Optional[MoneyManager]
                 """
@@ -5087,7 +5471,7 @@ class Account(StripeObject):
                 ZIP or postal code.
                 """
                 purpose: Literal[
-                    "administrative", "principal_place_of_business"
+                    "administrative", "physical", "principal_place_of_business"
                 ]
                 """
                 Purpose of additional address.
@@ -5145,7 +5529,7 @@ class Account(StripeObject):
                 class BankAccountOwnershipVerification(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5155,7 +5539,7 @@ class Account(StripeObject):
                 class CompanyLicense(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5165,7 +5549,7 @@ class Account(StripeObject):
                 class CompanyMemorandumOfAssociation(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5175,7 +5559,7 @@ class Account(StripeObject):
                 class CompanyMinisterialDecree(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5185,7 +5569,7 @@ class Account(StripeObject):
                 class CompanyRegistrationVerification(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5195,7 +5579,7 @@ class Account(StripeObject):
                 class CompanyTaxIdVerification(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5206,16 +5590,16 @@ class Account(StripeObject):
                     class FrontBack(StripeObject):
                         back: Optional[str]
                         """
-                        A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                        A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                         """
                         front: str
                         """
-                        A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                        A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                         """
 
                     front_back: FrontBack
                     """
-                    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                    The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                     """
                     type: Union[Literal["front_back"], str]
                     """
@@ -5226,7 +5610,17 @@ class Account(StripeObject):
                 class ProofOfAddress(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
+                    """
+                    type: Union[Literal["files"], str]
+                    """
+                    The format of the document. Currently supports `files` only.
+                    """
+
+                class ProofOfBusinessPresence(StripeObject):
+                    files: List[str]
+                    """
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5242,7 +5636,7 @@ class Account(StripeObject):
 
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     signer: Optional[Signer]
                     """
@@ -5263,7 +5657,7 @@ class Account(StripeObject):
 
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     signer: Optional[Signer]
                     """
@@ -5313,6 +5707,10 @@ class Account(StripeObject):
                 """
                 One or more documents that demonstrate proof of address.
                 """
+                proof_of_business_presence: Optional[ProofOfBusinessPresence]
+                """
+                One or more documents that demonstrate proof of business presence.
+                """
                 proof_of_registration: Optional[ProofOfRegistration]
                 """
                 One or more documents showing the company's proof of registration with the national business registry.
@@ -5332,6 +5730,7 @@ class Account(StripeObject):
                     "company_tax_id_verification": CompanyTaxIdVerification,
                     "primary_verification": PrimaryVerification,
                     "proof_of_address": ProofOfAddress,
+                    "proof_of_business_presence": ProofOfBusinessPresence,
                     "proof_of_registration": ProofOfRegistration,
                     "proof_of_ultimate_beneficial_ownership": ProofOfUltimateBeneficialOwnership,
                 }
@@ -5798,7 +6197,7 @@ class Account(StripeObject):
                 class CompanyAuthorization(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5808,7 +6207,7 @@ class Account(StripeObject):
                 class Passport(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -5819,16 +6218,16 @@ class Account(StripeObject):
                     class FrontBack(StripeObject):
                         back: Optional[str]
                         """
-                        A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                        A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                         """
                         front: str
                         """
-                        A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                        A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                         """
 
                     front_back: FrontBack
                     """
-                    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                    The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                     """
                     type: Union[Literal["front_back"], str]
                     """
@@ -5840,16 +6239,16 @@ class Account(StripeObject):
                     class FrontBack(StripeObject):
                         back: Optional[str]
                         """
-                        A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                        A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                         """
                         front: str
                         """
-                        A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                        A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                         """
 
                     front_back: FrontBack
                     """
-                    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                    The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                     """
                     type: Union[Literal["front_back"], str]
                     """
@@ -5860,7 +6259,7 @@ class Account(StripeObject):
                 class Visa(StripeObject):
                     files: List[str]
                     """
-                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                     """
                     type: Union[Literal["files"], str]
                     """
@@ -6260,6 +6659,206 @@ class Account(StripeObject):
         }
 
     class Requirements(StripeObject):
+        class Alternative(StripeObject):
+            class Option(StripeObject):
+                class Entry(StripeObject):
+                    class Error(StripeObject):
+                        code: Union[
+                            Literal[
+                                "invalid_address_city_state_postal_code",
+                                "invalid_address_cmra_address",
+                                "invalid_address_highway_contract_box",
+                                "invalid_address_private_mailbox",
+                                "invalid_address_registered_agent_address",
+                                "invalid_business_profile_name",
+                                "invalid_business_profile_name_denylisted",
+                                "invalid_company_name_denylisted",
+                                "invalid_dob_age_over_maximum",
+                                "invalid_dob_age_under_18",
+                                "invalid_dob_age_under_minimum",
+                                "invalid_product_description_length",
+                                "invalid_product_description_url_match",
+                                "invalid_representative_country",
+                                "invalid_statement_descriptor_business_mismatch",
+                                "invalid_statement_descriptor_denylisted",
+                                "invalid_statement_descriptor_length",
+                                "invalid_statement_descriptor_prefix_denylisted",
+                                "invalid_statement_descriptor_prefix_mismatch",
+                                "invalid_street_address",
+                                "invalid_tax_id",
+                                "invalid_tax_id_format",
+                                "invalid_tos_acceptance",
+                                "invalid_url_denylisted",
+                                "invalid_url_format",
+                                "invalid_url_website_business_information_mismatch",
+                                "invalid_url_website_empty",
+                                "invalid_url_website_inaccessible",
+                                "invalid_url_website_inaccessible_geoblocked",
+                                "invalid_url_website_inaccessible_password_protected",
+                                "invalid_url_website_incomplete",
+                                "invalid_url_website_incomplete_cancellation_policy",
+                                "invalid_url_website_incomplete_customer_service_details",
+                                "invalid_url_website_incomplete_legal_restrictions",
+                                "invalid_url_website_incomplete_refund_policy",
+                                "invalid_url_website_incomplete_return_policy",
+                                "invalid_url_website_incomplete_terms_and_conditions",
+                                "invalid_url_website_incomplete_under_construction",
+                                "invalid_url_website_other",
+                                "invalid_url_web_presence_detected",
+                                "invalid_value_other",
+                                "unresolvable_ip_address",
+                                "unresolvable_postal_code",
+                                "verification_directors_mismatch",
+                                "verification_document_address_mismatch",
+                                "verification_document_address_missing",
+                                "verification_document_corrupt",
+                                "verification_document_country_not_supported",
+                                "verification_document_directors_mismatch",
+                                "verification_document_dob_mismatch",
+                                "verification_document_duplicate_type",
+                                "verification_document_expired",
+                                "verification_document_failed_copy",
+                                "verification_document_failed_greyscale",
+                                "verification_document_failed_other",
+                                "verification_document_failed_test_mode",
+                                "verification_document_fraudulent",
+                                "verification_document_id_number_mismatch",
+                                "verification_document_id_number_missing",
+                                "verification_document_incomplete",
+                                "verification_document_invalid",
+                                "verification_document_issue_or_expiry_date_missing",
+                                "verification_document_manipulated",
+                                "verification_document_missing_back",
+                                "verification_document_missing_front",
+                                "verification_document_name_mismatch",
+                                "verification_document_name_missing",
+                                "verification_document_nationality_mismatch",
+                                "verification_document_not_readable",
+                                "verification_document_not_signed",
+                                "verification_document_not_uploaded",
+                                "verification_document_photo_mismatch",
+                                "verification_document_too_large",
+                                "verification_document_type_not_supported",
+                                "verification_extraneous_directors",
+                                "verification_failed_address_match",
+                                "verification_failed_business_iec_number",
+                                "verification_failed_document_match",
+                                "verification_failed_id_number_match",
+                                "verification_failed_keyed_identity",
+                                "verification_failed_keyed_match",
+                                "verification_failed_name_match",
+                                "verification_failed_other",
+                                "verification_failed_representative_authority",
+                                "verification_failed_residential_address",
+                                "verification_failed_tax_id_match",
+                                "verification_failed_tax_id_not_issued",
+                                "verification_missing_directors",
+                                "verification_missing_executives",
+                                "verification_missing_owners",
+                                "verification_requires_additional_memorandum_of_associations",
+                                "verification_requires_additional_proof_of_registration",
+                                "verification_selfie_document_missing_photo",
+                                "verification_selfie_face_mismatch",
+                                "verification_selfie_manipulated",
+                                "verification_selfie_unverified_other",
+                                "verification_supportability",
+                                "verification_token_stale",
+                            ],
+                            str,
+                        ]
+                        """
+                        Machine-readable code describing the error.
+                        """
+                        description: str
+                        """
+                        Human-readable description of the error.
+                        """
+
+                    class Reference(StripeObject):
+                        inquiry: Optional[str]
+                        """
+                        If `inquiry` is the type, the inquiry token.
+                        """
+                        resource: Optional[str]
+                        """
+                        If `resource` is the type, the resource token.
+                        """
+                        type: Union[
+                            Literal["inquiry", "payment_method", "person"], str
+                        ]
+                        """
+                        The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                        Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                        """
+
+                    awaiting_action_from: Literal["stripe", "user"]
+                    """
+                    Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+                    """
+                    description: str
+                    """
+                    Machine-readable string describing the requirement.
+                    """
+                    errors: List[Error]
+                    """
+                    Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+                    """
+                    reference: Optional[Reference]
+                    """
+                    A reference to the location of the requirement.
+                    """
+                    _inner_class_types = {
+                        "errors": Error,
+                        "reference": Reference,
+                    }
+
+                entries: List[Entry]
+                """
+                The requirements that must all be provided to satisfy this option.
+                """
+                _inner_class_types = {"entries": Entry}
+
+            class OriginalEntry(StripeObject):
+                class Reference(StripeObject):
+                    inquiry: Optional[str]
+                    """
+                    If `inquiry` is the type, the inquiry token.
+                    """
+                    resource: Optional[str]
+                    """
+                    If `resource` is the type, the resource token.
+                    """
+                    type: Union[
+                        Literal["inquiry", "payment_method", "person"], str
+                    ]
+                    """
+                    The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                    Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                    """
+
+                description: str
+                """
+                Machine-readable string describing the requirement.
+                """
+                reference: Optional[Reference]
+                """
+                A reference to the location of the requirement.
+                """
+                _inner_class_types = {"reference": Reference}
+
+            options: List[Option]
+            """
+            The alternative sets of requirements that can be provided. Providing every entry in any one of these options resolves all of the requirements in `original_entries`.
+            """
+            original_entries: List[OriginalEntry]
+            """
+            The requirements that can be satisfied either directly, or by providing every entry in any one of `options`.
+            """
+            _inner_class_types = {
+                "options": Option,
+                "original_entries": OriginalEntry,
+            }
+
         class Entry(StripeObject):
             class Error(StripeObject):
                 code: Union[
@@ -6395,7 +6994,13 @@ class Account(StripeObject):
                             "au_becs_debit_payments",
                             "bacs_debit_payments",
                             "bancontact_payments",
+                            "bank_accounts.ach",
+                            "bank_accounts.fedwire",
+                            "bank_accounts.fps",
                             "bank_accounts.local",
+                            "bank_accounts.rtp",
+                            "bank_accounts.sepa",
+                            "bank_accounts.swift",
                             "bank_accounts.wire",
                             "blik_payments",
                             "blik_recurring_payments",
@@ -6410,6 +7015,7 @@ class Account(StripeObject):
                             "card_payments",
                             "cartes_bancaires_payments",
                             "cashapp_payments",
+                            "crypto_wallets",
                             "eps_payments",
                             "financial_addresses.bank_accounts",
                             "fpx_payments",
@@ -6519,7 +7125,7 @@ class Account(StripeObject):
 
             awaiting_action_from: Literal["stripe", "user"]
             """
-            Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+            Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             """
             description: str
             """
@@ -6570,6 +7176,10 @@ class Account(StripeObject):
             """
             _inner_class_types = {"minimum_deadline": MinimumDeadline}
 
+        alternatives: Optional[List[Alternative]]
+        """
+        A list of alternative sets of requirements that can be provided in lieu of requirements in `entries`.
+        """
         entries: Optional[List[Entry]]
         """
         A list of requirements for the Account.
@@ -6578,7 +7188,11 @@ class Account(StripeObject):
         """
         An object containing an overview of requirements for the Account.
         """
-        _inner_class_types = {"entries": Entry, "summary": Summary}
+        _inner_class_types = {
+            "alternatives": Alternative,
+            "entries": Entry,
+            "summary": Summary,
+        }
 
     applied_configurations: List[
         Literal["customer", "merchant", "recipient", "money_manager"]

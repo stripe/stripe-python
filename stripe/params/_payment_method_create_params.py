@@ -278,7 +278,7 @@ class PaymentMethodCreateParams(RequestOptions):
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
     type: NotRequired[
-        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']|str"
+        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'wero', 'zip']|str"
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -294,6 +294,10 @@ class PaymentMethodCreateParams(RequestOptions):
     wechat_pay: NotRequired["PaymentMethodCreateParamsWechatPay"]
     """
     If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
+    """
+    wero: NotRequired["PaymentMethodCreateParamsWero"]
+    """
+    If this is a Wero PaymentMethod, this hash contains details about the Wero payment method.
     """
     zip: NotRequired["PaymentMethodCreateParamsZip"]
     """
@@ -550,7 +554,9 @@ class PaymentMethodCreateParamsGrabpay(TypedDict):
 
 
 class PaymentMethodCreateParamsIdBankTransfer(TypedDict):
-    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
+    bank: NotRequired[
+        "Literal['bca', 'bni', 'bri', 'cimb', 'mandiri', 'permata']|str"
+    ]
     """
     Bank where the account is held.
     """
@@ -835,6 +841,12 @@ class PaymentMethodCreateParamsUsBankAccount(TypedDict):
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
+    external_token: NotRequired[
+        "PaymentMethodCreateParamsUsBankAccountExternalToken"
+    ]
+    """
+    An external token used to create a payment method.
+    """
     financial_connections_account: NotRequired[str]
     """
     The ID of a Financial Connections Account to use as a payment method.
@@ -845,7 +857,22 @@ class PaymentMethodCreateParamsUsBankAccount(TypedDict):
     """
 
 
+class PaymentMethodCreateParamsUsBankAccountExternalToken(TypedDict):
+    plaid_processor_token: NotRequired[str]
+    """
+    The Plaid processor token to use for this bank account.
+    """
+    type: Union[Literal["plaid_processor_token"], str]
+    """
+    The type of external token.
+    """
+
+
 class PaymentMethodCreateParamsWechatPay(TypedDict):
+    pass
+
+
+class PaymentMethodCreateParamsWero(TypedDict):
     pass
 
 

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional, Union
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -121,6 +121,40 @@ class OutboundTransfer(StripeObject):
         """
 
     class To(StripeObject):
+        class PayoutMethodOptions(StripeObject):
+            class BankAccount(StripeObject):
+                class PreferredNetworkOptions(StripeObject):
+                    class Ach(StripeObject):
+                        pass
+
+                    ach: Optional[Ach]
+                    """
+                    ACH-specific network options.
+                    """
+                    _inner_class_types = {"ach": Ach}
+
+                preferred_network_options: Optional[PreferredNetworkOptions]
+                """
+                Per-network configuration options.
+                """
+                preferred_networks: List[
+                    Union[
+                        Literal["ach", "fedwire", "fps", "sepa", "swift"], str
+                    ]
+                ]
+                """
+                The preferred networks to use for this OutboundTransfer.
+                """
+                _inner_class_types = {
+                    "preferred_network_options": PreferredNetworkOptions,
+                }
+
+            bank_account: Optional[BankAccount]
+            """
+            Options for bank account payout methods.
+            """
+            _inner_class_types = {"bank_account": BankAccount}
+
         credited: Amount
         """
         The monetary amount being credited to the destination.
@@ -129,13 +163,18 @@ class OutboundTransfer(StripeObject):
         """
         The payout method which the OutboundTransfer uses to send payout.
         """
+        payout_method_options: Optional[PayoutMethodOptions]
+        """
+        Payout method options for the OutboundTransfer.
+        """
+        _inner_class_types = {"payout_method_options": PayoutMethodOptions}
 
     class TraceId(StripeObject):
         status: Union[Literal["pending", "supported", "unsupported"], str]
         """
         Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
         `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
-        Note that this status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
+        This status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
         even after the payment or transfer is posted.
         """
         value: Optional[str]

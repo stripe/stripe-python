@@ -1,5 +1,8 @@
 from typing_extensions import TYPE_CHECKING
 from stripe.v2._list_object import ListObject as ListObject
+from stripe.v2._search_result_object import (
+    SearchResultObject as SearchResultObject,
+)
 from stripe.v2._amount import Amount as Amount, AmountParam as AmountParam
 
 
@@ -18,6 +21,7 @@ if TYPE_CHECKING:
         network as network,
         orchestrated_commerce as orchestrated_commerce,
         signals as signals,
+        test_helpers as test_helpers,
     )
     from stripe.v2._billing_service import BillingService as BillingService
     from stripe.v2._commerce_service import CommerceService as CommerceService
@@ -34,6 +38,9 @@ if TYPE_CHECKING:
         OrchestratedCommerceService as OrchestratedCommerceService,
     )
     from stripe.v2._signals_service import SignalsService as SignalsService
+    from stripe.v2._test_helper_service import (
+        TestHelperService as TestHelperService,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -47,6 +54,7 @@ _import_map = {
     "network": ("stripe.v2.network", True),
     "orchestrated_commerce": ("stripe.v2.orchestrated_commerce", True),
     "signals": ("stripe.v2.signals", True),
+    "test_helpers": ("stripe.v2.test_helpers", True),
     "BillingService": ("stripe.v2._billing_service", False),
     "CommerceService": ("stripe.v2._commerce_service", False),
     "CoreService": ("stripe.v2._core_service", False),
@@ -61,6 +69,7 @@ _import_map = {
         False,
     ),
     "SignalsService": ("stripe.v2._signals_service", False),
+    "TestHelperService": ("stripe.v2._test_helper_service", False),
 }
 if not TYPE_CHECKING:
 

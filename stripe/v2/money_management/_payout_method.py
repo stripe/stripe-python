@@ -49,6 +49,11 @@ class PayoutMethod(StripeObject):
         """
         The ID of the Financial Connections Account used to create the bank account.
         """
+        fingerprint: Optional[str]
+        """
+        Uniquely identifies this particular bank account. You can use this attribute to check whether two
+        recipients who've signed up with you are using the same bank account, for example.
+        """
         last4: str
         """
         The last 4 digits of the account number.
@@ -87,6 +92,33 @@ class PayoutMethod(StripeObject):
         supported_currencies: List[str]
         """
         The list of currencies supported by this bank account.
+        """
+
+    class CryptoWallet(StripeObject):
+        address: str
+        """
+        Destination wallet address.
+        """
+        memo: Optional[str]
+        """
+        Optional field, required if network supports memos (only "stellar" currently).
+        """
+        network: Union[
+            Literal[
+                "arbitrum",
+                "avalanche_c_chain",
+                "base",
+                "ethereum",
+                "optimism",
+                "polygon",
+                "solana",
+                "stellar",
+                "tempo",
+            ],
+            str,
+        ]
+        """
+        Which rail is being used to make an outbound money movement to this wallet.
         """
 
     class UsageStatus(StripeObject):
@@ -131,6 +163,10 @@ class PayoutMethod(StripeObject):
     """
     Created timestamp.
     """
+    crypto_wallet: Optional[CryptoWallet]
+    """
+    The PayoutMethodCryptoWallet object details.
+    """
     id: str
     """
     ID of the PayoutMethod object.
@@ -164,5 +200,6 @@ class PayoutMethod(StripeObject):
         "alternative_reference": AlternativeReference,
         "bank_account": BankAccount,
         "card": Card,
+        "crypto_wallet": CryptoWallet,
         "usage_status": UsageStatus,
     }

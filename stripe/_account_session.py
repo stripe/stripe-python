@@ -475,6 +475,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class ReportingChart(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class TaxRegistrations(StripeObject):
             class Features(StripeObject):
                 pass
@@ -487,6 +498,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             _inner_class_types = {"features": Features}
 
         class TaxSettings(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class TerminalHardwareOrders(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class TerminalHardwareShop(StripeObject):
             class Features(StripeObject):
                 pass
 
@@ -520,8 +553,11 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
+        reporting_chart: ReportingChart
         tax_registrations: TaxRegistrations
         tax_settings: TaxSettings
+        terminal_hardware_orders: TerminalHardwareOrders
+        terminal_hardware_shop: TerminalHardwareShop
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
@@ -546,8 +582,11 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
+            "reporting_chart": ReportingChart,
             "tax_registrations": TaxRegistrations,
             "tax_settings": TaxSettings,
+            "terminal_hardware_orders": TerminalHardwareOrders,
+            "terminal_hardware_shop": TerminalHardwareShop,
         }
 
     account: str

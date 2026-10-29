@@ -1436,6 +1436,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Wero(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Zip(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1553,6 +1575,7 @@ class PaymentMethodConfiguration(
     upi: Optional[Upi]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
+    wero: Optional[Wero]
     zip: Optional[Zip]
 
     @classmethod
@@ -1757,5 +1780,6 @@ class PaymentMethodConfiguration(
         "upi": Upi,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
+        "wero": Wero,
         "zip": Zip,
     }

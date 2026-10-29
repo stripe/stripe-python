@@ -968,6 +968,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             token_currency: Optional[
                 Union[
                     Literal[
+                        "ousd",
                         "phantom_cash",
                         "usdc",
                         "usdg",
@@ -1120,7 +1121,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Account number of the bank account to transfer funds to.
             """
-            bank: Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+            bank: Union[
+                Literal["bca", "bni", "bri", "cimb", "mandiri", "permata"], str
+            ]
             """
             Bank where the account is located.
             """
@@ -2084,6 +2087,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             Transaction ID of this particular WeChat Pay transaction.
             """
 
+        class Wero(StripeObject):
+            pass
+
         class Zip(StripeObject):
             pass
 
@@ -2179,6 +2185,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         us_bank_account: Optional[UsBankAccount]
         wechat: Optional[Wechat]
         wechat_pay: Optional[WechatPay]
+        wero: Optional[Wero]
         zip: Optional[Zip]
         _inner_class_types = {
             "ach_credit_transfer": AchCreditTransfer,
@@ -2252,6 +2259,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "us_bank_account": UsBankAccount,
             "wechat": Wechat,
             "wechat_pay": WechatPay,
+            "wero": Wero,
             "zip": Zip,
         }
 

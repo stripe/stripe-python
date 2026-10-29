@@ -163,7 +163,7 @@ class PaymentIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'wero', 'zip'], str]]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -2652,6 +2652,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
             "upi",
             "us_bank_account",
             "wechat_pay",
+            "wero",
             "zip",
         ],
         str,
@@ -2674,6 +2675,10 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
+    """
+    wero: NotRequired["PaymentIntentModifyParamsPaymentMethodDataWero"]
+    """
+    If this is a Wero PaymentMethod, this hash contains details about the Wero payment method.
     """
     zip: NotRequired["PaymentIntentModifyParamsPaymentMethodDataZip"]
     """
@@ -2889,7 +2894,9 @@ class PaymentIntentModifyParamsPaymentMethodDataGrabpay(TypedDict):
 
 
 class PaymentIntentModifyParamsPaymentMethodDataIdBankTransfer(TypedDict):
-    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
+    bank: NotRequired[
+        "Literal['bca', 'bni', 'bri', 'cimb', 'mandiri', 'permata']|str"
+    ]
     """
     Bank where the account is held.
     """
@@ -3176,6 +3183,12 @@ class PaymentIntentModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
+    external_token: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodDataUsBankAccountExternalToken"
+    ]
+    """
+    An external token used to create a payment method.
+    """
     financial_connections_account: NotRequired[str]
     """
     The ID of a Financial Connections Account to use as a payment method.
@@ -3186,7 +3199,24 @@ class PaymentIntentModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodDataUsBankAccountExternalToken(
+    TypedDict,
+):
+    plaid_processor_token: NotRequired[str]
+    """
+    The Plaid processor token to use for this bank account.
+    """
+    type: Union[Literal["plaid_processor_token"], str]
+    """
+    The type of external token.
+    """
+
+
 class PaymentIntentModifyParamsPaymentMethodDataWechatPay(TypedDict):
+    pass
+
+
+class PaymentIntentModifyParamsPaymentMethodDataWero(TypedDict):
     pass
 
 
@@ -3572,6 +3602,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
+    """
+    wero: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsWero"
+    ]
+    """
+    If this is a `wero` PaymentMethod, this sub-hash contains details about the Wero payment method options.
     """
     zip: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsZip"
@@ -6168,11 +6204,11 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPix(TypedDict):
     """
     expires_after_seconds: NotRequired[int]
     """
-    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
     """
     expires_at: NotRequired[int]
     """
-    The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+    The absolute Unix timestamp at which the Pix expires, between 60 and 1209600 seconds from the current time. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
     """
     mandate_options: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsPixMandateOptions"
@@ -6699,6 +6735,21 @@ class PaymentIntentModifyParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The client type that the end customer will pay from
     """
+    setup_future_usage: NotRequired["Literal['none']|str"]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsWero(TypedDict):
     setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.

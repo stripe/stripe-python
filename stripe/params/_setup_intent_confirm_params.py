@@ -133,7 +133,7 @@ class SetupIntentConfirmParams(RequestOptions):
     ]
     payment_method: NotRequired[str]
     """
-    ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    The ID of a PaymentMethod to attach to this SetupIntent.
     """
     payment_method_data: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodData"
@@ -566,6 +566,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "upi",
             "us_bank_account",
             "wechat_pay",
+            "wero",
             "zip",
         ],
         str,
@@ -588,6 +589,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
+    """
+    wero: NotRequired["SetupIntentConfirmParamsPaymentMethodDataWero"]
+    """
+    If this is a Wero PaymentMethod, this hash contains details about the Wero payment method.
     """
     zip: NotRequired["SetupIntentConfirmParamsPaymentMethodDataZip"]
     """
@@ -803,7 +808,9 @@ class SetupIntentConfirmParamsPaymentMethodDataGrabpay(TypedDict):
 
 
 class SetupIntentConfirmParamsPaymentMethodDataIdBankTransfer(TypedDict):
-    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
+    bank: NotRequired[
+        "Literal['bca', 'bni', 'bri', 'cimb', 'mandiri', 'permata']|str"
+    ]
     """
     Bank where the account is held.
     """
@@ -1090,6 +1097,12 @@ class SetupIntentConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
+    external_token: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodDataUsBankAccountExternalToken"
+    ]
+    """
+    An external token used to create a payment method.
+    """
     financial_connections_account: NotRequired[str]
     """
     The ID of a Financial Connections Account to use as a payment method.
@@ -1100,7 +1113,24 @@ class SetupIntentConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
 
 
+class SetupIntentConfirmParamsPaymentMethodDataUsBankAccountExternalToken(
+    TypedDict,
+):
+    plaid_processor_token: NotRequired[str]
+    """
+    The Plaid processor token to use for this bank account.
+    """
+    type: Union[Literal["plaid_processor_token"], str]
+    """
+    The type of external token.
+    """
+
+
 class SetupIntentConfirmParamsPaymentMethodDataWechatPay(TypedDict):
+    pass
+
+
+class SetupIntentConfirmParamsPaymentMethodDataWero(TypedDict):
     pass
 
 

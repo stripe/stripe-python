@@ -17,6 +17,7 @@ if TYPE_CHECKING:
         OrchestratedCommerceService,
     )
     from stripe.v2._signals_service import SignalsService
+    from stripe.v2._test_helper_service import TestHelperService
 
 _subservices = {
     "billing": ["stripe.v2._billing_service", "BillingService"],
@@ -35,6 +36,7 @@ _subservices = {
         "OrchestratedCommerceService",
     ],
     "signals": ["stripe.v2._signals_service", "SignalsService"],
+    "test_helpers": ["stripe.v2._test_helper_service", "TestHelperService"],
 }
 
 
@@ -49,6 +51,7 @@ class V2Services(StripeService):
     network: "NetworkService"
     orchestrated_commerce: "OrchestratedCommerceService"
     signals: "SignalsService"
+    test_helpers: "TestHelperService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

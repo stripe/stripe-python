@@ -283,7 +283,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
         class IdBankTransfer(StripeObject):
             bank: Optional[
-                Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+                Union[
+                    Literal["bca", "bni", "bri", "cimb", "mandiri", "permata"],
+                    str,
+                ]
             ]
             """
             Bank where the account is located.
@@ -734,11 +737,13 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "shipping_calculation_failed",
                     "siret_invalid",
                     "sku_inactive",
+                    "smart_disputes_not_available",
                     "state_unsupported",
                     "status_transition_invalid",
                     "storer_capability_missing",
                     "storer_capability_not_active",
                     "stripe_tax_inactive",
+                    "subscription_update_trial_after_billing_cycle_anchor",
                     "tax_id_invalid",
                     "tax_id_prohibited",
                     "taxes_calculation_failed",
@@ -751,6 +756,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "terminal_reader_offline",
                     "terminal_reader_timeout",
                     "testmode_charges_only",
+                    "three_d_secure_authentication_not_supported",
+                    "three_d_secure_authentication_upstream_error",
                     "tls_version_unsupported",
                     "token_already_used",
                     "token_card_network_invalid",

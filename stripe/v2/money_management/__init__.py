@@ -57,6 +57,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._outbound_transfer_service import (
         OutboundTransferService as OutboundTransferService,
     )
+    from stripe.v2.money_management._payout_intent import (
+        PayoutIntent as PayoutIntent,
+    )
+    from stripe.v2.money_management._payout_intent_service import (
+        PayoutIntentService as PayoutIntentService,
+    )
     from stripe.v2.money_management._payout_method import (
         PayoutMethod as PayoutMethod,
     )
@@ -80,6 +86,12 @@ if TYPE_CHECKING:
     )
     from stripe.v2.money_management._received_debit_service import (
         ReceivedDebitService as ReceivedDebitService,
+    )
+    from stripe.v2.money_management._recipient_verification import (
+        RecipientVerification as RecipientVerification,
+    )
+    from stripe.v2.money_management._recipient_verification_service import (
+        RecipientVerificationService as RecipientVerificationService,
     )
     from stripe.v2.money_management._test_helpers_service import (
         TestHelpersService as TestHelpersService,
@@ -163,6 +175,11 @@ _import_map = {
         "stripe.v2.money_management._outbound_transfer_service",
         False,
     ),
+    "PayoutIntent": ("stripe.v2.money_management._payout_intent", False),
+    "PayoutIntentService": (
+        "stripe.v2.money_management._payout_intent_service",
+        False,
+    ),
     "PayoutMethod": ("stripe.v2.money_management._payout_method", False),
     "PayoutMethodService": (
         "stripe.v2.money_management._payout_method_service",
@@ -184,6 +201,14 @@ _import_map = {
     "ReceivedDebit": ("stripe.v2.money_management._received_debit", False),
     "ReceivedDebitService": (
         "stripe.v2.money_management._received_debit_service",
+        False,
+    ),
+    "RecipientVerification": (
+        "stripe.v2.money_management._recipient_verification",
+        False,
+    ),
+    "RecipientVerificationService": (
+        "stripe.v2.money_management._recipient_verification_service",
         False,
     ),
     "TestHelpersService": (

@@ -10,8 +10,14 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._transaction_list_params import (
         TransactionListParams,
     )
+    from stripe.params.v2.money_management._transaction_refresh_regulatory_receipt_params import (
+        TransactionRefreshRegulatoryReceiptParams,
+    )
     from stripe.params.v2.money_management._transaction_retrieve_params import (
         TransactionRetrieveParams,
+    )
+    from stripe.params.v2.money_management._transaction_update_params import (
+        TransactionUpdateParams,
     )
     from stripe.v2._list_object import ListObject
     from stripe.v2.money_management._transaction import Transaction
@@ -94,6 +100,98 @@ class TransactionService(StripeService):
             await self._request_async(
                 "get",
                 "/v2/money_management/transactions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        /,
+        params: Optional["TransactionUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Updates an existing Transaction. You can update its description and metadata.
+        """
+        return cast(
+            "Transaction",
+            self._request(
+                "post",
+                "/v2/money_management/transactions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        /,
+        params: Optional["TransactionUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Updates an existing Transaction. You can update its description and metadata.
+        """
+        return cast(
+            "Transaction",
+            await self._request_async(
+                "post",
+                "/v2/money_management/transactions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def refresh_regulatory_receipt(
+        self,
+        id: str,
+        /,
+        params: Optional["TransactionRefreshRegulatoryReceiptParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Creates a fresh hosted URL for a Transaction's regulatory receipt.
+        """
+        return cast(
+            "Transaction",
+            self._request(
+                "post",
+                "/v2/money_management/transactions/{id}/refresh_regulatory_receipt".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def refresh_regulatory_receipt_async(
+        self,
+        id: str,
+        /,
+        params: Optional["TransactionRefreshRegulatoryReceiptParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Transaction":
+        """
+        Creates a fresh hosted URL for a Transaction's regulatory receipt.
+        """
+        return cast(
+            "Transaction",
+            await self._request_async(
+                "post",
+                "/v2/money_management/transactions/{id}/refresh_regulatory_receipt".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

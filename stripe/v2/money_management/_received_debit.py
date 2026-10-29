@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 class ReceivedDebit(StripeObject):
     """
-    ReceivedDebit resource
+    Use ReceivedDebits API to retrieve information on when, where, and how funds are debited from your FinancialAccount.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.money_management.received_debit"]] = (

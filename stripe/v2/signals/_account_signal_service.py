@@ -24,7 +24,7 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountSignal]":
         """
-        Lists the latest AccountSignals for a given account or customer, filtered by signal type. Note that this endpoint returns only the latest signal for each requested signal type.
+        Lists AccountSignals whose created timestamps are no more than 90 days old for a given account or customer. Returns only the latest AccountSignal for each requested signal type.
         """
         return cast(
             "ListObject[AccountSignal]",
@@ -43,7 +43,7 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountSignal]":
         """
-        Lists the latest AccountSignals for a given account or customer, filtered by signal type. Note that this endpoint returns only the latest signal for each requested signal type.
+        Lists AccountSignals whose created timestamps are no more than 90 days old for a given account or customer. Returns only the latest AccountSignal for each requested signal type.
         """
         return cast(
             "ListObject[AccountSignal]",
@@ -64,7 +64,7 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSignal":
         """
-        Retrieves an AccountSignal by its ID.
+        Retrieves an AccountSignal by its ID when its created timestamp is no more than 90 days old.
         """
         return cast(
             "AccountSignal",
@@ -85,7 +85,7 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSignal":
         """
-        Retrieves an AccountSignal by its ID.
+        Retrieves an AccountSignal by its ID when its created timestamp is no more than 90 days old.
         """
         return cast(
             "AccountSignal",

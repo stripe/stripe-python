@@ -35,6 +35,12 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
     """
     The type specific details of the card payout method.
     """
+    crypto_wallet: NotRequired[
+        "OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet"
+    ]
+    """
+    The type specific details of the crypto wallet payout method.
+    """
     type: Union[Literal["bank_account", "card", "crypto_wallet"], str]
     """
     Open Enum. The type of payout method to be created.
@@ -90,4 +96,32 @@ class OutboundSetupIntentCreateParamsPayoutMethodDataCard(TypedDict):
     number: str
     """
     The card number.
+    """
+
+
+class OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet(TypedDict):
+    address: str
+    """
+    Crypto wallet address.
+    """
+    memo: NotRequired[str]
+    """
+    Optional field, required if network supports memos (only "stellar" currently).
+    """
+    network: Union[
+        Literal[
+            "arbitrum",
+            "avalanche_c_chain",
+            "base",
+            "ethereum",
+            "optimism",
+            "polygon",
+            "solana",
+            "stellar",
+            "tempo",
+        ],
+        str,
+    ]
+    """
+    Which rail we should use to make an Outbound money movement to this wallet.
     """

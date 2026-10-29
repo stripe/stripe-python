@@ -20,7 +20,7 @@ class InboundTransfer(StripeObject):
         class PaymentMethod(StripeObject):
             type: str
             """
-            The type of object this destination represents. For a us bank account, we expect us_bank_account.
+            The type of PaymentMethod used to create the InboundTransfer. Clients should tolerate future values.
             """
             us_bank_account: Optional[str]
             """
@@ -33,7 +33,7 @@ class InboundTransfer(StripeObject):
         """
         payment_method: PaymentMethod
         """
-        The Payment Method object used to create the InboundTransfer.
+        The bank account credential used to fund the InboundTransfer (for example, a US bank account), not a Payments API `pm_` PaymentMethod.
         """
         _inner_class_types = {"payment_method": PaymentMethod}
 

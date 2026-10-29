@@ -431,11 +431,13 @@ class PaymentIntent(
                     "shipping_calculation_failed",
                     "siret_invalid",
                     "sku_inactive",
+                    "smart_disputes_not_available",
                     "state_unsupported",
                     "status_transition_invalid",
                     "storer_capability_missing",
                     "storer_capability_not_active",
                     "stripe_tax_inactive",
+                    "subscription_update_trial_after_billing_cycle_anchor",
                     "tax_id_invalid",
                     "tax_id_prohibited",
                     "taxes_calculation_failed",
@@ -448,6 +450,8 @@ class PaymentIntent(
                     "terminal_reader_offline",
                     "terminal_reader_timeout",
                     "testmode_charges_only",
+                    "three_d_secure_authentication_not_supported",
+                    "three_d_secure_authentication_upstream_error",
                     "tls_version_unsupported",
                     "token_already_used",
                     "token_card_network_invalid",
@@ -4173,11 +4177,11 @@ class PaymentIntent(
             """
             expires_after_seconds: Optional[int]
             """
-            The number of seconds (between 10 and 1209600) after which Pix payment will expire.
+            The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
             """
             expires_at: Optional[int]
             """
-            The timestamp at which the Pix expires.
+            The absolute Unix timestamp at which the Pix expires. When supplied as an input, it must be between 60 and 1209600 seconds from the current time at validation, inclusive. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
             """
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -4551,6 +4555,18 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Wero(StripeObject):
+            setup_future_usage: Optional[Union[Literal["none"], str]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Zip(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -4626,6 +4642,7 @@ class PaymentIntent(
         upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         wechat_pay: Optional[WechatPay]
+        wero: Optional[Wero]
         zip: Optional[Zip]
         _inner_class_types = {
             "acss_debit": AcssDebit,
@@ -4691,6 +4708,7 @@ class PaymentIntent(
             "upi": Upi,
             "us_bank_account": UsBankAccount,
             "wechat_pay": WechatPay,
+            "wero": Wero,
             "zip": Zip,
         }
 
@@ -5081,6 +5099,7 @@ class PaymentIntent(
                     "upi",
                     "us_bank_account",
                     "wechat_pay",
+                    "wero",
                     "zip",
                 ],
                 str,

@@ -1933,7 +1933,7 @@ class Customer(
             **params: Unpack["CustomerFundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             return cast(
                 "CustomerCashBalanceTransaction",
@@ -1952,7 +1952,7 @@ class Customer(
             customer: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             ...
 
@@ -1961,7 +1961,7 @@ class Customer(
             self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             ...
 
@@ -1970,7 +1970,7 @@ class Customer(
             self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             return cast(
                 "CustomerCashBalanceTransaction",
@@ -1991,7 +1991,7 @@ class Customer(
             **params: Unpack["CustomerFundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             return cast(
                 "CustomerCashBalanceTransaction",
@@ -2010,7 +2010,7 @@ class Customer(
             customer: str, /, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             ...
 
@@ -2019,7 +2019,7 @@ class Customer(
             self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             ...
 
@@ -2028,7 +2028,7 @@ class Customer(
             self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
-            Create an incoming testmode bank transfer
+            Create a test incoming bank transfer
             """
             return cast(
                 "CustomerCashBalanceTransaction",
