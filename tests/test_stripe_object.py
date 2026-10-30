@@ -291,23 +291,29 @@ class TestStripeObject(object):
             stripe_account="example-account",
         )
         obj.metadata.api_key = "nested-key-sentinel"
+        nested = stripe.Customer.construct_from(
+            {"id": "nested-resource", "object": "customer"},
+            "nested-key-sentinel",
+            stripe_version="2018-02-28",
+            stripe_account="nested-example-account",
+        )
+        obj.containers = [{"nested": nested}]
         original_requestor = obj._requestor
         payload = obj.to_dict()
 
-        for value in (obj, obj.metadata):
+        for value in (obj.metadata, nested, obj):
             assert value.__reduce__()[1][1] is None
             pickled = pickle.dumps(value, protocol=protocol)
             assert b"producer-key-sentinel" not in pickled
             assert b"nested-key-sentinel" not in pickled
 
-        pickled = pickle.dumps(obj, protocol=protocol)
         monkeypatch.setattr(stripe, "api_key", destination_key)
-        newobj = pickle.loads(pickled)
+        restored = pickle.loads(pickled)
 
-        assert type(newobj) is stripe.Customer
-        assert newobj.to_dict() == payload
-        assert newobj.metadata.emptystring == ""
-        for value in (newobj, newobj.metadata):
+        assert type(restored) is stripe.Customer
+        assert restored.to_dict() == payload
+        assert restored.metadata.emptystring == ""
+        for value in (restored, restored.metadata):
             assert value.api_key == destination_key
             assert value.stripe_version == "2017-08-15"
             assert value.stripe_account == "example-account"
@@ -316,28 +322,6 @@ class TestStripeObject(object):
         assert obj._requestor is original_requestor
         assert obj.to_dict() == payload
 
-    @pytest.mark.parametrize("protocol", range(pickle.HIGHEST_PROTOCOL + 1))
-    def test_set_api_key_after_pickling(self, protocol, monkeypatch):
-        obj = stripe.Customer.construct_from(
-            {
-                "id": "resource",
-                "object": "customer",
-                "metadata": {"empty": ""},
-            },
-            "producer-key-sentinel",
-            stripe_version="2017-08-15",
-            stripe_account="example-account",
-        )
-        nested = stripe.Customer.construct_from(
-            {"id": "nested-resource", "object": "customer"},
-            "nested-key-sentinel",
-            stripe_version="2018-02-28",
-            stripe_account="nested-example-account",
-        )
-        obj.containers = [{"nested": nested}]
-        payload = obj.to_dict()
-        monkeypatch.setattr(stripe, "api_key", "destination-key-sentinel")
-        restored = pickle.loads(pickle.dumps(obj, protocol=protocol))
         restored_nested = restored.containers[0]["nested"]
         metadata = restored.metadata
 
@@ -356,7 +340,7 @@ class TestStripeObject(object):
         assert metadata.stripe_version == "2017-08-15"
         assert restored_nested.stripe_account == "nested-example-account"
         assert restored_nested.stripe_version == "2018-02-28"
-        assert stripe.api_key == "destination-key-sentinel"
+        assert stripe.api_key == destination_key
         assert obj.api_key == "producer-key-sentinel"
         assert nested.api_key == "nested-key-sentinel"
 
