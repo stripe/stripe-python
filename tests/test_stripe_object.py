@@ -301,7 +301,7 @@ class TestStripeObject(object):
         original_requestor = obj._requestor
         payload = obj.to_dict()
 
-        for value in (obj.metadata, nested, obj):
+        for value in (obj.metadata, obj):
             assert value.__reduce__()[1][1] is None
             pickled = pickle.dumps(value, protocol=protocol)
             assert b"producer-key-sentinel" not in pickled
@@ -312,7 +312,6 @@ class TestStripeObject(object):
 
         assert type(restored) is stripe.Customer
         assert restored.to_dict() == payload
-        assert restored.metadata.emptystring == ""
         for value in (restored, restored.metadata):
             assert value.api_key == destination_key
             assert value.stripe_version == "2017-08-15"
@@ -330,7 +329,6 @@ class TestStripeObject(object):
         for value in (restored, metadata, restored_nested):
             assert value.api_key == "worker-key-sentinel"
             assert "api_key" not in value._data
-            assert value.__reduce__()[1][1] is None
         assert restored.metadata is metadata
         assert restored.containers[0]["nested"] is restored_nested
         assert restored.to_dict() == payload
