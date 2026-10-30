@@ -14,8 +14,14 @@ if TYPE_CHECKING:
         AccountCreateParams,
     )
     from stripe.params.v2.core._account_list_params import AccountListParams
+    from stripe.params.v2.core._account_reject_params import (
+        AccountRejectParams,
+    )
     from stripe.params.v2.core._account_retrieve_params import (
         AccountRetrieveParams,
+    )
+    from stripe.params.v2.core._account_unreject_params import (
+        AccountUnrejectParams,
     )
     from stripe.params.v2.core._account_update_params import (
         AccountUpdateParams,
@@ -299,6 +305,90 @@ class AccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def reject(
+        self,
+        id: str,
+        /,
+        params: "AccountRejectParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
+        """
+        Rejects an Account and prevents it from operating across its configurations.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v2/core/accounts/{id}/reject".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reject_async(
+        self,
+        id: str,
+        /,
+        params: "AccountRejectParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
+        """
+        Rejects an Account and prevents it from operating across its configurations.
+        """
+        return cast(
+            "Account",
+            await self._request_async(
+                "post",
+                "/v2/core/accounts/{id}/reject".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def unreject(
+        self,
+        id: str,
+        /,
+        params: Optional["AccountUnrejectParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
+        """
+        Reverses a platform rejection on an Account. Restrictions applied by Stripe or other risk controls remain in place.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v2/core/accounts/{id}/unreject".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def unreject_async(
+        self,
+        id: str,
+        /,
+        params: Optional["AccountUnrejectParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
+        """
+        Reverses a platform rejection on an Account. Restrictions applied by Stripe or other risk controls remain in place.
+        """
+        return cast(
+            "Account",
+            await self._request_async(
+                "post",
+                "/v2/core/accounts/{id}/unreject".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

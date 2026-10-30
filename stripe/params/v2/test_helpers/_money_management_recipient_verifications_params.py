@@ -15,5 +15,5 @@ class MoneyManagementRecipientVerificationsParams(TypedDict):
     """
     recipient: NotRequired[str]
     """
-    ID of the recipient account. Required if the recipient distinct from the sender. Leave empty if the recipient and sender are the same entity (i.e. for me-to-me payouts).
+    ID of the recipient account. Required if the recipient is different from the sender. Omit for payouts to your own account.
     """

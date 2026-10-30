@@ -82,10 +82,12 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataSunbit as ConfirmationTokenCreateParamsPaymentMethodDataSunbit,
         ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
         ConfirmationTokenCreateParamsPaymentMethodDataTamara as ConfirmationTokenCreateParamsPaymentMethodDataTamara,
+        ConfirmationTokenCreateParamsPaymentMethodDataTossPay as ConfirmationTokenCreateParamsPaymentMethodDataTossPay,
         ConfirmationTokenCreateParamsPaymentMethodDataTwint as ConfirmationTokenCreateParamsPaymentMethodDataTwint,
         ConfirmationTokenCreateParamsPaymentMethodDataUpi as ConfirmationTokenCreateParamsPaymentMethodDataUpi,
         ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions as ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions,
         ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount,
+        ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken,
         ConfirmationTokenCreateParamsPaymentMethodDataVipps as ConfirmationTokenCreateParamsPaymentMethodDataVipps,
         ConfirmationTokenCreateParamsPaymentMethodDataWechatPay as ConfirmationTokenCreateParamsPaymentMethodDataWechatPay,
         ConfirmationTokenCreateParamsPaymentMethodDataZip as ConfirmationTokenCreateParamsPaymentMethodDataZip,
@@ -408,6 +410,10 @@ _import_map = {
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataTossPay": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataTwint": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
@@ -421,6 +427,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

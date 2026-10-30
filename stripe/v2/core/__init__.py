@@ -38,6 +38,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_service import (
         AccountService as AccountService,
     )
+    from stripe.v2.core._account_session import (
+        AccountSession as AccountSession,
+    )
+    from stripe.v2.core._account_session_service import (
+        AccountSessionService as AccountSessionService,
+    )
     from stripe.v2.core._account_token import AccountToken as AccountToken
     from stripe.v2.core._account_token_service import (
         AccountTokenService as AccountTokenService,
@@ -99,6 +105,11 @@ _import_map = {
     "AccountPerson": ("stripe.v2.core._account_person", False),
     "AccountPersonToken": ("stripe.v2.core._account_person_token", False),
     "AccountService": ("stripe.v2.core._account_service", False),
+    "AccountSession": ("stripe.v2.core._account_session", False),
+    "AccountSessionService": (
+        "stripe.v2.core._account_session_service",
+        False,
+    ),
     "AccountToken": ("stripe.v2.core._account_token", False),
     "AccountTokenService": ("stripe.v2.core._account_token_service", False),
     "ApprovalRequest": ("stripe.v2.core._approval_request", False),

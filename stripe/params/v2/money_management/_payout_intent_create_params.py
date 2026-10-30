@@ -18,7 +18,7 @@ class PayoutIntentCreateParams(_PayoutIntentCreateParamsBase):
     """
     confirmation_method: NotRequired["Literal['automatic', 'manual']|str"]
     """
-    Controls whether the intent requires explicit confirmation before transitioning to pending. Defaults to automatic.
+    Controls whether the PayoutIntent requires explicit confirmation before transitioning to `pending`. Defaults to `automatic`, but regulatory requirements may still require confirmation. See [Send money with Global Payouts](https://docs.stripe.com/global-payouts/send-money) for details.
     """
     description: NotRequired[str]
     """
@@ -32,11 +32,11 @@ class PayoutIntentCreateParams(_PayoutIntentCreateParamsBase):
         "PayoutIntentCreateParamsRecipientNotification"
     ]
     """
-    Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+    Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
     """
     schedule_options: NotRequired["PayoutIntentCreateParamsScheduleOptions"]
     """
-    Scheduling options for the payout. If this is nil, we assume immediate execution.
+    Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
     """
     statement_descriptor: NotRequired[str]
     """
@@ -63,7 +63,7 @@ class PayoutIntentCreateParamsRecipientNotification(TypedDict):
     setting: Literal["configured", "none"]
     """
     Closed Enum. Configuration option to enable or disable notifications to recipients.
-    Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+    Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
     """
 
 
@@ -81,7 +81,7 @@ class PayoutIntentCreateParamsTo(TypedDict):
     """
     payout_method: NotRequired[str]
     """
-    The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+    The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
     """
     payout_method_options: NotRequired[
         "PayoutIntentCreateParamsToPayoutMethodOptions"
@@ -91,7 +91,7 @@ class PayoutIntentCreateParamsTo(TypedDict):
     """
     recipient: NotRequired[str]
     """
-    The recipient ID. Only relevant for OutboundPayment.
+    The recipient ID for the PayoutIntent.
     """
 
 
@@ -111,21 +111,24 @@ class PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
     """
     Per-network configuration options.
     """
-    preferred_networks: List[
-        Union[
-            Literal[
-                "ach",
-                "becs",
-                "eft",
-                "fedwire",
-                "fps",
-                "npp",
-                "rtp",
-                "sepa_credit",
-                "sepa_instant",
-                "swift",
-            ],
-            str,
+    preferred_networks: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "ach",
+                    "becs",
+                    "eft",
+                    "fedwire",
+                    "fps",
+                    "npp",
+                    "rtp",
+                    "sepa",
+                    "sepa_credit",
+                    "sepa_instant",
+                    "swift",
+                ],
+                str,
+            ]
         ]
     ]
     """

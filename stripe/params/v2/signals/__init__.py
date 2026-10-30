@@ -18,10 +18,12 @@ if TYPE_CHECKING:
         AccountActivityCreateParamsAccountTakeoverConfirmation as AccountActivityCreateParamsAccountTakeoverConfirmation,
         AccountActivityCreateParamsAccountTakeoverReport as AccountActivityCreateParamsAccountTakeoverReport,
         AccountActivityCreateParamsCredentialChange as AccountActivityCreateParamsCredentialChange,
+        AccountActivityCreateParamsCustomMarketingAction as AccountActivityCreateParamsCustomMarketingAction,
         AccountActivityCreateParamsLoginAttempt as AccountActivityCreateParamsLoginAttempt,
         AccountActivityCreateParamsLoginAttemptClientDetails as AccountActivityCreateParamsLoginAttemptClientDetails,
         AccountActivityCreateParamsLoginAttemptClientDetailsData as AccountActivityCreateParamsLoginAttemptClientDetailsData,
         AccountActivityCreateParamsLoginDecision as AccountActivityCreateParamsLoginDecision,
+        AccountActivityCreateParamsLoginDecisionMfaChallenge as AccountActivityCreateParamsLoginDecisionMfaChallenge,
         AccountActivityCreateParamsMfaAddition as AccountActivityCreateParamsMfaAddition,
         AccountActivityCreateParamsMfaRemoval as AccountActivityCreateParamsMfaRemoval,
         AccountActivityCreateParamsRegistrationAttempt as AccountActivityCreateParamsRegistrationAttempt,
@@ -137,6 +139,10 @@ _import_map = {
         "stripe.params.v2.signals._account_activity_create_params",
         False,
     ),
+    "AccountActivityCreateParamsCustomMarketingAction": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
     "AccountActivityCreateParamsLoginAttempt": (
         "stripe.params.v2.signals._account_activity_create_params",
         False,
@@ -150,6 +156,10 @@ _import_map = {
         False,
     ),
     "AccountActivityCreateParamsLoginDecision": (
+        "stripe.params.v2.signals._account_activity_create_params",
+        False,
+    ),
+    "AccountActivityCreateParamsLoginDecisionMfaChallenge": (
         "stripe.params.v2.signals._account_activity_create_params",
         False,
     ),

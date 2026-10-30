@@ -65,7 +65,8 @@ class QueryRunService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "QueryRun":
         """
-        Retrieves the status and results of a previously created `QueryRun`.
+        Retrieves the status and results of a previously created `QueryRun`. Returns a `404` error
+        if the `QueryRun` doesn't exist or its retention period has ended.
         """
         return cast(
             "QueryRun",
@@ -86,7 +87,8 @@ class QueryRunService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "QueryRun":
         """
-        Retrieves the status and results of a previously created `QueryRun`.
+        Retrieves the status and results of a previously created `QueryRun`. Returns a `404` error
+        if the `QueryRun` doesn't exist or its retention period has ended.
         """
         return cast(
             "QueryRun",

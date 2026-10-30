@@ -8,6 +8,7 @@ if TYPE_CHECKING:
         bill_settings as bill_settings,
         cadences as cadences,
         collection_settings as collection_settings,
+        contracts as contracts,
         intents as intents,
         license_fees as license_fees,
         pricing_plans as pricing_plans,
@@ -116,6 +117,8 @@ if TYPE_CHECKING:
     from stripe.params.v2.billing._contract_cancel_params import (
         ContractCancelParams as ContractCancelParams,
         ContractCancelParamsCancelPricingLine as ContractCancelParamsCancelPricingLine,
+        ContractCancelParamsTerm as ContractCancelParamsTerm,
+        ContractCancelParamsTermTerm as ContractCancelParamsTermTerm,
     )
     from stripe.params.v2.billing._contract_create_params import (
         ContractCreateParams as ContractCreateParams,
@@ -147,6 +150,24 @@ if TYPE_CHECKING:
         ContractCreateParamsPricingOverrideMultiplyPricing as ContractCreateParamsPricingOverrideMultiplyPricing,
         ContractCreateParamsPricingOverrideMultiplyPricingCriterion as ContractCreateParamsPricingOverrideMultiplyPricingCriterion,
         ContractCreateParamsPricingOverrideStartsAt as ContractCreateParamsPricingOverrideStartsAt,
+        ContractCreateParamsTerm as ContractCreateParamsTerm,
+        ContractCreateParamsTermAdHocProduct as ContractCreateParamsTermAdHocProduct,
+        ContractCreateParamsTermAdHocProductBillSchedule as ContractCreateParamsTermAdHocProductBillSchedule,
+        ContractCreateParamsTermAdHocProductBillScheduleCustom as ContractCreateParamsTermAdHocProductBillScheduleCustom,
+        ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt as ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt,
+        ContractCreateParamsTermAdHocProductServicePeriod as ContractCreateParamsTermAdHocProductServicePeriod,
+        ContractCreateParamsTermAdHocProductServicePeriodEndsAt as ContractCreateParamsTermAdHocProductServicePeriodEndsAt,
+        ContractCreateParamsTermAdHocProductServicePeriodStartsAt as ContractCreateParamsTermAdHocProductServicePeriodStartsAt,
+        ContractCreateParamsTermPricingOverride as ContractCreateParamsTermPricingOverride,
+        ContractCreateParamsTermPricingOverrideCriterion as ContractCreateParamsTermPricingOverrideCriterion,
+        ContractCreateParamsTermPricingOverrideCriterionTerm as ContractCreateParamsTermPricingOverrideCriterionTerm,
+        ContractCreateParamsTermPricingOverrideEndsAt as ContractCreateParamsTermPricingOverrideEndsAt,
+        ContractCreateParamsTermPricingOverrideMultiply as ContractCreateParamsTermPricingOverrideMultiply,
+        ContractCreateParamsTermPricingOverrideOverwrite as ContractCreateParamsTermPricingOverrideOverwrite,
+        ContractCreateParamsTermPricingOverrideStartsAt as ContractCreateParamsTermPricingOverrideStartsAt,
+        ContractCreateParamsTermRecurringPrice as ContractCreateParamsTermRecurringPrice,
+        ContractCreateParamsTermRecurringPriceEndsAt as ContractCreateParamsTermRecurringPriceEndsAt,
+        ContractCreateParamsTermRecurringPriceStartsAt as ContractCreateParamsTermRecurringPriceStartsAt,
     )
     from stripe.params.v2.billing._contract_delete_params import (
         ContractDeleteParams as ContractDeleteParams,
@@ -159,6 +180,42 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.billing._contract_update_params import (
         ContractUpdateParams as ContractUpdateParams,
+        ContractUpdateParamsAction as ContractUpdateParamsAction,
+        ContractUpdateParamsActionAddTerm as ContractUpdateParamsActionAddTerm,
+        ContractUpdateParamsActionAddTermAdHocProduct as ContractUpdateParamsActionAddTermAdHocProduct,
+        ContractUpdateParamsActionAddTermAdHocProductBillSchedule as ContractUpdateParamsActionAddTermAdHocProductBillSchedule,
+        ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom as ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom,
+        ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt as ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt,
+        ContractUpdateParamsActionAddTermAdHocProductServicePeriod as ContractUpdateParamsActionAddTermAdHocProductServicePeriod,
+        ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt as ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt,
+        ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt as ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt,
+        ContractUpdateParamsActionAddTermPricingOverride as ContractUpdateParamsActionAddTermPricingOverride,
+        ContractUpdateParamsActionAddTermPricingOverrideCriterion as ContractUpdateParamsActionAddTermPricingOverrideCriterion,
+        ContractUpdateParamsActionAddTermPricingOverrideCriterionTerm as ContractUpdateParamsActionAddTermPricingOverrideCriterionTerm,
+        ContractUpdateParamsActionAddTermPricingOverrideEndsAt as ContractUpdateParamsActionAddTermPricingOverrideEndsAt,
+        ContractUpdateParamsActionAddTermPricingOverrideMultiply as ContractUpdateParamsActionAddTermPricingOverrideMultiply,
+        ContractUpdateParamsActionAddTermPricingOverrideOverwrite as ContractUpdateParamsActionAddTermPricingOverrideOverwrite,
+        ContractUpdateParamsActionAddTermPricingOverrideStartsAt as ContractUpdateParamsActionAddTermPricingOverrideStartsAt,
+        ContractUpdateParamsActionAddTermRecurringPrice as ContractUpdateParamsActionAddTermRecurringPrice,
+        ContractUpdateParamsActionAddTermRecurringPriceEndsAt as ContractUpdateParamsActionAddTermRecurringPriceEndsAt,
+        ContractUpdateParamsActionAddTermRecurringPriceStartsAt as ContractUpdateParamsActionAddTermRecurringPriceStartsAt,
+        ContractUpdateParamsActionRemoveTerm as ContractUpdateParamsActionRemoveTerm,
+        ContractUpdateParamsActionRemoveTermTerm as ContractUpdateParamsActionRemoveTermTerm,
+        ContractUpdateParamsActionUpdateTerm as ContractUpdateParamsActionUpdateTerm,
+        ContractUpdateParamsActionUpdateTermAdHocProduct as ContractUpdateParamsActionUpdateTermAdHocProduct,
+        ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule as ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule,
+        ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom as ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom,
+        ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt as ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt,
+        ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod as ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod,
+        ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt as ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt,
+        ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt as ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt,
+        ContractUpdateParamsActionUpdateTermPricingOverride as ContractUpdateParamsActionUpdateTermPricingOverride,
+        ContractUpdateParamsActionUpdateTermPricingOverrideEndsAt as ContractUpdateParamsActionUpdateTermPricingOverrideEndsAt,
+        ContractUpdateParamsActionUpdateTermPricingOverrideStartsAt as ContractUpdateParamsActionUpdateTermPricingOverrideStartsAt,
+        ContractUpdateParamsActionUpdateTermRecurringPrice as ContractUpdateParamsActionUpdateTermRecurringPrice,
+        ContractUpdateParamsActionUpdateTermRecurringPriceEndsAt as ContractUpdateParamsActionUpdateTermRecurringPriceEndsAt,
+        ContractUpdateParamsActionUpdateTermRecurringPriceStartsAt as ContractUpdateParamsActionUpdateTermRecurringPriceStartsAt,
+        ContractUpdateParamsActionUpdateTermTerm as ContractUpdateParamsActionUpdateTermTerm,
         ContractUpdateParamsBillingSettings as ContractUpdateParamsBillingSettings,
         ContractUpdateParamsBillingSettingsBillSettingsDetails as ContractUpdateParamsBillingSettingsBillSettingsDetails,
         ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculation as ContractUpdateParamsBillingSettingsBillSettingsDetailsCalculation,
@@ -484,6 +541,7 @@ _import_map = {
         "stripe.params.v2.billing.collection_settings",
         True,
     ),
+    "contracts": ("stripe.params.v2.billing.contracts", True),
     "intents": ("stripe.params.v2.billing.intents", True),
     "license_fees": ("stripe.params.v2.billing.license_fees", True),
     "pricing_plans": ("stripe.params.v2.billing.pricing_plans", True),
@@ -784,6 +842,14 @@ _import_map = {
         "stripe.params.v2.billing._contract_cancel_params",
         False,
     ),
+    "ContractCancelParamsTerm": (
+        "stripe.params.v2.billing._contract_cancel_params",
+        False,
+    ),
+    "ContractCancelParamsTermTerm": (
+        "stripe.params.v2.billing._contract_cancel_params",
+        False,
+    ),
     "ContractCreateParams": (
         "stripe.params.v2.billing._contract_create_params",
         False,
@@ -900,6 +966,78 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
+    "ContractCreateParamsTerm": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermAdHocProduct": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermAdHocProductBillSchedule": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermAdHocProductBillScheduleCustom": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermAdHocProductServicePeriod": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermAdHocProductServicePeriodEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermAdHocProductServicePeriodStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermPricingOverride": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermPricingOverrideCriterion": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermPricingOverrideCriterionTerm": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermPricingOverrideEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermPricingOverrideMultiply": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermPricingOverrideOverwrite": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermPricingOverrideStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermRecurringPrice": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermRecurringPriceEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermRecurringPriceStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
     "ContractDeleteParams": (
         "stripe.params.v2.billing._contract_delete_params",
         False,
@@ -913,6 +1051,150 @@ _import_map = {
         False,
     ),
     "ContractUpdateParams": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsAction": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTerm": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermAdHocProduct": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermAdHocProductBillSchedule": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermAdHocProductServicePeriod": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverride": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverrideCriterion": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverrideCriterionTerm": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverrideEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverrideMultiply": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverrideOverwrite": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverrideStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermRecurringPrice": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermRecurringPriceEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermRecurringPriceStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionRemoveTerm": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionRemoveTermTerm": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTerm": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermAdHocProduct": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermPricingOverride": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermPricingOverrideEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermPricingOverrideStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermRecurringPrice": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermRecurringPriceEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermRecurringPriceStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermTerm": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),

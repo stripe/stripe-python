@@ -35,10 +35,45 @@ class AccountSignal(StripeObject):
         """
 
     class CustomerRisk(StripeObject):
+        class AdditionalDetails(StripeObject):
+            class Indicator(StripeObject):
+                indicator: Literal[
+                    "card_testing_on_stripe",
+                    "customer_recently_created",
+                    "disposable_email_use_on_stripe",
+                    "distributed_fraud_on_stripe",
+                    "high_distinct_card_count_on_stripe",
+                    "high_distinct_email_count_on_stripe",
+                    "high_distinct_ip_count_on_stripe",
+                    "high_distinct_phone_count_on_stripe",
+                    "high_fraudulent_dispute_count_on_stripe",
+                    "high_name_verification_failure_count_on_stripe",
+                    "high_refund_count_on_stripe",
+                    "low_auth_rate_on_stripe",
+                    "new_identity_on_stripe",
+                    "proxy_ip_usage_on_stripe",
+                    "shared_browser_fingerprint_many_customers",
+                    "shared_card_many_customers",
+                ]
+                """
+                The name of the customer risk indicator.
+                """
+
+            indicators: List[Indicator]
+            """
+            Indicators providing risk context. Not all indicators directly contribute to the overall risk level.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
+        additional_details: Optional[AdditionalDetails]
+        """
+        Supplementary contextual data for the signal, including indicators. Absent when no indicators are available.
+        """
         risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
         Categorical assessment of the customer's risk of fraudulent or abusive activity.
         """
+        _inner_class_types = {"additional_details": AdditionalDetails}
 
     class FraudulentMerchant(StripeObject):
         class AdditionalDetails(StripeObject):
@@ -222,16 +257,16 @@ class AccountSignal(StripeObject):
         """
         _field_encodings = {"score": "decimal_string"}
 
-    class UserMerchantFit(StripeObject):
-        fit_level: Union[
+    class UserAffinity(StripeObject):
+        level: Union[
             Literal["standard", "strong", "unknown", "very_strong"], str
         ]
         """
-        Categorical assessment of the user-merchant fit.
+        Categorical assessment of the user affinity.
         """
         score: Optional[Decimal]
         """
-        The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+        The specific affinity score for the user, between 0.00 and 100.00. Absent when level is unknown.
         """
         _field_encodings = {"score": "decimal_string"}
 
@@ -304,7 +339,7 @@ class AccountSignal(StripeObject):
             "merchant_delinquency",
             "payment_delinquency_exposure",
             "user_account_sharing",
-            "user_merchant_fit",
+            "user_affinity",
             "user_multi_accounting",
         ],
         str,
@@ -316,9 +351,9 @@ class AccountSignal(StripeObject):
     """
     Data for the user account-sharing signal. Present only when type is user_account_sharing.
     """
-    user_merchant_fit: Optional[UserMerchantFit]
+    user_affinity: Optional[UserAffinity]
     """
-    Data for the user-merchant fit signal. Present only when type is user_merchant_fit.
+    Data for the user affinity signal. Present only when type is user_affinity.
     """
     user_multi_accounting: Optional[UserMultiAccounting]
     """
@@ -333,6 +368,6 @@ class AccountSignal(StripeObject):
         "merchant_delinquency": MerchantDelinquency,
         "payment_delinquency_exposure": PaymentDelinquencyExposure,
         "user_account_sharing": UserAccountSharing,
-        "user_merchant_fit": UserMerchantFit,
+        "user_affinity": UserAffinity,
         "user_multi_accounting": UserMultiAccounting,
     }

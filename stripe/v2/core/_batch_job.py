@@ -14,10 +14,41 @@ class BatchJob(StripeObject):
 
     class StatusDetails(StripeObject):
         class BatchFailed(StripeObject):
+            class PartialOutputFile(StripeObject):
+                class DownloadUrl(StripeObject):
+                    expires_at: Optional[str]
+                    """
+                    The time that the URL expires.
+                    """
+                    url: str
+                    """
+                    The URL that can be used for accessing the file.
+                    """
+
+                content_type: str
+                """
+                The content type of the file.
+                """
+                download_url: DownloadUrl
+                """
+                A pre-signed URL that allows secure, time-limited access to download the file.
+                """
+                size: int
+                """
+                The total size of the file in bytes.
+                """
+                _inner_class_types = {"download_url": DownloadUrl}
+                _field_encodings = {"size": "int64_string"}
+
             error: str
             """
             Details about the `batch_job` failure.
             """
+            partial_output_file: Optional[PartialOutputFile]
+            """
+            The partial output file details, containing everything processed before the `batch_job` failed. Absent for jobs that failed before producing any output.
+            """
+            _inner_class_types = {"partial_output_file": PartialOutputFile}
 
         class Canceled(StripeObject):
             class OutputFile(StripeObject):

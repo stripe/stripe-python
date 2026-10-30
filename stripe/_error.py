@@ -248,6 +248,10 @@ class CannotProceedError(StripeError):
         self.reason = reason
 
 
+class CapabilityNotEnabledError(StripeError):
+    pass
+
+
 class ControlledByAlternateResourceError(StripeError):
     pass
 

@@ -4,7 +4,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -54,6 +54,10 @@ class V2CoreHealthWebhookLatencyFiringEvent(Event):
         impact: Impact
         """
         The user impact.
+        """
+        severity: Union[Literal["critical", "non_critical"], str]
+        """
+        The severity of the alert.
         """
         started_at: str
         """

@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.v2.money_management import (
         financial_accounts as financial_accounts,
+        reward_programs as reward_programs,
         test_helpers as test_helpers,
     )
     from stripe.params.v2.money_management._adjustment_list_params import (
@@ -51,7 +52,6 @@ if TYPE_CHECKING:
         FinancialAccountCreateParamsSavings as FinancialAccountCreateParamsSavings,
         FinancialAccountCreateParamsStorage as FinancialAccountCreateParamsStorage,
         FinancialAccountCreateParamsStorageCrypto as FinancialAccountCreateParamsStorageCrypto,
-        FinancialAccountCreateParamsStorageDepositInsuranceEligibility as FinancialAccountCreateParamsStorageDepositInsuranceEligibility,
     )
     from stripe.params.v2.money_management._financial_account_list_params import (
         FinancialAccountListParams as FinancialAccountListParams,
@@ -76,10 +76,39 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._financial_address_retrieve_params import (
         FinancialAddressRetrieveParams as FinancialAddressRetrieveParams,
     )
+    from stripe.params.v2.money_management._funding_intent_cancel_params import (
+        FundingIntentCancelParams as FundingIntentCancelParams,
+    )
+    from stripe.params.v2.money_management._funding_intent_confirm_params import (
+        FundingIntentConfirmParams as FundingIntentConfirmParams,
+    )
+    from stripe.params.v2.money_management._funding_intent_create_params import (
+        FundingIntentCreateParams as FundingIntentCreateParams,
+        FundingIntentCreateParamsCheck as FundingIntentCreateParamsCheck,
+        FundingIntentCreateParamsSettlementTiming as FundingIntentCreateParamsSettlementTiming,
+        FundingIntentCreateParamsTo as FundingIntentCreateParamsTo,
+    )
+    from stripe.params.v2.money_management._funding_intent_list_params import (
+        FundingIntentListParams as FundingIntentListParams,
+        FundingIntentListParamsCreated as FundingIntentListParamsCreated,
+    )
+    from stripe.params.v2.money_management._funding_intent_retrieve_params import (
+        FundingIntentRetrieveParams as FundingIntentRetrieveParams,
+    )
+    from stripe.params.v2.money_management._funding_intent_update_params import (
+        FundingIntentUpdateParams as FundingIntentUpdateParams,
+        FundingIntentUpdateParamsCheck as FundingIntentUpdateParamsCheck,
+    )
     from stripe.params.v2.money_management._funding_session_create_params import (
         FundingSessionCreateParams as FundingSessionCreateParams,
         FundingSessionCreateParamsFinancialAddressOptions as FundingSessionCreateParamsFinancialAddressOptions,
         FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet as FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet,
+    )
+    from stripe.params.v2.money_management._inbound_funding_list_params import (
+        InboundFundingListParams as InboundFundingListParams,
+    )
+    from stripe.params.v2.money_management._inbound_funding_retrieve_params import (
+        InboundFundingRetrieveParams as InboundFundingRetrieveParams,
     )
     from stripe.params.v2.money_management._inbound_transfer_create_params import (
         InboundTransferCreateParams as InboundTransferCreateParams,
@@ -128,6 +157,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._outbound_payment_list_params import (
         OutboundPaymentListParams as OutboundPaymentListParams,
+        OutboundPaymentListParamsCreated as OutboundPaymentListParamsCreated,
     )
     from stripe.params.v2.money_management._outbound_payment_quote_create_params import (
         OutboundPaymentQuoteCreateParams as OutboundPaymentQuoteCreateParams,
@@ -206,18 +236,20 @@ if TYPE_CHECKING:
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
     )
-    from stripe.params.v2.money_management._payout_intent_fx_quote_params import (
-        PayoutIntentFxQuoteParams as PayoutIntentFxQuoteParams,
-    )
     from stripe.params.v2.money_management._payout_intent_list_params import (
         PayoutIntentListParams as PayoutIntentListParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_refresh_fx_quote_params import (
+        PayoutIntentRefreshFxQuoteParams as PayoutIntentRefreshFxQuoteParams,
+    )
+    from stripe.params.v2.money_management._payout_intent_refresh_recipient_verification_params import (
+        PayoutIntentRefreshRecipientVerificationParams as PayoutIntentRefreshRecipientVerificationParams,
     )
     from stripe.params.v2.money_management._payout_intent_retrieve_params import (
         PayoutIntentRetrieveParams as PayoutIntentRetrieveParams,
     )
     from stripe.params.v2.money_management._payout_intent_update_params import (
         PayoutIntentUpdateParams as PayoutIntentUpdateParams,
-        PayoutIntentUpdateParamsFrom as PayoutIntentUpdateParamsFrom,
         PayoutIntentUpdateParamsRecipientNotification as PayoutIntentUpdateParamsRecipientNotification,
         PayoutIntentUpdateParamsScheduleOptions as PayoutIntentUpdateParamsScheduleOptions,
         PayoutIntentUpdateParamsTo as PayoutIntentUpdateParamsTo,
@@ -276,6 +308,40 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._recipient_verification_retrieve_params import (
         RecipientVerificationRetrieveParams as RecipientVerificationRetrieveParams,
     )
+    from stripe.params.v2.money_management._reward_program_activate_params import (
+        RewardProgramActivateParams as RewardProgramActivateParams,
+    )
+    from stripe.params.v2.money_management._reward_program_create_params import (
+        RewardProgramCreateParams as RewardProgramCreateParams,
+    )
+    from stripe.params.v2.money_management._reward_program_deactivate_params import (
+        RewardProgramDeactivateParams as RewardProgramDeactivateParams,
+    )
+    from stripe.params.v2.money_management._reward_program_enrollment_activate_params import (
+        RewardProgramEnrollmentActivateParams as RewardProgramEnrollmentActivateParams,
+    )
+    from stripe.params.v2.money_management._reward_program_enrollment_create_params import (
+        RewardProgramEnrollmentCreateParams as RewardProgramEnrollmentCreateParams,
+        RewardProgramEnrollmentCreateParamsCardSpend as RewardProgramEnrollmentCreateParamsCardSpend,
+    )
+    from stripe.params.v2.money_management._reward_program_enrollment_deactivate_params import (
+        RewardProgramEnrollmentDeactivateParams as RewardProgramEnrollmentDeactivateParams,
+    )
+    from stripe.params.v2.money_management._reward_program_enrollment_list_params import (
+        RewardProgramEnrollmentListParams as RewardProgramEnrollmentListParams,
+    )
+    from stripe.params.v2.money_management._reward_program_enrollment_retrieve_params import (
+        RewardProgramEnrollmentRetrieveParams as RewardProgramEnrollmentRetrieveParams,
+    )
+    from stripe.params.v2.money_management._reward_program_list_params import (
+        RewardProgramListParams as RewardProgramListParams,
+    )
+    from stripe.params.v2.money_management._reward_program_retrieve_params import (
+        RewardProgramRetrieveParams as RewardProgramRetrieveParams,
+    )
+    from stripe.params.v2.money_management._reward_program_update_params import (
+        RewardProgramUpdateParams as RewardProgramUpdateParams,
+    )
     from stripe.params.v2.money_management._test_helper_earned_credits_params import (
         TestHelperEarnedCreditsParams as TestHelperEarnedCreditsParams,
     )
@@ -304,6 +370,10 @@ if TYPE_CHECKING:
 _import_map = {
     "financial_accounts": (
         "stripe.params.v2.money_management.financial_accounts",
+        True,
+    ),
+    "reward_programs": (
+        "stripe.params.v2.money_management.reward_programs",
         True,
     ),
     "test_helpers": ("stripe.params.v2.money_management.test_helpers", True),
@@ -387,10 +457,6 @@ _import_map = {
         "stripe.params.v2.money_management._financial_account_create_params",
         False,
     ),
-    "FinancialAccountCreateParamsStorageDepositInsuranceEligibility": (
-        "stripe.params.v2.money_management._financial_account_create_params",
-        False,
-    ),
     "FinancialAccountListParams": (
         "stripe.params.v2.money_management._financial_account_list_params",
         False,
@@ -435,6 +501,50 @@ _import_map = {
         "stripe.params.v2.money_management._financial_address_retrieve_params",
         False,
     ),
+    "FundingIntentCancelParams": (
+        "stripe.params.v2.money_management._funding_intent_cancel_params",
+        False,
+    ),
+    "FundingIntentConfirmParams": (
+        "stripe.params.v2.money_management._funding_intent_confirm_params",
+        False,
+    ),
+    "FundingIntentCreateParams": (
+        "stripe.params.v2.money_management._funding_intent_create_params",
+        False,
+    ),
+    "FundingIntentCreateParamsCheck": (
+        "stripe.params.v2.money_management._funding_intent_create_params",
+        False,
+    ),
+    "FundingIntentCreateParamsSettlementTiming": (
+        "stripe.params.v2.money_management._funding_intent_create_params",
+        False,
+    ),
+    "FundingIntentCreateParamsTo": (
+        "stripe.params.v2.money_management._funding_intent_create_params",
+        False,
+    ),
+    "FundingIntentListParams": (
+        "stripe.params.v2.money_management._funding_intent_list_params",
+        False,
+    ),
+    "FundingIntentListParamsCreated": (
+        "stripe.params.v2.money_management._funding_intent_list_params",
+        False,
+    ),
+    "FundingIntentRetrieveParams": (
+        "stripe.params.v2.money_management._funding_intent_retrieve_params",
+        False,
+    ),
+    "FundingIntentUpdateParams": (
+        "stripe.params.v2.money_management._funding_intent_update_params",
+        False,
+    ),
+    "FundingIntentUpdateParamsCheck": (
+        "stripe.params.v2.money_management._funding_intent_update_params",
+        False,
+    ),
     "FundingSessionCreateParams": (
         "stripe.params.v2.money_management._funding_session_create_params",
         False,
@@ -445,6 +555,14 @@ _import_map = {
     ),
     "FundingSessionCreateParamsFinancialAddressOptionsCryptoWallet": (
         "stripe.params.v2.money_management._funding_session_create_params",
+        False,
+    ),
+    "InboundFundingListParams": (
+        "stripe.params.v2.money_management._inbound_funding_list_params",
+        False,
+    ),
+    "InboundFundingRetrieveParams": (
+        "stripe.params.v2.money_management._inbound_funding_retrieve_params",
         False,
     ),
     "InboundTransferCreateParams": (
@@ -556,6 +674,10 @@ _import_map = {
         False,
     ),
     "OutboundPaymentListParams": (
+        "stripe.params.v2.money_management._outbound_payment_list_params",
+        False,
+    ),
+    "OutboundPaymentListParamsCreated": (
         "stripe.params.v2.money_management._outbound_payment_list_params",
         False,
     ),
@@ -747,12 +869,16 @@ _import_map = {
         "stripe.params.v2.money_management._payout_intent_create_params",
         False,
     ),
-    "PayoutIntentFxQuoteParams": (
-        "stripe.params.v2.money_management._payout_intent_fx_quote_params",
-        False,
-    ),
     "PayoutIntentListParams": (
         "stripe.params.v2.money_management._payout_intent_list_params",
+        False,
+    ),
+    "PayoutIntentRefreshFxQuoteParams": (
+        "stripe.params.v2.money_management._payout_intent_refresh_fx_quote_params",
+        False,
+    ),
+    "PayoutIntentRefreshRecipientVerificationParams": (
+        "stripe.params.v2.money_management._payout_intent_refresh_recipient_verification_params",
         False,
     ),
     "PayoutIntentRetrieveParams": (
@@ -760,10 +886,6 @@ _import_map = {
         False,
     ),
     "PayoutIntentUpdateParams": (
-        "stripe.params.v2.money_management._payout_intent_update_params",
-        False,
-    ),
-    "PayoutIntentUpdateParamsFrom": (
         "stripe.params.v2.money_management._payout_intent_update_params",
         False,
     ),
@@ -865,6 +987,54 @@ _import_map = {
     ),
     "RecipientVerificationRetrieveParams": (
         "stripe.params.v2.money_management._recipient_verification_retrieve_params",
+        False,
+    ),
+    "RewardProgramActivateParams": (
+        "stripe.params.v2.money_management._reward_program_activate_params",
+        False,
+    ),
+    "RewardProgramCreateParams": (
+        "stripe.params.v2.money_management._reward_program_create_params",
+        False,
+    ),
+    "RewardProgramDeactivateParams": (
+        "stripe.params.v2.money_management._reward_program_deactivate_params",
+        False,
+    ),
+    "RewardProgramEnrollmentActivateParams": (
+        "stripe.params.v2.money_management._reward_program_enrollment_activate_params",
+        False,
+    ),
+    "RewardProgramEnrollmentCreateParams": (
+        "stripe.params.v2.money_management._reward_program_enrollment_create_params",
+        False,
+    ),
+    "RewardProgramEnrollmentCreateParamsCardSpend": (
+        "stripe.params.v2.money_management._reward_program_enrollment_create_params",
+        False,
+    ),
+    "RewardProgramEnrollmentDeactivateParams": (
+        "stripe.params.v2.money_management._reward_program_enrollment_deactivate_params",
+        False,
+    ),
+    "RewardProgramEnrollmentListParams": (
+        "stripe.params.v2.money_management._reward_program_enrollment_list_params",
+        False,
+    ),
+    "RewardProgramEnrollmentRetrieveParams": (
+        "stripe.params.v2.money_management._reward_program_enrollment_retrieve_params",
+        False,
+    ),
+    "RewardProgramListParams": (
+        "stripe.params.v2.money_management._reward_program_list_params",
+        False,
+    ),
+    "RewardProgramRetrieveParams": (
+        "stripe.params.v2.money_management._reward_program_retrieve_params",
+        False,
+    ),
+    "RewardProgramUpdateParams": (
+        "stripe.params.v2.money_management._reward_program_update_params",
         False,
     ),
     "TestHelperEarnedCreditsParams": (

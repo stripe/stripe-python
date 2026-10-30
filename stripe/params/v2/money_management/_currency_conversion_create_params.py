@@ -12,35 +12,35 @@ _CurrencyConversionCreateParamsBase = TypedDict(
 class CurrencyConversionCreateParams(_CurrencyConversionCreateParamsBase):
     financial_account: NotRequired[str]
     """
-    The FinancialAccount id to create the CurrencyConversion on.
+    The ID of the Financial Account in which the Currency Conversion should be created. If omitted, it will be created in the payments balance.
     """
     fx_quote: NotRequired[str]
     """
-    The FX quote to use for the conversion.
+    The ID of the [FX Quote](https://docs.stripe.com/api/fx_quotes) to use.
     """
     to: "CurrencyConversionCreateParamsTo"
     """
-    To amount object indicating the to currency or optional amount.
+    The destination currency to credit, optionally including an amount.
     """
 
 
 class CurrencyConversionCreateParamsFrom(TypedDict):
     amount: NotRequired[AmountParam]
     """
-    Amount object.
+    An amount specified for conversion.
     """
     currency: NotRequired[str]
     """
-    A lowercase alpha3 currency code like "usd".
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
 class CurrencyConversionCreateParamsTo(TypedDict):
     amount: NotRequired[AmountParam]
     """
-    Amount object.
+    An amount specified for conversion.
     """
     currency: NotRequired[str]
     """
-    A lowercase alpha3 currency code like "usd".
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """

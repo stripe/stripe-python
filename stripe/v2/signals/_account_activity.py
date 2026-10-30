@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional, Union
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -120,6 +120,20 @@ class AccountActivity(StripeObject):
         The type of credential that changed.
         """
 
+    class CustomMarketingAction(StripeObject):
+        description: str
+        """
+        A description of the action.
+        """
+        outcome: Union[Literal["failed", "succeeded"], str]
+        """
+        The outcome of the action.
+        """
+        properties: UntypedStripeObject[str]
+        """
+        Additional user-defined properties of the action.
+        """
+
     class LoginAttempt(StripeObject):
         class ClientDetails(StripeObject):
             class Data(StripeObject):
@@ -153,10 +167,34 @@ class AccountActivity(StripeObject):
         _inner_class_types = {"client_details": ClientDetails}
 
     class LoginDecision(StripeObject):
+        class MfaChallenge(StripeObject):
+            mfa_type: Union[
+                Literal[
+                    "authenticator_app",
+                    "email",
+                    "hardware_key",
+                    "other",
+                    "sms",
+                ],
+                str,
+            ]
+            """
+            The authentication method used for the challenge.
+            """
+            status: Union[Literal["failed", "other", "succeeded"], str]
+            """
+            The outcome of the authentication challenge.
+            """
+
+        mfa_challenges: Optional[List[MfaChallenge]]
+        """
+        Multi-factor authentication challenges performed during the login process.
+        """
         status: Literal["allowed", "blocked", "restricted"]
         """
         The action the merchant took following the evaluation.
         """
+        _inner_class_types = {"mfa_challenges": MfaChallenge}
 
     class MfaAddition(StripeObject):
         mfa_type: Union[
@@ -257,6 +295,10 @@ class AccountActivity(StripeObject):
     """
     Details for the credential change. Present only when type is credential_change.
     """
+    custom_marketing_action: Optional[CustomMarketingAction]
+    """
+    Details for the custom marketing action. Present only when type is custom_marketing_action.
+    """
     id: str
     """
     Unique identifier for the account activity.
@@ -301,6 +343,11 @@ class AccountActivity(StripeObject):
     """
     Details for the registration decision. Present only when type is registration_decision.
     """
+    triggering_signal: Optional[str]
+    """
+    The AccountSignal that prompted this activity, when applicable. This historical reference
+    may coexist with account_evaluation and remains present after the signal expires.
+    """
     type: Union[
         Literal[
             "account_restricted",
@@ -310,6 +357,7 @@ class AccountActivity(StripeObject):
             "account_takeover_mitigation",
             "account_takeover_report",
             "credential_change",
+            "custom_marketing_action",
             "login_attempt",
             "login_decision",
             "mfa_addition",
@@ -330,6 +378,7 @@ class AccountActivity(StripeObject):
         "account_takeover_confirmation": AccountTakeoverConfirmation,
         "account_takeover_report": AccountTakeoverReport,
         "credential_change": CredentialChange,
+        "custom_marketing_action": CustomMarketingAction,
         "login_attempt": LoginAttempt,
         "login_decision": LoginDecision,
         "mfa_addition": MfaAddition,

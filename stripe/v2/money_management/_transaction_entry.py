@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 class TransactionEntry(StripeObject):
     """
-    TransactionEntries represent individual money movements across different states within a Transaction.
+    TransactionEntries model funds moving between availability states for a given Transaction.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.money_management.transaction_entry"]] = (
@@ -18,15 +18,15 @@ class TransactionEntry(StripeObject):
     class BalanceImpact(StripeObject):
         available: Amount
         """
-        Impact to the available balance.
+        The change to the available balance.
         """
         inbound_pending: Amount
         """
-        Impact to the inbound_pending balance.
+        The change to the `inbound_pending` balance.
         """
         outbound_pending: Amount
         """
-        Impact to the outbound_pending balance.
+        The change to the `outbound_pending` balance.
         """
 
     class TransactionDetails(StripeObject):
@@ -53,7 +53,7 @@ class TransactionEntry(StripeObject):
             """
             currency_conversion: Optional[str]
             """
-            In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
+            When available, the ID of the CurrencyConversion that created this Transaction.
             """
             debit_dispute: Optional[str]
             """
@@ -67,9 +67,9 @@ class TransactionEntry(StripeObject):
             """
             If applicable, the ID of the EarnedCredit that created this Transaction.
             """
-            fee_transaction: Optional[str]
+            fee_batch: Optional[str]
             """
-            If applicable, the ID of the FeeTransaction that created this Transaction.
+            If applicable, the ID of the FeeBatch that created this Transaction.
             """
             inbound_transfer: Optional[str]
             """
@@ -177,7 +177,7 @@ class TransactionEntry(StripeObject):
                     "debit_dispute",
                     "dispute",
                     "earned_credit",
-                    "fee_transaction",
+                    "fee_batch",
                     "inbound_transfer",
                     "issuing_authorization",
                     "issuing_dispute",
@@ -207,7 +207,7 @@ class TransactionEntry(StripeObject):
                 str,
             ]
             """
-            Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+            Open Enum. The type of flow that created the Transaction. When available, the flow's ID is provided in the corresponding field.
             """
 
         category: Union[
@@ -273,29 +273,34 @@ class TransactionEntry(StripeObject):
             str,
         ]
         """
-        Closed Enum for now, and will be turned into an Open Enum soon. A descriptive category used to classify the Transaction.
+        Open Enum. The category of this TransactionEntry's parent Transaction.
         """
         financial_account: str
         """
-        Indicates the FinancialAccount affected by this Transaction.
+        The ID of the FinancialAccount affected by this Transaction.
         """
         flow: Optional[Flow]
         """
-        Details about the Flow object that created the Transaction.
+        Details about the flow object that created the Transaction this entry belongs to, such as an
+        InboundTransfer or OutboundPayment. `transaction_details.flow.type` identifies the kind of object.
+        The corresponding field contains its ID, when available: for an InboundTransfer,
+        `transaction_details.flow.inbound_transfer` contains the InboundTransfer's ID. To list entries for
+        the parent Transaction, pass the TransactionEntry's `transaction` ID to the `transaction` parameter
+        on List Transaction Entries.
         """
         _inner_class_types = {"flow": Flow}
 
     balance_impact: BalanceImpact
     """
-    The delta to the FinancialAccount's balance.
+    The change to the FinancialAccount's balance that takes effect at this TransactionEntry's `effective_at` timestamp.
     """
     created: str
     """
-    Time at which the object was created.
+    Time at which the object was created. Represented as an RFC 3339 timestamp in UTC with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
     """
     effective_at: str
     """
-    Time at which the entry impacted (or will impact if it's in the future) the FinancialAccount balance.
+    Time at which the TransactionEntry affects the FinancialAccount balance. This can be in the past or future.
     """
     id: str
     """
@@ -311,11 +316,11 @@ class TransactionEntry(StripeObject):
     """
     transaction: str
     """
-    The Transaction that this TransactionEntry belongs to.
+    The ID of the Transaction that this TransactionEntry belongs to.
     """
     transaction_details: TransactionDetails
     """
-    Details copied from the transaction that this TransactionEntry belongs to.
+    Details copied from the Transaction that this TransactionEntry belongs to.
     """
     treasury_transaction_entry: Optional[str]
     """

@@ -29,7 +29,7 @@ class CurrencyConversionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CurrencyConversion]":
         """
-        List all CurrencyConversion on an account with the option to filter by FinancialAccount.
+        Lists all Currency Conversions that match the provided filters.
         """
         return cast(
             "ListObject[CurrencyConversion]",
@@ -48,7 +48,7 @@ class CurrencyConversionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CurrencyConversion]":
         """
-        List all CurrencyConversion on an account with the option to filter by FinancialAccount.
+        Lists all Currency Conversions that match the provided filters.
         """
         return cast(
             "ListObject[CurrencyConversion]",
@@ -67,7 +67,7 @@ class CurrencyConversionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "CurrencyConversion":
         """
-        Create a CurrencyConversion.
+        Create a new Currency Conversion in a Financial Account or the payments balance.
         """
         return cast(
             "CurrencyConversion",
@@ -86,7 +86,7 @@ class CurrencyConversionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "CurrencyConversion":
         """
-        Create a CurrencyConversion.
+        Create a new Currency Conversion in a Financial Account or the payments balance.
         """
         return cast(
             "CurrencyConversion",
@@ -107,7 +107,7 @@ class CurrencyConversionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "CurrencyConversion":
         """
-        Retrieve details of a CurrencyConversion by id.
+        Retrieves the details of a Currency Conversion by its ID.
         """
         return cast(
             "CurrencyConversion",
@@ -130,7 +130,7 @@ class CurrencyConversionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "CurrencyConversion":
         """
-        Retrieve details of a CurrencyConversion by id.
+        Retrieves the details of a Currency Conversion by its ID.
         """
         return cast(
             "CurrencyConversion",

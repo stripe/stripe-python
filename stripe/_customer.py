@@ -214,6 +214,48 @@ class Customer(
             "rendering_options": RenderingOptions,
         }
 
+    class MarketingAttribution(StripeObject):
+        class AdConversion(StripeObject):
+            consent_collected: bool
+            """
+            Whether the customer consented to sending conversion data to an advertising platform.
+            """
+
+        ad_conversion: Optional[AdConversion]
+        click_id: Optional[str]
+        """
+        The advertising platform's click identifier.
+        """
+        occurred_at: Optional[int]
+        """
+        The Unix timestamp when the advertising interaction occurred.
+        """
+        utm_adgroup: Optional[str]
+        """
+        The advertising group ID from the `utm_adgroup` parameter.
+        """
+        utm_content: Optional[str]
+        """
+        The advertising content identifier from the `utm_content` parameter.
+        """
+        utm_id: Optional[str]
+        """
+        The advertising campaign ID from the `utm_id` parameter.
+        """
+        utm_medium: Optional[str]
+        """
+        The marketing medium from the `utm_medium` parameter.
+        """
+        utm_source: Optional[str]
+        """
+        The referral source from the `utm_source` parameter.
+        """
+        utm_term: Optional[str]
+        """
+        The paid search term from the `utm_term` parameter.
+        """
+        _inner_class_types = {"ad_conversion": AdConversion}
+
     class Redaction(StripeObject):
         status: Union[Literal["processing", "redacted", "validated"], str]
         """
@@ -395,6 +437,10 @@ class Customer(
     livemode: bool
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
+    marketing_attributions: Optional[List[MarketingAttribution]]
+    """
+    Advertising attribution information for this customer.
     """
     metadata: Optional[UntypedStripeObject[str]]
     """
@@ -2234,6 +2280,7 @@ class Customer(
     _inner_class_types = {
         "address": Address,
         "invoice_settings": InvoiceSettings,
+        "marketing_attributions": MarketingAttribution,
         "redaction": Redaction,
         "shipping": Shipping,
         "tax": Tax,

@@ -159,6 +159,12 @@ class OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccount(
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
+    external_token: NotRequired[
+        "OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccountExternalToken"
+    ]
+    """
+    An external token used to create a payment method.
+    """
     financial_connections_account: NotRequired[str]
     """
     The ID of a Financial Connections Account to use as a payment method.
@@ -166,6 +172,19 @@ class OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccount(
     routing_number: NotRequired[str]
     """
     Routing number of the bank account.
+    """
+
+
+class OutboundPaymentCreateParamsDestinationPaymentMethodDataUsBankAccountExternalToken(
+    TypedDict,
+):
+    plaid_processor_token: NotRequired[str]
+    """
+    The Plaid processor token to use for this bank account.
+    """
+    type: Union[Literal["plaid_processor_token"], str]
+    """
+    The type of external token.
     """
 
 

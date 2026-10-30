@@ -12,7 +12,7 @@ _InboundTransferCreateParamsBase = TypedDict(
 class InboundTransferCreateParams(_InboundTransferCreateParamsBase):
     amount: AmountParam
     """
-    The amount, in specified currency, by which the FinancialAccount balance will increase due to the InboundTransfer.
+    The amount and currency to credit to the FinancialAccount.
     """
     description: NotRequired[str]
     """
@@ -29,7 +29,7 @@ class InboundTransferCreateParams(_InboundTransferCreateParamsBase):
     """
     to: "InboundTransferCreateParamsTo"
     """
-    Object containing details about where the funds will land.
+    The FinancialAccount and currency to credit with the transferred funds.
     """
 
 
@@ -41,7 +41,7 @@ class InboundTransferCreateParamsFrom(TypedDict):
     """
     payment_method: str
     """
-    ID of the Payment Method using which IBT will be made.
+    ID of the verified bank account credential to debit for this InboundTransfer (for example, `usba_`), not a Payments API `pm_` PaymentMethod.
     """
 
 
@@ -63,9 +63,9 @@ class InboundTransferCreateParamsNetworkDetailsAch(TypedDict):
 class InboundTransferCreateParamsTo(TypedDict):
     currency: str
     """
-    The currency in which funds will land in.
+    The currency to credit to the FinancialAccount.
     """
     financial_account: str
     """
-    The FinancialAccount that funds will land in.
+    The FinancialAccount that receives the funds.
     """

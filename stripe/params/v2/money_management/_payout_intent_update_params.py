@@ -1,21 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from stripe.v2._amount import AmountParam
 from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
-_PayoutIntentUpdateParamsBase = TypedDict(
-    "PayoutIntentUpdateParams",
-    {"from": NotRequired["PayoutIntentUpdateParamsFrom"]},
-)
 
-
-class PayoutIntentUpdateParams(_PayoutIntentUpdateParamsBase):
-    amount: NotRequired[AmountParam]
-    """
-    The monetary amount to be sent.
-    """
+class PayoutIntentUpdateParams(TypedDict):
     description: NotRequired[str]
     """
     An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
@@ -28,11 +18,11 @@ class PayoutIntentUpdateParams(_PayoutIntentUpdateParamsBase):
         "PayoutIntentUpdateParamsRecipientNotification"
     ]
     """
-    Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+    Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
     """
     schedule_options: NotRequired["PayoutIntentUpdateParamsScheduleOptions"]
     """
-    Scheduling options for the payout. If this is nil, we assume immediate execution.
+    Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
     """
     statement_descriptor: NotRequired[str]
     """
@@ -44,22 +34,11 @@ class PayoutIntentUpdateParams(_PayoutIntentUpdateParamsBase):
     """
 
 
-class PayoutIntentUpdateParamsFrom(TypedDict):
-    currency: str
-    """
-    The currency of the financial account.
-    """
-    financial_account: str
-    """
-    The FinancialAccount that funds are pulled from.
-    """
-
-
 class PayoutIntentUpdateParamsRecipientNotification(TypedDict):
     setting: Literal["configured", "none"]
     """
     Closed Enum. Configuration option to enable or disable notifications to recipients.
-    Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+    Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
     """
 
 
@@ -77,7 +56,7 @@ class PayoutIntentUpdateParamsTo(TypedDict):
     """
     payout_method: NotRequired[str]
     """
-    The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+    The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
     """
     payout_method_options: NotRequired[
         "PayoutIntentUpdateParamsToPayoutMethodOptions"
@@ -87,7 +66,7 @@ class PayoutIntentUpdateParamsTo(TypedDict):
     """
     recipient: NotRequired[str]
     """
-    The recipient ID. Only relevant for OutboundPayment.
+    The recipient ID for the PayoutIntent.
     """
 
 
@@ -107,21 +86,24 @@ class PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount(TypedDict):
     """
     Per-network configuration options.
     """
-    preferred_networks: List[
-        Union[
-            Literal[
-                "ach",
-                "becs",
-                "eft",
-                "fedwire",
-                "fps",
-                "npp",
-                "rtp",
-                "sepa_credit",
-                "sepa_instant",
-                "swift",
-            ],
-            str,
+    preferred_networks: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "ach",
+                    "becs",
+                    "eft",
+                    "fedwire",
+                    "fps",
+                    "npp",
+                    "rtp",
+                    "sepa",
+                    "sepa_credit",
+                    "sepa_instant",
+                    "swift",
+                ],
+                str,
+            ]
         ]
     ]
     """

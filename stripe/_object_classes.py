@@ -542,6 +542,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._contract_pricing_line_quantity_change",
         "ContractPricingLineQuantityChange",
     ),
+    "v2.billing.contract_term": (
+        "stripe.v2.billing._contract_term",
+        "ContractTerm",
+    ),
+    "v2.billing.contract_term_quantity_change": (
+        "stripe.v2.billing._contract_term_quantity_change",
+        "ContractTermQuantityChange",
+    ),
     "v2.billing.custom_pricing_unit": (
         "stripe.v2.billing._custom_pricing_unit",
         "CustomPricingUnit",
@@ -632,6 +640,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.core.account_person_token": (
         "stripe.v2.core._account_person_token",
         "AccountPersonToken",
+    ),
+    "v2.core.account_session": (
+        "stripe.v2.core._account_session",
+        "AccountSession",
     ),
     "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
     "v2.core.approval_request": (
@@ -746,9 +758,17 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._financial_address_generated_microdeposits",
         "FinancialAddressGeneratedMicrodeposits",
     ),
+    "v2.money_management.funding_intent": (
+        "stripe.v2.money_management._funding_intent",
+        "FundingIntent",
+    ),
     "v2.money_management.funding_session": (
         "stripe.v2.money_management._funding_session",
         "FundingSession",
+    ),
+    "v2.money_management.inbound_funding": (
+        "stripe.v2.money_management._inbound_funding",
+        "InboundFunding",
     ),
     "v2.money_management.inbound_transfer": (
         "stripe.v2.money_management._inbound_transfer",
@@ -801,6 +821,18 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.recipient_verification": (
         "stripe.v2.money_management._recipient_verification",
         "RecipientVerification",
+    ),
+    "v2.money_management.reward_program": (
+        "stripe.v2.money_management._reward_program",
+        "RewardProgram",
+    ),
+    "v2.money_management.reward_program_enrollment": (
+        "stripe.v2.money_management._reward_program_enrollment",
+        "RewardProgramEnrollment",
+    ),
+    "v2.money_management.reward_program_rule": (
+        "stripe.v2.money_management._reward_program_rule",
+        "RewardProgramRule",
     ),
     "v2.money_management.transaction": (
         "stripe.v2.money_management._transaction",
@@ -872,7 +904,7 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.reporting._report_run",
         "ReportRun",
     ),
-    "v2.risk.inquiry": ("stripe.v2.risk._inquiry", "Inquiry"),
+    "v2.risk.form": ("stripe.v2.risk._form", "Form"),
     "v2.signals.account_activity": (
         "stripe.v2.signals._account_activity",
         "AccountActivity",

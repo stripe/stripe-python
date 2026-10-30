@@ -143,24 +143,24 @@ class AccountEvaluation(StripeObject):
             """
             _field_encodings = {"score": "decimal_string"}
 
-        class UserMerchantFit(StripeObject):
+        class UserAffinity(StripeObject):
             evaluated_at: Optional[str]
             """
             Timestamp at which the signal was evaluated.
             """
-            fit_level: Union[
+            level: Union[
                 Literal["standard", "strong", "unknown", "very_strong"], str
             ]
             """
-            Categorical assessment of the user-merchant fit.
+            Categorical assessment of the user affinity.
             """
             score: Optional[Decimal]
             """
-            The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+            The specific affinity score for the user, between 0.00 and 100.00. Absent when level is unknown.
             """
             signal: Optional[str]
             """
-            The account signal ID containing the full user-merchant fit signal result.
+            The account signal ID containing the full user affinity signal result.
             """
             _field_encodings = {"score": "decimal_string"}
 
@@ -197,9 +197,9 @@ class AccountEvaluation(StripeObject):
         """
         User account-sharing result for the evaluation, when available.
         """
-        user_merchant_fit: Optional[UserMerchantFit]
+        user_affinity: Optional[UserAffinity]
         """
-        User-merchant fit result for the evaluation, when available.
+        User affinity result for the evaluation, when available.
         """
         user_multi_accounting: Optional[UserMultiAccounting]
         """
@@ -209,7 +209,7 @@ class AccountEvaluation(StripeObject):
             "account_takeover": AccountTakeover,
             "fraudulent_website": FraudulentWebsite,
             "user_account_sharing": UserAccountSharing,
-            "user_merchant_fit": UserMerchantFit,
+            "user_affinity": UserAffinity,
             "user_multi_accounting": UserMultiAccounting,
         }
 
@@ -247,7 +247,7 @@ class AccountEvaluation(StripeObject):
                 "account_takeover",
                 "fraudulent_website",
                 "user_account_sharing",
-                "user_merchant_fit",
+                "user_affinity",
                 "user_multi_accounting",
             ],
             str,
@@ -262,7 +262,7 @@ class AccountEvaluation(StripeObject):
                 "account_takeover",
                 "fraudulent_website",
                 "user_account_sharing",
-                "user_merchant_fit",
+                "user_affinity",
                 "user_multi_accounting",
             ],
             str,

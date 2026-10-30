@@ -4,12 +4,15 @@ from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional, Union
-from typing_extensions import Literal
+from typing_extensions import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.v2.billing._contract_term import ContractTerm
 
 
 class Contract(StripeObject):
     """
-    Contract resource representing a comprehensive sales agreement
+    Contract resource representing a comprehensive sales agreement.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.billing.contract"]] = (
@@ -403,6 +406,12 @@ class Contract(StripeObject):
         The timestamp when the contract ended.
         """
 
+    class Terms(StripeObject):
+        data: List["ContractTerm"]
+        """
+        All terms in display order.
+        """
+
     billing_cycle_anchor: Optional[BillingCycleAnchor]
     """
     The billing cycle anchor.
@@ -473,6 +482,10 @@ class Contract(StripeObject):
     """
     Historical timestamps of when the contract transitioned into each status.
     """
+    terms: Optional[Terms]
+    """
+    All terms in display order. Only populated when `terms` is included.
+    """
     _inner_class_types = {
         "billing_cycle_anchor": BillingCycleAnchor,
         "billing_settings": BillingSettings,
@@ -481,4 +494,5 @@ class Contract(StripeObject):
         "pricing_lines": PricingLines,
         "pricing_overrides": PricingOverrides,
         "status_transitions": StatusTransitions,
+        "terms": Terms,
     }

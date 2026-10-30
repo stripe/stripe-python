@@ -23,6 +23,9 @@ class MandateListParams(RequestOptions):
     The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://docs.stripe.com/payments/connected-accounts).
     """
     payment_method: str
+    """
+    The ID of the payment method whose mandates you want to retrieve.
+    """
     starting_after: NotRequired[str]
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.

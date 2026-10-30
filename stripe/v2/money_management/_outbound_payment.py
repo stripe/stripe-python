@@ -66,7 +66,7 @@ class OutboundPayment(StripeObject):
         setting: Literal["configured", "none"]
         """
         Closed Enum. Configuration option to enable or disable notifications to recipients.
-        Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+        Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
         """
 
     class StatusDetails(StripeObject):
@@ -191,21 +191,24 @@ class OutboundPayment(StripeObject):
                 """
                 Per-network configuration options.
                 """
-                preferred_networks: List[
-                    Union[
-                        Literal[
-                            "ach",
-                            "becs",
-                            "eft",
-                            "fedwire",
-                            "fps",
-                            "npp",
-                            "rtp",
-                            "sepa_credit",
-                            "sepa_instant",
-                            "swift",
-                        ],
-                        str,
+                preferred_networks: Optional[
+                    List[
+                        Union[
+                            Literal[
+                                "ach",
+                                "becs",
+                                "eft",
+                                "fedwire",
+                                "fps",
+                                "npp",
+                                "rtp",
+                                "sepa",
+                                "sepa_credit",
+                                "sepa_instant",
+                                "swift",
+                            ],
+                            str,
+                        ]
                     ]
                 ]
                 """
@@ -225,7 +228,7 @@ class OutboundPayment(StripeObject):
         """
         The monetary amount being credited to the destination.
         """
-        payout_method: str
+        payout_method: Optional[str]
         """
         The payout method which the OutboundPayment uses to send payout.
         """
@@ -244,7 +247,7 @@ class OutboundPayment(StripeObject):
         """
         Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
         `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
-        Note that this status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
+        This status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
         even after the payment or transfer is posted.
         """
         value: Optional[str]
@@ -253,6 +256,24 @@ class OutboundPayment(StripeObject):
         """
 
     class TrackingDetails(StripeObject):
+        class BankAccount(StripeObject):
+            trace_id: Optional[str]
+            """
+            A unique identifier that can be used to track this OutboundPayment with the recipient bank. Banks might call this a “reference number” or something similar.
+            """
+
+        class Card(StripeObject):
+            retrieval_reference: Optional[str]
+            """
+            A unique identifier that can be used to track this OutboundPayment with the recipient card.
+            """
+
+        class CryptoWallet(StripeObject):
+            blockchain_transaction: Optional[str]
+            """
+            A unique identifier that can be used to track this OutboundPayment with the recipient crypto wallet.
+            """
+
         class PaperCheck(StripeObject):
             class MailingAddress(StripeObject):
                 city: Optional[str]
@@ -312,15 +333,49 @@ class OutboundPayment(StripeObject):
             """
             _inner_class_types = {"mailing_address": MailingAddress}
 
+        bank_account: Optional[BankAccount]
+        """
+        Bank account tracking details.
+        """
+        card: Optional[Card]
+        """
+        Card tracking details.
+        """
+        crypto_wallet: Optional[CryptoWallet]
+        """
+        Crypto wallet tracking details.
+        """
         paper_check: Optional[PaperCheck]
         """
         Paper check tracking details.
         """
-        _inner_class_types = {"paper_check": PaperCheck}
+        status: Union[Literal["pending", "supported", "unsupported"], str]
+        """
+        The status of the tracking details for this OutboundPayment.
+        """
+        type: Union[
+            Literal[
+                "bank_account",
+                "card",
+                "check_send",
+                "crypto_wallet",
+                "paper_check",
+            ],
+            str,
+        ]
+        """
+        The type of tracking details for this OutboundPayment.
+        """
+        _inner_class_types = {
+            "bank_account": BankAccount,
+            "card": Card,
+            "crypto_wallet": CryptoWallet,
+            "paper_check": PaperCheck,
+        }
 
     amount: Amount
     """
-    The "presentment amount" for the OutboundPayment.
+    The amount and currency requested for this OutboundPayment.
     """
     cancelable: bool
     """
@@ -386,18 +441,17 @@ class OutboundPayment(StripeObject):
     """
     recipient_verification: Optional[str]
     """
-    The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
+    The ID of the RecipientVerification for this OutboundPayment. Required where recipient-name verification is mandated before creating an OutboundPayment.
     """
     statement_descriptor: str
     """
-    The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer). It will default to `STRIPE` if not set on the account settings.
+    The description that appears on the receiving end of an OutboundPayment (for example, on a bank statement). Defaults to `STRIPE` if not configured in the account settings.
     """
     status: Literal["canceled", "failed", "posted", "processing", "returned"]
     """
-    Closed Enum. Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`.
-    An OutboundPayment is `processing` if it has been created and is processing.
-    The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`.
-    If an OutboundPayment fails to arrive at its payout method, its status will change to `returned`.
+    Current status of the OutboundPayment.
+    An OutboundPayment is `processing` after creation. It becomes `posted` when funds leave the account,
+    `failed` if it cannot be sent, `canceled` if canceled before posting, or `returned` if the funds are returned.
     """
     status_details: Optional[StatusDetails]
     """

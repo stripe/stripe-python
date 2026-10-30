@@ -97,6 +97,12 @@ class Configuration(
         A File ID representing an image to display on the reader
         """
 
+    class StripeT600(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
     class Tipping(StripeObject):
         class Aed(StripeObject):
             fixed_amounts: Optional[List[int]]
@@ -568,6 +574,7 @@ class Configuration(
     reboot_window: Optional[RebootWindow]
     stripe_s700: Optional[StripeS700]
     stripe_s710: Optional[StripeS710]
+    stripe_t600: Optional[StripeT600]
     tipping: Optional[Tipping]
     verifone_m425: Optional[VerifoneM425]
     verifone_p400: Optional[VerifoneP400]
@@ -811,6 +818,7 @@ class Configuration(
         "reboot_window": RebootWindow,
         "stripe_s700": StripeS700,
         "stripe_s710": StripeS710,
+        "stripe_t600": StripeT600,
         "tipping": Tipping,
         "verifone_m425": VerifoneM425,
         "verifone_p400": VerifoneP400,

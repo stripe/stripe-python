@@ -19,6 +19,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
         GbBankAccountRetrieveParams,
     )
+    from stripe.params.v2.core.vault._gb_bank_account_unarchive_params import (
+        GbBankAccountUnarchiveParams,
+    )
     from stripe.v2._list_object import ListObject
     from stripe.v2.core.vault._gb_bank_account import GbBankAccount
 
@@ -186,6 +189,52 @@ class GbBankAccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/archive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def unarchive(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountUnarchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Unarchive a GBBankAccount object.
+        """
+        return cast(
+            "GbBankAccount",
+            self._request(
+                "post",
+                "/v2/core/vault/gb_bank_accounts/{id}/unarchive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def unarchive_async(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountUnarchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Unarchive a GBBankAccount object.
+        """
+        return cast(
+            "GbBankAccount",
+            await self._request_async(
+                "post",
+                "/v2/core/vault/gb_bank_accounts/{id}/unarchive".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

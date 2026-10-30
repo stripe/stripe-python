@@ -859,6 +859,32 @@ class Account(
             The user-agent string from the browser where the beneficial owner attestation was made.
             """
 
+        class PhysicalAddress(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1, such as the street, PO Box, or company name.
+            """
+            line2: Optional[str]
+            """
+            Address line 2, such as the apartment, suite, unit, or building.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            """
+
         class PrincipalPlaceOfBusiness(StripeObject):
             city: Optional[str]
             """
@@ -1001,6 +1027,7 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        physical_address: Optional[PhysicalAddress]
         principal_place_of_business: Optional[PrincipalPlaceOfBusiness]
         registration_date: Optional[RegistrationDate]
         representative_declaration: Optional[RepresentativeDeclaration]
@@ -1063,6 +1090,7 @@ class Account(
             "administrative_address": AdministrativeAddress,
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
+            "physical_address": PhysicalAddress,
             "principal_place_of_business": PrincipalPlaceOfBusiness,
             "registration_date": RegistrationDate,
             "representative_declaration": RepresentativeDeclaration,

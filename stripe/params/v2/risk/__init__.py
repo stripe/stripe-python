@@ -4,40 +4,53 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.risk._inquiry_list_params import (
-        InquiryListParams as InquiryListParams,
+    from stripe.params.v2.risk._form_retrieve_params import (
+        FormRetrieveParams as FormRetrieveParams,
     )
-    from stripe.params.v2.risk._inquiry_retrieve_params import (
-        InquiryRetrieveParams as InquiryRetrieveParams,
-    )
-    from stripe.params.v2.risk._inquiry_update_params import (
-        InquiryUpdateParams as InquiryUpdateParams,
-        InquiryUpdateParamsAppeal as InquiryUpdateParamsAppeal,
-        InquiryUpdateParamsAuthorizationDocuments as InquiryUpdateParamsAuthorizationDocuments,
-        InquiryUpdateParamsProductRemoval as InquiryUpdateParamsProductRemoval,
+    from stripe.params.v2.risk._form_update_params import (
+        FormUpdateParams as FormUpdateParams,
+        FormUpdateParamsAppeal as FormUpdateParamsAppeal,
+        FormUpdateParamsAuthorizationDocuments as FormUpdateParamsAuthorizationDocuments,
+        FormUpdateParamsProductRemoval as FormUpdateParamsProductRemoval,
+        FormUpdateParamsSelfFundingContext as FormUpdateParamsSelfFundingContext,
+        FormUpdateParamsSelfFundingContextSourceOfWealth as FormUpdateParamsSelfFundingContextSourceOfWealth,
+        FormUpdateParamsTransactionContext as FormUpdateParamsTransactionContext,
+        FormUpdateParamsTransactionContextSourceOfFunds as FormUpdateParamsTransactionContextSourceOfFunds,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "InquiryListParams": ("stripe.params.v2.risk._inquiry_list_params", False),
-    "InquiryRetrieveParams": (
-        "stripe.params.v2.risk._inquiry_retrieve_params",
+    "FormRetrieveParams": (
+        "stripe.params.v2.risk._form_retrieve_params",
         False,
     ),
-    "InquiryUpdateParams": (
-        "stripe.params.v2.risk._inquiry_update_params",
+    "FormUpdateParams": ("stripe.params.v2.risk._form_update_params", False),
+    "FormUpdateParamsAppeal": (
+        "stripe.params.v2.risk._form_update_params",
         False,
     ),
-    "InquiryUpdateParamsAppeal": (
-        "stripe.params.v2.risk._inquiry_update_params",
+    "FormUpdateParamsAuthorizationDocuments": (
+        "stripe.params.v2.risk._form_update_params",
         False,
     ),
-    "InquiryUpdateParamsAuthorizationDocuments": (
-        "stripe.params.v2.risk._inquiry_update_params",
+    "FormUpdateParamsProductRemoval": (
+        "stripe.params.v2.risk._form_update_params",
         False,
     ),
-    "InquiryUpdateParamsProductRemoval": (
-        "stripe.params.v2.risk._inquiry_update_params",
+    "FormUpdateParamsSelfFundingContext": (
+        "stripe.params.v2.risk._form_update_params",
+        False,
+    ),
+    "FormUpdateParamsSelfFundingContextSourceOfWealth": (
+        "stripe.params.v2.risk._form_update_params",
+        False,
+    ),
+    "FormUpdateParamsTransactionContext": (
+        "stripe.params.v2.risk._form_update_params",
+        False,
+    ),
+    "FormUpdateParamsTransactionContextSourceOfFunds": (
+        "stripe.params.v2.risk._form_update_params",
         False,
     ),
 }

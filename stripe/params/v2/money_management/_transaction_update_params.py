@@ -8,7 +8,8 @@ from typing_extensions import NotRequired, TypedDict
 class TransactionUpdateParams(TypedDict):
     description: NotRequired[str]
     """
-    Description of this Transaction, up to 100 characters.
+    A description of the Transaction, up to 100 characters. Pass `null` to clear the description,
+    or omit this parameter to leave it unchanged.
     """
     metadata: NotRequired[
         "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"

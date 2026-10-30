@@ -81,7 +81,7 @@ class AccountEvaluation(StripeObject):
                 "account_takeover",
                 "fraudulent_website",
                 "user_account_sharing",
-                "user_merchant_fit",
+                "user_affinity",
                 "user_multi_accounting",
             ],
             str,

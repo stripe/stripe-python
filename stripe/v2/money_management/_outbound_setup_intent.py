@@ -60,7 +60,7 @@ class OutboundSetupIntent(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    payout_method: "PayoutMethod"
+    payout_method: Optional["PayoutMethod"]
     """
     Use the PayoutMethods API to list and interact with PayoutMethod objects.
     """

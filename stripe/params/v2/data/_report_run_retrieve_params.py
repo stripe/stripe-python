@@ -11,7 +11,7 @@ class ReportRunRetrieveParams(TypedDict):
     """
     limit: NotRequired[int]
     """
-    The maximum number of inline `ReportRun` result rows to return. Defaults to 10. Maximum is 1000.
+    The maximum number of inline `ReportRun` result rows to return. Defaults to 100. Maximum is 1000.
     """
     page: NotRequired[str]
     """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -14,7 +14,25 @@ class RecipientVerification(StripeObject):
         Literal["v2.money_management.recipient_verification"]
     ] = "v2.money_management.recipient_verification"
 
+    class ConsumedBy(StripeObject):
+        outbound_payment: Optional[str]
+        """
+        The ID of the OutboundPayment that consumed the RecipientVerification.
+        """
+        outbound_transfer: Optional[str]
+        """
+        The ID of the OutboundTransfer that consumed the RecipientVerification.
+        """
+        type: Union[Literal["outbound_payment", "outbound_transfer"], str]
+        """
+        The type of resource that consumed the RecipientVerification.
+        """
+
     class MatchResultDetails(StripeObject):
+        matched_business_type: Optional[Literal["business", "personal"]]
+        """
+        The business type matched by the provider. Only present for Confirmation of Payee (CoP) verifications.
+        """
         matched_name: Optional[str]
         """
         The account name associated with the bank account as provided by the VoP provider, only present if there is a match or close match.
@@ -22,6 +40,10 @@ class RecipientVerification(StripeObject):
         message: str
         """
         A message describing the match result.
+        """
+        provided_business_type: Optional[Literal["business", "personal"]]
+        """
+        The business type provided by the user. Only present for Confirmation of Payee (CoP) verifications.
         """
         provided_name: str
         """
@@ -40,18 +62,18 @@ class RecipientVerification(StripeObject):
         Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         """
 
-    consumed_by: Optional[str]
+    consumed_by: Optional[ConsumedBy]
     """
-    The OBP/OBT ID that consumed this verification, present if one is successfully created.
+    The resource that consumed this verification.
     """
     created: str
     """
     Time at which the RecipientVerification was created.
     Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
     """
-    expires_at: str
+    expires_at: Optional[str]
     """
-    Time at which the RecipientVerification expires, 5 minutes after the creation.
+    Time at which the RecipientVerification expires, 5 minutes after the creation. Only applicable for Verification of Payee (VoP) verifications.
     Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
     """
     id: str
@@ -74,6 +96,14 @@ class RecipientVerification(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    payout_method: str
+    """
+    ID of the payout method that was verified.
+    """
+    recipient: Optional[str]
+    """
+    ID of the recipient account. Omitted for same-entity payouts.
+    """
     status: Literal[
         "acknowledged",
         "awaiting_acknowledgement",
@@ -82,13 +112,20 @@ class RecipientVerification(StripeObject):
         "verified",
     ]
     """
-    Closed Enum. Current status of the RecipientVerification: `verified`, `consumed`, `expired`, `awaiting_acknowledgement`, `acknowledged`.
+    Current status of the recipient verification.
     """
     status_transitions: Optional[StatusTransitions]
     """
     Hash containing timestamps of when the object transitioned to a particular status.
     """
+    verification_type: Union[
+        Literal["confirmation_of_payee", "verification_of_payee"], str
+    ]
+    """
+    Open Enum. The type of verification performed: `verification_of_payee`, `confirmation_of_payee`.
+    """
     _inner_class_types = {
+        "consumed_by": ConsumedBy,
         "match_result_details": MatchResultDetails,
         "status_transitions": StatusTransitions,
     }

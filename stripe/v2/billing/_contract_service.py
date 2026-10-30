@@ -36,17 +36,20 @@ if TYPE_CHECKING:
     from stripe.v2.billing.contracts._pricing_lines_service import (
         PricingLinesService,
     )
+    from stripe.v2.billing.contracts._term_service import TermService
 
 _subservices = {
     "pricing_lines": [
         "stripe.v2.billing.contracts._pricing_lines_service",
         "PricingLinesService",
     ],
+    "terms": ["stripe.v2.billing.contracts._term_service", "TermService"],
 }
 
 
 class ContractService(StripeService):
     pricing_lines: "PricingLinesService"
+    terms: "TermService"
 
     def __init__(self, requestor):
         super().__init__(requestor)
@@ -139,6 +142,15 @@ class ContractService(StripeService):
                         "pricing_overrides": {
                             "multiply_pricing": {"factor": "decimal_string"},
                         },
+                        "terms": {
+                            "pricing_override": {
+                                "multiply": {"factor": "decimal_string"},
+                                "overwrite": {
+                                    "unit_amount_decimal": "decimal_string",
+                                },
+                            },
+                            "recurring_price": {"quantity": "decimal_string"},
+                        },
                     },
                 ),
                 options=options,
@@ -178,6 +190,15 @@ class ContractService(StripeService):
                         },
                         "pricing_overrides": {
                             "multiply_pricing": {"factor": "decimal_string"},
+                        },
+                        "terms": {
+                            "pricing_override": {
+                                "multiply": {"factor": "decimal_string"},
+                                "overwrite": {
+                                    "unit_amount_decimal": "decimal_string",
+                                },
+                            },
+                            "recurring_price": {"quantity": "decimal_string"},
                         },
                     },
                 ),
@@ -288,6 +309,24 @@ class ContractService(StripeService):
                 params=_coerce_v2_params(
                     params,
                     {
+                        "actions": {
+                            "add_term": {
+                                "pricing_override": {
+                                    "multiply": {"factor": "decimal_string"},
+                                    "overwrite": {
+                                        "unit_amount_decimal": "decimal_string",
+                                    },
+                                },
+                                "recurring_price": {
+                                    "quantity": "decimal_string",
+                                },
+                            },
+                            "update_term": {
+                                "recurring_price": {
+                                    "quantity": "decimal_string",
+                                },
+                            },
+                        },
                         "pricing_line_actions": {
                             "add": {
                                 "pricing": {
@@ -345,6 +384,24 @@ class ContractService(StripeService):
                 params=_coerce_v2_params(
                     params,
                     {
+                        "actions": {
+                            "add_term": {
+                                "pricing_override": {
+                                    "multiply": {"factor": "decimal_string"},
+                                    "overwrite": {
+                                        "unit_amount_decimal": "decimal_string",
+                                    },
+                                },
+                                "recurring_price": {
+                                    "quantity": "decimal_string",
+                                },
+                            },
+                            "update_term": {
+                                "recurring_price": {
+                                    "quantity": "decimal_string",
+                                },
+                            },
+                        },
                         "pricing_line_actions": {
                             "add": {
                                 "pricing": {

@@ -835,6 +835,10 @@ class SubscriptionModifyParamsPauseCollection(TypedDict):
 
 
 class SubscriptionModifyParamsPaymentSettings(TypedDict):
+    mandate: NotRequired[str]
+    """
+    The ID of the mandate to use for the subscription's default payment method.
+    """
     payment_method_options: NotRequired[
         "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptions"
     ]
@@ -1284,7 +1288,10 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
     TypedDict,
 ):
-    pass
+    debit_behavior: NotRequired[str]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
 
 
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUpi(

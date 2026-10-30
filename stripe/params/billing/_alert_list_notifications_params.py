@@ -10,9 +10,13 @@ class AlertListNotificationsParams(RequestOptions):
     """
     Filter results to only include triggered or recovered notifications.
     """
+    billing_group: NotRequired[str]
+    """
+    Filter results to only include notifications for the given billing group.
+    """
     cadence: NotRequired[str]
     """
-    Filter results to only include notifications for the given billing cadence.
+    Filter results to only include notifications for the given cadence.
     """
     customer: str
     """

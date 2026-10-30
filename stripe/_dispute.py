@@ -572,6 +572,8 @@ class Dispute(
     smart_disputes: Optional[SmartDisputes]
     status: Union[
         Literal[
+            "appeal_needs_response",
+            "appeal_under_review",
             "lost",
             "needs_response",
             "prevented",
@@ -584,7 +586,7 @@ class Dispute(
         str,
     ]
     """
-    The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
+    The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `appeal_needs_response`, `appeal_under_review`, `won`, `lost`, or `prevented`.
     """
 
     @classmethod

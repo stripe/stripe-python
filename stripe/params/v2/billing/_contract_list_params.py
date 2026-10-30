@@ -17,6 +17,7 @@ class ContractListParams(TypedDict):
                     "one_time_fees",
                     "pricing_lines",
                     "pricing_overrides",
+                    "terms",
                 ],
                 str,
             ]

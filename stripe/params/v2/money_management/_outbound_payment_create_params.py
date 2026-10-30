@@ -14,7 +14,7 @@ _OutboundPaymentCreateParamsBase = TypedDict(
 class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
     amount: AmountParam
     """
-    The "presentment amount" to be sent to the recipient.
+    The requested amount and currency for the OutboundPayment.
     """
     delivery_options: NotRequired["OutboundPaymentCreateParamsDeliveryOptions"]
     """
@@ -44,7 +44,7 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
     """
     recipient_verification: NotRequired[str]
     """
-    The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
+    The ID of the RecipientVerification for this OutboundPayment. Required where recipient-name verification is mandated before creating an OutboundPayment.
     """
     statement_descriptor: NotRequired[str]
     """
@@ -109,7 +109,7 @@ class OutboundPaymentCreateParamsRecipientNotification(TypedDict):
     setting: Literal["configured", "none"]
     """
     Closed Enum. Configuration option to enable or disable notifications to recipients.
-    Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+    Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
     """
 
 
@@ -120,9 +120,9 @@ class OutboundPaymentCreateParamsTo(TypedDict):
     If included, this currency must match a currency supported by the destination.
     Can be omitted in the following cases:
     - destination only supports one currency
-    - destination supports multiple currencies and one of the currencies matches the FA currency
-    - destination supports multiple currencies and one of the currencies matches the presentment currency
-    Note - when both FA currency and presentment currency are supported, we pick the FA currency to minimize FX.
+    - destination supports multiple currencies and one matches `from.currency`
+    - destination supports multiple currencies and one matches `amount.currency`
+    When both `from.currency` and `amount.currency` are supported, Stripe selects `from.currency` to minimize currency conversion.
     """
     payout_method: NotRequired[str]
     """
@@ -156,21 +156,24 @@ class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
     """
     Per-network configuration options.
     """
-    preferred_networks: List[
-        Union[
-            Literal[
-                "ach",
-                "becs",
-                "eft",
-                "fedwire",
-                "fps",
-                "npp",
-                "rtp",
-                "sepa_credit",
-                "sepa_instant",
-                "swift",
-            ],
-            str,
+    preferred_networks: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "ach",
+                    "becs",
+                    "eft",
+                    "fedwire",
+                    "fps",
+                    "npp",
+                    "rtp",
+                    "sepa",
+                    "sepa_credit",
+                    "sepa_instant",
+                    "swift",
+                ],
+                str,
+            ]
         ]
     ]
     """

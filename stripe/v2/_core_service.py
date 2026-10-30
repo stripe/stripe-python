@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     )
     from stripe.v2.core._account_link_service import AccountLinkService
     from stripe.v2.core._account_service import AccountService
+    from stripe.v2.core._account_session_service import AccountSessionService
     from stripe.v2.core._account_token_service import AccountTokenService
     from stripe.v2.core._approval_request_service import ApprovalRequestService
     from stripe.v2.core._batch_job_service import BatchJobService
@@ -37,6 +38,10 @@ _subservices = {
     "account_links": [
         "stripe.v2.core._account_link_service",
         "AccountLinkService",
+    ],
+    "account_sessions": [
+        "stripe.v2.core._account_session_service",
+        "AccountSessionService",
     ],
     "account_tokens": [
         "stripe.v2.core._account_token_service",
@@ -71,6 +76,7 @@ class CoreService(StripeService):
     accounts: "AccountService"
     account_evaluations: "AccountEvaluationService"
     account_links: "AccountLinkService"
+    account_sessions: "AccountSessionService"
     account_tokens: "AccountTokenService"
     approval_requests: "ApprovalRequestService"
     batch_jobs: "BatchJobService"
