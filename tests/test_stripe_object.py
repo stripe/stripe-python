@@ -274,30 +274,224 @@ class TestStripeObject(object):
         assert '"date": 1511136000' in res
         assert '"dec": "1.23"' in res
 
-    def test_pickling(self):
-        obj = StripeObject("foo", "bar", myparam=5)
-
-        obj["object"] = "boo"
-        obj.refresh_from(
+    @pytest.mark.parametrize("protocol", range(pickle.HIGHEST_PROTOCOL + 1))
+    @pytest.mark.parametrize(
+        "destination_key", [None, "destination-key-sentinel"]
+    )
+    def test_pickling(self, protocol, destination_key, monkeypatch):
+        obj = stripe.Customer.construct_from(
             {
-                "fala": "lalala",
-                # ensures that empty strings are correctly unpickled in Py3
-                "emptystring": "",
+                "id": "resource",
+                "object": "customer",
+                "description": "example",
+                "metadata": {"emptystring": ""},
             },
-            api_key="bar",
-            partial=True,
+            "producer-key-sentinel",
+            stripe_version="2017-08-15",
+            stripe_account="example-account",
         )
+        obj.metadata.api_key = "nested-key-sentinel"
+        original_requestor = obj._requestor
+        payload = obj.to_dict()
 
-        assert obj.fala == "lalala"
+        for value in (obj, obj.metadata):
+            assert value.__reduce__()[1][1] is None
+            pickled = pickle.dumps(value, protocol=protocol)
+            assert b"producer-key-sentinel" not in pickled
+            assert b"nested-key-sentinel" not in pickled
 
-        pickled = pickle.dumps(obj)
+        pickled = pickle.dumps(obj, protocol=protocol)
+        monkeypatch.setattr(stripe, "api_key", destination_key)
         newobj = pickle.loads(pickled)
 
-        assert newobj.id == "foo"
-        assert newobj.api_key == "bar"
-        assert newobj["object"] == "boo"
-        assert newobj.fala == "lalala"
-        assert newobj.emptystring == ""
+        assert type(newobj) is stripe.Customer
+        assert newobj.to_dict() == payload
+        assert newobj.metadata.emptystring == ""
+        for value in (newobj, newobj.metadata):
+            assert value.api_key == destination_key
+            assert value.stripe_version == "2017-08-15"
+            assert value.stripe_account == "example-account"
+        assert obj.api_key == "producer-key-sentinel"
+        assert obj.metadata.api_key == "nested-key-sentinel"
+        assert obj._requestor is original_requestor
+        assert obj.to_dict() == payload
+
+    @pytest.mark.parametrize("protocol", range(pickle.HIGHEST_PROTOCOL + 1))
+    def test_set_api_key_after_pickling(self, protocol, monkeypatch):
+        obj = stripe.Customer.construct_from(
+            {
+                "id": "resource",
+                "object": "customer",
+                "metadata": {"empty": ""},
+            },
+            "producer-key-sentinel",
+            stripe_version="2017-08-15",
+            stripe_account="example-account",
+        )
+        nested = stripe.Customer.construct_from(
+            {"id": "nested-resource", "object": "customer"},
+            "nested-key-sentinel",
+            stripe_version="2018-02-28",
+            stripe_account="nested-example-account",
+        )
+        obj.containers = [{"nested": nested}]
+        payload = obj.to_dict()
+        monkeypatch.setattr(stripe, "api_key", "destination-key-sentinel")
+        restored = pickle.loads(pickle.dumps(obj, protocol=protocol))
+        restored_nested = restored.containers[0]["nested"]
+        metadata = restored.metadata
+
+        assert restored.set_api_key("worker-key-sentinel") is None
+
+        for value in (restored, metadata, restored_nested):
+            assert value.api_key == "worker-key-sentinel"
+            assert "api_key" not in value._data
+            assert value.__reduce__()[1][1] is None
+        assert restored.metadata is metadata
+        assert restored.containers[0]["nested"] is restored_nested
+        assert restored.to_dict() == payload
+        assert restored.stripe_account == "example-account"
+        assert metadata.stripe_account == "example-account"
+        assert restored.stripe_version == "2017-08-15"
+        assert metadata.stripe_version == "2017-08-15"
+        assert restored_nested.stripe_account == "nested-example-account"
+        assert restored_nested.stripe_version == "2018-02-28"
+        assert stripe.api_key == "destination-key-sentinel"
+        assert obj.api_key == "producer-key-sentinel"
+        assert nested.api_key == "nested-key-sentinel"
+
+        pickled = pickle.dumps(restored, protocol=protocol)
+        for key in (
+            b"producer-key-sentinel",
+            b"nested-key-sentinel",
+            b"destination-key-sentinel",
+            b"worker-key-sentinel",
+        ):
+            assert key not in pickled
+
+    def test_set_api_key_preserves_requestor_context(self, mocker):
+        client = stripe.StripeClient(
+            "producer-key-sentinel",
+            http_client=mocker.Mock(),
+            max_network_retries=3,
+        )
+        obj = StripeObject(_requestor=client._requestor)
+        unrelated = StripeObject(_requestor=obj._requestor)
+        original_requestor = obj._requestor
+        original_options = original_requestor._options.to_dict()
+        obj._previous = {"unrelated": unrelated}
+        obj.arbitrary = mocker.Mock(child=unrelated)
+        unsaved_values = obj._unsaved_values.copy()
+
+        obj.set_api_key("worker-key-sentinel")
+
+        assert obj._requestor is not original_requestor
+        assert obj._requestor._client is original_requestor._client
+        assert obj._requestor._options.to_dict() == {
+            **original_options,
+            "api_key": "worker-key-sentinel",
+        }
+        assert unrelated._requestor is original_requestor
+        assert unrelated.api_key == "producer-key-sentinel"
+        assert obj._unsaved_values == unsaved_values
+
+    def test_set_api_key_shared_references_and_cycles(self, mocker):
+        obj = StripeObject(api_key="producer-key-sentinel")
+        nested = StripeObject(api_key="nested-key-sentinel")
+        containers = [{"nested": nested, "root": obj}]
+        containers.append(containers)
+        containers[0]["self"] = containers[0]
+        obj.update({"containers": containers, "shared": nested})
+        nested.root = obj
+        root_merge = mocker.spy(obj._requestor, "_new_requestor_with_options")
+        nested_merge = mocker.spy(
+            nested._requestor, "_new_requestor_with_options"
+        )
+
+        obj.set_api_key("worker-key-sentinel")
+
+        assert obj.api_key == nested.api_key == "worker-key-sentinel"
+        assert obj.containers is containers
+        assert containers[0]["nested"] is obj.shared is nested
+        assert containers[0]["root"] is nested.root is obj
+        assert containers[1] is containers
+        assert containers[0]["self"] is containers[0]
+        root_merge.assert_called_once_with({"api_key": "worker-key-sentinel"})
+        nested_merge.assert_called_once_with(
+            {"api_key": "worker-key-sentinel"}
+        )
+
+    @pytest.mark.parametrize("key", ["", None, 0, False, b"key"])
+    def test_set_api_key_rejects_invalid_key_before_mutation(self, key):
+        obj = StripeObject.construct_from(
+            {"metadata": {"value": "example"}}, "producer-key-sentinel"
+        )
+        requestor = obj._requestor
+        nested_requestor = obj.metadata._requestor
+
+        with pytest.raises(ValueError, match="non-empty string"):
+            obj.set_api_key(key)
+
+        assert obj._requestor is requestor
+        assert obj.metadata._requestor is nested_requestor
+        assert obj.api_key == obj.metadata.api_key == "producer-key-sentinel"
+
+    def test_pickling_verified_webhook(self, monkeypatch):
+        payload = json.dumps(
+            {
+                "object": "event",
+                "data": {
+                    "object": {"object": "customer", "metadata": {"empty": ""}}
+                },
+            }
+        )
+        monkeypatch.setattr(stripe, "api_key", "producer-key-sentinel")
+        signature = stripe.WebhookSignature.generate_signature_header(
+            payload, "webhook-test-secret"
+        )
+        event = stripe.Webhook.construct_event(
+            payload, signature, "webhook-test-secret"
+        )
+        pickled = pickle.dumps(event)
+        assert b"producer-key-sentinel" not in pickled
+        monkeypatch.setattr(stripe, "api_key", "destination-key-sentinel")
+        restored = pickle.loads(pickled)
+
+        restored.set_api_key("worker-key-sentinel")
+
+        assert type(restored) is stripe.Event
+        assert type(restored.data.object) is stripe.Customer
+        assert restored.to_dict() == event.to_dict()
+        for value in (
+            restored,
+            restored.data,
+            restored.data.object,
+            restored.data.object.metadata,
+        ):
+            assert value.api_key == "worker-key-sentinel"
+        assert stripe.api_key == "destination-key-sentinel"
+        assert event.api_key == "producer-key-sentinel"
+        assert b"worker-key-sentinel" not in pickle.dumps(restored)
+
+    def test_set_api_key_refresh_uses_bound_key(
+        self, http_client_mock, monkeypatch
+    ):
+        obj = stripe.Customer.construct_from(
+            {"id": "resource", "object": "customer"}, "producer-key-sentinel"
+        )
+        monkeypatch.setattr(stripe, "api_key", "destination-key-sentinel")
+        restored = pickle.loads(pickle.dumps(obj))
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers/resource",
+            rbody='{"id": "resource", "object": "customer"}',
+        )
+
+        restored.set_api_key("worker-key-sentinel")
+        restored.refresh()
+
+        http_client_mock.assert_requested(api_key="worker-key-sentinel")
+        assert stripe.api_key == "destination-key-sentinel"
 
     def test_deletion(self):
         obj = StripeObject("id", "key")

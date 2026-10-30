@@ -148,6 +148,41 @@ class StripeObject:
     def api_key(self):
         return self._requestor.api_key
 
+    def set_api_key(self, api_key: str) -> None:
+        """Bind a non-empty API key to this payload graph in place.
+
+        Updates every reachable StripeObject in payload lists and dictionaries,
+        including shared objects. Each object's account, API version, and other
+        requestor options are preserved; stripe.api_key is not changed. The key
+        must be authorized for those accounts. Subsequent pickles omit the key.
+        Only load pickle data from trusted sources.
+        """
+        if not isinstance(cast(object, api_key), str) or not api_key:
+            raise ValueError("api_key must be a non-empty string")
+
+        visited: Set[int] = set()
+        pending: List[Any] = [self]
+        while pending:
+            value = pending.pop()
+            identity = id(value)
+            if not isinstance(value, (StripeObject, list, dict)):
+                continue
+            if identity in visited:
+                continue
+            visited.add(identity)
+
+            if isinstance(value, StripeObject):
+                value._requestor = (
+                    value._requestor._new_requestor_with_options(  # pyright: ignore[reportPrivateUsage]
+                        {"api_key": api_key}
+                    )
+                )
+                pending.extend(value._data.values())
+            elif isinstance(value, list):
+                pending.extend(cast(List[Any], value))
+            else:
+                pending.extend(cast(Dict[Any, Any], value).values())
+
     @property
     def stripe_account(self):
         return self._requestor.stripe_account
@@ -298,7 +333,7 @@ class StripeObject:
             type(self),  # callable
             (  # args
                 getattr(self, "id", None),
-                self.api_key,
+                None,  # Never persist SDK authentication credentials.
                 self.stripe_version,
                 self.stripe_account,
             ),

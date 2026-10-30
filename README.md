@@ -104,6 +104,10 @@ In each case, `.to_dict()` **returns a copy** of the original object, so changes
 > [!NOTE]
 > See the [original migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15#stripeobject-no-longer-inherits-from-dict), [RFC](https://github.com/stripe/stripe-python/issues/1454), and [PR](https://github.com/stripe/stripe-python/pull/1762) for more information.
 
+### Persisting API resources
+
+StripeObject pickles omit SDK-held API keys. Before making requests through restored objects, bind credentials explicitly with `obj.set_api_key(worker_api_key)`. Historical pickles may still contain credentials, and pickle input must always be trusted. See the [v16 migration guide](.hark/migration-guides/v16.md#api-keys-are-no-longer-preserved-in-pickled-stripeobjects) for upgrade and stored-data guidance.
+
 ### StripeClient vs legacy pattern
 
 We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](<https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)>) to move from the legacy pattern.
