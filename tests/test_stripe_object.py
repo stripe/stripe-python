@@ -360,24 +360,36 @@ class TestStripeObject(object):
             max_network_retries=3,
         )
         obj = StripeObject(_requestor=client._requestor)
+        nested_client = stripe.StripeClient(
+            "nested-key-sentinel",
+            http_client=mocker.Mock(),
+            max_network_retries=1,
+            stripe_account="nested-example-account",
+            stripe_version="2018-02-28",
+        )
+        nested = StripeObject(_requestor=nested_client._requestor)
+        obj.containers = [{"nested": nested}]
         unrelated = StripeObject(_requestor=obj._requestor)
         original_requestor = obj._requestor
-        original_options = original_requestor._options.to_dict()
         obj._previous = {"unrelated": unrelated}
         obj.arbitrary = mocker.Mock(child=unrelated)
-        unsaved_values = obj._unsaved_values.copy()
+        originals = [
+            (value, value._requestor, value._unsaved_values.copy())
+            for value in (obj, nested)
+        ]
 
         obj.set_api_key("worker-key-sentinel")
 
-        assert obj._requestor is not original_requestor
-        assert obj._requestor._client is original_requestor._client
-        assert obj._requestor._options.to_dict() == {
-            **original_options,
-            "api_key": "worker-key-sentinel",
-        }
+        for value, requestor, unsaved_values in originals:
+            assert value._requestor is not requestor
+            assert value._requestor._client is requestor._client
+            assert value._requestor._options.to_dict() == {
+                **requestor._options.to_dict(),
+                "api_key": "worker-key-sentinel",
+            }
+            assert value._unsaved_values == unsaved_values
         assert unrelated._requestor is original_requestor
         assert unrelated.api_key == "producer-key-sentinel"
-        assert obj._unsaved_values == unsaved_values
 
     def test_set_api_key_shared_references_and_cycles(self, mocker):
         obj = StripeObject(api_key="producer-key-sentinel")
