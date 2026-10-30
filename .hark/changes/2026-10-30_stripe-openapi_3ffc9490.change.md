@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1952
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 16.2.0a1
 ---
 
 * Add support for new resources `v2.billing.ContractTermQuantityChange`, `v2.billing.ContractTerm`, `v2.core.AccountSession`, `v2.money_management.FundingIntent`, `v2.money_management.InboundFunding`, `v2.money_management.RewardProgramEnrollment`, `v2.money_management.RewardProgramRule`, `v2.money_management.RewardProgram`, and `v2.risk.Form`
