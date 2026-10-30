@@ -515,11 +515,13 @@ class PaymentIntent(
                     "shipping_calculation_failed",
                     "siret_invalid",
                     "sku_inactive",
+                    "smart_disputes_not_available",
                     "state_unsupported",
                     "status_transition_invalid",
                     "storer_capability_missing",
                     "storer_capability_not_active",
                     "stripe_tax_inactive",
+                    "subscription_update_trial_after_billing_cycle_anchor",
                     "tax_id_invalid",
                     "tax_id_prohibited",
                     "taxes_calculation_failed",
@@ -532,6 +534,8 @@ class PaymentIntent(
                     "terminal_reader_offline",
                     "terminal_reader_timeout",
                     "testmode_charges_only",
+                    "three_d_secure_authentication_not_supported",
+                    "three_d_secure_authentication_upstream_error",
                     "tls_version_unsupported",
                     "token_already_used",
                     "token_card_network_invalid",
@@ -3248,6 +3252,10 @@ class PaymentIntent(
                         "date_of_birth": DateOfBirth,
                     }
 
+                merchant_of_record: Optional[Union[Literal["stripe"], str]]
+                """
+                The merchant of record for this account funding transaction.
+                """
                 sender_account: Optional[str]
                 sender_details: Optional[SenderDetails]
                 _inner_class_types = {"sender_details": SenderDetails}
@@ -5206,6 +5214,20 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class TossPay(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Twint(StripeObject):
             setup_future_usage: Optional[
                 Union[Literal["none", "off_session"], str]
@@ -5483,6 +5505,7 @@ class PaymentIntent(
         stripe_balance: Optional[StripeBalance]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
+        toss_pay: Optional[TossPay]
         twint: Optional[Twint]
         upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
@@ -5553,6 +5576,7 @@ class PaymentIntent(
             "stripe_balance": StripeBalance,
             "sunbit": Sunbit,
             "swish": Swish,
+            "toss_pay": TossPay,
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
@@ -5791,6 +5815,7 @@ class PaymentIntent(
                     "swish",
                     "tamara",
                     "test_pay",
+                    "toss_pay",
                     "touch_n_go",
                     "truemoney",
                     "twint",
@@ -5969,6 +5994,7 @@ class PaymentIntent(
                     "sunbit",
                     "swish",
                     "tamara",
+                    "toss_pay",
                     "twint",
                     "upi",
                     "us_bank_account",

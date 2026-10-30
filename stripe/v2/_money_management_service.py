@@ -23,8 +23,14 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._financial_address_service import (
         FinancialAddressService,
     )
+    from stripe.v2.money_management._funding_intent_service import (
+        FundingIntentService,
+    )
     from stripe.v2.money_management._funding_session_service import (
         FundingSessionService,
+    )
+    from stripe.v2.money_management._inbound_funding_service import (
+        InboundFundingService,
     )
     from stripe.v2.money_management._inbound_transfer_mandate_service import (
         InboundTransferMandateService,
@@ -65,6 +71,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._recipient_verification_service import (
         RecipientVerificationService,
     )
+    from stripe.v2.money_management._reward_program_enrollment_service import (
+        RewardProgramEnrollmentService,
+    )
+    from stripe.v2.money_management._reward_program_service import (
+        RewardProgramService,
+    )
     from stripe.v2.money_management._test_helper_service import (
         TestHelperService,
     )
@@ -100,9 +112,17 @@ _subservices = {
         "stripe.v2.money_management._financial_address_service",
         "FinancialAddressService",
     ],
+    "funding_intents": [
+        "stripe.v2.money_management._funding_intent_service",
+        "FundingIntentService",
+    ],
     "funding_sessions": [
         "stripe.v2.money_management._funding_session_service",
         "FundingSessionService",
+    ],
+    "inbound_fundings": [
+        "stripe.v2.money_management._inbound_funding_service",
+        "InboundFundingService",
     ],
     "inbound_transfers": [
         "stripe.v2.money_management._inbound_transfer_service",
@@ -156,6 +176,14 @@ _subservices = {
         "stripe.v2.money_management._recipient_verification_service",
         "RecipientVerificationService",
     ],
+    "reward_programs": [
+        "stripe.v2.money_management._reward_program_service",
+        "RewardProgramService",
+    ],
+    "reward_program_enrollments": [
+        "stripe.v2.money_management._reward_program_enrollment_service",
+        "RewardProgramEnrollmentService",
+    ],
     "test_helpers": [
         "stripe.v2.money_management._test_helper_service",
         "TestHelperService",
@@ -178,7 +206,9 @@ class MoneyManagementService(StripeService):
     earned_credits: "EarnedCreditService"
     financial_accounts: "FinancialAccountService"
     financial_addresses: "FinancialAddressService"
+    funding_intents: "FundingIntentService"
     funding_sessions: "FundingSessionService"
+    inbound_fundings: "InboundFundingService"
     inbound_transfers: "InboundTransferService"
     inbound_transfer_mandates: "InboundTransferMandateService"
     outbound_payments: "OutboundPaymentService"
@@ -192,6 +222,8 @@ class MoneyManagementService(StripeService):
     received_debits: "ReceivedDebitService"
     received_debit_mandates: "ReceivedDebitMandateService"
     recipient_verifications: "RecipientVerificationService"
+    reward_programs: "RewardProgramService"
+    reward_program_enrollments: "RewardProgramEnrollmentService"
     test_helpers: "TestHelperService"
     transactions: "TransactionService"
     transaction_entries: "TransactionEntryService"

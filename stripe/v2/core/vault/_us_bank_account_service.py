@@ -25,6 +25,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._us_bank_account_send_microdeposits_params import (
         UsBankAccountSendMicrodepositsParams,
     )
+    from stripe.params.v2.core.vault._us_bank_account_unarchive_params import (
+        UsBankAccountUnarchiveParams,
+    )
     from stripe.params.v2.core.vault._us_bank_account_update_params import (
         UsBankAccountUpdateParams,
     )
@@ -335,6 +338,52 @@ class UsBankAccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/vault/us_bank_accounts/{id}/send_microdeposits".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def unarchive(
+        self,
+        id: str,
+        /,
+        params: Optional["UsBankAccountUnarchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "UsBankAccount":
+        """
+        Unarchive a USBankAccount object.
+        """
+        return cast(
+            "UsBankAccount",
+            self._request(
+                "post",
+                "/v2/core/vault/us_bank_accounts/{id}/unarchive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def unarchive_async(
+        self,
+        id: str,
+        /,
+        params: Optional["UsBankAccountUnarchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "UsBankAccount":
+        """
+        Unarchive a USBankAccount object.
+        """
+        return cast(
+            "UsBankAccount",
+            await self._request_async(
+                "post",
+                "/v2/core/vault/us_bank_accounts/{id}/unarchive".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

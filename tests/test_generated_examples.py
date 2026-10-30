@@ -44094,6 +44094,74 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_billing_contracts_term_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/contracts/contract_id_123/terms",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.contracts.terms.list_contract_terms(
+            "contract_id_123"
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/contracts/contract_id_123/terms",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_contracts_term_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/contracts/contract_id_123/terms/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.contracts.terms.retrieve_contract_term(
+            "contract_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/contracts/contract_id_123/terms/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_contracts_terms_quantity_change_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/contracts/contract_id_123/terms/term_123/quantity_changes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.contracts.terms.quantity_changes.list_contract_term_quantity_changes(
+            "contract_id_123",
+            "term_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/contracts/contract_id_123/terms/term_123/quantity_changes",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_billing_custom_pricing_unit_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46199,6 +46267,53 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_account_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/id_123/reject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.reject(
+            "id_123",
+            {"reason": "fraud_no_intent_to_fulfill"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/id_123/reject",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"reason":"fraud_no_intent_to_fulfill"}',
+            is_json=True,
+        )
+
+    def test_v2_core_account_post_5_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/id_123/unreject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.unreject("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/id_123/unreject",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_core_accounts_person_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46441,6 +46556,73 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"recipient_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"recipient_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"recipient_onboarding"}}',
+            is_json=True,
+        )
+
+    def test_v2_core_account_session_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/account_sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_sessions.create(
+            {
+                "account": "account",
+                "components": {
+                    "account_management": {"enabled": True},
+                    "account_onboarding": {"enabled": True},
+                    "agentic_commerce_settings": {"enabled": True},
+                    "app_install": {"enabled": True},
+                    "app_viewport": {"enabled": True},
+                    "balance_report": {"enabled": True},
+                    "balances": {"enabled": True},
+                    "bills": {"enabled": True},
+                    "capital_financing": {"enabled": True},
+                    "capital_financing_application": {"enabled": True},
+                    "capital_financing_promotion": {"enabled": True},
+                    "check_scanning": {"enabled": True},
+                    "disputes_list": {"enabled": True},
+                    "documents": {"enabled": True},
+                    "export_tax_transactions": {"enabled": True},
+                    "financial_account_rewards": {"enabled": True},
+                    "financial_accounts": {"enabled": True},
+                    "financial_accounts_transactions": {"enabled": True},
+                    "instant_payouts_promotion": {"enabled": True},
+                    "invoice_history": {"enabled": True},
+                    "issuing_card": {"enabled": True},
+                    "issuing_cards_list": {"enabled": True},
+                    "network_cost_passthrough_report": {"enabled": True},
+                    "notification_banner": {"enabled": True},
+                    "payment_details": {"enabled": True},
+                    "payment_disputes": {"enabled": True},
+                    "payment_method_settings": {"enabled": True},
+                    "payments": {"enabled": True},
+                    "payout_details": {"enabled": True},
+                    "payout_reconciliation_report": {"enabled": True},
+                    "payouts": {"enabled": True},
+                    "payouts_list": {"enabled": True},
+                    "product_tax_code_selector": {"enabled": True},
+                    "reporting_chart": {"enabled": True},
+                    "tax_registrations": {"enabled": True},
+                    "tax_settings": {"enabled": True},
+                    "tax_threshold_monitoring": {"enabled": True},
+                    "terminal_hardware_orders": {"enabled": True},
+                    "terminal_hardware_shop": {"enabled": True},
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/account_sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","components":{"account_management":{"enabled":true},"account_onboarding":{"enabled":true},"agentic_commerce_settings":{"enabled":true},"app_install":{"enabled":true},"app_viewport":{"enabled":true},"balance_report":{"enabled":true},"balances":{"enabled":true},"bills":{"enabled":true},"capital_financing":{"enabled":true},"capital_financing_application":{"enabled":true},"capital_financing_promotion":{"enabled":true},"check_scanning":{"enabled":true},"disputes_list":{"enabled":true},"documents":{"enabled":true},"export_tax_transactions":{"enabled":true},"financial_account_rewards":{"enabled":true},"financial_accounts":{"enabled":true},"financial_accounts_transactions":{"enabled":true},"instant_payouts_promotion":{"enabled":true},"invoice_history":{"enabled":true},"issuing_card":{"enabled":true},"issuing_cards_list":{"enabled":true},"network_cost_passthrough_report":{"enabled":true},"notification_banner":{"enabled":true},"payment_details":{"enabled":true},"payment_disputes":{"enabled":true},"payment_method_settings":{"enabled":true},"payments":{"enabled":true},"payout_details":{"enabled":true},"payout_reconciliation_report":{"enabled":true},"payouts":{"enabled":true},"payouts_list":{"enabled":true},"product_tax_code_selector":{"enabled":true},"reporting_chart":{"enabled":true},"tax_registrations":{"enabled":true},"tax_settings":{"enabled":true},"tax_threshold_monitoring":{"enabled":true},"terminal_hardware_orders":{"enabled":true},"terminal_hardware_shop":{"enabled":true}}}',
             is_json=True,
         )
 
@@ -47196,6 +47378,28 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_vault_gb_bank_account_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/gb_bank_accounts/id_123/unarchive",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.gb_bank_accounts.unarchive("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/gb_bank_accounts/id_123/unarchive",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_core_vault_network_token_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47435,6 +47639,28 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/vault/us_bank_accounts/id_123/send_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_vault_us_bank_account_post_6_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts/id_123/unarchive",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.us_bank_accounts.unarchive("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts/id_123/unarchive",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -48496,6 +48722,143 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_money_management_funding_intent_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/funding_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_intents.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/funding_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_funding_intent_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/funding_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_intents.create(
+            {
+                "amount": {"currency": "USD", "value": 96},
+                "to": {
+                    "currency": "usd",
+                    "financial_account": "financial_account",
+                },
+                "type": "check",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/funding_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"amount":{"currency":"USD","value":96},"to":{"currency":"usd","financial_account":"financial_account"},"type":"check"}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_funding_intent_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/funding_intents/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_intents.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/funding_intents/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_funding_intent_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/funding_intents/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_intents.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/funding_intents/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_funding_intent_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/funding_intents/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_intents.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/funding_intents/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_funding_intent_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/funding_intents/id_123/confirm",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.funding_intents.confirm("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/funding_intents/id_123/confirm",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_money_management_funding_session_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -48526,6 +48889,46 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data='{"account":"account","financial_account":"financial_account","financial_address_options":{"crypto_wallet":{"settlement_currency":"usd"}},"financial_address_types":["bank_account"],"return_url":"return_url"}',
             is_json=True,
+        )
+
+    def test_v2_money_management_inbound_funding_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/inbound_fundings",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.inbound_fundings.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/inbound_fundings",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_inbound_funding_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/inbound_fundings/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.inbound_fundings.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/inbound_fundings/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_money_management_inbound_transfer_get_service(
@@ -48742,7 +49145,7 @@ class TestGeneratedExamples(object):
                                     "transaction_purpose": "payroll",
                                 },
                             },
-                            "preferred_networks": ["sepa_credit"],
+                            "preferred_networks": ["fedwire"],
                         },
                     },
                     "recipient": "recipient",
@@ -48754,7 +49157,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["sepa_credit"]}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -48831,7 +49234,7 @@ class TestGeneratedExamples(object):
                                     "transaction_purpose": "payroll",
                                 },
                             },
-                            "preferred_networks": ["sepa_credit"],
+                            "preferred_networks": ["fedwire"],
                         },
                     },
                     "recipient": "recipient",
@@ -48843,7 +49246,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payment_quotes",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["sepa_credit"]}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -49020,7 +49423,7 @@ class TestGeneratedExamples(object):
                             "preferred_network_options": {
                                 "ach": {"addenda": "addenda"},
                             },
-                            "preferred_networks": ["sepa_credit"],
+                            "preferred_networks": ["fedwire"],
                         },
                     },
                 },
@@ -49031,7 +49434,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_transfers",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda"}},"preferred_networks":["sepa_credit"]}}}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda"}},"preferred_networks":["fedwire"]}}}}',
             is_json=True,
         )
 
@@ -49128,7 +49531,7 @@ class TestGeneratedExamples(object):
                                     "transaction_purpose": "payroll",
                                 },
                             },
-                            "preferred_networks": ["sepa_credit"],
+                            "preferred_networks": ["fedwire"],
                         },
                     },
                     "recipient": "recipient",
@@ -49140,7 +49543,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/payout_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["sepa_credit"]}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -49235,17 +49638,41 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/money_management/payout_intents/id_123/fx_quote",
+            "/v2/money_management/payout_intents/id_123/refresh_fx_quote",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.money_management.payout_intents.fx_quote("id_123")
+        client.v2.money_management.payout_intents.refresh_fx_quote("id_123")
         http_client_mock.assert_requested(
             "post",
-            path="/v2/money_management/payout_intents/id_123/fx_quote",
+            path="/v2/money_management/payout_intents/id_123/refresh_fx_quote",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_payout_intent_post_6_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/payout_intents/id_123/refresh_recipient_verification",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.payout_intents.refresh_recipient_verification(
+            "id_123"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/payout_intents/id_123/refresh_recipient_verification",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -49590,6 +50017,407 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_money_management_reward_program_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/reward_programs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/reward_programs",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_reward_program_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.create(
+            {
+                "fulfilled_by": "application",
+                "name": "name",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"fulfilled_by":"application","name":"name"}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_program_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/reward_programs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/reward_programs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_reward_program_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_program_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs/id_123/activate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.activate("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs/id_123/activate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_program_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs/id_123/deactivate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.deactivate("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs/id_123/deactivate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_programs_rule_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/reward_programs/reward_program_id_123/rules",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.rules.list(
+            "reward_program_id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/reward_programs/reward_program_id_123/rules",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_reward_programs_rule_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs/reward_program_id_123/rules",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.rules.create(
+            "reward_program_id_123",
+            {
+                "name": "name",
+                "reward": {
+                    "cashback": {"rate": Decimal("2328725.3333333335")}
+                },
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs/reward_program_id_123/rules",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"name":"name","reward":{"cashback":{"rate":"2328725.3333333335"}}}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_programs_rule_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/reward_programs/reward_program_id_123/rules/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.rules.retrieve(
+            "reward_program_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/reward_programs/reward_program_id_123/rules/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_reward_programs_rule_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs/reward_program_id_123/rules/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.rules.update(
+            "reward_program_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs/reward_program_id_123/rules/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_programs_rule_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs/reward_program_id_123/rules/id_123/activate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.rules.activate(
+            "reward_program_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs/reward_program_id_123/rules/id_123/activate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_programs_rule_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_programs/reward_program_id_123/rules/id_123/deactivate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_programs.rules.deactivate(
+            "reward_program_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_programs/reward_program_id_123/rules/id_123/deactivate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_program_enrollment_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/reward_program_enrollments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_program_enrollments.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/reward_program_enrollments",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_reward_program_enrollment_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_program_enrollments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_program_enrollments.create(
+            {
+                "account": "account",
+                "card_spend": {"issuer_program": "issuer_program"},
+                "reward_program": "reward_program",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_program_enrollments",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","card_spend":{"issuer_program":"issuer_program"},"reward_program":"reward_program"}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_program_enrollment_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/reward_program_enrollments/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_program_enrollments.retrieve(
+            "id_123"
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/reward_program_enrollments/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_reward_program_enrollment_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_program_enrollments/id_123/activate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_program_enrollments.activate(
+            "id_123"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_program_enrollments/id_123/activate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_reward_program_enrollment_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/reward_program_enrollments/id_123/deactivate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.reward_program_enrollments.deactivate(
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/reward_program_enrollments/id_123/deactivate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_money_management_test_helper_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -49632,14 +50460,14 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.test_helpers.financial_addresses.credit(
             "id_123",
-            {"amount": {"currency": "USD", "value": 96}, "network": "ach"},
+            {"amount": {"currency": "USD", "value": 96}, "network": "fedwire"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v2/money_management/test_helpers/financial_addresses/id_123/credit",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"network":"ach"}',
+            post_data='{"amount":{"currency":"USD","value":96},"network":"fedwire"}',
             is_json=True,
         )
 
@@ -50934,62 +51762,42 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_risk_inquiry_get_service(
+    def test_v2_risk_form_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
             "get",
-            "/v2/risk/inquiries",
+            "/v2/risk/forms/id_123",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.risk.inquiries.list()
+        client.v2.risk.forms.retrieve("id_123")
         http_client_mock.assert_requested(
             "get",
-            path="/v2/risk/inquiries",
+            path="/v2/risk/forms/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_risk_inquiry_get_2_service(
+    def test_v2_risk_form_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
-            "get",
-            "/v2/risk/inquiries/id_123",
+            "post",
+            "/v2/risk/forms/id_123",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.risk.inquiries.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/risk/inquiries/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_risk_inquiry_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/risk/inquiries/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.risk.inquiries.update("id_123")
+        client.v2.risk.forms.update("id_123")
         http_client_mock.assert_requested(
             "post",
-            path="/v2/risk/inquiries/id_123",
+            path="/v2/risk/forms/id_123",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -51008,17 +51816,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.signals.account_activities.create(
-            {
-                "type": "registration_decision",
-            }
-        )
+        client.v2.signals.account_activities.create({"type": "mfa_addition"})
         http_client_mock.assert_requested(
             "post",
             path="/v2/signals/account_activities",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"type":"registration_decision"}',
+            post_data='{"type":"mfa_addition"}',
             is_json=True,
         )
 
@@ -51631,6 +52435,42 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_capability_not_enabled_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/funding_intents",
+            rbody='{"error":{"type":"capability_not_enabled","code":"outbound_flow_from_closed_financial_account_not_supported"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.funding_intents.create(
+                {
+                    "amount": {"currency": "USD", "value": 96},
+                    "to": {
+                        "currency": "usd",
+                        "financial_account": "financial_account",
+                    },
+                    "type": "check",
+                }
+            )
+        except _error.CapabilityNotEnabledError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/funding_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"amount":{"currency":"USD","value":96},"to":{"currency":"usd","financial_account":"financial_account"},"type":"check"}',
+            is_json=True,
+        )
+
     def test_controlled_by_alternate_resource_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -51664,7 +52504,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/money_management/currency_conversions",
-            rbody='{"error":{"type":"feature_not_enabled","code":"outbound_flow_from_closed_financial_account_unsupported"}}',
+            rbody='{"error":{"type":"feature_not_enabled","code":"funding_intent_settlement_timing_not_available_for_account_type"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -51990,7 +52830,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/gb_bank_accounts",
-            rbody='{"error":{"type":"quota_exceeded","code":"archived_payout_method_card"}}',
+            rbody='{"error":{"type":"quota_exceeded","code":"limit_gb_bank_account"}}',
             rcode=400,
         )
         client = StripeClient(

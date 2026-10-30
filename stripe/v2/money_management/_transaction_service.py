@@ -116,7 +116,7 @@ class TransactionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Transaction":
         """
-        Updates the description of an existing Transaction.
+        Updates an existing Transaction. You can update its description and metadata.
         """
         return cast(
             "Transaction",
@@ -139,7 +139,7 @@ class TransactionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Transaction":
         """
-        Updates the description of an existing Transaction.
+        Updates an existing Transaction. You can update its description and metadata.
         """
         return cast(
             "Transaction",

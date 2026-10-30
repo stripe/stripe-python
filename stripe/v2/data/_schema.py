@@ -23,6 +23,10 @@ class Schema(StripeObject):
             """
             The identifier of the referenced schema.
             """
+            schema_name: str
+            """
+            The name of the referenced schema.
+            """
 
         class ForeignKeysTo(StripeObject):
             column: str
@@ -32,6 +36,10 @@ class Schema(StripeObject):
             schema: str
             """
             The identifier of the referenced schema.
+            """
+            schema_name: str
+            """
+            The name of the referenced schema.
             """
 
         description: str

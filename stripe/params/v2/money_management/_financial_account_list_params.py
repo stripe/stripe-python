@@ -23,7 +23,8 @@ class FinancialAccountListParams(TypedDict):
     """
     statuses: NotRequired[List[Literal["closed", "open", "pending"]]]
     """
-    Filter for FinancialAccount `status`. By default, closed FinancialAccounts are not returned.
+    Return FinancialAccounts whose `status` matches any of the provided values.
+    If omitted, closed FinancialAccounts are not returned.
     """
     types: NotRequired[
         List[

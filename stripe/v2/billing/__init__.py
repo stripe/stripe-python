@@ -44,6 +44,10 @@ if TYPE_CHECKING:
     from stripe.v2.billing._contract_service import (
         ContractService as ContractService,
     )
+    from stripe.v2.billing._contract_term import ContractTerm as ContractTerm
+    from stripe.v2.billing._contract_term_quantity_change import (
+        ContractTermQuantityChange as ContractTermQuantityChange,
+    )
     from stripe.v2.billing._custom_pricing_unit import (
         CustomPricingUnit as CustomPricingUnit,
     )
@@ -171,6 +175,11 @@ _import_map = {
         False,
     ),
     "ContractService": ("stripe.v2.billing._contract_service", False),
+    "ContractTerm": ("stripe.v2.billing._contract_term", False),
+    "ContractTermQuantityChange": (
+        "stripe.v2.billing._contract_term_quantity_change",
+        False,
+    ),
     "CustomPricingUnit": ("stripe.v2.billing._custom_pricing_unit", False),
     "CustomPricingUnitService": (
         "stripe.v2.billing._custom_pricing_unit_service",

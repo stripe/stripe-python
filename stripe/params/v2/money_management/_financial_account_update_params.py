@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class FinancialAccountUpdateParams(TypedDict):
     display_name: NotRequired[str]
     """
-    A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+    A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
     """
     forwarding_settings: NotRequired[
         "FinancialAccountUpdateParamsForwardingSettings"
@@ -20,7 +20,8 @@ class FinancialAccountUpdateParams(TypedDict):
         "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
     ]
     """
-    Metadata associated with the FinancialAccount.
+    Set of key-value pairs that you can attach to the FinancialAccount. Individual keys can be unset by posting
+    null to them.
     """
     storage: NotRequired["FinancialAccountUpdateParamsStorage"]
     """
@@ -31,11 +32,12 @@ class FinancialAccountUpdateParams(TypedDict):
 class FinancialAccountUpdateParamsForwardingSettings(TypedDict):
     payment_method: NotRequired[str]
     """
-    The address to send forwarded payments to.
+    ID of the FinancialAccount that supplies funds to cover negative balances
+    during or after this FinancialAccount's closure.
     """
     payout_method: NotRequired[str]
     """
-    The address to send forwarded payouts to.
+    ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
     """
     skip_exportable_balances: NotRequired[bool]
     """

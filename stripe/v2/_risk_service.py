@@ -5,15 +5,13 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.risk._inquiry_service import InquiryService
+    from stripe.v2.risk._form_service import FormService
 
-_subservices = {
-    "inquiries": ["stripe.v2.risk._inquiry_service", "InquiryService"],
-}
+_subservices = {"forms": ["stripe.v2.risk._form_service", "FormService"]}
 
 
 class RiskService(StripeService):
-    inquiries: "InquiryService"
+    forms: "FormService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

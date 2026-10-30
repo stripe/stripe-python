@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -14,6 +14,13 @@ class Resource(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.provisioning.resource"]] = (
         "v2.provisioning.resource"
     )
+
+    class Configuration(StripeObject):
+        key_names: List[str]
+        """
+        Exact top-level configuration key names, unique and sorted in ascending lexicographic order.
+        This array is present and empty when the available configuration has no entries.
+        """
 
     class UserMessage(StripeObject):
         message: str
@@ -28,6 +35,12 @@ class Resource(StripeObject):
     catalog: Optional[Literal["dev", "prod", "testing"]]
     """
     Catalog partition containing the resource's provider service.
+    """
+    configuration: Optional[Configuration]
+    """
+    Names of the provider-issued configuration entries available for this resource. This is null
+    unless explicitly included on RetrieveResource and the resource is complete with an available,
+    unexpired configuration. Values are never exposed through this field.
     """
     created: str
     """
@@ -80,4 +93,7 @@ class Resource(StripeObject):
     """
     Message supplied by the provider when the resource becomes ready.
     """
-    _inner_class_types = {"user_message": UserMessage}
+    _inner_class_types = {
+        "configuration": Configuration,
+        "user_message": UserMessage,
+    }

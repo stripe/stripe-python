@@ -8,18 +8,20 @@ class FinancialAccountCloseParams(TypedDict):
         "FinancialAccountCloseParamsForwardingSettings"
     ]
     """
-    The addresses to forward any incoming transactions to.
+    Settings that specify where to send positive balances and how to cover negative balances.
+    You must provide these settings if the FinancialAccount has a non-zero balance.
     """
 
 
 class FinancialAccountCloseParamsForwardingSettings(TypedDict):
     payment_method: NotRequired[str]
     """
-    The address to send forwarded payments to.
+    ID of the FinancialAccount that supplies funds to cover negative balances
+    during or after this FinancialAccount's closure.
     """
     payout_method: NotRequired[str]
     """
-    The address to send forwarded payouts to.
+    ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
     """
     skip_exportable_balances: NotRequired[bool]
     """

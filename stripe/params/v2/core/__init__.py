@@ -102,6 +102,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration,
+        AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections,
+        AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPayments as AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtectionsPspMigration,
@@ -210,6 +213,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration,
+        AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections,
+        AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration,
@@ -228,6 +234,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration,
+        AccountCreateParamsConfigurationMerchantCapabilitiesUpiPayments as AccountCreateParamsConfigurationMerchantCapabilitiesUpiPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections,
+        AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration,
         AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtections as AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtections,
         AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtectionsPspMigration as AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtectionsPspMigration,
@@ -353,6 +362,10 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdc as AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdc,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtections,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundings as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundings,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtections as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtections,
@@ -533,9 +546,6 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtections,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtectionsPspMigration,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtections,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtectionsPspMigration,
@@ -545,18 +555,15 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtections,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtectionsPspMigration,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtections,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtectionsPspMigration,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtections,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections,
-        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration,
         AccountCreateParamsConfigurationRecipientCapabilitiesCards as AccountCreateParamsConfigurationRecipientCapabilitiesCards,
         AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtections as AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtections,
         AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtectionsPspMigration as AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtectionsPspMigration,
@@ -664,6 +671,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification as AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification,
         AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
+        AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
@@ -722,8 +730,55 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._account_list_params import (
         AccountListParams as AccountListParams,
     )
+    from stripe.params.v2.core._account_reject_params import (
+        AccountRejectParams as AccountRejectParams,
+    )
     from stripe.params.v2.core._account_retrieve_params import (
         AccountRetrieveParams as AccountRetrieveParams,
+    )
+    from stripe.params.v2.core._account_session_create_params import (
+        AccountSessionCreateParams as AccountSessionCreateParams,
+        AccountSessionCreateParamsComponents as AccountSessionCreateParamsComponents,
+        AccountSessionCreateParamsComponentsAccountManagement as AccountSessionCreateParamsComponentsAccountManagement,
+        AccountSessionCreateParamsComponentsAccountOnboarding as AccountSessionCreateParamsComponentsAccountOnboarding,
+        AccountSessionCreateParamsComponentsAgenticCommerceSettings as AccountSessionCreateParamsComponentsAgenticCommerceSettings,
+        AccountSessionCreateParamsComponentsAppInstall as AccountSessionCreateParamsComponentsAppInstall,
+        AccountSessionCreateParamsComponentsAppViewport as AccountSessionCreateParamsComponentsAppViewport,
+        AccountSessionCreateParamsComponentsBalanceReport as AccountSessionCreateParamsComponentsBalanceReport,
+        AccountSessionCreateParamsComponentsBalances as AccountSessionCreateParamsComponentsBalances,
+        AccountSessionCreateParamsComponentsBills as AccountSessionCreateParamsComponentsBills,
+        AccountSessionCreateParamsComponentsCapitalFinancing as AccountSessionCreateParamsComponentsCapitalFinancing,
+        AccountSessionCreateParamsComponentsCapitalFinancingApplication as AccountSessionCreateParamsComponentsCapitalFinancingApplication,
+        AccountSessionCreateParamsComponentsCapitalFinancingPromotion as AccountSessionCreateParamsComponentsCapitalFinancingPromotion,
+        AccountSessionCreateParamsComponentsCheckScanning as AccountSessionCreateParamsComponentsCheckScanning,
+        AccountSessionCreateParamsComponentsDisputesList as AccountSessionCreateParamsComponentsDisputesList,
+        AccountSessionCreateParamsComponentsDocuments as AccountSessionCreateParamsComponentsDocuments,
+        AccountSessionCreateParamsComponentsExportTaxTransactions as AccountSessionCreateParamsComponentsExportTaxTransactions,
+        AccountSessionCreateParamsComponentsFinancialAccountRewards as AccountSessionCreateParamsComponentsFinancialAccountRewards,
+        AccountSessionCreateParamsComponentsFinancialAccounts as AccountSessionCreateParamsComponentsFinancialAccounts,
+        AccountSessionCreateParamsComponentsFinancialAccountsTransactions as AccountSessionCreateParamsComponentsFinancialAccountsTransactions,
+        AccountSessionCreateParamsComponentsInstantPayoutsPromotion as AccountSessionCreateParamsComponentsInstantPayoutsPromotion,
+        AccountSessionCreateParamsComponentsInvoiceHistory as AccountSessionCreateParamsComponentsInvoiceHistory,
+        AccountSessionCreateParamsComponentsIssuingCard as AccountSessionCreateParamsComponentsIssuingCard,
+        AccountSessionCreateParamsComponentsIssuingCardsList as AccountSessionCreateParamsComponentsIssuingCardsList,
+        AccountSessionCreateParamsComponentsNetworkCostPassthroughReport as AccountSessionCreateParamsComponentsNetworkCostPassthroughReport,
+        AccountSessionCreateParamsComponentsNotificationBanner as AccountSessionCreateParamsComponentsNotificationBanner,
+        AccountSessionCreateParamsComponentsPaymentDetails as AccountSessionCreateParamsComponentsPaymentDetails,
+        AccountSessionCreateParamsComponentsPaymentDisputes as AccountSessionCreateParamsComponentsPaymentDisputes,
+        AccountSessionCreateParamsComponentsPaymentMethodSettings as AccountSessionCreateParamsComponentsPaymentMethodSettings,
+        AccountSessionCreateParamsComponentsPayments as AccountSessionCreateParamsComponentsPayments,
+        AccountSessionCreateParamsComponentsPayoutDetails as AccountSessionCreateParamsComponentsPayoutDetails,
+        AccountSessionCreateParamsComponentsPayoutReconciliationReport as AccountSessionCreateParamsComponentsPayoutReconciliationReport,
+        AccountSessionCreateParamsComponentsPayouts as AccountSessionCreateParamsComponentsPayouts,
+        AccountSessionCreateParamsComponentsPayoutsList as AccountSessionCreateParamsComponentsPayoutsList,
+        AccountSessionCreateParamsComponentsProductTaxCodeSelector as AccountSessionCreateParamsComponentsProductTaxCodeSelector,
+        AccountSessionCreateParamsComponentsReportingChart as AccountSessionCreateParamsComponentsReportingChart,
+        AccountSessionCreateParamsComponentsTaxRegistrations as AccountSessionCreateParamsComponentsTaxRegistrations,
+        AccountSessionCreateParamsComponentsTaxSettings as AccountSessionCreateParamsComponentsTaxSettings,
+        AccountSessionCreateParamsComponentsTaxThresholdMonitoring as AccountSessionCreateParamsComponentsTaxThresholdMonitoring,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrders as AccountSessionCreateParamsComponentsTerminalHardwareOrders,
+        AccountSessionCreateParamsComponentsTerminalHardwareShop as AccountSessionCreateParamsComponentsTerminalHardwareShop,
+        AccountSessionCreateParamsScopes as AccountSessionCreateParamsScopes,
     )
     from stripe.params.v2.core._account_token_create_params import (
         AccountTokenCreateParams as AccountTokenCreateParams,
@@ -772,6 +827,7 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
@@ -809,6 +865,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._account_token_retrieve_params import (
         AccountTokenRetrieveParams as AccountTokenRetrieveParams,
+    )
+    from stripe.params.v2.core._account_unreject_params import (
+        AccountUnrejectParams as AccountUnrejectParams,
     )
     from stripe.params.v2.core._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
@@ -900,6 +959,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtectionsPspMigration,
@@ -1008,6 +1070,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration,
@@ -1026,6 +1091,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration,
         AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtections as AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtections,
         AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtectionsPspMigration as AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtectionsPspMigration,
@@ -1151,6 +1219,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdc as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdc,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtections,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundings as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundings,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtections as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtections,
@@ -1331,9 +1403,6 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFps,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtections,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtectionsPspMigration,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtections,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtectionsPspMigration,
@@ -1343,18 +1412,15 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtp,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtections,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtectionsPspMigration,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtections,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtectionsPspMigration,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtections,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections,
-        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration,
         AccountUpdateParamsConfigurationRecipientCapabilitiesCards as AccountUpdateParamsConfigurationRecipientCapabilitiesCards,
         AccountUpdateParamsConfigurationRecipientCapabilitiesCardsProtections as AccountUpdateParamsConfigurationRecipientCapabilitiesCardsProtections,
         AccountUpdateParamsConfigurationRecipientCapabilitiesCardsProtectionsPspMigration as AccountUpdateParamsConfigurationRecipientCapabilitiesCardsProtectionsPspMigration,
@@ -1462,6 +1528,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerification as AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerification,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
+        AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
@@ -1952,6 +2019,18 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -2384,6 +2463,18 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -2453,6 +2544,18 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesUpiPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -2953,6 +3056,22 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundings": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -3676,18 +3795,6 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -3724,15 +3831,7 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration": (
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -3748,6 +3847,14 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -3757,18 +3864,6 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -4200,6 +4295,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -4401,8 +4500,180 @@ _import_map = {
         False,
     ),
     "AccountListParams": ("stripe.params.v2.core._account_list_params", False),
+    "AccountRejectParams": (
+        "stripe.params.v2.core._account_reject_params",
+        False,
+    ),
     "AccountRetrieveParams": (
         "stripe.params.v2.core._account_retrieve_params",
+        False,
+    ),
+    "AccountSessionCreateParams": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponents": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAccountManagement": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAccountOnboarding": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAgenticCommerceSettings": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAppInstall": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAppViewport": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsBalanceReport": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsBalances": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsBills": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsCapitalFinancing": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsCapitalFinancingApplication": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsCapitalFinancingPromotion": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsCheckScanning": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsDisputesList": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsDocuments": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsExportTaxTransactions": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsFinancialAccountRewards": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsFinancialAccounts": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsFinancialAccountsTransactions": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsInstantPayoutsPromotion": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsInvoiceHistory": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsIssuingCard": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsIssuingCardsList": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsNetworkCostPassthroughReport": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsNotificationBanner": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPaymentDetails": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPaymentDisputes": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPaymentMethodSettings": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPayments": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPayoutDetails": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPayoutReconciliationReport": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPayouts": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPayoutsList": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsProductTaxCodeSelector": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsReportingChart": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTaxRegistrations": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTaxSettings": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTaxThresholdMonitoring": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrders": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShop": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsScopes": (
+        "stripe.params.v2.core._account_session_create_params",
         False,
     ),
     "AccountTokenCreateParams": (
@@ -4589,6 +4860,10 @@ _import_map = {
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
     "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration": (
         "stripe.params.v2.core._account_token_create_params",
         False,
@@ -4727,6 +5002,10 @@ _import_map = {
     ),
     "AccountTokenRetrieveParams": (
         "stripe.params.v2.core._account_token_retrieve_params",
+        False,
+    ),
+    "AccountUnrejectParams": (
+        "stripe.params.v2.core._account_unreject_params",
         False,
     ),
     "AccountUpdateParams": (
@@ -5082,6 +5361,18 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -5517,6 +5808,18 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -5586,6 +5889,18 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -6086,6 +6401,22 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundings": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -6809,18 +7140,6 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -6857,15 +7176,7 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration": (
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -6881,6 +7192,14 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwift": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -6890,18 +7209,6 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -7330,6 +7637,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

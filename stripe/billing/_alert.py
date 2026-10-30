@@ -135,6 +135,10 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             """
             Filter by billing cadence ID.
             """
+            billing_group: Optional[str]
+            """
+            Filter by billing group ID.
+            """
             pricing_plan: Optional[str]
             """
             Filter by pricing plan ID.

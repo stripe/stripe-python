@@ -17,6 +17,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
         GbBankAccountRetrieveParams as GbBankAccountRetrieveParams,
     )
+    from stripe.params.v2.core.vault._gb_bank_account_unarchive_params import (
+        GbBankAccountUnarchiveParams as GbBankAccountUnarchiveParams,
+    )
     from stripe.params.v2.core.vault._network_token_create_from_credential_params import (
         NetworkTokenCreateFromCredentialParams as NetworkTokenCreateFromCredentialParams,
         NetworkTokenCreateFromCredentialParamsCard as NetworkTokenCreateFromCredentialParamsCard,
@@ -50,6 +53,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._us_bank_account_send_microdeposits_params import (
         UsBankAccountSendMicrodepositsParams as UsBankAccountSendMicrodepositsParams,
     )
+    from stripe.params.v2.core.vault._us_bank_account_unarchive_params import (
+        UsBankAccountUnarchiveParams as UsBankAccountUnarchiveParams,
+    )
     from stripe.params.v2.core.vault._us_bank_account_update_params import (
         UsBankAccountUpdateParams as UsBankAccountUpdateParams,
     )
@@ -74,6 +80,10 @@ _import_map = {
     ),
     "GbBankAccountRetrieveParams": (
         "stripe.params.v2.core.vault._gb_bank_account_retrieve_params",
+        False,
+    ),
+    "GbBankAccountUnarchiveParams": (
+        "stripe.params.v2.core.vault._gb_bank_account_unarchive_params",
         False,
     ),
     "NetworkTokenCreateFromCredentialParams": (
@@ -126,6 +136,10 @@ _import_map = {
     ),
     "UsBankAccountSendMicrodepositsParams": (
         "stripe.params.v2.core.vault._us_bank_account_send_microdeposits_params",
+        False,
+    ),
+    "UsBankAccountUnarchiveParams": (
+        "stripe.params.v2.core.vault._us_bank_account_unarchive_params",
         False,
     ),
     "UsBankAccountUpdateParams": (

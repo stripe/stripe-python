@@ -984,6 +984,7 @@ class PaymentLink(
                     "qris",
                     "rechnung",
                     "satispay",
+                    "scalapay",
                     "sepa_debit",
                     "sequra",
                     "shopeepay",

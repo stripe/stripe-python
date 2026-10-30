@@ -29,7 +29,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Create or Return a Network Token Using Raw Card Data.
+        Creates a Network Token from raw card data.
         """
         return cast(
             "NetworkToken",
@@ -48,7 +48,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Create or Return a Network Token Using Raw Card Data.
+        Creates a Network Token from raw card data.
         """
         return cast(
             "NetworkToken",
@@ -67,7 +67,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Creates or returns a Network Token from an existing card reference.
+        Creates a Network Token from an existing card reference.
         """
         return cast(
             "NetworkToken",
@@ -86,7 +86,7 @@ class NetworkTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "NetworkToken":
         """
-        Creates or returns a Network Token from an existing card reference.
+        Creates a Network Token from an existing card reference.
         """
         return cast(
             "NetworkToken",

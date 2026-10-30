@@ -9,7 +9,7 @@ from typing_extensions import Literal
 
 class FinancialAccount(StripeObject):
     """
-    A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
+    A FinancialAccount represents a balance and can be the source or destination of money movement.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.money_management.financial_account"]] = (
@@ -29,15 +29,15 @@ class FinancialAccount(StripeObject):
     class Balance(StripeObject):
         available: UntypedStripeObject[Amount]
         """
-        Balance that can be used for money movement.
+        Balance available for money movement.
         """
         inbound_pending: UntypedStripeObject[Amount]
         """
-        Balance of inbound funds that will later transition to the `available` balance.
+        Balance of inbound funds that aren't yet available for money movement and will later move to the `available` balance.
         """
         outbound_pending: UntypedStripeObject[Amount]
         """
-        Balance of funds that are being used for a pending outbound money movement.
+        Balance of funds being used for pending outbound money movements.
         """
 
     class Credit(StripeObject):
@@ -77,7 +77,8 @@ class FinancialAccount(StripeObject):
     class Other(StripeObject):
         type: str
         """
-        The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
+        The FinancialAccount's actual type, represented as a string.
+        Upgrade your API version to see this value in `financial_account.type`.
         """
 
     class Payments(StripeObject):
@@ -85,29 +86,29 @@ class FinancialAccount(StripeObject):
             class PaymentProcessing(StripeObject):
                 available: UntypedStripeObject[Amount]
                 """
-                Balance that can be used for money movement.
+                Balance available for money movement.
                 """
                 inbound_pending: UntypedStripeObject[Amount]
                 """
-                Balance of inbound funds that will later transition to the `available` balance.
+                Balance of inbound funds that aren't yet available for money movement and will later move to the `available` balance.
                 """
                 outbound_pending: UntypedStripeObject[Amount]
                 """
-                Balance of funds that are being used for a pending outbound money movement.
+                Balance of funds being used for pending outbound money movements.
                 """
 
             class StoredValue(StripeObject):
                 available: UntypedStripeObject[Amount]
                 """
-                Balance that can be used for money movement.
+                Balance available for money movement.
                 """
                 inbound_pending: UntypedStripeObject[Amount]
                 """
-                Balance of inbound funds that will later transition to the `available` balance.
+                Balance of inbound funds that aren't yet available for money movement and will later move to the `available` balance.
                 """
                 outbound_pending: UntypedStripeObject[Amount]
                 """
-                Balance of funds that are being used for a pending outbound money movement.
+                Balance of funds being used for pending outbound money movements.
                 """
 
             payment_processing: PaymentProcessing
@@ -189,11 +190,12 @@ class FinancialAccount(StripeObject):
             class ForwardingSettings(StripeObject):
                 payment_method: Optional[str]
                 """
-                The address to send forwarded payments to.
+                ID of the FinancialAccount that supplies funds to cover negative balances
+                during or after this FinancialAccount's closure.
                 """
                 payout_method: Optional[str]
                 """
-                The address to send forwarded payouts to.
+                ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
                 """
                 skip_exportable_balances: Optional[bool]
                 """
@@ -202,17 +204,17 @@ class FinancialAccount(StripeObject):
 
             forwarding_settings: Optional[ForwardingSettings]
             """
-            The forwarding settings for the closed FinancialAccount.
+            When configured, the forwarding settings for the closed FinancialAccount.
             """
             reason: Literal["account_closed", "closed_by_platform", "other"]
             """
-            The reason the FinancialAccount was closed.
+            Closed Enum. The reason the FinancialAccount was closed.
             """
             _inner_class_types = {"forwarding_settings": ForwardingSettings}
 
         closed: Optional[Closed]
         """
-        Details related to the closed state of the FinancialAccount.
+        Details about the FinancialAccount's closure. Only populated when `status` is `closed`.
         """
         _inner_class_types = {"closed": Closed}
 
@@ -272,15 +274,16 @@ class FinancialAccount(StripeObject):
     """
     balance: Balance
     """
-    Multi-currency balance of this FinancialAccount, split by availability state. Each balance is represented as a hash where the key is the three-letter ISO currency code, in lowercase, and the value is the amount for that currency.
+    The FinancialAccount's balance, split into `available`, `inbound_pending`, and `outbound_pending` balances.
+    Each balance is a hash keyed by lowercase currency codes, with an amount for each currency.
     """
     country: str
     """
-    Open Enum. Two-letter country code that represents the country where the LegalEntity associated with the FinancialAccount is based in.
+    Open Enum. The country where the LegalEntity associated with the FinancialAccount is based, represented as a two-letter country code.
     """
     created: str
     """
-    Time at which the object was created.
+    Time at which the object was created. Represented as an RFC 3339 timestamp in UTC with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
     """
     credit: Optional[Credit]
     """
@@ -288,7 +291,7 @@ class FinancialAccount(StripeObject):
     """
     display_name: Optional[str]
     """
-    A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+    A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
     """
     id: str
     """
@@ -300,7 +303,8 @@ class FinancialAccount(StripeObject):
     """
     metadata: Optional[UntypedStripeObject[str]]
     """
-    Metadata associated with the FinancialAccount.
+    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information
+    about the object in a structured format.
     """
     multiprocessor_settlement: Optional[MultiprocessorSettlement]
     """
@@ -312,7 +316,8 @@ class FinancialAccount(StripeObject):
     """
     other: Optional[Other]
     """
-    If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
+    If the FinancialAccount's `type` is `other`, this hash identifies its actual type.
+    Upgrade your API version to see that type in `type`.
     """
     payments: Optional[Payments]
     """
@@ -332,7 +337,7 @@ class FinancialAccount(StripeObject):
     """
     storage: Optional[Storage]
     """
-    If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
+    If the FinancialAccount's `type` is `storage`, this hash contains details specific to that type.
     """
     type: Literal[
         "accrued_fees",
@@ -344,8 +349,8 @@ class FinancialAccount(StripeObject):
         "storage",
     ]
     """
-    Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
-    It contains additional information specific to the FinancialAccount type.
+    Closed Enum. The type of the FinancialAccount. Details specific to the type appear in the matching hash.
+    For example, a `storage` FinancialAccount includes a `storage` hash.
     """
     _inner_class_types = {
         "accrued_fees": AccruedFees,

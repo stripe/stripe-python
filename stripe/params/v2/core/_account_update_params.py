@@ -1097,7 +1097,7 @@ class AccountUpdateParamsConfigurationMerchant(TypedDict):
         "AccountUpdateParamsConfigurationMerchantStatementDescriptor"
     ]
     """
-    Settings for the default [statement descriptor](https://docs.stripe.com/connect/statement-descriptors) text.
+    Settings for the default statement descriptor text.
     """
     support: NotRequired["AccountUpdateParamsConfigurationMerchantSupport"]
     """
@@ -1115,11 +1115,11 @@ class AccountUpdateParamsConfigurationMerchantBacsDebitPayments(TypedDict):
 class AccountUpdateParamsConfigurationMerchantBranding(TypedDict):
     icon: NotRequired[str]
     """
-    ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+    ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
     """
     logo: NotRequired[str]
     """
-    ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+    ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
     """
     primary_color: NotRequired[str]
     """
@@ -1155,6 +1155,12 @@ class AccountUpdateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process Afterpay/Clearpay payments.
+    """
+    alipay_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPayments"
+    ]
+    """
+    Allow the merchant to process Alipay payments.
     """
     alma_payments: NotRequired[
         "AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPayments"
@@ -1372,6 +1378,12 @@ class AccountUpdateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process Satispay payments.
     """
+    scalapay_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPayments"
+    ]
+    """
+    Allow the merchant to process Scalapay payments.
+    """
     sepa_bank_transfer_payments: NotRequired[
         "AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments"
     ]
@@ -1407,6 +1419,12 @@ class AccountUpdateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process TWINT payments.
+    """
+    upi_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPayments"
+    ]
+    """
+    Allow the merchant to process UPI payments.
     """
     us_bank_transfer_payments: NotRequired[
         "AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments"
@@ -1552,6 +1570,39 @@ class AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymen
 
 
 class AccountUpdateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -2748,6 +2799,39 @@ class AccountUpdateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtec
     """
 
 
+class AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments(
     TypedDict,
 ):
@@ -2938,6 +3022,39 @@ class AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectio
 
 
 class AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -3344,6 +3461,12 @@ class AccountUpdateParamsConfigurationMoneyManagerCapabilities(TypedDict):
     ]
     """
     Can send or receive consumer storage-type funds on Stripe.
+    """
+    inbound_fundings: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundings"
+    ]
+    """
+    Can fund a FinancialAccount.
     """
     inbound_transfers: NotRequired[
         "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers"
@@ -4620,6 +4743,50 @@ class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOut
 
 
 class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundings(
+    TypedDict,
+):
+    paper_checks: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks"
+    ]
+    """
+    Can fund a FinancialAccount by paper check.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections(
+    TypedDict,
+):
+    psp_migration: "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -6687,10 +6854,6 @@ class AccountUpdateParamsConfigurationRecipient(TypedDict):
     """
     Capabilities to request on the Recipient Configuration.
     """
-    default_outbound_destination: NotRequired[str]
-    """
-    The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination. For further details about creating an Outbound Destination, see [Collect recipient's payment details](https://docs.stripe.com/global-payouts-private-preview/quickstart?dashboard-or-api=api#collect-bank-account-details).
-    """
 
 
 class AccountUpdateParamsConfigurationRecipientCapabilities(TypedDict):
@@ -6765,12 +6928,6 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts(
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
     """
-    instant: NotRequired[
-        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant"
-    ]
-    """
-    Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
-    """
     local: NotRequired[
         "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal"
     ]
@@ -6789,11 +6946,11 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts(
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
     """
-    sepa_credit: NotRequired[
-        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit"
+    sepa: NotRequired[
+        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa"
     ]
     """
-    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA credit rails.
+    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
     """
     sepa_instant: NotRequired[
         "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant"
@@ -6806,12 +6963,6 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts(
     ]
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
-    """
-    wire: NotRequired[
-        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire"
-    ]
-    """
-    Enables this Account to receive OutboundPayments to linked bank accounts over wire.
     """
 
 
@@ -6980,39 +7131,6 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtec
     """
 
 
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections(
-    TypedDict,
-):
-    psp_migration: "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
 class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal(
     TypedDict,
 ):
@@ -7112,11 +7230,11 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtec
     """
 
 
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit(
+class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepa(
     TypedDict,
 ):
     protections: NotRequired[
-        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections"
+        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections"
     ]
     """
     Protection types to request for this capability (e.g. "psp_migration").
@@ -7127,16 +7245,16 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredi
     """
 
 
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections(
+class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections(
     TypedDict,
 ):
-    psp_migration: "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration"
+    psp_migration: "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration"
     """
     Parameter to request psp_migration protection.
     """
 
 
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration(
+class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -7203,39 +7321,6 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProt
 
 
 class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections(
-    TypedDict,
-):
-    psp_migration: "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -7744,7 +7829,7 @@ class AccountUpdateParamsIdentityAttestationsTermsOfService(TypedDict):
         "AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount"
     ]
     """
-    Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+    Details on the Account's acceptance of the Stripe Services Agreement.
     """
     card_creator: NotRequired[
         "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreator"
@@ -9058,7 +9143,9 @@ class AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress(TypedDict):
     """
     ZIP or postal code.
     """
-    purpose: Literal["administrative", "principal_place_of_business"]
+    purpose: Literal[
+        "administrative", "physical", "principal_place_of_business"
+    ]
     """
     Purpose of additional address.
     """
@@ -9163,6 +9250,12 @@ class AccountUpdateParamsIdentityBusinessDetailsDocuments(TypedDict):
     """
     One or more documents that demonstrate proof of address.
     """
+    proof_of_business_presence: NotRequired[
+        "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence"
+    ]
+    """
+    One or more documents that demonstrate proof of business presence.
+    """
     proof_of_registration: NotRequired[
         "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
     ]
@@ -9182,7 +9275,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVer
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9195,7 +9288,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyLicense(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9208,7 +9301,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumOfAsso
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9221,7 +9314,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyMinisterialDecre
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9234,7 +9327,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyRegistrationVeri
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9247,7 +9340,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerificatio
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9260,7 +9353,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerification(
 ):
     front_back: "AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -9273,11 +9366,11 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFron
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -9286,7 +9379,20 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
+    """
+    type: Union[Literal["files"], str]
+    """
+    The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence(
+    TypedDict,
+):
+    files: List[str]
+    """
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9299,7 +9405,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
@@ -9327,7 +9433,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
@@ -9864,7 +9970,7 @@ class AccountUpdateParamsIdentityIndividualDocumentsCompanyAuthorization(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9875,7 +9981,7 @@ class AccountUpdateParamsIdentityIndividualDocumentsCompanyAuthorization(
 class AccountUpdateParamsIdentityIndividualDocumentsPassport(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9888,7 +9994,7 @@ class AccountUpdateParamsIdentityIndividualDocumentsPrimaryVerification(
 ):
     front_back: "AccountUpdateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -9901,11 +10007,11 @@ class AccountUpdateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -9914,7 +10020,7 @@ class AccountUpdateParamsIdentityIndividualDocumentsSecondaryVerification(
 ):
     front_back: "AccountUpdateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -9927,18 +10033,18 @@ class AccountUpdateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBa
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountUpdateParamsIdentityIndividualDocumentsVisa(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """

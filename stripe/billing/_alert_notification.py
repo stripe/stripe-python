@@ -38,9 +38,13 @@ class AlertNotification(StripeObject):
     """
     The type of billing alert that generated this notification.
     """
+    billing_group: Optional[str]
+    """
+    The billing group associated with this notification. Only present for spend threshold alerts grouped by billing group.
+    """
     cadence: Optional[str]
     """
-    The billing cadence associated with this notification. Only present for spend threshold alerts grouped by billing cadence.
+    The cadence associated with this notification. Only present for spend threshold alerts grouped by cadence.
     """
     currency: Optional[str]
     """
@@ -60,7 +64,7 @@ class AlertNotification(StripeObject):
     """
     livemode: bool
     """
-    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    The value is `true` for objects in live mode and `false` for objects in a sandbox. For accounts that still have access to legacy test mode, the value is also `false` for objects in that mode.
     """
     meter: Optional[str]
     """

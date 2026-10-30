@@ -114,7 +114,7 @@ class RecipientVerificationService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "RecipientVerification":
         """
-        Acknowledges an existing RecipientVerification. Only RecipientVerification awaiting acknowledgement can be acknowledged.
+        Acknowledges an existing RecipientVerification in the `awaiting_acknowledgement` state.
         """
         return cast(
             "RecipientVerification",
@@ -137,7 +137,7 @@ class RecipientVerificationService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "RecipientVerification":
         """
-        Acknowledges an existing RecipientVerification. Only RecipientVerification awaiting acknowledgement can be acknowledged.
+        Acknowledges an existing RecipientVerification in the `awaiting_acknowledgement` state.
         """
         return cast(
             "RecipientVerification",

@@ -1089,11 +1089,11 @@ class AccountCreateParamsConfigurationMerchantBacsDebitPayments(TypedDict):
 class AccountCreateParamsConfigurationMerchantBranding(TypedDict):
     icon: NotRequired[str]
     """
-    ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+    ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
     """
     logo: NotRequired[str]
     """
-    ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+    ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
     """
     primary_color: NotRequired[str]
     """
@@ -1129,6 +1129,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process Afterpay/Clearpay payments.
+    """
+    alipay_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPayments"
+    ]
+    """
+    Allow the merchant to process Alipay payments.
     """
     alma_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPayments"
@@ -1346,6 +1352,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process Satispay payments.
     """
+    scalapay_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPayments"
+    ]
+    """
+    Allow the merchant to process Scalapay payments.
+    """
     sepa_bank_transfer_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments"
     ]
@@ -1381,6 +1393,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process TWINT payments.
+    """
+    upi_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesUpiPayments"
+    ]
+    """
+    Allow the merchant to process UPI payments.
     """
     us_bank_transfer_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments"
@@ -1526,6 +1544,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymen
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAlipayPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -2722,6 +2773,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesSatispayPaymentsProtec
     """
 
 
+class AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesScalapayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments(
     TypedDict,
 ):
@@ -2912,6 +2996,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectio
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesUpiPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesUpiPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -3314,6 +3431,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilities(TypedDict):
     ]
     """
     Can send or receive consumer storage-type funds on Stripe.
+    """
+    inbound_fundings: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundings"
+    ]
+    """
+    Can fund a FinancialAccount.
     """
     inbound_transfers: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers"
@@ -4590,6 +4713,50 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOut
 
 
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundings(
+    TypedDict,
+):
+    paper_checks: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks"
+    ]
+    """
+    Can fund a FinancialAccount by paper check.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecks(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundFundingsPaperChecksProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -6727,12 +6894,6 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
     """
-    instant: NotRequired[
-        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant"
-    ]
-    """
-    Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
-    """
     local: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal"
     ]
@@ -6751,11 +6912,11 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
     """
-    sepa_credit: NotRequired[
-        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit"
+    sepa: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa"
     ]
     """
-    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA credit rails.
+    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
     """
     sepa_instant: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant"
@@ -6768,12 +6929,6 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
     ]
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
-    """
-    wire: NotRequired[
-        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire"
-    ]
-    """
-    Enables this Account to receive OutboundPayments to linked bank accounts over wire.
     """
 
 
@@ -6942,39 +7097,6 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtec
     """
 
 
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal(
     TypedDict,
 ):
@@ -7074,11 +7196,11 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtec
     """
 
 
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit(
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepa(
     TypedDict,
 ):
     protections: NotRequired[
-        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections"
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections"
     ]
     """
     Protection types to request for this capability (e.g. "psp_migration").
@@ -7089,16 +7211,16 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredi
     """
 
 
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections(
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtections(
     TypedDict,
 ):
-    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration"
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration"
     """
     Parameter to request psp_migration protection.
     """
 
 
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration(
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -7165,39 +7287,6 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProt
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -7702,7 +7791,7 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
         "AccountCreateParamsIdentityAttestationsTermsOfServiceAccount"
     ]
     """
-    Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+    Details on the Account's acceptance of the Stripe Services Agreement.
     """
     card_creator: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreator"
@@ -9016,7 +9105,9 @@ class AccountCreateParamsIdentityBusinessDetailsAdditionalAddress(TypedDict):
     """
     ZIP or postal code.
     """
-    purpose: Literal["administrative", "principal_place_of_business"]
+    purpose: Literal[
+        "administrative", "physical", "principal_place_of_business"
+    ]
     """
     Purpose of additional address.
     """
@@ -9121,6 +9212,12 @@ class AccountCreateParamsIdentityBusinessDetailsDocuments(TypedDict):
     """
     One or more documents that demonstrate proof of address.
     """
+    proof_of_business_presence: NotRequired[
+        "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence"
+    ]
+    """
+    One or more documents that demonstrate proof of business presence.
+    """
     proof_of_registration: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
     ]
@@ -9140,7 +9237,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVer
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9153,7 +9250,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9166,7 +9263,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumOfAsso
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9179,7 +9276,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyMinisterialDecre
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9192,7 +9289,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyRegistrationVeri
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9205,7 +9302,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerificatio
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9218,7 +9315,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification(
 ):
     front_back: "AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -9231,11 +9328,11 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFron
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: str
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -9244,7 +9341,20 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
+    """
+    type: Union[Literal["files"], str]
+    """
+    The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfBusinessPresence(
+    TypedDict,
+):
+    files: List[str]
+    """
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9257,7 +9367,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
@@ -9285,7 +9395,7 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
@@ -9820,7 +9930,7 @@ class AccountCreateParamsIdentityIndividualDocumentsCompanyAuthorization(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9831,7 +9941,7 @@ class AccountCreateParamsIdentityIndividualDocumentsCompanyAuthorization(
 class AccountCreateParamsIdentityIndividualDocumentsPassport(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """
@@ -9844,7 +9954,7 @@ class AccountCreateParamsIdentityIndividualDocumentsPrimaryVerification(
 ):
     front_back: "AccountCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -9857,11 +9967,11 @@ class AccountCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: str
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -9870,7 +9980,7 @@ class AccountCreateParamsIdentityIndividualDocumentsSecondaryVerification(
 ):
     front_back: "AccountCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
     type: Union[Literal["front_back"], str]
     """
@@ -9883,18 +9993,18 @@ class AccountCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBa
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: str
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountCreateParamsIdentityIndividualDocumentsVisa(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     type: Union[Literal["files"], str]
     """

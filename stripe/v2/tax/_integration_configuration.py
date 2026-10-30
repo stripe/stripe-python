@@ -31,6 +31,14 @@ class IntegrationConfiguration(StripeObject):
         Controls the default value of automatic_tax[enabled] on new standalone Invoices.
         """
 
+    class Subscriptions(StripeObject):
+        automatic_tax_default_value: Literal[
+            "disabled", "enabled_when_possible"
+        ]
+        """
+        Controls the default value of automatic_tax[enabled] on new Subscriptions.
+        """
+
     checkout_sessions: CheckoutSessions
     """
     Configuration for Checkout Sessions automatic tax behavior.
@@ -47,7 +55,12 @@ class IntegrationConfiguration(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    subscriptions: Subscriptions
+    """
+    Configuration for Subscriptions automatic tax behavior.
+    """
     _inner_class_types = {
         "checkout_sessions": CheckoutSessions,
         "invoices": Invoices,
+        "subscriptions": Subscriptions,
     }

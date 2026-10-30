@@ -14,6 +14,12 @@ class IntegrationConfigurationUpdateParams(TypedDict):
     """
     Configuration for standalone Invoices automatic tax behavior.
     """
+    subscriptions: NotRequired[
+        "IntegrationConfigurationUpdateParamsSubscriptions"
+    ]
+    """
+    Configuration for Subscriptions automatic tax behavior.
+    """
 
 
 class IntegrationConfigurationUpdateParamsCheckoutSessions(TypedDict):
@@ -27,4 +33,11 @@ class IntegrationConfigurationUpdateParamsInvoices(TypedDict):
     automatic_tax_default_value: Literal["disabled", "enabled_when_possible"]
     """
     Controls the default value of automatic_tax[enabled] on new standalone Invoices.
+    """
+
+
+class IntegrationConfigurationUpdateParamsSubscriptions(TypedDict):
+    automatic_tax_default_value: Literal["disabled", "enabled_when_possible"]
+    """
+    Controls the default value of automatic_tax[enabled] on new Subscriptions.
     """

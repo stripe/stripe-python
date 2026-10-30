@@ -4,15 +4,13 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.risk._inquiry import Inquiry as Inquiry
-    from stripe.v2.risk._inquiry_service import (
-        InquiryService as InquiryService,
-    )
+    from stripe.v2.risk._form import Form as Form
+    from stripe.v2.risk._form_service import FormService as FormService
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "Inquiry": ("stripe.v2.risk._inquiry", False),
-    "InquiryService": ("stripe.v2.risk._inquiry_service", False),
+    "Form": ("stripe.v2.risk._form", False),
+    "FormService": ("stripe.v2.risk._form_service", False),
 }
 if not TYPE_CHECKING:
 

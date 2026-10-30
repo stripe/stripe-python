@@ -76,6 +76,11 @@ class PayoutMethod(StripeObject):
         """
         The ID of the Financial Connections Account used to create the bank account.
         """
+        fingerprint: Optional[str]
+        """
+        Uniquely identifies this particular bank account. You can use this attribute to check whether two
+        recipients who've signed up with you are using the same bank account, for example.
+        """
         last4: str
         """
         The last 4 digits of the account number.

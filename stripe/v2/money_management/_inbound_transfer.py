@@ -37,7 +37,7 @@ class InboundTransfer(StripeObject):
         """
         payment_method: PaymentMethod
         """
-        The Payment Method object used to create the InboundTransfer.
+        The bank account credential used to fund the InboundTransfer (for example, a US bank account), not a Payments API `pm_` PaymentMethod.
         """
         _inner_class_types = {"payment_method": PaymentMethod}
 

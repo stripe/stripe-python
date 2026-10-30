@@ -37,8 +37,8 @@ class ReportRunCreateParamsReport(TypedDict):
 
 
 class ReportRunCreateParamsResultOptions(TypedDict):
-    compress_file: NotRequired[bool]
+    compression: NotRequired["Literal['none', 'zip']|str"]
     """
-    If set, the generated result file is compressed into a ZIP archive before
-    it is stored. This applies only to downloadable file results.
+    The compression applied to the generated result file. Defaults to `none`. This applies
+    only to downloadable file results.
     """

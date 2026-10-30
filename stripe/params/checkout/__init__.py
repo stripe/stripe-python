@@ -16,6 +16,7 @@ if TYPE_CHECKING:
         SessionCreateParamsAdaptivePricing as SessionCreateParamsAdaptivePricing,
         SessionCreateParamsAfterExpiration as SessionCreateParamsAfterExpiration,
         SessionCreateParamsAfterExpirationRecovery as SessionCreateParamsAfterExpirationRecovery,
+        SessionCreateParamsAutomaticPassThroughFee as SessionCreateParamsAutomaticPassThroughFee,
         SessionCreateParamsAutomaticSurcharge as SessionCreateParamsAutomaticSurcharge,
         SessionCreateParamsAutomaticTax as SessionCreateParamsAutomaticTax,
         SessionCreateParamsAutomaticTaxLiability as SessionCreateParamsAutomaticTaxLiability,
@@ -142,6 +143,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsPayco as SessionCreateParamsPaymentMethodOptionsPayco,
         SessionCreateParamsPaymentMethodOptionsPaynow as SessionCreateParamsPaymentMethodOptionsPaynow,
         SessionCreateParamsPaymentMethodOptionsPaypal as SessionCreateParamsPaymentMethodOptionsPaypal,
+        SessionCreateParamsPaymentMethodOptionsPaypay as SessionCreateParamsPaymentMethodOptionsPaypay,
         SessionCreateParamsPaymentMethodOptionsPayto as SessionCreateParamsPaymentMethodOptionsPayto,
         SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions as SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         SessionCreateParamsPaymentMethodOptionsPix as SessionCreateParamsPaymentMethodOptionsPix,
@@ -184,6 +186,7 @@ if TYPE_CHECKING:
         SessionCreateParamsSubscriptionDataBillingMode as SessionCreateParamsSubscriptionDataBillingMode,
         SessionCreateParamsSubscriptionDataBillingModeFlexible as SessionCreateParamsSubscriptionDataBillingModeFlexible,
         SessionCreateParamsSubscriptionDataInvoiceSettings as SessionCreateParamsSubscriptionDataInvoiceSettings,
+        SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField as SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField,
         SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer as SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer,
         SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval as SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval,
         SessionCreateParamsSubscriptionDataTransferData as SessionCreateParamsSubscriptionDataTransferData,
@@ -308,6 +311,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsAfterExpirationRecovery": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAutomaticPassThroughFee": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -815,6 +822,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsPaypay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsPayto": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -980,6 +991,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsSubscriptionDataInvoiceSettings": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

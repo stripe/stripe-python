@@ -124,6 +124,7 @@ class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEven
                 "consumer_storage.inbound.usdc",
                 "consumer_storage.outbound.usd",
                 "consumer_storage.outbound.usdc",
+                "inbound_fundings.paper_checks",
                 "inbound_transfers.bank_accounts",
                 "outbound_payments.bank_accounts",
                 "outbound_payments.cards",

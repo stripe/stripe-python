@@ -243,7 +243,7 @@ class EventNotification:
         if parsed_body.get("reason"):
             self.reason = Reason(parsed_body["reason"])
 
-        self._client = client
+        self._client = client.with_stripe_context(self.context)
 
     @staticmethod
     def from_json(

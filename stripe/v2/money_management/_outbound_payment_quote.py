@@ -186,21 +186,24 @@ class OutboundPaymentQuote(StripeObject):
                 """
                 Per-network configuration options.
                 """
-                preferred_networks: List[
-                    Union[
-                        Literal[
-                            "ach",
-                            "becs",
-                            "eft",
-                            "fedwire",
-                            "fps",
-                            "npp",
-                            "rtp",
-                            "sepa_credit",
-                            "sepa_instant",
-                            "swift",
-                        ],
-                        str,
+                preferred_networks: Optional[
+                    List[
+                        Union[
+                            Literal[
+                                "ach",
+                                "becs",
+                                "eft",
+                                "fedwire",
+                                "fps",
+                                "npp",
+                                "rtp",
+                                "sepa",
+                                "sepa_credit",
+                                "sepa_instant",
+                                "swift",
+                            ],
+                            str,
+                        ]
                     ]
                 ]
                 """

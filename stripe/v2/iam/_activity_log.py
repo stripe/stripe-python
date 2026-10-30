@@ -201,84 +201,10 @@ class ActivityLog(StripeObject):
             """
 
         class UserAccess(StripeObject):
-            class Authentication(StripeObject):
-                class PrimaryFactor(StripeObject):
-                    sso_provider: Optional[str]
-                    """
-                    SSO provider for the authentication factor.
-                    """
-                    type: Union[
-                        Literal[
-                            "backup_code",
-                            "email_code",
-                            "oauth",
-                            "passkey",
-                            "password",
-                            "phone_code",
-                            "saml",
-                            "sms",
-                            "totp",
-                            "web_authn",
-                        ],
-                        str,
-                    ]
-                    """
-                    Type of authentication factor.
-                    """
-
-                class SecondaryFactor(StripeObject):
-                    sso_provider: Optional[str]
-                    """
-                    SSO provider for the authentication factor.
-                    """
-                    type: Union[
-                        Literal[
-                            "backup_code",
-                            "email_code",
-                            "oauth",
-                            "passkey",
-                            "password",
-                            "phone_code",
-                            "saml",
-                            "sms",
-                            "totp",
-                            "web_authn",
-                        ],
-                        str,
-                    ]
-                    """
-                    Type of authentication factor.
-                    """
-
-                primary_factor: PrimaryFactor
-                """
-                Primary authentication factor.
-                """
-                secondary_factors: List[SecondaryFactor]
-                """
-                Secondary authentication factors.
-                """
-                _inner_class_types = {
-                    "primary_factor": PrimaryFactor,
-                    "secondary_factors": SecondaryFactor,
-                }
-
             class DashboardClient(StripeObject):
-                browser: str
+                user_agent: str
                 """
-                Browser used for the user access action.
-                """
-                browser_version: str
-                """
-                Browser version used for the user access action.
-                """
-                device_type: str
-                """
-                Device type used for the user access action.
-                """
-                os: str
-                """
-                Operating system used for the user access action.
+                User-Agent header for the user access action.
                 """
 
             class Network(StripeObject):
@@ -314,20 +240,12 @@ class ActivityLog(StripeObject):
                     """
                     _inner_class_types = {"novel_device": NovelDevice}
 
-                level: Union[Literal["high", "low", "medium"], str]
-                """
-                Risk level for the user access action.
-                """
                 signals: List[Signal]
                 """
                 Risk signals for the user access action.
                 """
                 _inner_class_types = {"signals": Signal}
 
-            authentication: Authentication
-            """
-            Authentication details for the user access action.
-            """
             dashboard_client: Optional[DashboardClient]
             """
             Dashboard client details for the user access action.
@@ -348,16 +266,11 @@ class ActivityLog(StripeObject):
             """
             Roles associated with the user access action.
             """
-            session_fingerprint: str
-            """
-            Session fingerprint for the user access action.
-            """
             surface: Union[Literal["dashboard", "express"], str]
             """
             Surface where the user access action started.
             """
             _inner_class_types = {
-                "authentication": Authentication,
                 "dashboard_client": DashboardClient,
                 "network": Network,
                 "risk": Risk,

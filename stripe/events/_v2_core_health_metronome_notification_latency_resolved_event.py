@@ -73,6 +73,10 @@ class V2CoreHealthMetronomeNotificationLatencyResolvedEvent(Event):
         """
         The time when the user experience has returned to expected levels.
         """
+        severity: Union[Literal["critical", "non_critical"], str]
+        """
+        The severity of the alert.
+        """
         started_at: str
         """
         The time when impact on the user experience was first detected.

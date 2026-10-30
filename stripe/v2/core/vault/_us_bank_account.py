@@ -78,6 +78,10 @@ class UsBankAccount(StripeObject):
     """
     Creation time of the object.
     """
+    fedwire_fingerprint: Optional[str]
+    """
+    Same as `fingerprint`, but uniquely identifies the bank account using its `fedwire_routing_number` instead of its `routing_number`.
+    """
     fedwire_routing_number: Optional[str]
     """
     The fedwire routing number of the bank account.
@@ -85,6 +89,11 @@ class UsBankAccount(StripeObject):
     financial_connections_account: Optional[str]
     """
     The ID of the Financial Connections Account used to create the bank account.
+    """
+    fingerprint: Optional[str]
+    """
+    Uniquely identifies this particular bank account. You can use this attribute to check whether two
+    recipients who've signed up with you are using the same bank account, for example.
     """
     id: str
     """

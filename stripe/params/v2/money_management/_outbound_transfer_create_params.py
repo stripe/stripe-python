@@ -111,6 +111,7 @@ class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
                 "fps",
                 "npp",
                 "rtp",
+                "sepa",
                 "sepa_credit",
                 "sepa_instant",
                 "swift",

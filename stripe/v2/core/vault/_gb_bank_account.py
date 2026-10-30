@@ -91,7 +91,7 @@ class GbBankAccount(StripeObject):
     the /archive API, and they will not be automatically archived by Stripe. Archived bank account objects
     cannot be used as outbound destinations and will not appear in the outbound destination list.
     """
-    bank_account_type: Literal["checking", "futsu", "savings", "toza"]
+    bank_account_type: Literal["checking", "savings"]
     """
     Closed Enum. The type of the bank account (checking or savings).
     """
@@ -107,6 +107,11 @@ class GbBankAccount(StripeObject):
     created: str
     """
     Creation time.
+    """
+    fingerprint: Optional[str]
+    """
+    Uniquely identifies this particular bank account. You can use this attribute to check whether two
+    recipients who've signed up with you are using the same bank account, for example.
     """
     id: str
     """

@@ -109,6 +109,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
                 "bank_accounts.local",
                 "bank_accounts.npp",
                 "bank_accounts.rtp",
+                "bank_accounts.sepa",
                 "bank_accounts.sepa_credit",
                 "bank_accounts.sepa_instant",
                 "bank_accounts.swift",

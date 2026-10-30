@@ -73,7 +73,7 @@ class PayoutIntent(StripeObject):
         """
         network_fee_details: Optional[NetworkFeeDetails]
         """
-        Details about the network and options associated with this fee. Present when type is network_fee.
+        Details about the network and options associated with this fee. Present when `type` is `network_fee`.
         """
         tax_amount: Optional[TaxAmount]
         """
@@ -120,8 +120,8 @@ class PayoutIntent(StripeObject):
         class Rates(StripeObject):
             exchange_rate: str
             """
-            The exchange rate going from_currency -> to_currency, represented as a decimal string
-            (e.g., "1.1520") to preserve the full precision of the rate.
+            The exchange rate from the source currency to `to_currency`, represented as a decimal string
+            (for example, `1.1520`) to preserve the full precision of the rate.
             """
 
         lock_duration: Union[Literal["five_minutes", "none"], str]
@@ -138,7 +138,7 @@ class PayoutIntent(StripeObject):
         """
         rates: UntypedStripeObject[Rates]
         """
-        Key: source currency. Value: exchange rate from source currency to to_currency.
+        Maps each source currency to its exchange rate into `to_currency`.
         """
         to_currency: str
         """
@@ -163,6 +163,21 @@ class PayoutIntent(StripeObject):
 
     class NextAction(StripeObject):
         class Confirm(StripeObject):
+            fields_to_review: Optional[
+                List[
+                    Union[
+                        Literal[
+                            "estimated_fees",
+                            "fx_quote",
+                            "recipient_verification",
+                        ],
+                        str,
+                    ]
+                ]
+            ]
+            """
+            The PayoutIntent fields that must be reviewed before confirmation.
+            """
             reason: Union[
                 Literal["automatically_required", "manually_requested"], str
             ]
@@ -175,7 +190,6 @@ class PayoutIntent(StripeObject):
                 Literal[
                     "account_not_configured_as_recipient",
                     "currency_not_supported_for_financial_account_balance",
-                    "currency_required",
                     "feature_not_active_for_recipient",
                     "fx_rate_drift_exceeded_after_review",
                     "insufficient_funds",
@@ -190,11 +204,13 @@ class PayoutIntent(StripeObject):
                     "payout_method_holder_address_incorrect",
                     "payout_method_holder_details_incorrect",
                     "payout_method_holder_name_incorrect",
+                    "payout_method_invalid",
                     "payout_method_invalid_account_number",
                     "payout_method_restricted",
                     "payout_method_unsupported",
                     "payout_method_usage_frequency_limit_exceeded",
                     "recalled",
+                    "recipient_capability_not_active",
                     "review_rejected",
                     "to_destination_invalid",
                     "unknown_failure",
@@ -207,11 +223,11 @@ class PayoutIntent(StripeObject):
 
         confirm: Optional[Confirm]
         """
-        Details about a confirmation required. Populated when type is confirm.
+        Details about a confirmation required. Populated when `type` is `confirm`.
         """
         handle_failure: Optional[HandleFailure]
         """
-        Details about a failure that requires user action. Populated when type is handle_failure.
+        Details about a failure that requires user action. Populated when `type` is `handle_failure`.
         """
         type: Union[Literal["confirm", "handle_failure"], str]
         """
@@ -226,8 +242,43 @@ class PayoutIntent(StripeObject):
         setting: Literal["configured", "none"]
         """
         Closed Enum. Configuration option to enable or disable notifications to recipients.
-        Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+        Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
         """
+
+    class RecipientVerification(StripeObject):
+        class MatchResultDetails(StripeObject):
+            matched_business_type: Optional[Literal["business", "personal"]]
+            """
+            The business type returned by the recipient-verification provider.
+            """
+            matched_name: Optional[str]
+            """
+            The account name returned by the recipient-verification provider.
+            """
+            message: str
+            """
+            A message describing the match result.
+            """
+            provided_business_type: Optional[Literal["business", "personal"]]
+            """
+            The business type provided for recipient verification.
+            """
+            provided_name: str
+            """
+            The name associated with the provided recipient.
+            """
+
+        match_result: Literal[
+            "close_match", "match", "no_match", "unavailable"
+        ]
+        """
+        Closed Enum. The recipient-verification provider's match result.
+        """
+        match_result_details: MatchResultDetails
+        """
+        Details associated with the match result.
+        """
+        _inner_class_types = {"match_result_details": MatchResultDetails}
 
     class ScheduleOptions(StripeObject):
         execute_on: Optional[str]
@@ -289,21 +340,24 @@ class PayoutIntent(StripeObject):
                 """
                 Per-network configuration options.
                 """
-                preferred_networks: List[
-                    Union[
-                        Literal[
-                            "ach",
-                            "becs",
-                            "eft",
-                            "fedwire",
-                            "fps",
-                            "npp",
-                            "rtp",
-                            "sepa_credit",
-                            "sepa_instant",
-                            "swift",
-                        ],
-                        str,
+                preferred_networks: Optional[
+                    List[
+                        Union[
+                            Literal[
+                                "ach",
+                                "becs",
+                                "eft",
+                                "fedwire",
+                                "fps",
+                                "npp",
+                                "rtp",
+                                "sepa",
+                                "sepa_credit",
+                                "sepa_instant",
+                                "swift",
+                            ],
+                            str,
+                        ]
                     ]
                 ]
                 """
@@ -329,7 +383,7 @@ class PayoutIntent(StripeObject):
         """
         payout_method: Optional[str]
         """
-        The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+        The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
         """
         payout_method_options: Optional[PayoutMethodOptions]
         """
@@ -337,7 +391,7 @@ class PayoutIntent(StripeObject):
         """
         recipient: Optional[str]
         """
-        The recipient ID. Only relevant for OutboundPayment.
+        The recipient ID for the PayoutIntent.
         """
         _inner_class_types = {"payout_method_options": PayoutMethodOptions}
 
@@ -347,7 +401,8 @@ class PayoutIntent(StripeObject):
     """
     confirmation_method: Union[Literal["automatic", "manual"], str]
     """
-    Controls whether the intent requires explicit confirmation before transitioning to pending.
+    Controls whether the PayoutIntent requires explicit confirmation before transitioning to `pending`.
+    Even when `automatic`, regulatory requirements may require confirmation. See [Send money with Global Payouts](https://docs.stripe.com/global-payouts/send-money) for details.
     """
     created: str
     """
@@ -374,7 +429,7 @@ class PayoutIntent(StripeObject):
     """
     Unique identifier for the PayoutIntent.
     """
-    latest_payout: LatestPayout
+    latest_payout: Optional[LatestPayout]
     """
     Details about the latest payout associated with this PayoutIntent.
     """
@@ -388,7 +443,7 @@ class PayoutIntent(StripeObject):
     """
     next_action: Optional[NextAction]
     """
-    Next action required for a PayoutIntent in the requires_action state. Populated when status is requires_action.
+    Next action required for a PayoutIntent in the `requires_action` state. Populated when `status` is `requires_action`.
     """
     object: Literal["v2.money_management.payout_intent"]
     """
@@ -396,11 +451,15 @@ class PayoutIntent(StripeObject):
     """
     recipient_notification: Optional[RecipientNotification]
     """
-    Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+    Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
+    """
+    recipient_verification: Optional[RecipientVerification]
+    """
+    Recipient verification details for this PayoutIntent.
     """
     schedule_options: Optional[ScheduleOptions]
     """
-    Scheduling options for the payout. If this is nil, we assume immediate execution.
+    Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
     """
     statement_descriptor: Optional[str]
     """
@@ -413,7 +472,7 @@ class PayoutIntent(StripeObject):
         str,
     ]
     """
-    Open Enum. Current status of the PayoutIntent: `pending`, `processing`, `posted`, `canceled`, `requires_action`.
+    Current status of the PayoutIntent.
     """
     status_transitions: Optional[StatusTransitions]
     """
@@ -430,6 +489,7 @@ class PayoutIntent(StripeObject):
         "latest_payout": LatestPayout,
         "next_action": NextAction,
         "recipient_notification": RecipientNotification,
+        "recipient_verification": RecipientVerification,
         "schedule_options": ScheduleOptions,
         "status_transitions": StatusTransitions,
         "to": To,

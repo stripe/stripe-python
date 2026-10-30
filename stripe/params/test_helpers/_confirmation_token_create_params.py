@@ -387,6 +387,12 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
     """
+    toss_pay: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataTossPay"
+    ]
+    """
+    If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+    """
     twint: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataTwint"]
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -455,6 +461,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "sunbit",
             "swish",
             "tamara",
+            "toss_pay",
             "twint",
             "upi",
             "us_bank_account",
@@ -718,7 +725,9 @@ class ConfirmationTokenCreateParamsPaymentMethodDataGrabpay(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
-    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
+    bank: NotRequired[
+        "Literal['bca', 'bni', 'bri', 'cimb', 'mandiri', 'permata']|str"
+    ]
     """
     Bank where the account is held.
     """
@@ -972,6 +981,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataTamara(TypedDict):
     pass
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataTossPay(TypedDict):
+    pass
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataTwint(TypedDict):
     pass
 
@@ -1019,6 +1032,12 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
+    external_token: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken"
+    ]
+    """
+    An external token used to create a payment method.
+    """
     financial_connections_account: NotRequired[str]
     """
     The ID of a Financial Connections Account to use as a payment method.
@@ -1026,6 +1045,19 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     routing_number: NotRequired[str]
     """
     Routing number of the bank account.
+    """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccountExternalToken(
+    TypedDict,
+):
+    plaid_processor_token: NotRequired[str]
+    """
+    The Plaid processor token to use for this bank account.
+    """
+    type: Union[Literal["plaid_processor_token"], str]
+    """
+    The type of external token.
     """
 
 

@@ -9,7 +9,9 @@ class ReportRun(StripeObject):
     """
     The `ReportRun` resource represents an instance of a `Report` generated with specific
     parameter values. Once the object is created, Stripe begins processing the report. When
-    the report has finished running, it provides a reference to the results.
+    the report has finished running, it provides a reference to the results. A `ReportRun` and
+    its results are retained for 90 days after the run completes. After that, Stripe deletes
+    them and retrieving the `ReportRun` returns a `404` error.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.data.report_run"]] = "v2.data.report_run"
@@ -143,13 +145,23 @@ class ReportRun(StripeObject):
         }
 
     class ResultOptions(StripeObject):
-        compress_file: Optional[bool]
+        compression: Optional[Union[Literal["none", "zip"], str]]
         """
-        If set, the generated result file is compressed into a ZIP archive before
-        it is stored. This applies only to downloadable file results.
+        The compression applied to the generated result file. Defaults to `none`. This applies
+        only to downloadable file results.
         """
 
     class StatusDetails(StripeObject):
+        class QueryError(StripeObject):
+            message: str
+            """
+            A human-readable description of the error.
+            """
+            type: str
+            """
+            A short identifier categorizing the type of error.
+            """
+
         canceled_at: Optional[str]
         """
         Time at which the run was canceled. Populated when the run is in the `canceled` state.
@@ -157,9 +169,11 @@ class ReportRun(StripeObject):
         code: Optional[
             Union[
                 Literal[
+                    "execution_failed",
                     "file_size_above_limit",
                     "internal_error",
                     "query_run_invalid_sql",
+                    "resource_limit_exceeded",
                 ],
                 str,
             ]
@@ -171,10 +185,19 @@ class ReportRun(StripeObject):
         """
         Error message with additional details about the failure.
         """
+        query_errors: List[QueryError]
+        """
+        Errors found in the submitted SQL. Populated when the failure was caused by invalid SQL.
+        """
+        _inner_class_types = {"query_errors": QueryError}
 
     created: str
     """
     Time at which the `ReportRun` was created.
+    """
+    format: Union[Literal["csv"], str]
+    """
+    The file format of the result.
     """
     id: str
     """
@@ -214,8 +237,8 @@ class ReportRun(StripeObject):
     """
     sql: Optional[str]
     """
-    The fully-resolved SQL that was executed. Only present when requested via
-    `include[0]=sql`.
+    The fully-resolved SQL that was executed, or an explanatory message when the SQL cannot be
+    exposed. Only present when requested via `include[0]=sql`.
     """
     status: Union[Literal["canceled", "failed", "running", "succeeded"], str]
     """

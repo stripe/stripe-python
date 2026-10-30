@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.v2.money_management import (
         financial_accounts as financial_accounts,
+        reward_programs as reward_programs,
         test_helpers as test_helpers,
     )
     from stripe.v2.money_management._adjustment import Adjustment as Adjustment
@@ -63,11 +64,23 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._financial_address_service import (
         FinancialAddressService as FinancialAddressService,
     )
+    from stripe.v2.money_management._funding_intent import (
+        FundingIntent as FundingIntent,
+    )
+    from stripe.v2.money_management._funding_intent_service import (
+        FundingIntentService as FundingIntentService,
+    )
     from stripe.v2.money_management._funding_session import (
         FundingSession as FundingSession,
     )
     from stripe.v2.money_management._funding_session_service import (
         FundingSessionService as FundingSessionService,
+    )
+    from stripe.v2.money_management._inbound_funding import (
+        InboundFunding as InboundFunding,
+    )
+    from stripe.v2.money_management._inbound_funding_service import (
+        InboundFundingService as InboundFundingService,
     )
     from stripe.v2.money_management._inbound_transfer import (
         InboundTransfer as InboundTransfer,
@@ -147,6 +160,21 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._recipient_verification_service import (
         RecipientVerificationService as RecipientVerificationService,
     )
+    from stripe.v2.money_management._reward_program import (
+        RewardProgram as RewardProgram,
+    )
+    from stripe.v2.money_management._reward_program_enrollment import (
+        RewardProgramEnrollment as RewardProgramEnrollment,
+    )
+    from stripe.v2.money_management._reward_program_enrollment_service import (
+        RewardProgramEnrollmentService as RewardProgramEnrollmentService,
+    )
+    from stripe.v2.money_management._reward_program_rule import (
+        RewardProgramRule as RewardProgramRule,
+    )
+    from stripe.v2.money_management._reward_program_service import (
+        RewardProgramService as RewardProgramService,
+    )
     from stripe.v2.money_management._test_helper_service import (
         TestHelperService as TestHelperService,
     )
@@ -169,6 +197,7 @@ _import_map = {
         "stripe.v2.money_management.financial_accounts",
         True,
     ),
+    "reward_programs": ("stripe.v2.money_management.reward_programs", True),
     "test_helpers": ("stripe.v2.money_management.test_helpers", True),
     "Adjustment": ("stripe.v2.money_management._adjustment", False),
     "AdjustmentService": (
@@ -237,9 +266,19 @@ _import_map = {
         "stripe.v2.money_management._financial_address_service",
         False,
     ),
+    "FundingIntent": ("stripe.v2.money_management._funding_intent", False),
+    "FundingIntentService": (
+        "stripe.v2.money_management._funding_intent_service",
+        False,
+    ),
     "FundingSession": ("stripe.v2.money_management._funding_session", False),
     "FundingSessionService": (
         "stripe.v2.money_management._funding_session_service",
+        False,
+    ),
+    "InboundFunding": ("stripe.v2.money_management._inbound_funding", False),
+    "InboundFundingService": (
+        "stripe.v2.money_management._inbound_funding_service",
         False,
     ),
     "InboundTransfer": ("stripe.v2.money_management._inbound_transfer", False),
@@ -326,6 +365,23 @@ _import_map = {
     ),
     "RecipientVerificationService": (
         "stripe.v2.money_management._recipient_verification_service",
+        False,
+    ),
+    "RewardProgram": ("stripe.v2.money_management._reward_program", False),
+    "RewardProgramEnrollment": (
+        "stripe.v2.money_management._reward_program_enrollment",
+        False,
+    ),
+    "RewardProgramEnrollmentService": (
+        "stripe.v2.money_management._reward_program_enrollment_service",
+        False,
+    ),
+    "RewardProgramRule": (
+        "stripe.v2.money_management._reward_program_rule",
+        False,
+    ),
+    "RewardProgramService": (
+        "stripe.v2.money_management._reward_program_service",
         False,
     ),
     "TestHelperService": (

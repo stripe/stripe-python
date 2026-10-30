@@ -93,4 +93,10 @@ class Report(StripeObject):
     """
     Specification of the parameters that the `Report` accepts, keyed by parameter name.
     """
+    refreshed_at: Optional[str]
+    """
+    The most recent time through which data is available for this report, not the time the
+    report definition was updated. Unset if the report has no data-availability policy, or if no
+    freshness watermark is available yet.
+    """
     _inner_class_types = {"parameters": Parameters}
