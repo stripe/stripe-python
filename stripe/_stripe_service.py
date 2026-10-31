@@ -22,9 +22,8 @@ def _split_v2_search_params(
         return url, params
     body_params = dict(params)
     limit = body_params.pop("limit")
-    if "limit=" not in url:
-        separator = "&" if "?" in url else "?"
-        url = "%s%slimit=%s" % (url, separator, quote(str(limit), safe=""))
+    if "?" not in url:
+        url = "%s?limit=%s" % (url, quote(str(limit), safe=""))
     return url, body_params
 
 
@@ -46,12 +45,6 @@ class StripeService(object):
     ) -> StripeObject:
         if _param_encodings:
             params = _coerce_v2_params(params, _param_encodings)
-        if (
-            method == "post"
-            and url.split("?", 1)[0].startswith("/v2/")
-            and url.split("?", 1)[0].endswith("/search")
-        ):
-            url, params = _split_v2_search_params(url, params)
         return self._requestor.request(
             method,
             url,
@@ -73,12 +66,6 @@ class StripeService(object):
     ) -> StripeObject:
         if _param_encodings:
             params = _coerce_v2_params(params, _param_encodings)
-        if (
-            method == "post"
-            and url.split("?", 1)[0].startswith("/v2/")
-            and url.split("?", 1)[0].endswith("/search")
-        ):
-            url, params = _split_v2_search_params(url, params)
         return await self._requestor.request_async(
             method,
             url,
@@ -86,6 +73,49 @@ class StripeService(object):
             options,
             base_address=base_address,
             usage=["stripe_client"],
+        )
+
+    # V2 search uses POST but sends limit in the URL rather than the JSON body.
+    # Add it only to the initial URL; page URLs contain their pagination parameters.
+    # Delegate to the ordinary request path exactly once.
+    def _request_v2_search(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        _param_encodings: Optional[Dict[str, _SchemaNode]] = None,
+    ) -> StripeObject:
+        url, params = _split_v2_search_params(url, params)
+        return self._request(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            _param_encodings=_param_encodings,
+        )
+
+    async def _request_v2_search_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        _param_encodings: Optional[Dict[str, _SchemaNode]] = None,
+    ) -> StripeObject:
+        url, params = _split_v2_search_params(url, params)
+        return await self._request_async(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            _param_encodings=_param_encodings,
         )
 
     def _request_stream(
