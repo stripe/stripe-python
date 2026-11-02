@@ -19,13 +19,13 @@ from stripe.v2._search_result_object import SearchResultObject
         (
             "/v2/widgets/search?page=2&limit=2",
             {"limit": 9, "query": "widgets"},
-            "/v2/widgets/search?page=2&limit=2",
+            "/v2/widgets/search?limit=9",
             {"query": "widgets"},
         ),
         (
             "/v2/widgets/search?page=2",
             {"limit": 9, "query": "widgets"},
-            "/v2/widgets/search?page=2",
+            "/v2/widgets/search?limit=9",
             {"query": "widgets"},
         ),
         (
@@ -34,7 +34,13 @@ from stripe.v2._search_result_object import SearchResultObject
             "/v2/widgets/search",
             {"query": "widgets"},
         ),
-        ("/v2/widgets/search", None, "/v2/widgets/search", None),
+        (
+            "/v2/widgets/search?limit=2&unused=value",
+            {"query": "widgets"},
+            "/v2/widgets/search",
+            {"query": "widgets"},
+        ),
+        ("/v2/widgets/search?limit=2", None, "/v2/widgets/search", None),
     ],
 )
 @pytest.mark.anyio

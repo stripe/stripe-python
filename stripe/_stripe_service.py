@@ -18,12 +18,12 @@ from stripe._encode import _coerce_v2_params, _SchemaNode
 def _split_v2_search_params(
     url: str, params: Optional[Mapping[str, Any]]
 ) -> Tuple[str, Optional[Mapping[str, Any]]]:
+    url = url.split("?", 1)[0]
     if params is None or "limit" not in params:
         return url, params
     body_params = dict(params)
     limit = body_params.pop("limit")
-    if "?" not in url:
-        url = "%s?limit=%s" % (url, quote(str(limit), safe=""))
+    url = "%s?limit=%s" % (url, quote(str(limit), safe=""))
     return url, body_params
 
 
@@ -76,8 +76,7 @@ class StripeService(object):
         )
 
     # V2 search uses POST but sends limit in the URL rather than the JSON body.
-    # Add it only to the initial URL; page URLs contain their pagination parameters.
-    # Delegate to the ordinary request path exactly once.
+    # Rebuild the initial query from params; pagination uses the ordinary request path.
     def _request_v2_search(
         self,
         method: str,
