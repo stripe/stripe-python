@@ -116,13 +116,15 @@ class ListObject(StripeObject, Generic[T]):
     def __reversed__(self) -> Iterator[T]:
         return getattr(self, "data", []).__reversed__()
 
-    def auto_paging_iter(self) -> AnyIterator[T]:
+    def auto_paging_iter(
+        self, **params: Unpack[RequestOptions]
+    ) -> AnyIterator[T]:
         return AnyIterator(
-            self._auto_paging_iter(),
-            self._auto_paging_iter_async(),
+            self._auto_paging_iter(params),
+            self._auto_paging_iter_async(params),
         )
 
-    def _auto_paging_iter(self) -> Iterator[T]:
+    def _auto_paging_iter(self, params: RequestOptions) -> Iterator[T]:
         page = self
 
         while True:
@@ -132,16 +134,18 @@ class ListObject(StripeObject, Generic[T]):
             ):
                 for item in reversed(page):
                     yield item
-                page = page.previous_page()
+                page = page.previous_page(**params)
             else:
                 for item in page:
                     yield item
-                page = page.next_page()
+                page = page.next_page(**params)
 
             if page.is_empty:
                 break
 
-    async def _auto_paging_iter_async(self) -> AsyncIterator[T]:
+    async def _auto_paging_iter_async(
+        self, params: RequestOptions
+    ) -> AsyncIterator[T]:
         page = self
 
         while True:
@@ -151,11 +155,11 @@ class ListObject(StripeObject, Generic[T]):
             ):
                 for item in reversed(page):
                     yield item
-                page = await page.previous_page_async()
+                page = await page.previous_page_async(**params)
             else:
                 for item in page:
                     yield item
-                page = await page.next_page_async()
+                page = await page.next_page_async(**params)
 
             if page.is_empty:
                 break

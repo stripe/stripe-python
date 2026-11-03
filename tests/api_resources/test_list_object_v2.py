@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import json
+import pickle
 
 import pytest
 
@@ -145,6 +146,37 @@ class TestListObjectV2(object):
             path=path,
             query_string=query_string_2,
             api_key="sk_test_iter_forwards_options",
+        )
+
+    def test_iter_uses_per_call_api_key(self, http_client_mock, monkeypatch):
+        lo = ListObject.construct_from(
+            self.pageable_model_response(
+                ["pm_123"], "/v2/pageablemodels?page=page_2"
+            ),
+            "producer-key-sentinel",
+        )
+        monkeypatch.setattr(stripe, "api_key", None)
+        restored = pickle.loads(pickle.dumps(lo))
+        http_client_mock.stub_request(
+            "get",
+            path="/v2/pageablemodels",
+            query_string="page=page_2",
+            rbody=json.dumps(self.pageable_model_response(["pm_124"], None)),
+        )
+
+        seen = [
+            item["id"]
+            for item in restored.auto_paging_iter(
+                api_key="worker-key-sentinel"
+            )
+        ]
+
+        assert seen == ["pm_123", "pm_124"]
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/pageablemodels",
+            query_string="page=page_2",
+            api_key="worker-key-sentinel",
         )
 
 

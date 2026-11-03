@@ -10,7 +10,10 @@ from typing import (
     TypeVar,
 )
 
+from typing_extensions import Unpack
+
 from stripe._any_iterator import AnyIterator
+from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 
 
@@ -32,9 +35,12 @@ class SearchResultObject(StripeObject, Generic[T]):
     def __len__(self) -> int:
         return getattr(self, "data", []).__len__()
 
-    def auto_paging_iter(self) -> AnyIterator[T]:
+    def auto_paging_iter(
+        self, **params: Unpack[RequestOptions]
+    ) -> AnyIterator[T]:
         return AnyIterator(
-            self._auto_paging_iter(), self._auto_paging_iter_async()
+            self._auto_paging_iter(params),
+            self._auto_paging_iter_async(params),
         )
 
     def _original_params(self) -> Mapping[str, Any]:
@@ -45,7 +51,7 @@ class SearchResultObject(StripeObject, Generic[T]):
         body_params.pop("limit", None)
         return body_params
 
-    def _auto_paging_iter(self) -> Iterator[T]:
+    def _auto_paging_iter(self, options: RequestOptions) -> Iterator[T]:
         page: SearchResultObject[T] = self
         params = self._original_params()
         while True:
@@ -56,13 +62,15 @@ class SearchResultObject(StripeObject, Generic[T]):
             result = self._request(
                 "post",
                 page.next_page_url,
-                params=self._body_params(params),
+                params={**self._body_params(params), **options},
                 base_address="api",
             )
             assert isinstance(result, SearchResultObject)
             page = result
 
-    async def _auto_paging_iter_async(self) -> AsyncIterator[T]:
+    async def _auto_paging_iter_async(
+        self, options: RequestOptions
+    ) -> AsyncIterator[T]:
         page: SearchResultObject[T] = self
         params = self._original_params()
         while True:
@@ -73,7 +81,7 @@ class SearchResultObject(StripeObject, Generic[T]):
             result = await self._request_async(
                 "post",
                 page.next_page_url,
-                params=self._body_params(params),
+                params={**self._body_params(params), **options},
                 base_address="api",
             )
             assert isinstance(result, SearchResultObject)

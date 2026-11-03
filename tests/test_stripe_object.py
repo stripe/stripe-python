@@ -322,113 +322,17 @@ class TestStripeObject(object):
         assert obj.to_dict() == payload
 
         restored_nested = restored.containers[0]["nested"]
-        metadata = restored.metadata
-
-        assert restored.set_api_key("worker-key-sentinel") is None
-
-        for value in (restored, metadata, restored_nested):
-            assert value.api_key == "worker-key-sentinel"
-            assert "api_key" not in value._data
-        assert restored.metadata is metadata
-        assert restored.containers[0]["nested"] is restored_nested
-        assert restored.to_dict() == payload
-        assert restored.stripe_account == "example-account"
-        assert metadata.stripe_account == "example-account"
-        assert restored.stripe_version == "2017-08-15"
-        assert metadata.stripe_version == "2017-08-15"
+        assert restored_nested.api_key == destination_key
         assert restored_nested.stripe_account == "nested-example-account"
         assert restored_nested.stripe_version == "2018-02-28"
-        assert stripe.api_key == destination_key
-        assert obj.api_key == "producer-key-sentinel"
-        assert nested.api_key == "nested-key-sentinel"
 
         pickled = pickle.dumps(restored, protocol=protocol)
         for key in (
             b"producer-key-sentinel",
             b"nested-key-sentinel",
             b"destination-key-sentinel",
-            b"worker-key-sentinel",
         ):
             assert key not in pickled
-
-    def test_set_api_key_preserves_requestor_context(self, mocker):
-        client = stripe.StripeClient(
-            "producer-key-sentinel",
-            http_client=mocker.Mock(),
-            max_network_retries=3,
-        )
-        obj = StripeObject(_requestor=client._requestor)
-        nested_client = stripe.StripeClient(
-            "nested-key-sentinel",
-            http_client=mocker.Mock(),
-            max_network_retries=1,
-            stripe_account="nested-example-account",
-            stripe_version="2018-02-28",
-        )
-        nested = StripeObject(_requestor=nested_client._requestor)
-        obj.containers = [{"nested": nested}]
-        unrelated = StripeObject(_requestor=obj._requestor)
-        original_requestor = obj._requestor
-        obj._previous = {"unrelated": unrelated}
-        obj.arbitrary = mocker.Mock(child=unrelated)
-        originals = [
-            (value, value._requestor, value._unsaved_values.copy())
-            for value in (obj, nested)
-        ]
-
-        obj.set_api_key("worker-key-sentinel")
-
-        for value, requestor, unsaved_values in originals:
-            assert value._requestor is not requestor
-            assert value._requestor._client is requestor._client
-            assert value._requestor._options.to_dict() == {
-                **requestor._options.to_dict(),
-                "api_key": "worker-key-sentinel",
-            }
-            assert value._unsaved_values == unsaved_values
-        assert unrelated._requestor is original_requestor
-        assert unrelated.api_key == "producer-key-sentinel"
-
-    def test_set_api_key_shared_references_and_cycles(self, mocker):
-        obj = StripeObject(api_key="producer-key-sentinel")
-        nested = StripeObject(api_key="nested-key-sentinel")
-        containers = [{"nested": nested, "root": obj}]
-        containers.append(containers)
-        containers[0]["self"] = containers[0]
-        obj.update({"containers": containers, "shared": nested})
-        nested.root = obj
-        root_merge = mocker.spy(obj._requestor, "_new_requestor_with_options")
-        nested_merge = mocker.spy(
-            nested._requestor, "_new_requestor_with_options"
-        )
-
-        obj.set_api_key("worker-key-sentinel")
-
-        assert obj.api_key == nested.api_key == "worker-key-sentinel"
-        assert obj.containers is containers
-        assert containers[0]["nested"] is obj.shared is nested
-        assert containers[0]["root"] is nested.root is obj
-        assert containers[1] is containers
-        assert containers[0]["self"] is containers[0]
-        root_merge.assert_called_once_with({"api_key": "worker-key-sentinel"})
-        nested_merge.assert_called_once_with(
-            {"api_key": "worker-key-sentinel"}
-        )
-
-    @pytest.mark.parametrize("key", ["", None, 0, False, b"key"])
-    def test_set_api_key_rejects_invalid_key_before_mutation(self, key):
-        obj = StripeObject.construct_from(
-            {"metadata": {"value": "example"}}, "producer-key-sentinel"
-        )
-        requestor = obj._requestor
-        nested_requestor = obj.metadata._requestor
-
-        with pytest.raises(ValueError, match="non-empty string"):
-            obj.set_api_key(key)
-
-        assert obj._requestor is requestor
-        assert obj.metadata._requestor is nested_requestor
-        assert obj.api_key == obj.metadata.api_key == "producer-key-sentinel"
 
     def test_pickling_verified_webhook(self, monkeypatch):
         payload = json.dumps(
@@ -451,8 +355,6 @@ class TestStripeObject(object):
         monkeypatch.setattr(stripe, "api_key", "destination-key-sentinel")
         restored = pickle.loads(pickled)
 
-        restored.set_api_key("worker-key-sentinel")
-
         assert type(restored) is stripe.Event
         assert type(restored.data.object) is stripe.Customer
         assert restored.to_dict() == event.to_dict()
@@ -462,30 +364,147 @@ class TestStripeObject(object):
             restored.data.object,
             restored.data.object.metadata,
         ):
-            assert value.api_key == "worker-key-sentinel"
-        assert stripe.api_key == "destination-key-sentinel"
+            assert value.api_key == "destination-key-sentinel"
         assert event.api_key == "producer-key-sentinel"
-        assert b"worker-key-sentinel" not in pickle.dumps(restored)
 
-    def test_set_api_key_refresh_uses_bound_key(
-        self, http_client_mock, monkeypatch
-    ):
+    @pytest.fixture
+    def restored_customer(self, monkeypatch):
         obj = stripe.Customer.construct_from(
-            {"id": "resource", "object": "customer"}, "producer-key-sentinel"
+            {"id": "resource", "object": "customer"},
+            "producer-key-sentinel",
+            stripe_account="example-account",
         )
-        monkeypatch.setattr(stripe, "api_key", "destination-key-sentinel")
-        restored = pickle.loads(pickle.dumps(obj))
+        monkeypatch.setattr(stripe, "api_key", None)
+        return pickle.loads(pickle.dumps(obj))
+
+    def test_restored_refresh_without_key_raises(
+        self, http_client_mock, restored_customer
+    ):
+        with pytest.raises(stripe.AuthenticationError):
+            restored_customer.refresh()
+
+        http_client_mock.assert_no_request()
+
+    def test_restored_refresh_uses_per_call_api_key(
+        self, http_client_mock, restored_customer
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers/resource",
+            rbody='{"id": "resource", "object": "customer", "description": "refreshed"}',
+        )
+
+        assert (
+            restored_customer.refresh(api_key="worker-key-sentinel")
+            is restored_customer
+        )
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/resource",
+            api_key="worker-key-sentinel",
+            stripe_account="example-account",
+        )
+        assert restored_customer.description == "refreshed"
+        assert stripe.api_key is None
+        assert b"worker-key-sentinel" not in pickle.dumps(restored_customer)
+
+    @pytest.mark.anyio
+    async def test_restored_refresh_async_uses_per_call_api_key(
+        self, http_client_mock, restored_customer
+    ):
         http_client_mock.stub_request(
             "get",
             path="/v1/customers/resource",
             rbody='{"id": "resource", "object": "customer"}',
         )
 
-        restored.set_api_key("worker-key-sentinel")
-        restored.refresh()
+        await restored_customer.refresh_async(api_key="worker-key-sentinel")
 
-        http_client_mock.assert_requested(api_key="worker-key-sentinel")
-        assert stripe.api_key == "destination-key-sentinel"
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/resource",
+            api_key="worker-key-sentinel",
+            stripe_account="example-account",
+        )
+
+    def test_refresh_preserves_retrieve_params(self, http_client_mock):
+        obj = stripe.Customer(
+            "resource", "producer-key-sentinel", expand=["sources"]
+        )
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers/resource",
+            query_string="expand[0]=sources",
+            rbody='{"id": "resource", "object": "customer"}',
+        )
+
+        obj.refresh(api_key="worker-key-sentinel")
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/resource",
+            query_string="expand[0]=sources",
+            api_key="worker-key-sentinel",
+        )
+
+    def test_restored_save_uses_per_call_api_key(
+        self, http_client_mock, restored_customer
+    ):
+        restored_customer.description = "changed"
+        http_client_mock.stub_request(
+            "post",
+            path="/v1/customers/resource",
+            rbody='{"id": "resource", "object": "customer", "description": "changed"}',
+        )
+
+        restored_customer.save(api_key="worker-key-sentinel")
+
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/resource",
+            api_key="worker-key-sentinel",
+            stripe_account="example-account",
+        )
+
+    def test_save_keeps_positional_idempotency_key(
+        self, http_client_mock, restored_customer
+    ):
+        restored_customer.description = "changed"
+        http_client_mock.stub_request(
+            "post",
+            path="/v1/customers/resource",
+            rbody='{"id": "resource", "object": "customer", "description": "changed"}',
+        )
+
+        restored_customer.save(
+            "idempotency-sentinel", api_key="worker-key-sentinel"
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/resource",
+            api_key="worker-key-sentinel",
+            idempotency_key="idempotency-sentinel",
+        )
+
+    def test_restored_delete_uses_per_call_api_key(
+        self, http_client_mock, restored_customer
+    ):
+        http_client_mock.stub_request(
+            "delete",
+            path="/v1/customers/resource",
+            rbody='{"id": "resource", "object": "customer", "deleted": true}',
+        )
+
+        restored_customer.delete(api_key="worker-key-sentinel")
+
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/customers/resource",
+            api_key="worker-key-sentinel",
+            stripe_account="example-account",
+        )
 
     def test_deletion(self):
         obj = StripeObject("id", "key")

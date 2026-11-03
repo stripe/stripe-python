@@ -1,4 +1,5 @@
 import json
+import pickle
 
 import pytest
 
@@ -296,6 +297,76 @@ class TestAutoPaging:
         )
 
         assert seen == ["pm_123", "pm_124", "pm_125", "pm_126"]
+
+    @pytest.fixture
+    def restored_list(self, monkeypatch):
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_123"], True),
+            "producer-key-sentinel",
+            stripe_account="example-account",
+        )
+        monkeypatch.setattr(stripe, "api_key", None)
+        return pickle.loads(pickle.dumps(lo))
+
+    def test_iter_uses_per_call_api_key_on_every_page(
+        self, http_client_mock, restored_list
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="starting_after=pm_123",
+            rbody=json.dumps(self.pageable_model_response(["pm_124"], True)),
+        )
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="starting_after=pm_124",
+            rbody=json.dumps(self.pageable_model_response(["pm_125"], False)),
+        )
+
+        seen = [
+            item["id"]
+            for item in restored_list.auto_paging_iter(
+                api_key="worker-key-sentinel"
+            )
+        ]
+
+        assert seen == ["pm_123", "pm_124", "pm_125"]
+        for starting_after in ("pm_123", "pm_124"):
+            http_client_mock.assert_requested(
+                "get",
+                path="/v1/pageablemodels",
+                query_string=f"starting_after={starting_after}",
+                api_key="worker-key-sentinel",
+                stripe_account="example-account",
+            )
+
+    def test_iter_reverse_uses_per_call_api_key(
+        self, http_client_mock, restored_list
+    ):
+        restored_list._retrieve_params = {"ending_before": "pm_124"}
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_123",
+            rbody=json.dumps(self.pageable_model_response(["pm_122"], False)),
+        )
+
+        seen = [
+            item["id"]
+            for item in restored_list.auto_paging_iter(
+                api_key="worker-key-sentinel"
+            )
+        ]
+
+        assert seen == ["pm_123", "pm_122"]
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_123",
+            api_key="worker-key-sentinel",
+            stripe_account="example-account",
+        )
 
     def test_iter_reverse(self, http_client_mock):
         lo = stripe.ListObject.construct_from(
@@ -654,6 +725,38 @@ class TestAutoPagingAsync:
         seen = [item["id"] async for item in lo.auto_paging_iter()]
 
         assert seen == ["pm_123", "pm_124"]
+
+    @pytest.mark.anyio
+    async def test_iter_uses_per_call_api_key(
+        self, http_client_mock, monkeypatch
+    ):
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_123"], True),
+            "producer-key-sentinel",
+        )
+        monkeypatch.setattr(stripe, "api_key", None)
+        restored = pickle.loads(pickle.dumps(lo))
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="starting_after=pm_123",
+            rbody=json.dumps(self.pageable_model_response(["pm_124"], False)),
+        )
+
+        seen = [
+            item["id"]
+            async for item in restored.auto_paging_iter(
+                api_key="worker-key-sentinel"
+            )
+        ]
+
+        assert seen == ["pm_123", "pm_124"]
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="starting_after=pm_123",
+            api_key="worker-key-sentinel",
+        )
 
     @pytest.mark.anyio
     async def test_iter_two_pages(self, http_client_mock):

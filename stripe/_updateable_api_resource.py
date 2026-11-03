@@ -17,10 +17,11 @@ class UpdateableAPIResource(APIResource[T]):
     @deprecated(
         "The `save` method is deprecated and will be removed in a future major version of the library. Use the class method `modify` on the resource instead."
     )
-    def save(self, idempotency_key=None):
+    def save(self, idempotency_key=None, *, api_key=None):
         updated_params = self.serialize(None)
         if updated_params:
             updated_params["idempotency_key"] = idempotency_key
+            updated_params["api_key"] = api_key
             self._request_and_refresh(
                 "post",
                 self.instance_url(),
