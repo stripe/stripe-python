@@ -45,12 +45,6 @@ class StripeService(object):
     ) -> StripeObject:
         if _param_encodings:
             params = _coerce_v2_params(params, _param_encodings)
-        if (
-            method == "post"
-            and url.split("?", 1)[0].startswith("/v2/")
-            and url.split("?", 1)[0].endswith("/search")
-        ):
-            url, params = _split_v2_search_params(url, params)
         return self._requestor.request(
             method,
             url,
@@ -72,12 +66,6 @@ class StripeService(object):
     ) -> StripeObject:
         if _param_encodings:
             params = _coerce_v2_params(params, _param_encodings)
-        if (
-            method == "post"
-            and url.split("?", 1)[0].startswith("/v2/")
-            and url.split("?", 1)[0].endswith("/search")
-        ):
-            url, params = _split_v2_search_params(url, params)
         return await self._requestor.request_async(
             method,
             url,
