@@ -596,6 +596,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "forwarding_api_upstream_connection_timeout",
                     "forwarding_api_upstream_error",
                     "idempotency_key_in_use",
+                    "inactive_api_operation_confirmation_required",
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",

@@ -673,6 +673,51 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
+                class BilliePayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
                 class BlikPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
@@ -1483,6 +1528,51 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
+                class MbWayPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
                 class MobilepayPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
@@ -1619,6 +1709,51 @@ class Account(StripeObject):
                     _inner_class_types = {"status_details": StatusDetail}
 
                 class NaverPayPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class NzBankAccountBecsDebitPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1844,6 +1979,96 @@ class Account(StripeObject):
                     _inner_class_types = {"status_details": StatusDetail}
 
                 class PaynowPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class PaypayPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class PixPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2518,6 +2743,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Bancontact payments.
                 """
+                billie_payments: Optional[BilliePayments]
+                """
+                Allow the merchant to process Billie payments.
+                """
                 blik_payments: Optional[BlikPayments]
                 """
                 Allow the merchant to process BLIK payments.
@@ -2590,6 +2819,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Link payments.
                 """
+                mb_way_payments: Optional[MbWayPayments]
+                """
+                Allow the merchant to process MB WAY payments.
+                """
                 mobilepay_payments: Optional[MobilepayPayments]
                 """
                 Allow the merchant to process MobilePay payments.
@@ -2605,6 +2838,12 @@ class Account(StripeObject):
                 naver_pay_payments: Optional[NaverPayPayments]
                 """
                 Allow the merchant to process Naver Pay payments.
+                """
+                nz_bank_account_becs_debit_payments: Optional[
+                    NzBankAccountBecsDebitPayments
+                ]
+                """
+                Allow the merchant to process New Zealand BECS Direct Debit payments.
                 """
                 oxxo_payments: Optional[OxxoPayments]
                 """
@@ -2625,6 +2864,14 @@ class Account(StripeObject):
                 paynow_payments: Optional[PaynowPayments]
                 """
                 Allow the merchant to process PayNow payments.
+                """
+                paypay_payments: Optional[PaypayPayments]
+                """
+                Allow the merchant to process PayPay payments.
+                """
+                pix_payments: Optional[PixPayments]
+                """
+                Allow the merchant to process Pix payments.
                 """
                 promptpay_payments: Optional[PromptpayPayments]
                 """
@@ -2688,6 +2935,7 @@ class Account(StripeObject):
                     "au_becs_debit_payments": AuBecsDebitPayments,
                     "bacs_debit_payments": BacsDebitPayments,
                     "bancontact_payments": BancontactPayments,
+                    "billie_payments": BilliePayments,
                     "blik_payments": BlikPayments,
                     "blik_recurring_payments": BlikRecurringPayments,
                     "boleto_payments": BoletoPayments,
@@ -2706,15 +2954,19 @@ class Account(StripeObject):
                     "konbini_payments": KonbiniPayments,
                     "kr_card_payments": KrCardPayments,
                     "link_payments": LinkPayments,
+                    "mb_way_payments": MbWayPayments,
                     "mobilepay_payments": MobilepayPayments,
                     "multibanco_payments": MultibancoPayments,
                     "mx_bank_transfer_payments": MxBankTransferPayments,
                     "naver_pay_payments": NaverPayPayments,
+                    "nz_bank_account_becs_debit_payments": NzBankAccountBecsDebitPayments,
                     "oxxo_payments": OxxoPayments,
                     "p24_payments": P24Payments,
                     "pay_by_bank_payments": PayByBankPayments,
                     "payco_payments": PaycoPayments,
                     "paynow_payments": PaynowPayments,
+                    "paypay_payments": PaypayPayments,
+                    "pix_payments": PixPayments,
                     "promptpay_payments": PromptpayPayments,
                     "revolut_pay_payments": RevolutPayPayments,
                     "samsung_pay_payments": SamsungPayPayments,
@@ -2778,6 +3030,20 @@ class Account(StripeObject):
                 Support for Konbini payments.
                 """
                 _inner_class_types = {"support": Support}
+
+            class PaypayPayments(StripeObject):
+                additional_files: List[str]
+                """
+                Additional files supporting PayPay payments configuration.
+                """
+                goods_type: Optional[Literal["digital_content", "other"]]
+                """
+                The type of goods sold by the merchant for PayPay payments.
+                """
+                specified_commercial_transactions_act_url: Optional[str]
+                """
+                URL to the Specified Commercial Transactions Act page for PayPay payments.
+                """
 
             class ScriptStatementDescriptor(StripeObject):
                 class Kana(StripeObject):
@@ -2903,6 +3169,10 @@ class Account(StripeObject):
             """
             The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             """
+            paypay_payments: Optional[PaypayPayments]
+            """
+            Settings for PayPay payments.
+            """
             script_statement_descriptor: Optional[ScriptStatementDescriptor]
             """
             Settings for the default text that appears on statements for language variations.
@@ -2925,6 +3195,7 @@ class Account(StripeObject):
                 "capabilities": Capabilities,
                 "card_payments": CardPayments,
                 "konbini_payments": KonbiniPayments,
+                "paypay_payments": PaypayPayments,
                 "script_statement_descriptor": ScriptStatementDescriptor,
                 "sepa_debit_payments": SepaDebitPayments,
                 "statement_descriptor": StatementDescriptor,
@@ -3447,7 +3718,7 @@ class Account(StripeObject):
                     """
                     stripe_transfers: Optional[StripeTransfers]
                     """
-                    Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                    Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                     """
                     _inner_class_types = {
                         "payouts": Payouts,
@@ -3492,7 +3763,7 @@ class Account(StripeObject):
         """
         recipient: Optional[Recipient]
         """
-        The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+        The Recipient Configuration allows the Account to receive funds from you.
         """
         _inner_class_types = {
             "customer": Customer,
@@ -3525,11 +3796,11 @@ class Account(StripeObject):
                 ]
             ]
             """
-            Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
+            Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
             """
             losses_collector: Optional[Literal["application", "stripe"]]
             """
-            A value indicating the responsibility for losses on this account.
+            Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
             """
             requirements_collector: Literal["application", "stripe"]
             """
@@ -3662,6 +3933,7 @@ class Account(StripeObject):
                             Literal[
                                 "invalid_address_city_state_postal_code",
                                 "invalid_address_cmra_address",
+                                "invalid_address_crypto_regulated_state",
                                 "invalid_address_highway_contract_box",
                                 "invalid_address_private_mailbox",
                                 "invalid_address_registered_agent_address",
@@ -3703,6 +3975,7 @@ class Account(StripeObject):
                                 "invalid_value_other",
                                 "unresolvable_ip_address",
                                 "unresolvable_postal_code",
+                                "verification_data_not_found",
                                 "verification_directors_mismatch",
                                 "verification_document_address_mismatch",
                                 "verification_document_address_missing",
@@ -3750,6 +4023,7 @@ class Account(StripeObject):
                                 "verification_missing_directors",
                                 "verification_missing_executives",
                                 "verification_missing_owners",
+                                "verification_relationships_not_found",
                                 "verification_requires_additional_memorandum_of_associations",
                                 "verification_requires_additional_proof_of_registration",
                                 "verification_selfie_document_missing_photo",
@@ -3860,6 +4134,7 @@ class Account(StripeObject):
                     Literal[
                         "invalid_address_city_state_postal_code",
                         "invalid_address_cmra_address",
+                        "invalid_address_crypto_regulated_state",
                         "invalid_address_highway_contract_box",
                         "invalid_address_private_mailbox",
                         "invalid_address_registered_agent_address",
@@ -3901,6 +4176,7 @@ class Account(StripeObject):
                         "invalid_value_other",
                         "unresolvable_ip_address",
                         "unresolvable_postal_code",
+                        "verification_data_not_found",
                         "verification_directors_mismatch",
                         "verification_document_address_mismatch",
                         "verification_document_address_missing",
@@ -3948,6 +4224,7 @@ class Account(StripeObject):
                         "verification_missing_directors",
                         "verification_missing_executives",
                         "verification_missing_owners",
+                        "verification_relationships_not_found",
                         "verification_requires_additional_memorandum_of_associations",
                         "verification_requires_additional_proof_of_registration",
                         "verification_selfie_document_missing_photo",
@@ -3996,7 +4273,7 @@ class Account(StripeObject):
                             "bank_accounts.rtp",
                             "bank_accounts.sepa",
                             "bank_accounts.swift",
-                            "bank_accounts.wire",
+                            "billie_payments",
                             "blik_payments",
                             "blik_recurring_payments",
                             "boleto_payments",
@@ -4016,15 +4293,19 @@ class Account(StripeObject):
                             "konbini_payments",
                             "kr_card_payments",
                             "link_payments",
+                            "mb_way_payments",
                             "mobilepay_payments",
                             "multibanco_payments",
                             "mx_bank_transfer_payments",
                             "naver_pay_payments",
+                            "nz_bank_account_becs_debit_payments",
                             "oxxo_payments",
                             "p24_payments",
                             "payco_payments",
                             "paynow_payments",
+                            "paypay_payments",
                             "pay_by_bank_payments",
+                            "pix_payments",
                             "promptpay_payments",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
@@ -4564,6 +4845,7 @@ class Account(StripeObject):
                     Literal[
                         "ae_crn",
                         "ae_vat",
+                        "ag_tin",
                         "ao_nif",
                         "ar_cuit",
                         "at_fn",
@@ -4572,25 +4854,31 @@ class Account(StripeObject):
                         "au_abn",
                         "au_acn",
                         "au_in",
+                        "au_wpn",
                         "az_tin",
+                        "ba_pib",
                         "bd_etin",
                         "be_cbe",
                         "be_vat",
                         "bg_uic",
                         "bg_vat",
+                        "bj_ifu",
                         "br_cnpj",
                         "ca_cn",
                         "ca_crarr",
                         "ca_gst_hst",
                         "ca_neq",
+                        "ca_qst",
                         "ca_rid",
                         "ch_chid",
                         "ch_uid",
+                        "cl_rut",
                         "cr_cpj",
                         "cr_nite",
                         "cy_he",
                         "cy_tic",
                         "cy_vat",
+                        "cz_dic",
                         "cz_ico",
                         "cz_vat",
                         "de_hrn",
@@ -4599,18 +4887,23 @@ class Account(StripeObject):
                         "dk_cvr",
                         "dk_vat",
                         "do_rcn",
+                        "dz_nif",
                         "ee_rk",
                         "ee_vat",
                         "es_cif",
                         "es_vat",
+                        "et_tin",
                         "fi_vat",
                         "fi_yt",
                         "fr_rna",
                         "fr_siren",
+                        "fr_siret",
                         "fr_vat",
                         "gb_crn",
                         "gb_vat",
+                        "ge_tin",
                         "gi_crn",
+                        "gi_vat",
                         "gr_afm",
                         "gr_gemi",
                         "gr_vat",
@@ -4623,14 +4916,25 @@ class Account(StripeObject):
                         "hu_cjs",
                         "hu_tin",
                         "hu_vat",
+                        "id_npwp",
                         "ie_crn",
                         "ie_trn",
                         "ie_vat",
+                        "il_tin",
+                        "il_vat",
+                        "in_gst",
+                        "in_pan",
+                        "is_kt",
                         "it_rea",
                         "it_vat",
                         "jp_cn",
+                        "kh_tin",
+                        "kr_brn",
                         "kz_bin",
+                        "la_tin",
+                        "lc_tin",
                         "li_uid",
+                        "li_vat",
                         "lt_ccrn",
                         "lt_vat",
                         "lu_nif",
@@ -4638,30 +4942,38 @@ class Account(StripeObject):
                         "lu_vat",
                         "lv_urn",
                         "lv_vat",
+                        "md_cf",
+                        "mg_nif",
+                        "mk_edb",
                         "mt_crn",
                         "mt_tin",
                         "mt_vat",
+                        "mu_vat",
                         "mx_rfc",
                         "my_brn",
                         "my_coid",
                         "my_itn",
                         "my_sst",
                         "mz_nuit",
+                        "ne_tin",
                         "nl_kvk",
                         "nl_rsin",
                         "nl_vat",
                         "no_orgnr",
                         "nz_bn",
                         "nz_ird",
+                        "om_tin",
                         "pe_ruc",
                         "pk_ntn",
                         "pl_nip",
                         "pl_regon",
                         "pl_vat",
                         "pt_vat",
+                        "qa_tin",
                         "ro_cui",
                         "ro_orc",
                         "ro_vat",
+                        "rw_tin",
                         "sa_crn",
                         "sa_tin",
                         "se_orgnr",
@@ -4673,10 +4985,15 @@ class Account(StripeObject):
                         "sk_dic",
                         "sk_ico",
                         "sk_vat",
+                        "sm_coe",
                         "th_crn",
                         "th_prn",
                         "th_tin",
+                        "tr_tin",
+                        "tt_bir",
+                        "tt_vat",
                         "us_ein",
+                        "vn_tin",
                     ],
                     str,
                 ]
@@ -5118,82 +5435,212 @@ class Account(StripeObject):
                 type: Union[
                     Literal[
                         "ae_eid",
+                        "ae_pp",
+                        "al_pp",
+                        "am_pp",
                         "ao_nif",
                         "ar_cuil",
                         "ar_dni",
+                        "ar_pp",
+                        "at_pp",
                         "at_stn",
+                        "au_pp",
+                        "az_pin",
+                        "az_pp",
                         "az_tin",
                         "bd_brc",
                         "bd_etin",
                         "bd_nid",
+                        "bd_pp",
                         "be_nrn",
+                        "be_pp",
+                        "bg_pp",
                         "bg_ucn",
+                        "bh_pp",
+                        "bj_pp",
                         "bn_nric",
+                        "bo_pp",
                         "br_cpf",
+                        "br_pp",
+                        "br_rg",
+                        "bs_pp",
+                        "bs_tin",
+                        "by_pp",
+                        "ca_pp",
                         "ca_sin",
                         "ch_oasi",
+                        "ch_pp",
+                        "ci_pp",
+                        "cl_pp",
                         "cl_rut",
+                        "cm_pp",
                         "cn_pp",
                         "co_nuip",
+                        "co_pp",
                         "cr_ci",
                         "cr_cpf",
                         "cr_dimex",
                         "cr_nite",
+                        "cr_pp",
+                        "cy_pp",
                         "cy_tic",
+                        "cz_dic",
+                        "cz_pp",
                         "cz_rc",
+                        "de_pp",
                         "de_stn",
                         "dk_cpr",
+                        "dk_pp",
                         "do_cie",
+                        "do_pp",
                         "do_rcn",
+                        "dz_pp",
                         "ec_ci",
+                        "ec_pp",
                         "ee_ik",
+                        "ee_pp",
+                        "eg_pp",
                         "es_nif",
+                        "es_pp",
+                        "et_tin",
                         "fi_hetu",
+                        "fi_pp",
                         "fr_nir",
+                        "fr_pp",
+                        "fr_spi",
+                        "ga_nif",
                         "gb_nino",
+                        "gb_pp",
+                        "ge_pp",
+                        "gh_pp",
                         "gr_afm",
+                        "gr_pp",
+                        "gt_cui",
                         "gt_nit",
+                        "gt_pp",
                         "hk_id",
+                        "hk_pp",
+                        "hn_dni",
+                        "hn_pp",
                         "hr_oib",
+                        "hr_pp",
+                        "ht_pp",
                         "hu_ad",
+                        "hu_pp",
                         "id_nik",
+                        "id_pp",
+                        "ie_pp",
                         "ie_ppsn",
+                        "il_pp",
+                        "in_pan",
+                        "in_pp",
+                        "iq_pp",
                         "is_kt",
+                        "is_pp",
                         "it_cf",
+                        "it_pp",
+                        "je_pp",
+                        "jm_pp",
+                        "jo_pp",
                         "jp_inc",
+                        "jp_pp",
                         "ke_pin",
+                        "ke_pp",
+                        "kr_pp",
+                        "kw_pp",
                         "kz_iin",
+                        "kz_pp",
+                        "lb_pp",
                         "li_peid",
+                        "li_pp",
+                        "lk_pp",
                         "lt_ak",
+                        "lt_pp",
                         "lu_nif",
+                        "lu_pp",
                         "lv_pk",
+                        "lv_pp",
+                        "ma_pp",
+                        "md_cf",
+                        "md_pp",
+                        "mg_nif",
+                        "mk_pin",
+                        "mk_pp",
+                        "mm_pp",
+                        "mn_pp",
+                        "mt_pp",
+                        "mu_pp",
+                        "mx_curp",
+                        "mx_pp",
                         "mx_rfc",
                         "my_nric",
+                        "my_pp",
                         "mz_nuit",
                         "ng_nin",
+                        "ng_pp",
                         "nl_bsn",
+                        "nl_pp",
                         "no_nin",
+                        "no_pp",
+                        "np_pp",
                         "nz_ird",
+                        "nz_pp",
+                        "pa_pp",
                         "pe_dni",
+                        "pe_pp",
+                        "ph_pp",
                         "pk_cnic",
+                        "pk_pp",
                         "pk_snic",
                         "pl_pesel",
+                        "pl_pp",
+                        "pr_pp",
+                        "ps_pp",
                         "pt_nif",
+                        "pt_pp",
+                        "py_ci",
+                        "py_pp",
                         "ro_cnp",
+                        "ro_pp",
+                        "rs_pp",
+                        "ru_pp",
+                        "rw_tin",
+                        "sa_pp",
+                        "sa_ptin",
                         "sa_tin",
                         "se_pin",
+                        "se_pp",
                         "sg_fin",
                         "sg_nric",
+                        "sg_pp",
+                        "si_pp",
+                        "si_ptin",
                         "sk_dic",
+                        "sk_pp",
+                        "sv_pp",
                         "th_lc",
                         "th_pin",
+                        "th_pp",
+                        "tn_pp",
+                        "tr_pp",
                         "tr_tin",
+                        "tt_bir",
+                        "tw_pp",
+                        "ua_pp",
+                        "ug_pp",
                         "us_itin",
                         "us_itin_last_4",
+                        "us_pp",
                         "us_ssn",
                         "us_ssn_last_4",
                         "uy_dni",
+                        "uy_pp",
+                        "uz_pp",
+                        "uz_tin",
+                        "ve_pp",
+                        "vn_pp",
                         "za_id",
+                        "za_pp",
                     ],
                     str,
                 ]
@@ -5487,6 +5934,7 @@ class Account(StripeObject):
                             Literal[
                                 "invalid_address_city_state_postal_code",
                                 "invalid_address_cmra_address",
+                                "invalid_address_crypto_regulated_state",
                                 "invalid_address_highway_contract_box",
                                 "invalid_address_private_mailbox",
                                 "invalid_address_registered_agent_address",
@@ -5528,6 +5976,7 @@ class Account(StripeObject):
                                 "invalid_value_other",
                                 "unresolvable_ip_address",
                                 "unresolvable_postal_code",
+                                "verification_data_not_found",
                                 "verification_directors_mismatch",
                                 "verification_document_address_mismatch",
                                 "verification_document_address_missing",
@@ -5575,6 +6024,7 @@ class Account(StripeObject):
                                 "verification_missing_directors",
                                 "verification_missing_executives",
                                 "verification_missing_owners",
+                                "verification_relationships_not_found",
                                 "verification_requires_additional_memorandum_of_associations",
                                 "verification_requires_additional_proof_of_registration",
                                 "verification_selfie_document_missing_photo",
@@ -5685,6 +6135,7 @@ class Account(StripeObject):
                     Literal[
                         "invalid_address_city_state_postal_code",
                         "invalid_address_cmra_address",
+                        "invalid_address_crypto_regulated_state",
                         "invalid_address_highway_contract_box",
                         "invalid_address_private_mailbox",
                         "invalid_address_registered_agent_address",
@@ -5726,6 +6177,7 @@ class Account(StripeObject):
                         "invalid_value_other",
                         "unresolvable_ip_address",
                         "unresolvable_postal_code",
+                        "verification_data_not_found",
                         "verification_directors_mismatch",
                         "verification_document_address_mismatch",
                         "verification_document_address_missing",
@@ -5773,6 +6225,7 @@ class Account(StripeObject):
                         "verification_missing_directors",
                         "verification_missing_executives",
                         "verification_missing_owners",
+                        "verification_relationships_not_found",
                         "verification_requires_additional_memorandum_of_associations",
                         "verification_requires_additional_proof_of_registration",
                         "verification_selfie_document_missing_photo",
@@ -5821,7 +6274,7 @@ class Account(StripeObject):
                             "bank_accounts.rtp",
                             "bank_accounts.sepa",
                             "bank_accounts.swift",
-                            "bank_accounts.wire",
+                            "billie_payments",
                             "blik_payments",
                             "blik_recurring_payments",
                             "boleto_payments",
@@ -5841,15 +6294,19 @@ class Account(StripeObject):
                             "konbini_payments",
                             "kr_card_payments",
                             "link_payments",
+                            "mb_way_payments",
                             "mobilepay_payments",
                             "multibanco_payments",
                             "mx_bank_transfer_payments",
                             "naver_pay_payments",
+                            "nz_bank_account_becs_debit_payments",
                             "oxxo_payments",
                             "p24_payments",
                             "payco_payments",
                             "paynow_payments",
+                            "paypay_payments",
                             "pay_by_bank_payments",
+                            "pix_payments",
                             "promptpay_payments",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
@@ -6014,7 +6471,7 @@ class Account(StripeObject):
     """
     dashboard: Optional[Literal["express", "full", "none"]]
     """
-    A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+    Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
     """
     defaults: Optional[Defaults]
     """

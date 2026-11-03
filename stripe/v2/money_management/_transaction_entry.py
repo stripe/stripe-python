@@ -43,6 +43,10 @@ class TransactionEntry(StripeObject):
             """
             If applicable, the ID of the FeeBatch that created this Transaction.
             """
+            hold: Optional[str]
+            """
+            If applicable, the ID of the Hold that created this Transaction.
+            """
             inbound_transfer: Optional[str]
             """
             If applicable, the ID of the InboundTransfer that created this Transaction.
@@ -68,6 +72,7 @@ class TransactionEntry(StripeObject):
                     "adjustment",
                     "currency_conversion",
                     "fee_batch",
+                    "hold",
                     "inbound_transfer",
                     "outbound_payment",
                     "outbound_transfer",
@@ -84,6 +89,7 @@ class TransactionEntry(StripeObject):
             Literal[
                 "adjustment",
                 "currency_conversion",
+                "hold",
                 "inbound_transfer",
                 "inbound_transfer_reversal",
                 "outbound_payment",

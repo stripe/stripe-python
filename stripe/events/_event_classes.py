@@ -133,6 +133,9 @@ if TYPE_CHECKING:
     from stripe.events._v1_checkout_session_completed_event import (
         V1CheckoutSessionCompletedEventNotification,
     )
+    from stripe.events._v1_checkout_session_created_event import (
+        V1CheckoutSessionCreatedEventNotification,
+    )
     from stripe.events._v1_checkout_session_expired_event import (
         V1CheckoutSessionExpiredEventNotification,
     )
@@ -463,9 +466,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_issuing_authorization_created_event import (
         V1IssuingAuthorizationCreatedEventNotification,
     )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEventNotification,
-    )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEventNotification,
     )
@@ -553,8 +553,14 @@ if TYPE_CHECKING:
     from stripe.events._v1_payment_intent_succeeded_event import (
         V1PaymentIntentSucceededEventNotification,
     )
+    from stripe.events._v1_payment_link_activated_event import (
+        V1PaymentLinkActivatedEventNotification,
+    )
     from stripe.events._v1_payment_link_created_event import (
         V1PaymentLinkCreatedEventNotification,
+    )
+    from stripe.events._v1_payment_link_deactivated_event import (
+        V1PaymentLinkDeactivatedEventNotification,
     )
     from stripe.events._v1_payment_link_updated_event import (
         V1PaymentLinkUpdatedEventNotification,
@@ -877,6 +883,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+        V2CoreClaimableSandboxClaimedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_created_event import (
+        V2CoreClaimableSandboxCreatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expired_event import (
+        V2CoreClaimableSandboxExpiredEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+        V2CoreClaimableSandboxExpiringEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_updated_event import (
+        V2CoreClaimableSandboxUpdatedEventNotification,
+    )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
     )
@@ -1155,6 +1176,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.checkout.session.completed": (
         "stripe.events._v1_checkout_session_completed_event",
         "V1CheckoutSessionCompletedEvent",
+    ),
+    "v1.checkout.session.created": (
+        "stripe.events._v1_checkout_session_created_event",
+        "V1CheckoutSessionCreatedEvent",
     ),
     "v1.checkout.session.expired": (
         "stripe.events._v1_checkout_session_expired_event",
@@ -1596,10 +1621,6 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEvent",
     ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEvent",
-    ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
         "V1IssuingAuthorizationUpdatedEvent",
@@ -1716,9 +1737,17 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_payment_intent_succeeded_event",
         "V1PaymentIntentSucceededEvent",
     ),
+    "v1.payment_link.activated": (
+        "stripe.events._v1_payment_link_activated_event",
+        "V1PaymentLinkActivatedEvent",
+    ),
     "v1.payment_link.created": (
         "stripe.events._v1_payment_link_created_event",
         "V1PaymentLinkCreatedEvent",
+    ),
+    "v1.payment_link.deactivated": (
+        "stripe.events._v1_payment_link_deactivated_event",
+        "V1PaymentLinkDeactivatedEvent",
     ),
     "v1.payment_link.updated": (
         "stripe.events._v1_payment_link_updated_event",
@@ -2148,6 +2177,26 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEvent",
     ),
+    "v2.core.claimable_sandbox.claimed": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        "V2CoreClaimableSandboxClaimedEvent",
+    ),
+    "v2.core.claimable_sandbox.created": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        "V2CoreClaimableSandboxCreatedEvent",
+    ),
+    "v2.core.claimable_sandbox.expired": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        "V2CoreClaimableSandboxExpiredEvent",
+    ),
+    "v2.core.claimable_sandbox.expiring": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        "V2CoreClaimableSandboxExpiringEvent",
+    ),
+    "v2.core.claimable_sandbox.updated": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
+        "V2CoreClaimableSandboxUpdatedEvent",
+    ),
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
         "V2CoreEventDestinationPingEvent",
@@ -2474,6 +2523,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.checkout.session.completed": (
         "stripe.events._v1_checkout_session_completed_event",
         "V1CheckoutSessionCompletedEventNotification",
+    ),
+    "v1.checkout.session.created": (
+        "stripe.events._v1_checkout_session_created_event",
+        "V1CheckoutSessionCreatedEventNotification",
     ),
     "v1.checkout.session.expired": (
         "stripe.events._v1_checkout_session_expired_event",
@@ -2915,10 +2968,6 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEventNotification",
     ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEventNotification",
-    ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
         "V1IssuingAuthorizationUpdatedEventNotification",
@@ -3035,9 +3084,17 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_payment_intent_succeeded_event",
         "V1PaymentIntentSucceededEventNotification",
     ),
+    "v1.payment_link.activated": (
+        "stripe.events._v1_payment_link_activated_event",
+        "V1PaymentLinkActivatedEventNotification",
+    ),
     "v1.payment_link.created": (
         "stripe.events._v1_payment_link_created_event",
         "V1PaymentLinkCreatedEventNotification",
+    ),
+    "v1.payment_link.deactivated": (
+        "stripe.events._v1_payment_link_deactivated_event",
+        "V1PaymentLinkDeactivatedEventNotification",
     ),
     "v1.payment_link.updated": (
         "stripe.events._v1_payment_link_updated_event",
@@ -3467,6 +3524,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEventNotification",
     ),
+    "v2.core.claimable_sandbox.claimed": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        "V2CoreClaimableSandboxClaimedEventNotification",
+    ),
+    "v2.core.claimable_sandbox.created": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        "V2CoreClaimableSandboxCreatedEventNotification",
+    ),
+    "v2.core.claimable_sandbox.expired": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        "V2CoreClaimableSandboxExpiredEventNotification",
+    ),
+    "v2.core.claimable_sandbox.expiring": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        "V2CoreClaimableSandboxExpiringEventNotification",
+    ),
+    "v2.core.claimable_sandbox.updated": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
+        "V2CoreClaimableSandboxUpdatedEventNotification",
+    ),
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
         "V2CoreEventDestinationPingEventNotification",
@@ -3668,6 +3745,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1CheckoutSessionAsyncPaymentFailedEventNotification",
     "V1CheckoutSessionAsyncPaymentSucceededEventNotification",
     "V1CheckoutSessionCompletedEventNotification",
+    "V1CheckoutSessionCreatedEventNotification",
     "V1CheckoutSessionExpiredEventNotification",
     "V1ClimateOrderCanceledEventNotification",
     "V1ClimateOrderCreatedEventNotification",
@@ -3778,7 +3856,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1InvoiceVoidedEventNotification",
     "V1InvoiceWillBeDueEventNotification",
     "V1IssuingAuthorizationCreatedEventNotification",
-    "V1IssuingAuthorizationRequestEventNotification",
     "V1IssuingAuthorizationUpdatedEventNotification",
     "V1IssuingCardCreatedEventNotification",
     "V1IssuingCardholderCreatedEventNotification",
@@ -3808,7 +3885,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1PaymentIntentProcessingEventNotification",
     "V1PaymentIntentRequiresActionEventNotification",
     "V1PaymentIntentSucceededEventNotification",
+    "V1PaymentLinkActivatedEventNotification",
     "V1PaymentLinkCreatedEventNotification",
+    "V1PaymentLinkDeactivatedEventNotification",
     "V1PaymentLinkUpdatedEventNotification",
     "V1PaymentMethodAttachedEventNotification",
     "V1PaymentMethodAutomaticallyUpdatedEventNotification",
@@ -3916,6 +3995,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountPersonDeletedEventNotification",
     "V2CoreAccountPersonUpdatedEventNotification",
     "V2CoreAccountUpdatedEventNotification",
+    "V2CoreClaimableSandboxClaimedEventNotification",
+    "V2CoreClaimableSandboxCreatedEventNotification",
+    "V2CoreClaimableSandboxExpiredEventNotification",
+    "V2CoreClaimableSandboxExpiringEventNotification",
+    "V2CoreClaimableSandboxUpdatedEventNotification",
     "V2CoreEventDestinationPingEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",

@@ -8,12 +8,12 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe.issuing._authorization import Authorization
+    from stripe.v2.core._claimable_sandbox import ClaimableSandbox
 
 
-class V1IssuingAuthorizationRequestEventNotification(EventNotification):
-    LOOKUP_TYPE = "v1.issuing_authorization.request"
-    type: Literal["v1.issuing_authorization.request"]
+class V2CoreClaimableSandboxExpiredEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.expired"
+    type: Literal["v2.core.claimable_sandbox.expired"]
     related_object: RelatedObject
 
     def __init__(
@@ -26,13 +26,13 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1IssuingAuthorizationRequestEvent":
+    def fetch_event(self) -> "V2CoreClaimableSandboxExpiredEvent":
         return cast(
-            "V1IssuingAuthorizationRequestEvent",
+            "V2CoreClaimableSandboxExpiredEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Authorization":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -41,7 +41,7 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Authorization",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -49,13 +49,13 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
         )
 
     @override
-    async def fetch_event_async(self) -> "V1IssuingAuthorizationRequestEvent":
+    async def fetch_event_async(self) -> "V2CoreClaimableSandboxExpiredEvent":
         return cast(
-            "V1IssuingAuthorizationRequestEvent",
+            "V2CoreClaimableSandboxExpiredEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Authorization":
+    async def fetch_related_object_async(self) -> "ClaimableSandbox":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -64,7 +64,7 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Authorization",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -72,9 +72,9 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
         )
 
 
-class V1IssuingAuthorizationRequestEvent(Event):
-    LOOKUP_TYPE = "v1.issuing_authorization.request"
-    type: Literal["v1.issuing_authorization.request"]
+class V2CoreClaimableSandboxExpiredEvent(Event):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.expired"
+    type: Literal["v2.core.claimable_sandbox.expired"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -95,12 +95,12 @@ class V1IssuingAuthorizationRequestEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Authorization":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Authorization",
+            "ClaimableSandbox",
             self._requestor.request(
                 "get",
                 self.related_object.url,

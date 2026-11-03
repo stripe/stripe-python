@@ -107,7 +107,6 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
                 "bank_accounts.rtp",
                 "bank_accounts.sepa",
                 "bank_accounts.swift",
-                "bank_accounts.wire",
                 "cards",
                 "stripe_balance.payouts",
                 "stripe_balance.stripe_transfers",

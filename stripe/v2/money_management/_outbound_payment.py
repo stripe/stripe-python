@@ -61,6 +61,7 @@ class OutboundPayment(StripeObject):
         class Returned(StripeObject):
             reason: Union[
                 Literal[
+                    "payout_method_account_type_incorrect",
                     "payout_method_canceled_by_customer",
                     "payout_method_closed",
                     "payout_method_currency_unsupported",

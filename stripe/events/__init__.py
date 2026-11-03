@@ -181,6 +181,10 @@ if TYPE_CHECKING:
         V1CheckoutSessionCompletedEvent as V1CheckoutSessionCompletedEvent,
         V1CheckoutSessionCompletedEventNotification as V1CheckoutSessionCompletedEventNotification,
     )
+    from stripe.events._v1_checkout_session_created_event import (
+        V1CheckoutSessionCreatedEvent as V1CheckoutSessionCreatedEvent,
+        V1CheckoutSessionCreatedEventNotification as V1CheckoutSessionCreatedEventNotification,
+    )
     from stripe.events._v1_checkout_session_expired_event import (
         V1CheckoutSessionExpiredEvent as V1CheckoutSessionExpiredEvent,
         V1CheckoutSessionExpiredEventNotification as V1CheckoutSessionExpiredEventNotification,
@@ -621,10 +625,6 @@ if TYPE_CHECKING:
         V1IssuingAuthorizationCreatedEvent as V1IssuingAuthorizationCreatedEvent,
         V1IssuingAuthorizationCreatedEventNotification as V1IssuingAuthorizationCreatedEventNotification,
     )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEvent as V1IssuingAuthorizationRequestEvent,
-        V1IssuingAuthorizationRequestEventNotification as V1IssuingAuthorizationRequestEventNotification,
-    )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEvent as V1IssuingAuthorizationUpdatedEvent,
         V1IssuingAuthorizationUpdatedEventNotification as V1IssuingAuthorizationUpdatedEventNotification,
@@ -741,9 +741,17 @@ if TYPE_CHECKING:
         V1PaymentIntentSucceededEvent as V1PaymentIntentSucceededEvent,
         V1PaymentIntentSucceededEventNotification as V1PaymentIntentSucceededEventNotification,
     )
+    from stripe.events._v1_payment_link_activated_event import (
+        V1PaymentLinkActivatedEvent as V1PaymentLinkActivatedEvent,
+        V1PaymentLinkActivatedEventNotification as V1PaymentLinkActivatedEventNotification,
+    )
     from stripe.events._v1_payment_link_created_event import (
         V1PaymentLinkCreatedEvent as V1PaymentLinkCreatedEvent,
         V1PaymentLinkCreatedEventNotification as V1PaymentLinkCreatedEventNotification,
+    )
+    from stripe.events._v1_payment_link_deactivated_event import (
+        V1PaymentLinkDeactivatedEvent as V1PaymentLinkDeactivatedEvent,
+        V1PaymentLinkDeactivatedEventNotification as V1PaymentLinkDeactivatedEventNotification,
     )
     from stripe.events._v1_payment_link_updated_event import (
         V1PaymentLinkUpdatedEvent as V1PaymentLinkUpdatedEvent,
@@ -1172,6 +1180,26 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEvent as V2CoreAccountUpdatedEvent,
         V2CoreAccountUpdatedEventNotification as V2CoreAccountUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+        V2CoreClaimableSandboxClaimedEvent as V2CoreClaimableSandboxClaimedEvent,
+        V2CoreClaimableSandboxClaimedEventNotification as V2CoreClaimableSandboxClaimedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_created_event import (
+        V2CoreClaimableSandboxCreatedEvent as V2CoreClaimableSandboxCreatedEvent,
+        V2CoreClaimableSandboxCreatedEventNotification as V2CoreClaimableSandboxCreatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expired_event import (
+        V2CoreClaimableSandboxExpiredEvent as V2CoreClaimableSandboxExpiredEvent,
+        V2CoreClaimableSandboxExpiredEventNotification as V2CoreClaimableSandboxExpiredEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+        V2CoreClaimableSandboxExpiringEvent as V2CoreClaimableSandboxExpiringEvent,
+        V2CoreClaimableSandboxExpiringEventNotification as V2CoreClaimableSandboxExpiringEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_updated_event import (
+        V2CoreClaimableSandboxUpdatedEvent as V2CoreClaimableSandboxUpdatedEvent,
+        V2CoreClaimableSandboxUpdatedEventNotification as V2CoreClaimableSandboxUpdatedEventNotification,
     )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEvent as V2CoreEventDestinationPingEvent,
@@ -1643,6 +1671,14 @@ _import_map = {
     ),
     "V1CheckoutSessionCompletedEventNotification": (
         "stripe.events._v1_checkout_session_completed_event",
+        False,
+    ),
+    "V1CheckoutSessionCreatedEvent": (
+        "stripe.events._v1_checkout_session_created_event",
+        False,
+    ),
+    "V1CheckoutSessionCreatedEventNotification": (
+        "stripe.events._v1_checkout_session_created_event",
         False,
     ),
     "V1CheckoutSessionExpiredEvent": (
@@ -2504,14 +2540,6 @@ _import_map = {
         "stripe.events._v1_issuing_authorization_created_event",
         False,
     ),
-    "V1IssuingAuthorizationRequestEvent": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        False,
-    ),
-    "V1IssuingAuthorizationRequestEventNotification": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        False,
-    ),
     "V1IssuingAuthorizationUpdatedEvent": (
         "stripe.events._v1_issuing_authorization_updated_event",
         False,
@@ -2744,12 +2772,28 @@ _import_map = {
         "stripe.events._v1_payment_intent_succeeded_event",
         False,
     ),
+    "V1PaymentLinkActivatedEvent": (
+        "stripe.events._v1_payment_link_activated_event",
+        False,
+    ),
+    "V1PaymentLinkActivatedEventNotification": (
+        "stripe.events._v1_payment_link_activated_event",
+        False,
+    ),
     "V1PaymentLinkCreatedEvent": (
         "stripe.events._v1_payment_link_created_event",
         False,
     ),
     "V1PaymentLinkCreatedEventNotification": (
         "stripe.events._v1_payment_link_created_event",
+        False,
+    ),
+    "V1PaymentLinkDeactivatedEvent": (
+        "stripe.events._v1_payment_link_deactivated_event",
+        False,
+    ),
+    "V1PaymentLinkDeactivatedEventNotification": (
+        "stripe.events._v1_payment_link_deactivated_event",
         False,
     ),
     "V1PaymentLinkUpdatedEvent": (
@@ -3528,6 +3572,46 @@ _import_map = {
     ),
     "V2CoreAccountUpdatedEventNotification": (
         "stripe.events._v2_core_account_updated_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxClaimedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxClaimedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxCreatedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxCreatedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiredEvent": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiredEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiringEvent": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiringEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxUpdatedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxUpdatedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
         False,
     ),
     "V2CoreEventDestinationPingEvent": (

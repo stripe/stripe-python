@@ -374,6 +374,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "AccountPersonToken",
     ),
     "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
+    "v2.core.claimable_sandbox": (
+        "stripe.v2.core._claimable_sandbox",
+        "ClaimableSandbox",
+    ),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",
