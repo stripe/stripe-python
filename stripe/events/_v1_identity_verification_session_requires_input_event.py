@@ -105,7 +105,7 @@ class V1IdentityVerificationSessionRequiresInputEvent(Event):
         """
         return cast(
             "VerificationSession",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

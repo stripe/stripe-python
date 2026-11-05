@@ -143,7 +143,7 @@ class V2MoneyManagementReceivedCreditAvailableEvent(Event):
         """
         return cast(
             "ReceivedCredit",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

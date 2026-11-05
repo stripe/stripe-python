@@ -103,7 +103,7 @@ class V1ClimateOrderProductSubstitutedEvent(Event):
         """
         return cast(
             "Order",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

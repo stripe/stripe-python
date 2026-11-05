@@ -103,7 +103,7 @@ class V1TerminalReaderActionSucceededEvent(Event):
         """
         return cast(
             "Reader",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

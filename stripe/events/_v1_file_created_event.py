@@ -101,7 +101,7 @@ class V1FileCreatedEvent(Event):
         """
         return cast(
             "File",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

@@ -105,7 +105,7 @@ class V2MoneyManagementFinancialAddressFailedEvent(Event):
         """
         return cast(
             "FinancialAddress",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

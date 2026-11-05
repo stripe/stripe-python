@@ -101,7 +101,7 @@ class V1PromotionCodeFullyRedeemedEvent(Event):
         """
         return cast(
             "PromotionCode",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

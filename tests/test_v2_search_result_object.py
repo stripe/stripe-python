@@ -249,23 +249,3 @@ async def test_async_auto_paging_replays_original_post_body():
         "/v2/widgets/search?page=2",
         {"query": "widgets"},
     )
-
-
-def test_auto_paging_passes_per_call_options_to_every_page():
-    first = make_result(["one"], "/v2/widgets/search?page=2")
-    first._retrieve_params = {"query": "widgets"}
-    TestSearchResult.requests = []
-    TestSearchResult.pages = [
-        make_result(["two"], "/v2/widgets/search?page=3"),
-        make_result(["three"], None),
-    ]
-
-    assert list(first.auto_paging_iter(api_key="worker-key-sentinel")) == [
-        "one",
-        "two",
-        "three",
-    ]
-    assert [body for _, _, body, _ in TestSearchResult.requests] == [
-        {"query": "widgets", "api_key": "worker-key-sentinel"},
-        {"query": "widgets", "api_key": "worker-key-sentinel"},
-    ]

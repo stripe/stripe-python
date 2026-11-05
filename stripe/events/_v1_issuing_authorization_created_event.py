@@ -101,7 +101,7 @@ class V1IssuingAuthorizationCreatedEvent(Event):
         """
         return cast(
             "Authorization",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

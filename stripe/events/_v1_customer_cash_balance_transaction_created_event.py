@@ -109,7 +109,7 @@ class V1CustomerCashBalanceTransactionCreatedEvent(Event):
         """
         return cast(
             "CustomerCashBalanceTransaction",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

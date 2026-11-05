@@ -115,7 +115,7 @@ class V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent(Event):
         """
         return cast(
             "Account",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

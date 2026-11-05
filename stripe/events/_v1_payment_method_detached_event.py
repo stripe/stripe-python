@@ -101,7 +101,7 @@ class V1PaymentMethodDetachedEvent(Event):
         """
         return cast(
             "PaymentMethod",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

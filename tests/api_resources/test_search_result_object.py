@@ -257,7 +257,7 @@ class TestAutoPaging:
 
         assert seen == ["pm_123", "pm_124", "pm_125", "pm_126"]
 
-    def test_iter_uses_per_call_api_key(self, http_client_mock, monkeypatch):
+    def test_iter_uses_reattached_api_key(self, http_client_mock, monkeypatch):
         sro = stripe.SearchResultObject.construct_from(
             self.pageable_model_response(["pm_123"], True, "token"),
             "producer-key-sentinel",
@@ -265,6 +265,7 @@ class TestAutoPaging:
         )
         monkeypatch.setattr(stripe, "api_key", None)
         restored = pickle.loads(pickle.dumps(sro))
+        restored.reattach_api_key("worker-key-sentinel")
         http_client_mock.stub_request(
             "get",
             path="/v1/pageablemodels",
@@ -274,12 +275,7 @@ class TestAutoPaging:
             ),
         )
 
-        seen = [
-            item["id"]
-            for item in restored.auto_paging_iter(
-                api_key="worker-key-sentinel"
-            )
-        ]
+        seen = [item["id"] for item in restored.auto_paging_iter()]
 
         assert seen == ["pm_123", "pm_124"]
         http_client_mock.assert_requested(

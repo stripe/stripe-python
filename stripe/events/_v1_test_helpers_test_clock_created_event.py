@@ -101,7 +101,7 @@ class V1TestHelpersTestClockCreatedEvent(Event):
         """
         return cast(
             "TestClock",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

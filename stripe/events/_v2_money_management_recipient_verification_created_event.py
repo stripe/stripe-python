@@ -109,7 +109,7 @@ class V2MoneyManagementRecipientVerificationCreatedEvent(Event):
         """
         return cast(
             "RecipientVerification",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

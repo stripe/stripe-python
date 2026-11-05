@@ -148,7 +148,7 @@ class TestListObjectV2(object):
             api_key="sk_test_iter_forwards_options",
         )
 
-    def test_iter_uses_per_call_api_key(self, http_client_mock, monkeypatch):
+    def test_iter_uses_reattached_api_key(self, http_client_mock, monkeypatch):
         lo = ListObject.construct_from(
             self.pageable_model_response(
                 ["pm_123"], "/v2/pageablemodels?page=page_2"
@@ -157,6 +157,7 @@ class TestListObjectV2(object):
         )
         monkeypatch.setattr(stripe, "api_key", None)
         restored = pickle.loads(pickle.dumps(lo))
+        restored.reattach_api_key("worker-key-sentinel")
         http_client_mock.stub_request(
             "get",
             path="/v2/pageablemodels",
@@ -164,12 +165,7 @@ class TestListObjectV2(object):
             rbody=json.dumps(self.pageable_model_response(["pm_124"], None)),
         )
 
-        seen = [
-            item["id"]
-            for item in restored.auto_paging_iter(
-                api_key="worker-key-sentinel"
-            )
-        ]
+        seen = [item["id"] for item in restored.auto_paging_iter()]
 
         assert seen == ["pm_123", "pm_124"]
         http_client_mock.assert_requested(

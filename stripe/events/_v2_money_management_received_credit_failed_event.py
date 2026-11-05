@@ -105,7 +105,7 @@ class V2MoneyManagementReceivedCreditFailedEvent(Event):
         """
         return cast(
             "ReceivedCredit",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

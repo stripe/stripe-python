@@ -1,11 +1,8 @@
-from typing_extensions import Literal, Self, Unpack, deprecated
+from typing_extensions import Literal, Self, deprecated
 
 from stripe._error import InvalidRequestError
 from stripe._stripe_object import StripeObject
-from stripe._request_options import (
-    RequestOptions,
-    extract_options_from_dict,
-)
+from stripe._request_options import extract_options_from_dict
 from stripe._api_mode import ApiMode
 from stripe._base_address import BaseAddress
 from stripe._api_requestor import _APIRequestor
@@ -36,18 +33,12 @@ class APIResource(StripeObject, Generic[T]):
         instance.refresh()
         return cast(T, instance)
 
-    def refresh(self, **params: Unpack[RequestOptions]) -> Self:
-        return self._request_and_refresh(
-            "get",
-            self.instance_url(),
-            params={**self._retrieve_params, **params},
-        )
+    def refresh(self) -> Self:
+        return self._request_and_refresh("get", self.instance_url())
 
-    async def refresh_async(self, **params: Unpack[RequestOptions]) -> Self:
+    async def refresh_async(self) -> Self:
         return await self._request_and_refresh_async(
-            "get",
-            self.instance_url(),
-            params={**self._retrieve_params, **params},
+            "get", self.instance_url()
         )
 
     @classmethod

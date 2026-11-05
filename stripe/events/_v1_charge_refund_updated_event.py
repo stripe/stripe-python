@@ -101,7 +101,7 @@ class V1ChargeRefundUpdatedEvent(Event):
         """
         return cast(
             "Refund",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

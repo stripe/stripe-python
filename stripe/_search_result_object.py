@@ -86,34 +86,29 @@ class SearchResultObject(StripeObject, Generic[T]):
     def __len__(self) -> int:
         return getattr(self, "data", []).__len__()
 
-    def _auto_paging_iter(self, params: RequestOptions) -> Iterator[T]:
+    def _auto_paging_iter(self) -> Iterator[T]:
         page = self
 
         while True:
             for item in page:
                 yield item
-            page = page.next_search_result_page(**params)
+            page = page.next_search_result_page()
 
             if page.is_empty:
                 break
 
-    def auto_paging_iter(
-        self, **params: Unpack[RequestOptions]
-    ) -> AnyIterator[T]:
+    def auto_paging_iter(self) -> AnyIterator[T]:
         return AnyIterator(
-            self._auto_paging_iter(params),
-            self._auto_paging_iter_async(params),
+            self._auto_paging_iter(), self._auto_paging_iter_async()
         )
 
-    async def _auto_paging_iter_async(
-        self, params: RequestOptions
-    ) -> AsyncIterator[T]:
+    async def _auto_paging_iter_async(self) -> AsyncIterator[T]:
         page = self
 
         while True:
             for item in page:
                 yield item
-            page = await page.next_search_result_page_async(**params)
+            page = await page.next_search_result_page_async()
 
             if page.is_empty:
                 break

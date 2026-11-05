@@ -105,7 +105,7 @@ class V1CustomerSubscriptionItemTaxRatesChangedEvent(Event):
         """
         return cast(
             "Subscription",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

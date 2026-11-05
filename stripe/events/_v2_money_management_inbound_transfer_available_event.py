@@ -143,7 +143,7 @@ class V2MoneyManagementInboundTransferAvailableEvent(Event):
         """
         return cast(
             "InboundTransfer",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

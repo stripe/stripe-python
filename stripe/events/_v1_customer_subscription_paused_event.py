@@ -101,7 +101,7 @@ class V1CustomerSubscriptionPausedEvent(Event):
         """
         return cast(
             "Subscription",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

@@ -107,7 +107,7 @@ class V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent(Event):
         """
         return cast(
             "Transaction",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",

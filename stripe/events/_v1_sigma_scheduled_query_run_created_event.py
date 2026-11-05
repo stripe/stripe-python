@@ -103,7 +103,7 @@ class V1SigmaScheduledQueryRunCreatedEvent(Event):
         """
         return cast(
             "ScheduledQueryRun",
-            self._requestor.request(
+            self._get_requestor().request(
                 "get",
                 self.related_object.url,
                 base_address="api",
