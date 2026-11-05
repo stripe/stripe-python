@@ -101,7 +101,7 @@ class V1PlanUpdatedEvent(Event):
         """
         return cast(
             "Plan",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

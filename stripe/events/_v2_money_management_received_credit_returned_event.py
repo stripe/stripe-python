@@ -105,7 +105,7 @@ class V2MoneyManagementReceivedCreditReturnedEvent(Event):
         """
         return cast(
             "ReceivedCredit",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

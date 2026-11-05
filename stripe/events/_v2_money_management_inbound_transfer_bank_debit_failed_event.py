@@ -107,7 +107,7 @@ class V2MoneyManagementInboundTransferBankDebitFailedEvent(Event):
         """
         return cast(
             "InboundTransfer",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

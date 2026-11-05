@@ -101,7 +101,7 @@ class V1PayoutCanceledEvent(Event):
         """
         return cast(
             "Payout",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

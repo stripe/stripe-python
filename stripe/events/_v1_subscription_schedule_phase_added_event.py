@@ -103,7 +103,7 @@ class V1SubscriptionSchedulePhaseAddedEvent(Event):
         """
         return cast(
             "SubscriptionSchedule",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

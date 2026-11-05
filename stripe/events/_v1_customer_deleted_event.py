@@ -101,7 +101,7 @@ class V1CustomerDeletedEvent(Event):
         """
         return cast(
             "Customer",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

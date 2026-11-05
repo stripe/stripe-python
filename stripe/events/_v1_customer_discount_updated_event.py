@@ -103,7 +103,7 @@ class V1CustomerDiscountUpdatedEvent(Event):
         """
         return cast(
             "Discount",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

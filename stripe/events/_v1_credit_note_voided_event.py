@@ -101,7 +101,7 @@ class V1CreditNoteVoidedEvent(Event):
         """
         return cast(
             "CreditNote",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

@@ -105,7 +105,7 @@ class V1IdentityVerificationSessionProcessingEvent(Event):
         """
         return cast(
             "VerificationSession",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

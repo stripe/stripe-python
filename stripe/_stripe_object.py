@@ -134,20 +134,14 @@ class StripeObject:
 
         from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
 
-        self._unpickled_stripe_version = stripe_version
-        self._unpickled_stripe_account = stripe_account
-        self._requestor: Optional["_APIRequestor"] = (
-            None
-            if api_key == API_KEY_SERIALIZATION_CONSTANT
-            else (
-                _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
-                    api_key=api_key,
-                    stripe_version=stripe_version,
-                    stripe_account=stripe_account,
-                )
-                if _requestor is None
-                else _requestor
+        self._requestor = (
+            _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
             )
+            if _requestor is None
+            else _requestor
         )
 
         if id:
@@ -155,43 +149,23 @@ class StripeObject:
 
     @property
     def api_key(self):
-        return self._requestor.api_key if self._requestor is not None else None
+        return self._requestor.api_key
 
     @property
     def stripe_account(self):
-        return (
-            self._requestor.stripe_account
-            if self._requestor is not None
-            else self._unpickled_stripe_account
-        )
+        return self._requestor.stripe_account
 
     @property
     def stripe_version(self):
-        return (
-            self._requestor.stripe_version
-            if self._requestor is not None
-            else self._unpickled_stripe_version
-        )
-
-    def _get_requestor(self) -> "_APIRequestor":
-        if self._requestor is None:
-            from stripe._error import AuthenticationError
-
-            raise AuthenticationError(
-                "This object was unpickled without API credentials. "
-                "Call reattach_api_key(api_key) on the object before making "
-                "requests. Global and per-call API keys do not reattach "
-                "credentials to an unpickled object."
-            )
-        return self._requestor
+        return self._requestor.stripe_version
 
     def reattach_api_key(self, api_key: str) -> None:
         """Attach credentials to an unpickled object and its nested objects.
 
         Each object retains its saved API version and connected account.
-        Objects that already have a requestor cannot be reattached.
+        Objects that already have credentials cannot be reattached.
         """
-        if self._requestor is not None:
+        if self.api_key != API_KEY_SERIALIZATION_CONSTANT:
             raise ValueError(
                 "API credentials can only be reattached to an unpickled "
                 "object that has not already been reattached."
@@ -212,11 +186,11 @@ class StripeObject:
                 return
             seen.add(id(value))
             if isinstance(value, StripeObject):
-                if value._requestor is None:
+                if value.api_key == API_KEY_SERIALIZATION_CONSTANT:
                     value._requestor = _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
                         api_key=api_key,
-                        stripe_version=value._unpickled_stripe_version,
-                        stripe_account=value._unpickled_stripe_account,
+                        stripe_version=value.stripe_version,
+                        stripe_account=value.stripe_account,
                     )
                 for nested in value._data.values():
                     reattach(nested)
@@ -243,8 +217,8 @@ class StripeObject:
 
         def __setattr__(self, k, v):
             if k in PERSISTENT_OPTIONS_KEYS:
-                self._requestor = (
-                    self._get_requestor()._new_requestor_with_options({k: v})
+                self._requestor = self._requestor._new_requestor_with_options(
+                    {k: v}
                 )
                 return None
 
@@ -441,7 +415,7 @@ class StripeObject:
             values=values,
             partial=partial,
             last_response=last_response,
-            requestor=self._get_requestor()._new_requestor_with_options(  # pyright: ignore[reportPrivateUsage]
+            requestor=self._requestor._new_requestor_with_options(  # pyright: ignore[reportPrivateUsage]
                 {
                     "api_key": api_key,
                     "stripe_version": stripe_version,
@@ -499,7 +473,7 @@ class StripeObject:
                             resp=v,
                             params=None,
                             klass_=inner_class,
-                            requestor=self._get_requestor(),
+                            requestor=self._requestor,
                             api_mode=api_mode,
                         ),
                     )
@@ -512,7 +486,7 @@ class StripeObject:
                         resp=v,
                         params=None,
                         klass_=inner_class,
-                        requestor=self._get_requestor(),
+                        requestor=self._requestor,
                         api_mode=api_mode,
                     ),
                 )
@@ -534,7 +508,7 @@ class StripeObject:
 
         request_options, request_params = extract_options_from_dict(params)
 
-        return self._get_requestor().request(
+        return self._requestor.request(
             method,
             url,
             params=request_params,
@@ -557,7 +531,7 @@ class StripeObject:
 
         request_options, request_params = extract_options_from_dict(params)
 
-        return await self._get_requestor().request_async(
+        return await self._requestor.request_async(
             method,
             url,
             params=request_params,
@@ -578,7 +552,7 @@ class StripeObject:
             params = self._retrieve_params
 
         request_options, request_params = extract_options_from_dict(params)
-        return self._get_requestor().request_stream(
+        return self._requestor.request_stream(
             method,
             url,
             params=request_params,
@@ -598,7 +572,7 @@ class StripeObject:
             params = self._retrieve_params
 
         request_options, request_params = extract_options_from_dict(params)
-        return await self._get_requestor().request_stream_async(
+        return await self._requestor.request_stream_async(
             method,
             url,
             params=request_params,
@@ -703,9 +677,7 @@ class StripeObject:
     def __copy__(self) -> "StripeObject":
         copied = StripeObject(
             getattr(self, "id", None),
-            self.api_key
-            if self._requestor is not None
-            else API_KEY_SERIALIZATION_CONSTANT,
+            self.api_key,
             stripe_version=self.stripe_version,
             stripe_account=self.stripe_account,
         )

@@ -103,7 +103,7 @@ class V1TaxSettingsUpdatedEvent(Event):
         """
         return cast(
             "Settings",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

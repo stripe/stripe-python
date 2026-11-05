@@ -101,7 +101,7 @@ class V1ChargeDisputeCreatedEvent(Event):
         """
         return cast(
             "Dispute",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

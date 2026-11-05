@@ -313,8 +313,7 @@ class TestStripeObject(object):
         assert type(restored) is stripe.Customer
         assert restored.to_dict() == payload
         for value in (restored, restored.metadata):
-            assert value.api_key is None
-            assert value._requestor is None
+            assert value.api_key == API_KEY_SERIALIZATION_CONSTANT
             assert value.stripe_version == "2017-08-15"
             assert value.stripe_account == "example-account"
         assert obj.api_key == "producer-key-sentinel"
@@ -323,7 +322,7 @@ class TestStripeObject(object):
         assert obj.to_dict() == payload
 
         restored_nested = restored.containers[0]["nested"]
-        assert restored_nested.api_key is None
+        assert restored_nested.api_key == API_KEY_SERIALIZATION_CONSTANT
         assert restored_nested.stripe_account == "nested-example-account"
         assert restored_nested.stripe_version == "2018-02-28"
 
@@ -373,8 +372,7 @@ class TestStripeObject(object):
             restored.data.object,
             restored.data.object.metadata,
         ):
-            assert value.api_key is None
-            assert value._requestor is None
+            assert value.api_key == API_KEY_SERIALIZATION_CONSTANT
         assert event.api_key == "producer-key-sentinel"
 
     @pytest.fixture
@@ -389,7 +387,7 @@ class TestStripeObject(object):
 
     @pytest.mark.parametrize("global_key", [None, "global-key-sentinel"])
     @pytest.mark.parametrize("per_call_key", [None, "per-call-key-sentinel"])
-    def test_restored_refresh_without_key_raises(
+    def test_restored_delete_requires_reattachment(
         self,
         http_client_mock,
         restored_customer,
@@ -418,7 +416,10 @@ class TestStripeObject(object):
             api_key="worker-key-sentinel",
             stripe_account="example-account",
         )
-        assert pickle.loads(pickle.dumps(restored_customer))._requestor is None
+        assert (
+            pickle.loads(pickle.dumps(restored_customer)).api_key
+            == API_KEY_SERIALIZATION_CONSTANT
+        )
 
     @pytest.mark.parametrize(
         "key", [None, "", " ", 123, API_KEY_SERIALIZATION_CONSTANT]
@@ -428,7 +429,7 @@ class TestStripeObject(object):
     ):
         with pytest.raises(ValueError, match="api_key"):
             restored_customer.reattach_api_key(key)
-        assert restored_customer._requestor is None
+        assert restored_customer.api_key == API_KEY_SERIALIZATION_CONSTANT
 
     def test_reattach_api_key_rejects_attached_objects(
         self, restored_customer
@@ -458,35 +459,45 @@ class TestStripeObject(object):
     ):
         monkeypatch.setattr(stripe, "api_key", "global-key")
         copied = copy_method(restored_customer)
-        assert copied._requestor is None
+        assert copied.api_key == API_KEY_SERIALIZATION_CONSTANT
         assert copied.stripe_account == "example-account"
         with pytest.raises(
             stripe.AuthenticationError, match="reattach_api_key"
         ):
-            copied._get_requestor()
+            copied._request(
+                "get", "/v1/customers/resource", base_address="api"
+            )
 
     @pytest.mark.parametrize("method", ["_request", "_request_stream"])
+    @pytest.mark.parametrize("per_call_key", [None, "per-call-key-sentinel"])
     def test_detached_request_guard(
-        self, restored_customer, method, http_client_mock
+        self, restored_customer, method, http_client_mock, per_call_key
     ):
         with pytest.raises(
             stripe.AuthenticationError, match="reattach_api_key"
         ):
-            getattr(restored_customer, method)("get", "/v1/customers/resource")
+            getattr(restored_customer, method)(
+                "get",
+                "/v1/customers/resource",
+                params={"api_key": per_call_key},
+            )
         http_client_mock.assert_no_request()
 
     @pytest.mark.anyio
     @pytest.mark.parametrize(
         "method", ["_request_async", "_request_stream_async"]
     )
+    @pytest.mark.parametrize("per_call_key", [None, "per-call-key-sentinel"])
     async def test_detached_async_request_guard(
-        self, restored_customer, method, http_client_mock
+        self, restored_customer, method, http_client_mock, per_call_key
     ):
         with pytest.raises(
             stripe.AuthenticationError, match="reattach_api_key"
         ):
             await getattr(restored_customer, method)(
-                "get", "/v1/customers/resource"
+                "get",
+                "/v1/customers/resource",
+                params={"api_key": per_call_key},
             )
         http_client_mock.assert_no_request()
 

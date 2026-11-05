@@ -211,7 +211,7 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
         """
         return cast(
             "Meter",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

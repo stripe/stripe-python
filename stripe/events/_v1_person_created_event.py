@@ -101,7 +101,7 @@ class V1PersonCreatedEvent(Event):
         """
         return cast(
             "Person",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",

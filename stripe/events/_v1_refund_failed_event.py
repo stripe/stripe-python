@@ -101,7 +101,7 @@ class V1RefundFailedEvent(Event):
         """
         return cast(
             "Refund",
-            self._get_requestor().request(
+            self._requestor.request(
                 "get",
                 self.related_object.url,
                 base_address="api",
