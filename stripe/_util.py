@@ -243,7 +243,7 @@ def _convert_to_stripe_object(
     elif isinstance(resp, dict):
         resp = resp.copy()
         klass_name = resp.get("object")
-        is_v2_core_event = False
+        requestor_uses_response_context = False
         if isinstance(klass_name, str):
             if is_v2_deleted_object:
                 # circular import
@@ -255,7 +255,7 @@ def _convert_to_stripe_object(
 
                 event_type = resp.get("type", "")
                 klass = get_v2_event_class(event_type)
-                is_v2_core_event = True
+                requestor_uses_response_context = True
             else:
                 from stripe._object_classes import get_object_class
 
@@ -281,13 +281,13 @@ def _convert_to_stripe_object(
             api_mode=api_mode,
         )
 
-        if is_v2_core_event:
-            # A directly-retrieved v2 Event carries the requestor of whatever
+        if requestor_uses_response_context:
+            # A directly-retrieved object carries the requestor of whatever
             # account fetched it (e.g. a platform account), but its `context`
             # field is the self-contained auth context for its own account.
             # Rescope the requestor the same way EventNotification.__init__
-            # scopes its client, so fetch_related_object() doesn't leak a
-            # stale Stripe-Account header from the retrieving account.
+            # scopes its client so fetch_related_object() uses the correct
+            # headers.
             obj._requestor = obj._requestor.with_stripe_context(
                 getattr(obj, "context", None)
             )
