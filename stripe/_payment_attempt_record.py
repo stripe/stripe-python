@@ -143,6 +143,38 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         The customer's phone number.
         """
 
+    class DisputeDetails(StripeObject):
+        class Reinstated(StripeObject):
+            currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            value: int
+            """
+            A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+            """
+
+        class Withdrawn(StripeObject):
+            currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            value: int
+            """
+            A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+            """
+
+        reinstated: UntypedStripeObject[Reinstated]
+        """
+        Total amounts reinstated across all disputes, keyed by currency, with each value containing the total for that currency. Withdrawals are not subtracted from these totals.
+        """
+        withdrawn: UntypedStripeObject[Withdrawn]
+        """
+        Total amounts withdrawn across all disputes, keyed by currency, with each value containing the total for that currency. Reinstatements are not subtracted from these totals.
+        """
+        _inner_class_types = {"reinstated": Reinstated, "withdrawn": Withdrawn}
+        _inner_class_dicts = ["reinstated", "withdrawn"]
+
     class PaymentMethodDetails(StripeObject):
         class AchCreditTransfer(StripeObject):
             account_number: Optional[str]
@@ -219,6 +251,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Transit number of the bank account.
             """
+
+        class AeonPay(StripeObject):
+            pass
 
         class Affirm(StripeObject):
             location: Optional[str]
@@ -339,6 +374,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             ID of the mandate used to make this payment.
             """
+
+        class AuPay(StripeObject):
+            pass
 
         class BacsDebit(StripeObject):
             expected_debit_date: Optional[str]
@@ -772,6 +810,46 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             }
 
         class CardPresent(StripeObject):
+            class Fleet(StripeObject):
+                class TransactionDatum(StripeObject):
+                    prompt: Literal[
+                        "additional_fleet_data_1",
+                        "additional_fleet_data_2",
+                        "driver_id",
+                        "employee_number",
+                        "entered_data_alphanumeric",
+                        "entered_data_numeric",
+                        "generic_id",
+                        "invoice_number",
+                        "odometer",
+                        "postal_code",
+                        "reefer_hours",
+                        "replacement_car",
+                        "trailer_number",
+                        "trip_number",
+                        "unit_number",
+                        "vehicle_id",
+                        "vehicle_tag",
+                        "work_order",
+                    ]
+                    """
+                    The prompt that the Terminal SDK displays to collect this Fleet value.
+                    """
+                    receipt_behavior: Literal["omit", "print"]
+                    """
+                    Whether the collected value is printed on the receipt.
+                    """
+                    value: str
+                    """
+                    The value collected for this Fleet prompt.
+                    """
+
+                transaction_data: List[TransactionDatum]
+                """
+                Fleet prompts and values collected for this transaction.
+                """
+                _inner_class_types = {"transaction_data": TransactionDatum}
+
             class Multicapture(StripeObject):
                 status: Literal["available", "unavailable"]
                 """
@@ -894,6 +972,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
             *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
             """
+            fleet: Optional[Fleet]
             funding: Optional[str]
             """
             Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
@@ -980,6 +1059,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             wallet: Optional[Wallet]
             _inner_class_types = {
+                "fleet": Fleet,
                 "multicapture": Multicapture,
                 "offline": Offline,
                 "reauthorization": Reauthorization,
@@ -1061,6 +1141,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class CustomerBalance(StripeObject):
+            pass
+
+        class Dbarai(StripeObject):
             pass
 
         class Eps(StripeObject):
@@ -1605,6 +1688,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         class MbWay(StripeObject):
             pass
 
+        class Merpay(StripeObject):
+            pass
+
         class Mobilepay(StripeObject):
             class Card(StripeObject):
                 brand: Optional[str]
@@ -1900,6 +1986,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             }
 
         class Paypay(StripeObject):
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+            """
             mandate: Optional[str]
             """
             ID of the multi-use Mandate created by, or used to make, this PayPay payment.
@@ -2247,12 +2337,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         ach_credit_transfer: Optional[AchCreditTransfer]
         ach_debit: Optional[AchDebit]
         acss_debit: Optional[AcssDebit]
+        aeon_pay: Optional[AeonPay]
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
         alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
+        au_pay: Optional[AuPay]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         billie: Optional[Billie]
@@ -2278,6 +2370,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         used for this payment attempt.
         """
         customer_balance: Optional[CustomerBalance]
+        dbarai: Optional[Dbarai]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         getflex: Optional[Getflex]
@@ -2294,6 +2387,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         kr_card: Optional[KrCard]
         link: Optional[Link]
         mb_way: Optional[MbWay]
+        merpay: Optional[Merpay]
         mobilepay: Optional[Mobilepay]
         momo: Optional[Momo]
         multibanco: Optional[Multibanco]
@@ -2348,12 +2442,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "ach_credit_transfer": AchCreditTransfer,
             "ach_debit": AchDebit,
             "acss_debit": AcssDebit,
+            "aeon_pay": AeonPay,
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
             "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
+            "au_pay": AuPay,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "billie": Billie,
@@ -2368,6 +2464,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "crypto": Crypto,
             "custom": Custom,
             "customer_balance": CustomerBalance,
+            "dbarai": Dbarai,
             "eps": Eps,
             "fpx": Fpx,
             "getflex": Getflex,
@@ -2384,6 +2481,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "kr_card": KrCard,
             "link": Link,
             "mb_way": MbWay,
+            "merpay": Merpay,
             "mobilepay": Mobilepay,
             "momo": Momo,
             "multibanco": Multibanco,
@@ -2570,6 +2668,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    dispute_details: Optional[DisputeDetails]
+    """
+    Summary information about disputes associated with this Payment Attempt Record.
     """
     id: str
     """
@@ -3643,6 +3745,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         "amount_refunded": AmountRefunded,
         "amount_requested": AmountRequested,
         "customer_details": CustomerDetails,
+        "dispute_details": DisputeDetails,
         "payment_method_details": PaymentMethodDetails,
         "processor_details": ProcessorDetails,
         "shipping_details": ShippingDetails,

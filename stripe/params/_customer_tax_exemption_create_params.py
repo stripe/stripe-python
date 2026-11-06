@@ -29,6 +29,18 @@ class CustomerTaxExemptionCreateParams(TypedDict):
     """
     ISO 8601 date (YYYY-MM-DD) when the exemption expires.
     """
+    reason: NotRequired[
+        "Literal['direct_pay_permit', 'legacy_contract', 'other']|str"
+    ]
+    """
+    The reason the customer is exempt. Required when `us.tax_code_group` is `saas`.
+    """
+    reason_details: NotRequired[
+        "CustomerTaxExemptionCreateParamsReasonDetails"
+    ]
+    """
+    Additional details about the exemption reason.
+    """
     us: NotRequired["CustomerTaxExemptionCreateParamsUs"]
     """
     US-specific exemption details. Required when country is US; must be absent otherwise.
@@ -53,8 +65,26 @@ class CustomerTaxExemptionCreateParamsEs(TypedDict):
     """
 
 
+class CustomerTaxExemptionCreateParamsReasonDetails(TypedDict):
+    other: NotRequired["CustomerTaxExemptionCreateParamsReasonDetailsOther"]
+    """
+    Details for the `other` exemption reason.
+    """
+
+
+class CustomerTaxExemptionCreateParamsReasonDetailsOther(TypedDict):
+    reason_text: str
+    """
+    A free-text description of the exemption reason. Maximum 5000 characters.
+    """
+
+
 class CustomerTaxExemptionCreateParamsUs(TypedDict):
     state: str
     """
     Two-letter US state code (ISO 3166-2).
+    """
+    tax_code_group: NotRequired["Literal['all', 'saas']|str"]
+    """
+    The group of tax codes this exemption applies to. Defaults to `all`. `saas` is only available when `state` is `CA`.
     """

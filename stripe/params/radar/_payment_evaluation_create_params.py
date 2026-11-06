@@ -136,9 +136,17 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails(
     """
     Describes card money movement details.
     """
-    money_movement_type: Union[Literal["card", "us_bank_account"], str]
+    money_movement_type: Union[
+        Literal["card", "sepa_debit", "us_bank_account"], str
+    ]
     """
     Describes the type of money movement.
+    """
+    sepa_debit: NotRequired[
+        "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsSepaDebit"
+    ]
+    """
+    Describes SEPA debit money movement details.
     """
     us_bank_account: NotRequired[
         "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsUsBankAccount"
@@ -160,6 +168,15 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard(
     ]
     """
     Describes the type of payment.
+    """
+
+
+class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsSepaDebit(
+    TypedDict,
+):
+    creditor_id: NotRequired[str]
+    """
+    Supply the SEPA Creditor Identifier configured for the intended debit with your selected processor. Obtain it from your processor's SEPA configuration API or onboarding/support information. Do not supply a statement descriptor, IBAN, processor merchant-account ID, or mandate reference. If the creditor identifier is unknown, omit it.
     """
 
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -30,10 +30,24 @@ class CustomerTaxExemption(StripeObject):
         Two-letter Spanish subdivision code (ISO 3166-2). Absent for country-wide Spain exemptions.
         """
 
+    class ReasonDetails(StripeObject):
+        class Other(StripeObject):
+            reason_text: Optional[str]
+            """
+            A free-text description of the exemption reason.
+            """
+
+        other: Optional[Other]
+        _inner_class_types = {"other": Other}
+
     class Us(StripeObject):
         state: str
         """
         Two-letter US state code (ISO 3166-2).
+        """
+        tax_code_group: Optional[Union[Literal["all", "saas"], str]]
+        """
+        The group of tax codes this exemption applies to. Exemptions created without one have `all`.
         """
 
     ca: Optional[Ca]
@@ -74,5 +88,20 @@ class CustomerTaxExemption(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    reason: Optional[
+        Union[Literal["direct_pay_permit", "legacy_contract", "other"], str]
+    ]
+    """
+    The reason the customer is exempt.
+    """
+    reason_details: Optional[ReasonDetails]
+    """
+    Additional details about the exemption reason.
+    """
     us: Optional[Us]
-    _inner_class_types = {"ca": Ca, "es": Es, "us": Us}
+    _inner_class_types = {
+        "ca": Ca,
+        "es": Es,
+        "reason_details": ReasonDetails,
+        "us": Us,
+    }

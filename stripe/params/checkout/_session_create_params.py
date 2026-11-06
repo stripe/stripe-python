@@ -80,6 +80,7 @@ class SessionCreateParams(RequestOptions):
                     "stripe_balance",
                     "sunbit",
                     "swish",
+                    "tamara",
                     "twint",
                     "upi",
                     "us_bank_account",
@@ -148,6 +149,12 @@ class SessionCreateParams(RequestOptions):
     custom_fields: NotRequired[List["SessionCreateParamsCustomField"]]
     """
     Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
+    """
+    custom_payment_method_options: NotRequired[
+        "Dict[str, SessionCreateParamsCustomPaymentMethodOptions]|UntypedStripeObject[SessionCreateParamsCustomPaymentMethodOptions]"
+    ]
+    """
+    Options keyed by custom payment method type IDs (e.g., `cpmt_123`). Each ID must belong to your account and be included in `custom_payment_method_types`. Only available in `payment` mode.
     """
     custom_payment_method_types: NotRequired[List[str]]
     """
@@ -266,6 +273,7 @@ class SessionCreateParams(RequestOptions):
                     "stripe_balance",
                     "sunbit",
                     "swish",
+                    "tamara",
                     "twint",
                     "upi",
                     "us_bank_account",
@@ -759,6 +767,13 @@ class SessionCreateParamsCustomFieldText(TypedDict):
     minimum_length: NotRequired[int]
     """
     The minimum character length requirement for the customer's input.
+    """
+
+
+class SessionCreateParamsCustomPaymentMethodOptions(TypedDict):
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
+    """
+    Use `off_session` to set up this custom payment method for future payments when the customer is absent. Use `none` to disable setup for future usage.
     """
 
 
@@ -2075,6 +2090,12 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Sofort payment method options.
     """
+    stripe_balance: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsStripeBalance"
+    ]
+    """
+    contains details about the Stripe Balance payment method options.
+    """
     sunbit: NotRequired["SessionCreateParamsPaymentMethodOptionsSunbit"]
     """
     contains details about the Sunbit payment method options.
@@ -2163,7 +2184,9 @@ class SessionCreateParamsPaymentMethodOptionsAcssDebitMandateOptions(
     """
     Payment schedule for the mandate.
     """
-    transaction_type: NotRequired["Literal['business', 'personal']|str"]
+    transaction_type: NotRequired[
+        "Literal['business', 'buyer_choice', 'personal']|str"
+    ]
     """
     Transaction type of the mandate.
     """
@@ -2281,7 +2304,7 @@ class SessionCreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
     verification_method: NotRequired[
-        "Literal['automatic', 'payer_name_verification']|str"
+        "Literal['automatic', 'instant', 'payer_name_verification']|str"
     ]
 
 
@@ -2993,6 +3016,16 @@ class SessionCreateParamsPaymentMethodOptionsPaypal(TypedDict):
 
 
 class SessionCreateParamsPaymentMethodOptionsPaypay(TypedDict):
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
     subscription_reference: NotRequired[str]
     """
     The merchant's subscription identifier for this off-session charge.
@@ -3208,6 +3241,19 @@ class SessionCreateParamsPaymentMethodOptionsSequra(TypedDict):
 
 class SessionCreateParamsPaymentMethodOptionsSofort(TypedDict):
     setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsStripeBalance(TypedDict):
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

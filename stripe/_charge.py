@@ -270,6 +270,9 @@ class Charge(
             Transit number of the bank account.
             """
 
+        class AeonPay(StripeObject):
+            pass
+
         class Affirm(StripeObject):
             location: Optional[str]
             """
@@ -389,6 +392,9 @@ class Charge(
             """
             ID of the mandate used to make this payment.
             """
+
+        class AuPay(StripeObject):
+            pass
 
         class BacsDebit(StripeObject):
             expected_debit_date: Optional[str]
@@ -684,10 +690,222 @@ class Charge(
                     pass
 
                 class Link(StripeObject):
+                    class FundingSource(StripeObject):
+                        class Card(StripeObject):
+                            class Checks(StripeObject):
+                                address_line1_check: Optional[str]
+                                """
+                                If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                                """
+                                address_postal_code_check: Optional[str]
+                                """
+                                If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                                """
+                                cvc_check: Optional[str]
+                                """
+                                If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                                """
+
+                            class NetworkToken(StripeObject):
+                                used: bool
+                                """
+                                Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
+                                """
+
+                            class ThreeDSecure(StripeObject):
+                                authentication_flow: Optional[
+                                    Union[
+                                        Literal["challenge", "frictionless"],
+                                        str,
+                                    ]
+                                ]
+                                """
+                                For authenticated transactions: how the customer was authenticated by
+                                the issuing bank.
+                                """
+                                electronic_commerce_indicator: Optional[
+                                    Union[
+                                        Literal["01", "02", "05", "06", "07"],
+                                        str,
+                                    ]
+                                ]
+                                """
+                                The Electronic Commerce Indicator (ECI). A protocol-level field
+                                indicating what degree of authentication was performed.
+                                """
+                                exemption_indicator: Optional[
+                                    Union[Literal["low_risk", "none"], str]
+                                ]
+                                """
+                                The exemption requested via 3DS and accepted by the issuer at authentication time.
+                                """
+                                exemption_indicator_applied: Optional[bool]
+                                """
+                                Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
+                                the outcome of Stripe's internal risk assessment.
+                                """
+                                result: Optional[
+                                    Union[
+                                        Literal[
+                                            "attempt_acknowledged",
+                                            "authenticated",
+                                            "data_share_only",
+                                            "exempted",
+                                            "failed",
+                                            "not_supported",
+                                            "processing_error",
+                                        ],
+                                        str,
+                                    ]
+                                ]
+                                """
+                                Indicates the outcome of 3D Secure authentication.
+                                """
+                                result_reason: Optional[
+                                    Union[
+                                        Literal[
+                                            "abandoned",
+                                            "bypassed",
+                                            "canceled",
+                                            "card_not_enrolled",
+                                            "network_not_supported",
+                                            "protocol_error",
+                                            "rejected",
+                                        ],
+                                        str,
+                                    ]
+                                ]
+                                """
+                                Additional information about why 3D Secure succeeded or failed based
+                                on the `result`.
+                                """
+                                transaction_id: Optional[str]
+                                """
+                                The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+                                (dsTransId) for this payment.
+                                """
+                                version: Optional[
+                                    Union[
+                                        Literal[
+                                            "1.0.2",
+                                            "2.1.0",
+                                            "2.2.0",
+                                            "2.3.0",
+                                            "2.3.1",
+                                        ],
+                                        str,
+                                    ]
+                                ]
+                                """
+                                The version of 3D Secure that was used.
+                                """
+
+                            amount_authorized: Optional[int]
+                            """
+                            The authorized amount.
+                            """
+                            authorization_code: Optional[str]
+                            """
+                            Authorization code on the charge.
+                            """
+                            brand: Optional[str]
+                            """
+                            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+                            """
+                            checks: Optional[Checks]
+                            """
+                            Check results by Card networks on Card address and CVC at time of payment.
+                            """
+                            country: Optional[str]
+                            """
+                            Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                            """
+                            description: Optional[str]
+                            """
+                            A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
+                            """
+                            electronic_commerce_indicator: Optional[str]
+                            """
+                            The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
+                            """
+                            exp_month: int
+                            """
+                            Two-digit number representing the card's expiration month.
+                            """
+                            exp_year: int
+                            """
+                            Four-digit number representing the card's expiration year.
+                            """
+                            fingerprint: Optional[str]
+                            """
+                            Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+
+                            *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+                            """
+                            funding: Optional[str]
+                            """
+                            Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                            """
+                            iin: Optional[str]
+                            """
+                            Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+                            """
+                            issuer: Optional[str]
+                            """
+                            The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
+                            """
+                            last4: Optional[str]
+                            """
+                            The last four digits of the card.
+                            """
+                            network: Optional[str]
+                            """
+                            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                            """
+                            network_token: Optional[NetworkToken]
+                            """
+                            If this card has network token credentials, this contains the details of the network token credentials.
+                            """
+                            network_transaction_id: Optional[str]
+                            """
+                            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+                            """
+                            regulated_status: Optional[
+                                Union[Literal["regulated", "unregulated"], str]
+                            ]
+                            """
+                            Status of a card based on the card issuer.
+                            """
+                            three_d_secure: Optional[ThreeDSecure]
+                            """
+                            Populated if this transaction used 3D Secure authentication.
+                            """
+                            transaction_link_id: Optional[str]
+                            """
+                            Transaction Link ID (TLID) is a unique identifier for a transaction. This is used by some card networks, such as Mastercard, for transaction linking, in addition to Network Transaction IDs. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+                            """
+                            _inner_class_types = {
+                                "checks": Checks,
+                                "network_token": NetworkToken,
+                                "three_d_secure": ThreeDSecure,
+                            }
+
+                        card: Card
+                        type: Union[Literal["card"], str]
+                        """
+                        The type of funding source used for this Link payment.
+                        """
+                        _inner_class_types = {"card": Card}
+
                     funding_source_group: Optional[str]
                     """
                     The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
                     """
+                    funding_sources: Optional[List[FundingSource]]
+                    """
+                    Details about the funding sources used for this Link payment.
+                    """
+                    _inner_class_types = {"funding_sources": FundingSource}
 
                 class Masterpass(StripeObject):
                     class BillingAddress(StripeObject):
@@ -1038,6 +1256,46 @@ class Charge(
             }
 
         class CardPresent(StripeObject):
+            class Fleet(StripeObject):
+                class TransactionDatum(StripeObject):
+                    prompt: Literal[
+                        "additional_fleet_data_1",
+                        "additional_fleet_data_2",
+                        "driver_id",
+                        "employee_number",
+                        "entered_data_alphanumeric",
+                        "entered_data_numeric",
+                        "generic_id",
+                        "invoice_number",
+                        "odometer",
+                        "postal_code",
+                        "reefer_hours",
+                        "replacement_car",
+                        "trailer_number",
+                        "trip_number",
+                        "unit_number",
+                        "vehicle_id",
+                        "vehicle_tag",
+                        "work_order",
+                    ]
+                    """
+                    The prompt that the Terminal SDK displays to collect this Fleet value.
+                    """
+                    receipt_behavior: Literal["omit", "print"]
+                    """
+                    Whether the collected value is printed on the receipt.
+                    """
+                    value: str
+                    """
+                    The value collected for this Fleet prompt.
+                    """
+
+                transaction_data: List[TransactionDatum]
+                """
+                Fleet prompts and values collected for this transaction.
+                """
+                _inner_class_types = {"transaction_data": TransactionDatum}
+
             class Multicapture(StripeObject):
                 status: Literal["available", "unavailable"]
                 """
@@ -1160,6 +1418,7 @@ class Charge(
 
             *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
             """
+            fleet: Optional[Fleet]
             funding: Optional[str]
             """
             Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
@@ -1246,6 +1505,7 @@ class Charge(
             """
             wallet: Optional[Wallet]
             _inner_class_types = {
+                "fleet": Fleet,
                 "multicapture": Multicapture,
                 "offline": Offline,
                 "reauthorization": Reauthorization,
@@ -1317,6 +1577,9 @@ class Charge(
             """
 
         class CustomerBalance(StripeObject):
+            pass
+
+        class Dbarai(StripeObject):
             pass
 
         class Eps(StripeObject):
@@ -1851,6 +2114,203 @@ class Charge(
             """
 
         class Link(StripeObject):
+            class FundingSource(StripeObject):
+                class Card(StripeObject):
+                    class Checks(StripeObject):
+                        address_line1_check: Optional[str]
+                        """
+                        If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                        """
+                        address_postal_code_check: Optional[str]
+                        """
+                        If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                        """
+                        cvc_check: Optional[str]
+                        """
+                        If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                        """
+
+                    class NetworkToken(StripeObject):
+                        used: bool
+                        """
+                        Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
+                        """
+
+                    class ThreeDSecure(StripeObject):
+                        authentication_flow: Optional[
+                            Union[Literal["challenge", "frictionless"], str]
+                        ]
+                        """
+                        For authenticated transactions: how the customer was authenticated by
+                        the issuing bank.
+                        """
+                        electronic_commerce_indicator: Optional[
+                            Union[Literal["01", "02", "05", "06", "07"], str]
+                        ]
+                        """
+                        The Electronic Commerce Indicator (ECI). A protocol-level field
+                        indicating what degree of authentication was performed.
+                        """
+                        exemption_indicator: Optional[
+                            Union[Literal["low_risk", "none"], str]
+                        ]
+                        """
+                        The exemption requested via 3DS and accepted by the issuer at authentication time.
+                        """
+                        exemption_indicator_applied: Optional[bool]
+                        """
+                        Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
+                        the outcome of Stripe's internal risk assessment.
+                        """
+                        result: Optional[
+                            Union[
+                                Literal[
+                                    "attempt_acknowledged",
+                                    "authenticated",
+                                    "data_share_only",
+                                    "exempted",
+                                    "failed",
+                                    "not_supported",
+                                    "processing_error",
+                                ],
+                                str,
+                            ]
+                        ]
+                        """
+                        Indicates the outcome of 3D Secure authentication.
+                        """
+                        result_reason: Optional[
+                            Union[
+                                Literal[
+                                    "abandoned",
+                                    "bypassed",
+                                    "canceled",
+                                    "card_not_enrolled",
+                                    "network_not_supported",
+                                    "protocol_error",
+                                    "rejected",
+                                ],
+                                str,
+                            ]
+                        ]
+                        """
+                        Additional information about why 3D Secure succeeded or failed based
+                        on the `result`.
+                        """
+                        transaction_id: Optional[str]
+                        """
+                        The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+                        (dsTransId) for this payment.
+                        """
+                        version: Optional[
+                            Union[
+                                Literal[
+                                    "1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"
+                                ],
+                                str,
+                            ]
+                        ]
+                        """
+                        The version of 3D Secure that was used.
+                        """
+
+                    amount_authorized: Optional[int]
+                    """
+                    The authorized amount.
+                    """
+                    authorization_code: Optional[str]
+                    """
+                    Authorization code on the charge.
+                    """
+                    brand: Optional[str]
+                    """
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+                    """
+                    checks: Optional[Checks]
+                    """
+                    Check results by Card networks on Card address and CVC at time of payment.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                    """
+                    description: Optional[str]
+                    """
+                    A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
+                    """
+                    electronic_commerce_indicator: Optional[str]
+                    """
+                    The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
+                    """
+                    exp_month: int
+                    """
+                    Two-digit number representing the card's expiration month.
+                    """
+                    exp_year: int
+                    """
+                    Four-digit number representing the card's expiration year.
+                    """
+                    fingerprint: Optional[str]
+                    """
+                    Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+
+                    *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+                    """
+                    funding: Optional[str]
+                    """
+                    Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                    """
+                    iin: Optional[str]
+                    """
+                    Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+                    """
+                    issuer: Optional[str]
+                    """
+                    The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
+                    """
+                    last4: Optional[str]
+                    """
+                    The last four digits of the card.
+                    """
+                    network: Optional[str]
+                    """
+                    Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    network_token: Optional[NetworkToken]
+                    """
+                    If this card has network token credentials, this contains the details of the network token credentials.
+                    """
+                    network_transaction_id: Optional[str]
+                    """
+                    This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+                    """
+                    regulated_status: Optional[
+                        Union[Literal["regulated", "unregulated"], str]
+                    ]
+                    """
+                    Status of a card based on the card issuer.
+                    """
+                    three_d_secure: Optional[ThreeDSecure]
+                    """
+                    Populated if this transaction used 3D Secure authentication.
+                    """
+                    transaction_link_id: Optional[str]
+                    """
+                    Transaction Link ID (TLID) is a unique identifier for a transaction. This is used by some card networks, such as Mastercard, for transaction linking, in addition to Network Transaction IDs. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+                    """
+                    _inner_class_types = {
+                        "checks": Checks,
+                        "network_token": NetworkToken,
+                        "three_d_secure": ThreeDSecure,
+                    }
+
+                card: Card
+                type: Union[Literal["card"], str]
+                """
+                The type of funding source used for this Link payment.
+                """
+                _inner_class_types = {"card": Card}
+
             country: Optional[str]
             """
             Two-letter ISO code representing the funding source country beneath the Link payment.
@@ -1860,8 +2320,16 @@ class Charge(
             """
             The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
             """
+            funding_sources: Optional[List[FundingSource]]
+            """
+            Details about the funding sources used for this Link payment.
+            """
+            _inner_class_types = {"funding_sources": FundingSource}
 
         class MbWay(StripeObject):
+            pass
+
+        class Merpay(StripeObject):
             pass
 
         class Mobilepay(StripeObject):
@@ -2151,6 +2619,10 @@ class Charge(
             }
 
         class Paypay(StripeObject):
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+            """
             mandate: Optional[str]
             """
             ID of the multi-use Mandate created by, or used to make, this PayPay payment.
@@ -2500,12 +2972,14 @@ class Charge(
         ach_credit_transfer: Optional[AchCreditTransfer]
         ach_debit: Optional[AchDebit]
         acss_debit: Optional[AcssDebit]
+        aeon_pay: Optional[AeonPay]
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
         alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
+        au_pay: Optional[AuPay]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         billie: Optional[Billie]
@@ -2518,6 +2992,7 @@ class Charge(
         cashapp: Optional[Cashapp]
         crypto: Optional[Crypto]
         customer_balance: Optional[CustomerBalance]
+        dbarai: Optional[Dbarai]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         getflex: Optional[Getflex]
@@ -2534,6 +3009,7 @@ class Charge(
         kr_card: Optional[KrCard]
         link: Optional[Link]
         mb_way: Optional[MbWay]
+        merpay: Optional[Merpay]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
@@ -2587,12 +3063,14 @@ class Charge(
             "ach_credit_transfer": AchCreditTransfer,
             "ach_debit": AchDebit,
             "acss_debit": AcssDebit,
+            "aeon_pay": AeonPay,
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
             "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
+            "au_pay": AuPay,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "billie": Billie,
@@ -2605,6 +3083,7 @@ class Charge(
             "cashapp": Cashapp,
             "crypto": Crypto,
             "customer_balance": CustomerBalance,
+            "dbarai": Dbarai,
             "eps": Eps,
             "fpx": Fpx,
             "getflex": Getflex,
@@ -2621,6 +3100,7 @@ class Charge(
             "kr_card": KrCard,
             "link": Link,
             "mb_way": MbWay,
+            "merpay": Merpay,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,

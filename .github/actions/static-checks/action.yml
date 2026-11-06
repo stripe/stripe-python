@@ -1,0 +1,29 @@
+name: Static Checks
+description: Typecheck examples, lint, check formatting, and typecheck. Shared by CI and Canary CI; expects the repository to be checked out.
+
+runs:
+  using: composite
+  steps:
+    - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+    - name: Set up Python 3
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      with:
+        python-version: "3.13"
+    - name: check examples w/ mypy (against python@3.13)
+      shell: bash
+      run: just typecheck-examples
+    # skip deps on all these since mypy installed everything
+    - name: check linting
+      shell: bash
+      run: just --no-deps lint
+    - name: check formatting
+      shell: bash
+      run: just --no-deps format-check
+    # pyright depends on node, which it handles and installs for itself as needed
+    # we _could_ run setup-node to make it available for it if we're having reliability problems
+    - name: check types
+      # only check against a modern version- unit tests will catch syntax errors on older versions
+      # this isn't user facing, this is just checking that our code is internally consistent
+      # e.g. a bug here wouldn't cause user CI to fail since the issue is internal to our codebase
+      shell: bash
+      run: just --no-deps typecheck

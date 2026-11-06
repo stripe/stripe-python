@@ -416,7 +416,9 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.tax._calculation_line_item",
         "CalculationLineItem",
     ),
+    "tax.certificate": ("stripe.tax._certificate", "Certificate"),
     "tax.form": ("stripe.tax._form", "Form"),
+    "tax.form_correction": ("stripe.tax._form_correction", "FormCorrection"),
     "tax.location": ("stripe.tax._location", "Location"),
     "tax.registration": ("stripe.tax._registration", "Registration"),
     "tax.settings": ("stripe.tax._settings", "Settings"),
@@ -698,6 +700,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.data.search_result_list": (
         "stripe.v2.data._search_result_list",
         "SearchResultList",
+    ),
+    "v2.extend.object_definition": (
+        "stripe.v2.extend._object_definition",
+        "ObjectDefinition",
+    ),
+    "v2.extend.object_definition_version": (
+        "stripe.v2.extend._object_definition_version",
+        "ObjectDefinitionVersion",
     ),
     "v2.extend.workflow": ("stripe.v2.extend._workflow", "Workflow"),
     "v2.extend.workflow_run": (

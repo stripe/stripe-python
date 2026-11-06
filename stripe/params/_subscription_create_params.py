@@ -40,6 +40,10 @@ class SubscriptionCreateParams(RequestOptions):
     """
     Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
     """
+    billing_group: NotRequired[str]
+    """
+    The Billing Group which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    """
     billing_mode: NotRequired["SubscriptionCreateParamsBillingMode"]
     """
     Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -1005,7 +1009,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit(
     Controls when the funds will be captured from the customer's account.
     """
     verification_method: NotRequired[
-        "Literal['automatic', 'payer_name_verification']|str"
+        "Literal['automatic', 'instant', 'payer_name_verification']|str"
     ]
 
 

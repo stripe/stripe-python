@@ -173,6 +173,23 @@ class OutboundTransfer(
         _inner_class_types = {"ach": Ach}
 
     class ReturnedDetails(StripeObject):
+        class NetworkDetails(StripeObject):
+            class Ach(StripeObject):
+                return_code: Optional[str]
+                """
+                NACHA ACH return code.
+                """
+                return_reason: Optional[str]
+                """
+                NACHA ACH return reason.
+                """
+
+            ach: Optional[Ach]
+            """
+            ACH return details.
+            """
+            _inner_class_types = {"ach": Ach}
+
         code: Union[
             Literal[
                 "account_closed",
@@ -191,10 +208,15 @@ class OutboundTransfer(
         """
         Reason for the return.
         """
+        network_details: Optional[NetworkDetails]
+        """
+        Money movement network-specific details regarding the failure.
+        """
         transaction: ExpandableField["Transaction"]
         """
         The Transaction associated with this object.
         """
+        _inner_class_types = {"network_details": NetworkDetails}
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[int]

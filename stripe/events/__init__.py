@@ -1663,6 +1663,14 @@ if TYPE_CHECKING:
         V2ExtendExtensionRunFailedEvent as V2ExtendExtensionRunFailedEvent,
         V2ExtendExtensionRunFailedEventNotification as V2ExtendExtensionRunFailedEventNotification,
     )
+    from stripe.events._v2_extend_object_definition_created_event import (
+        V2ExtendObjectDefinitionCreatedEvent as V2ExtendObjectDefinitionCreatedEvent,
+        V2ExtendObjectDefinitionCreatedEventNotification as V2ExtendObjectDefinitionCreatedEventNotification,
+    )
+    from stripe.events._v2_extend_object_definition_version_created_event import (
+        V2ExtendObjectDefinitionVersionCreatedEvent as V2ExtendObjectDefinitionVersionCreatedEvent,
+        V2ExtendObjectDefinitionVersionCreatedEventNotification as V2ExtendObjectDefinitionVersionCreatedEventNotification,
+    )
     from stripe.events._v2_extend_workflow_run_failed_event import (
         V2ExtendWorkflowRunFailedEvent as V2ExtendWorkflowRunFailedEvent,
         V2ExtendWorkflowRunFailedEventNotification as V2ExtendWorkflowRunFailedEventNotification,
@@ -5390,6 +5398,22 @@ _import_map = {
     ),
     "V2ExtendExtensionRunFailedEventNotification": (
         "stripe.events._v2_extend_extension_run_failed_event",
+        False,
+    ),
+    "V2ExtendObjectDefinitionCreatedEvent": (
+        "stripe.events._v2_extend_object_definition_created_event",
+        False,
+    ),
+    "V2ExtendObjectDefinitionCreatedEventNotification": (
+        "stripe.events._v2_extend_object_definition_created_event",
+        False,
+    ),
+    "V2ExtendObjectDefinitionVersionCreatedEvent": (
+        "stripe.events._v2_extend_object_definition_version_created_event",
+        False,
+    ),
+    "V2ExtendObjectDefinitionVersionCreatedEventNotification": (
+        "stripe.events._v2_extend_object_definition_version_created_event",
         False,
     ),
     "V2ExtendWorkflowRunFailedEvent": (

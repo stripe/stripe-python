@@ -36,6 +36,7 @@ if TYPE_CHECKING:
         SessionCreateParamsCustomFieldLabel as SessionCreateParamsCustomFieldLabel,
         SessionCreateParamsCustomFieldNumeric as SessionCreateParamsCustomFieldNumeric,
         SessionCreateParamsCustomFieldText as SessionCreateParamsCustomFieldText,
+        SessionCreateParamsCustomPaymentMethodOptions as SessionCreateParamsCustomPaymentMethodOptions,
         SessionCreateParamsCustomText as SessionCreateParamsCustomText,
         SessionCreateParamsCustomTextAfterSubmit as SessionCreateParamsCustomTextAfterSubmit,
         SessionCreateParamsCustomTextShippingAddress as SessionCreateParamsCustomTextShippingAddress,
@@ -156,6 +157,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SessionCreateParamsPaymentMethodOptionsSequra as SessionCreateParamsPaymentMethodOptionsSequra,
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
+        SessionCreateParamsPaymentMethodOptionsStripeBalance as SessionCreateParamsPaymentMethodOptionsStripeBalance,
         SessionCreateParamsPaymentMethodOptionsSunbit as SessionCreateParamsPaymentMethodOptionsSunbit,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
         SessionCreateParamsPaymentMethodOptionsTwint as SessionCreateParamsPaymentMethodOptionsTwint,
@@ -391,6 +393,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsCustomFieldText": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomPaymentMethodOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -871,6 +877,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsSofort": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsStripeBalance": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

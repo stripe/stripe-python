@@ -4,6 +4,15 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.extend import (
+        object_definitions as object_definitions,
+    )
+    from stripe.params.v2.extend._object_definition_list_params import (
+        ObjectDefinitionListParams as ObjectDefinitionListParams,
+    )
+    from stripe.params.v2.extend._object_definition_retrieve_params import (
+        ObjectDefinitionRetrieveParams as ObjectDefinitionRetrieveParams,
+    )
     from stripe.params.v2.extend._workflow_invoke_params import (
         WorkflowInvokeParams as WorkflowInvokeParams,
     )
@@ -22,6 +31,15 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "object_definitions": ("stripe.params.v2.extend.object_definitions", True),
+    "ObjectDefinitionListParams": (
+        "stripe.params.v2.extend._object_definition_list_params",
+        False,
+    ),
+    "ObjectDefinitionRetrieveParams": (
+        "stripe.params.v2.extend._object_definition_retrieve_params",
+        False,
+    ),
     "WorkflowInvokeParams": (
         "stripe.params.v2.extend._workflow_invoke_params",
         False,

@@ -8,10 +8,12 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.params.tax._form_create_params import FormCreateParams
     from stripe.params.tax._form_list_params import FormListParams
     from stripe.params.tax._form_pdf_params import FormPdfParams
     from stripe.params.tax._form_retrieve_params import FormRetrieveParams
     from stripe.tax._form import Form
+    from stripe.tax._form_correction import FormCorrection
     from typing import Any
 
 
@@ -90,6 +92,48 @@ class FormService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/tax/forms/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def create(
+        self,
+        id: str,
+        /,
+        params: Optional["FormCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "FormCorrection":
+        """
+        Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+        """
+        return cast(
+            "FormCorrection",
+            self._request(
+                "post",
+                "/v1/tax/forms/{id}/corrections".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        id: str,
+        /,
+        params: Optional["FormCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "FormCorrection":
+        """
+        Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+        """
+        return cast(
+            "FormCorrection",
+            await self._request_async(
+                "post",
+                "/v1/tax/forms/{id}/corrections".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

@@ -5,10 +5,17 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.extend._object_definition_service import (
+        ObjectDefinitionService,
+    )
     from stripe.v2.extend._workflow_run_service import WorkflowRunService
     from stripe.v2.extend._workflow_service import WorkflowService
 
 _subservices = {
+    "object_definitions": [
+        "stripe.v2.extend._object_definition_service",
+        "ObjectDefinitionService",
+    ],
     "workflows": ["stripe.v2.extend._workflow_service", "WorkflowService"],
     "workflow_runs": [
         "stripe.v2.extend._workflow_run_service",
@@ -18,6 +25,7 @@ _subservices = {
 
 
 class ExtendService(StripeService):
+    object_definitions: "ObjectDefinitionService"
     workflows: "WorkflowService"
     workflow_runs: "WorkflowRunService"
 

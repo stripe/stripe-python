@@ -87,6 +87,7 @@ if TYPE_CHECKING:
         PaymentEvaluationCreateParamsPaymentDetails as PaymentEvaluationCreateParamsPaymentDetails,
         PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails as PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails,
         PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard as PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard,
+        PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsSepaDebit as PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsSepaDebit,
         PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsUsBankAccount as PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsUsBankAccount,
         PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetails as PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetails,
         PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails as PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails,
@@ -359,6 +360,10 @@ _import_map = {
         False,
     ),
     "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsSepaDebit": (
         "stripe.params.radar._payment_evaluation_create_params",
         False,
     ),

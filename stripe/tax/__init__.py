@@ -18,7 +18,12 @@ if TYPE_CHECKING:
     from stripe.tax._calculation_service import (
         CalculationService as CalculationService,
     )
+    from stripe.tax._certificate import Certificate as Certificate
+    from stripe.tax._certificate_service import (
+        CertificateService as CertificateService,
+    )
     from stripe.tax._form import Form as Form
+    from stripe.tax._form_correction import FormCorrection as FormCorrection
     from stripe.tax._form_service import FormService as FormService
     from stripe.tax._location import Location as Location
     from stripe.tax._location_service import LocationService as LocationService
@@ -50,7 +55,10 @@ _import_map = {
         False,
     ),
     "CalculationService": ("stripe.tax._calculation_service", False),
+    "Certificate": ("stripe.tax._certificate", False),
+    "CertificateService": ("stripe.tax._certificate_service", False),
     "Form": ("stripe.tax._form", False),
+    "FormCorrection": ("stripe.tax._form_correction", False),
     "FormService": ("stripe.tax._form_service", False),
     "Location": ("stripe.tax._location", False),
     "LocationService": ("stripe.tax._location_service", False),

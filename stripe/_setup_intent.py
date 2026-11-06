@@ -511,7 +511,7 @@ class SetupIntent(
         class VerifyWithMicrodeposits(StripeObject):
             arrival_date: int
             """
-            The timestamp when the microdeposits are expected to land.
+            The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
             """
             hosted_verification_url: str
             """
@@ -624,7 +624,10 @@ class SetupIntent(
 
             mandate_options: Optional[MandateOptions]
             verification_method: Optional[
-                Union[Literal["automatic", "payer_name_verification"], str]
+                Union[
+                    Literal["automatic", "instant", "payer_name_verification"],
+                    str,
+                ]
             ]
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -1039,6 +1042,16 @@ class SetupIntent(
             "us_bank_account": UsBankAccount,
         }
 
+    class RadarOptions(StripeObject):
+        is_free_trial_transaction: Optional[bool]
+        """
+        The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+        """
+        session: Optional[str]
+        """
+        A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
     class Redaction(StripeObject):
         status: Union[Literal["processing", "redacted", "validated"], str]
         """
@@ -1076,12 +1089,14 @@ class SetupIntent(
             Union[
                 Literal[
                     "acss_debit",
+                    "aeon_pay",
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
                     "alma",
                     "amazon_pay",
                     "au_becs_debit",
+                    "au_pay",
                     "bacs_debit",
                     "bancontact",
                     "billie",
@@ -1098,6 +1113,7 @@ class SetupIntent(
                     "click_to_pay",
                     "crypto",
                     "customer_balance",
+                    "dbarai",
                     "demo_pay",
                     "duitnow",
                     "dummy_auth_push",
@@ -1124,6 +1140,7 @@ class SetupIntent(
                     "kriya",
                     "link",
                     "mb_way",
+                    "merpay",
                     "mobilepay",
                     "momo",
                     "mondu",
@@ -1238,12 +1255,14 @@ class SetupIntent(
             Union[
                 Literal[
                     "acss_debit",
+                    "aeon_pay",
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
                     "alma",
                     "amazon_pay",
                     "au_becs_debit",
+                    "au_pay",
                     "bacs_debit",
                     "bancontact",
                     "billie",
@@ -1255,6 +1274,7 @@ class SetupIntent(
                     "cashapp",
                     "crypto",
                     "customer_balance",
+                    "dbarai",
                     "eps",
                     "fpx",
                     "getflex",
@@ -1269,6 +1289,7 @@ class SetupIntent(
                     "konbini",
                     "kr_card",
                     "mb_way",
+                    "merpay",
                     "mobilepay",
                     "multibanco",
                     "naver_pay",
@@ -1374,6 +1395,10 @@ class SetupIntent(
     payment_method_types: List[str]
     """
     The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    """
+    radar_options: Optional[RadarOptions]
+    """
+    Options to configure Radar.
     """
     redaction: Optional[Redaction]
     """
@@ -2014,6 +2039,7 @@ class SetupIntent(
         "next_action": NextAction,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
+        "radar_options": RadarOptions,
         "redaction": Redaction,
         "setup_details": SetupDetails,
     }

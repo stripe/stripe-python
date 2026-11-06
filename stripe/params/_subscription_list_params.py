@@ -12,7 +12,11 @@ class SubscriptionListParams(RequestOptions):
     """
     billing_cadence: NotRequired[str]
     """
-    Filter for subscriptions that have the specified billing cadence.
+    The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    """
+    billing_group: NotRequired[str]
+    """
+    Filter for subscriptions that have the specified billing group.
     """
     collection_method: NotRequired[
         "Literal['charge_automatically', 'send_invoice']|str"

@@ -747,6 +747,7 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsBalanceReport as AccountSessionCreateParamsComponentsBalanceReport,
         AccountSessionCreateParamsComponentsBalances as AccountSessionCreateParamsComponentsBalances,
         AccountSessionCreateParamsComponentsBills as AccountSessionCreateParamsComponentsBills,
+        AccountSessionCreateParamsComponentsBusinessProfileManagement as AccountSessionCreateParamsComponentsBusinessProfileManagement,
         AccountSessionCreateParamsComponentsCapitalFinancing as AccountSessionCreateParamsComponentsCapitalFinancing,
         AccountSessionCreateParamsComponentsCapitalFinancingApplication as AccountSessionCreateParamsComponentsCapitalFinancingApplication,
         AccountSessionCreateParamsComponentsCapitalFinancingPromotion as AccountSessionCreateParamsComponentsCapitalFinancingPromotion,
@@ -4545,6 +4546,10 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsBills": (
+        "stripe.params.v2.core._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsBusinessProfileManagement": (
         "stripe.params.v2.core._account_session_create_params",
         False,
     ),

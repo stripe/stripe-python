@@ -46583,6 +46583,7 @@ class TestGeneratedExamples(object):
                     "balance_report": {"enabled": True},
                     "balances": {"enabled": True},
                     "bills": {"enabled": True},
+                    "business_profile_management": {"enabled": True},
                     "capital_financing": {"enabled": True},
                     "capital_financing_application": {"enabled": True},
                     "capital_financing_promotion": {"enabled": True},
@@ -46622,7 +46623,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","components":{"account_management":{"enabled":true},"account_onboarding":{"enabled":true},"agentic_commerce_settings":{"enabled":true},"app_install":{"enabled":true},"app_viewport":{"enabled":true},"balance_report":{"enabled":true},"balances":{"enabled":true},"bills":{"enabled":true},"capital_financing":{"enabled":true},"capital_financing_application":{"enabled":true},"capital_financing_promotion":{"enabled":true},"check_scanning":{"enabled":true},"disputes_list":{"enabled":true},"documents":{"enabled":true},"export_tax_transactions":{"enabled":true},"financial_account_rewards":{"enabled":true},"financial_accounts":{"enabled":true},"financial_accounts_transactions":{"enabled":true},"instant_payouts_promotion":{"enabled":true},"invoice_history":{"enabled":true},"issuing_card":{"enabled":true},"issuing_cards_list":{"enabled":true},"network_cost_passthrough_report":{"enabled":true},"notification_banner":{"enabled":true},"payment_details":{"enabled":true},"payment_disputes":{"enabled":true},"payment_method_settings":{"enabled":true},"payments":{"enabled":true},"payout_details":{"enabled":true},"payout_reconciliation_report":{"enabled":true},"payouts":{"enabled":true},"payouts_list":{"enabled":true},"product_tax_code_selector":{"enabled":true},"reporting_chart":{"enabled":true},"tax_registrations":{"enabled":true},"tax_settings":{"enabled":true},"tax_threshold_monitoring":{"enabled":true},"terminal_hardware_orders":{"enabled":true},"terminal_hardware_shop":{"enabled":true}}}',
+            post_data='{"account":"account","components":{"account_management":{"enabled":true},"account_onboarding":{"enabled":true},"agentic_commerce_settings":{"enabled":true},"app_install":{"enabled":true},"app_viewport":{"enabled":true},"balance_report":{"enabled":true},"balances":{"enabled":true},"bills":{"enabled":true},"business_profile_management":{"enabled":true},"capital_financing":{"enabled":true},"capital_financing_application":{"enabled":true},"capital_financing_promotion":{"enabled":true},"check_scanning":{"enabled":true},"disputes_list":{"enabled":true},"documents":{"enabled":true},"export_tax_transactions":{"enabled":true},"financial_account_rewards":{"enabled":true},"financial_accounts":{"enabled":true},"financial_accounts_transactions":{"enabled":true},"instant_payouts_promotion":{"enabled":true},"invoice_history":{"enabled":true},"issuing_card":{"enabled":true},"issuing_cards_list":{"enabled":true},"network_cost_passthrough_report":{"enabled":true},"notification_banner":{"enabled":true},"payment_details":{"enabled":true},"payment_disputes":{"enabled":true},"payment_method_settings":{"enabled":true},"payments":{"enabled":true},"payout_details":{"enabled":true},"payout_reconciliation_report":{"enabled":true},"payouts":{"enabled":true},"payouts_list":{"enabled":true},"product_tax_code_selector":{"enabled":true},"reporting_chart":{"enabled":true},"tax_registrations":{"enabled":true},"tax_settings":{"enabled":true},"tax_threshold_monitoring":{"enabled":true},"terminal_hardware_orders":{"enabled":true},"terminal_hardware_shop":{"enabled":true}}}',
             is_json=True,
         )
 
@@ -47696,7 +47697,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_data_operation_post_service(
+    def test_v2_data_operation_search_post_required_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -47715,6 +47716,35 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"query":"query"}',
+            is_json=True,
+        )
+
+    def test_v2_data_operation_search_post_all_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/data/operations/search",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.data.operations.search(
+            {
+                "catalogs": ["schemas"],
+                "limit": 102976443,
+                "page": "page",
+                "query": "query",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/data/operations/search",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"catalogs":["schemas"],"limit":102976443,"page":"page","query":"query"}',
             is_json=True,
         )
 
@@ -47942,6 +47972,91 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "get",
             path="/v2/data/schemas/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_object_definition_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/object_definitions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.object_definitions.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/object_definitions",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_object_definition_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/object_definitions/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.object_definitions.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/object_definitions/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_object_definitions_version_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/object_definitions/object_definition_id_123/versions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.object_definitions.versions.list(
+            "object_definition_id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/object_definitions/object_definition_id_123/versions",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_object_definitions_version_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/object_definitions/object_definition_id_123/versions/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.object_definitions.versions.retrieve(
+            "object_definition_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/object_definitions/object_definition_id_123/versions/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -52263,7 +52378,33 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_tax_operation_post_service(
+    def test_v2_tax_operation_resolve_address_post_required_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/tax/operations/resolve_address",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.operations.resolve_address(
+            {
+                "address": {"country": "country"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/tax/operations/resolve_address",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"address":{"country":"country"}}',
+            is_json=True,
+        )
+
+    def test_v2_tax_operation_resolve_address_post_all_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(

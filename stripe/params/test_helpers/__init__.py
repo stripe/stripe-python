@@ -15,12 +15,14 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParams as ConfirmationTokenCreateParams,
         ConfirmationTokenCreateParamsPaymentMethodData as ConfirmationTokenCreateParamsPaymentMethodData,
         ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit as ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataAeonPay as ConfirmationTokenCreateParamsPaymentMethodDataAeonPay,
         ConfirmationTokenCreateParamsPaymentMethodDataAffirm as ConfirmationTokenCreateParamsPaymentMethodDataAffirm,
         ConfirmationTokenCreateParamsPaymentMethodDataAfterpayClearpay as ConfirmationTokenCreateParamsPaymentMethodDataAfterpayClearpay,
         ConfirmationTokenCreateParamsPaymentMethodDataAlipay as ConfirmationTokenCreateParamsPaymentMethodDataAlipay,
         ConfirmationTokenCreateParamsPaymentMethodDataAlma as ConfirmationTokenCreateParamsPaymentMethodDataAlma,
         ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay as ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay,
         ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit as ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataAuPay as ConfirmationTokenCreateParamsPaymentMethodDataAuPay,
         ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit as ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit,
         ConfirmationTokenCreateParamsPaymentMethodDataBancontact as ConfirmationTokenCreateParamsPaymentMethodDataBancontact,
         ConfirmationTokenCreateParamsPaymentMethodDataBillie as ConfirmationTokenCreateParamsPaymentMethodDataBillie,
@@ -33,6 +35,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataCashapp as ConfirmationTokenCreateParamsPaymentMethodDataCashapp,
         ConfirmationTokenCreateParamsPaymentMethodDataCrypto as ConfirmationTokenCreateParamsPaymentMethodDataCrypto,
         ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance as ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance,
+        ConfirmationTokenCreateParamsPaymentMethodDataDbarai as ConfirmationTokenCreateParamsPaymentMethodDataDbarai,
         ConfirmationTokenCreateParamsPaymentMethodDataEps as ConfirmationTokenCreateParamsPaymentMethodDataEps,
         ConfirmationTokenCreateParamsPaymentMethodDataFpx as ConfirmationTokenCreateParamsPaymentMethodDataFpx,
         ConfirmationTokenCreateParamsPaymentMethodDataGetflex as ConfirmationTokenCreateParamsPaymentMethodDataGetflex,
@@ -50,6 +53,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataKrCard as ConfirmationTokenCreateParamsPaymentMethodDataKrCard,
         ConfirmationTokenCreateParamsPaymentMethodDataLink as ConfirmationTokenCreateParamsPaymentMethodDataLink,
         ConfirmationTokenCreateParamsPaymentMethodDataMbWay as ConfirmationTokenCreateParamsPaymentMethodDataMbWay,
+        ConfirmationTokenCreateParamsPaymentMethodDataMerpay as ConfirmationTokenCreateParamsPaymentMethodDataMerpay,
         ConfirmationTokenCreateParamsPaymentMethodDataMobilepay as ConfirmationTokenCreateParamsPaymentMethodDataMobilepay,
         ConfirmationTokenCreateParamsPaymentMethodDataMultibanco as ConfirmationTokenCreateParamsPaymentMethodDataMultibanco,
         ConfirmationTokenCreateParamsPaymentMethodDataNaverPay as ConfirmationTokenCreateParamsPaymentMethodDataNaverPay,
@@ -142,6 +146,10 @@ _import_map = {
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataAeonPay": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataAffirm": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
@@ -163,6 +171,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataAuPay": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
@@ -211,6 +223,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataDbarai": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
@@ -279,6 +295,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataMbWay": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataMerpay": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

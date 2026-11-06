@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
@@ -10,12 +11,14 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
+    from stripe.params.tax._form_create_params import FormCreateParams
     from stripe.params.tax._form_list_params import FormListParams
     from stripe.params.tax._form_pdf_params import FormPdfParams
     from stripe.params.tax._form_retrieve_params import FormRetrieveParams
+    from stripe.tax._form_correction import FormCorrection
 
 
-class Form(ListableAPIResource["Form"]):
+class Form(CreateableAPIResource["Form"], ListableAPIResource["Form"]):
     """
     Tax forms are legal documents which are delivered to one or more tax authorities for information reporting purposes.
 
@@ -582,6 +585,36 @@ class Form(ListableAPIResource["Form"]):
     us_1099_k: Optional[Us1099K]
     us_1099_misc: Optional[Us1099Misc]
     us_1099_nec: Optional[Us1099Nec]
+
+    @classmethod
+    def create(cls, **params: Unpack["FormCreateParams"]) -> "FormCorrection":
+        """
+        Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+        """
+        return cast(
+            "FormCorrection",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["FormCreateParams"]
+    ) -> "FormCorrection":
+        """
+        Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+        """
+        return cast(
+            "FormCorrection",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
 
     @classmethod
     def list(cls, **params: Unpack["FormListParams"]) -> ListObject["Form"]:

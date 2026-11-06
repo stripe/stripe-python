@@ -46,6 +46,10 @@ class RefundCreateParams(RequestOptions):
     """
     The identifier of the PaymentIntent to refund.
     """
+    payment_method: NotRequired[str]
+    """
+    The ID of a PaymentMethod that will receive the refund.
+    """
     payment_method_data: NotRequired["RefundCreateParamsPaymentMethodData"]
     """
     Used to create the PaymentMethod that will receive the refund.
@@ -86,12 +90,14 @@ class RefundCreateParamsPaymentMethodData(TypedDict):
     type: Union[
         Literal[
             "acss_debit",
+            "aeon_pay",
             "affirm",
             "afterpay_clearpay",
             "alipay",
             "alma",
             "amazon_pay",
             "au_becs_debit",
+            "au_pay",
             "bacs_debit",
             "bancontact",
             "billie",
@@ -104,6 +110,7 @@ class RefundCreateParamsPaymentMethodData(TypedDict):
             "crypto",
             "custom",
             "customer_balance",
+            "dbarai",
             "eps",
             "fpx",
             "getflex",
@@ -119,6 +126,7 @@ class RefundCreateParamsPaymentMethodData(TypedDict):
             "kr_card",
             "link",
             "mb_way",
+            "merpay",
             "mobilepay",
             "multibanco",
             "naver_pay",

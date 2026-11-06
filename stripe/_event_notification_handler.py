@@ -1275,6 +1275,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_extend_extension_run_failed_event import (
         V2ExtendExtensionRunFailedEventNotification,
     )
+    from stripe.events._v2_extend_object_definition_created_event import (
+        V2ExtendObjectDefinitionCreatedEventNotification,
+    )
+    from stripe.events._v2_extend_object_definition_version_created_event import (
+        V2ExtendObjectDefinitionVersionCreatedEventNotification,
+    )
     from stripe.events._v2_extend_workflow_run_failed_event import (
         V2ExtendWorkflowRunFailedEventNotification,
     )
@@ -7168,6 +7174,32 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.extend.extension_run.failed",
+            func,
+        )
+        return func
+
+    def on_v2_extend_object_definition_created(
+        self,
+        func: "Callable[[V2ExtendObjectDefinitionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2ExtendObjectDefinitionCreatedEvent` (`v2.extend.object_definition.created`) event notification.
+        """
+        self._register(
+            "v2.extend.object_definition.created",
+            func,
+        )
+        return func
+
+    def on_v2_extend_object_definition_version_created(
+        self,
+        func: "Callable[[V2ExtendObjectDefinitionVersionCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2ExtendObjectDefinitionVersionCreatedEvent` (`v2.extend.object_definition_version.created`) event notification.
+        """
+        self._register(
+            "v2.extend.object_definition_version.created",
             func,
         )
         return func

@@ -11,6 +11,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
     """
+    aeon_pay: NotRequired["PaymentMethodCreateParamsAeonPay"]
+    """
+    If this is a `aeon_pay` PaymentMethod, this hash contains details about the AEON Pay payment method.
+    """
     affirm: NotRequired["PaymentMethodCreateParamsAffirm"]
     """
     If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -40,6 +44,10 @@ class PaymentMethodCreateParams(RequestOptions):
     au_becs_debit: NotRequired["PaymentMethodCreateParamsAuBecsDebit"]
     """
     If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
+    """
+    au_pay: NotRequired["PaymentMethodCreateParamsAuPay"]
+    """
+    If this is a `au_pay` PaymentMethod, this hash contains details about the au PAY payment method.
     """
     bacs_debit: NotRequired["PaymentMethodCreateParamsBacsDebit"]
     """
@@ -96,6 +104,10 @@ class PaymentMethodCreateParams(RequestOptions):
     customer_balance: NotRequired["PaymentMethodCreateParamsCustomerBalance"]
     """
     If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
+    """
+    dbarai: NotRequired["PaymentMethodCreateParamsDbarai"]
+    """
+    If this is a `dbarai` PaymentMethod, this hash contains details about the d-Barai payment method.
     """
     eps: NotRequired["PaymentMethodCreateParamsEps"]
     """
@@ -164,6 +176,10 @@ class PaymentMethodCreateParams(RequestOptions):
     mb_way: NotRequired["PaymentMethodCreateParamsMbWay"]
     """
     If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+    """
+    merpay: NotRequired["PaymentMethodCreateParamsMerpay"]
+    """
+    If this is a `merpay` PaymentMethod, this hash contains details about the Merpay payment method.
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
@@ -306,7 +322,7 @@ class PaymentMethodCreateParams(RequestOptions):
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
     type: NotRequired[
-        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'toss_pay', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip']|str"
+        "Literal['acss_debit', 'aeon_pay', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'au_pay', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'carecredit', 'cashapp', 'crypto', 'custom', 'customer_balance', 'dbarai', 'eps', 'fpx', 'getflex', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'merpay', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rakuten_pay', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sezzle', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'toss_pay', 'twint', 'upi', 'us_bank_account', 'vipps', 'wechat_pay', 'zip']|str"
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -348,6 +364,10 @@ class PaymentMethodCreateParamsAcssDebit(TypedDict):
     """
 
 
+class PaymentMethodCreateParamsAeonPay(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsAffirm(TypedDict):
     pass
 
@@ -377,6 +397,10 @@ class PaymentMethodCreateParamsAuBecsDebit(TypedDict):
     """
     Bank-State-Branch number of the bank account.
     """
+
+
+class PaymentMethodCreateParamsAuPay(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsBacsDebit(TypedDict):
@@ -524,6 +548,10 @@ class PaymentMethodCreateParamsCustomerBalance(TypedDict):
     pass
 
 
+class PaymentMethodCreateParamsDbarai(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsEps(TypedDict):
     bank: NotRequired[
         "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|str"
@@ -657,6 +685,10 @@ class PaymentMethodCreateParamsLink(TypedDict):
 
 
 class PaymentMethodCreateParamsMbWay(TypedDict):
+    pass
+
+
+class PaymentMethodCreateParamsMerpay(TypedDict):
     pass
 
 

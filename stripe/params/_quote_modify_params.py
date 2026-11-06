@@ -221,7 +221,7 @@ class QuoteModifyParamsLineItem(TypedDict):
         "Literal['']|List[QuoteModifyParamsLineItemDiscount]"
     ]
     """
-    The discounts applied to this line item.
+    The discounts applied to this line item. Repeating coupons are only supported for recurring prices.
     """
     id: NotRequired[str]
     """

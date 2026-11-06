@@ -991,6 +991,7 @@ class PaymentLink(
                     "sofort",
                     "sunbit",
                     "swish",
+                    "tamara",
                     "twint",
                     "upi",
                     "us_bank_account",

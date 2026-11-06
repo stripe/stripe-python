@@ -899,7 +899,12 @@ class QuotePreviewInvoice(StripeObject):
                 Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
                 """
                 verification_method: Optional[
-                    Union[Literal["automatic", "payer_name_verification"], str]
+                    Union[
+                        Literal[
+                            "automatic", "instant", "payer_name_verification"
+                        ],
+                        str,
+                    ]
                 ]
 
             class Bancontact(StripeObject):

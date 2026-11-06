@@ -1128,6 +1128,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class RakutenPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class RevolutPay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1561,6 +1583,7 @@ class PaymentMethodConfiguration(
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
     qris: Optional[Qris]
+    rakuten_pay: Optional[RakutenPay]
     revolut_pay: Optional[RevolutPay]
     samsung_pay: Optional[SamsungPay]
     satispay: Optional[Satispay]
@@ -1766,6 +1789,7 @@ class PaymentMethodConfiguration(
         "pix": Pix,
         "promptpay": Promptpay,
         "qris": Qris,
+        "rakuten_pay": RakutenPay,
         "revolut_pay": RevolutPay,
         "samsung_pay": SamsungPay,
         "satispay": Satispay,
