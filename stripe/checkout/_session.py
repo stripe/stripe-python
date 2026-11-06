@@ -1764,7 +1764,7 @@ class Session(
                 Payment schedule for the mandate.
                 """
                 transaction_type: Optional[
-                    Union[Literal["business", "personal"], str]
+                    Union[Literal["business", "buyer_choice", "personal"], str]
                 ]
                 """
                 Transaction type of the mandate.
@@ -1908,7 +1908,10 @@ class Session(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[
-                Union[Literal["automatic", "payer_name_verification"], str]
+                Union[
+                    Literal["automatic", "instant", "payer_name_verification"],
+                    str,
+                ]
             ]
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -2467,6 +2470,18 @@ class Session(
             """
 
         class Paypay(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
             subscription_reference: Optional[str]
             """
             A reference to the merchant subscription this payment corresponds to.
@@ -2710,6 +2725,20 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class StripeBalance(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Sunbit(StripeObject):
             capture_method: Optional[Literal["manual"]]
             """
@@ -2933,6 +2962,7 @@ class Session(
         sepa_debit: Optional[SepaDebit]
         sequra: Optional[Sequra]
         sofort: Optional[Sofort]
+        stripe_balance: Optional[StripeBalance]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
@@ -2983,6 +3013,7 @@ class Session(
             "sepa_debit": SepaDebit,
             "sequra": Sequra,
             "sofort": Sofort,
+            "stripe_balance": StripeBalance,
             "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,

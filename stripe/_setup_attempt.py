@@ -410,7 +410,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             pass
 
         class Paypay(StripeObject):
-            pass
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+            """
 
         class Payto(StripeObject):
             pass

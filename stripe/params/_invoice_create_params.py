@@ -445,7 +445,7 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBacsDebit(
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
     verification_method: NotRequired[
-        "Literal['automatic', 'payer_name_verification']|str"
+        "Literal['automatic', 'instant', 'payer_name_verification']|str"
     ]
 
 
@@ -681,7 +681,10 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
     TypedDict,
 ):
-    pass
+    target_date: NotRequired[str]
+    """
+    Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+    """
 
 
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUpi(TypedDict):

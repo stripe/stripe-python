@@ -28,6 +28,55 @@ if TYPE_CHECKING:
     from stripe.params.tax._calculation_retrieve_params import (
         CalculationRetrieveParams as CalculationRetrieveParams,
     )
+    from stripe.params.tax._certificate_create_params import (
+        CertificateCreateParams as CertificateCreateParams,
+    )
+    from stripe.params.tax._certificate_delete_params import (
+        CertificateDeleteParams as CertificateDeleteParams,
+    )
+    from stripe.params.tax._certificate_list_params import (
+        CertificateListParams as CertificateListParams,
+    )
+    from stripe.params.tax._certificate_retrieve_params import (
+        CertificateRetrieveParams as CertificateRetrieveParams,
+    )
+    from stripe.params.tax._form_create_params import (
+        FormCreateParams as FormCreateParams,
+        FormCreateParamsPayeeDetails as FormCreateParamsPayeeDetails,
+        FormCreateParamsPayeeDetailsAddress as FormCreateParamsPayeeDetailsAddress,
+        FormCreateParamsUs1099K as FormCreateParamsUs1099K,
+        FormCreateParamsUs1099KCardNotPresentTransactions as FormCreateParamsUs1099KCardNotPresentTransactions,
+        FormCreateParamsUs1099KCashTips as FormCreateParamsUs1099KCashTips,
+        FormCreateParamsUs1099KFederalIncomeTaxWithheld as FormCreateParamsUs1099KFederalIncomeTaxWithheld,
+        FormCreateParamsUs1099KMonthlyVolume as FormCreateParamsUs1099KMonthlyVolume,
+        FormCreateParamsUs1099KPaymentTransactionsCount as FormCreateParamsUs1099KPaymentTransactionsCount,
+        FormCreateParamsUs1099KStateIncomeTaxWithheld as FormCreateParamsUs1099KStateIncomeTaxWithheld,
+        FormCreateParamsUs1099Misc as FormCreateParamsUs1099Misc,
+        FormCreateParamsUs1099MiscCashTips as FormCreateParamsUs1099MiscCashTips,
+        FormCreateParamsUs1099MiscCropInsuranceProceeds as FormCreateParamsUs1099MiscCropInsuranceProceeds,
+        FormCreateParamsUs1099MiscExcessGoldenParachutePayments as FormCreateParamsUs1099MiscExcessGoldenParachutePayments,
+        FormCreateParamsUs1099MiscFederalIncomeTaxWithheld as FormCreateParamsUs1099MiscFederalIncomeTaxWithheld,
+        FormCreateParamsUs1099MiscFishPurchasedForResale as FormCreateParamsUs1099MiscFishPurchasedForResale,
+        FormCreateParamsUs1099MiscFishingBoatProceeds as FormCreateParamsUs1099MiscFishingBoatProceeds,
+        FormCreateParamsUs1099MiscGrossProceedsPaidToAnAttorney as FormCreateParamsUs1099MiscGrossProceedsPaidToAnAttorney,
+        FormCreateParamsUs1099MiscMedicalAndHealthCarePayments as FormCreateParamsUs1099MiscMedicalAndHealthCarePayments,
+        FormCreateParamsUs1099MiscNonqualifiedDeferredCompensation as FormCreateParamsUs1099MiscNonqualifiedDeferredCompensation,
+        FormCreateParamsUs1099MiscOtherIncome as FormCreateParamsUs1099MiscOtherIncome,
+        FormCreateParamsUs1099MiscOvertimeCompensation as FormCreateParamsUs1099MiscOvertimeCompensation,
+        FormCreateParamsUs1099MiscRents as FormCreateParamsUs1099MiscRents,
+        FormCreateParamsUs1099MiscRoyalties as FormCreateParamsUs1099MiscRoyalties,
+        FormCreateParamsUs1099MiscSection409aDeferrals as FormCreateParamsUs1099MiscSection409aDeferrals,
+        FormCreateParamsUs1099MiscStateIncome as FormCreateParamsUs1099MiscStateIncome,
+        FormCreateParamsUs1099MiscStateTaxWithheld as FormCreateParamsUs1099MiscStateTaxWithheld,
+        FormCreateParamsUs1099MiscSubstitutePayments as FormCreateParamsUs1099MiscSubstitutePayments,
+        FormCreateParamsUs1099Nec as FormCreateParamsUs1099Nec,
+        FormCreateParamsUs1099NecCashTips as FormCreateParamsUs1099NecCashTips,
+        FormCreateParamsUs1099NecFederalIncomeTaxWithheld as FormCreateParamsUs1099NecFederalIncomeTaxWithheld,
+        FormCreateParamsUs1099NecNonemployeeCompensation as FormCreateParamsUs1099NecNonemployeeCompensation,
+        FormCreateParamsUs1099NecOvertimeCompensation as FormCreateParamsUs1099NecOvertimeCompensation,
+        FormCreateParamsUs1099NecStateIncome as FormCreateParamsUs1099NecStateIncome,
+        FormCreateParamsUs1099NecStateTaxWithheld as FormCreateParamsUs1099NecStateTaxWithheld,
+    )
     from stripe.params.tax._form_list_params import (
         FormListParams as FormListParams,
         FormListParamsPayee as FormListParamsPayee,
@@ -333,6 +382,159 @@ _import_map = {
     ),
     "CalculationRetrieveParams": (
         "stripe.params.tax._calculation_retrieve_params",
+        False,
+    ),
+    "CertificateCreateParams": (
+        "stripe.params.tax._certificate_create_params",
+        False,
+    ),
+    "CertificateDeleteParams": (
+        "stripe.params.tax._certificate_delete_params",
+        False,
+    ),
+    "CertificateListParams": (
+        "stripe.params.tax._certificate_list_params",
+        False,
+    ),
+    "CertificateRetrieveParams": (
+        "stripe.params.tax._certificate_retrieve_params",
+        False,
+    ),
+    "FormCreateParams": ("stripe.params.tax._form_create_params", False),
+    "FormCreateParamsPayeeDetails": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsPayeeDetailsAddress": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099K": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099KCardNotPresentTransactions": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099KCashTips": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099KFederalIncomeTaxWithheld": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099KMonthlyVolume": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099KPaymentTransactionsCount": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099KStateIncomeTaxWithheld": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099Misc": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscCashTips": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscCropInsuranceProceeds": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscExcessGoldenParachutePayments": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscFederalIncomeTaxWithheld": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscFishPurchasedForResale": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscFishingBoatProceeds": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscGrossProceedsPaidToAnAttorney": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscMedicalAndHealthCarePayments": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscNonqualifiedDeferredCompensation": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscOtherIncome": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscOvertimeCompensation": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscRents": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscRoyalties": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscSection409aDeferrals": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscStateIncome": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscStateTaxWithheld": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099MiscSubstitutePayments": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099Nec": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099NecCashTips": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099NecFederalIncomeTaxWithheld": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099NecNonemployeeCompensation": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099NecOvertimeCompensation": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099NecStateIncome": (
+        "stripe.params.tax._form_create_params",
+        False,
+    ),
+    "FormCreateParamsUs1099NecStateTaxWithheld": (
+        "stripe.params.tax._form_create_params",
         False,
     ),
     "FormListParams": ("stripe.params.tax._form_list_params", False),

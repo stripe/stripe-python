@@ -7,6 +7,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.tax._association_service import AssociationService
     from stripe.tax._calculation_service import CalculationService
+    from stripe.tax._certificate_service import CertificateService
     from stripe.tax._form_service import FormService
     from stripe.tax._location_service import LocationService
     from stripe.tax._registration_service import RegistrationService
@@ -16,6 +17,7 @@ if TYPE_CHECKING:
 _subservices = {
     "associations": ["stripe.tax._association_service", "AssociationService"],
     "calculations": ["stripe.tax._calculation_service", "CalculationService"],
+    "certificates": ["stripe.tax._certificate_service", "CertificateService"],
     "forms": ["stripe.tax._form_service", "FormService"],
     "locations": ["stripe.tax._location_service", "LocationService"],
     "registrations": [
@@ -30,6 +32,7 @@ _subservices = {
 class TaxService(StripeService):
     associations: "AssociationService"
     calculations: "CalculationService"
+    certificates: "CertificateService"
     forms: "FormService"
     locations: "LocationService"
     registrations: "RegistrationService"

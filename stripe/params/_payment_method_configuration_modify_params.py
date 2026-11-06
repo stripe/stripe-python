@@ -238,6 +238,12 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     """
     QRIS is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Indonesia. When paying with QRIS, customers authenticate and approve payments by scanning a QR code in their preferred digital wallet app.
     """
+    rakuten_pay: NotRequired[
+        "PaymentMethodConfigurationModifyParamsRakutenPay"
+    ]
+    """
+    Rakuten Pay is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with Rakuten Pay, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    """
     revolut_pay: NotRequired[
         "PaymentMethodConfigurationModifyParamsRevolutPay"
     ]
@@ -1168,6 +1174,24 @@ class PaymentMethodConfigurationModifyParamsQris(TypedDict):
 
 
 class PaymentMethodConfigurationModifyParamsQrisDisplayPreference(TypedDict):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsRakutenPay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsRakutenPayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsRakutenPayDisplayPreference(
+    TypedDict,
+):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.

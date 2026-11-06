@@ -32,6 +32,10 @@ class SubscriptionModifyParams(RequestOptions):
     """
     Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
+    billing_group: NotRequired[str]
+    """
+    The Billing Group which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    """
     billing_schedules: NotRequired[
         "Literal['']|List[SubscriptionModifyParamsBillingSchedule]"
     ]
@@ -998,7 +1002,7 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBacsDebit(
     Controls when the funds will be captured from the customer's account.
     """
     verification_method: NotRequired[
-        "Literal['automatic', 'payer_name_verification']|str"
+        "Literal['automatic', 'instant', 'payer_name_verification']|str"
     ]
 
 

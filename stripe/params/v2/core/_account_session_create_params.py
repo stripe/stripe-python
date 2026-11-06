@@ -62,6 +62,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Settings for the Bills embedded component.
     """
+    business_profile_management: NotRequired[
+        "AccountSessionCreateParamsComponentsBusinessProfileManagement"
+    ]
+    """
+    Settings for the Business Profile Management embedded component.
+    """
     capital_financing: NotRequired[
         "AccountSessionCreateParamsComponentsCapitalFinancing"
     ]
@@ -294,6 +300,13 @@ class AccountSessionCreateParamsComponentsBalances(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsBills(TypedDict):
+    enabled: bool
+    """
+    Whether this embedded component is enabled.
+    """
+
+
+class AccountSessionCreateParamsComponentsBusinessProfileManagement(TypedDict):
     enabled: bool
     """
     Whether this embedded component is enabled.

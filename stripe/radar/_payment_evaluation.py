@@ -372,6 +372,12 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
                 Describes the type of payment.
                 """
 
+            class SepaDebit(StripeObject):
+                creditor_id: Optional[str]
+                """
+                Creditor identifier used for the intended debit.
+                """
+
             class UsBankAccount(StripeObject):
                 customer_presence: Optional[
                     Union[Literal["off_session", "on_session"], str]
@@ -388,9 +394,15 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Describes card money movement details.
             """
-            money_movement_type: Union[Literal["card", "us_bank_account"], str]
+            money_movement_type: Union[
+                Literal["card", "sepa_debit", "us_bank_account"], str
+            ]
             """
             Describes the type of money movement.
+            """
+            sepa_debit: Optional[SepaDebit]
+            """
+            Describes SEPA debit money movement details.
             """
             us_bank_account: Optional[UsBankAccount]
             """
@@ -398,6 +410,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             _inner_class_types = {
                 "card": Card,
+                "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
             }
 
@@ -592,6 +605,30 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
             """
 
+        class CardTesting(StripeObject):
+            evaluated_at: int
+            """
+            The time when this signal was evaluated.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Risk level of this signal, based on the score.
+            """
+            score: Optional[float]
+            """
+            Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+            """
+
         class EarlyFraudWarning(StripeObject):
             evaluated_at: int
             """
@@ -668,6 +705,10 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         """
         A payment evaluation signal with evaluated_at, risk_level, and score fields.
         """
+        card_testing: Optional[CardTesting]
+        """
+        The likelihood that this `PaymentEvaluation` is part of a card testing attack.
+        """
         early_fraud_warning: Optional[EarlyFraudWarning]
         """
         The likelihood that this `PaymentEvaluation` results in an early fraud warning.
@@ -682,6 +723,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         """
         _inner_class_types = {
             "bank_initiated_return": BankInitiatedReturn,
+            "card_testing": CardTesting,
             "early_fraud_warning": EarlyFraudWarning,
             "fraudulent_dispute": FraudulentDispute,
             "fraudulent_payment": FraudulentPayment,
@@ -728,10 +770,17 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     Payment details attached to this payment evaluation.
     """
     recommended_action: Union[
-        Literal["block", "continue", "request_three_d_secure", "reroute"], str
+        Literal[
+            "block",
+            "continue",
+            "continue_with_manual_review",
+            "request_three_d_secure",
+            "reroute",
+        ],
+        str,
     ]
     """
-    Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
+    Recommended action for this payment based on its evaluated signals and rules.
     """
     rules: Optional[Rules]
     """

@@ -12,12 +12,14 @@ class SetupIntentConfirmParams(RequestOptions):
             Union[
                 Literal[
                     "acss_debit",
+                    "aeon_pay",
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
                     "alma",
                     "amazon_pay",
                     "au_becs_debit",
+                    "au_pay",
                     "bacs_debit",
                     "bancontact",
                     "billie",
@@ -34,6 +36,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "click_to_pay",
                     "crypto",
                     "customer_balance",
+                    "dbarai",
                     "demo_pay",
                     "duitnow",
                     "dummy_auth_push",
@@ -60,6 +63,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "kriya",
                     "link",
                     "mb_way",
+                    "merpay",
                     "mobilepay",
                     "momo",
                     "mondu",
@@ -153,6 +157,10 @@ class SetupIntentConfirmParams(RequestOptions):
     """
     Payment method-specific configuration for this SetupIntent.
     """
+    radar_options: NotRequired["SetupIntentConfirmParamsRadarOptions"]
+    """
+    Options to configure Radar.
+    """
     return_url: NotRequired[str]
     """
     The URL to redirect your customer back to after they authenticate on the payment method's app or site.
@@ -223,6 +231,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
     """
+    aeon_pay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataAeonPay"]
+    """
+    If this is a `aeon_pay` PaymentMethod, this hash contains details about the AEON Pay payment method.
+    """
     affirm: NotRequired["SetupIntentConfirmParamsPaymentMethodDataAffirm"]
     """
     If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -258,6 +270,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
+    """
+    au_pay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataAuPay"]
+    """
+    If this is a `au_pay` PaymentMethod, this hash contains details about the au PAY payment method.
     """
     bacs_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataBacsDebit"
@@ -312,6 +328,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
+    """
+    dbarai: NotRequired["SetupIntentConfirmParamsPaymentMethodDataDbarai"]
+    """
+    If this is a `dbarai` PaymentMethod, this hash contains details about the d-Barai payment method.
     """
     eps: NotRequired["SetupIntentConfirmParamsPaymentMethodDataEps"]
     """
@@ -380,6 +400,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     mb_way: NotRequired["SetupIntentConfirmParamsPaymentMethodDataMbWay"]
     """
     If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+    """
+    merpay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataMerpay"]
+    """
+    If this is a `merpay` PaymentMethod, this hash contains details about the Merpay payment method.
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
@@ -548,12 +572,14 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     type: Union[
         Literal[
             "acss_debit",
+            "aeon_pay",
             "affirm",
             "afterpay_clearpay",
             "alipay",
             "alma",
             "amazon_pay",
             "au_becs_debit",
+            "au_pay",
             "bacs_debit",
             "bancontact",
             "billie",
@@ -564,6 +590,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "cashapp",
             "crypto",
             "customer_balance",
+            "dbarai",
             "eps",
             "fpx",
             "getflex",
@@ -579,6 +606,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "kr_card",
             "link",
             "mb_way",
+            "merpay",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -663,6 +691,10 @@ class SetupIntentConfirmParamsPaymentMethodDataAcssDebit(TypedDict):
     """
 
 
+class SetupIntentConfirmParamsPaymentMethodDataAeonPay(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataAffirm(TypedDict):
     pass
 
@@ -692,6 +724,10 @@ class SetupIntentConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
     """
     Bank-State-Branch number of the bank account.
     """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataAuPay(TypedDict):
+    pass
 
 
 class SetupIntentConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
@@ -795,6 +831,10 @@ class SetupIntentConfirmParamsPaymentMethodDataCrypto(TypedDict):
 
 
 class SetupIntentConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
+    pass
+
+
+class SetupIntentConfirmParamsPaymentMethodDataDbarai(TypedDict):
     pass
 
 
@@ -931,6 +971,10 @@ class SetupIntentConfirmParamsPaymentMethodDataLink(TypedDict):
 
 
 class SetupIntentConfirmParamsPaymentMethodDataMbWay(TypedDict):
+    pass
+
+
+class SetupIntentConfirmParamsPaymentMethodDataMerpay(TypedDict):
     pass
 
 
@@ -1360,7 +1404,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
     Additional fields for Mandate creation
     """
     verification_method: NotRequired[
-        "Literal['automatic', 'payer_name_verification']|str"
+        "Literal['automatic', 'instant', 'payer_name_verification']|str"
     ]
 
 
@@ -1953,6 +1997,17 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(
     ]
     """
     Triggers validations to run across the selected networks
+    """
+
+
+class SetupIntentConfirmParamsRadarOptions(TypedDict):
+    is_free_trial_transaction: NotRequired[bool]
+    """
+    Whether this transaction starts a free trial. Set to `true` for a free trial or `false` otherwise. If omitted, retains the previously set value. If never set, Stripe uses Billing or metadata to determine trial status.
+    """
+    session: NotRequired[str]
+    """
+    A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
     """
 
 

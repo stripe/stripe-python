@@ -127,6 +127,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             Transit number of the bank account.
             """
 
+        class AeonPay(StripeObject):
+            pass
+
         class Affirm(StripeObject):
             pass
 
@@ -155,6 +158,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Last four digits of the bank account number.
             """
+
+        class AuPay(StripeObject):
+            pass
 
         class BacsDebit(StripeObject):
             fingerprint: Optional[str]
@@ -271,6 +277,48 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class GeneratedFrom(StripeObject):
                 class PaymentMethodDetails(StripeObject):
                     class CardPresent(StripeObject):
+                        class Fleet(StripeObject):
+                            class TransactionDatum(StripeObject):
+                                prompt: Literal[
+                                    "additional_fleet_data_1",
+                                    "additional_fleet_data_2",
+                                    "driver_id",
+                                    "employee_number",
+                                    "entered_data_alphanumeric",
+                                    "entered_data_numeric",
+                                    "generic_id",
+                                    "invoice_number",
+                                    "odometer",
+                                    "postal_code",
+                                    "reefer_hours",
+                                    "replacement_car",
+                                    "trailer_number",
+                                    "trip_number",
+                                    "unit_number",
+                                    "vehicle_id",
+                                    "vehicle_tag",
+                                    "work_order",
+                                ]
+                                """
+                                The prompt that the Terminal SDK displays to collect this Fleet value.
+                                """
+                                receipt_behavior: Literal["omit", "print"]
+                                """
+                                Whether the collected value is printed on the receipt.
+                                """
+                                value: str
+                                """
+                                The value collected for this Fleet prompt.
+                                """
+
+                            transaction_data: List[TransactionDatum]
+                            """
+                            Fleet prompts and values collected for this transaction.
+                            """
+                            _inner_class_types = {
+                                "transaction_data": TransactionDatum,
+                            }
+
                         class Multicapture(StripeObject):
                             status: Literal["available", "unavailable"]
                             """
@@ -403,6 +451,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
                         *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
                         """
+                        fleet: Optional[Fleet]
                         funding: Optional[str]
                         """
                         Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
@@ -489,6 +538,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         wallet: Optional[Wallet]
                         _inner_class_types = {
+                            "fleet": Fleet,
                             "multicapture": Multicapture,
                             "offline": Offline,
                             "reauthorization": Reauthorization,
@@ -952,6 +1002,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class CustomerBalance(StripeObject):
             pass
 
+        class Dbarai(StripeObject):
+            pass
+
         class Eps(StripeObject):
             bank: Optional[
                 Union[
@@ -1299,6 +1352,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
 
         class MbWay(StripeObject):
+            pass
+
+        class Merpay(StripeObject):
             pass
 
         class Mobilepay(StripeObject):
@@ -1678,6 +1734,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             pass
 
         acss_debit: Optional[AcssDebit]
+        aeon_pay: Optional[AeonPay]
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
@@ -1690,6 +1747,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
+        au_pay: Optional[AuPay]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         billie: Optional[Billie]
@@ -1708,6 +1766,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         customer_account: Optional[str]
         customer_balance: Optional[CustomerBalance]
+        dbarai: Optional[Dbarai]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         getflex: Optional[Getflex]
@@ -1724,6 +1783,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         kr_card: Optional[KrCard]
         link: Optional[Link]
         mb_way: Optional[MbWay]
+        merpay: Optional[Merpay]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
@@ -1759,12 +1819,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         type: Union[
             Literal[
                 "acss_debit",
+                "aeon_pay",
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
                 "alma",
                 "amazon_pay",
                 "au_becs_debit",
+                "au_pay",
                 "bacs_debit",
                 "bancontact",
                 "billie",
@@ -1778,6 +1840,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "crypto",
                 "custom",
                 "customer_balance",
+                "dbarai",
                 "eps",
                 "fpx",
                 "getflex",
@@ -1794,6 +1857,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 "kr_card",
                 "link",
                 "mb_way",
+                "merpay",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -1844,12 +1908,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         zip: Optional[Zip]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "aeon_pay": AeonPay,
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
             "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
+            "au_pay": AuPay,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "billie": Billie,
@@ -1863,6 +1929,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "cashapp": Cashapp,
             "crypto": Crypto,
             "customer_balance": CustomerBalance,
+            "dbarai": Dbarai,
             "eps": Eps,
             "fpx": Fpx,
             "getflex": Getflex,
@@ -1879,6 +1946,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "kr_card": KrCard,
             "link": Link,
             "mb_way": MbWay,
+            "merpay": Merpay,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,

@@ -405,7 +405,12 @@ class Subscription(
                 Controls when the funds will be captured from the customer's account.
                 """
                 verification_method: Optional[
-                    Union[Literal["automatic", "payer_name_verification"], str]
+                    Union[
+                        Literal[
+                            "automatic", "instant", "payer_name_verification"
+                        ],
+                        str,
+                    ]
                 ]
 
             class Bancontact(StripeObject):
@@ -1100,7 +1105,7 @@ class Subscription(
     automatic_tax: AutomaticTax
     billing_cadence: Optional[str]
     """
-    The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
     """
     billing_cycle_anchor: int
     """
@@ -1109,6 +1114,10 @@ class Subscription(
     billing_cycle_anchor_config: Optional[BillingCycleAnchorConfig]
     """
     The fixed values used to calculate the `billing_cycle_anchor`.
+    """
+    billing_group: Optional[str]
+    """
+    The Billing Group which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
     """
     billing_mode: BillingMode
     """

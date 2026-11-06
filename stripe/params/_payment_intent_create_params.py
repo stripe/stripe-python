@@ -16,12 +16,14 @@ class PaymentIntentCreateParams(RequestOptions):
             Union[
                 Literal[
                     "acss_debit",
+                    "aeon_pay",
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
                     "alma",
                     "amazon_pay",
                     "au_becs_debit",
+                    "au_pay",
                     "bacs_debit",
                     "bancontact",
                     "billie",
@@ -38,6 +40,7 @@ class PaymentIntentCreateParams(RequestOptions):
                     "click_to_pay",
                     "crypto",
                     "customer_balance",
+                    "dbarai",
                     "demo_pay",
                     "duitnow",
                     "dummy_auth_push",
@@ -64,6 +67,7 @@ class PaymentIntentCreateParams(RequestOptions):
                     "kriya",
                     "link",
                     "mb_way",
+                    "merpay",
                     "mobilepay",
                     "momo",
                     "mondu",
@@ -198,12 +202,14 @@ class PaymentIntentCreateParams(RequestOptions):
             Union[
                 Literal[
                     "acss_debit",
+                    "aeon_pay",
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
                     "alma",
                     "amazon_pay",
                     "au_becs_debit",
+                    "au_pay",
                     "bacs_debit",
                     "bancontact",
                     "billie",
@@ -215,6 +221,7 @@ class PaymentIntentCreateParams(RequestOptions):
                     "cashapp",
                     "crypto",
                     "customer_balance",
+                    "dbarai",
                     "eps",
                     "fpx",
                     "getflex",
@@ -229,6 +236,7 @@ class PaymentIntentCreateParams(RequestOptions):
                     "konbini",
                     "kr_card",
                     "mb_way",
+                    "merpay",
                     "mobilepay",
                     "multibanco",
                     "naver_pay",
@@ -792,6 +800,256 @@ class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPres
     commodity_code: NotRequired[str]
     """
     Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
+    """
+    ev_charging: NotRequired[
+        "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentEvCharging"
+    ]
+    """
+    EV charging data for this line item.
+    """
+    fleet_data: NotRequired[
+        "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentFleetData"
+    ]
+    """
+    Fleet data for this line item.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentEvCharging(
+    TypedDict,
+):
+    carbon_footprint_avoided_grams_co2: NotRequired[int]
+    """
+    The carbon footprint avoided by the charging session, in grams of CO2.
+    """
+    charging_ended_at: int
+    """
+    The time the charging session ended, measured in seconds since the Unix epoch.
+    """
+    charging_power_output_capacity_kw: int
+    """
+    The power output capacity of the charging station, in kilowatts (kW).
+    """
+    charging_started_at: int
+    """
+    The time the charging session started, measured in seconds since the Unix epoch.
+    """
+    connector_type: Union[
+        Literal[
+            "ac_gb_t",
+            "ac_j1772",
+            "ac_mennekes",
+            "dc_ccs1",
+            "dc_ccs2",
+            "dc_chademo",
+            "dc_gb_t",
+            "dc_mcs",
+            "nacs",
+        ],
+        str,
+    ]
+    """
+    The type of connector used for the charging session.
+    """
+    estimated_range_added: NotRequired[int]
+    """
+    The estimated distance in kilometers or miles added to the vehicle during the charging session.
+    """
+    estimated_range_left: NotRequired[int]
+    """
+    The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+    """
+    maximum_power_dispensed_kw: int
+    """
+    The maximum power dispensed during the charging session, in kilowatts (kW).
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentFleetData(
+    TypedDict,
+):
+    product_type: Union[
+        Literal[
+            "additive_dosage",
+            "additized_diesel_2",
+            "additized_diesel_3",
+            "air_conditioning_service",
+            "air_filter",
+            "alcohol",
+            "antifreeze",
+            "automotive_merchandise",
+            "aviation_fuel_premium",
+            "aviation_fuel_regular",
+            "batteries",
+            "biodiesel_b1",
+            "biodiesel_b10",
+            "biodiesel_b100",
+            "biodiesel_b11",
+            "biodiesel_b15",
+            "biodiesel_b2",
+            "biodiesel_b20",
+            "biodiesel_b5",
+            "biodiesel_b75",
+            "biodiesel_b99",
+            "blended_diesel_1_and_2",
+            "body_work",
+            "brake_fluid",
+            "brake_service",
+            "car_care_detailing",
+            "car_wash",
+            "compressed_natural_gas",
+            "def_at_pump",
+            "deli",
+            "e85",
+            "engine_service",
+            "ethanol_e16_to_e84",
+            "ev_battery_exchanges",
+            "ev_charging_fee",
+            "evc_level_1",
+            "evc_level_2",
+            "evc_level_3",
+            "evc_level_4",
+            "evc_level_5",
+            "exhaust_service",
+            "federal_tire_excise_tax",
+            "food_service",
+            "fuel_additive_treatment",
+            "fuel_system",
+            "green_gasoline_mid_plus",
+            "green_gasoline_premium_super",
+            "green_gasoline_regular",
+            "grocery",
+            "heating_oil",
+            "hoses",
+            "hydrogen_h35",
+            "hydrogen_h70",
+            "inspection",
+            "kerosene_low_sulfur",
+            "kerosene_low_sulfur_non_taxable",
+            "kerosene_ultra_low_sulfur",
+            "kerosene_ultra_low_sulfur_non_taxable",
+            "labor",
+            "lamps",
+            "liquid_natural_gas",
+            "liquid_propane_gas",
+            "lodging",
+            "low_octane_unleaded",
+            "lube",
+            "marine_diesel",
+            "marine_fuel",
+            "marine_fuel_1",
+            "marine_fuel_2",
+            "marine_fuel_3",
+            "marine_fuel_4",
+            "marine_fuel_5",
+            "marine_other",
+            "merchandise",
+            "mid_plus",
+            "mid_plus_2",
+            "mid_plus_2_10",
+            "mid_plus_2_e15",
+            "mid_plus_2_reformulated",
+            "mid_plus_e10",
+            "mid_plus_e15",
+            "mid_plus_ethanol",
+            "mid_plus_reformulated",
+            "miscellaneous_aviation_products_services",
+            "miscellaneous_fuel",
+            "miscellaneous_marine_products_services",
+            "miscellaneous_vehicle_products_services",
+            "motor_oil",
+            "off_road_b1",
+            "off_road_b10",
+            "off_road_b100",
+            "off_road_b11",
+            "off_road_b15",
+            "off_road_b2",
+            "off_road_b20",
+            "off_road_b5",
+            "off_road_b75",
+            "off_road_b99",
+            "off_road_biodiesel",
+            "off_road_diesel_1",
+            "off_road_diesel_2",
+            "off_road_mid_plus",
+            "off_road_mid_plus_2",
+            "off_road_premium_diesel_1",
+            "off_road_premium_diesel_2",
+            "off_road_premium_super",
+            "off_road_premium_super_2",
+            "off_road_regular",
+            "off_road_renewable_diesel_b6_to_b20",
+            "off_road_renewable_diesel_r95",
+            "oil_change",
+            "oil_filter",
+            "other_lubricants",
+            "packaged_beverage",
+            "premium_diesel",
+            "premium_diesel_2",
+            "premium_diesel_b20_plus",
+            "premium_diesel_under_b20",
+            "premium_super",
+            "premium_super_2",
+            "premium_super_2_10",
+            "premium_super_2_e15",
+            "premium_super_2_reformulated",
+            "premium_super_e10",
+            "premium_super_e15",
+            "premium_super_ethanol",
+            "premium_super_reformulated",
+            "preventative_maintenance",
+            "racing_fuel",
+            "recreational_fuel_90_octane",
+            "regular",
+            "regular_diesel",
+            "regular_diesel_2",
+            "regular_e10",
+            "regular_e15",
+            "regular_ethanol",
+            "regular_reformulated",
+            "renewable_diesel_b6_to_b20",
+            "renewable_diesel_r95",
+            "repairs",
+            "road_service",
+            "rv_dump_fee",
+            "scales",
+            "self_service_car_wash",
+            "service_package",
+            "shower",
+            "store_service",
+            "synthetic_oil",
+            "tire_related",
+            "tire_repair",
+            "tire_rotation",
+            "tires",
+            "tobacco",
+            "toll_payments",
+            "towing",
+            "trailer_wash",
+            "transmission_service",
+            "truck_tank_cleaning",
+            "vehicle_accessories",
+            "vehicle_glass",
+            "vehicle_parking",
+            "vehicle_parts",
+            "vehicle_prep",
+            "vehicle_rental",
+            "vehicle_work_order",
+            "wash_out",
+            "washer_fluid",
+            "white_gas",
+            "wipers",
+        ],
+        str,
+    ]
+    """
+    The type of product being purchased at this line item.
+    """
+    service_type: NotRequired[
+        "Literal['full_service', 'high_speed_diesel', 'non_fuel_only', 'self_service']|str"
+    ]
+    """
+    The type of service received at the acceptor location.
     """
 
 
@@ -3085,6 +3343,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
     """
+    aeon_pay: NotRequired["PaymentIntentCreateParamsPaymentMethodDataAeonPay"]
+    """
+    If this is a `aeon_pay` PaymentMethod, this hash contains details about the AEON Pay payment method.
+    """
     affirm: NotRequired["PaymentIntentCreateParamsPaymentMethodDataAffirm"]
     """
     If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -3120,6 +3382,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
+    """
+    au_pay: NotRequired["PaymentIntentCreateParamsPaymentMethodDataAuPay"]
+    """
+    If this is a `au_pay` PaymentMethod, this hash contains details about the au PAY payment method.
     """
     bacs_debit: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataBacsDebit"
@@ -3174,6 +3440,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
+    """
+    dbarai: NotRequired["PaymentIntentCreateParamsPaymentMethodDataDbarai"]
+    """
+    If this is a `dbarai` PaymentMethod, this hash contains details about the d-Barai payment method.
     """
     eps: NotRequired["PaymentIntentCreateParamsPaymentMethodDataEps"]
     """
@@ -3246,6 +3516,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     mb_way: NotRequired["PaymentIntentCreateParamsPaymentMethodDataMbWay"]
     """
     If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+    """
+    merpay: NotRequired["PaymentIntentCreateParamsPaymentMethodDataMerpay"]
+    """
+    If this is a `merpay` PaymentMethod, this hash contains details about the Merpay payment method.
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
@@ -3416,12 +3690,14 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     type: Union[
         Literal[
             "acss_debit",
+            "aeon_pay",
             "affirm",
             "afterpay_clearpay",
             "alipay",
             "alma",
             "amazon_pay",
             "au_becs_debit",
+            "au_pay",
             "bacs_debit",
             "bancontact",
             "billie",
@@ -3432,6 +3708,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
             "cashapp",
             "crypto",
             "customer_balance",
+            "dbarai",
             "eps",
             "fpx",
             "getflex",
@@ -3447,6 +3724,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
             "kr_card",
             "link",
             "mb_way",
+            "merpay",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -3531,6 +3809,10 @@ class PaymentIntentCreateParamsPaymentMethodDataAcssDebit(TypedDict):
     """
 
 
+class PaymentIntentCreateParamsPaymentMethodDataAeonPay(TypedDict):
+    pass
+
+
 class PaymentIntentCreateParamsPaymentMethodDataAffirm(TypedDict):
     pass
 
@@ -3560,6 +3842,10 @@ class PaymentIntentCreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
     """
     Bank-State-Branch number of the bank account.
     """
+
+
+class PaymentIntentCreateParamsPaymentMethodDataAuPay(TypedDict):
+    pass
 
 
 class PaymentIntentCreateParamsPaymentMethodDataBacsDebit(TypedDict):
@@ -3663,6 +3949,10 @@ class PaymentIntentCreateParamsPaymentMethodDataCrypto(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodDataCustomerBalance(TypedDict):
+    pass
+
+
+class PaymentIntentCreateParamsPaymentMethodDataDbarai(TypedDict):
     pass
 
 
@@ -3799,6 +4089,10 @@ class PaymentIntentCreateParamsPaymentMethodDataLink(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodDataMbWay(TypedDict):
+    pass
+
+
+class PaymentIntentCreateParamsPaymentMethodDataMerpay(TypedDict):
     pass
 
 
@@ -4694,6 +4988,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+    financial_connections: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitFinancialConnections"
+    ]
+    """
+    Additional fields for Financial Connections session creation.
+    """
     mandate_options: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
     ]
@@ -4719,8 +5019,17 @@ class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
     verification_method: NotRequired[
-        "Literal['automatic', 'payer_name_verification']|str"
+        "Literal['automatic', 'instant', 'payer_name_verification']|str"
     ]
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitFinancialConnections(
+    TypedDict,
+):
+    return_url: NotRequired[str]
+    """
+    For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(
@@ -7389,7 +7698,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPaypalLineItemTax(
 
 class PaymentIntentCreateParamsPaymentMethodOptionsPaypay(TypedDict):
     setup_future_usage: NotRequired[
-        "Literal['']|Literal['none', 'off_session', 'on_session']|str"
+        "Literal['']|Literal['none', 'off_session']|str"
     ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.

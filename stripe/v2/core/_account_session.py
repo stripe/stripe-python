@@ -187,6 +187,20 @@ class AccountSession(StripeObject):
             """
             _inner_class_types = {"scopes": Scopes}
 
+        class BusinessProfileManagement(StripeObject):
+            class Scopes(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether this embedded component is enabled.
+            """
+            scopes: Scopes
+            """
+            The scopes available to this embedded component.
+            """
+            _inner_class_types = {"scopes": Scopes}
+
         class CapitalFinancing(StripeObject):
             class Scopes(StripeObject):
                 pass
@@ -880,6 +894,10 @@ class AccountSession(StripeObject):
         """
         Settings for the Bills embedded component.
         """
+        business_profile_management: BusinessProfileManagement
+        """
+        Settings for the Business Profile Management embedded component.
+        """
         capital_financing: CapitalFinancing
         """
         Settings for the Capital Financing embedded component.
@@ -1013,6 +1031,7 @@ class AccountSession(StripeObject):
             "balance_report": BalanceReport,
             "balances": Balances,
             "bills": Bills,
+            "business_profile_management": BusinessProfileManagement,
             "capital_financing": CapitalFinancing,
             "capital_financing_application": CapitalFinancingApplication,
             "capital_financing_promotion": CapitalFinancingPromotion,

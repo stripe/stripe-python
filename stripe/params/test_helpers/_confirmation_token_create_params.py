@@ -49,6 +49,12 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
     """
+    aeon_pay: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataAeonPay"
+    ]
+    """
+    If this is a `aeon_pay` PaymentMethod, this hash contains details about the AEON Pay payment method.
+    """
     affirm: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataAffirm"]
     """
     If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
@@ -84,6 +90,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
+    """
+    au_pay: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataAuPay"]
+    """
+    If this is a `au_pay` PaymentMethod, this hash contains details about the au PAY payment method.
     """
     bacs_debit: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit"
@@ -140,6 +150,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
+    """
+    dbarai: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataDbarai"]
+    """
+    If this is a `dbarai` PaymentMethod, this hash contains details about the d-Barai payment method.
     """
     eps: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataEps"]
     """
@@ -222,6 +236,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     mb_way: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataMbWay"]
     """
     If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+    """
+    merpay: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataMerpay"]
+    """
+    If this is a `merpay` PaymentMethod, this hash contains details about the Merpay payment method.
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
@@ -400,12 +418,14 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     type: Union[
         Literal[
             "acss_debit",
+            "aeon_pay",
             "affirm",
             "afterpay_clearpay",
             "alipay",
             "alma",
             "amazon_pay",
             "au_becs_debit",
+            "au_pay",
             "bacs_debit",
             "bancontact",
             "billie",
@@ -416,6 +436,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "cashapp",
             "crypto",
             "customer_balance",
+            "dbarai",
             "eps",
             "fpx",
             "getflex",
@@ -431,6 +452,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
             "kr_card",
             "link",
             "mb_way",
+            "merpay",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -515,6 +537,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit(TypedDict):
     """
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataAeonPay(TypedDict):
+    pass
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataAffirm(TypedDict):
     pass
 
@@ -546,6 +572,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
     """
     Bank-State-Branch number of the bank account.
     """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataAuPay(TypedDict):
+    pass
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit(TypedDict):
@@ -649,6 +679,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataCrypto(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance(TypedDict):
+    pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataDbarai(TypedDict):
     pass
 
 
@@ -785,6 +819,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataLink(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataMbWay(TypedDict):
+    pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataMerpay(TypedDict):
     pass
 
 

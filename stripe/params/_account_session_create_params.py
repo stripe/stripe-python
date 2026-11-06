@@ -59,6 +59,16 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [balances](https://docs.stripe.com/connect/supported-embedded-components/balances/) embedded component.
     """
+    bills: NotRequired["AccountSessionCreateParamsComponentsBills"]
+    """
+    Configuration for the [Bills](https://docs.stripe.com/connect/supported-embedded-components/bills/) embedded component.
+    """
+    business_profile_management: NotRequired[
+        "AccountSessionCreateParamsComponentsBusinessProfileManagement"
+    ]
+    """
+    Configuration for the [Business profile management](https://docs.stripe.com/connect/supported-embedded-components/business-profile-management/) embedded component.
+    """
     capital_financing: NotRequired[
         "AccountSessionCreateParamsComponentsCapitalFinancing"
     ]
@@ -117,11 +127,29 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [financial account](https://docs.stripe.com/connect/supported-embedded-components/financial-account/) embedded component.
     """
+    financial_account_rewards: NotRequired[
+        "AccountSessionCreateParamsComponentsFinancialAccountRewards"
+    ]
+    """
+    Configuration for the [financial account rewards](https://docs.stripe.com/connect/supported-embedded-components/financial-account-rewards/) embedded component.
+    """
     financial_account_transactions: NotRequired[
         "AccountSessionCreateParamsComponentsFinancialAccountTransactions"
     ]
     """
     Configuration for the [financial account transactions](https://docs.stripe.com/connect/supported-embedded-components/financial-account-transactions/) embedded component.
+    """
+    financial_accounts: NotRequired[
+        "AccountSessionCreateParamsComponentsFinancialAccounts"
+    ]
+    """
+    Configuration for the [financial accounts](https://docs.stripe.com/connect/supported-embedded-components/financial-accounts/) embedded component.
+    """
+    financial_accounts_transactions: NotRequired[
+        "AccountSessionCreateParamsComponentsFinancialAccountsTransactions"
+    ]
+    """
+    Configuration for the [financial accounts transactions](https://docs.stripe.com/connect/supported-embedded-components/financial-accounts-transactions/) embedded component.
     """
     instant_payouts_promotion: NotRequired[
         "AccountSessionCreateParamsComponentsInstantPayoutsPromotion"
@@ -140,6 +168,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     ]
     """
     Configuration for the [issuing cards list](https://docs.stripe.com/connect/supported-embedded-components/issuing-cards-list/) embedded component.
+    """
+    network_cost_passthrough_report: NotRequired[
+        "AccountSessionCreateParamsComponentsNetworkCostPassthroughReport"
+    ]
+    """
+    Configuration for the [network cost passthrough report](https://docs.stripe.com/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
     """
     notification_banner: NotRequired[
         "AccountSessionCreateParamsComponentsNotificationBanner"
@@ -200,6 +234,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     recipients: NotRequired["AccountSessionCreateParamsComponentsRecipients"]
     """
     Configuration for the [recipients](https://docs.stripe.com/connect/supported-embedded-components/recipients/) embedded component.
+    """
+    recipients_list: NotRequired[
+        "AccountSessionCreateParamsComponentsRecipientsList"
+    ]
+    """
+    Configuration for the [recipients list](https://docs.stripe.com/connect/supported-embedded-components/recipients-list/) embedded component.
     """
     reporting_chart: NotRequired[
         "AccountSessionCreateParamsComponentsReportingChart"
@@ -397,6 +437,51 @@ class AccountSessionCreateParamsComponentsBalancesFeatures(TypedDict):
     """
     Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
     """
+
+
+class AccountSessionCreateParamsComponentsBills(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired["AccountSessionCreateParamsComponentsBillsFeatures"]
+    """
+    The list of features enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsBillsFeatures(TypedDict):
+    bill_management: NotRequired[bool]
+    """
+    Whether to allow bill management features.
+    """
+    disable_stripe_user_authentication: NotRequired[bool]
+    """
+    Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+    """
+    send_money: NotRequired[bool]
+    """
+    Whether to allow sending money.
+    """
+
+
+class AccountSessionCreateParamsComponentsBusinessProfileManagement(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsBusinessProfileManagementFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsBusinessProfileManagementFeatures(
+    TypedDict,
+):
+    pass
 
 
 class AccountSessionCreateParamsComponentsCapitalFinancing(TypedDict):
@@ -615,6 +700,25 @@ class AccountSessionCreateParamsComponentsFinancialAccountFeatures(TypedDict):
     """
 
 
+class AccountSessionCreateParamsComponentsFinancialAccountRewards(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsFinancialAccountRewardsFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsFinancialAccountRewardsFeatures(
+    TypedDict,
+):
+    pass
+
+
 class AccountSessionCreateParamsComponentsFinancialAccountTransactions(
     TypedDict,
 ):
@@ -636,6 +740,86 @@ class AccountSessionCreateParamsComponentsFinancialAccountTransactionsFeatures(
     card_spend_dispute_management: NotRequired[bool]
     """
     Whether to allow card spend dispute management features.
+    """
+
+
+class AccountSessionCreateParamsComponentsFinancialAccounts(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsFinancialAccountsFeatures"
+    ]
+    """
+    The list of features enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsFinancialAccountsFeatures(TypedDict):
+    bill_management: NotRequired[bool]
+    """
+    Whether to allow bill management features.
+    """
+    card_management: NotRequired[bool]
+    """
+    Whether to allow card management features.
+    """
+    disable_stripe_user_authentication: NotRequired[bool]
+    """
+    Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+    """
+    edit_payout_schedule: NotRequired[bool]
+    """
+    Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+    """
+    send_money: NotRequired[bool]
+    """
+    Whether to allow sending money.
+    """
+
+
+class AccountSessionCreateParamsComponentsFinancialAccountsTransactions(
+    TypedDict,
+):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures"
+    ]
+    """
+    The list of features enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures(
+    TypedDict,
+):
+    capture_payments: NotRequired[bool]
+    """
+    Whether to allow capturing and cancelling payment intents. This is `true` by default.
+    """
+    card_management: NotRequired[bool]
+    """
+    Whether to allow card management features.
+    """
+    card_spend_dispute_management: NotRequired[bool]
+    """
+    Whether to allow card spend dispute management features.
+    """
+    destination_on_behalf_of_charge_management: NotRequired[bool]
+    """
+    Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
+    """
+    dispute_management: NotRequired[bool]
+    """
+    Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
+    """
+    refund_management: NotRequired[bool]
+    """
+    Whether sending refunds is enabled. This is `true` by default.
     """
 
 
@@ -735,6 +919,27 @@ class AccountSessionCreateParamsComponentsIssuingCardsListFeatures(TypedDict):
     """
     Whether to allow spend control management features.
     """
+
+
+class AccountSessionCreateParamsComponentsNetworkCostPassthroughReport(
+    TypedDict,
+):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsNetworkCostPassthroughReportFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsNetworkCostPassthroughReportFeatures(
+    TypedDict,
+):
+    pass
 
 
 class AccountSessionCreateParamsComponentsNotificationBanner(TypedDict):
@@ -1010,6 +1215,30 @@ class AccountSessionCreateParamsComponentsRecipients(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsRecipientsFeatures(TypedDict):
+    send_money: NotRequired[bool]
+    """
+    Whether to allow sending money.
+    """
+
+
+class AccountSessionCreateParamsComponentsRecipientsList(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsRecipientsListFeatures"
+    ]
+    """
+    The list of features enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsRecipientsListFeatures(TypedDict):
+    disable_stripe_user_authentication: NotRequired[bool]
+    """
+    Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+    """
     send_money: NotRequired[bool]
     """
     Whether to allow sending money.

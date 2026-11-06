@@ -1697,7 +1697,7 @@ class PaymentIntent(
         class VerifyWithMicrodeposits(StripeObject):
             arrival_date: int
             """
-            The timestamp when the microdeposits are expected to land.
+            The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
             """
             hosted_verification_url: str
             """
@@ -3577,12 +3577,16 @@ class PaymentIntent(
             """
 
         class BacsDebit(StripeObject):
+            class FinancialConnections(StripeObject):
+                return_url: Optional[str]
+
             class MandateOptions(StripeObject):
                 reference_prefix: Optional[str]
                 """
                 Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
                 """
 
+            financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
                 Union[Literal["none", "off_session", "on_session"], str]
@@ -3601,9 +3605,15 @@ class PaymentIntent(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[
-                Union[Literal["automatic", "payer_name_verification"], str]
+                Union[
+                    Literal["automatic", "instant", "payer_name_verification"],
+                    str,
+                ]
             ]
-            _inner_class_types = {"mandate_options": MandateOptions}
+            _inner_class_types = {
+                "financial_connections": FinancialConnections,
+                "mandate_options": MandateOptions,
+            }
 
         class Bancontact(StripeObject):
             preferred_language: Union[Literal["de", "en", "fr", "nl"], str]
@@ -3855,6 +3865,30 @@ class PaymentIntent(
                 Specifies the type of mandates supported. Possible values are `india`.
                 """
 
+            class PaymentDetails(StripeObject):
+                class MoneyServices(StripeObject):
+                    class AccountFunding(StripeObject):
+                        digital_asset_category: Optional[
+                            Union[
+                                Literal[
+                                    "blockchain_native",
+                                    "nft",
+                                    "other_non_fiat",
+                                    "stablecoin",
+                                ],
+                                str,
+                            ]
+                        ]
+                        """
+                        The category of digital asset being acquired through this account funding transaction.
+                        """
+
+                    account_funding: Optional[AccountFunding]
+                    _inner_class_types = {"account_funding": AccountFunding}
+
+                money_services: Optional[MoneyServices]
+                _inner_class_types = {"money_services": MoneyServices}
+
             class StatementDetails(StripeObject):
                 class Address(StripeObject):
                     city: Optional[str]
@@ -3939,6 +3973,7 @@ class PaymentIntent(
             """
             Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
             """
+            payment_details: Optional[PaymentDetails]
             request_card_account_update: Optional[
                 Literal["if_available", "never"]
             ]
@@ -4034,6 +4069,7 @@ class PaymentIntent(
                 "capture_delay": CaptureDelay,
                 "installments": Installments,
                 "mandate_options": MandateOptions,
+                "payment_details": PaymentDetails,
                 "statement_details": StatementDetails,
             }
 
@@ -4120,6 +4156,30 @@ class PaymentIntent(
                 """
                 _inner_class_types = {"transaction_data": TransactionDatum}
 
+            class PaymentDetails(StripeObject):
+                class MoneyServices(StripeObject):
+                    class AccountFunding(StripeObject):
+                        digital_asset_category: Optional[
+                            Union[
+                                Literal[
+                                    "blockchain_native",
+                                    "nft",
+                                    "other_non_fiat",
+                                    "stablecoin",
+                                ],
+                                str,
+                            ]
+                        ]
+                        """
+                        The category of digital asset being acquired through this account funding transaction.
+                        """
+
+                    account_funding: Optional[AccountFunding]
+                    _inner_class_types = {"account_funding": AccountFunding}
+
+                money_services: Optional[MoneyServices]
+                _inner_class_types = {"money_services": MoneyServices}
+
             class Routing(StripeObject):
                 requested_priority: Optional[
                     Union[Literal["domestic", "international"], str]
@@ -4150,6 +4210,7 @@ class PaymentIntent(
             """
             Fleet prompting data for this payment.
             """
+            payment_details: Optional[PaymentDetails]
             request_extended_authorization: Optional[bool]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
@@ -4175,6 +4236,7 @@ class PaymentIntent(
                 "aade_data": AadeData,
                 "capture_delay": CaptureDelay,
                 "fleet": Fleet,
+                "payment_details": PaymentDetails,
                 "routing": Routing,
             }
 
@@ -4821,7 +4883,7 @@ class PaymentIntent(
 
         class Paypay(StripeObject):
             setup_future_usage: Optional[
-                Union[Literal["none", "off_session", "on_session"], str]
+                Union[Literal["none", "off_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5723,12 +5785,14 @@ class PaymentIntent(
             Union[
                 Literal[
                     "acss_debit",
+                    "aeon_pay",
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
                     "alma",
                     "amazon_pay",
                     "au_becs_debit",
+                    "au_pay",
                     "bacs_debit",
                     "bancontact",
                     "billie",
@@ -5745,6 +5809,7 @@ class PaymentIntent(
                     "click_to_pay",
                     "crypto",
                     "customer_balance",
+                    "dbarai",
                     "demo_pay",
                     "duitnow",
                     "dummy_auth_push",
@@ -5771,6 +5836,7 @@ class PaymentIntent(
                     "kriya",
                     "link",
                     "mb_way",
+                    "merpay",
                     "mobilepay",
                     "momo",
                     "mondu",
@@ -5933,12 +5999,14 @@ class PaymentIntent(
             Union[
                 Literal[
                     "acss_debit",
+                    "aeon_pay",
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
                     "alma",
                     "amazon_pay",
                     "au_becs_debit",
+                    "au_pay",
                     "bacs_debit",
                     "bancontact",
                     "billie",
@@ -5950,6 +6018,7 @@ class PaymentIntent(
                     "cashapp",
                     "crypto",
                     "customer_balance",
+                    "dbarai",
                     "eps",
                     "fpx",
                     "getflex",
@@ -5964,6 +6033,7 @@ class PaymentIntent(
                     "konbini",
                     "kr_card",
                     "mb_way",
+                    "merpay",
                     "mobilepay",
                     "multibanco",
                     "naver_pay",

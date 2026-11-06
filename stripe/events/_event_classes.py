@@ -1243,6 +1243,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_extend_extension_run_failed_event import (
         V2ExtendExtensionRunFailedEventNotification,
     )
+    from stripe.events._v2_extend_object_definition_created_event import (
+        V2ExtendObjectDefinitionCreatedEventNotification,
+    )
+    from stripe.events._v2_extend_object_definition_version_created_event import (
+        V2ExtendObjectDefinitionVersionCreatedEventNotification,
+    )
     from stripe.events._v2_extend_workflow_run_failed_event import (
         V2ExtendWorkflowRunFailedEventNotification,
     )
@@ -3298,6 +3304,14 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.extend.extension_run.failed": (
         "stripe.events._v2_extend_extension_run_failed_event",
         "V2ExtendExtensionRunFailedEvent",
+    ),
+    "v2.extend.object_definition.created": (
+        "stripe.events._v2_extend_object_definition_created_event",
+        "V2ExtendObjectDefinitionCreatedEvent",
+    ),
+    "v2.extend.object_definition_version.created": (
+        "stripe.events._v2_extend_object_definition_version_created_event",
+        "V2ExtendObjectDefinitionVersionCreatedEvent",
     ),
     "v2.extend.workflow_run.failed": (
         "stripe.events._v2_extend_workflow_run_failed_event",
@@ -5502,6 +5516,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_extend_extension_run_failed_event",
         "V2ExtendExtensionRunFailedEventNotification",
     ),
+    "v2.extend.object_definition.created": (
+        "stripe.events._v2_extend_object_definition_created_event",
+        "V2ExtendObjectDefinitionCreatedEventNotification",
+    ),
+    "v2.extend.object_definition_version.created": (
+        "stripe.events._v2_extend_object_definition_version_created_event",
+        "V2ExtendObjectDefinitionVersionCreatedEventNotification",
+    ),
     "v2.extend.workflow_run.failed": (
         "stripe.events._v2_extend_workflow_run_failed_event",
         "V2ExtendWorkflowRunFailedEventNotification",
@@ -6469,6 +6491,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2DataReportRunSucceededEventNotification",
     "V2DataReportRunUpdatedEventNotification",
     "V2ExtendExtensionRunFailedEventNotification",
+    "V2ExtendObjectDefinitionCreatedEventNotification",
+    "V2ExtendObjectDefinitionVersionCreatedEventNotification",
     "V2ExtendWorkflowRunFailedEventNotification",
     "V2ExtendWorkflowRunStartedEventNotification",
     "V2ExtendWorkflowRunSucceededEventNotification",

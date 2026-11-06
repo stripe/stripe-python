@@ -447,6 +447,256 @@ class PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPre
     """
     Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
+    ev_charging: NotRequired[
+        "PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentEvCharging"
+    ]
+    """
+    EV charging data for this line item.
+    """
+    fleet_data: NotRequired[
+        "PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentFleetData"
+    ]
+    """
+    Fleet data for this line item.
+    """
+
+
+class PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentEvCharging(
+    TypedDict,
+):
+    carbon_footprint_avoided_grams_co2: NotRequired[int]
+    """
+    The carbon footprint avoided by the charging session, in grams of CO2.
+    """
+    charging_ended_at: int
+    """
+    The time the charging session ended, measured in seconds since the Unix epoch.
+    """
+    charging_power_output_capacity_kw: int
+    """
+    The power output capacity of the charging station, in kilowatts (kW).
+    """
+    charging_started_at: int
+    """
+    The time the charging session started, measured in seconds since the Unix epoch.
+    """
+    connector_type: Union[
+        Literal[
+            "ac_gb_t",
+            "ac_j1772",
+            "ac_mennekes",
+            "dc_ccs1",
+            "dc_ccs2",
+            "dc_chademo",
+            "dc_gb_t",
+            "dc_mcs",
+            "nacs",
+        ],
+        str,
+    ]
+    """
+    The type of connector used for the charging session.
+    """
+    estimated_range_added: NotRequired[int]
+    """
+    The estimated distance in kilometers or miles added to the vehicle during the charging session.
+    """
+    estimated_range_left: NotRequired[int]
+    """
+    The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+    """
+    maximum_power_dispensed_kw: int
+    """
+    The maximum power dispensed during the charging session, in kilowatts (kW).
+    """
+
+
+class PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresentFleetData(
+    TypedDict,
+):
+    product_type: Union[
+        Literal[
+            "additive_dosage",
+            "additized_diesel_2",
+            "additized_diesel_3",
+            "air_conditioning_service",
+            "air_filter",
+            "alcohol",
+            "antifreeze",
+            "automotive_merchandise",
+            "aviation_fuel_premium",
+            "aviation_fuel_regular",
+            "batteries",
+            "biodiesel_b1",
+            "biodiesel_b10",
+            "biodiesel_b100",
+            "biodiesel_b11",
+            "biodiesel_b15",
+            "biodiesel_b2",
+            "biodiesel_b20",
+            "biodiesel_b5",
+            "biodiesel_b75",
+            "biodiesel_b99",
+            "blended_diesel_1_and_2",
+            "body_work",
+            "brake_fluid",
+            "brake_service",
+            "car_care_detailing",
+            "car_wash",
+            "compressed_natural_gas",
+            "def_at_pump",
+            "deli",
+            "e85",
+            "engine_service",
+            "ethanol_e16_to_e84",
+            "ev_battery_exchanges",
+            "ev_charging_fee",
+            "evc_level_1",
+            "evc_level_2",
+            "evc_level_3",
+            "evc_level_4",
+            "evc_level_5",
+            "exhaust_service",
+            "federal_tire_excise_tax",
+            "food_service",
+            "fuel_additive_treatment",
+            "fuel_system",
+            "green_gasoline_mid_plus",
+            "green_gasoline_premium_super",
+            "green_gasoline_regular",
+            "grocery",
+            "heating_oil",
+            "hoses",
+            "hydrogen_h35",
+            "hydrogen_h70",
+            "inspection",
+            "kerosene_low_sulfur",
+            "kerosene_low_sulfur_non_taxable",
+            "kerosene_ultra_low_sulfur",
+            "kerosene_ultra_low_sulfur_non_taxable",
+            "labor",
+            "lamps",
+            "liquid_natural_gas",
+            "liquid_propane_gas",
+            "lodging",
+            "low_octane_unleaded",
+            "lube",
+            "marine_diesel",
+            "marine_fuel",
+            "marine_fuel_1",
+            "marine_fuel_2",
+            "marine_fuel_3",
+            "marine_fuel_4",
+            "marine_fuel_5",
+            "marine_other",
+            "merchandise",
+            "mid_plus",
+            "mid_plus_2",
+            "mid_plus_2_10",
+            "mid_plus_2_e15",
+            "mid_plus_2_reformulated",
+            "mid_plus_e10",
+            "mid_plus_e15",
+            "mid_plus_ethanol",
+            "mid_plus_reformulated",
+            "miscellaneous_aviation_products_services",
+            "miscellaneous_fuel",
+            "miscellaneous_marine_products_services",
+            "miscellaneous_vehicle_products_services",
+            "motor_oil",
+            "off_road_b1",
+            "off_road_b10",
+            "off_road_b100",
+            "off_road_b11",
+            "off_road_b15",
+            "off_road_b2",
+            "off_road_b20",
+            "off_road_b5",
+            "off_road_b75",
+            "off_road_b99",
+            "off_road_biodiesel",
+            "off_road_diesel_1",
+            "off_road_diesel_2",
+            "off_road_mid_plus",
+            "off_road_mid_plus_2",
+            "off_road_premium_diesel_1",
+            "off_road_premium_diesel_2",
+            "off_road_premium_super",
+            "off_road_premium_super_2",
+            "off_road_regular",
+            "off_road_renewable_diesel_b6_to_b20",
+            "off_road_renewable_diesel_r95",
+            "oil_change",
+            "oil_filter",
+            "other_lubricants",
+            "packaged_beverage",
+            "premium_diesel",
+            "premium_diesel_2",
+            "premium_diesel_b20_plus",
+            "premium_diesel_under_b20",
+            "premium_super",
+            "premium_super_2",
+            "premium_super_2_10",
+            "premium_super_2_e15",
+            "premium_super_2_reformulated",
+            "premium_super_e10",
+            "premium_super_e15",
+            "premium_super_ethanol",
+            "premium_super_reformulated",
+            "preventative_maintenance",
+            "racing_fuel",
+            "recreational_fuel_90_octane",
+            "regular",
+            "regular_diesel",
+            "regular_diesel_2",
+            "regular_e10",
+            "regular_e15",
+            "regular_ethanol",
+            "regular_reformulated",
+            "renewable_diesel_b6_to_b20",
+            "renewable_diesel_r95",
+            "repairs",
+            "road_service",
+            "rv_dump_fee",
+            "scales",
+            "self_service_car_wash",
+            "service_package",
+            "shower",
+            "store_service",
+            "synthetic_oil",
+            "tire_related",
+            "tire_repair",
+            "tire_rotation",
+            "tires",
+            "tobacco",
+            "toll_payments",
+            "towing",
+            "trailer_wash",
+            "transmission_service",
+            "truck_tank_cleaning",
+            "vehicle_accessories",
+            "vehicle_glass",
+            "vehicle_parking",
+            "vehicle_parts",
+            "vehicle_prep",
+            "vehicle_rental",
+            "vehicle_work_order",
+            "wash_out",
+            "washer_fluid",
+            "white_gas",
+            "wipers",
+        ],
+        str,
+    ]
+    """
+    The type of product being purchased at this line item.
+    """
+    service_type: NotRequired[
+        "Literal['full_service', 'high_speed_diesel', 'non_fuel_only', 'self_service']|str"
+    ]
+    """
+    The type of service received at the acceptor location.
+    """
 
 
 class PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
