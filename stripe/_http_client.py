@@ -858,12 +858,23 @@ class PycurlClient(HTTPClient):
         proxy: Optional[HTTPClient._Proxy] = None,
         async_fallback_client: Optional[HTTPClient] = None,
         _lib=None,  # used for internal unit testing
+        *,
+        timeout: int = 80,
+        connect_timeout: int = 30,
     ):
+        """
+        `timeout` is the maximum number of seconds the whole request may take
+        (curl's `TIMEOUT`), and `connect_timeout` is the maximum number of
+        seconds to wait for the connection to be established (curl's
+        `CONNECTTIMEOUT`). curl only accepts whole seconds for both.
+        """
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
             proxy=proxy,
             async_fallback_client=async_fallback_client,
         )
+        self._timeout = timeout
+        self._connect_timeout = connect_timeout
 
         if _lib is None:
             import pycurl  # pyright: ignore[reportMissingModuleSource]
@@ -972,8 +983,8 @@ class PycurlClient(HTTPClient):
         self._curl.setopt(self.pycurl.WRITEFUNCTION, b.write)
         self._curl.setopt(self.pycurl.HEADERFUNCTION, rheaders.write)
         self._curl.setopt(self.pycurl.NOSIGNAL, 1)
-        self._curl.setopt(self.pycurl.CONNECTTIMEOUT, 30)
-        self._curl.setopt(self.pycurl.TIMEOUT, 80)
+        self._curl.setopt(self.pycurl.CONNECTTIMEOUT, self._connect_timeout)
+        self._curl.setopt(self.pycurl.TIMEOUT, self._timeout)
         _assert_no_header_injection(headers)
         self._curl.setopt(
             self.pycurl.HTTPHEADER,
