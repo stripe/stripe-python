@@ -4,6 +4,7 @@ from stripe import StripeClient
 from stripe.oauth_error import OAuthError
 
 from flask import Flask, request, redirect
+from markupsafe import escape
 
 
 client = StripeClient(
@@ -33,7 +34,7 @@ def callback():
             params={"grant_type": "authorization_code", "code": code}
         )
     except OAuthError as e:
-        return "Error: " + str(e)
+        return "Error: " + str(escape(str(e)))
 
     return """
 <p>Success! Account <code>{stripe_user_id}</code> is connected.</p>
@@ -48,7 +49,7 @@ def deauthorize():
     try:
         client.oauth.deauthorize(params={"stripe_user_id": stripe_user_id})
     except OAuthError as e:
-        return "Error: " + str(e)
+        return "Error: " + str(escape(str(e)))
 
     return """
 <p>Success! Account <code>{stripe_user_id}</code> is disconnected.</p>
