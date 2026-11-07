@@ -827,6 +827,23 @@ class UrlFetchClient(HTTPClient):
         pass
 
 
+def _assert_no_header_injection(headers: Mapping[str, str]) -> None:
+    """Rejects CR, LF and NUL in a header name or value.
+
+    pycurl's HTTPHEADER option takes raw "name: value" strings, assembled
+    here by string formatting rather than passed to a validating library
+    call. A CR or LF in either half would let the remainder be parsed as an
+    additional header line.
+    """
+    for key, value in headers.items():
+        for part in (key, value):
+            if "\r" in part or "\n" in part or "\0" in part:
+                raise ValueError(
+                    "Header names and values may not contain CR, LF or "
+                    "NUL characters."
+                )
+
+
 class PycurlClient(HTTPClient):
     class _ParsedProxy(TypedDict, total=False):
         http: Optional["ParseResult"]
@@ -957,6 +974,7 @@ class PycurlClient(HTTPClient):
         self._curl.setopt(self.pycurl.NOSIGNAL, 1)
         self._curl.setopt(self.pycurl.CONNECTTIMEOUT, 30)
         self._curl.setopt(self.pycurl.TIMEOUT, 80)
+        _assert_no_header_injection(headers)
         self._curl.setopt(
             self.pycurl.HTTPHEADER,
             ["%s: %s" % (k, v) for k, v in dict(headers).items()],
