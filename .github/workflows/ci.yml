@@ -28,28 +28,10 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Set up Python 3
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        with:
-          python-version: "3.13"
-      - name: check examples w/ mypy (against python@3.13)
-        run: just typecheck-examples
-      # skip deps on all these since mypy installed everything
-      - name: check linting
-        run: just --no-deps lint
-      - name: check formatting
-        run: just --no-deps format-check
-      # pyright depends on node, which it handles and installs for itself as needed
-      # we _could_ run setup-node to make it available for it if we're having reliability problems
-      - name: check types
-        # only check against a modern version- unit tests will catch syntax errors on older versions
-        # this isn't user facing, this is just checking that our code is internally consistent
-        # e.g. a bug here wouldn't cause user CI to fail since the issue is internal to our codebase
-        run: just --no-deps typecheck
+      - uses: ./.github/actions/static-checks
 
   build:
     name: Build
@@ -57,19 +39,10 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-
-      - name: Set up Python 3
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        with:
-          python-version: "3.10"
-
-      - name: Build and check package
-        run: |
-          just build
+      - uses: ./.github/actions/build-package
 
       - name: "Upload Artifact"
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -85,6 +58,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # Keep in sync with the test matrix in canary.yml.
         os:
           - "ubuntu-24.04"
         python_version:
@@ -105,27 +79,12 @@ jobs:
             # use any modern-ish version
             python_version: "3.14"
     steps:
-      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Read OpenAPI version
-        id: openapi
-        shell: bash
-        run: echo "version=$(< OPENAPI_VERSION)" >> "$GITHUB_OUTPUT"
-      - name: Set up Python ${{ matrix.python_version }}
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: ./.github/actions/test
         with:
           python-version: ${{ matrix.python_version }}
-      - uses: stripe/openapi/actions/stripe-mock@master
-        with:
-          openapi_version: ${{ steps.openapi.outputs.version }}
-
-      - name: "run tests"
-        run: just test
-        env:
-          # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
-          STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
 
   publish:
     name: Publish
