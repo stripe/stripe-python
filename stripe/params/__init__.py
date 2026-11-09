@@ -119,6 +119,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesUpiPayments as AccountCreateParamsCapabilitiesUpiPayments,
         AccountCreateParamsCapabilitiesUsBankAccountAchPayments as AccountCreateParamsCapabilitiesUsBankAccountAchPayments,
         AccountCreateParamsCapabilitiesUsBankTransferPayments as AccountCreateParamsCapabilitiesUsBankTransferPayments,
+        AccountCreateParamsCapabilitiesWeroPayments as AccountCreateParamsCapabilitiesWeroPayments,
         AccountCreateParamsCapabilitiesZipPayments as AccountCreateParamsCapabilitiesZipPayments,
         AccountCreateParamsCard as AccountCreateParamsCard,
         AccountCreateParamsCardToken as AccountCreateParamsCardToken,
@@ -129,6 +130,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCompanyAdministrativeAddress as AccountCreateParamsCompanyAdministrativeAddress,
         AccountCreateParamsCompanyDirectorshipDeclaration as AccountCreateParamsCompanyDirectorshipDeclaration,
         AccountCreateParamsCompanyOwnershipDeclaration as AccountCreateParamsCompanyOwnershipDeclaration,
+        AccountCreateParamsCompanyPhysicalAddress as AccountCreateParamsCompanyPhysicalAddress,
         AccountCreateParamsCompanyPrincipalPlaceOfBusiness as AccountCreateParamsCompanyPrincipalPlaceOfBusiness,
         AccountCreateParamsCompanyRegistrationDate as AccountCreateParamsCompanyRegistrationDate,
         AccountCreateParamsCompanyRepresentativeDeclaration as AccountCreateParamsCompanyRepresentativeDeclaration,
@@ -146,6 +148,7 @@ if TYPE_CHECKING:
         AccountCreateParamsDocumentsCompanyRegistrationVerification as AccountCreateParamsDocumentsCompanyRegistrationVerification,
         AccountCreateParamsDocumentsCompanyTaxIdVerification as AccountCreateParamsDocumentsCompanyTaxIdVerification,
         AccountCreateParamsDocumentsProofOfAddress as AccountCreateParamsDocumentsProofOfAddress,
+        AccountCreateParamsDocumentsProofOfBusinessPresence as AccountCreateParamsDocumentsProofOfBusinessPresence,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountCreateParamsGroups as AccountCreateParamsGroups,
@@ -397,10 +400,16 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsPayoutsFeatures as AccountSessionCreateParamsComponentsPayoutsFeatures,
         AccountSessionCreateParamsComponentsPayoutsList as AccountSessionCreateParamsComponentsPayoutsList,
         AccountSessionCreateParamsComponentsPayoutsListFeatures as AccountSessionCreateParamsComponentsPayoutsListFeatures,
+        AccountSessionCreateParamsComponentsReportingChart as AccountSessionCreateParamsComponentsReportingChart,
+        AccountSessionCreateParamsComponentsReportingChartFeatures as AccountSessionCreateParamsComponentsReportingChartFeatures,
         AccountSessionCreateParamsComponentsTaxRegistrations as AccountSessionCreateParamsComponentsTaxRegistrations,
         AccountSessionCreateParamsComponentsTaxRegistrationsFeatures as AccountSessionCreateParamsComponentsTaxRegistrationsFeatures,
         AccountSessionCreateParamsComponentsTaxSettings as AccountSessionCreateParamsComponentsTaxSettings,
         AccountSessionCreateParamsComponentsTaxSettingsFeatures as AccountSessionCreateParamsComponentsTaxSettingsFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrders as AccountSessionCreateParamsComponentsTerminalHardwareOrders,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures as AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareShop as AccountSessionCreateParamsComponentsTerminalHardwareShop,
+        AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures as AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures,
     )
     from stripe.params._account_unreject_params import (
         AccountUnrejectParams as AccountUnrejectParams,
@@ -481,6 +490,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesUpiPayments as AccountUpdateParamsCapabilitiesUpiPayments,
         AccountUpdateParamsCapabilitiesUsBankAccountAchPayments as AccountUpdateParamsCapabilitiesUsBankAccountAchPayments,
         AccountUpdateParamsCapabilitiesUsBankTransferPayments as AccountUpdateParamsCapabilitiesUsBankTransferPayments,
+        AccountUpdateParamsCapabilitiesWeroPayments as AccountUpdateParamsCapabilitiesWeroPayments,
         AccountUpdateParamsCapabilitiesZipPayments as AccountUpdateParamsCapabilitiesZipPayments,
         AccountUpdateParamsCard as AccountUpdateParamsCard,
         AccountUpdateParamsCardToken as AccountUpdateParamsCardToken,
@@ -491,6 +501,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCompanyAdministrativeAddress as AccountUpdateParamsCompanyAdministrativeAddress,
         AccountUpdateParamsCompanyDirectorshipDeclaration as AccountUpdateParamsCompanyDirectorshipDeclaration,
         AccountUpdateParamsCompanyOwnershipDeclaration as AccountUpdateParamsCompanyOwnershipDeclaration,
+        AccountUpdateParamsCompanyPhysicalAddress as AccountUpdateParamsCompanyPhysicalAddress,
         AccountUpdateParamsCompanyPrincipalPlaceOfBusiness as AccountUpdateParamsCompanyPrincipalPlaceOfBusiness,
         AccountUpdateParamsCompanyRegistrationDate as AccountUpdateParamsCompanyRegistrationDate,
         AccountUpdateParamsCompanyRepresentativeDeclaration as AccountUpdateParamsCompanyRepresentativeDeclaration,
@@ -504,6 +515,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsDocumentsCompanyRegistrationVerification as AccountUpdateParamsDocumentsCompanyRegistrationVerification,
         AccountUpdateParamsDocumentsCompanyTaxIdVerification as AccountUpdateParamsDocumentsCompanyTaxIdVerification,
         AccountUpdateParamsDocumentsProofOfAddress as AccountUpdateParamsDocumentsProofOfAddress,
+        AccountUpdateParamsDocumentsProofOfBusinessPresence as AccountUpdateParamsDocumentsProofOfBusinessPresence,
         AccountUpdateParamsDocumentsProofOfRegistration as AccountUpdateParamsDocumentsProofOfRegistration,
         AccountUpdateParamsDocumentsProofOfRegistrationSigner as AccountUpdateParamsDocumentsProofOfRegistrationSigner,
         AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership,
@@ -1035,6 +1047,8 @@ if TYPE_CHECKING:
     from stripe.params._dispute_modify_params import (
         DisputeModifyParams as DisputeModifyParams,
         DisputeModifyParamsEvidence as DisputeModifyParamsEvidence,
+        DisputeModifyParamsEvidenceAppeal as DisputeModifyParamsEvidenceAppeal,
+        DisputeModifyParamsEvidenceAppealCard as DisputeModifyParamsEvidenceAppealCard,
         DisputeModifyParamsEvidenceEnhancedEvidence as DisputeModifyParamsEvidenceEnhancedEvidence,
         DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance as DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance,
         DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3 as DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3,
@@ -1050,6 +1064,8 @@ if TYPE_CHECKING:
     from stripe.params._dispute_update_params import (
         DisputeUpdateParams as DisputeUpdateParams,
         DisputeUpdateParamsEvidence as DisputeUpdateParamsEvidence,
+        DisputeUpdateParamsEvidenceAppeal as DisputeUpdateParamsEvidenceAppeal,
+        DisputeUpdateParamsEvidenceAppealCard as DisputeUpdateParamsEvidenceAppealCard,
         DisputeUpdateParamsEvidenceEnhancedEvidence as DisputeUpdateParamsEvidenceEnhancedEvidence,
         DisputeUpdateParamsEvidenceEnhancedEvidenceMastercardCompliance as DisputeUpdateParamsEvidenceEnhancedEvidenceMastercardCompliance,
         DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3 as DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3,
@@ -1185,6 +1201,17 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetails as InvoiceCreatePreviewParamsScheduleDetails,
         InvoiceCreatePreviewParamsScheduleDetailsBillingMode as InvoiceCreatePreviewParamsScheduleDetailsBillingMode,
         InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible as InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedule as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedule,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePause as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePause,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePausePauseAt as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePausePauseAt,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettings as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillFor as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillFor,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForOutstandingUsageThrough as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForOutstandingUsageThrough,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForUnusedTimeFrom as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForUnusedTimeFrom,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResume as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResume,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAt as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAt,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAtDuration as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAtDuration,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeSettings as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeSettings,
         InvoiceCreatePreviewParamsScheduleDetailsPhase as InvoiceCreatePreviewParamsScheduleDetailsPhase,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount,
@@ -2222,6 +2249,7 @@ if TYPE_CHECKING:
         PaymentLinkCreateParamsShippingOption as PaymentLinkCreateParamsShippingOption,
         PaymentLinkCreateParamsSubscriptionData as PaymentLinkCreateParamsSubscriptionData,
         PaymentLinkCreateParamsSubscriptionDataInvoiceSettings as PaymentLinkCreateParamsSubscriptionDataInvoiceSettings,
+        PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsCustomField as PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsCustomField,
         PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsIssuer,
         PaymentLinkCreateParamsSubscriptionDataTrialSettings as PaymentLinkCreateParamsSubscriptionDataTrialSettings,
         PaymentLinkCreateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkCreateParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -2280,6 +2308,7 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsShippingOption as PaymentLinkModifyParamsShippingOption,
         PaymentLinkModifyParamsSubscriptionData as PaymentLinkModifyParamsSubscriptionData,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettings as PaymentLinkModifyParamsSubscriptionDataInvoiceSettings,
+        PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsCustomField as PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsCustomField,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer,
         PaymentLinkModifyParamsSubscriptionDataTrialSettings as PaymentLinkModifyParamsSubscriptionDataTrialSettings,
         PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -2332,6 +2361,7 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsShippingOption as PaymentLinkUpdateParamsShippingOption,
         PaymentLinkUpdateParamsSubscriptionData as PaymentLinkUpdateParamsSubscriptionData,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings,
+        PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer,
         PaymentLinkUpdateParamsSubscriptionDataTrialSettings as PaymentLinkUpdateParamsSubscriptionDataTrialSettings,
         PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -4111,6 +4141,7 @@ if TYPE_CHECKING:
         TokenCreateParamsAccountCompanyAdministrativeAddress as TokenCreateParamsAccountCompanyAdministrativeAddress,
         TokenCreateParamsAccountCompanyDirectorshipDeclaration as TokenCreateParamsAccountCompanyDirectorshipDeclaration,
         TokenCreateParamsAccountCompanyOwnershipDeclaration as TokenCreateParamsAccountCompanyOwnershipDeclaration,
+        TokenCreateParamsAccountCompanyPhysicalAddress as TokenCreateParamsAccountCompanyPhysicalAddress,
         TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness as TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness,
         TokenCreateParamsAccountCompanyRegistrationDate as TokenCreateParamsAccountCompanyRegistrationDate,
         TokenCreateParamsAccountCompanyRepresentativeDeclaration as TokenCreateParamsAccountCompanyRepresentativeDeclaration,
@@ -4585,6 +4616,10 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsCapabilitiesWeroPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsCapabilitiesZipPayments": (
         "stripe.params._account_create_params",
         False,
@@ -4619,6 +4654,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCompanyPhysicalAddress": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -4687,6 +4726,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsDocumentsProofOfAddress": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsDocumentsProofOfBusinessPresence": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -5428,6 +5471,14 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountSessionCreateParamsComponentsReportingChart": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsReportingChartFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
     "AccountSessionCreateParamsComponentsTaxRegistrations": (
         "stripe.params._account_session_create_params",
         False,
@@ -5441,6 +5492,22 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsTaxSettingsFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrders": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShop": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),
@@ -5742,6 +5809,10 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsCapabilitiesWeroPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsCapabilitiesZipPayments": (
         "stripe.params._account_update_params",
         False,
@@ -5776,6 +5847,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCompanyPhysicalAddress": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -5828,6 +5903,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsDocumentsProofOfAddress": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsDocumentsProofOfBusinessPresence": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -7015,6 +7094,14 @@ _import_map = {
         "stripe.params._dispute_modify_params",
         False,
     ),
+    "DisputeModifyParamsEvidenceAppeal": (
+        "stripe.params._dispute_modify_params",
+        False,
+    ),
+    "DisputeModifyParamsEvidenceAppealCard": (
+        "stripe.params._dispute_modify_params",
+        False,
+    ),
     "DisputeModifyParamsEvidenceEnhancedEvidence": (
         "stripe.params._dispute_modify_params",
         False,
@@ -7050,6 +7137,14 @@ _import_map = {
     "DisputeRetrieveParams": ("stripe.params._dispute_retrieve_params", False),
     "DisputeUpdateParams": ("stripe.params._dispute_update_params", False),
     "DisputeUpdateParamsEvidence": (
+        "stripe.params._dispute_update_params",
+        False,
+    ),
+    "DisputeUpdateParamsEvidenceAppeal": (
+        "stripe.params._dispute_update_params",
+        False,
+    ),
+    "DisputeUpdateParamsEvidenceAppealCard": (
         "stripe.params._dispute_update_params",
         False,
     ),
@@ -7410,6 +7505,50 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedule": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePause": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePausePauseAt": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillFor": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForOutstandingUsageThrough": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForUnusedTimeFrom": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResume": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAt": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAtDuration": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeSettings": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -11163,6 +11302,10 @@ _import_map = {
         "stripe.params._payment_link_create_params",
         False,
     ),
+    "PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsCustomField": (
+        "stripe.params._payment_link_create_params",
+        False,
+    ),
     "PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsIssuer": (
         "stripe.params._payment_link_create_params",
         False,
@@ -11363,6 +11506,10 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsCustomField": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -11552,6 +11699,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -17243,6 +17394,10 @@ _import_map = {
         False,
     ),
     "TokenCreateParamsAccountCompanyOwnershipDeclaration": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsAccountCompanyPhysicalAddress": (
         "stripe.params._token_create_params",
         False,
     ),

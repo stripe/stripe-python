@@ -1,0 +1,184 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
+from typing import ClassVar, List, Optional, Union
+from typing_extensions import Literal
+
+
+class InboundTransfer(StripeObject):
+    """
+    An InboundTransfer object, representing a money movement from a
+    user owned PaymentMethod to a FinancialAccount belonging to the same user.
+    """
+
+    OBJECT_NAME: ClassVar[Literal["v2.money_management.inbound_transfer"]] = (
+        "v2.money_management.inbound_transfer"
+    )
+
+    class From(StripeObject):
+        class PaymentMethod(StripeObject):
+            type: str
+            """
+            The type of PaymentMethod used to create the InboundTransfer. Clients should tolerate future values.
+            """
+            us_bank_account: Optional[str]
+            """
+            The destination US bank account identifier. eg "usba_***".
+            """
+
+        debited: Amount
+        """
+        The amount in specified currency that was debited from the Payment Method.
+        """
+        payment_method: PaymentMethod
+        """
+        The bank account credential used to fund the InboundTransfer (for example, a US bank account), not a Payments API `pm_` PaymentMethod.
+        """
+        _inner_class_types = {"payment_method": PaymentMethod}
+
+    class To(StripeObject):
+        credited: Amount
+        """
+        The amount by which the FinancialAccount balance is credited.
+        """
+        financial_account: str
+        """
+        The FinancialAccount that funds will land in.
+        """
+
+    class TransferHistory(StripeObject):
+        class BankDebitFailed(StripeObject):
+            failure_reason: Union[
+                Literal[
+                    "bank_account_closed",
+                    "bank_account_not_found",
+                    "bank_debit_could_not_be_processed",
+                    "bank_debit_not_authorized",
+                    "insufficient_funds",
+                ],
+                str,
+            ]
+            """
+            Open Enum. The return reason for the failed InboundTransfer.
+            """
+
+        class BankDebitProcessing(StripeObject):
+            pass
+
+        class BankDebitQueued(StripeObject):
+            pass
+
+        class BankDebitReturned(StripeObject):
+            return_reason: Union[
+                Literal[
+                    "bank_account_closed",
+                    "bank_account_not_found",
+                    "bank_debit_could_not_be_processed",
+                    "bank_debit_not_authorized",
+                    "insufficient_funds",
+                ],
+                str,
+            ]
+            """
+            Open Enum. The return reason for the returned InboundTransfer.
+            """
+
+        class BankDebitSucceeded(StripeObject):
+            pass
+
+        bank_debit_failed: Optional[BankDebitFailed]
+        """
+        The InboundTransfer failed. See `failure_reason` for more details.
+        """
+        bank_debit_processing: Optional[BankDebitProcessing]
+        """
+        The InboundTransfer was submitted to the scheme for processing. The debit is still in progress and can later succeed or fail.
+        """
+        bank_debit_queued: Optional[BankDebitQueued]
+        """
+        The InboundTransfer was created and is waiting to be submitted to the scheme for processing.
+        """
+        bank_debit_returned: Optional[BankDebitReturned]
+        """
+        The InboundTransfer was returned. The original transaction has been reversed.
+        """
+        bank_debit_succeeded: Optional[BankDebitSucceeded]
+        """
+        The InboundTransfer succeeded. Funds might not yet be available; check the associated Transaction for availability.
+        """
+        created: str
+        """
+        Creation time of the HistoryEntry in RFC 3339 format and UTC.
+        """
+        effective_at: str
+        """
+        Effective at time of the HistoryEntry in RFC 3339 format and UTC.
+        """
+        id: str
+        """
+        A unique ID for the HistoryEntry.
+        """
+        type: Union[
+            Literal[
+                "bank_debit_failed",
+                "bank_debit_processing",
+                "bank_debit_queued",
+                "bank_debit_returned",
+                "bank_debit_succeeded",
+            ],
+            str,
+        ]
+        """
+        Open Enum. The type of the HistoryEntry.
+        """
+        _inner_class_types = {
+            "bank_debit_failed": BankDebitFailed,
+            "bank_debit_processing": BankDebitProcessing,
+            "bank_debit_queued": BankDebitQueued,
+            "bank_debit_returned": BankDebitReturned,
+            "bank_debit_succeeded": BankDebitSucceeded,
+        }
+
+    amount: Amount
+    """
+    The amount in specified currency that will land in the FinancialAccount balance.
+    """
+    created: str
+    """
+    Creation time of the InboundTransfer. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    description: str
+    """
+    A freeform text field provided by user, containing metadata.
+    """
+    from_: From
+    """
+    A nested object containing information about the origin of the InboundTransfer.
+    """
+    id: str
+    """
+    Unique identifier for the InboundTransfer.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    object: Literal["v2.money_management.inbound_transfer"]
+    """
+    String representing the object's type. Objects of the same type share the same value of the object field.
+    """
+    to: To
+    """
+    A nested object containing information about the destination of the InboundTransfer.
+    """
+    transfer_history: List[TransferHistory]
+    """
+    A list of history objects, representing changes in the state of the InboundTransfer. The most recent entry's type indicates the current status of the InboundTransfer.
+    """
+    _inner_class_types = {
+        "from": From,
+        "to": To,
+        "transfer_history": TransferHistory,
+    }
+    _field_remappings = {"from_": "from"}

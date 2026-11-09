@@ -141,6 +141,37 @@ class Configuration(
             """
             _inner_class_types = {"cancellation_reason": CancellationReason}
 
+        class SubscriptionPause(StripeObject):
+            class Duration(StripeObject):
+                class IntervalOption(StripeObject):
+                    interval: Union[
+                        Literal["day", "month", "week", "year"], str
+                    ]
+                    """
+                    Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+                    """
+                    interval_count: int
+                    """
+                    The number of intervals in the pause duration. The maximum duration is three years.
+                    """
+
+                interval_options: List[IntervalOption]
+                """
+                The preset pause durations customers can choose from.
+                """
+                type: Union[Literal["indefinite", "interval_options"], str]
+                """
+                Whether subscriptions can be paused indefinitely or for a preset duration.
+                """
+                _inner_class_types = {"interval_options": IntervalOption}
+
+            duration: Duration
+            enabled: bool
+            """
+            Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](https://docs.stripe.com/customer-management).
+            """
+            _inner_class_types = {"duration": Duration}
+
         class SubscriptionUpdate(StripeObject):
             class Product(StripeObject):
                 class AdjustableQuantity(StripeObject):
@@ -230,12 +261,14 @@ class Configuration(
         invoice_history: InvoiceHistory
         payment_method_update: PaymentMethodUpdate
         subscription_cancel: SubscriptionCancel
+        subscription_pause: SubscriptionPause
         subscription_update: SubscriptionUpdate
         _inner_class_types = {
             "customer_update": CustomerUpdate,
             "invoice_history": InvoiceHistory,
             "payment_method_update": PaymentMethodUpdate,
             "subscription_cancel": SubscriptionCancel,
+            "subscription_pause": SubscriptionPause,
             "subscription_update": SubscriptionUpdate,
         }
 

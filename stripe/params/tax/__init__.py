@@ -70,6 +70,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsBj as RegistrationCreateParamsCountryOptionsBj,
         RegistrationCreateParamsCountryOptionsBs as RegistrationCreateParamsCountryOptionsBs,
         RegistrationCreateParamsCountryOptionsBsStandard as RegistrationCreateParamsCountryOptionsBsStandard,
+        RegistrationCreateParamsCountryOptionsBw as RegistrationCreateParamsCountryOptionsBw,
         RegistrationCreateParamsCountryOptionsBy as RegistrationCreateParamsCountryOptionsBy,
         RegistrationCreateParamsCountryOptionsCa as RegistrationCreateParamsCountryOptionsCa,
         RegistrationCreateParamsCountryOptionsCaProvinceStandard as RegistrationCreateParamsCountryOptionsCaProvinceStandard,
@@ -77,6 +78,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsCdStandard as RegistrationCreateParamsCountryOptionsCdStandard,
         RegistrationCreateParamsCountryOptionsCh as RegistrationCreateParamsCountryOptionsCh,
         RegistrationCreateParamsCountryOptionsChStandard as RegistrationCreateParamsCountryOptionsChStandard,
+        RegistrationCreateParamsCountryOptionsCi as RegistrationCreateParamsCountryOptionsCi,
         RegistrationCreateParamsCountryOptionsCl as RegistrationCreateParamsCountryOptionsCl,
         RegistrationCreateParamsCountryOptionsCm as RegistrationCreateParamsCountryOptionsCm,
         RegistrationCreateParamsCountryOptionsCo as RegistrationCreateParamsCountryOptionsCo,
@@ -105,6 +107,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsGb as RegistrationCreateParamsCountryOptionsGb,
         RegistrationCreateParamsCountryOptionsGbStandard as RegistrationCreateParamsCountryOptionsGbStandard,
         RegistrationCreateParamsCountryOptionsGe as RegistrationCreateParamsCountryOptionsGe,
+        RegistrationCreateParamsCountryOptionsGh as RegistrationCreateParamsCountryOptionsGh,
         RegistrationCreateParamsCountryOptionsGn as RegistrationCreateParamsCountryOptionsGn,
         RegistrationCreateParamsCountryOptionsGnStandard as RegistrationCreateParamsCountryOptionsGnStandard,
         RegistrationCreateParamsCountryOptionsGr as RegistrationCreateParamsCountryOptionsGr,
@@ -146,6 +149,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsMrStandard as RegistrationCreateParamsCountryOptionsMrStandard,
         RegistrationCreateParamsCountryOptionsMt as RegistrationCreateParamsCountryOptionsMt,
         RegistrationCreateParamsCountryOptionsMtStandard as RegistrationCreateParamsCountryOptionsMtStandard,
+        RegistrationCreateParamsCountryOptionsMu as RegistrationCreateParamsCountryOptionsMu,
         RegistrationCreateParamsCountryOptionsMx as RegistrationCreateParamsCountryOptionsMx,
         RegistrationCreateParamsCountryOptionsMy as RegistrationCreateParamsCountryOptionsMy,
         RegistrationCreateParamsCountryOptionsNg as RegistrationCreateParamsCountryOptionsNg,
@@ -203,6 +207,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsUsStateSalesTax as RegistrationCreateParamsCountryOptionsUsStateSalesTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection as RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection,
         RegistrationCreateParamsCountryOptionsUsTourismTax as RegistrationCreateParamsCountryOptionsUsTourismTax,
+        RegistrationCreateParamsCountryOptionsUsUtilityUsersTax as RegistrationCreateParamsCountryOptionsUsUtilityUsersTax,
         RegistrationCreateParamsCountryOptionsUy as RegistrationCreateParamsCountryOptionsUy,
         RegistrationCreateParamsCountryOptionsUyStandard as RegistrationCreateParamsCountryOptionsUyStandard,
         RegistrationCreateParamsCountryOptionsUz as RegistrationCreateParamsCountryOptionsUz,
@@ -453,6 +458,10 @@ _import_map = {
         "stripe.params.tax._registration_create_params",
         False,
     ),
+    "RegistrationCreateParamsCountryOptionsBw": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
     "RegistrationCreateParamsCountryOptionsBy": (
         "stripe.params.tax._registration_create_params",
         False,
@@ -478,6 +487,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsChStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCi": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
@@ -590,6 +603,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsGe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGh": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
@@ -754,6 +771,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsMtStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMu": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
@@ -982,6 +1003,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsUsTourismTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsUtilityUsersTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),

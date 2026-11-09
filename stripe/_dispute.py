@@ -34,6 +34,20 @@ class Dispute(
     OBJECT_NAME: ClassVar[Literal["dispute"]] = "dispute"
 
     class Evidence(StripeObject):
+        class Appeal(StripeObject):
+            class Card(StripeObject):
+                reason_for_filing: Optional[str]
+                """
+                The reason for filing the appeal.
+                """
+                supporting_files: Optional[List[str]]
+                """
+                One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+                """
+
+            card: Optional[Card]
+            _inner_class_types = {"card": Card}
+
         class EnhancedEvidence(StripeObject):
             class MastercardCompliance(StripeObject):
                 fee_acknowledged: bool
@@ -198,6 +212,10 @@ class Dispute(
         """
         Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
         """
+        appeal: Optional[Appeal]
+        """
+        Appeal evidence submitted during the appeal stage.
+        """
         billing_address: Optional[str]
         """
         The billing address provided by the customer.
@@ -303,7 +321,10 @@ class Dispute(
         """
         Any additional evidence or statements.
         """
-        _inner_class_types = {"enhanced_evidence": EnhancedEvidence}
+        _inner_class_types = {
+            "appeal": Appeal,
+            "enhanced_evidence": EnhancedEvidence,
+        }
 
     class EvidenceDetails(StripeObject):
         class EnhancedEligibility(StripeObject):
@@ -375,6 +396,12 @@ class Dispute(
         submission_count: int
         """
         The number of times evidence has been submitted. Typically, you may only submit evidence once.
+        """
+        submission_method: Union[
+            Literal["manual", "not_submitted", "smart_disputes"], str
+        ]
+        """
+        Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
         """
         _inner_class_types = {"enhanced_eligibility": EnhancedEligibility}
 
@@ -486,6 +513,17 @@ class Dispute(
     """
     Unique identifier for the object.
     """
+    intended_submission_method: Optional[
+        Literal[
+            "manual",
+            "prefer_manual",
+            "prefer_smart_disputes",
+            "smart_disputes",
+        ]
+    ]
+    """
+    Intended submission method for the dispute.
+    """
     is_charge_refundable: bool
     """
     If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
@@ -517,6 +555,8 @@ class Dispute(
     """
     status: Union[
         Literal[
+            "appeal_needs_response",
+            "appeal_under_review",
             "lost",
             "needs_response",
             "prevented",
@@ -529,7 +569,7 @@ class Dispute(
         str,
     ]
     """
-    The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
+    The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `appeal_needs_response`, `appeal_under_review`, `won`, `lost`, or `prevented`.
     """
 
     @classmethod

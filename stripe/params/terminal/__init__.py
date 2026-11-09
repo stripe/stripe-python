@@ -10,9 +10,11 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsBbposWiseposE as ConfigurationCreateParamsBbposWiseposE,
         ConfigurationCreateParamsCellular as ConfigurationCreateParamsCellular,
         ConfigurationCreateParamsOffline as ConfigurationCreateParamsOffline,
+        ConfigurationCreateParamsReaderSecurity as ConfigurationCreateParamsReaderSecurity,
         ConfigurationCreateParamsRebootWindow as ConfigurationCreateParamsRebootWindow,
         ConfigurationCreateParamsStripeS700 as ConfigurationCreateParamsStripeS700,
         ConfigurationCreateParamsStripeS710 as ConfigurationCreateParamsStripeS710,
+        ConfigurationCreateParamsStripeT600 as ConfigurationCreateParamsStripeT600,
         ConfigurationCreateParamsTipping as ConfigurationCreateParamsTipping,
         ConfigurationCreateParamsTippingAed as ConfigurationCreateParamsTippingAed,
         ConfigurationCreateParamsTippingAud as ConfigurationCreateParamsTippingAud,
@@ -57,9 +59,11 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsBbposWiseposE as ConfigurationModifyParamsBbposWiseposE,
         ConfigurationModifyParamsCellular as ConfigurationModifyParamsCellular,
         ConfigurationModifyParamsOffline as ConfigurationModifyParamsOffline,
+        ConfigurationModifyParamsReaderSecurity as ConfigurationModifyParamsReaderSecurity,
         ConfigurationModifyParamsRebootWindow as ConfigurationModifyParamsRebootWindow,
         ConfigurationModifyParamsStripeS700 as ConfigurationModifyParamsStripeS700,
         ConfigurationModifyParamsStripeS710 as ConfigurationModifyParamsStripeS710,
+        ConfigurationModifyParamsStripeT600 as ConfigurationModifyParamsStripeT600,
         ConfigurationModifyParamsTipping as ConfigurationModifyParamsTipping,
         ConfigurationModifyParamsTippingAed as ConfigurationModifyParamsTippingAed,
         ConfigurationModifyParamsTippingAud as ConfigurationModifyParamsTippingAud,
@@ -101,9 +105,11 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsBbposWiseposE as ConfigurationUpdateParamsBbposWiseposE,
         ConfigurationUpdateParamsCellular as ConfigurationUpdateParamsCellular,
         ConfigurationUpdateParamsOffline as ConfigurationUpdateParamsOffline,
+        ConfigurationUpdateParamsReaderSecurity as ConfigurationUpdateParamsReaderSecurity,
         ConfigurationUpdateParamsRebootWindow as ConfigurationUpdateParamsRebootWindow,
         ConfigurationUpdateParamsStripeS700 as ConfigurationUpdateParamsStripeS700,
         ConfigurationUpdateParamsStripeS710 as ConfigurationUpdateParamsStripeS710,
+        ConfigurationUpdateParamsStripeT600 as ConfigurationUpdateParamsStripeT600,
         ConfigurationUpdateParamsTipping as ConfigurationUpdateParamsTipping,
         ConfigurationUpdateParamsTippingAed as ConfigurationUpdateParamsTippingAed,
         ConfigurationUpdateParamsTippingAud as ConfigurationUpdateParamsTippingAud,
@@ -262,6 +268,10 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
+    "ConfigurationCreateParamsReaderSecurity": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
     "ConfigurationCreateParamsRebootWindow": (
         "stripe.params.terminal._configuration_create_params",
         False,
@@ -271,6 +281,10 @@ _import_map = {
         False,
     ),
     "ConfigurationCreateParamsStripeS710": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsStripeT600": (
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
@@ -426,6 +440,10 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsReaderSecurity": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsRebootWindow": (
         "stripe.params.terminal._configuration_modify_params",
         False,
@@ -435,6 +453,10 @@ _import_map = {
         False,
     ),
     "ConfigurationModifyParamsStripeS710": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsStripeT600": (
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
@@ -586,6 +608,10 @@ _import_map = {
         "stripe.params.terminal._configuration_update_params",
         False,
     ),
+    "ConfigurationUpdateParamsReaderSecurity": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
     "ConfigurationUpdateParamsRebootWindow": (
         "stripe.params.terminal._configuration_update_params",
         False,
@@ -595,6 +621,10 @@ _import_map = {
         False,
     ),
     "ConfigurationUpdateParamsStripeS710": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsStripeT600": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),

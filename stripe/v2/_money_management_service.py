@@ -1,0 +1,144 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe._stripe_service import StripeService
+from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.v2.money_management._adjustment_service import (
+        AdjustmentService,
+    )
+    from stripe.v2.money_management._financial_account_service import (
+        FinancialAccountService,
+    )
+    from stripe.v2.money_management._financial_address_service import (
+        FinancialAddressService,
+    )
+    from stripe.v2.money_management._inbound_transfer_service import (
+        InboundTransferService,
+    )
+    from stripe.v2.money_management._outbound_payment_service import (
+        OutboundPaymentService,
+    )
+    from stripe.v2.money_management._outbound_setup_intent_service import (
+        OutboundSetupIntentService,
+    )
+    from stripe.v2.money_management._payout_intent_service import (
+        PayoutIntentService,
+    )
+    from stripe.v2.money_management._payout_method_service import (
+        PayoutMethodService,
+    )
+    from stripe.v2.money_management._payout_methods_bank_account_spec_service import (
+        PayoutMethodsBankAccountSpecService,
+    )
+    from stripe.v2.money_management._received_credit_service import (
+        ReceivedCreditService,
+    )
+    from stripe.v2.money_management._recipient_verification_service import (
+        RecipientVerificationService,
+    )
+    from stripe.v2.money_management._test_helpers_service import (
+        TestHelpersService,
+    )
+    from stripe.v2.money_management._transaction_entry_service import (
+        TransactionEntryService,
+    )
+    from stripe.v2.money_management._transaction_service import (
+        TransactionService,
+    )
+
+_subservices = {
+    "adjustments": [
+        "stripe.v2.money_management._adjustment_service",
+        "AdjustmentService",
+    ],
+    "financial_accounts": [
+        "stripe.v2.money_management._financial_account_service",
+        "FinancialAccountService",
+    ],
+    "financial_addresses": [
+        "stripe.v2.money_management._financial_address_service",
+        "FinancialAddressService",
+    ],
+    "inbound_transfers": [
+        "stripe.v2.money_management._inbound_transfer_service",
+        "InboundTransferService",
+    ],
+    "outbound_payments": [
+        "stripe.v2.money_management._outbound_payment_service",
+        "OutboundPaymentService",
+    ],
+    "outbound_setup_intents": [
+        "stripe.v2.money_management._outbound_setup_intent_service",
+        "OutboundSetupIntentService",
+    ],
+    "payout_intents": [
+        "stripe.v2.money_management._payout_intent_service",
+        "PayoutIntentService",
+    ],
+    "payout_methods": [
+        "stripe.v2.money_management._payout_method_service",
+        "PayoutMethodService",
+    ],
+    "payout_methods_bank_account_spec": [
+        "stripe.v2.money_management._payout_methods_bank_account_spec_service",
+        "PayoutMethodsBankAccountSpecService",
+    ],
+    "received_credits": [
+        "stripe.v2.money_management._received_credit_service",
+        "ReceivedCreditService",
+    ],
+    "recipient_verifications": [
+        "stripe.v2.money_management._recipient_verification_service",
+        "RecipientVerificationService",
+    ],
+    "test_helpers": [
+        "stripe.v2.money_management._test_helpers_service",
+        "TestHelpersService",
+    ],
+    "transactions": [
+        "stripe.v2.money_management._transaction_service",
+        "TransactionService",
+    ],
+    "transaction_entries": [
+        "stripe.v2.money_management._transaction_entry_service",
+        "TransactionEntryService",
+    ],
+}
+
+
+class MoneyManagementService(StripeService):
+    adjustments: "AdjustmentService"
+    financial_accounts: "FinancialAccountService"
+    financial_addresses: "FinancialAddressService"
+    inbound_transfers: "InboundTransferService"
+    outbound_payments: "OutboundPaymentService"
+    outbound_setup_intents: "OutboundSetupIntentService"
+    payout_intents: "PayoutIntentService"
+    payout_methods: "PayoutMethodService"
+    payout_methods_bank_account_spec: "PayoutMethodsBankAccountSpecService"
+    received_credits: "ReceivedCreditService"
+    recipient_verifications: "RecipientVerificationService"
+    test_helpers: "TestHelpersService"
+    transactions: "TransactionService"
+    transaction_entries: "TransactionEntryService"
+
+    def __init__(self, requestor):
+        super().__init__(requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()

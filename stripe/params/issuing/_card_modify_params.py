@@ -15,6 +15,10 @@ class CardModifyParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    financial_account: NotRequired[str]
+    """
+    The new financial account ID the card will be associated with. This field allows a card to be reassigned to a different financial account.
+    """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
     ]

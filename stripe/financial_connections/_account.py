@@ -244,7 +244,7 @@ class Account(ListableAPIResource["Account"]):
     """
     ownership: Optional[ExpandableField["AccountOwnership"]]
     """
-    The most recent information about the account's owners.
+    The ID of the [Financial Connections Account Ownership](https://docs.stripe.com/api/financial_connections/ownership) object associated with this account.
     """
     ownership_refresh: Optional[OwnershipRefresh]
     """

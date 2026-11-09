@@ -479,7 +479,9 @@ class Session(
                     "ao_tin",
                     "ar_cuit",
                     "au_abn",
+                    "au_acn",
                     "au_arn",
+                    "au_wpn",
                     "aw_tin",
                     "az_tin",
                     "ba_tin",
@@ -493,6 +495,7 @@ class Session(
                     "br_cnpj",
                     "br_cpf",
                     "bs_tin",
+                    "bw_vat",
                     "by_tin",
                     "ca_bn",
                     "ca_gst_hst",
@@ -503,12 +506,14 @@ class Session(
                     "cd_nif",
                     "ch_uid",
                     "ch_vat",
+                    "ci_vat",
                     "cl_tin",
                     "cm_niu",
                     "cn_tin",
                     "co_nit",
                     "cr_tin",
                     "cv_nif",
+                    "cz_dic",
                     "de_stn",
                     "do_rcn",
                     "ec_ruc",
@@ -518,8 +523,12 @@ class Session(
                     "eu_oss_vat",
                     "eu_vat",
                     "fo_vat",
+                    "fr_siren",
+                    "fr_siret",
+                    "fr_spi",
                     "gb_vat",
                     "ge_vat",
+                    "gh_tin",
                     "gi_tin",
                     "gn_nif",
                     "hk_br",
@@ -529,6 +538,7 @@ class Session(
                     "id_npwp",
                     "il_vat",
                     "in_gst",
+                    "is_kt",
                     "is_vat",
                     "it_cf",
                     "jp_cn",
@@ -544,23 +554,28 @@ class Session(
                     "li_vat",
                     "lk_vat",
                     "ma_vat",
+                    "md_cf",
                     "md_vat",
                     "me_pib",
                     "mk_vat",
                     "mr_nif",
+                    "mu_vat",
                     "mx_rfc",
                     "my_frp",
                     "my_itn",
                     "my_sst",
+                    "mz_nuit",
                     "ng_tin",
                     "no_vat",
                     "no_voec",
                     "np_pan",
+                    "nz_bn",
                     "nz_gst",
                     "om_vat",
                     "pe_ruc",
                     "ph_tin",
                     "pl_nip",
+                    "pt_nif",
                     "py_ruc",
                     "ro_tin",
                     "rs_pib",
@@ -570,12 +585,15 @@ class Session(
                     "sg_gst",
                     "sg_uen",
                     "si_tin",
+                    "sm_coe",
                     "sn_ninea",
                     "sr_fin",
                     "sv_nit",
                     "th_vat",
                     "tj_tin",
                     "tr_tin",
+                    "tt_bir",
+                    "tt_vat",
                     "tw_vat",
                     "tz_vat",
                     "ua_vat",
@@ -594,7 +612,7 @@ class Session(
                 str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, `gh_tin`, `bw_vat`, `ci_vat`, or `unknown`
             """
             value: Optional[str]
             """
@@ -2565,6 +2583,7 @@ class Session(
                 "fil",
                 "fr",
                 "fr-CA",
+                "hi-IN",
                 "hr",
                 "hu",
                 "id",
@@ -2635,7 +2654,7 @@ class Session(
         Union[Literal["always", "if_required"], str]
     ]
     """
-    Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
+    Configure whether a Checkout Session should collect a payment method. Can only be set in `subscription` mode. Defaults to `always`.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails

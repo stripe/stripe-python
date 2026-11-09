@@ -243,6 +243,7 @@ def _convert_to_stripe_object(
     elif isinstance(resp, dict):
         resp = resp.copy()
         klass_name = resp.get("object")
+        requestor_uses_response_context = False
         if isinstance(klass_name, str):
             if is_v2_deleted_object:
                 # circular import
@@ -254,6 +255,7 @@ def _convert_to_stripe_object(
 
                 event_type = resp.get("type", "")
                 klass = get_v2_event_class(event_type)
+                requestor_uses_response_context = True
             else:
                 from stripe._object_classes import get_object_class
 
@@ -278,6 +280,17 @@ def _convert_to_stripe_object(
             requestor=requestor,
             api_mode=api_mode,
         )
+
+        if requestor_uses_response_context:
+            # A directly-retrieved object carries the requestor of whatever
+            # account fetched it (e.g. a platform account), but its `context`
+            # field is the self-contained auth context for its own account.
+            # Rescope the requestor the same way EventNotification.__init__
+            # scopes its client so fetch_related_object() uses the correct
+            # headers.
+            obj._requestor = obj._requestor.with_stripe_context(
+                getattr(obj, "context", None)
+            )
 
         # We only need to update _retrieve_params when special params were
         # actually passed. Otherwise, leave it as is as the list / search result

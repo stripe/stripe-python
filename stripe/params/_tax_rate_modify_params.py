@@ -42,7 +42,7 @@ class TaxRateModifyParams(RequestOptions):
     [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
     """
     tax_type: NotRequired[
-        "Literal['amusement_tax', 'communications_tax', 'digital_excise_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'mass_transit_parking_tax', 'parking_tax', 'pst', 'qst', 'retail_delivery_fee', 'rst', 'sales_tax', 'service_tax', 'utility_users_tax', 'vat']|str"
+        "Literal['admissions_tax', 'amusement_tax', 'attendance_tax', 'communications_tax', 'digital_excise_tax', 'entertainment_tax', 'get_fund', 'gross_receipts_tax', 'gst', 'hospitality_tax', 'hst', 'igst', 'jct', 'lease_tax', 'luxury_tax', 'mass_transit_parking_tax', 'nhil', 'parking_tax', 'pst', 'qst', 'resort_tax', 'retail_delivery_fee', 'rst', 'sales_tax', 'service_tax', 'tourism_tax', 'utility_users_tax', 'vat']|str"
     ]
     """
     The high-level tax type, such as `vat` or `sales_tax`.

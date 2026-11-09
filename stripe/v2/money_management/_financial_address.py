@@ -1,0 +1,159 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe._stripe_object import StripeObject
+from typing import ClassVar, Optional, Union
+from typing_extensions import Literal
+
+
+class FinancialAddress(StripeObject):
+    """
+    A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+    """
+
+    OBJECT_NAME: ClassVar[Literal["v2.money_management.financial_address"]] = (
+        "v2.money_management.financial_address"
+    )
+
+    class BankAccount(StripeObject):
+        class Aba(StripeObject):
+            class Address(StripeObject):
+                city: str
+                """
+                City.
+                """
+                country: str
+                """
+                Country.
+                """
+                line1: str
+                """
+                Address line 1.
+                """
+                line2: str
+                """
+                Address line 2.
+                """
+                postal_code: str
+                """
+                Postal code.
+                """
+                state: str
+                """
+                State or province.
+                """
+                town: str
+                """
+                Town or suburb.
+                """
+
+            account_holder_name: Optional[str]
+            """
+            The name of the account holder.
+            """
+            account_number: str
+            """
+            The full account number. Empty while the bank account is pending allocation.
+            """
+            address: Optional[Address]
+            """
+            The address of the account holder.
+            """
+            bank_name: Optional[str]
+            """
+            The name of the bank.
+            """
+            routing_number: str
+            """
+            The ABA routing number.
+            """
+            _inner_class_types = {"address": Address}
+
+        class Iban(StripeObject):
+            account_holder_name: str
+            """
+            The name of the account holder.
+            """
+            bank_name: str
+            """
+            The name of the bank.
+            """
+            iban: str
+            """
+            The full IBAN. Empty while the bank account is pending allocation.
+            """
+
+        class SortCode(StripeObject):
+            account_holder_name: str
+            """
+            The name of the account holder.
+            """
+            account_number: str
+            """
+            The full account number. Empty while the bank account is pending allocation.
+            """
+            sort_code: str
+            """
+            The sort code.
+            """
+
+        aba: Optional[Aba]
+        """
+        ABA bank account details (US).
+        """
+        country: Optional[str]
+        """
+        The country of the bank account. Always included in the response, but null while the bank
+        account is pending and its country is not yet known.
+        """
+        currency: str
+        """
+        Open Enum. The currency of the bank account.
+        """
+        iban: Optional[Iban]
+        """
+        IBAN bank account details.
+        """
+        sort_code: Optional[SortCode]
+        """
+        Sort code bank account details (UK).
+        """
+        type: Union[Literal["aba", "iban", "sort_code"], str]
+        """
+        Open Enum. The type of bank account details.
+        """
+        _inner_class_types = {"aba": Aba, "iban": Iban, "sort_code": SortCode}
+
+    bank_account: Optional[BankAccount]
+    """
+    Bank account details for this FinancialAddress.
+    """
+    created: str
+    """
+    The creation timestamp of the FinancialAddress.
+    """
+    financial_account: str
+    """
+    The ID of the FinancialAccount this FinancialAddress corresponds to.
+    """
+    id: str
+    """
+    The ID of the FinancialAddress.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    object: Literal["v2.money_management.financial_address"]
+    """
+    String representing the object's type. Objects of the same type share the same value of the object field.
+    """
+    settlement_currency: str
+    status: Literal["active", "archived", "failed", "pending"]
+    """
+    Closed Enum. The status of the FinancialAddress.
+    """
+    type: Union[Literal["bank_account"], str]
+    """
+    Open Enum. The type of FinancialAddress.
+    """
+    _inner_class_types = {"bank_account": BankAccount}

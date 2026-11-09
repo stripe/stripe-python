@@ -40,6 +40,14 @@ if TYPE_CHECKING:
 
 @nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
+    """
+    When you collect a transaction fee on top of a charge made for your user
+    (using [Connect](https://docs.stripe.com/connect)), an `Application Fee` object is created in
+    your account. You can list, retrieve, and refund application fees.
+
+    Related guide: [Collecting application fees](https://docs.stripe.com/connect/direct-charges#collect-fees)
+    """
+
     OBJECT_NAME: ClassVar[Literal["application_fee"]] = "application_fee"
 
     class FeeSource(StripeObject):

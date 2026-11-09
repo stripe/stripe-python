@@ -138,7 +138,7 @@ class EventDestination(StripeObject):
     """
     snapshot_api_version: Optional[str]
     """
-    For snapshot events only, the Stripe API version used to render event objects. Thin events are not pinned to an API version.
+    For snapshot events only, the Stripe API version used to render event objects. You can't change this value after you create the event destination. Thin events are not pinned to an API version.
     """
     status: Literal["disabled", "enabled"]
     """

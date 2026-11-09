@@ -77,6 +77,12 @@ class ConfigurationCreateParamsFeatures(TypedDict):
     """
     Information about canceling subscriptions in the portal.
     """
+    subscription_pause: NotRequired[
+        "ConfigurationCreateParamsFeaturesSubscriptionPause"
+    ]
+    """
+    Information about pausing subscriptions in the portal.
+    """
     subscription_update: NotRequired[
         "ConfigurationCreateParamsFeaturesSubscriptionUpdate"
     ]
@@ -170,6 +176,45 @@ class ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason(
     ]
     """
     Which cancellation reasons will be given as options to the customer.
+    """
+
+
+class ConfigurationCreateParamsFeaturesSubscriptionPause(TypedDict):
+    duration: NotRequired[
+        "ConfigurationCreateParamsFeaturesSubscriptionPauseDuration"
+    ]
+    """
+    Controls how long a subscription can be paused. Defaults to `interval_options` with a single one-month option.
+    """
+    enabled: NotRequired[bool]
+    """
+    Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](https://docs.stripe.com/customer-management).
+    """
+
+
+class ConfigurationCreateParamsFeaturesSubscriptionPauseDuration(TypedDict):
+    interval_options: NotRequired[
+        "Literal['']|List[ConfigurationCreateParamsFeaturesSubscriptionPauseDurationIntervalOption]"
+    ]
+    """
+    The preset pause durations customers can choose from. Required when `type` is `interval_options`.
+    """
+    type: Union[Literal["indefinite", "interval_options"], str]
+    """
+    Whether subscriptions can be paused indefinitely or for a preset duration.
+    """
+
+
+class ConfigurationCreateParamsFeaturesSubscriptionPauseDurationIntervalOption(
+    TypedDict,
+):
+    interval: Union[Literal["day", "month", "week", "year"], str]
+    """
+    Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals in the pause duration. Defaults to 1. The maximum duration is three years.
     """
 
 

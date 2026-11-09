@@ -34,6 +34,12 @@ class ConfigurationModifyParams(RequestOptions):
     """
     Configurations for collecting transactions offline.
     """
+    reader_security: NotRequired[
+        "Literal['']|ConfigurationModifyParamsReaderSecurity"
+    ]
+    """
+    Configurations for reader security settings.
+    """
     reboot_window: NotRequired[
         "Literal['']|ConfigurationModifyParamsRebootWindow"
     ]
@@ -47,6 +53,10 @@ class ConfigurationModifyParams(RequestOptions):
     stripe_s710: NotRequired["Literal['']|ConfigurationModifyParamsStripeS710"]
     """
     An object containing device type specific settings for Stripe S710 readers.
+    """
+    stripe_t600: NotRequired["Literal['']|ConfigurationModifyParamsStripeT600"]
+    """
+    An object containing device type specific settings for Stripe T600 readers.
     """
     tipping: NotRequired["Literal['']|ConfigurationModifyParamsTipping"]
     """
@@ -116,6 +126,13 @@ class ConfigurationModifyParamsOffline(TypedDict):
     """
 
 
+class ConfigurationModifyParamsReaderSecurity(TypedDict):
+    admin_menu_passcode: NotRequired["Literal['']|str"]
+    """
+    Passcode used to access a reader's admin menu.
+    """
+
+
 class ConfigurationModifyParamsRebootWindow(TypedDict):
     end_hour: int
     """
@@ -135,6 +152,13 @@ class ConfigurationModifyParamsStripeS700(TypedDict):
 
 
 class ConfigurationModifyParamsStripeS710(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationModifyParamsStripeT600(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image you want to display on the reader.

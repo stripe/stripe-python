@@ -1149,6 +1149,23 @@ class TestPycurlClient(ClientTestBase):
 
         return _check_call
 
+    def test_request_rejects_header_injection(
+        self, mocked_request_lib, make_request: MakeReqFunc, mock_response
+    ):
+        mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
+
+        hostile_headers = [
+            {"Stripe-Context": "acct_123\r\nX-Injected: 1"},
+            {"Stripe-Request-Trigger": "event=evt_1\nX-Injected: 1"},
+            {"Authorization": "Bearer sk_test_123\r\n"},
+            {"Authorization": "Bearer sk_test_123\0"},
+            {"X-Injected\r\nEvil": "value"},
+        ]
+
+        for headers in hostile_headers:
+            with pytest.raises(ValueError):
+                make_request("get", self.valid_url, headers, None)
+
 
 class TestPycurlClientHttpProxy(TestPycurlClient):
     PROXY = "http://user:withPwd@slap:8888/"

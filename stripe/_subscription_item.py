@@ -54,8 +54,17 @@ class SubscriptionItem(
 
     class CurrentTrial(StripeObject):
         end_date: int
+        """
+        The time the current trial ends.
+        """
         start_date: int
+        """
+        The time the current trial started.
+        """
         trial_offer: str
+        """
+        The Trial Offer ID applied to the subscription item.
+        """
 
     billed_until: Optional[int]
     """
