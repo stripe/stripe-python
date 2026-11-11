@@ -61,6 +61,7 @@ from stripe._http_client import (
 
 from stripe._base_address import BaseAddress
 from stripe._api_mode import ApiMode
+from stripe._stripe_object import API_KEY_SERIALIZATION_CONSTANT
 
 if TYPE_CHECKING:
     from stripe._app_info import AppInfo
@@ -166,6 +167,12 @@ class _APIRequestor(object):
         """
         Returns a new _APIRequestor instance with the same HTTP client but a (potentially) updated set of options. Useful for ensuring the original isn't modified, but any options the original had are still used.
         """
+        if self.api_key == API_KEY_SERIALIZATION_CONSTANT:
+            raise error.AuthenticationError(
+                "This object was unpickled without API credentials. "
+                "Call reattach_api_key(api_key) on the object before making requests."
+            )
+
         options = options or {}
         new_options = self._options.to_dict()
         for key in PERSISTENT_OPTIONS_KEYS:
@@ -692,6 +699,12 @@ class _APIRequestor(object):
         """
         Mechanism for issuing an API call.  Used by request_raw and request_raw_async.
         """
+        if self.api_key == API_KEY_SERIALIZATION_CONSTANT:
+            raise error.AuthenticationError(
+                "This object was unpickled without API credentials. "
+                "Call reattach_api_key(api_key) on the object before making requests."
+            )
+
         request_options = merge_options(self._options, options)
 
         # Special stripe_version handling for v2 requests:
