@@ -175,6 +175,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._reward_program_service import (
         RewardProgramService as RewardProgramService,
     )
+    from stripe.v2.money_management._spending_mandate import (
+        SpendingMandate as SpendingMandate,
+    )
+    from stripe.v2.money_management._spending_mandate_service import (
+        SpendingMandateService as SpendingMandateService,
+    )
     from stripe.v2.money_management._test_helper_service import (
         TestHelperService as TestHelperService,
     )
@@ -382,6 +388,11 @@ _import_map = {
     ),
     "RewardProgramService": (
         "stripe.v2.money_management._reward_program_service",
+        False,
+    ),
+    "SpendingMandate": ("stripe.v2.money_management._spending_mandate", False),
+    "SpendingMandateService": (
+        "stripe.v2.money_management._spending_mandate_service",
         False,
     ),
     "TestHelperService": (

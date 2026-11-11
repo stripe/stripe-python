@@ -263,11 +263,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class Checks(StripeObject):
                 address_line1_check: Optional[str]
                 """
-                If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 address_postal_code_check: Optional[str]
                 """
-                If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[str]
                 """
@@ -344,6 +344,25 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                             """
 
                         class Receipt(StripeObject):
+                            class CardholderMessage(StripeObject):
+                                destinations: List[
+                                    Union[
+                                        Literal[
+                                            "cardholder_receipt",
+                                            "merchant_receipt",
+                                            "point_of_sale",
+                                        ],
+                                        str,
+                                    ]
+                                ]
+                                """
+                                Where the message must be printed or displayed. An empty list means the message must not be shown.
+                                """
+                                value: str
+                                """
+                                The message from the card issuer, such as the remaining balance.
+                                """
+
                             account_type: Optional[
                                 Union[
                                     Literal[
@@ -374,6 +393,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                             """
                             EMV tag 8A. A code returned by the card issuer.
                             """
+                            cardholder_message: Optional[CardholderMessage]
+                            """
+                            A message from the card issuer to show to the cardholder, and where it must be shown.
+                            """
                             cardholder_verification_method: Optional[str]
                             """
                             Describes the method used by the cardholder to verify ownership of the card. One of the following: `approval`, `failure`, `none`, `offline_pin`, `offline_pin_and_signature`, `online_pin`, or `signature`.
@@ -390,6 +413,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                             """
                             An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
                             """
+                            _inner_class_types = {
+                                "cardholder_message": CardholderMessage,
+                            }
 
                         class Wallet(StripeObject):
                             type: Union[

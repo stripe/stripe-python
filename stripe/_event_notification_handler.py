@@ -1578,6 +1578,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_reward_program_reward_reversed_event import (
         V2MoneyManagementRewardProgramRewardReversedEventNotification,
     )
+    from stripe.events._v2_money_management_spending_mandate_canceled_event import (
+        V2MoneyManagementSpendingMandateCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_created_event import (
+        V2MoneyManagementSpendingMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_expired_event import (
+        V2MoneyManagementSpendingMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_pending_cancellation_event import (
+        V2MoneyManagementSpendingMandatePendingCancellationEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_updated_event import (
+        V2MoneyManagementSpendingMandateUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_transaction_created_event import (
         V2MoneyManagementTransactionCreatedEventNotification,
     )
@@ -8487,6 +8502,71 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.money_management.reward_program.reward_reversed",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_spending_mandate_canceled(
+        self,
+        func: "Callable[[V2MoneyManagementSpendingMandateCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementSpendingMandateCanceledEvent` (`v2.money_management.spending_mandate.canceled`) event notification.
+        """
+        self._register(
+            "v2.money_management.spending_mandate.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_spending_mandate_created(
+        self,
+        func: "Callable[[V2MoneyManagementSpendingMandateCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementSpendingMandateCreatedEvent` (`v2.money_management.spending_mandate.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.spending_mandate.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_spending_mandate_expired(
+        self,
+        func: "Callable[[V2MoneyManagementSpendingMandateExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementSpendingMandateExpiredEvent` (`v2.money_management.spending_mandate.expired`) event notification.
+        """
+        self._register(
+            "v2.money_management.spending_mandate.expired",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_spending_mandate_pending_cancellation(
+        self,
+        func: "Callable[[V2MoneyManagementSpendingMandatePendingCancellationEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementSpendingMandatePendingCancellationEvent` (`v2.money_management.spending_mandate.pending_cancellation`) event notification.
+        """
+        self._register(
+            "v2.money_management.spending_mandate.pending_cancellation",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_spending_mandate_updated(
+        self,
+        func: "Callable[[V2MoneyManagementSpendingMandateUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementSpendingMandateUpdatedEvent` (`v2.money_management.spending_mandate.updated`) event notification.
+        """
+        self._register(
+            "v2.money_management.spending_mandate.updated",
             func,
         )
         return func

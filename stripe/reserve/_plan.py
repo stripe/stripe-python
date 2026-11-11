@@ -98,7 +98,7 @@ class Plan(ListableAPIResource["Plan"]):
     @classmethod
     def list(cls, **params: Unpack["PlanListParams"]) -> ListObject["Plan"]:
         """
-        Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+        Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
         """
         result = cls._static_request(
             "get",
@@ -118,7 +118,7 @@ class Plan(ListableAPIResource["Plan"]):
         cls, **params: Unpack["PlanListParams"]
     ) -> ListObject["Plan"]:
         """
-        Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+        Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
         """
         result = await cls._static_request_async(
             "get",
@@ -138,7 +138,7 @@ class Plan(ListableAPIResource["Plan"]):
         cls, id: str, **params: Unpack["PlanRetrieveParams"]
     ) -> "Plan":
         """
-        Retrieve a ReservePlan.
+        Retrieve a ReservePlan on your account or on one of your connected accounts.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -149,7 +149,7 @@ class Plan(ListableAPIResource["Plan"]):
         cls, id: str, **params: Unpack["PlanRetrieveParams"]
     ) -> "Plan":
         """
-        Retrieve a ReservePlan.
+        Retrieve a ReservePlan on your account or on one of your connected accounts.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

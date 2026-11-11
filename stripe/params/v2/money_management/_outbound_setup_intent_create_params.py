@@ -56,6 +56,12 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
     """
     The type specific details of the card payout method.
     """
+    check_send: NotRequired[
+        "OutboundSetupIntentCreateParamsPayoutMethodDataCheckSend"
+    ]
+    """
+    The type specific details of the check send payout method.
+    """
     crypto_wallet: NotRequired[
         "OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet"
     ]
@@ -71,6 +77,7 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
             "apple_pay",
             "bank_account",
             "card",
+            "check_send",
             "crypto_wallet",
             "network_business_profile_wallet",
             "pix",
@@ -142,6 +149,46 @@ class OutboundSetupIntentCreateParamsPayoutMethodDataCard(TypedDict):
     number: str
     """
     The card number.
+    """
+
+
+class OutboundSetupIntentCreateParamsPayoutMethodDataCheckSend(TypedDict):
+    mailing_address: "OutboundSetupIntentCreateParamsPayoutMethodDataCheckSendMailingAddress"
+    """
+    The US mailing address the check is sent to.
+    """
+    payee_name: str
+    """
+    The name printed on the check's payee line.
+    """
+
+
+class OutboundSetupIntentCreateParamsPayoutMethodDataCheckSendMailingAddress(
+    TypedDict,
+):
+    city: str
+    """
+    City.
+    """
+    country: str
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: str
+    """
+    Address line 1 (e.g., street, PO Box, or company name).
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2 (e.g., apartment, suite, unit, or building).
+    """
+    postal_code: str
+    """
+    ZIP or postal code.
+    """
+    state: str
+    """
+    State.
     """
 
 

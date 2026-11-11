@@ -15,6 +15,12 @@ class IssuedTokenCreateParams(RequestOptions):
     """
     The PaymentMethod that is going to be shared by the SharedPaymentIssuedToken.
     """
+    referral_fee_details: NotRequired[
+        "IssuedTokenCreateParamsReferralFeeDetails"
+    ]
+    """
+    Referral fee details for this SharedPaymentToken.
+    """
     return_url: NotRequired[str]
     """
     If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
@@ -38,6 +44,21 @@ class IssuedTokenCreateParams(RequestOptions):
     use_stripe_sdk: NotRequired[bool]
     """
     Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+    """
+
+
+class IssuedTokenCreateParamsReferralFeeDetails(TypedDict):
+    customer: NotRequired[str]
+    """
+    The Customer to be invoiced for fees assessed.
+    """
+    customer_account: NotRequired[str]
+    """
+    The account with a Customer configuration to be invoiced for fees assessed.
+    """
+    referral_fee_percent: float
+    """
+    The percentage of the payment to charge as a referral fee, from 0 through 50 with at most two decimal places.
     """
 
 

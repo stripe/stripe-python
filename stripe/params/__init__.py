@@ -1343,6 +1343,8 @@ if TYPE_CHECKING:
         CustomerModifyParamsInvoiceSettings as CustomerModifyParamsInvoiceSettings,
         CustomerModifyParamsInvoiceSettingsCustomField as CustomerModifyParamsInvoiceSettingsCustomField,
         CustomerModifyParamsInvoiceSettingsRenderingOptions as CustomerModifyParamsInvoiceSettingsRenderingOptions,
+        CustomerModifyParamsMarketingAttribution as CustomerModifyParamsMarketingAttribution,
+        CustomerModifyParamsMarketingAttributionAdConversion as CustomerModifyParamsMarketingAttributionAdConversion,
         CustomerModifyParamsShipping as CustomerModifyParamsShipping,
         CustomerModifyParamsShippingAddress as CustomerModifyParamsShippingAddress,
         CustomerModifyParamsTax as CustomerModifyParamsTax,
@@ -1458,6 +1460,8 @@ if TYPE_CHECKING:
         CustomerUpdateParamsInvoiceSettings as CustomerUpdateParamsInvoiceSettings,
         CustomerUpdateParamsInvoiceSettingsCustomField as CustomerUpdateParamsInvoiceSettingsCustomField,
         CustomerUpdateParamsInvoiceSettingsRenderingOptions as CustomerUpdateParamsInvoiceSettingsRenderingOptions,
+        CustomerUpdateParamsMarketingAttribution as CustomerUpdateParamsMarketingAttribution,
+        CustomerUpdateParamsMarketingAttributionAdConversion as CustomerUpdateParamsMarketingAttributionAdConversion,
         CustomerUpdateParamsShipping as CustomerUpdateParamsShipping,
         CustomerUpdateParamsShippingAddress as CustomerUpdateParamsShippingAddress,
         CustomerUpdateParamsTax as CustomerUpdateParamsTax,
@@ -2367,6 +2371,7 @@ if TYPE_CHECKING:
         PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetails as PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetails,
         PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCard as PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCard,
         PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardChecks as PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardChecks,
+        PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardThreeDSecure as PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardThreeDSecure,
         PaymentAttemptRecordReportAuthorizedParamsProcessorDetails as PaymentAttemptRecordReportAuthorizedParamsProcessorDetails,
         PaymentAttemptRecordReportAuthorizedParamsProcessorDetailsCustom as PaymentAttemptRecordReportAuthorizedParamsProcessorDetailsCustom,
     )
@@ -2390,6 +2395,7 @@ if TYPE_CHECKING:
         PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetails as PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetails,
         PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCard as PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCard,
         PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCardChecks as PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCardChecks,
+        PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCardThreeDSecure as PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCardThreeDSecure,
         PaymentAttemptRecordReportGuaranteedParamsProcessorDetails as PaymentAttemptRecordReportGuaranteedParamsProcessorDetails,
         PaymentAttemptRecordReportGuaranteedParamsProcessorDetailsCustom as PaymentAttemptRecordReportGuaranteedParamsProcessorDetailsCustom,
     )
@@ -4343,6 +4349,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsSunbitDisplayPreference as PaymentMethodConfigurationCreateParamsSunbitDisplayPreference,
         PaymentMethodConfigurationCreateParamsSwish as PaymentMethodConfigurationCreateParamsSwish,
         PaymentMethodConfigurationCreateParamsSwishDisplayPreference as PaymentMethodConfigurationCreateParamsSwishDisplayPreference,
+        PaymentMethodConfigurationCreateParamsTossPay as PaymentMethodConfigurationCreateParamsTossPay,
+        PaymentMethodConfigurationCreateParamsTossPayDisplayPreference as PaymentMethodConfigurationCreateParamsTossPayDisplayPreference,
         PaymentMethodConfigurationCreateParamsTwint as PaymentMethodConfigurationCreateParamsTwint,
         PaymentMethodConfigurationCreateParamsTwintDisplayPreference as PaymentMethodConfigurationCreateParamsTwintDisplayPreference,
         PaymentMethodConfigurationCreateParamsUpi as PaymentMethodConfigurationCreateParamsUpi,
@@ -4485,6 +4493,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsSunbitDisplayPreference as PaymentMethodConfigurationModifyParamsSunbitDisplayPreference,
         PaymentMethodConfigurationModifyParamsSwish as PaymentMethodConfigurationModifyParamsSwish,
         PaymentMethodConfigurationModifyParamsSwishDisplayPreference as PaymentMethodConfigurationModifyParamsSwishDisplayPreference,
+        PaymentMethodConfigurationModifyParamsTossPay as PaymentMethodConfigurationModifyParamsTossPay,
+        PaymentMethodConfigurationModifyParamsTossPayDisplayPreference as PaymentMethodConfigurationModifyParamsTossPayDisplayPreference,
         PaymentMethodConfigurationModifyParamsTwint as PaymentMethodConfigurationModifyParamsTwint,
         PaymentMethodConfigurationModifyParamsTwintDisplayPreference as PaymentMethodConfigurationModifyParamsTwintDisplayPreference,
         PaymentMethodConfigurationModifyParamsUpi as PaymentMethodConfigurationModifyParamsUpi,
@@ -4627,6 +4637,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsSunbitDisplayPreference as PaymentMethodConfigurationUpdateParamsSunbitDisplayPreference,
         PaymentMethodConfigurationUpdateParamsSwish as PaymentMethodConfigurationUpdateParamsSwish,
         PaymentMethodConfigurationUpdateParamsSwishDisplayPreference as PaymentMethodConfigurationUpdateParamsSwishDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsTossPay as PaymentMethodConfigurationUpdateParamsTossPay,
+        PaymentMethodConfigurationUpdateParamsTossPayDisplayPreference as PaymentMethodConfigurationUpdateParamsTossPayDisplayPreference,
         PaymentMethodConfigurationUpdateParamsTwint as PaymentMethodConfigurationUpdateParamsTwint,
         PaymentMethodConfigurationUpdateParamsTwintDisplayPreference as PaymentMethodConfigurationUpdateParamsTwintDisplayPreference,
         PaymentMethodConfigurationUpdateParamsUpi as PaymentMethodConfigurationUpdateParamsUpi,
@@ -4836,6 +4848,7 @@ if TYPE_CHECKING:
         PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetails as PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetails,
         PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCard as PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCard,
         PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCardChecks as PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCardChecks,
+        PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCardThreeDSecure as PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCardThreeDSecure,
         PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails as PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails,
         PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetailsCustom as PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetailsCustom,
     )
@@ -4859,6 +4872,7 @@ if TYPE_CHECKING:
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsBillingDetailsAddress as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsBillingDetailsAddress,
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCard as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCard,
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCardChecks as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCardChecks,
+        PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCardThreeDSecure as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCardThreeDSecure,
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCustom as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCustom,
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsUsBankAccount as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsUsBankAccount,
         PaymentRecordReportPaymentAttemptParamsShippingDetails as PaymentRecordReportPaymentAttemptParamsShippingDetails,
@@ -4880,6 +4894,7 @@ if TYPE_CHECKING:
         PaymentRecordReportPaymentParamsPaymentMethodDetailsBillingDetailsAddress as PaymentRecordReportPaymentParamsPaymentMethodDetailsBillingDetailsAddress,
         PaymentRecordReportPaymentParamsPaymentMethodDetailsCard as PaymentRecordReportPaymentParamsPaymentMethodDetailsCard,
         PaymentRecordReportPaymentParamsPaymentMethodDetailsCardChecks as PaymentRecordReportPaymentParamsPaymentMethodDetailsCardChecks,
+        PaymentRecordReportPaymentParamsPaymentMethodDetailsCardThreeDSecure as PaymentRecordReportPaymentParamsPaymentMethodDetailsCardThreeDSecure,
         PaymentRecordReportPaymentParamsPaymentMethodDetailsCustom as PaymentRecordReportPaymentParamsPaymentMethodDetailsCustom,
         PaymentRecordReportPaymentParamsPaymentMethodDetailsUsBankAccount as PaymentRecordReportPaymentParamsPaymentMethodDetailsUsBankAccount,
         PaymentRecordReportPaymentParamsProcessorDetails as PaymentRecordReportPaymentParamsProcessorDetails,
@@ -5539,6 +5554,7 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsAmazonPay as SetupIntentConfirmParamsPaymentMethodOptionsAmazonPay,
         SetupIntentConfirmParamsPaymentMethodOptionsBacsDebit as SetupIntentConfirmParamsPaymentMethodOptionsBacsDebit,
+        SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitFinancialConnections as SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsBizum as SetupIntentConfirmParamsPaymentMethodOptionsBizum,
         SetupIntentConfirmParamsPaymentMethodOptionsBlik as SetupIntentConfirmParamsPaymentMethodOptionsBlik,
@@ -5670,6 +5686,7 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodOptionsAcssDebitMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsAcssDebitMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsAmazonPay as SetupIntentCreateParamsPaymentMethodOptionsAmazonPay,
         SetupIntentCreateParamsPaymentMethodOptionsBacsDebit as SetupIntentCreateParamsPaymentMethodOptionsBacsDebit,
+        SetupIntentCreateParamsPaymentMethodOptionsBacsDebitFinancialConnections as SetupIntentCreateParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         SetupIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsBizum as SetupIntentCreateParamsPaymentMethodOptionsBizum,
         SetupIntentCreateParamsPaymentMethodOptionsBlik as SetupIntentCreateParamsPaymentMethodOptionsBlik,
@@ -5801,6 +5818,7 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodOptionsAcssDebitMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsAcssDebitMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsAmazonPay as SetupIntentModifyParamsPaymentMethodOptionsAmazonPay,
         SetupIntentModifyParamsPaymentMethodOptionsBacsDebit as SetupIntentModifyParamsPaymentMethodOptionsBacsDebit,
+        SetupIntentModifyParamsPaymentMethodOptionsBacsDebitFinancialConnections as SetupIntentModifyParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         SetupIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsBizum as SetupIntentModifyParamsPaymentMethodOptionsBizum,
         SetupIntentModifyParamsPaymentMethodOptionsBlik as SetupIntentModifyParamsPaymentMethodOptionsBlik,
@@ -5929,6 +5947,7 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodOptionsAcssDebitMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsAcssDebitMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsAmazonPay as SetupIntentUpdateParamsPaymentMethodOptionsAmazonPay,
         SetupIntentUpdateParamsPaymentMethodOptionsBacsDebit as SetupIntentUpdateParamsPaymentMethodOptionsBacsDebit,
+        SetupIntentUpdateParamsPaymentMethodOptionsBacsDebitFinancialConnections as SetupIntentUpdateParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         SetupIntentUpdateParamsPaymentMethodOptionsBacsDebitMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsBacsDebitMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsBizum as SetupIntentUpdateParamsPaymentMethodOptionsBizum,
         SetupIntentUpdateParamsPaymentMethodOptionsBlik as SetupIntentUpdateParamsPaymentMethodOptionsBlik,
@@ -10949,6 +10968,14 @@ _import_map = {
         "stripe.params._customer_modify_params",
         False,
     ),
+    "CustomerModifyParamsMarketingAttribution": (
+        "stripe.params._customer_modify_params",
+        False,
+    ),
+    "CustomerModifyParamsMarketingAttributionAdConversion": (
+        "stripe.params._customer_modify_params",
+        False,
+    ),
     "CustomerModifyParamsShipping": (
         "stripe.params._customer_modify_params",
         False,
@@ -11176,6 +11203,14 @@ _import_map = {
         False,
     ),
     "CustomerUpdateParamsInvoiceSettingsRenderingOptions": (
+        "stripe.params._customer_update_params",
+        False,
+    ),
+    "CustomerUpdateParamsMarketingAttribution": (
+        "stripe.params._customer_update_params",
+        False,
+    ),
+    "CustomerUpdateParamsMarketingAttributionAdConversion": (
         "stripe.params._customer_update_params",
         False,
     ),
@@ -13984,6 +14019,10 @@ _import_map = {
         "stripe.params._payment_attempt_record_report_authorized_params",
         False,
     ),
+    "PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardThreeDSecure": (
+        "stripe.params._payment_attempt_record_report_authorized_params",
+        False,
+    ),
     "PaymentAttemptRecordReportAuthorizedParamsProcessorDetails": (
         "stripe.params._payment_attempt_record_report_authorized_params",
         False,
@@ -14041,6 +14080,10 @@ _import_map = {
         False,
     ),
     "PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCardChecks": (
+        "stripe.params._payment_attempt_record_report_guaranteed_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCardThreeDSecure": (
         "stripe.params._payment_attempt_record_report_guaranteed_params",
         False,
     ),
@@ -21520,6 +21563,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
+    "PaymentMethodConfigurationCreateParamsTossPay": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsTossPayDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
     "PaymentMethodConfigurationCreateParamsTwint": (
         "stripe.params._payment_method_configuration_create_params",
         False,
@@ -22072,6 +22123,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
+    "PaymentMethodConfigurationModifyParamsTossPay": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsTossPayDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
     "PaymentMethodConfigurationModifyParamsTwint": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
@@ -22621,6 +22680,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationUpdateParamsSwishDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsTossPay": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsTossPayDisplayPreference": (
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
@@ -23284,6 +23351,10 @@ _import_map = {
         "stripe.params._payment_record_report_payment_attempt_guaranteed_params",
         False,
     ),
+    "PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCardThreeDSecure": (
+        "stripe.params._payment_record_report_payment_attempt_guaranteed_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails": (
         "stripe.params._payment_record_report_payment_attempt_guaranteed_params",
         False,
@@ -23360,6 +23431,10 @@ _import_map = {
         "stripe.params._payment_record_report_payment_attempt_params",
         False,
     ),
+    "PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCardThreeDSecure": (
+        "stripe.params._payment_record_report_payment_attempt_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCustom": (
         "stripe.params._payment_record_report_payment_attempt_params",
         False,
@@ -23433,6 +23508,10 @@ _import_map = {
         False,
     ),
     "PaymentRecordReportPaymentParamsPaymentMethodDetailsCardChecks": (
+        "stripe.params._payment_record_report_payment_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentParamsPaymentMethodDetailsCardThreeDSecure": (
         "stripe.params._payment_record_report_payment_params",
         False,
     ),
@@ -25244,6 +25323,10 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitFinancialConnections": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -25760,6 +25843,10 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodOptionsBacsDebitFinancialConnections": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -26268,6 +26355,10 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodOptionsBacsDebitFinancialConnections": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -26761,6 +26852,10 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodOptionsBacsDebit": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsBacsDebitFinancialConnections": (
         "stripe.params._setup_intent_update_params",
         False,
     ),

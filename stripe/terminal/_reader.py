@@ -1011,6 +1011,12 @@ class Reader(
             "set_reader_display": SetReaderDisplay,
         }
 
+    class DeviceHealthDetail(StripeObject):
+        type: Union[Literal["unrecoverable_tamper"], str]
+        """
+        The type of condition affecting the reader's device health.
+        """
+
     action: Optional[Action]
     """
     The most recent action performed by the reader.
@@ -1018,6 +1024,14 @@ class Reader(
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
+    """
+    device_health: Optional[Union[Literal["healthy", "unhealthy"], str]]
+    """
+    The overall device health of the reader: `healthy` or `unhealthy`. Renamed to `no_issues_detected` and `needs_attention` respectively; see `device_health_details` for the specific conditions.
+    """
+    device_health_details: Optional[List[DeviceHealthDetail]]
+    """
+    The set of conditions affecting the reader's device health. Empty when there are no conditions.
     """
     device_sw_version: Optional[str]
     """
@@ -3024,7 +3038,10 @@ class Reader(
     def test_helpers(self):
         return self.TestHelpers(self)
 
-    _inner_class_types = {"action": Action}
+    _inner_class_types = {
+        "action": Action,
+        "device_health_details": DeviceHealthDetail,
+    }
 
 
 Reader.TestHelpers._resource_cls = Reader

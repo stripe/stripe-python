@@ -377,6 +377,16 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
                 """
                 Creditor identifier used for the intended debit.
                 """
+                customer_presence: Optional[
+                    Union[Literal["off_session", "on_session"], str]
+                ]
+                """
+                Describes the presence of the customer during the payment.
+                """
+                payment_type: Optional[Literal["one_off", "recurring"]]
+                """
+                Describes whether this payment is one-off or recurring.
+                """
 
             class UsBankAccount(StripeObject):
                 customer_presence: Optional[

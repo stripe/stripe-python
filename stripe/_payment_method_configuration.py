@@ -1370,6 +1370,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class TossPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Twint(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1594,6 +1616,7 @@ class PaymentMethodConfiguration(
     sofort: Optional[Sofort]
     sunbit: Optional[Sunbit]
     swish: Optional[Swish]
+    toss_pay: Optional[TossPay]
     twint: Optional[Twint]
     upi: Optional[Upi]
     us_bank_account: Optional[UsBankAccount]
@@ -1800,6 +1823,7 @@ class PaymentMethodConfiguration(
         "sofort": Sofort,
         "sunbit": Sunbit,
         "swish": Swish,
+        "toss_pay": TossPay,
         "twint": Twint,
         "upi": Upi,
         "us_bank_account": UsBankAccount,

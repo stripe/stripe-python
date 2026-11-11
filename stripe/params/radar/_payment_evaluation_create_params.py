@@ -178,6 +178,14 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsSepaDebit(
     """
     Supply the SEPA Creditor Identifier configured for the intended debit with your selected processor. Obtain it from your processor's SEPA configuration API or onboarding/support information. Do not supply a statement descriptor, IBAN, processor merchant-account ID, or mandate reference. If the creditor identifier is unknown, omit it.
     """
+    customer_presence: NotRequired["Literal['off_session', 'on_session']|str"]
+    """
+    Describes the presence of the customer during the payment.
+    """
+    payment_type: NotRequired[Literal["one_off", "recurring"]]
+    """
+    Describes whether this payment is one-off or recurring.
+    """
 
 
 class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsUsBankAccount(

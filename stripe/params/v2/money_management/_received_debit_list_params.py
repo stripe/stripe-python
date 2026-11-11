@@ -10,5 +10,9 @@ class ReceivedDebitListParams(TypedDict):
     """
     received_debit_mandate: NotRequired[str]
     """
-    Filter by the received debit mandate ID.
+    Filter by the received debit mandate ID. Deprecated: use `spending_mandate` instead.
+    """
+    spending_mandate: NotRequired[str]
+    """
+    Filter by the SpendingMandate ID.
     """

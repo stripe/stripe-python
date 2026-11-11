@@ -189,6 +189,9 @@ class PayoutIntent(StripeObject):
             failure_reason: Union[
                 Literal[
                     "account_not_configured_as_recipient",
+                    "check_attachment_too_large",
+                    "check_expired",
+                    "check_undeliverable",
                     "currency_not_supported_for_financial_account_balance",
                     "feature_not_active_for_recipient",
                     "fx_rate_drift_exceeded_after_review",
@@ -367,11 +370,38 @@ class PayoutIntent(StripeObject):
                     "preferred_network_options": PreferredNetworkOptions,
                 }
 
+            class CheckSend(StripeObject):
+                attachment_file: Optional[str]
+                """
+                The ID of a file to include as an attachment with the check.
+                """
+                memo: Optional[str]
+                """
+                Memo printed on the memo field of the check.
+                """
+                shipping_speed: Optional[
+                    Union[Literal["priority", "standard"], str]
+                ]
+                """
+                Open Enum. Shipping speed of the check. Defaults to standard.
+                """
+                signature: str
+                """
+                Signature printed on the check.
+                """
+
             bank_account: Optional[BankAccount]
             """
             Options for bank account payout methods.
             """
-            _inner_class_types = {"bank_account": BankAccount}
+            check_send: Optional[CheckSend]
+            """
+            Options for check send payout methods.
+            """
+            _inner_class_types = {
+                "bank_account": BankAccount,
+                "check_send": CheckSend,
+            }
 
         credited: Optional[Amount]
         """

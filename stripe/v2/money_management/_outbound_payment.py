@@ -73,6 +73,9 @@ class OutboundPayment(StripeObject):
         class Failed(StripeObject):
             reason: Union[
                 Literal[
+                    "check_attachment_too_large",
+                    "check_expired",
+                    "check_undeliverable",
                     "fx_rate_drift_exceeded_after_review",
                     "paper_check_attachment_too_large",
                     "paper_check_expired",
@@ -218,11 +221,38 @@ class OutboundPayment(StripeObject):
                     "preferred_network_options": PreferredNetworkOptions,
                 }
 
+            class CheckSend(StripeObject):
+                attachment_file: Optional[str]
+                """
+                The ID of a file to include as an attachment with the check.
+                """
+                memo: Optional[str]
+                """
+                Memo printed on the memo field of the check.
+                """
+                shipping_speed: Optional[
+                    Union[Literal["priority", "standard"], str]
+                ]
+                """
+                Open Enum. Shipping speed of the check. Defaults to standard.
+                """
+                signature: str
+                """
+                Signature printed on the check.
+                """
+
             bank_account: Optional[BankAccount]
             """
             Options for bank account payout methods.
             """
-            _inner_class_types = {"bank_account": BankAccount}
+            check_send: Optional[CheckSend]
+            """
+            Options for check send payout methods.
+            """
+            _inner_class_types = {
+                "bank_account": BankAccount,
+                "check_send": CheckSend,
+            }
 
         credited: Amount
         """
@@ -267,6 +297,69 @@ class OutboundPayment(StripeObject):
             """
             A unique identifier that can be used to track this OutboundPayment with the recipient card.
             """
+
+        class CheckSend(StripeObject):
+            class MailingAddress(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            carrier: Union[Literal["fedex", "usps"], str]
+            """
+            Open Enum. Carrier of the check.
+            """
+            check_number: str
+            """
+            Check number.
+            """
+            current_postal_code: str
+            """
+            Postal code of the latest tracking update.
+            """
+            mailed_check_preview_file: Optional[str]
+            """
+            The ID of a file containing a preview image of the mailed check.
+            """
+            mailing_address: MailingAddress
+            """
+            Mailing address of the check.
+            """
+            tracking_number: str
+            """
+            Tracking number for the check.
+            """
+            tracking_status: Union[
+                Literal["delivered", "in_transit", "mailed"], str
+            ]
+            """
+            Open Enum. Tracking status of the check.
+            """
+            updated_at: str
+            """
+            When the tracking details were last updated.
+            """
+            _inner_class_types = {"mailing_address": MailingAddress}
 
         class CryptoWallet(StripeObject):
             blockchain_transaction: Optional[str]
@@ -341,6 +434,10 @@ class OutboundPayment(StripeObject):
         """
         Card tracking details.
         """
+        check_send: Optional[CheckSend]
+        """
+        Check send tracking details.
+        """
         crypto_wallet: Optional[CryptoWallet]
         """
         Crypto wallet tracking details.
@@ -369,6 +466,7 @@ class OutboundPayment(StripeObject):
         _inner_class_types = {
             "bank_account": BankAccount,
             "card": Card,
+            "check_send": CheckSend,
             "crypto_wallet": CryptoWallet,
             "paper_check": PaperCheck,
         }

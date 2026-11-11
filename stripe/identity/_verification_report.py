@@ -694,15 +694,69 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             """
             _inner_class_types = {"indicators": Indicator}
 
+        class FraudulentSelfie(StripeObject):
+            class Indicator(StripeObject):
+                explanation: str
+                """
+                A brief explanation of how this indicator contributed to the risk level.
+                """
+                impact: Union[
+                    Literal[
+                        "decrease",
+                        "neutral",
+                        "slight_increase",
+                        "strong_increase",
+                    ],
+                    str,
+                ]
+                """
+                The effect this indicator had on the overall risk level.
+                """
+                indicator: Union[
+                    Literal[
+                        "duplicate_selfie",
+                        "duplicate_selfie_mismatched_data",
+                        "face_mismatch",
+                        "other",
+                        "static_selfie",
+                    ],
+                    str,
+                ]
+                """
+                The name of the specific indicator used in the risk assessment.
+                """
+
+            indicators: List[Indicator]
+            """
+            Array of objects representing individual factors that contributed to the calculated risk level.
+            """
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
+            ]
+            """
+            Categorical assessment of the selfie risk.
+            """
+            _inner_class_types = {"indicators": Indicator}
+
         fraudulent_document: Optional[FraudulentDocument]
         fraudulent_email: Optional[FraudulentEmail]
         fraudulent_person: Optional[FraudulentPerson]
         fraudulent_phone: Optional[FraudulentPhone]
+        fraudulent_selfie: Optional[FraudulentSelfie]
         _inner_class_types = {
             "fraudulent_document": FraudulentDocument,
             "fraudulent_email": FraudulentEmail,
             "fraudulent_person": FraudulentPerson,
             "fraudulent_phone": FraudulentPhone,
+            "fraudulent_selfie": FraudulentSelfie,
         }
 
     client_reference_id: Optional[str]

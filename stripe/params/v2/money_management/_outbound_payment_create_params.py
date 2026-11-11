@@ -147,6 +147,12 @@ class OutboundPaymentCreateParamsToPayoutMethodOptions(TypedDict):
     """
     Options for bank account payout methods.
     """
+    check_send: NotRequired[
+        "OutboundPaymentCreateParamsToPayoutMethodOptionsCheckSend"
+    ]
+    """
+    Options for check send payout methods.
+    """
 
 
 class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
@@ -206,4 +212,23 @@ class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetwor
     transaction_purpose: NotRequired["Literal['payroll']|str"]
     """
     The transaction purpose for this ACH payment.
+    """
+
+
+class OutboundPaymentCreateParamsToPayoutMethodOptionsCheckSend(TypedDict):
+    attachment_file: NotRequired[str]
+    """
+    The ID of a file to include as an attachment with the check.
+    """
+    memo: NotRequired[str]
+    """
+    Memo printed on the memo field of the check.
+    """
+    shipping_speed: NotRequired["Literal['priority', 'standard']|str"]
+    """
+    Open Enum. Shipping speed of the check. Defaults to standard.
+    """
+    signature: str
+    """
+    Signature printed on the check.
     """

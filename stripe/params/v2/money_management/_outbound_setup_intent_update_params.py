@@ -35,6 +35,7 @@ class OutboundSetupIntentUpdateParamsPayoutMethodData(TypedDict):
             "apple_pay",
             "bank_account",
             "card",
+            "check_send",
             "crypto_wallet",
             "network_business_profile_wallet",
             "pix",

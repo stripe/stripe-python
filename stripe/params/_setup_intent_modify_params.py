@@ -1251,6 +1251,12 @@ class SetupIntentModifyParamsPaymentMethodOptionsAmazonPay(TypedDict):
 
 
 class SetupIntentModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
+    financial_connections: NotRequired[
+        "SetupIntentModifyParamsPaymentMethodOptionsBacsDebitFinancialConnections"
+    ]
+    """
+    Additional fields for Financial Connections session creation.
+    """
     mandate_options: NotRequired[
         "SetupIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions"
     ]
@@ -1260,6 +1266,15 @@ class SetupIntentModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
     verification_method: NotRequired[
         "Literal['automatic', 'instant', 'payer_name_verification']|str"
     ]
+
+
+class SetupIntentModifyParamsPaymentMethodOptionsBacsDebitFinancialConnections(
+    TypedDict,
+):
+    return_url: NotRequired[str]
+    """
+    For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+    """
 
 
 class SetupIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(

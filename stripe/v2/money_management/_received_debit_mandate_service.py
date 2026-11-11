@@ -29,6 +29,7 @@ class ReceivedDebitMandateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ReceivedDebitMandate]":
         """
+        Deprecated: Use ListSpendingMandates instead.
         Returns a list of ReceivedDebitMandates.
         """
         return cast(
@@ -48,6 +49,7 @@ class ReceivedDebitMandateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ReceivedDebitMandate]":
         """
+        Deprecated: Use ListSpendingMandates instead.
         Returns a list of ReceivedDebitMandates.
         """
         return cast(
@@ -69,6 +71,7 @@ class ReceivedDebitMandateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":
         """
+        Deprecated: Use RetrieveSpendingMandate instead.
         Retrieves the details of an existing ReceivedDebitMandate.
         """
         return cast(
@@ -92,6 +95,7 @@ class ReceivedDebitMandateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":
         """
+        Deprecated: Use RetrieveSpendingMandate instead.
         Retrieves the details of an existing ReceivedDebitMandate.
         """
         return cast(
@@ -115,6 +119,7 @@ class ReceivedDebitMandateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":
         """
+        Deprecated: Use CancelSpendingMandate instead.
         Cancels an active ReceivedDebitMandate.
         """
         return cast(
@@ -138,6 +143,7 @@ class ReceivedDebitMandateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ReceivedDebitMandate":
         """
+        Deprecated: Use CancelSpendingMandate instead.
         Cancels an active ReceivedDebitMandate.
         """
         return cast(

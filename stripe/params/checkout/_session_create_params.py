@@ -415,6 +415,10 @@ class SessionCreateParams(RequestOptions):
     We recommend that you review your privacy policy and check with your legal contacts
     before using this feature. Learn more about [collecting phone numbers with Checkout](https://docs.stripe.com/payments/checkout/phone-numbers).
     """
+    pricing_token: NotRequired[str]
+    """
+    Token used to resolve the presentment currency for this Checkout Session.
+    """
     redirect_on_completion: NotRequired[
         "Literal['always', 'if_required', 'never']|str"
     ]

@@ -22,7 +22,7 @@ class ReleaseService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Release]":
         """
-        Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+        Returns a list of ReserveReleases on your account or on one of your connected accounts. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
         """
         return cast(
             "ListObject[Release]",
@@ -41,7 +41,7 @@ class ReleaseService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Release]":
         """
-        Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+        Returns a list of ReserveReleases on your account or on one of your connected accounts. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
         """
         return cast(
             "ListObject[Release]",
@@ -62,7 +62,7 @@ class ReleaseService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Release":
         """
-        Retrieve a ReserveRelease.
+        Retrieve a ReserveRelease on your account or on one of your connected accounts.
         """
         return cast(
             "Release",
@@ -83,7 +83,7 @@ class ReleaseService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Release":
         """
-        Retrieve a ReserveRelease.
+        Retrieve a ReserveRelease on your account or on one of your connected accounts.
         """
         return cast(
             "Release",

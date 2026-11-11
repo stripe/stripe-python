@@ -77,6 +77,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._reward_program_service import (
         RewardProgramService,
     )
+    from stripe.v2.money_management._spending_mandate_service import (
+        SpendingMandateService,
+    )
     from stripe.v2.money_management._test_helper_service import (
         TestHelperService,
     )
@@ -184,6 +187,10 @@ _subservices = {
         "stripe.v2.money_management._reward_program_enrollment_service",
         "RewardProgramEnrollmentService",
     ],
+    "spending_mandates": [
+        "stripe.v2.money_management._spending_mandate_service",
+        "SpendingMandateService",
+    ],
     "test_helpers": [
         "stripe.v2.money_management._test_helper_service",
         "TestHelperService",
@@ -224,6 +231,7 @@ class MoneyManagementService(StripeService):
     recipient_verifications: "RecipientVerificationService"
     reward_programs: "RewardProgramService"
     reward_program_enrollments: "RewardProgramEnrollmentService"
+    spending_mandates: "SpendingMandateService"
     test_helpers: "TestHelperService"
     transactions: "TransactionService"
     transaction_entries: "TransactionEntryService"

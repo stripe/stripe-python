@@ -311,6 +311,12 @@ class Mandate(ListableAPIResource["Mandate"]):
             The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
             """
 
+        class TossPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            The buyer identifier provided by NICE for this Toss Pay account, when available.
+            """
+
         class Twint(StripeObject):
             pass
 
@@ -356,6 +362,7 @@ class Mandate(ListableAPIResource["Mandate"]):
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
+        toss_pay: Optional[TossPay]
         twint: Optional[Twint]
         type: str
         """
@@ -382,6 +389,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
+            "toss_pay": TossPay,
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
