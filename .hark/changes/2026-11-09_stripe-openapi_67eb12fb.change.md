@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1969
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 16.2.0a3
 ---
 
 * Add support for new resource `v2.money_management.SpendingMandate`
