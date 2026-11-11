@@ -66,6 +66,7 @@ from stripe._stripe_object import API_KEY_SERIALIZATION_CONSTANT
 if TYPE_CHECKING:
     from stripe._app_info import AppInfo
     from stripe._stripe_object import StripeObject
+    from stripe._stripe_context import StripeContext
 
 HttpVerb = Literal["get", "post", "delete"]
 
@@ -177,6 +178,24 @@ class _APIRequestor(object):
         for key in PERSISTENT_OPTIONS_KEYS:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
+        return _APIRequestor(
+            options=RequestorOptions(**new_options), client=self._client
+        )
+
+    def with_stripe_context(
+        self, stripe_context: "Optional[Union[str, StripeContext]]"
+    ) -> "_APIRequestor":
+        """
+        Returns a new _APIRequestor with the same configuration as this one, but
+        scoped to a different stripe_context. Unlike _new_requestor_with_options,
+        this always replaces stripe_context (even with None) and clears
+        stripe_account, since a context is self-contained and a stripe_account
+        inherited from whatever request produced this requestor should not leak
+        into requests scoped by it.
+        """
+        new_options = self._options.to_dict()
+        new_options["stripe_context"] = stripe_context
+        new_options["stripe_account"] = None
         return _APIRequestor(
             options=RequestorOptions(**new_options), client=self._client
         )
