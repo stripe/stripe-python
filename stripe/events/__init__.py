@@ -2067,6 +2067,26 @@ if TYPE_CHECKING:
         V2MoneyManagementRewardProgramRewardReversedEvent as V2MoneyManagementRewardProgramRewardReversedEvent,
         V2MoneyManagementRewardProgramRewardReversedEventNotification as V2MoneyManagementRewardProgramRewardReversedEventNotification,
     )
+    from stripe.events._v2_money_management_spending_mandate_canceled_event import (
+        V2MoneyManagementSpendingMandateCanceledEvent as V2MoneyManagementSpendingMandateCanceledEvent,
+        V2MoneyManagementSpendingMandateCanceledEventNotification as V2MoneyManagementSpendingMandateCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_created_event import (
+        V2MoneyManagementSpendingMandateCreatedEvent as V2MoneyManagementSpendingMandateCreatedEvent,
+        V2MoneyManagementSpendingMandateCreatedEventNotification as V2MoneyManagementSpendingMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_expired_event import (
+        V2MoneyManagementSpendingMandateExpiredEvent as V2MoneyManagementSpendingMandateExpiredEvent,
+        V2MoneyManagementSpendingMandateExpiredEventNotification as V2MoneyManagementSpendingMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_pending_cancellation_event import (
+        V2MoneyManagementSpendingMandatePendingCancellationEvent as V2MoneyManagementSpendingMandatePendingCancellationEvent,
+        V2MoneyManagementSpendingMandatePendingCancellationEventNotification as V2MoneyManagementSpendingMandatePendingCancellationEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_updated_event import (
+        V2MoneyManagementSpendingMandateUpdatedEvent as V2MoneyManagementSpendingMandateUpdatedEvent,
+        V2MoneyManagementSpendingMandateUpdatedEventNotification as V2MoneyManagementSpendingMandateUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_transaction_created_event import (
         V2MoneyManagementTransactionCreatedEvent as V2MoneyManagementTransactionCreatedEvent,
         V2MoneyManagementTransactionCreatedEventNotification as V2MoneyManagementTransactionCreatedEventNotification,
@@ -6206,6 +6226,46 @@ _import_map = {
     ),
     "V2MoneyManagementRewardProgramRewardReversedEventNotification": (
         "stripe.events._v2_money_management_reward_program_reward_reversed_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateCanceledEvent": (
+        "stripe.events._v2_money_management_spending_mandate_canceled_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateCanceledEventNotification": (
+        "stripe.events._v2_money_management_spending_mandate_canceled_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateCreatedEvent": (
+        "stripe.events._v2_money_management_spending_mandate_created_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateCreatedEventNotification": (
+        "stripe.events._v2_money_management_spending_mandate_created_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateExpiredEvent": (
+        "stripe.events._v2_money_management_spending_mandate_expired_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateExpiredEventNotification": (
+        "stripe.events._v2_money_management_spending_mandate_expired_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandatePendingCancellationEvent": (
+        "stripe.events._v2_money_management_spending_mandate_pending_cancellation_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandatePendingCancellationEventNotification": (
+        "stripe.events._v2_money_management_spending_mandate_pending_cancellation_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateUpdatedEvent": (
+        "stripe.events._v2_money_management_spending_mandate_updated_event",
+        False,
+    ),
+    "V2MoneyManagementSpendingMandateUpdatedEventNotification": (
+        "stripe.events._v2_money_management_spending_mandate_updated_event",
         False,
     ),
     "V2MoneyManagementTransactionCreatedEvent": (

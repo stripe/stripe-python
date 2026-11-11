@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.shared_payment._issued_token_create_params import (
         IssuedTokenCreateParams as IssuedTokenCreateParams,
+        IssuedTokenCreateParamsReferralFeeDetails as IssuedTokenCreateParamsReferralFeeDetails,
         IssuedTokenCreateParamsSellerDetails as IssuedTokenCreateParamsSellerDetails,
         IssuedTokenCreateParamsUsageLimits as IssuedTokenCreateParamsUsageLimits,
         IssuedTokenCreateParamsUsageLimitsRecurring as IssuedTokenCreateParamsUsageLimitsRecurring,
@@ -51,6 +52,10 @@ _import_map = {
         False,
     ),
     "IssuedTokenCreateParams": (
+        "stripe.params.shared_payment._issued_token_create_params",
+        False,
+    ),
+    "IssuedTokenCreateParamsReferralFeeDetails": (
         "stripe.params.shared_payment._issued_token_create_params",
         False,
     ),

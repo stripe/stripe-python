@@ -49262,6 +49262,12 @@ class TestGeneratedExamples(object):
                             },
                             "preferred_networks": ["fedwire"],
                         },
+                        "check_send": {
+                            "attachment_file": "attachment_file",
+                            "memo": "memo",
+                            "shipping_speed": "priority",
+                            "signature": "signature",
+                        },
                     },
                     "recipient": "recipient",
                 },
@@ -49272,7 +49278,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]},"check_send":{"attachment_file":"attachment_file","memo":"memo","shipping_speed":"priority","signature":"signature"}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -49648,6 +49654,12 @@ class TestGeneratedExamples(object):
                             },
                             "preferred_networks": ["fedwire"],
                         },
+                        "check_send": {
+                            "attachment_file": "attachment_file",
+                            "memo": "memo",
+                            "shipping_speed": "priority",
+                            "signature": "signature",
+                        },
                     },
                     "recipient": "recipient",
                 },
@@ -49658,7 +49670,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/payout_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]},"check_send":{"attachment_file":"attachment_file","memo":"memo","shipping_speed":"priority","signature":"signature"}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -50527,6 +50539,68 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/money_management/reward_program_enrollments/id_123/deactivate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_money_management_spending_mandate_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/spending_mandates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.spending_mandates.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/spending_mandates",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_spending_mandate_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/spending_mandates/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.spending_mandates.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/spending_mandates/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_spending_mandate_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/spending_mandates/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.spending_mandates.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/spending_mandates/id_123/cancel",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",

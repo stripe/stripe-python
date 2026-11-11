@@ -288,6 +288,10 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     """
     Swish is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://docs.stripe.com/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://docs.stripe.com/payments/swish) for more details.
     """
+    toss_pay: NotRequired["PaymentMethodConfigurationModifyParamsTossPay"]
+    """
+    Customers are redirected to Toss Pay to authenticate their payment, then return to your website or app. You receive immediate notification of whether the payment succeeded or failed. With recurring access, customers can authorize a reusable mandate for future off-session payments.
+    """
     twint: NotRequired["PaymentMethodConfigurationModifyParamsTwint"]
     """
     Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
@@ -1364,6 +1368,24 @@ class PaymentMethodConfigurationModifyParamsSwish(TypedDict):
 
 
 class PaymentMethodConfigurationModifyParamsSwishDisplayPreference(TypedDict):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsTossPay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsTossPayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsTossPayDisplayPreference(
+    TypedDict
+):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.

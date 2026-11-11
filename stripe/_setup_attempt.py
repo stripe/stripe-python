@@ -96,11 +96,11 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             class Checks(StripeObject):
                 address_line1_check: Optional[str]
                 """
-                If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 address_postal_code_check: Optional[str]
                 """
-                If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[str]
                 """
@@ -474,6 +474,12 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class StripeBalance(StripeObject):
             pass
 
+        class TossPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            The buyer identifier provided by NICE for this Toss Pay account, when available.
+            """
+
         class Twint(StripeObject):
             pass
 
@@ -510,6 +516,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
+        toss_pay: Optional[TossPay]
         twint: Optional[Twint]
         type: str
         """
@@ -545,6 +552,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
+            "toss_pay": TossPay,
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,

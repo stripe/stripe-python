@@ -844,6 +844,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._reward_program_rule",
         "RewardProgramRule",
     ),
+    "v2.money_management.spending_mandate": (
+        "stripe.v2.money_management._spending_mandate",
+        "SpendingMandate",
+    ),
     "v2.money_management.transaction": (
         "stripe.v2.money_management._transaction",
         "Transaction",

@@ -20,7 +20,7 @@ class HoldService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Hold]":
         """
-        Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+        Returns a list of ReserveHolds on your account or on one of your connected accounts. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
         """
         return cast(
             "ListObject[Hold]",
@@ -39,7 +39,7 @@ class HoldService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Hold]":
         """
-        Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+        Returns a list of ReserveHolds on your account or on one of your connected accounts. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
         """
         return cast(
             "ListObject[Hold]",
@@ -60,7 +60,7 @@ class HoldService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Hold":
         """
-        Retrieve a ReserveHold.
+        Retrieve a ReserveHold on your account or on one of your connected accounts.
         """
         return cast(
             "Hold",
@@ -81,7 +81,7 @@ class HoldService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Hold":
         """
-        Retrieve a ReserveHold.
+        Retrieve a ReserveHold on your account or on one of your connected accounts.
         """
         return cast(
             "Hold",

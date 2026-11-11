@@ -61,6 +61,20 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
             "use_stripe_sdk": UseStripeSdk,
         }
 
+    class ReferralFeeDetails(StripeObject):
+        customer: str
+        """
+        The Customer to be invoiced for fees assessed.
+        """
+        customer_account: Optional[str]
+        """
+        The account to be invoiced for fees assessed.
+        """
+        referral_fee_percent: float
+        """
+        The percentage of the payment charged as a referral fee.
+        """
+
     class RiskDetails(StripeObject):
         class Insights(StripeObject):
             class Bot(StripeObject):
@@ -244,6 +258,10 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     payment_method: str
     """
     ID of an existing PaymentMethod.
+    """
+    referral_fee_details: Optional[ReferralFeeDetails]
+    """
+    Referral fee details of the SharedPaymentIssuedToken.
     """
     return_url: Optional[str]
     """
@@ -468,6 +486,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
 
     _inner_class_types = {
         "next_action": NextAction,
+        "referral_fee_details": ReferralFeeDetails,
         "risk_details": RiskDetails,
         "seller_details": SellerDetails,
         "usage_details": UsageDetails,

@@ -1774,6 +1774,32 @@ class PaymentIntent(
             An universal link that redirect to WeChat Pay app
             """
 
+        class WechatPayRedirectToMiniProgram(StripeObject):
+            app_id: str
+            """
+            Mini Program ID registered on WeChat Open Platform
+            """
+            nonce_str: str
+            """
+            Random string
+            """
+            prepay_id: str
+            """
+            Unique trading ID assigned by WeChat Pay
+            """
+            sign: str
+            """
+            Signature
+            """
+            sign_type: str
+            """
+            Signature type
+            """
+            timestamp: str
+            """
+            Current time in epoch format
+            """
+
         alipay_handle_redirect: Optional[AlipayHandleRedirect]
         blik_authorize: Optional[BlikAuthorize]
         boleto_display_details: Optional[BoletoDisplayDetails]
@@ -1814,6 +1840,9 @@ class PaymentIntent(
             WechatPayRedirectToAndroidApp
         ]
         wechat_pay_redirect_to_ios_app: Optional[WechatPayRedirectToIosApp]
+        wechat_pay_redirect_to_mini_program: Optional[
+            WechatPayRedirectToMiniProgram
+        ]
         _inner_class_types = {
             "alipay_handle_redirect": AlipayHandleRedirect,
             "blik_authorize": BlikAuthorize,
@@ -1837,6 +1866,7 @@ class PaymentIntent(
             "wechat_pay_handle_app_redirect": WechatPayHandleAppRedirect,
             "wechat_pay_redirect_to_android_app": WechatPayRedirectToAndroidApp,
             "wechat_pay_redirect_to_ios_app": WechatPayRedirectToIosApp,
+            "wechat_pay_redirect_to_mini_program": WechatPayRedirectToMiniProgram,
         }
 
     class PaymentDetails(StripeObject):

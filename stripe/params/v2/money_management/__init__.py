@@ -154,6 +154,7 @@ if TYPE_CHECKING:
         OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount as OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount,
         OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
         OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
+        OutboundPaymentCreateParamsToPayoutMethodOptionsCheckSend as OutboundPaymentCreateParamsToPayoutMethodOptionsCheckSend,
     )
     from stripe.params.v2.money_management._outbound_payment_list_params import (
         OutboundPaymentListParams as OutboundPaymentListParams,
@@ -185,6 +186,8 @@ if TYPE_CHECKING:
         OutboundSetupIntentCreateParamsPayoutMethodDataApplePay as OutboundSetupIntentCreateParamsPayoutMethodDataApplePay,
         OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount as OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount,
         OutboundSetupIntentCreateParamsPayoutMethodDataCard as OutboundSetupIntentCreateParamsPayoutMethodDataCard,
+        OutboundSetupIntentCreateParamsPayoutMethodDataCheckSend as OutboundSetupIntentCreateParamsPayoutMethodDataCheckSend,
+        OutboundSetupIntentCreateParamsPayoutMethodDataCheckSendMailingAddress as OutboundSetupIntentCreateParamsPayoutMethodDataCheckSendMailingAddress,
         OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet as OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet,
         OutboundSetupIntentCreateParamsPayoutMethodDataPix as OutboundSetupIntentCreateParamsPayoutMethodDataPix,
     )
@@ -235,6 +238,7 @@ if TYPE_CHECKING:
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccount,
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
         PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as PayoutIntentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
+        PayoutIntentCreateParamsToPayoutMethodOptionsCheckSend as PayoutIntentCreateParamsToPayoutMethodOptionsCheckSend,
     )
     from stripe.params.v2.money_management._payout_intent_list_params import (
         PayoutIntentListParams as PayoutIntentListParams,
@@ -257,6 +261,7 @@ if TYPE_CHECKING:
         PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount as PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount,
         PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions as PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions,
         PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch as PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch,
+        PayoutIntentUpdateParamsToPayoutMethodOptionsCheckSend as PayoutIntentUpdateParamsToPayoutMethodOptionsCheckSend,
     )
     from stripe.params.v2.money_management._payout_method_archive_params import (
         PayoutMethodArchiveParams as PayoutMethodArchiveParams,
@@ -341,6 +346,15 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._reward_program_update_params import (
         RewardProgramUpdateParams as RewardProgramUpdateParams,
+    )
+    from stripe.params.v2.money_management._spending_mandate_cancel_params import (
+        SpendingMandateCancelParams as SpendingMandateCancelParams,
+    )
+    from stripe.params.v2.money_management._spending_mandate_list_params import (
+        SpendingMandateListParams as SpendingMandateListParams,
+    )
+    from stripe.params.v2.money_management._spending_mandate_retrieve_params import (
+        SpendingMandateRetrieveParams as SpendingMandateRetrieveParams,
     )
     from stripe.params.v2.money_management._test_helper_earned_credits_params import (
         TestHelperEarnedCreditsParams as TestHelperEarnedCreditsParams,
@@ -673,6 +687,10 @@ _import_map = {
         "stripe.params.v2.money_management._outbound_payment_create_params",
         False,
     ),
+    "OutboundPaymentCreateParamsToPayoutMethodOptionsCheckSend": (
+        "stripe.params.v2.money_management._outbound_payment_create_params",
+        False,
+    ),
     "OutboundPaymentListParams": (
         "stripe.params.v2.money_management._outbound_payment_list_params",
         False,
@@ -746,6 +764,14 @@ _import_map = {
         False,
     ),
     "OutboundSetupIntentCreateParamsPayoutMethodDataCard": (
+        "stripe.params.v2.money_management._outbound_setup_intent_create_params",
+        False,
+    ),
+    "OutboundSetupIntentCreateParamsPayoutMethodDataCheckSend": (
+        "stripe.params.v2.money_management._outbound_setup_intent_create_params",
+        False,
+    ),
+    "OutboundSetupIntentCreateParamsPayoutMethodDataCheckSendMailingAddress": (
         "stripe.params.v2.money_management._outbound_setup_intent_create_params",
         False,
     ),
@@ -869,6 +895,10 @@ _import_map = {
         "stripe.params.v2.money_management._payout_intent_create_params",
         False,
     ),
+    "PayoutIntentCreateParamsToPayoutMethodOptionsCheckSend": (
+        "stripe.params.v2.money_management._payout_intent_create_params",
+        False,
+    ),
     "PayoutIntentListParams": (
         "stripe.params.v2.money_management._payout_intent_list_params",
         False,
@@ -914,6 +944,10 @@ _import_map = {
         False,
     ),
     "PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch": (
+        "stripe.params.v2.money_management._payout_intent_update_params",
+        False,
+    ),
+    "PayoutIntentUpdateParamsToPayoutMethodOptionsCheckSend": (
         "stripe.params.v2.money_management._payout_intent_update_params",
         False,
     ),
@@ -1035,6 +1069,18 @@ _import_map = {
     ),
     "RewardProgramUpdateParams": (
         "stripe.params.v2.money_management._reward_program_update_params",
+        False,
+    ),
+    "SpendingMandateCancelParams": (
+        "stripe.params.v2.money_management._spending_mandate_cancel_params",
+        False,
+    ),
+    "SpendingMandateListParams": (
+        "stripe.params.v2.money_management._spending_mandate_list_params",
+        False,
+    ),
+    "SpendingMandateRetrieveParams": (
+        "stripe.params.v2.money_management._spending_mandate_retrieve_params",
         False,
     ),
     "TestHelperEarnedCreditsParams": (

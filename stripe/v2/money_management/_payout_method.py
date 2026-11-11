@@ -121,6 +121,43 @@ class PayoutMethod(StripeObject):
         The list of currencies supported by this bank account.
         """
 
+    class CheckSend(StripeObject):
+        class MailingAddress(StripeObject):
+            city: str
+            """
+            City.
+            """
+            country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: str
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: str
+            """
+            ZIP or postal code.
+            """
+            state: str
+            """
+            State.
+            """
+
+        mailing_address: MailingAddress
+        """
+        The US mailing address the check is sent to.
+        """
+        payee_name: str
+        """
+        The name printed on the check's payee line.
+        """
+        _inner_class_types = {"mailing_address": MailingAddress}
+
     class CryptoWallet(StripeObject):
         address: str
         """
@@ -210,6 +247,10 @@ class PayoutMethod(StripeObject):
     """
     The PayoutMethodCard object details.
     """
+    check_send: Optional[CheckSend]
+    """
+    The PayoutMethodCheckSend object details.
+    """
     created: str
     """
     Created timestamp.
@@ -252,6 +293,7 @@ class PayoutMethod(StripeObject):
             "apple_pay",
             "bank_account",
             "card",
+            "check_send",
             "crypto_wallet",
             "network_business_profile_wallet",
             "pix",
@@ -270,6 +312,7 @@ class PayoutMethod(StripeObject):
         "apple_pay": ApplePay,
         "bank_account": BankAccount,
         "card": Card,
+        "check_send": CheckSend,
         "crypto_wallet": CryptoWallet,
         "network_business_profile_wallet": NetworkBusinessProfileWallet,
         "pix": Pix,

@@ -1546,6 +1546,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_reward_program_reward_reversed_event import (
         V2MoneyManagementRewardProgramRewardReversedEventNotification,
     )
+    from stripe.events._v2_money_management_spending_mandate_canceled_event import (
+        V2MoneyManagementSpendingMandateCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_created_event import (
+        V2MoneyManagementSpendingMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_expired_event import (
+        V2MoneyManagementSpendingMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_pending_cancellation_event import (
+        V2MoneyManagementSpendingMandatePendingCancellationEventNotification,
+    )
+    from stripe.events._v2_money_management_spending_mandate_updated_event import (
+        V2MoneyManagementSpendingMandateUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_transaction_created_event import (
         V2MoneyManagementTransactionCreatedEventNotification,
     )
@@ -3708,6 +3723,26 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.reward_program.reward_reversed": (
         "stripe.events._v2_money_management_reward_program_reward_reversed_event",
         "V2MoneyManagementRewardProgramRewardReversedEvent",
+    ),
+    "v2.money_management.spending_mandate.canceled": (
+        "stripe.events._v2_money_management_spending_mandate_canceled_event",
+        "V2MoneyManagementSpendingMandateCanceledEvent",
+    ),
+    "v2.money_management.spending_mandate.created": (
+        "stripe.events._v2_money_management_spending_mandate_created_event",
+        "V2MoneyManagementSpendingMandateCreatedEvent",
+    ),
+    "v2.money_management.spending_mandate.expired": (
+        "stripe.events._v2_money_management_spending_mandate_expired_event",
+        "V2MoneyManagementSpendingMandateExpiredEvent",
+    ),
+    "v2.money_management.spending_mandate.pending_cancellation": (
+        "stripe.events._v2_money_management_spending_mandate_pending_cancellation_event",
+        "V2MoneyManagementSpendingMandatePendingCancellationEvent",
+    ),
+    "v2.money_management.spending_mandate.updated": (
+        "stripe.events._v2_money_management_spending_mandate_updated_event",
+        "V2MoneyManagementSpendingMandateUpdatedEvent",
     ),
     "v2.money_management.transaction.created": (
         "stripe.events._v2_money_management_transaction_created_event",
@@ -5920,6 +5955,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_reward_program_reward_reversed_event",
         "V2MoneyManagementRewardProgramRewardReversedEventNotification",
     ),
+    "v2.money_management.spending_mandate.canceled": (
+        "stripe.events._v2_money_management_spending_mandate_canceled_event",
+        "V2MoneyManagementSpendingMandateCanceledEventNotification",
+    ),
+    "v2.money_management.spending_mandate.created": (
+        "stripe.events._v2_money_management_spending_mandate_created_event",
+        "V2MoneyManagementSpendingMandateCreatedEventNotification",
+    ),
+    "v2.money_management.spending_mandate.expired": (
+        "stripe.events._v2_money_management_spending_mandate_expired_event",
+        "V2MoneyManagementSpendingMandateExpiredEventNotification",
+    ),
+    "v2.money_management.spending_mandate.pending_cancellation": (
+        "stripe.events._v2_money_management_spending_mandate_pending_cancellation_event",
+        "V2MoneyManagementSpendingMandatePendingCancellationEventNotification",
+    ),
+    "v2.money_management.spending_mandate.updated": (
+        "stripe.events._v2_money_management_spending_mandate_updated_event",
+        "V2MoneyManagementSpendingMandateUpdatedEventNotification",
+    ),
     "v2.money_management.transaction.created": (
         "stripe.events._v2_money_management_transaction_created_event",
         "V2MoneyManagementTransactionCreatedEventNotification",
@@ -6592,6 +6647,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementRecipientVerificationUpdatedEventNotification",
     "V2MoneyManagementRewardProgramRewardEarnedEventNotification",
     "V2MoneyManagementRewardProgramRewardReversedEventNotification",
+    "V2MoneyManagementSpendingMandateCanceledEventNotification",
+    "V2MoneyManagementSpendingMandateCreatedEventNotification",
+    "V2MoneyManagementSpendingMandateExpiredEventNotification",
+    "V2MoneyManagementSpendingMandatePendingCancellationEventNotification",
+    "V2MoneyManagementSpendingMandateUpdatedEventNotification",
     "V2MoneyManagementTransactionCreatedEventNotification",
     "V2MoneyManagementTransactionUpdatedEventNotification",
     "V2OrchestratedCommerceAgreementConfirmedEventNotification",

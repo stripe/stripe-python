@@ -92,11 +92,11 @@ class GrantedToken(APIResource["GrantedToken"]):
             class Checks(StripeObject):
                 address_line1_check: Optional[str]
                 """
-                If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 address_postal_code_check: Optional[str]
                 """
-                If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[str]
                 """
@@ -428,6 +428,20 @@ class GrantedToken(APIResource["GrantedToken"]):
             "link": Link,
         }
 
+    class ReferralFeeDetails(StripeObject):
+        class Rate(StripeObject):
+            percentage: Optional[float]
+            """
+            The percentage of the payment amount which will be calculated as a fee.
+            """
+            type: Literal["percentage"]
+            """
+            The type of fee rate.
+            """
+
+        rate: Rate
+        _inner_class_types = {"rate": Rate}
+
     class RiskDetails(StripeObject):
         class Insights(StripeObject):
             class Bot(StripeObject):
@@ -601,6 +615,10 @@ class GrantedToken(APIResource["GrantedToken"]):
     payment_method_details: Optional[PaymentMethodDetails]
     """
     Details of the PaymentMethod that was shared via this token.
+    """
+    referral_fee_details: Optional[ReferralFeeDetails]
+    """
+    Referral fees may be charged when a SharedPaymentGrantedToken is used. This behavior is controlled by the issuer of the token. This field provides details about the referral fee rate.
     """
     risk_details: Optional[RiskDetails]
     """
@@ -811,6 +829,7 @@ class GrantedToken(APIResource["GrantedToken"]):
     _inner_class_types = {
         "agent_details": AgentDetails,
         "payment_method_details": PaymentMethodDetails,
+        "referral_fee_details": ReferralFeeDetails,
         "risk_details": RiskDetails,
         "usage_details": UsageDetails,
         "usage_limits": UsageLimits,

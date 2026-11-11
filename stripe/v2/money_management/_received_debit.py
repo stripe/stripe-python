@@ -50,6 +50,7 @@ class ReceivedDebit(StripeObject):
             received_debit_mandate: Optional[str]
             """
             The ID of the mandate associated with this debit.
+            Deprecated: use `bank_transfer.spending_mandate` instead.
             """
             sort_code: Optional[str]
             """
@@ -147,6 +148,10 @@ class ReceivedDebit(StripeObject):
         ]
         """
         Open Enum. The type of the payment method used to originate the debit.
+        """
+        spending_mandate: Optional[str]
+        """
+        The ID of the SpendingMandate associated with this debit.
         """
         statement_descriptor: Optional[str]
         """

@@ -12,7 +12,7 @@ class FxQuoteCreateParams(RequestOptions):
     """
     from_currencies: List[str]
     """
-    A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies).
+    A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies). Payout-only currencies are also supported, but only for informational quotes (`lock_duration=none`).
     """
     lock_duration: Union[Literal["day", "five_minutes", "hour", "none"], str]
     """
@@ -20,7 +20,7 @@ class FxQuoteCreateParams(RequestOptions):
     """
     to_currency: str
     """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Payout-only currencies are also supported, but only for informational quotes (`lock_duration=none`).
     """
     usage: NotRequired["FxQuoteCreateParamsUsage"]
     """

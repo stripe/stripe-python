@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -63,6 +63,12 @@ class PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCard(
     """
     Verification checks performed on the card.
     """
+    three_d_secure: NotRequired[
+        "PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardThreeDSecure"
+    ]
+    """
+    Populated if this transaction used 3D Secure authentication.
+    """
 
 
 class PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardChecks(
@@ -85,6 +91,51 @@ class PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardChecks(
     ]
     """
     The result of the check on the card's CVC.
+    """
+
+
+class PaymentAttemptRecordReportAuthorizedParamsPaymentMethodDetailsCardThreeDSecure(
+    TypedDict,
+):
+    authentication_flow: NotRequired[
+        "Literal['challenge', 'frictionless']|str"
+    ]
+    """
+    For authenticated transactions: Indicates how the issuing bank authenticated the customer.
+    """
+    electronic_commerce_indicator: NotRequired[
+        "Literal['01', '02', '05', '06', '07']|str"
+    ]
+    """
+    The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
+    """
+    exemption_indicator: NotRequired["Literal['low_risk', 'none']|str"]
+    """
+    The exemption requested via 3DS and accepted by the issuer at authentication time.
+    """
+    result: Union[
+        Literal[
+            "attempt_acknowledged",
+            "authenticated",
+            "exempted",
+            "failed",
+            "not_supported",
+            "processing_error",
+        ],
+        str,
+    ]
+    """
+    Indicates the outcome of 3D Secure authentication.
+    """
+    result_reason: NotRequired[
+        "Literal['abandoned', 'canceled', 'card_not_enrolled', 'network_not_supported', 'protocol_error', 'rejected']|str"
+    ]
+    """
+    Additional information about why 3D Secure succeeded or failed, based on the `result`.
+    """
+    version: Union[Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"], str]
+    """
+    The version of 3D Secure that was used.
     """
 
 
