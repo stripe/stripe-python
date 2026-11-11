@@ -1,4 +1,6 @@
 import json
+import pickle
+import stripe
 from typing import Any, Callable, Dict, Optional, Union
 from typing_extensions import assert_type
 
@@ -39,6 +41,32 @@ BINARY_ENCODERS = [
 
 
 class TestV2Event(object):
+    def test_pickled_event_requires_reattachment(
+        self, http_client_mock, v2_payload_no_data
+    ):
+        event = V1BillingMeterErrorReportTriggeredEvent.construct_from(
+            json.loads(v2_payload_no_data), "producer-key-sentinel"
+        )
+        restored = pickle.loads(pickle.dumps(event))
+        with pytest.raises(
+            stripe.AuthenticationError, match="reattach_api_key"
+        ):
+            restored.fetch_related_object()
+        http_client_mock.assert_no_request()
+        restored.reattach_api_key("worker-key-sentinel")
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/billing/meters/mtr_123",
+            rbody='{"id": "mtr_123", "object": "billing.meter"}',
+        )
+        restored.fetch_related_object()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/billing/meters/mtr_123",
+            api_key="worker-key-sentinel",
+            stripe_context="acct_123",
+        )
+
     @pytest.fixture(scope="function")
     def v2_payload_no_data(self):
         return json.dumps(

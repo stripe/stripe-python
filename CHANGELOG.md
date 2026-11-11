@@ -5,6 +5,17 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 # Changelog
 
+## <a id="17-0-0"></a>17.0.0 - 2026-11-11
+* Improve webhook signature verification error messages
+  - When diagnostic metadata is present in the `Stripe-Signature` header, error messages help identify an incorrect signing secret or altered request body.
+* ⚠️ Omit API keys from pickled StripeObjects
+
+  StripeObject pickles no longer preserve API keys. Before making requests through an unpickled object, call `reattach_api_key(api_key)`. This also reattaches API keys to nested objects.
+
+  See the [v17 migration guide](https://github.com/stripe/stripe-python/blob/master/.hark/migration-guides/v17.md#api-keys-are-no-longer-preserved-in-pickled-stripeobjects) for details.
+* Fix stale Stripe-Account header when fetching an object related to a directly-retrieved Event
+* Reject header values containing CR, LF or NUL in the pycurl HTTP client
+
 ## <a id="16-1-0"></a>16.1.0 - 2026-10-29
 This release changes the pinned API version to `2026-10-28.endive`.
 
