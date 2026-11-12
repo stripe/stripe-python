@@ -48,8 +48,10 @@ if TYPE_CHECKING:
         pass
 
     try:
-        from httpx import Timeout as HTTPXTimeout
-        from httpx import Client as HTTPXClientType
+        from httpx2 import Timeout as HTTPXTimeout
+        from httpx2 import Client as HTTPXClientType
+        from httpx2 import AsyncBaseTransport as HTTPXAsyncTransport
+        from httpx2 import BaseTransport as HTTPXSyncTransport
     except ImportError:
         pass
 
@@ -1188,6 +1190,49 @@ class UrllibClient(HTTPClient):
         pass
 
 
+def _get_httpx_async_mounts(
+    httpx: Any,
+    proxy: Optional[HTTPClient._Proxy],
+    verify: Union[ssl.SSLContext, bool],
+) -> Optional[Dict[str, "HTTPXAsyncTransport"]]:
+    """
+    Returns the `mounts` option that routes an `httpx2.AsyncClient` through
+    `proxy`, or `None` (httpx2's default) when there's no proxy.
+
+    httpx2 only accepts proxies at the client level, and needs a transport
+    mounted per URL scheme to use a different proxy for each one.
+    """
+    if not proxy:
+        return None
+
+    return {
+        f"{scheme}://": httpx.AsyncHTTPTransport(
+            proxy=proxy_url, verify=verify
+        )
+        for scheme, proxy_url in proxy.items()
+        if proxy_url
+    }
+
+
+def _get_httpx_sync_mounts(
+    httpx: Any,
+    proxy: Optional[HTTPClient._Proxy],
+    verify: Union[ssl.SSLContext, bool],
+) -> Optional[Dict[str, "HTTPXSyncTransport"]]:
+    """
+    The `httpx2.Client` counterpart of `_get_httpx_async_mounts`, since sync
+    and async clients can't share transports.
+    """
+    if not proxy:
+        return None
+
+    return {
+        f"{scheme}://": httpx.HTTPTransport(proxy=proxy_url, verify=verify)
+        for scheme, proxy_url in proxy.items()
+        if proxy_url
+    }
+
+
 class HTTPXClient(HTTPClient):
     name = "httpx"
 
@@ -1203,27 +1248,29 @@ class HTTPXClient(HTTPClient):
         super(HTTPXClient, self).__init__(**kwargs)
 
         if _lib is None:
-            import httpx
+            import httpx2
 
-            _lib = httpx
+            _lib = httpx2
         self.httpx = _lib
 
         import anyio
 
         self.anyio = anyio
 
-        kwargs = {}
+        verify: Union[ssl.SSLContext, Literal[False]] = False
         if self._verify_ssl_certs:
-            kwargs["verify"] = ssl.create_default_context(
-                cafile=stripe.ca_bundle_path
-            )
-        else:
-            kwargs["verify"] = False
+            verify = ssl.create_default_context(cafile=stripe.ca_bundle_path)
 
-        self._client_async = self.httpx.AsyncClient(**kwargs)
+        self._client_async = self.httpx.AsyncClient(
+            verify=verify,
+            mounts=_get_httpx_async_mounts(self.httpx, self._proxy, verify),
+        )
         self._client = None
         if allow_sync_methods:
-            self._client = self.httpx.Client(**kwargs)
+            self._client = self.httpx.Client(
+                verify=verify,
+                mounts=_get_httpx_sync_mounts(self.httpx, self._proxy, verify),
+            )
         self._timeout = timeout
 
     def sleep_async(self, secs):
@@ -1234,14 +1281,13 @@ class HTTPXClient(HTTPClient):
     ):
         kwargs = {}
 
-        if self._proxy:
-            kwargs["proxies"] = self._proxy
-
         if self._timeout:
             kwargs["timeout"] = self._timeout
+        # `post_data` is an already-encoded body, which httpx2 takes as
+        # `content`; passing it as `data` is deprecated.
         return [
             (method, url),
-            {"headers": headers, "data": post_data or {}, **kwargs},
+            {"headers": headers, "content": post_data or None, **kwargs},
         ]
 
     def request(
@@ -1493,9 +1539,9 @@ class NoImportFoundAsyncClient(HTTPClient):
     def raise_async_client_import_error() -> Never:
         raise ImportError(
             (
-                "Import httpx not found. To make async http requests,"
-                "You must either install httpx or define your own"
-                "async http client by subclassing stripe.HTTPClient"
+                "Import httpx2 not found. To make async http requests, "
+                "you must either install httpx2 or define your own "
+                "async http client by subclassing stripe.HTTPClient "
                 "and setting stripe.default_http_client to an instance of it."
             )
         )
@@ -1516,7 +1562,7 @@ class NoImportFoundAsyncClient(HTTPClient):
 
 # --- Client resolution ---
 # Detect available HTTP libraries at module load time so the expensive imports
-# (e.g. requests, httpx) happen during Python's init phase rather than when
+# (e.g. requests, httpx2) happen during Python's init phase rather than when
 # StripeClient() is constructed. This matters in environments like AWS Lambda
 # where module loading has a generous timeout (10s) but handler invocation
 # does not (often 3s).
@@ -1528,7 +1574,7 @@ class NoImportFoundAsyncClient(HTTPClient):
 #   4. urllib (stdlib fallback, basically always present)
 #
 # Async client precedence:
-#   1. httpx + anyio (both required)
+#   1. httpx2 + anyio (both required)
 #   2. aiohttp
 #   3. NoImportFoundAsyncClient (raises on use)
 #
@@ -1564,7 +1610,7 @@ def _resolve_sync_client():
 
 def _resolve_async_client():
     try:
-        import httpx  # noqa: F401
+        import httpx2  # noqa: F401
         import anyio  # noqa: F401
 
         return HTTPXClient

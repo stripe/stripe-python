@@ -28,7 +28,7 @@
 
 ## Conventions
 
-- Uses `requests` library by default for sync HTTP, `httpx` for async
+- Uses `requests` library by default for sync HTTP, `httpx2` for async
 - Type hints throughout
 - Virtual env managed in `.venv/`; `just` recipes handle setup automatically
 - Work is not complete until `just test`, `just lint` and `just typecheck` complete successfully.

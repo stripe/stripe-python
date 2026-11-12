@@ -44,7 +44,14 @@ def mocked_request_lib():
 
 
 SUPPORTED_LIBS = frozenset(
-    ("google.appengine.api", "requests", "pycurl", "httpx", "aiohttp", "anyio")
+    (
+        "google.appengine.api",
+        "requests",
+        "pycurl",
+        "httpx2",
+        "aiohttp",
+        "anyio",
+    )
 )
 
 
@@ -108,10 +115,10 @@ class TestImports:
     @pytest.mark.parametrize(
         ["available_libs", "expected"],
         [
-            # needs both httpx and anyio
-            [["httpx"], NoImportFoundAsyncClient],
+            # needs both httpx2 and anyio
+            [["httpx2"], NoImportFoundAsyncClient],
             [["anyio"], NoImportFoundAsyncClient],
-            [["httpx", "anyio"], HTTPXClient],
+            [["httpx2", "anyio"], HTTPXClient],
             # having only one required lib means we proceed
             [["anyio", "aiohttp"], AIOHTTPClient],
             [["aiohttp"], AIOHTTPClient],
@@ -1323,7 +1330,7 @@ class TestHTTPXClient(ClientTestBase):
 
     @pytest.fixture
     def request_mock(self, mocked_request_lib):
-        # Set up the httpx library mock structure
+        # Set up the httpx2 library mock structure
         async_client_instance = Mock()
         sync_client_instance = Mock()
 
@@ -1395,9 +1402,8 @@ class TestHTTPXClient(ClientTestBase):
             args = (method, url)
             kwargs = {
                 "headers": headers,
-                "data": post_data or {},
+                "content": post_data or None,
                 "timeout": timeout,
-                "proxies": {"http": "http://slap/", "https": "http://slap/"},
             }
 
             if is_streaming:
@@ -1424,9 +1430,8 @@ class TestHTTPXClient(ClientTestBase):
             args = (method, url)
             kwargs = {
                 "headers": headers,
-                "data": post_data,
+                "content": post_data or None,
                 "timeout": timeout,
-                "proxies": {"http": "http://slap/", "https": "http://slap/"},
             }
 
             if is_streaming:
@@ -2142,7 +2147,7 @@ class TestLiveHTTPClients:
     @pytest.mark.anyio
     async def test_httpx_request_async_https(self):
         """
-        Test to ensure that httpx https calls succeed by making a live test call
+        Test to ensure that httpx2 https calls succeed by making a live test call
         to the public stripe API.
         """
         method = "get"
