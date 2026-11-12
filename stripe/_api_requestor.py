@@ -381,12 +381,16 @@ class _APIRequestor(object):
         try:
             error_data = resp["error"]
         except (KeyError, TypeError):
+            error_data = None
+
+        if not isinstance(error_data, (dict, str)):
             raise error.APIError(
-                "Invalid response object from API: %r (HTTP response code "
-                "was %d)" % (rbody, rcode),
+                f"Invalid response object from API: {rbody!r} (HTTP response "
+                f"code was {rcode})",
                 rbody,
                 rcode,
                 resp,
+                rheaders,
             )
 
         err = None
@@ -585,7 +589,7 @@ class _APIRequestor(object):
         elif error_code == "unsupported_response_type":
             return oauth_error.UnsupportedResponseTypeError(*args)
 
-        return None
+        return oauth_error.OAuthError(*args)
 
     AI_AGENTS = [
         # aiAgents: The beginning of the section generated from our OpenAPI spec
@@ -1018,11 +1022,11 @@ class _APIRequestor(object):
             )
         except Exception:
             raise error.APIError(
-                "Invalid response body from API: %s "
-                "(HTTP response code was %d)" % (rbody, rcode),
+                f"Invalid response body from API: {rbody} "
+                f"(HTTP response code was {rcode})",
                 cast(bytes, rbody),
                 rcode,
-                rheaders,
+                headers=rheaders,
             )
         if self._should_handle_code_as_error(rcode):
             self.handle_error_response(

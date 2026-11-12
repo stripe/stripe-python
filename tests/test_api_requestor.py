@@ -1064,6 +1064,73 @@ class TestAPIRequestor(object):
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
+    def test_unrecognized_oauth_error(self, requestor, http_client_mock):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody='{"error": "access_denied", "error_description": "The user denied your request"}',
+            rcode=400,
+            rheaders={"request-id": "req_123"},
+        )
+
+        with pytest.raises(stripe.oauth_error.OAuthError) as excinfo:
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+        assert excinfo.value.code == "access_denied"
+        assert excinfo.value.user_message == "The user denied your request"
+        assert excinfo.value.request_id == "req_123"
+
+    @pytest.mark.parametrize(
+        "rbody",
+        [
+            '{"error": null}',
+            '{"error": ["foo"]}',
+            '{"error": 5}',
+            '{"message": "foo"}',
+            "[]",
+        ],
+    )
+    def test_malformed_error_body(self, requestor, http_client_mock, rbody):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody=rbody,
+            rcode=500,
+            rheaders={"request-id": "req_123"},
+        )
+
+        with pytest.raises(stripe.APIError) as excinfo:
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+        assert excinfo.value.http_status == 500
+        assert excinfo.value.request_id == "req_123"
+
+    def test_non_json_error_body_keeps_headers(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="<html>502 Bad Gateway</html>",
+            rcode=502,
+            rheaders={"request-id": "req_123"},
+        )
+
+        with pytest.raises(stripe.APIError) as excinfo:
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+        assert excinfo.value.http_status == 502
+        assert excinfo.value.request_id == "req_123"
+        assert excinfo.value.json_body is None
+
+    def test_non_utf8_error_body(self, requestor, http_client_mock):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody=b"\xff\xfe", rcode=500
+        )
+
+        with pytest.raises(stripe.APIError):
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
     def test_extract_error_from_stream_request_for_bytes(
         self, requestor, http_client_mock
     ):

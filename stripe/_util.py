@@ -84,7 +84,7 @@ def logfmt(props):
     def fmt(key, val):
         # Handle case where val is a bytes or bytesarray
         if hasattr(val, "decode"):
-            val = val.decode("utf-8")
+            val = val.decode("utf-8", errors="replace")
         # Check if val is already a string to avoid re-encoding into
         # ascii. Since the code is sent through 2to3, we can't just
         # use unicode(val, encoding='utf8') since it will be
