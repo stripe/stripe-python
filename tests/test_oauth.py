@@ -35,6 +35,16 @@ class TestOAuth(object):
         ]
         assert params["stripe_user[country]"] == ["US"]
 
+    def test_authorize_url_uses_current_connect_api_base(self, monkeypatch):
+        stripe.OAuth.authorize_url()
+        monkeypatch.setattr(
+            stripe, "connect_api_base", "https://connect.example.test"
+        )
+
+        url = stripe.OAuth.authorize_url()
+
+        assert urlparse(url).netloc == "connect.example.test"
+
     def test_token(self, http_client_mock):
         http_client_mock.stub_request(
             "post",

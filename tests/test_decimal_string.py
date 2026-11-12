@@ -25,6 +25,14 @@ class TestCoerceDecimalString:
     def test_encode_float_to_str(self):
         assert _coerce_decimal_string(1.5, encode=True) == "1.5"
 
+    def test_encode_never_uses_scientific_notation(self):
+        assert (
+            _coerce_decimal_string(Decimal("0.0000001"), encode=True)
+            == "0.0000001"
+        )
+        assert _coerce_decimal_string(Decimal("1E+3"), encode=True) == "1000"
+        assert _coerce_decimal_string(1e-7, encode=True) == "0.0000001"
+
     def test_decode_str_to_decimal(self):
         result = _coerce_decimal_string("1.5", encode=False)
         assert result == Decimal("1.5")

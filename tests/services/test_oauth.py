@@ -48,6 +48,30 @@ class TestOAuth(object):
         ]
         assert params["stripe_user[country]"] == ["US"]
 
+    def test_authorize_url_does_not_modify_params(
+        self, stripe_client: StripeClient
+    ):
+        params = {"scope": "read_write"}
+
+        stripe_client.oauth.authorize_url(params)
+
+        assert params == {"scope": "read_write"}
+
+    def test_deauthorize_does_not_modify_params(
+        self, stripe_client: StripeClient, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "post",
+            path="/oauth/deauthorize",
+            rbody='{"stripe_user_id": "acct_test_deauth"}',
+            rcode=200,
+        )
+        params = {"stripe_user_id": "acct_test_deauth"}
+
+        stripe_client.oauth.deauthorize(params)
+
+        assert params == {"stripe_user_id": "acct_test_deauth"}
+
     def test_token(self, stripe_client: StripeClient, http_client_mock):
         http_client_mock.stub_request(
             "post",

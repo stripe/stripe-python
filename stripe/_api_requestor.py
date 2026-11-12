@@ -40,7 +40,7 @@ import stripe._error as error
 import stripe.oauth_error as oauth_error
 from stripe._multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode
-from stripe._encode import _api_encode, _make_suitable_for_json
+from stripe._encode import _api_encode, _json_default
 from stripe._stripe_response import (
     StripeResponse,
     StripeStreamResponse,
@@ -756,9 +756,12 @@ class _APIRequestor(object):
             # this could theoretically work for other lists that we want to merge too, but that doesn't seem to be a use case
             # it never would have worked before, so I think we can start with `expand` and go from there
             if "expand" in existing_params and "expand" in params:
-                params["expand"] = list(  # type:ignore - this is a dict
-                    set([*existing_params["expand"], *params["expand"]])
-                )
+                params = {
+                    **params,
+                    "expand": list(
+                        set([*existing_params["expand"], *params["expand"]])
+                    ),
+                }
 
             params = {
                 **existing_params,
@@ -774,9 +777,7 @@ class _APIRequestor(object):
         encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
 
         if api_mode == "V2":
-            encoded_body = json.dumps(
-                params or {}, default=_make_suitable_for_json
-            )
+            encoded_body = json.dumps(params or {}, default=_json_default)
         else:
             encoded_body = encoded_params
 

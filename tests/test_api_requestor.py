@@ -215,6 +215,53 @@ class TestAPIRequestor(object):
             is_json=True,
         )
 
+    def test_encodes_stripe_object_values_preview(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "post", path=self.v2_path, rbody="{}", rcode=200
+        )
+
+        requestor.request(
+            "post",
+            self.v2_path,
+            {"metadata": StripeObject.construct_from({"foo": "bar"}, "key")},
+            base_address="api",
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            content_type="application/json",
+            post_data='{"metadata": {"foo": "bar"}}',
+            is_json=True,
+        )
+
+    def test_unserializable_value_preview(self, requestor):
+        with pytest.raises(TypeError, match="date is not JSON serializable"):
+            requestor.request(
+                "post",
+                self.v2_path,
+                {"day": datetime.date(2024, 1, 2)},
+                base_address="api",
+            )
+
+    def test_merging_expand_does_not_modify_params(self, requestor):
+        params = {"expand": ["bar"]}
+
+        _, abs_url, *_ = requestor._args_for_request_with_retries(
+            "get",
+            self.v1_path + "?expand[]=foo",
+            params,
+            base_address="api",
+            api_mode="V1",
+        )
+
+        expanded = {
+            pair.split("=")[1] for pair in urlsplit(abs_url).query.split("&")
+        }
+        assert expanded == {"foo", "bar"}
+        assert params == {"expand": ["bar"]}
+
     def test_encodes_null_values_preview(self, requestor, http_client_mock):
         http_client_mock.stub_request(
             "post", path=self.v2_path, rbody="{}", rcode=200

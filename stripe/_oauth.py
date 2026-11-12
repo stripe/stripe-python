@@ -1,5 +1,3 @@
-# Used for global variables
-from stripe import connect_api_base
 from stripe._error import AuthenticationError
 from stripe._api_requestor import _APIRequestor
 from stripe._encode import _api_encode
@@ -324,6 +322,9 @@ class OAuth(object):
         if "response_type" not in params:
             params["response_type"] = "code"
         query = urlencode(list(_api_encode(params)))
+
+        from stripe import connect_api_base
+
         url = connect_api_base + path + "?" + query
         return url
 
