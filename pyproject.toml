@@ -33,8 +33,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-# `pip install stripe[async]` gets you everything + `httpx`, so our async stuff works out of the box
-async = ["httpx"]
+# `pip install stripe[async]` gets you everything + `httpx2`, so our async stuff works out of the box
+async = ["httpx2 >= 2.0.0"]
 
 [project.urls]
 homepage = "https://stripe.com/"
