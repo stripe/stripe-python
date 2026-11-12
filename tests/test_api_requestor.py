@@ -1146,6 +1146,29 @@ class TestAPIRequestor(object):
                 "get", self.v1_path, {}, base_address="api"
             )
 
+    @pytest.mark.parametrize(
+        "make_rbody",
+        [
+            lambda: b'{"error": "invalid_grant"}',
+            lambda: iter([b'{"error": ', b'"invalid_grant"}']),
+        ],
+        ids=["bytes", "iterator"],
+    )
+    def test_extract_error_from_stream_request_for_raw_content(
+        self, requestor, http_client_mock, make_rbody
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody=make_rbody(),
+            rcode=400,
+        )
+
+        with pytest.raises(stripe.oauth_error.InvalidGrantError):
+            requestor.request_stream(
+                "get", self.v1_path, {}, base_address="api"
+            )
+
     def test_extract_error_from_stream_request_for_response(
         self, requestor, http_client_mock
     ):
@@ -1178,6 +1201,12 @@ class TestAPIRequestor(object):
 
         with pytest.warns(UserWarning, match="test notice value"):
             requestor.request("get", self.v1_path, {}, base_address="api")
+
+    def test_stripe_notice_with_lowercase_header_name(self):
+        with pytest.warns(UserWarning, match="test notice value"):
+            _maybe_emit_stripe_notice(
+                {"stripe-notice": "test notice value"}, {}
+            )
 
     def test_stripe_notice_tells_humans_how_to_suppress_notices(self):
         with pytest.warns(UserWarning) as warning:

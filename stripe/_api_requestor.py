@@ -7,6 +7,7 @@ from typing import (
     AsyncIterable,
     Callable,
     Dict,
+    Iterable,
     List,
     Mapping,
     Optional,
@@ -32,6 +33,7 @@ from stripe._util import (
     validate_path,
     _convert_to_stripe_object,
     get_api_mode,
+    get_header,
 )
 from stripe._version import VERSION
 import stripe._error as error
@@ -78,7 +80,7 @@ def _maybe_emit_stripe_notice(
     rheaders: Mapping[str, str],
     environ: Optional[Mapping[str, str]] = None,
 ) -> None:
-    notice = rheaders.get("Stripe-Notice")
+    notice = get_header(rheaders, "Stripe-Notice")
     if not notice:
         return
 
@@ -907,8 +909,8 @@ class _APIRequestor(object):
         log_info("Stripe API response", path=abs_url, response_code=rcode)
         log_debug("API response body", body=rcontent)
 
-        if "Request-Id" in rheaders:
-            request_id = rheaders["Request-Id"]
+        request_id = get_header(rheaders, "Request-Id")
+        if request_id is not None:
             log_debug(
                 "Dashboard link for request",
                 link=dashboard_link(request_id),
@@ -991,8 +993,8 @@ class _APIRequestor(object):
         log_info("Stripe API response", path=abs_url, response_code=rcode)
         log_debug("API response body", body=rcontent)
 
-        if "Request-Id" in rheaders:
-            request_id = rheaders["Request-Id"]
+        request_id = get_header(rheaders, "Request-Id")
+        if request_id is not None:
             log_debug(
                 "Dashboard link for request",
                 link=dashboard_link(request_id),
@@ -1026,7 +1028,7 @@ class _APIRequestor(object):
                 f"(HTTP response code was {rcode})",
                 cast(bytes, rbody),
                 rcode,
-                headers=rheaders,
+                headers=cast(Dict[str, str], rheaders),
             )
         if self._should_handle_code_as_error(rcode):
             self.handle_error_response(
@@ -1046,10 +1048,17 @@ class _APIRequestor(object):
         # received, we need to read from the stream and parse the received JSON,
         # treating it like a standard JSON response.
         if self._should_handle_code_as_error(rcode):
+            # Not every HTTP client returns a file-like object here: some
+            # return the raw content, or an iterator of chunks.
+            content: Any = stream
             if hasattr(stream, "getvalue"):
                 json_content = cast(BytesIO, stream).getvalue()
             elif hasattr(stream, "read"):
                 json_content = stream.read()
+            elif isinstance(content, (bytes, str)):
+                json_content = content
+            elif isinstance(content, Iterable):
+                json_content = b"".join(content)
             else:
                 raise NotImplementedError(
                     "HTTP client %s does not return an IOBase object which "

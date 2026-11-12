@@ -356,6 +356,23 @@ class TestHTTPClient:
         telemetry = json.loads(args[2]["X-Stripe-Client-Telemetry"])
         assert telemetry["last_request_metrics"]["request_id"] == "req_123"
 
+    def test_records_telemetry_for_lowercase_header_names(self, mocker):
+        class TestClient(_http_client.HTTPClient):
+            pass
+
+        stripe.enable_telemetry = True
+        client = TestClient()
+        client.request = mocker.MagicMock(
+            return_value=["", 200, {"request-id": "req_123"}]
+        )
+
+        client.request_with_retries("get", "http://fake.url", {}, None)
+        client.request_with_retries("get", "http://fake.url", {}, None)
+
+        args, _ = client.request.call_args
+        telemetry = json.loads(args[2]["X-Stripe-Client-Telemetry"])
+        assert telemetry["last_request_metrics"]["request_id"] == "req_123"
+
 
 class ClientTestBase:
     REQUEST_CLIENT: Type[_http_client.HTTPClient]
@@ -1187,6 +1204,37 @@ class TestPycurlClient(ClientTestBase):
             for c in curl.setopt.call_args_list
             if c.args[0] == option
         ]
+
+    @pytest.mark.parametrize(
+        "interim_response",
+        [
+            "",
+            "HTTP/1.1 100 Continue\r\n\r\n",
+            "HTTP/1.1 200 Connection established\r\n\r\n",
+        ],
+    )
+    def test_parse_headers_reads_the_final_response(
+        self, mocked_request_lib, interim_response
+    ):
+        client = self.REQUEST_CLIENT(_lib=mocked_request_lib)
+
+        headers = client.parse_headers(
+            interim_response
+            + "HTTP/1.1 200 OK\r\n"
+            + "Request-Id: req_123\r\n"
+            + "Stripe-Should-Retry: false\r\n\r\n"
+        )
+
+        assert headers == {
+            "request-id": "req_123",
+            "stripe-should-retry": "false",
+        }
+
+    def test_parse_headers_without_headers(self, mocked_request_lib):
+        client = self.REQUEST_CLIENT(_lib=mocked_request_lib)
+
+        assert client.parse_headers("") == {}
+        assert client.parse_headers("HTTP/1.1 200 OK\r\n\r\n") == {}
 
     def test_uses_one_curl_handle_per_thread(
         self, mocked_request_lib, created_curls

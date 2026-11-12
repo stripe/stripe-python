@@ -51,6 +51,18 @@ def _console_log_level():
         return None
 
 
+def get_header(headers: Mapping[str, str], name: str) -> Optional[str]:
+    """
+    Looks up a response header whatever case its name is stored in. Some
+    HTTP clients return case-insensitive mappings, while others return plain
+    dicts with lower-cased names.
+    """
+    for key in (name, name.lower()):
+        if key in headers:
+            return headers[key]
+    return None
+
+
 def log_debug(message, **params):
     msg = logfmt(dict(message=message, **params))
     if _console_log_level() == "debug":
