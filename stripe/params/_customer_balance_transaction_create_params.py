@@ -10,6 +10,12 @@ class CustomerBalanceTransactionCreateParams(TypedDict):
     """
     The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.
     """
+    applied_to_invoice: NotRequired[
+        "CustomerBalanceTransactionCreateParamsAppliedToInvoice"
+    ]
+    """
+    Required when `type` is `applied_to_invoice`. Identifies the open invoice to apply the customer's balance credit to.
+    """
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://docs.stripe.com/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.
@@ -27,4 +33,15 @@ class CustomerBalanceTransactionCreateParams(TypedDict):
     ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+    type: NotRequired["Literal['adjustment', 'applied_to_invoice']|str"]
+    """
+    The type of customer balance transaction. Defaults to `adjustment`, which updates the customer's credit balance directly. Set to `applied_to_invoice` to apply the customer's existing credit balance to a specific open invoice.
+    """
+
+
+class CustomerBalanceTransactionCreateParamsAppliedToInvoice(TypedDict):
+    invoice: str
+    """
+    The ID of the open invoice to apply the customer's balance credit to.
     """

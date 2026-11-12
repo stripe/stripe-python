@@ -7,9 +7,14 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.treasury._inbound_transfer_fail_params import (
         InboundTransferFailParams as InboundTransferFailParams,
         InboundTransferFailParamsFailureDetails as InboundTransferFailParamsFailureDetails,
+        InboundTransferFailParamsFailureDetailsNetworkDetails as InboundTransferFailParamsFailureDetailsNetworkDetails,
+        InboundTransferFailParamsFailureDetailsNetworkDetailsAch as InboundTransferFailParamsFailureDetailsNetworkDetailsAch,
     )
     from stripe.params.test_helpers.treasury._inbound_transfer_return_inbound_transfer_params import (
         InboundTransferReturnInboundTransferParams as InboundTransferReturnInboundTransferParams,
+        InboundTransferReturnInboundTransferParamsFailureDetails as InboundTransferReturnInboundTransferParamsFailureDetails,
+        InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetails as InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetails,
+        InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetailsAch as InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetailsAch,
     )
     from stripe.params.test_helpers.treasury._inbound_transfer_succeed_params import (
         InboundTransferSucceedParams as InboundTransferSucceedParams,
@@ -71,7 +76,27 @@ _import_map = {
         "stripe.params.test_helpers.treasury._inbound_transfer_fail_params",
         False,
     ),
+    "InboundTransferFailParamsFailureDetailsNetworkDetails": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_fail_params",
+        False,
+    ),
+    "InboundTransferFailParamsFailureDetailsNetworkDetailsAch": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_fail_params",
+        False,
+    ),
     "InboundTransferReturnInboundTransferParams": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_return_inbound_transfer_params",
+        False,
+    ),
+    "InboundTransferReturnInboundTransferParamsFailureDetails": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_return_inbound_transfer_params",
+        False,
+    ),
+    "InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetails": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_return_inbound_transfer_params",
+        False,
+    ),
+    "InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetailsAch": (
         "stripe.params.test_helpers.treasury._inbound_transfer_return_inbound_transfer_params",
         False,
     ),

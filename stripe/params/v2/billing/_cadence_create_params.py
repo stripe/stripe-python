@@ -33,6 +33,10 @@ class CadenceCreateParamsBillingCycle(TypedDict):
     """
     Specific configuration for determining billing dates when type=day.
     """
+    effective_at: NotRequired["Literal['now', 'on_activation']|str"]
+    """
+    When the anchor for the cadence should be set. Defaults to `now`.
+    """
     interval_count: NotRequired[int]
     """
     The number of intervals (specified in the interval attribute) between

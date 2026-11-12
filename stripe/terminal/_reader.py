@@ -166,6 +166,7 @@ class Reader(
                         "forwarding_api_upstream_connection_timeout",
                         "forwarding_api_upstream_error",
                         "idempotency_key_in_use",
+                        "inactive_api_operation_confirmation_required",
                         "incorrect_address",
                         "incorrect_cvc",
                         "incorrect_number",
@@ -912,6 +913,12 @@ class Reader(
             "set_reader_display": SetReaderDisplay,
         }
 
+    class DeviceHealthDetail(StripeObject):
+        type: Union[Literal["unrecoverable_tamper"], str]
+        """
+        The type of condition affecting the reader's device health.
+        """
+
     action: Optional[Action]
     """
     The most recent action performed by the reader.
@@ -919,6 +926,14 @@ class Reader(
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
+    """
+    device_health: Union[Literal["needs_attention", "no_issues_detected"], str]
+    """
+    The overall device health of the reader. `needs_attention` means the reader failed a security requirement and can't accept payments until the issue is resolved.
+    """
+    device_health_details: List[DeviceHealthDetail]
+    """
+    The set of conditions affecting the reader's device health. Empty when there are no conditions.
     """
     device_sw_version: Optional[str]
     """
@@ -2479,7 +2494,10 @@ class Reader(
     def test_helpers(self):
         return self.TestHelpers(self)
 
-    _inner_class_types = {"action": Action}
+    _inner_class_types = {
+        "action": Action,
+        "device_health_details": DeviceHealthDetail,
+    }
 
 
 Reader.TestHelpers._resource_cls = Reader

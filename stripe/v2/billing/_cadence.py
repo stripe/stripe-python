@@ -143,6 +143,10 @@ class Cadence(StripeObject):
         """
         Specific configuration for determining billing dates when type=day.
         """
+        effective_at: Union[Literal["now", "on_activation"], str]
+        """
+        When the anchor for the cadence should be set. Defaults to `now`.
+        """
         interval_count: int
         """
         The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
@@ -532,6 +536,16 @@ class Cadence(StripeObject):
         """
         _inner_class_types = {"bill": Bill, "collection": Collection}
 
+    class StatusTransitions(StripeObject):
+        activated_at: Optional[str]
+        """
+        When the billing cadence status transitioned to activated.
+        """
+        canceled_at: Optional[str]
+        """
+        When the billing cadence status transitioned to canceled.
+        """
+
     billing_cycle: BillingCycle
     """
     The billing cycle is the object that defines future billing cycle dates.
@@ -576,9 +590,13 @@ class Cadence(StripeObject):
     """
     Settings data that contains expanded billing settings configuration with actual values.
     """
-    status: Union[Literal["active", "canceled"], str]
+    status: Union[Literal["active", "canceled", "initializing"], str]
     """
     The current status of the cadence.
+    """
+    status_transitions: Optional[StatusTransitions]
+    """
+    Timestamps for billing cadence status transitions.
     """
     test_clock: Optional[str]
     """
@@ -589,4 +607,5 @@ class Cadence(StripeObject):
         "payer": Payer,
         "settings": Settings,
         "settings_data": SettingsData,
+        "status_transitions": StatusTransitions,
     }

@@ -268,6 +268,10 @@ class FxQuoteNeedsRefreshError(StripeError):
     pass
 
 
+class InactiveApiOperationConfirmationRequiredError(StripeError):
+    pass
+
+
 class InsufficientFundsError(StripeError):
     pass
 

@@ -68,6 +68,10 @@ class ReportRun(
         """
         Category of balance transactions to be included in the report run.
         """
+        tax_invoice_month: Optional[str]
+        """
+        The tax invoice month in YYYY-MM format.
+        """
         timezone: Optional[str]
         """
         Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.

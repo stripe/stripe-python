@@ -4,12 +4,18 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.capital._financing_offer_create_params import (
+        FinancingOfferCreateParams as FinancingOfferCreateParams,
+    )
     from stripe.params.capital._financing_offer_list_params import (
         FinancingOfferListParams as FinancingOfferListParams,
         FinancingOfferListParamsCreated as FinancingOfferListParamsCreated,
     )
     from stripe.params.capital._financing_offer_mark_delivered_params import (
         FinancingOfferMarkDeliveredParams as FinancingOfferMarkDeliveredParams,
+    )
+    from stripe.params.capital._financing_offer_refill_params import (
+        FinancingOfferRefillParams as FinancingOfferRefillParams,
     )
     from stripe.params.capital._financing_offer_retrieve_params import (
         FinancingOfferRetrieveParams as FinancingOfferRetrieveParams,
@@ -26,6 +32,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "FinancingOfferCreateParams": (
+        "stripe.params.capital._financing_offer_create_params",
+        False,
+    ),
     "FinancingOfferListParams": (
         "stripe.params.capital._financing_offer_list_params",
         False,
@@ -36,6 +46,10 @@ _import_map = {
     ),
     "FinancingOfferMarkDeliveredParams": (
         "stripe.params.capital._financing_offer_mark_delivered_params",
+        False,
+    ),
+    "FinancingOfferRefillParams": (
+        "stripe.params.capital._financing_offer_refill_params",
         False,
     ),
     "FinancingOfferRetrieveParams": (

@@ -20,7 +20,7 @@ class PlanService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Plan]":
         """
-        Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+        Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
         """
         return cast(
             "ListObject[Plan]",
@@ -39,7 +39,7 @@ class PlanService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Plan]":
         """
-        Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+        Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
         """
         return cast(
             "ListObject[Plan]",
@@ -60,7 +60,7 @@ class PlanService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
         """
-        Retrieve a ReservePlan.
+        Retrieve a ReservePlan on your account or on one of your connected accounts.
         """
         return cast(
             "Plan",
@@ -81,7 +81,7 @@ class PlanService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Plan":
         """
-        Retrieve a ReservePlan.
+        Retrieve a ReservePlan on your account or on one of your connected accounts.
         """
         return cast(
             "Plan",

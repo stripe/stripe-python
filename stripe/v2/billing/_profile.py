@@ -21,7 +21,7 @@ class Profile(StripeObject):
     """
     default_payment_method: Optional[str]
     """
-    The ID of the payment method object.
+    The ID of the payment method object. If set to nil, the customer payment method is used.
     """
     display_name: Optional[str]
     """

@@ -12,7 +12,7 @@ class ProfileCreateParams(TypedDict):
     """
     default_payment_method: NotRequired[str]
     """
-    The ID of the payment method object.
+    The ID of the payment method object. If set to nil, the customer payment method is used.
     """
     display_name: NotRequired[str]
     """

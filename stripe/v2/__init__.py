@@ -20,6 +20,7 @@ if TYPE_CHECKING:
         money_management as money_management,
         network as network,
         orchestrated_commerce as orchestrated_commerce,
+        payments as payments,
         signals as signals,
         test_helpers as test_helpers,
     )
@@ -37,6 +38,7 @@ if TYPE_CHECKING:
     from stripe.v2._orchestrated_commerce_service import (
         OrchestratedCommerceService as OrchestratedCommerceService,
     )
+    from stripe.v2._payments_service import PaymentsService as PaymentsService
     from stripe.v2._signals_service import SignalsService as SignalsService
     from stripe.v2._test_helper_service import (
         TestHelperService as TestHelperService,
@@ -53,6 +55,7 @@ _import_map = {
     "money_management": ("stripe.v2.money_management", True),
     "network": ("stripe.v2.network", True),
     "orchestrated_commerce": ("stripe.v2.orchestrated_commerce", True),
+    "payments": ("stripe.v2.payments", True),
     "signals": ("stripe.v2.signals", True),
     "test_helpers": ("stripe.v2.test_helpers", True),
     "BillingService": ("stripe.v2._billing_service", False),
@@ -68,6 +71,7 @@ _import_map = {
         "stripe.v2._orchestrated_commerce_service",
         False,
     ),
+    "PaymentsService": ("stripe.v2._payments_service", False),
     "SignalsService": ("stripe.v2._signals_service", False),
     "TestHelperService": ("stripe.v2._test_helper_service", False),
 }

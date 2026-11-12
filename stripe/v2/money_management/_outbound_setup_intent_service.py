@@ -13,6 +13,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._outbound_setup_intent_create_params import (
         OutboundSetupIntentCreateParams,
     )
+    from stripe.params.v2.money_management._outbound_setup_intent_from_financial_connections_params import (
+        OutboundSetupIntentFromFinancialConnectionsParams,
+    )
     from stripe.params.v2.money_management._outbound_setup_intent_list_params import (
         OutboundSetupIntentListParams,
     )
@@ -99,6 +102,48 @@ class OutboundSetupIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/money_management/outbound_setup_intents",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def from_financial_connections(
+        self,
+        params: Optional[
+            "OutboundSetupIntentFromFinancialConnectionsParams"
+        ] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
+        """
+        Create an OutboundSetupIntent object.
+        """
+        return cast(
+            "OutboundSetupIntent",
+            self._request(
+                "post",
+                "/v2/money_management/outbound_setup_intents/from_financial_connections",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def from_financial_connections_async(
+        self,
+        params: Optional[
+            "OutboundSetupIntentFromFinancialConnectionsParams"
+        ] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
+        """
+        Create an OutboundSetupIntent object.
+        """
+        return cast(
+            "OutboundSetupIntent",
+            await self._request_async(
+                "post",
+                "/v2/money_management/outbound_setup_intents/from_financial_connections",
                 base_address="api",
                 params=params,
                 options=options,

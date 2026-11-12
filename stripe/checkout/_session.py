@@ -112,6 +112,10 @@ class Session(
             Type of the account referenced.
             """
 
+        address_collection_precision: Optional[Literal["full", "minimal"]]
+        """
+        Controls how much address information Checkout collects when automatic tax is enabled.
+        """
         enabled: bool
         """
         Indicates whether automatic tax is enabled for the session

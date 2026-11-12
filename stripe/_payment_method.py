@@ -196,11 +196,11 @@ class PaymentMethod(
         class Checks(StripeObject):
             address_line1_check: Optional[str]
             """
-            If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+            If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
             """
             address_postal_code_check: Optional[str]
             """
-            If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+            If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
             """
             cvc_check: Optional[str]
             """

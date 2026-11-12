@@ -19,7 +19,7 @@ class AccountLinkService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountLink":
         """
-        Creates an AccountLink object that includes a single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information.
+        Creates an AccountLink object that includes a single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information, or to access its Stripe-hosted Dashboard.
         """
         return cast(
             "AccountLink",
@@ -38,7 +38,7 @@ class AccountLinkService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountLink":
         """
-        Creates an AccountLink object that includes a single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information.
+        Creates an AccountLink object that includes a single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information, or to access its Stripe-hosted Dashboard.
         """
         return cast(
             "AccountLink",

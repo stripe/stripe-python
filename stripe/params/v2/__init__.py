@@ -13,6 +13,7 @@ if TYPE_CHECKING:
         money_management as money_management,
         network as network,
         orchestrated_commerce as orchestrated_commerce,
+        payments as payments,
         signals as signals,
         test_helpers as test_helpers,
     )
@@ -27,6 +28,7 @@ _import_map = {
     "money_management": ("stripe.params.v2.money_management", True),
     "network": ("stripe.params.v2.network", True),
     "orchestrated_commerce": ("stripe.params.v2.orchestrated_commerce", True),
+    "payments": ("stripe.params.v2.payments", True),
     "signals": ("stripe.params.v2.signals", True),
     "test_helpers": ("stripe.params.v2.test_helpers", True),
 }

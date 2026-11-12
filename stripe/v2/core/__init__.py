@@ -42,6 +42,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._batch_job_service import (
         BatchJobService as BatchJobService,
     )
+    from stripe.v2.core._claimable_sandbox import (
+        ClaimableSandbox as ClaimableSandbox,
+    )
+    from stripe.v2.core._claimable_sandbox_service import (
+        ClaimableSandboxService as ClaimableSandboxService,
+    )
     from stripe.v2.core._event import Event as Event
     from stripe.v2.core._event_destination import (
         EventDestination as EventDestination,
@@ -71,6 +77,11 @@ _import_map = {
     ),
     "BatchJob": ("stripe.v2.core._batch_job", False),
     "BatchJobService": ("stripe.v2.core._batch_job_service", False),
+    "ClaimableSandbox": ("stripe.v2.core._claimable_sandbox", False),
+    "ClaimableSandboxService": (
+        "stripe.v2.core._claimable_sandbox_service",
+        False,
+    ),
     "Event": ("stripe.v2.core._event", False),
     "EventDestination": ("stripe.v2.core._event_destination", False),
     "EventDestinationService": (

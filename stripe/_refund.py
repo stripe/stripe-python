@@ -67,6 +67,16 @@ class Refund(
         class AuBankTransfer(StripeObject):
             pass
 
+        class Bizum(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class Blik(StripeObject):
             network_decline_code: Optional[str]
             """
@@ -279,6 +289,16 @@ class Refund(
         class Twint(StripeObject):
             pass
 
+        class Upi(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class UsBankTransfer(StripeObject):
             reference: Optional[str]
             """
@@ -301,6 +321,7 @@ class Refund(
         alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_bank_transfer: Optional[AuBankTransfer]
+        bizum: Optional[Bizum]
         blik: Optional[Blik]
         br_bank_transfer: Optional[BrBankTransfer]
         card: Optional[Card]
@@ -333,6 +354,7 @@ class Refund(
         """
         The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
         """
+        upi: Optional[Upi]
         us_bank_transfer: Optional[UsBankTransfer]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]
@@ -343,6 +365,7 @@ class Refund(
             "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_bank_transfer": AuBankTransfer,
+            "bizum": Bizum,
             "blik": Blik,
             "br_bank_transfer": BrBankTransfer,
             "card": Card,
@@ -371,6 +394,7 @@ class Refund(
             "swish": Swish,
             "th_bank_transfer": ThBankTransfer,
             "twint": Twint,
+            "upi": Upi,
             "us_bank_transfer": UsBankTransfer,
             "wechat_pay": WechatPay,
             "zip": Zip,

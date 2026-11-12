@@ -585,6 +585,12 @@ class PaymentLinkUpdateParamsOptionalItemAdjustableQuantity(TypedDict):
 
 
 class PaymentLinkUpdateParamsPaymentIntentData(TypedDict):
+    capture_method: NotRequired[
+        "Literal['']|Literal['automatic', 'automatic_async', 'manual']|str"
+    ]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
     description: NotRequired["Literal['']|str"]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.

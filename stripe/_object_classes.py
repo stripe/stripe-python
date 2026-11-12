@@ -474,6 +474,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "ApprovalRequest",
     ),
     "v2.core.batch_job": ("stripe.v2.core._batch_job", "BatchJob"),
+    "v2.core.claimable_sandbox": (
+        "stripe.v2.core._claimable_sandbox",
+        "ClaimableSandbox",
+    ),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",
@@ -580,6 +584,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.orchestrated_commerce.agreement": (
         "stripe.v2.orchestrated_commerce._agreement",
         "Agreement",
+    ),
+    "v2.payments.off_session_payment": (
+        "stripe.v2.payments._off_session_payment",
+        "OffSessionPayment",
     ),
     "v2.signals.account_activity": (
         "stripe.v2.signals._account_activity",

@@ -30,7 +30,9 @@ class OutboundSetupIntentUpdateParamsPayoutMethodData(TypedDict):
     """
     The type specific details of the card payout method.
     """
-    type: Union[Literal["bank_account", "card", "crypto_wallet"], str]
+    type: Union[
+        Literal["apple_pay", "bank_account", "card", "crypto_wallet"], str
+    ]
     """
     Open Enum. The type of payout method to be created/updated.
     """
