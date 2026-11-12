@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Hold(StripeObject):
     """
-    ReserveHolds are used to place a temporary ReserveHold on a merchant's funds.
+    A ReserveHold holds a portion of an account's funds until it's released. Stripe or the account's platform can create a ReserveHold directly, and a ReservePlan creates ReserveHolds automatically from incoming Charges.
     """
 
     OBJECT_NAME: ClassVar[Literal["reserve.hold"]] = "reserve.hold"

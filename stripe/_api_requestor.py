@@ -462,6 +462,10 @@ class _APIRequestor(object):
             return error.FinancialAccountNotOpenError(**error_args)
         elif type == "fx_quote_needs_refresh":
             return error.FxQuoteNeedsRefreshError(**error_args)
+        elif type == "inactive_api_operation_confirmation_required":
+            return error.InactiveApiOperationConfirmationRequiredError(
+                **error_args
+            )
         elif type == "insufficient_funds":
             return error.InsufficientFundsError(**error_args)
         elif type == "invalid_payment_method":

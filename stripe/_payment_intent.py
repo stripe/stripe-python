@@ -278,6 +278,7 @@ class PaymentIntent(
                     "forwarding_api_upstream_connection_timeout",
                     "forwarding_api_upstream_error",
                     "idempotency_key_in_use",
+                    "inactive_api_operation_confirmation_required",
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
@@ -1418,7 +1419,7 @@ class PaymentIntent(
         class VerifyWithMicrodeposits(StripeObject):
             arrival_date: int
             """
-            The timestamp when the microdeposits are expected to land.
+            The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
             """
             hosted_verification_url: str
             """

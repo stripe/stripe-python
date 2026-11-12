@@ -53,6 +53,23 @@ class InboundTransfer(
     )
 
     class FailureDetails(StripeObject):
+        class NetworkDetails(StripeObject):
+            class Ach(StripeObject):
+                return_code: Optional[str]
+                """
+                NACHA ACH return code.
+                """
+                return_reason: Optional[str]
+                """
+                NACHA ACH return reason.
+                """
+
+            ach: Optional[Ach]
+            """
+            ACH return details.
+            """
+            _inner_class_types = {"ach": Ach}
+
         code: Union[
             Literal[
                 "account_closed",
@@ -74,6 +91,11 @@ class InboundTransfer(
         """
         Reason for the failure.
         """
+        network_details: Optional[NetworkDetails]
+        """
+        Money movement network-specific details regarding the failure.
+        """
+        _inner_class_types = {"network_details": NetworkDetails}
 
     class LinkedFlows(StripeObject):
         received_debit: Optional[str]

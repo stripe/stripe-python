@@ -7,13 +7,13 @@ from typing import Any, Dict, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
-    from stripe._invoice_item import InvoiceItem
     from stripe._stripe_client import StripeClient
+    from stripe.v2.core._claimable_sandbox import ClaimableSandbox
 
 
-class V1InvoiceitemDiscountAddedEventNotification(EventNotification):
-    LOOKUP_TYPE = "v1.invoiceitem.discount_added"
-    type: Literal["v1.invoiceitem.discount_added"]
+class V2CoreClaimableSandboxExpiringEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.expiring"
+    type: Literal["v2.core.claimable_sandbox.expiring"]
     related_object: RelatedObject
 
     def __init__(
@@ -26,13 +26,13 @@ class V1InvoiceitemDiscountAddedEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1InvoiceitemDiscountAddedEvent":
+    def fetch_event(self) -> "V2CoreClaimableSandboxExpiringEvent":
         return cast(
-            "V1InvoiceitemDiscountAddedEvent",
+            "V2CoreClaimableSandboxExpiringEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "InvoiceItem":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -41,7 +41,7 @@ class V1InvoiceitemDiscountAddedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "InvoiceItem",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -49,13 +49,13 @@ class V1InvoiceitemDiscountAddedEventNotification(EventNotification):
         )
 
     @override
-    async def fetch_event_async(self) -> "V1InvoiceitemDiscountAddedEvent":
+    async def fetch_event_async(self) -> "V2CoreClaimableSandboxExpiringEvent":
         return cast(
-            "V1InvoiceitemDiscountAddedEvent",
+            "V2CoreClaimableSandboxExpiringEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "InvoiceItem":
+    async def fetch_related_object_async(self) -> "ClaimableSandbox":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -64,7 +64,7 @@ class V1InvoiceitemDiscountAddedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "InvoiceItem",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -72,9 +72,9 @@ class V1InvoiceitemDiscountAddedEventNotification(EventNotification):
         )
 
 
-class V1InvoiceitemDiscountAddedEvent(Event):
-    LOOKUP_TYPE = "v1.invoiceitem.discount_added"
-    type: Literal["v1.invoiceitem.discount_added"]
+class V2CoreClaimableSandboxExpiringEvent(Event):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.expiring"
+    type: Literal["v2.core.claimable_sandbox.expiring"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -95,12 +95,12 @@ class V1InvoiceitemDiscountAddedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "InvoiceItem":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "InvoiceItem",
+            "ClaimableSandbox",
             self._requestor.request(
                 "get",
                 self.related_object.url,

@@ -8,14 +8,12 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe._subscription_schedule import SubscriptionSchedule
+    from stripe.v2.core._claimable_sandbox import ClaimableSandbox
 
 
-class V1SubscriptionSchedulePhaseEndDateChangedEventNotification(
-    EventNotification,
-):
-    LOOKUP_TYPE = "v1.subscription_schedule.phase_end_date_changed"
-    type: Literal["v1.subscription_schedule.phase_end_date_changed"]
+class V2CoreClaimableSandboxClaimedEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.claimed"
+    type: Literal["v2.core.claimable_sandbox.claimed"]
     related_object: RelatedObject
 
     def __init__(
@@ -28,13 +26,13 @@ class V1SubscriptionSchedulePhaseEndDateChangedEventNotification(
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1SubscriptionSchedulePhaseEndDateChangedEvent":
+    def fetch_event(self) -> "V2CoreClaimableSandboxClaimedEvent":
         return cast(
-            "V1SubscriptionSchedulePhaseEndDateChangedEvent",
+            "V2CoreClaimableSandboxClaimedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "SubscriptionSchedule":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -43,7 +41,7 @@ class V1SubscriptionSchedulePhaseEndDateChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "SubscriptionSchedule",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -51,15 +49,13 @@ class V1SubscriptionSchedulePhaseEndDateChangedEventNotification(
         )
 
     @override
-    async def fetch_event_async(
-        self,
-    ) -> "V1SubscriptionSchedulePhaseEndDateChangedEvent":
+    async def fetch_event_async(self) -> "V2CoreClaimableSandboxClaimedEvent":
         return cast(
-            "V1SubscriptionSchedulePhaseEndDateChangedEvent",
+            "V2CoreClaimableSandboxClaimedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "SubscriptionSchedule":
+    async def fetch_related_object_async(self) -> "ClaimableSandbox":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -68,7 +64,7 @@ class V1SubscriptionSchedulePhaseEndDateChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "SubscriptionSchedule",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -76,9 +72,9 @@ class V1SubscriptionSchedulePhaseEndDateChangedEventNotification(
         )
 
 
-class V1SubscriptionSchedulePhaseEndDateChangedEvent(Event):
-    LOOKUP_TYPE = "v1.subscription_schedule.phase_end_date_changed"
-    type: Literal["v1.subscription_schedule.phase_end_date_changed"]
+class V2CoreClaimableSandboxClaimedEvent(Event):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.claimed"
+    type: Literal["v2.core.claimable_sandbox.claimed"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -99,12 +95,12 @@ class V1SubscriptionSchedulePhaseEndDateChangedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "SubscriptionSchedule":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "SubscriptionSchedule",
+            "ClaimableSandbox",
             self._requestor.request(
                 "get",
                 self.related_object.url,

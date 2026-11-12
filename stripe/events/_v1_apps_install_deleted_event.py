@@ -8,14 +8,12 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe._subscription import Subscription
+    from stripe.apps._install import Install
 
 
-class V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification(
-    EventNotification,
-):
-    LOOKUP_TYPE = "v1.customer.subscription.default_payment_method_changed"
-    type: Literal["v1.customer.subscription.default_payment_method_changed"]
+class V1AppsInstallDeletedEventNotification(EventNotification):
+    LOOKUP_TYPE = "v1.apps.install.deleted"
+    type: Literal["v1.apps.install.deleted"]
     related_object: RelatedObject
 
     def __init__(
@@ -28,15 +26,13 @@ class V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification(
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(
-        self,
-    ) -> "V1CustomerSubscriptionDefaultPaymentMethodChangedEvent":
+    def fetch_event(self) -> "V1AppsInstallDeletedEvent":
         return cast(
-            "V1CustomerSubscriptionDefaultPaymentMethodChangedEvent",
+            "V1AppsInstallDeletedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "Install":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -45,7 +41,7 @@ class V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "Install",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -53,15 +49,13 @@ class V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification(
         )
 
     @override
-    async def fetch_event_async(
-        self,
-    ) -> "V1CustomerSubscriptionDefaultPaymentMethodChangedEvent":
+    async def fetch_event_async(self) -> "V1AppsInstallDeletedEvent":
         return cast(
-            "V1CustomerSubscriptionDefaultPaymentMethodChangedEvent",
+            "V1AppsInstallDeletedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Subscription":
+    async def fetch_related_object_async(self) -> "Install":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -70,7 +64,7 @@ class V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "Install",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -78,9 +72,9 @@ class V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification(
         )
 
 
-class V1CustomerSubscriptionDefaultPaymentMethodChangedEvent(Event):
-    LOOKUP_TYPE = "v1.customer.subscription.default_payment_method_changed"
-    type: Literal["v1.customer.subscription.default_payment_method_changed"]
+class V1AppsInstallDeletedEvent(Event):
+    LOOKUP_TYPE = "v1.apps.install.deleted"
+    type: Literal["v1.apps.install.deleted"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -101,12 +95,12 @@ class V1CustomerSubscriptionDefaultPaymentMethodChangedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "Install":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Subscription",
+            "Install",
             self._requestor.request(
                 "get",
                 self.related_object.url,

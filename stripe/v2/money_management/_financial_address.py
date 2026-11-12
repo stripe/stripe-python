@@ -148,6 +148,9 @@ class FinancialAddress(StripeObject):
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
     settlement_currency: str
+    """
+    Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+    """
     status: Literal["active", "archived", "failed", "pending"]
     """
     Closed Enum. The status of the FinancialAddress.

@@ -13,7 +13,7 @@ class FinancialAccountListParams(TypedDict):
     """
     limit: NotRequired[int]
     """
-    The page limit.
+    Maximum number of results to return. Default: 10. Valid range: 1-20.
     """
     statuses: NotRequired[List[Literal["closed", "open", "pending"]]]
     """

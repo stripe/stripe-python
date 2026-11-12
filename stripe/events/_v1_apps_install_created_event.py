@@ -8,12 +8,12 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe._subscription import Subscription
+    from stripe.apps._install import Install
 
 
-class V1CustomerSubscriptionTrialingEventNotification(EventNotification):
-    LOOKUP_TYPE = "v1.customer.subscription.trialing"
-    type: Literal["v1.customer.subscription.trialing"]
+class V1AppsInstallCreatedEventNotification(EventNotification):
+    LOOKUP_TYPE = "v1.apps.install.created"
+    type: Literal["v1.apps.install.created"]
     related_object: RelatedObject
 
     def __init__(
@@ -26,13 +26,13 @@ class V1CustomerSubscriptionTrialingEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1CustomerSubscriptionTrialingEvent":
+    def fetch_event(self) -> "V1AppsInstallCreatedEvent":
         return cast(
-            "V1CustomerSubscriptionTrialingEvent",
+            "V1AppsInstallCreatedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "Install":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -41,7 +41,7 @@ class V1CustomerSubscriptionTrialingEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "Install",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -49,13 +49,13 @@ class V1CustomerSubscriptionTrialingEventNotification(EventNotification):
         )
 
     @override
-    async def fetch_event_async(self) -> "V1CustomerSubscriptionTrialingEvent":
+    async def fetch_event_async(self) -> "V1AppsInstallCreatedEvent":
         return cast(
-            "V1CustomerSubscriptionTrialingEvent",
+            "V1AppsInstallCreatedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Subscription":
+    async def fetch_related_object_async(self) -> "Install":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -64,7 +64,7 @@ class V1CustomerSubscriptionTrialingEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "Install",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -72,9 +72,9 @@ class V1CustomerSubscriptionTrialingEventNotification(EventNotification):
         )
 
 
-class V1CustomerSubscriptionTrialingEvent(Event):
-    LOOKUP_TYPE = "v1.customer.subscription.trialing"
-    type: Literal["v1.customer.subscription.trialing"]
+class V1AppsInstallCreatedEvent(Event):
+    LOOKUP_TYPE = "v1.apps.install.created"
+    type: Literal["v1.apps.install.created"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -95,12 +95,12 @@ class V1CustomerSubscriptionTrialingEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "Install":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Subscription",
+            "Install",
             self._requestor.request(
                 "get",
                 self.related_object.url,

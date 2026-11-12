@@ -8,14 +8,12 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe.financial_connections._account import Account
+    from stripe.v2.core._claimable_sandbox import ClaimableSandbox
 
 
-class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
-    EventNotification,
-):
-    LOOKUP_TYPE = "v1.financial_connections.account.ownership_refresh_failed"
-    type: Literal["v1.financial_connections.account.ownership_refresh_failed"]
+class V2CoreClaimableSandboxCreatedEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.created"
+    type: Literal["v2.core.claimable_sandbox.created"]
     related_object: RelatedObject
 
     def __init__(
@@ -28,15 +26,13 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(
-        self,
-    ) -> "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent":
+    def fetch_event(self) -> "V2CoreClaimableSandboxCreatedEvent":
         return cast(
-            "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent",
+            "V2CoreClaimableSandboxCreatedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Account":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -45,7 +41,7 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Account",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -53,15 +49,13 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
         )
 
     @override
-    async def fetch_event_async(
-        self,
-    ) -> "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent":
+    async def fetch_event_async(self) -> "V2CoreClaimableSandboxCreatedEvent":
         return cast(
-            "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent",
+            "V2CoreClaimableSandboxCreatedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Account":
+    async def fetch_related_object_async(self) -> "ClaimableSandbox":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -70,7 +64,7 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Account",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -78,9 +72,9 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
         )
 
 
-class V1FinancialConnectionsAccountOwnershipRefreshFailedEvent(Event):
-    LOOKUP_TYPE = "v1.financial_connections.account.ownership_refresh_failed"
-    type: Literal["v1.financial_connections.account.ownership_refresh_failed"]
+class V2CoreClaimableSandboxCreatedEvent(Event):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.created"
+    type: Literal["v2.core.claimable_sandbox.created"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -101,12 +95,12 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Account":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Account",
+            "ClaimableSandbox",
             self._requestor.request(
                 "get",
                 self.related_object.url,

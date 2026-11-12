@@ -49,6 +49,18 @@ if TYPE_CHECKING:
         V1ApplicationFeeRefundedEvent as V1ApplicationFeeRefundedEvent,
         V1ApplicationFeeRefundedEventNotification as V1ApplicationFeeRefundedEventNotification,
     )
+    from stripe.events._v1_apps_install_created_event import (
+        V1AppsInstallCreatedEvent as V1AppsInstallCreatedEvent,
+        V1AppsInstallCreatedEventNotification as V1AppsInstallCreatedEventNotification,
+    )
+    from stripe.events._v1_apps_install_deleted_event import (
+        V1AppsInstallDeletedEvent as V1AppsInstallDeletedEvent,
+        V1AppsInstallDeletedEventNotification as V1AppsInstallDeletedEventNotification,
+    )
+    from stripe.events._v1_apps_install_updated_event import (
+        V1AppsInstallUpdatedEvent as V1AppsInstallUpdatedEvent,
+        V1AppsInstallUpdatedEventNotification as V1AppsInstallUpdatedEventNotification,
+    )
     from stripe.events._v1_balance_available_event import (
         V1BalanceAvailableEvent as V1BalanceAvailableEvent,
         V1BalanceAvailableEventNotification as V1BalanceAvailableEventNotification,
@@ -257,65 +269,17 @@ if TYPE_CHECKING:
         V1CustomerDiscountDeletedEvent as V1CustomerDiscountDeletedEvent,
         V1CustomerDiscountDeletedEventNotification as V1CustomerDiscountDeletedEventNotification,
     )
-    from stripe.events._v1_customer_discount_source_changed_event import (
-        V1CustomerDiscountSourceChangedEvent as V1CustomerDiscountSourceChangedEvent,
-        V1CustomerDiscountSourceChangedEventNotification as V1CustomerDiscountSourceChangedEventNotification,
-    )
     from stripe.events._v1_customer_discount_updated_event import (
         V1CustomerDiscountUpdatedEvent as V1CustomerDiscountUpdatedEvent,
         V1CustomerDiscountUpdatedEventNotification as V1CustomerDiscountUpdatedEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_active_event import (
-        V1CustomerSubscriptionActiveEvent as V1CustomerSubscriptionActiveEvent,
-        V1CustomerSubscriptionActiveEventNotification as V1CustomerSubscriptionActiveEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_cancel_at_changed_event import (
-        V1CustomerSubscriptionCancelAtChangedEvent as V1CustomerSubscriptionCancelAtChangedEvent,
-        V1CustomerSubscriptionCancelAtChangedEventNotification as V1CustomerSubscriptionCancelAtChangedEventNotification,
     )
     from stripe.events._v1_customer_subscription_created_event import (
         V1CustomerSubscriptionCreatedEvent as V1CustomerSubscriptionCreatedEvent,
         V1CustomerSubscriptionCreatedEventNotification as V1CustomerSubscriptionCreatedEventNotification,
     )
-    from stripe.events._v1_customer_subscription_default_payment_method_changed_event import (
-        V1CustomerSubscriptionDefaultPaymentMethodChangedEvent as V1CustomerSubscriptionDefaultPaymentMethodChangedEvent,
-        V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification as V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification,
-    )
     from stripe.events._v1_customer_subscription_deleted_event import (
         V1CustomerSubscriptionDeletedEvent as V1CustomerSubscriptionDeletedEvent,
         V1CustomerSubscriptionDeletedEventNotification as V1CustomerSubscriptionDeletedEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_incomplete_event import (
-        V1CustomerSubscriptionIncompleteEvent as V1CustomerSubscriptionIncompleteEvent,
-        V1CustomerSubscriptionIncompleteEventNotification as V1CustomerSubscriptionIncompleteEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_incomplete_expired_event import (
-        V1CustomerSubscriptionIncompleteExpiredEvent as V1CustomerSubscriptionIncompleteExpiredEvent,
-        V1CustomerSubscriptionIncompleteExpiredEventNotification as V1CustomerSubscriptionIncompleteExpiredEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_item_added_event import (
-        V1CustomerSubscriptionItemAddedEvent as V1CustomerSubscriptionItemAddedEvent,
-        V1CustomerSubscriptionItemAddedEventNotification as V1CustomerSubscriptionItemAddedEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_item_price_changed_event import (
-        V1CustomerSubscriptionItemPriceChangedEvent as V1CustomerSubscriptionItemPriceChangedEvent,
-        V1CustomerSubscriptionItemPriceChangedEventNotification as V1CustomerSubscriptionItemPriceChangedEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_item_quantity_changed_event import (
-        V1CustomerSubscriptionItemQuantityChangedEvent as V1CustomerSubscriptionItemQuantityChangedEvent,
-        V1CustomerSubscriptionItemQuantityChangedEventNotification as V1CustomerSubscriptionItemQuantityChangedEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_item_removed_event import (
-        V1CustomerSubscriptionItemRemovedEvent as V1CustomerSubscriptionItemRemovedEvent,
-        V1CustomerSubscriptionItemRemovedEventNotification as V1CustomerSubscriptionItemRemovedEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_item_tax_rates_changed_event import (
-        V1CustomerSubscriptionItemTaxRatesChangedEvent as V1CustomerSubscriptionItemTaxRatesChangedEvent,
-        V1CustomerSubscriptionItemTaxRatesChangedEventNotification as V1CustomerSubscriptionItemTaxRatesChangedEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_past_due_event import (
-        V1CustomerSubscriptionPastDueEvent as V1CustomerSubscriptionPastDueEvent,
-        V1CustomerSubscriptionPastDueEventNotification as V1CustomerSubscriptionPastDueEventNotification,
     )
     from stripe.events._v1_customer_subscription_paused_event import (
         V1CustomerSubscriptionPausedEvent as V1CustomerSubscriptionPausedEvent,
@@ -337,14 +301,6 @@ if TYPE_CHECKING:
         V1CustomerSubscriptionTrialWillEndEvent as V1CustomerSubscriptionTrialWillEndEvent,
         V1CustomerSubscriptionTrialWillEndEventNotification as V1CustomerSubscriptionTrialWillEndEventNotification,
     )
-    from stripe.events._v1_customer_subscription_trialing_event import (
-        V1CustomerSubscriptionTrialingEvent as V1CustomerSubscriptionTrialingEvent,
-        V1CustomerSubscriptionTrialingEventNotification as V1CustomerSubscriptionTrialingEventNotification,
-    )
-    from stripe.events._v1_customer_subscription_unpaid_event import (
-        V1CustomerSubscriptionUnpaidEvent as V1CustomerSubscriptionUnpaidEvent,
-        V1CustomerSubscriptionUnpaidEventNotification as V1CustomerSubscriptionUnpaidEventNotification,
-    )
     from stripe.events._v1_customer_subscription_updated_event import (
         V1CustomerSubscriptionUpdatedEvent as V1CustomerSubscriptionUpdatedEvent,
         V1CustomerSubscriptionUpdatedEventNotification as V1CustomerSubscriptionUpdatedEventNotification,
@@ -365,14 +321,6 @@ if TYPE_CHECKING:
         V1CustomerUpdatedEvent as V1CustomerUpdatedEvent,
         V1CustomerUpdatedEventNotification as V1CustomerUpdatedEventNotification,
     )
-    from stripe.events._v1_entitlements_active_entitlement_summary_entitlement_added_event import (
-        V1EntitlementsActiveEntitlementSummaryEntitlementAddedEvent as V1EntitlementsActiveEntitlementSummaryEntitlementAddedEvent,
-        V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification as V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification,
-    )
-    from stripe.events._v1_entitlements_active_entitlement_summary_entitlement_removed_event import (
-        V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEvent as V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEvent,
-        V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification as V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification,
-    )
     from stripe.events._v1_entitlements_active_entitlement_summary_updated_event import (
         V1EntitlementsActiveEntitlementSummaryUpdatedEvent as V1EntitlementsActiveEntitlementSummaryUpdatedEvent,
         V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification as V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification,
@@ -384,14 +332,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_financial_connections_account_account_numbers_updated_event import (
         V1FinancialConnectionsAccountAccountNumbersUpdatedEvent as V1FinancialConnectionsAccountAccountNumbersUpdatedEvent,
         V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification as V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_balance_refresh_failed_event import (
-        V1FinancialConnectionsAccountBalanceRefreshFailedEvent as V1FinancialConnectionsAccountBalanceRefreshFailedEvent,
-        V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification as V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_balance_refresh_succeeded_event import (
-        V1FinancialConnectionsAccountBalanceRefreshSucceededEvent as V1FinancialConnectionsAccountBalanceRefreshSucceededEvent,
-        V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification as V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification,
     )
     from stripe.events._v1_financial_connections_account_created_event import (
         V1FinancialConnectionsAccountCreatedEvent as V1FinancialConnectionsAccountCreatedEvent,
@@ -409,22 +349,6 @@ if TYPE_CHECKING:
         V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent as V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent,
         V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification as V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
     )
-    from stripe.events._v1_financial_connections_account_inferred_balances_refresh_failed_event import (
-        V1FinancialConnectionsAccountInferredBalancesRefreshFailedEvent as V1FinancialConnectionsAccountInferredBalancesRefreshFailedEvent,
-        V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification as V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_inferred_balances_refresh_succeeded_event import (
-        V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEvent as V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEvent,
-        V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification as V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_ownership_refresh_failed_event import (
-        V1FinancialConnectionsAccountOwnershipRefreshFailedEvent as V1FinancialConnectionsAccountOwnershipRefreshFailedEvent,
-        V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification as V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_ownership_refresh_succeeded_event import (
-        V1FinancialConnectionsAccountOwnershipRefreshSucceededEvent as V1FinancialConnectionsAccountOwnershipRefreshSucceededEvent,
-        V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification as V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification,
-    )
     from stripe.events._v1_financial_connections_account_reactivated_event import (
         V1FinancialConnectionsAccountReactivatedEvent as V1FinancialConnectionsAccountReactivatedEvent,
         V1FinancialConnectionsAccountReactivatedEventNotification as V1FinancialConnectionsAccountReactivatedEventNotification,
@@ -441,25 +365,9 @@ if TYPE_CHECKING:
         V1FinancialConnectionsAccountRefreshedTransactionsEvent as V1FinancialConnectionsAccountRefreshedTransactionsEvent,
         V1FinancialConnectionsAccountRefreshedTransactionsEventNotification as V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
     )
-    from stripe.events._v1_financial_connections_account_risk_intelligence_refresh_failed_event import (
-        V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEvent as V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEvent,
-        V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification as V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_risk_intelligence_refresh_succeeded_event import (
-        V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEvent as V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEvent,
-        V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification as V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification,
-    )
     from stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event import (
         V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent as V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent,
         V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification as V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_transactions_refresh_failed_event import (
-        V1FinancialConnectionsAccountTransactionsRefreshFailedEvent as V1FinancialConnectionsAccountTransactionsRefreshFailedEvent,
-        V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification as V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification,
-    )
-    from stripe.events._v1_financial_connections_account_transactions_refresh_succeeded_event import (
-        V1FinancialConnectionsAccountTransactionsRefreshSucceededEvent as V1FinancialConnectionsAccountTransactionsRefreshSucceededEvent,
-        V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification as V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification,
     )
     from stripe.events._v1_financial_connections_account_upcoming_account_number_expiry_event import (
         V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent as V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent,
@@ -501,14 +409,6 @@ if TYPE_CHECKING:
         V1InvoiceDeletedEvent as V1InvoiceDeletedEvent,
         V1InvoiceDeletedEventNotification as V1InvoiceDeletedEventNotification,
     )
-    from stripe.events._v1_invoice_discount_added_event import (
-        V1InvoiceDiscountAddedEvent as V1InvoiceDiscountAddedEvent,
-        V1InvoiceDiscountAddedEventNotification as V1InvoiceDiscountAddedEventNotification,
-    )
-    from stripe.events._v1_invoice_discount_removed_event import (
-        V1InvoiceDiscountRemovedEvent as V1InvoiceDiscountRemovedEvent,
-        V1InvoiceDiscountRemovedEventNotification as V1InvoiceDiscountRemovedEventNotification,
-    )
     from stripe.events._v1_invoice_finalization_failed_event import (
         V1InvoiceFinalizationFailedEvent as V1InvoiceFinalizationFailedEvent,
         V1InvoiceFinalizationFailedEventNotification as V1InvoiceFinalizationFailedEventNotification,
@@ -516,22 +416,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_invoice_finalized_event import (
         V1InvoiceFinalizedEvent as V1InvoiceFinalizedEvent,
         V1InvoiceFinalizedEventNotification as V1InvoiceFinalizedEventNotification,
-    )
-    from stripe.events._v1_invoice_line_item_added_event import (
-        V1InvoiceLineItemAddedEvent as V1InvoiceLineItemAddedEvent,
-        V1InvoiceLineItemAddedEventNotification as V1InvoiceLineItemAddedEventNotification,
-    )
-    from stripe.events._v1_invoice_line_item_pricing_changed_event import (
-        V1InvoiceLineItemPricingChangedEvent as V1InvoiceLineItemPricingChangedEvent,
-        V1InvoiceLineItemPricingChangedEventNotification as V1InvoiceLineItemPricingChangedEventNotification,
-    )
-    from stripe.events._v1_invoice_line_item_quantity_changed_event import (
-        V1InvoiceLineItemQuantityChangedEvent as V1InvoiceLineItemQuantityChangedEvent,
-        V1InvoiceLineItemQuantityChangedEventNotification as V1InvoiceLineItemQuantityChangedEventNotification,
-    )
-    from stripe.events._v1_invoice_line_item_removed_event import (
-        V1InvoiceLineItemRemovedEvent as V1InvoiceLineItemRemovedEvent,
-        V1InvoiceLineItemRemovedEventNotification as V1InvoiceLineItemRemovedEventNotification,
     )
     from stripe.events._v1_invoice_marked_uncollectible_event import (
         V1InvoiceMarkedUncollectibleEvent as V1InvoiceMarkedUncollectibleEvent,
@@ -557,17 +441,9 @@ if TYPE_CHECKING:
         V1InvoicePaymentAttemptRequiredEvent as V1InvoicePaymentAttemptRequiredEvent,
         V1InvoicePaymentAttemptRequiredEventNotification as V1InvoicePaymentAttemptRequiredEventNotification,
     )
-    from stripe.events._v1_invoice_payment_canceled_event import (
-        V1InvoicePaymentCanceledEvent as V1InvoicePaymentCanceledEvent,
-        V1InvoicePaymentCanceledEventNotification as V1InvoicePaymentCanceledEventNotification,
-    )
     from stripe.events._v1_invoice_payment_failed_event import (
         V1InvoicePaymentFailedEvent as V1InvoicePaymentFailedEvent,
         V1InvoicePaymentFailedEventNotification as V1InvoicePaymentFailedEventNotification,
-    )
-    from stripe.events._v1_invoice_payment_open_event import (
-        V1InvoicePaymentOpenEvent as V1InvoicePaymentOpenEvent,
-        V1InvoicePaymentOpenEventNotification as V1InvoicePaymentOpenEventNotification,
     )
     from stripe.events._v1_invoice_payment_paid_event import (
         V1InvoicePaymentPaidEvent as V1InvoicePaymentPaidEvent,
@@ -597,10 +473,6 @@ if TYPE_CHECKING:
         V1InvoiceWillBeDueEvent as V1InvoiceWillBeDueEvent,
         V1InvoiceWillBeDueEventNotification as V1InvoiceWillBeDueEventNotification,
     )
-    from stripe.events._v1_invoiceitem_amount_changed_event import (
-        V1InvoiceitemAmountChangedEvent as V1InvoiceitemAmountChangedEvent,
-        V1InvoiceitemAmountChangedEventNotification as V1InvoiceitemAmountChangedEventNotification,
-    )
     from stripe.events._v1_invoiceitem_created_event import (
         V1InvoiceitemCreatedEvent as V1InvoiceitemCreatedEvent,
         V1InvoiceitemCreatedEventNotification as V1InvoiceitemCreatedEventNotification,
@@ -609,21 +481,9 @@ if TYPE_CHECKING:
         V1InvoiceitemDeletedEvent as V1InvoiceitemDeletedEvent,
         V1InvoiceitemDeletedEventNotification as V1InvoiceitemDeletedEventNotification,
     )
-    from stripe.events._v1_invoiceitem_discount_added_event import (
-        V1InvoiceitemDiscountAddedEvent as V1InvoiceitemDiscountAddedEvent,
-        V1InvoiceitemDiscountAddedEventNotification as V1InvoiceitemDiscountAddedEventNotification,
-    )
-    from stripe.events._v1_invoiceitem_discount_removed_event import (
-        V1InvoiceitemDiscountRemovedEvent as V1InvoiceitemDiscountRemovedEvent,
-        V1InvoiceitemDiscountRemovedEventNotification as V1InvoiceitemDiscountRemovedEventNotification,
-    )
     from stripe.events._v1_issuing_authorization_created_event import (
         V1IssuingAuthorizationCreatedEvent as V1IssuingAuthorizationCreatedEvent,
         V1IssuingAuthorizationCreatedEventNotification as V1IssuingAuthorizationCreatedEventNotification,
-    )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEvent as V1IssuingAuthorizationRequestEvent,
-        V1IssuingAuthorizationRequestEventNotification as V1IssuingAuthorizationRequestEventNotification,
     )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEvent as V1IssuingAuthorizationUpdatedEvent,
@@ -813,57 +673,25 @@ if TYPE_CHECKING:
         V1PlanUpdatedEvent as V1PlanUpdatedEvent,
         V1PlanUpdatedEventNotification as V1PlanUpdatedEventNotification,
     )
-    from stripe.events._v1_price_activated_event import (
-        V1PriceActivatedEvent as V1PriceActivatedEvent,
-        V1PriceActivatedEventNotification as V1PriceActivatedEventNotification,
-    )
     from stripe.events._v1_price_created_event import (
         V1PriceCreatedEvent as V1PriceCreatedEvent,
         V1PriceCreatedEventNotification as V1PriceCreatedEventNotification,
-    )
-    from stripe.events._v1_price_deactivated_event import (
-        V1PriceDeactivatedEvent as V1PriceDeactivatedEvent,
-        V1PriceDeactivatedEventNotification as V1PriceDeactivatedEventNotification,
     )
     from stripe.events._v1_price_deleted_event import (
         V1PriceDeletedEvent as V1PriceDeletedEvent,
         V1PriceDeletedEventNotification as V1PriceDeletedEventNotification,
     )
-    from stripe.events._v1_price_lookup_key_changed_event import (
-        V1PriceLookupKeyChangedEvent as V1PriceLookupKeyChangedEvent,
-        V1PriceLookupKeyChangedEventNotification as V1PriceLookupKeyChangedEventNotification,
-    )
-    from stripe.events._v1_price_tax_behavior_changed_event import (
-        V1PriceTaxBehaviorChangedEvent as V1PriceTaxBehaviorChangedEvent,
-        V1PriceTaxBehaviorChangedEventNotification as V1PriceTaxBehaviorChangedEventNotification,
-    )
     from stripe.events._v1_price_updated_event import (
         V1PriceUpdatedEvent as V1PriceUpdatedEvent,
         V1PriceUpdatedEventNotification as V1PriceUpdatedEventNotification,
-    )
-    from stripe.events._v1_product_activated_event import (
-        V1ProductActivatedEvent as V1ProductActivatedEvent,
-        V1ProductActivatedEventNotification as V1ProductActivatedEventNotification,
     )
     from stripe.events._v1_product_created_event import (
         V1ProductCreatedEvent as V1ProductCreatedEvent,
         V1ProductCreatedEventNotification as V1ProductCreatedEventNotification,
     )
-    from stripe.events._v1_product_deactivated_event import (
-        V1ProductDeactivatedEvent as V1ProductDeactivatedEvent,
-        V1ProductDeactivatedEventNotification as V1ProductDeactivatedEventNotification,
-    )
-    from stripe.events._v1_product_default_price_changed_event import (
-        V1ProductDefaultPriceChangedEvent as V1ProductDefaultPriceChangedEvent,
-        V1ProductDefaultPriceChangedEventNotification as V1ProductDefaultPriceChangedEventNotification,
-    )
     from stripe.events._v1_product_deleted_event import (
         V1ProductDeletedEvent as V1ProductDeletedEvent,
         V1ProductDeletedEventNotification as V1ProductDeletedEventNotification,
-    )
-    from stripe.events._v1_product_tax_code_changed_event import (
-        V1ProductTaxCodeChangedEvent as V1ProductTaxCodeChangedEvent,
-        V1ProductTaxCodeChangedEventNotification as V1ProductTaxCodeChangedEventNotification,
     )
     from stripe.events._v1_product_updated_event import (
         V1ProductUpdatedEvent as V1ProductUpdatedEvent,
@@ -872,10 +700,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_promotion_code_created_event import (
         V1PromotionCodeCreatedEvent as V1PromotionCodeCreatedEvent,
         V1PromotionCodeCreatedEventNotification as V1PromotionCodeCreatedEventNotification,
-    )
-    from stripe.events._v1_promotion_code_fully_redeemed_event import (
-        V1PromotionCodeFullyRedeemedEvent as V1PromotionCodeFullyRedeemedEvent,
-        V1PromotionCodeFullyRedeemedEventNotification as V1PromotionCodeFullyRedeemedEventNotification,
     )
     from stripe.events._v1_promotion_code_updated_event import (
         V1PromotionCodeUpdatedEvent as V1PromotionCodeUpdatedEvent,
@@ -984,26 +808,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_subscription_schedule_expiring_event import (
         V1SubscriptionScheduleExpiringEvent as V1SubscriptionScheduleExpiringEvent,
         V1SubscriptionScheduleExpiringEventNotification as V1SubscriptionScheduleExpiringEventNotification,
-    )
-    from stripe.events._v1_subscription_schedule_phase_added_event import (
-        V1SubscriptionSchedulePhaseAddedEvent as V1SubscriptionSchedulePhaseAddedEvent,
-        V1SubscriptionSchedulePhaseAddedEventNotification as V1SubscriptionSchedulePhaseAddedEventNotification,
-    )
-    from stripe.events._v1_subscription_schedule_phase_default_tax_rates_changed_event import (
-        V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEvent as V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEvent,
-        V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification as V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification,
-    )
-    from stripe.events._v1_subscription_schedule_phase_end_date_changed_event import (
-        V1SubscriptionSchedulePhaseEndDateChangedEvent as V1SubscriptionSchedulePhaseEndDateChangedEvent,
-        V1SubscriptionSchedulePhaseEndDateChangedEventNotification as V1SubscriptionSchedulePhaseEndDateChangedEventNotification,
-    )
-    from stripe.events._v1_subscription_schedule_phase_removed_event import (
-        V1SubscriptionSchedulePhaseRemovedEvent as V1SubscriptionSchedulePhaseRemovedEvent,
-        V1SubscriptionSchedulePhaseRemovedEventNotification as V1SubscriptionSchedulePhaseRemovedEventNotification,
-    )
-    from stripe.events._v1_subscription_schedule_phase_trial_end_changed_event import (
-        V1SubscriptionSchedulePhaseTrialEndChangedEvent as V1SubscriptionSchedulePhaseTrialEndChangedEvent,
-        V1SubscriptionSchedulePhaseTrialEndChangedEventNotification as V1SubscriptionSchedulePhaseTrialEndChangedEventNotification,
     )
     from stripe.events._v1_subscription_schedule_released_event import (
         V1SubscriptionScheduleReleasedEvent as V1SubscriptionScheduleReleasedEvent,
@@ -1172,6 +976,26 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEvent as V2CoreAccountUpdatedEvent,
         V2CoreAccountUpdatedEventNotification as V2CoreAccountUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+        V2CoreClaimableSandboxClaimedEvent as V2CoreClaimableSandboxClaimedEvent,
+        V2CoreClaimableSandboxClaimedEventNotification as V2CoreClaimableSandboxClaimedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_created_event import (
+        V2CoreClaimableSandboxCreatedEvent as V2CoreClaimableSandboxCreatedEvent,
+        V2CoreClaimableSandboxCreatedEventNotification as V2CoreClaimableSandboxCreatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expired_event import (
+        V2CoreClaimableSandboxExpiredEvent as V2CoreClaimableSandboxExpiredEvent,
+        V2CoreClaimableSandboxExpiredEventNotification as V2CoreClaimableSandboxExpiredEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+        V2CoreClaimableSandboxExpiringEvent as V2CoreClaimableSandboxExpiringEvent,
+        V2CoreClaimableSandboxExpiringEventNotification as V2CoreClaimableSandboxExpiringEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_updated_event import (
+        V2CoreClaimableSandboxUpdatedEvent as V2CoreClaimableSandboxUpdatedEvent,
+        V2CoreClaimableSandboxUpdatedEventNotification as V2CoreClaimableSandboxUpdatedEventNotification,
     )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEvent as V2CoreEventDestinationPingEvent,
@@ -1391,6 +1215,30 @@ _import_map = {
     ),
     "V1ApplicationFeeRefundedEventNotification": (
         "stripe.events._v1_application_fee_refunded_event",
+        False,
+    ),
+    "V1AppsInstallCreatedEvent": (
+        "stripe.events._v1_apps_install_created_event",
+        False,
+    ),
+    "V1AppsInstallCreatedEventNotification": (
+        "stripe.events._v1_apps_install_created_event",
+        False,
+    ),
+    "V1AppsInstallDeletedEvent": (
+        "stripe.events._v1_apps_install_deleted_event",
+        False,
+    ),
+    "V1AppsInstallDeletedEventNotification": (
+        "stripe.events._v1_apps_install_deleted_event",
+        False,
+    ),
+    "V1AppsInstallUpdatedEvent": (
+        "stripe.events._v1_apps_install_updated_event",
+        False,
+    ),
+    "V1AppsInstallUpdatedEventNotification": (
+        "stripe.events._v1_apps_install_updated_event",
         False,
     ),
     "V1BalanceAvailableEvent": (
@@ -1788,36 +1636,12 @@ _import_map = {
         "stripe.events._v1_customer_discount_deleted_event",
         False,
     ),
-    "V1CustomerDiscountSourceChangedEvent": (
-        "stripe.events._v1_customer_discount_source_changed_event",
-        False,
-    ),
-    "V1CustomerDiscountSourceChangedEventNotification": (
-        "stripe.events._v1_customer_discount_source_changed_event",
-        False,
-    ),
     "V1CustomerDiscountUpdatedEvent": (
         "stripe.events._v1_customer_discount_updated_event",
         False,
     ),
     "V1CustomerDiscountUpdatedEventNotification": (
         "stripe.events._v1_customer_discount_updated_event",
-        False,
-    ),
-    "V1CustomerSubscriptionActiveEvent": (
-        "stripe.events._v1_customer_subscription_active_event",
-        False,
-    ),
-    "V1CustomerSubscriptionActiveEventNotification": (
-        "stripe.events._v1_customer_subscription_active_event",
-        False,
-    ),
-    "V1CustomerSubscriptionCancelAtChangedEvent": (
-        "stripe.events._v1_customer_subscription_cancel_at_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionCancelAtChangedEventNotification": (
-        "stripe.events._v1_customer_subscription_cancel_at_changed_event",
         False,
     ),
     "V1CustomerSubscriptionCreatedEvent": (
@@ -1828,84 +1652,12 @@ _import_map = {
         "stripe.events._v1_customer_subscription_created_event",
         False,
     ),
-    "V1CustomerSubscriptionDefaultPaymentMethodChangedEvent": (
-        "stripe.events._v1_customer_subscription_default_payment_method_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification": (
-        "stripe.events._v1_customer_subscription_default_payment_method_changed_event",
-        False,
-    ),
     "V1CustomerSubscriptionDeletedEvent": (
         "stripe.events._v1_customer_subscription_deleted_event",
         False,
     ),
     "V1CustomerSubscriptionDeletedEventNotification": (
         "stripe.events._v1_customer_subscription_deleted_event",
-        False,
-    ),
-    "V1CustomerSubscriptionIncompleteEvent": (
-        "stripe.events._v1_customer_subscription_incomplete_event",
-        False,
-    ),
-    "V1CustomerSubscriptionIncompleteEventNotification": (
-        "stripe.events._v1_customer_subscription_incomplete_event",
-        False,
-    ),
-    "V1CustomerSubscriptionIncompleteExpiredEvent": (
-        "stripe.events._v1_customer_subscription_incomplete_expired_event",
-        False,
-    ),
-    "V1CustomerSubscriptionIncompleteExpiredEventNotification": (
-        "stripe.events._v1_customer_subscription_incomplete_expired_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemAddedEvent": (
-        "stripe.events._v1_customer_subscription_item_added_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemAddedEventNotification": (
-        "stripe.events._v1_customer_subscription_item_added_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemPriceChangedEvent": (
-        "stripe.events._v1_customer_subscription_item_price_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemPriceChangedEventNotification": (
-        "stripe.events._v1_customer_subscription_item_price_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemQuantityChangedEvent": (
-        "stripe.events._v1_customer_subscription_item_quantity_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemQuantityChangedEventNotification": (
-        "stripe.events._v1_customer_subscription_item_quantity_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemRemovedEvent": (
-        "stripe.events._v1_customer_subscription_item_removed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemRemovedEventNotification": (
-        "stripe.events._v1_customer_subscription_item_removed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemTaxRatesChangedEvent": (
-        "stripe.events._v1_customer_subscription_item_tax_rates_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionItemTaxRatesChangedEventNotification": (
-        "stripe.events._v1_customer_subscription_item_tax_rates_changed_event",
-        False,
-    ),
-    "V1CustomerSubscriptionPastDueEvent": (
-        "stripe.events._v1_customer_subscription_past_due_event",
-        False,
-    ),
-    "V1CustomerSubscriptionPastDueEventNotification": (
-        "stripe.events._v1_customer_subscription_past_due_event",
         False,
     ),
     "V1CustomerSubscriptionPausedEvent": (
@@ -1948,22 +1700,6 @@ _import_map = {
         "stripe.events._v1_customer_subscription_trial_will_end_event",
         False,
     ),
-    "V1CustomerSubscriptionTrialingEvent": (
-        "stripe.events._v1_customer_subscription_trialing_event",
-        False,
-    ),
-    "V1CustomerSubscriptionTrialingEventNotification": (
-        "stripe.events._v1_customer_subscription_trialing_event",
-        False,
-    ),
-    "V1CustomerSubscriptionUnpaidEvent": (
-        "stripe.events._v1_customer_subscription_unpaid_event",
-        False,
-    ),
-    "V1CustomerSubscriptionUnpaidEventNotification": (
-        "stripe.events._v1_customer_subscription_unpaid_event",
-        False,
-    ),
     "V1CustomerSubscriptionUpdatedEvent": (
         "stripe.events._v1_customer_subscription_updated_event",
         False,
@@ -2004,22 +1740,6 @@ _import_map = {
         "stripe.events._v1_customer_updated_event",
         False,
     ),
-    "V1EntitlementsActiveEntitlementSummaryEntitlementAddedEvent": (
-        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_added_event",
-        False,
-    ),
-    "V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification": (
-        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_added_event",
-        False,
-    ),
-    "V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEvent": (
-        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_removed_event",
-        False,
-    ),
-    "V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification": (
-        "stripe.events._v1_entitlements_active_entitlement_summary_entitlement_removed_event",
-        False,
-    ),
     "V1EntitlementsActiveEntitlementSummaryUpdatedEvent": (
         "stripe.events._v1_entitlements_active_entitlement_summary_updated_event",
         False,
@@ -2039,22 +1759,6 @@ _import_map = {
     ),
     "V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification": (
         "stripe.events._v1_financial_connections_account_account_numbers_updated_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountBalanceRefreshFailedEvent": (
-        "stripe.events._v1_financial_connections_account_balance_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification": (
-        "stripe.events._v1_financial_connections_account_balance_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountBalanceRefreshSucceededEvent": (
-        "stripe.events._v1_financial_connections_account_balance_refresh_succeeded_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification": (
-        "stripe.events._v1_financial_connections_account_balance_refresh_succeeded_event",
         False,
     ),
     "V1FinancialConnectionsAccountCreatedEvent": (
@@ -2089,38 +1793,6 @@ _import_map = {
         "stripe.events._v1_financial_connections_account_expected_deactivation_date_updated_event",
         False,
     ),
-    "V1FinancialConnectionsAccountInferredBalancesRefreshFailedEvent": (
-        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification": (
-        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEvent": (
-        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_succeeded_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification": (
-        "stripe.events._v1_financial_connections_account_inferred_balances_refresh_succeeded_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent": (
-        "stripe.events._v1_financial_connections_account_ownership_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification": (
-        "stripe.events._v1_financial_connections_account_ownership_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountOwnershipRefreshSucceededEvent": (
-        "stripe.events._v1_financial_connections_account_ownership_refresh_succeeded_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification": (
-        "stripe.events._v1_financial_connections_account_ownership_refresh_succeeded_event",
-        False,
-    ),
     "V1FinancialConnectionsAccountReactivatedEvent": (
         "stripe.events._v1_financial_connections_account_reactivated_event",
         False,
@@ -2153,44 +1825,12 @@ _import_map = {
         "stripe.events._v1_financial_connections_account_refreshed_transactions_event",
         False,
     ),
-    "V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEvent": (
-        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification": (
-        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEvent": (
-        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_succeeded_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification": (
-        "stripe.events._v1_financial_connections_account_risk_intelligence_refresh_succeeded_event",
-        False,
-    ),
     "V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent": (
         "stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event",
         False,
     ),
     "V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification": (
         "stripe.events._v1_financial_connections_account_supported_payment_method_types_updated_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountTransactionsRefreshFailedEvent": (
-        "stripe.events._v1_financial_connections_account_transactions_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification": (
-        "stripe.events._v1_financial_connections_account_transactions_refresh_failed_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountTransactionsRefreshSucceededEvent": (
-        "stripe.events._v1_financial_connections_account_transactions_refresh_succeeded_event",
-        False,
-    ),
-    "V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification": (
-        "stripe.events._v1_financial_connections_account_transactions_refresh_succeeded_event",
         False,
     ),
     "V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent": (
@@ -2273,22 +1913,6 @@ _import_map = {
         "stripe.events._v1_invoice_deleted_event",
         False,
     ),
-    "V1InvoiceDiscountAddedEvent": (
-        "stripe.events._v1_invoice_discount_added_event",
-        False,
-    ),
-    "V1InvoiceDiscountAddedEventNotification": (
-        "stripe.events._v1_invoice_discount_added_event",
-        False,
-    ),
-    "V1InvoiceDiscountRemovedEvent": (
-        "stripe.events._v1_invoice_discount_removed_event",
-        False,
-    ),
-    "V1InvoiceDiscountRemovedEventNotification": (
-        "stripe.events._v1_invoice_discount_removed_event",
-        False,
-    ),
     "V1InvoiceFinalizationFailedEvent": (
         "stripe.events._v1_invoice_finalization_failed_event",
         False,
@@ -2303,38 +1927,6 @@ _import_map = {
     ),
     "V1InvoiceFinalizedEventNotification": (
         "stripe.events._v1_invoice_finalized_event",
-        False,
-    ),
-    "V1InvoiceLineItemAddedEvent": (
-        "stripe.events._v1_invoice_line_item_added_event",
-        False,
-    ),
-    "V1InvoiceLineItemAddedEventNotification": (
-        "stripe.events._v1_invoice_line_item_added_event",
-        False,
-    ),
-    "V1InvoiceLineItemPricingChangedEvent": (
-        "stripe.events._v1_invoice_line_item_pricing_changed_event",
-        False,
-    ),
-    "V1InvoiceLineItemPricingChangedEventNotification": (
-        "stripe.events._v1_invoice_line_item_pricing_changed_event",
-        False,
-    ),
-    "V1InvoiceLineItemQuantityChangedEvent": (
-        "stripe.events._v1_invoice_line_item_quantity_changed_event",
-        False,
-    ),
-    "V1InvoiceLineItemQuantityChangedEventNotification": (
-        "stripe.events._v1_invoice_line_item_quantity_changed_event",
-        False,
-    ),
-    "V1InvoiceLineItemRemovedEvent": (
-        "stripe.events._v1_invoice_line_item_removed_event",
-        False,
-    ),
-    "V1InvoiceLineItemRemovedEventNotification": (
-        "stripe.events._v1_invoice_line_item_removed_event",
         False,
     ),
     "V1InvoiceMarkedUncollectibleEvent": (
@@ -2382,28 +1974,12 @@ _import_map = {
         "stripe.events._v1_invoice_payment_attempt_required_event",
         False,
     ),
-    "V1InvoicePaymentCanceledEvent": (
-        "stripe.events._v1_invoice_payment_canceled_event",
-        False,
-    ),
-    "V1InvoicePaymentCanceledEventNotification": (
-        "stripe.events._v1_invoice_payment_canceled_event",
-        False,
-    ),
     "V1InvoicePaymentFailedEvent": (
         "stripe.events._v1_invoice_payment_failed_event",
         False,
     ),
     "V1InvoicePaymentFailedEventNotification": (
         "stripe.events._v1_invoice_payment_failed_event",
-        False,
-    ),
-    "V1InvoicePaymentOpenEvent": (
-        "stripe.events._v1_invoice_payment_open_event",
-        False,
-    ),
-    "V1InvoicePaymentOpenEventNotification": (
-        "stripe.events._v1_invoice_payment_open_event",
         False,
     ),
     "V1InvoicePaymentPaidEvent": (
@@ -2456,14 +2032,6 @@ _import_map = {
         "stripe.events._v1_invoice_will_be_due_event",
         False,
     ),
-    "V1InvoiceitemAmountChangedEvent": (
-        "stripe.events._v1_invoiceitem_amount_changed_event",
-        False,
-    ),
-    "V1InvoiceitemAmountChangedEventNotification": (
-        "stripe.events._v1_invoiceitem_amount_changed_event",
-        False,
-    ),
     "V1InvoiceitemCreatedEvent": (
         "stripe.events._v1_invoiceitem_created_event",
         False,
@@ -2480,36 +2048,12 @@ _import_map = {
         "stripe.events._v1_invoiceitem_deleted_event",
         False,
     ),
-    "V1InvoiceitemDiscountAddedEvent": (
-        "stripe.events._v1_invoiceitem_discount_added_event",
-        False,
-    ),
-    "V1InvoiceitemDiscountAddedEventNotification": (
-        "stripe.events._v1_invoiceitem_discount_added_event",
-        False,
-    ),
-    "V1InvoiceitemDiscountRemovedEvent": (
-        "stripe.events._v1_invoiceitem_discount_removed_event",
-        False,
-    ),
-    "V1InvoiceitemDiscountRemovedEventNotification": (
-        "stripe.events._v1_invoiceitem_discount_removed_event",
-        False,
-    ),
     "V1IssuingAuthorizationCreatedEvent": (
         "stripe.events._v1_issuing_authorization_created_event",
         False,
     ),
     "V1IssuingAuthorizationCreatedEventNotification": (
         "stripe.events._v1_issuing_authorization_created_event",
-        False,
-    ),
-    "V1IssuingAuthorizationRequestEvent": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        False,
-    ),
-    "V1IssuingAuthorizationRequestEventNotification": (
-        "stripe.events._v1_issuing_authorization_request_event",
         False,
     ),
     "V1IssuingAuthorizationUpdatedEvent": (
@@ -2858,25 +2402,9 @@ _import_map = {
         "stripe.events._v1_plan_updated_event",
         False,
     ),
-    "V1PriceActivatedEvent": (
-        "stripe.events._v1_price_activated_event",
-        False,
-    ),
-    "V1PriceActivatedEventNotification": (
-        "stripe.events._v1_price_activated_event",
-        False,
-    ),
     "V1PriceCreatedEvent": ("stripe.events._v1_price_created_event", False),
     "V1PriceCreatedEventNotification": (
         "stripe.events._v1_price_created_event",
-        False,
-    ),
-    "V1PriceDeactivatedEvent": (
-        "stripe.events._v1_price_deactivated_event",
-        False,
-    ),
-    "V1PriceDeactivatedEventNotification": (
-        "stripe.events._v1_price_deactivated_event",
         False,
     ),
     "V1PriceDeletedEvent": ("stripe.events._v1_price_deleted_event", False),
@@ -2884,33 +2412,9 @@ _import_map = {
         "stripe.events._v1_price_deleted_event",
         False,
     ),
-    "V1PriceLookupKeyChangedEvent": (
-        "stripe.events._v1_price_lookup_key_changed_event",
-        False,
-    ),
-    "V1PriceLookupKeyChangedEventNotification": (
-        "stripe.events._v1_price_lookup_key_changed_event",
-        False,
-    ),
-    "V1PriceTaxBehaviorChangedEvent": (
-        "stripe.events._v1_price_tax_behavior_changed_event",
-        False,
-    ),
-    "V1PriceTaxBehaviorChangedEventNotification": (
-        "stripe.events._v1_price_tax_behavior_changed_event",
-        False,
-    ),
     "V1PriceUpdatedEvent": ("stripe.events._v1_price_updated_event", False),
     "V1PriceUpdatedEventNotification": (
         "stripe.events._v1_price_updated_event",
-        False,
-    ),
-    "V1ProductActivatedEvent": (
-        "stripe.events._v1_product_activated_event",
-        False,
-    ),
-    "V1ProductActivatedEventNotification": (
-        "stripe.events._v1_product_activated_event",
         False,
     ),
     "V1ProductCreatedEvent": (
@@ -2921,36 +2425,12 @@ _import_map = {
         "stripe.events._v1_product_created_event",
         False,
     ),
-    "V1ProductDeactivatedEvent": (
-        "stripe.events._v1_product_deactivated_event",
-        False,
-    ),
-    "V1ProductDeactivatedEventNotification": (
-        "stripe.events._v1_product_deactivated_event",
-        False,
-    ),
-    "V1ProductDefaultPriceChangedEvent": (
-        "stripe.events._v1_product_default_price_changed_event",
-        False,
-    ),
-    "V1ProductDefaultPriceChangedEventNotification": (
-        "stripe.events._v1_product_default_price_changed_event",
-        False,
-    ),
     "V1ProductDeletedEvent": (
         "stripe.events._v1_product_deleted_event",
         False,
     ),
     "V1ProductDeletedEventNotification": (
         "stripe.events._v1_product_deleted_event",
-        False,
-    ),
-    "V1ProductTaxCodeChangedEvent": (
-        "stripe.events._v1_product_tax_code_changed_event",
-        False,
-    ),
-    "V1ProductTaxCodeChangedEventNotification": (
-        "stripe.events._v1_product_tax_code_changed_event",
         False,
     ),
     "V1ProductUpdatedEvent": (
@@ -2967,14 +2447,6 @@ _import_map = {
     ),
     "V1PromotionCodeCreatedEventNotification": (
         "stripe.events._v1_promotion_code_created_event",
-        False,
-    ),
-    "V1PromotionCodeFullyRedeemedEvent": (
-        "stripe.events._v1_promotion_code_fully_redeemed_event",
-        False,
-    ),
-    "V1PromotionCodeFullyRedeemedEventNotification": (
-        "stripe.events._v1_promotion_code_fully_redeemed_event",
         False,
     ),
     "V1PromotionCodeUpdatedEvent": (
@@ -3164,46 +2636,6 @@ _import_map = {
     ),
     "V1SubscriptionScheduleExpiringEventNotification": (
         "stripe.events._v1_subscription_schedule_expiring_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseAddedEvent": (
-        "stripe.events._v1_subscription_schedule_phase_added_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseAddedEventNotification": (
-        "stripe.events._v1_subscription_schedule_phase_added_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEvent": (
-        "stripe.events._v1_subscription_schedule_phase_default_tax_rates_changed_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification": (
-        "stripe.events._v1_subscription_schedule_phase_default_tax_rates_changed_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseEndDateChangedEvent": (
-        "stripe.events._v1_subscription_schedule_phase_end_date_changed_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseEndDateChangedEventNotification": (
-        "stripe.events._v1_subscription_schedule_phase_end_date_changed_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseRemovedEvent": (
-        "stripe.events._v1_subscription_schedule_phase_removed_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseRemovedEventNotification": (
-        "stripe.events._v1_subscription_schedule_phase_removed_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseTrialEndChangedEvent": (
-        "stripe.events._v1_subscription_schedule_phase_trial_end_changed_event",
-        False,
-    ),
-    "V1SubscriptionSchedulePhaseTrialEndChangedEventNotification": (
-        "stripe.events._v1_subscription_schedule_phase_trial_end_changed_event",
         False,
     ),
     "V1SubscriptionScheduleReleasedEvent": (
@@ -3528,6 +2960,46 @@ _import_map = {
     ),
     "V2CoreAccountUpdatedEventNotification": (
         "stripe.events._v2_core_account_updated_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxClaimedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxClaimedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxCreatedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxCreatedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiredEvent": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiredEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiringEvent": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiringEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxUpdatedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxUpdatedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
         False,
     ),
     "V2CoreEventDestinationPingEvent": (

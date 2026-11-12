@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class AccountLink(StripeObject):
     """
-    Account Links let a platform create a temporary, single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information.
+    Account Links let a platform create a temporary, single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information, or to access its Stripe-hosted Dashboard.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.account_link"]] = (
@@ -15,6 +15,13 @@ class AccountLink(StripeObject):
     )
 
     class UseCase(StripeObject):
+        class AccountDashboard(StripeObject):
+            refresh_url: str
+            """
+            The URL to redirect to if the Account Link has expired or has already
+            been used. Authenticate the user before generating a replacement link.
+            """
+
         class AccountOnboarding(StripeObject):
             class CollectionOptions(StripeObject):
                 fields: Optional[
@@ -73,6 +80,10 @@ class AccountLink(StripeObject):
             """
             _inner_class_types = {"collection_options": CollectionOptions}
 
+        account_dashboard: Optional[AccountDashboard]
+        """
+        Hash containing configuration options for an Account Link that provides access to the account's Stripe-hosted Dashboard.
+        """
         account_onboarding: Optional[AccountOnboarding]
         """
         Hash containing configuration options for an Account Link object that onboards a new account.
@@ -81,11 +92,17 @@ class AccountLink(StripeObject):
         """
         Hash containing configuration options for an Account Link that updates an existing account.
         """
-        type: Union[Literal["account_onboarding", "account_update"], str]
+        type: Union[
+            Literal[
+                "account_dashboard", "account_onboarding", "account_update"
+            ],
+            str,
+        ]
         """
         Open Enum. The type of Account Link the user is requesting.
         """
         _inner_class_types = {
+            "account_dashboard": AccountDashboard,
             "account_onboarding": AccountOnboarding,
             "account_update": AccountUpdate,
         }

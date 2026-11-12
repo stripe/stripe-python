@@ -8,14 +8,12 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe._subscription import Subscription
+    from stripe.v2.core._claimable_sandbox import ClaimableSandbox
 
 
-class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
-    EventNotification,
-):
-    LOOKUP_TYPE = "v1.customer.subscription.item_tax_rates_changed"
-    type: Literal["v1.customer.subscription.item_tax_rates_changed"]
+class V2CoreClaimableSandboxUpdatedEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.updated"
+    type: Literal["v2.core.claimable_sandbox.updated"]
     related_object: RelatedObject
 
     def __init__(
@@ -28,13 +26,13 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1CustomerSubscriptionItemTaxRatesChangedEvent":
+    def fetch_event(self) -> "V2CoreClaimableSandboxUpdatedEvent":
         return cast(
-            "V1CustomerSubscriptionItemTaxRatesChangedEvent",
+            "V2CoreClaimableSandboxUpdatedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -43,7 +41,7 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -51,15 +49,13 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
         )
 
     @override
-    async def fetch_event_async(
-        self,
-    ) -> "V1CustomerSubscriptionItemTaxRatesChangedEvent":
+    async def fetch_event_async(self) -> "V2CoreClaimableSandboxUpdatedEvent":
         return cast(
-            "V1CustomerSubscriptionItemTaxRatesChangedEvent",
+            "V2CoreClaimableSandboxUpdatedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Subscription":
+    async def fetch_related_object_async(self) -> "ClaimableSandbox":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -68,7 +64,7 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "ClaimableSandbox",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -76,9 +72,9 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
         )
 
 
-class V1CustomerSubscriptionItemTaxRatesChangedEvent(Event):
-    LOOKUP_TYPE = "v1.customer.subscription.item_tax_rates_changed"
-    type: Literal["v1.customer.subscription.item_tax_rates_changed"]
+class V2CoreClaimableSandboxUpdatedEvent(Event):
+    LOOKUP_TYPE = "v2.core.claimable_sandbox.updated"
+    type: Literal["v2.core.claimable_sandbox.updated"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -99,12 +95,12 @@ class V1CustomerSubscriptionItemTaxRatesChangedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "ClaimableSandbox":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Subscription",
+            "ClaimableSandbox",
             self._requestor.request(
                 "get",
                 self.related_object.url,

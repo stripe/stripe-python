@@ -136,6 +136,8 @@ if TYPE_CHECKING:
     from stripe.params.treasury._inbound_transfer_fail_params import (
         InboundTransferFailParams as InboundTransferFailParams,
         InboundTransferFailParamsFailureDetails as InboundTransferFailParamsFailureDetails,
+        InboundTransferFailParamsFailureDetailsNetworkDetails as InboundTransferFailParamsFailureDetailsNetworkDetails,
+        InboundTransferFailParamsFailureDetailsNetworkDetailsAch as InboundTransferFailParamsFailureDetailsNetworkDetailsAch,
     )
     from stripe.params.treasury._inbound_transfer_list_params import (
         InboundTransferListParams as InboundTransferListParams,
@@ -145,6 +147,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.treasury._inbound_transfer_return_inbound_transfer_params import (
         InboundTransferReturnInboundTransferParams as InboundTransferReturnInboundTransferParams,
+        InboundTransferReturnInboundTransferParamsFailureDetails as InboundTransferReturnInboundTransferParamsFailureDetails,
+        InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetails as InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetails,
+        InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetailsAch as InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetailsAch,
     )
     from stripe.params.treasury._inbound_transfer_succeed_params import (
         InboundTransferSucceedParams as InboundTransferSucceedParams,
@@ -639,6 +644,14 @@ _import_map = {
         "stripe.params.treasury._inbound_transfer_fail_params",
         False,
     ),
+    "InboundTransferFailParamsFailureDetailsNetworkDetails": (
+        "stripe.params.treasury._inbound_transfer_fail_params",
+        False,
+    ),
+    "InboundTransferFailParamsFailureDetailsNetworkDetailsAch": (
+        "stripe.params.treasury._inbound_transfer_fail_params",
+        False,
+    ),
     "InboundTransferListParams": (
         "stripe.params.treasury._inbound_transfer_list_params",
         False,
@@ -648,6 +661,18 @@ _import_map = {
         False,
     ),
     "InboundTransferReturnInboundTransferParams": (
+        "stripe.params.treasury._inbound_transfer_return_inbound_transfer_params",
+        False,
+    ),
+    "InboundTransferReturnInboundTransferParamsFailureDetails": (
+        "stripe.params.treasury._inbound_transfer_return_inbound_transfer_params",
+        False,
+    ),
+    "InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetails": (
+        "stripe.params.treasury._inbound_transfer_return_inbound_transfer_params",
+        False,
+    ),
+    "InboundTransferReturnInboundTransferParamsFailureDetailsNetworkDetailsAch": (
         "stripe.params.treasury._inbound_transfer_return_inbound_transfer_params",
         False,
     ),
