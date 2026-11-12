@@ -687,7 +687,7 @@ class StripeObject:
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
     def __copy__(self) -> "StripeObject":
-        copied = StripeObject(
+        copied = type(self)(
             getattr(self, "id", None),
             self.api_key,
             stripe_version=self.stripe_version,

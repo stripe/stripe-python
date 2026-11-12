@@ -720,6 +720,35 @@ class TestStripeObject(object):
         # Verify that we're actually deep copying nested values.
         assert id(nested) != id(copied.nested)
 
+    @pytest.mark.parametrize("copy_method", [copy, deepcopy])
+    def test_copy_preserves_class(self, copy_method):
+        customer = stripe.Customer.construct_from(
+            {
+                "id": "cus_123",
+                "object": "customer",
+                "address": {"city": "Jaipur"},
+            },
+            "mykey",
+        )
+        listing = stripe.ListObject.construct_from(
+            {
+                "object": "list",
+                "url": "/v1/customers",
+                "has_more": False,
+                "data": [{"id": "cus_123", "object": "customer"}],
+            },
+            "mykey",
+        )
+
+        copied_customer = copy_method(customer)
+        copied_listing = copy_method(listing)
+
+        assert type(copied_customer) is stripe.Customer
+        assert copied_customer == customer
+        assert type(copied_customer.address) is stripe.Customer.Address
+        assert type(copied_listing) is stripe.ListObject
+        assert [item.id for item in copied_listing] == ["cus_123"]
+
     def test_to_dict_recursive(self):
         foo = StripeObject.construct_from({"value": "foo"}, "mykey")
         bar = StripeObject.construct_from({"value": "bar"}, "mykey")
