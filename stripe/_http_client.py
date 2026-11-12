@@ -1220,11 +1220,39 @@ class HTTPXClient(HTTPClient):
         else:
             kwargs["verify"] = False
 
-        self._client_async = self.httpx.AsyncClient(**kwargs)
+        self._client_async = self.httpx.AsyncClient(
+            **kwargs,
+            **self._proxy_mounts(
+                self.httpx.AsyncHTTPTransport, kwargs["verify"]
+            ),
+        )
         self._client = None
         if allow_sync_methods:
-            self._client = self.httpx.Client(**kwargs)
+            self._client = self.httpx.Client(
+                **kwargs,
+                **self._proxy_mounts(
+                    self.httpx.HTTPTransport, kwargs["verify"]
+                ),
+            )
         self._timeout = timeout
+
+    def _proxy_mounts(self, transport_class, verify) -> Dict[str, Any]:
+        """
+        Builds the client argument that routes each URL scheme through its
+        configured proxy. httpx only accepts proxies on the client, not on
+        individual requests.
+        """
+        if not self._proxy:
+            return {}
+        return {
+            "mounts": {
+                f"{scheme}://": transport_class(
+                    proxy=self.httpx.Proxy(cast(str, proxy_url)),
+                    verify=verify,
+                )
+                for scheme, proxy_url in self._proxy.items()
+            }
+        }
 
     def sleep_async(self, secs):
         return self.anyio.sleep(secs)
@@ -1232,16 +1260,15 @@ class HTTPXClient(HTTPClient):
     def _get_request_args_kwargs(
         self, method: str, url: str, headers: Mapping[str, str], post_data
     ):
-        kwargs = {}
-
-        if self._proxy:
-            kwargs["proxies"] = self._proxy
-
-        if self._timeout:
-            kwargs["timeout"] = self._timeout
         return [
             (method, url),
-            {"headers": headers, "data": post_data or {}, **kwargs},
+            {
+                "headers": headers,
+                "data": post_data or {},
+                # Passed even when None, which is how httpx disables timeouts;
+                # omitting it would apply httpx's own 5 second default.
+                "timeout": self._timeout,
+            },
         ]
 
     def request(
@@ -1349,6 +1376,8 @@ class HTTPXClient(HTTPClient):
 
     async def close_async(self):
         await self._client_async.aclose()
+        if self._client is not None:
+            self._client.close()
 
 
 class AIOHTTPClient(HTTPClient):
@@ -1394,9 +1423,7 @@ class AIOHTTPClient(HTTPClient):
                         ssl=ssl_context
                     )
                 else:
-                    kwargs["connector"] = self.aiohttp.TCPConnector(
-                        verify_ssl=False
-                    )
+                    kwargs["connector"] = self.aiohttp.TCPConnector(ssl=False)
 
                 self._cached_session = self.aiohttp.ClientSession(**kwargs)
 
@@ -1416,11 +1443,12 @@ class AIOHTTPClient(HTTPClient):
         args = (method, url)
         kwargs = {}
         if self._proxy:
-            if self._proxy["http"] != self._proxy["https"]:
+            proxy_urls = set(self._proxy.values())
+            if len(proxy_urls) > 1:
                 raise ValueError(
                     "AIOHTTPClient does not support different proxies for HTTP and HTTPS."
                 )
-            kwargs["proxy"] = self._proxy["https"]
+            kwargs["proxy"] = proxy_urls.pop()
         if self._timeout:
             kwargs["timeout"] = self._timeout
 
