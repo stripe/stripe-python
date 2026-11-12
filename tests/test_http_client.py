@@ -2,6 +2,7 @@ import io
 import base64
 import json
 import sys
+import threading
 from typing import Any, Callable, Dict, List, Optional
 from unittest.mock import MagicMock, Mock, call, patch
 
@@ -1148,6 +1149,136 @@ class TestPycurlClient(ClientTestBase):
             curl_mock.perform.assert_any_call()
 
         return _check_call
+
+    def test_request_rejects_header_injection(
+        self, mocked_request_lib, make_request: MakeReqFunc, mock_response
+    ):
+        mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
+
+        hostile_headers = [
+            {"Stripe-Context": "acct_123\r\nX-Injected: 1"},
+            {"Stripe-Request-Trigger": "event=evt_1\nX-Injected: 1"},
+            {"Authorization": "Bearer sk_test_123\r\n"},
+            {"Authorization": "Bearer sk_test_123\0"},
+            {"X-Injected\r\nEvil": "value"},
+        ]
+
+        for headers in hostile_headers:
+            with pytest.raises(ValueError):
+                make_request("get", self.valid_url, headers, None)
+
+    @pytest.fixture
+    def created_curls(self, mocked_request_lib):
+        curls: List[Mock] = []
+
+        def make_curl():
+            curl = Mock()
+            curl.getinfo.return_value = 200
+            curls.append(curl)
+            return curl
+
+        mocked_request_lib.Curl = Mock(side_effect=make_curl)
+        return curls
+
+    @staticmethod
+    def setopt_values(curl, option):
+        return [
+            c.args[1]
+            for c in curl.setopt.call_args_list
+            if c.args[0] == option
+        ]
+
+    def test_uses_one_curl_handle_per_thread(
+        self, mocked_request_lib, created_curls
+    ):
+        client = self.REQUEST_CLIENT(proxy=self.PROXY, _lib=mocked_request_lib)
+
+        client.request("get", self.valid_url, {})
+        client.request("get", self.valid_url, {})
+        assert len(created_curls) == 1
+
+        errors: List[BaseException] = []
+
+        def request_in_thread():
+            try:
+                client.request("get", self.valid_url, {})
+            except BaseException as e:
+                errors.append(e)
+
+        thread = threading.Thread(target=request_in_thread)
+        thread.start()
+        thread.join(timeout=5)
+
+        assert errors == []
+        assert len(created_curls) == 2
+        assert created_curls[0] is not created_curls[1]
+
+    def test_concurrent_requests_do_not_share_curl_state(
+        self, mocked_request_lib
+    ):
+        client = self.REQUEST_CLIENT(proxy=self.PROXY, _lib=mocked_request_lib)
+        url_a = "https://api.stripe.com/v1/payouts"
+        url_b = "https://api.stripe.com/v1/transfers"
+        a_performing = threading.Event()
+        release_a = threading.Event()
+        errors: List[BaseException] = []
+
+        # Hold request A inside perform() until request B has fully run. If the
+        # threads shared a handle, B's settings would replace A's mid-request.
+        def block_first_perform():
+            if not a_performing.is_set():
+                a_performing.set()
+                assert release_a.wait(timeout=5)
+
+        def request_a():
+            try:
+                client.request(
+                    "post", url_a, {"Authorization": "Bearer sk_test_A"}, "a=1"
+                )
+            except BaseException as e:
+                errors.append(e)
+
+        curl_a = Mock()
+        curl_a.getinfo.return_value = 200
+        curl_a.perform.side_effect = block_first_perform
+        curl_b = Mock()
+        curl_b.getinfo.return_value = 200
+        mocked_request_lib.Curl = Mock(side_effect=[curl_a, curl_b])
+
+        thread_a = threading.Thread(target=request_a)
+        thread_a.start()
+        assert a_performing.wait(timeout=5)
+
+        client.request(
+            "post", url_b, {"Authorization": "Bearer sk_test_B"}, "b=2"
+        )
+        release_a.set()
+        thread_a.join(timeout=5)
+
+        assert errors == []
+        lib = mocked_request_lib
+        assert self.setopt_values(curl_a, lib.URL) == [url_a]
+        assert self.setopt_values(curl_a, lib.POSTFIELDS) == ["a=1"]
+        assert self.setopt_values(curl_a, lib.HTTPHEADER) == [
+            ["Authorization: Bearer sk_test_A"]
+        ]
+        assert self.setopt_values(curl_b, lib.URL) == [url_b]
+        assert self.setopt_values(curl_b, lib.POSTFIELDS) == ["b=2"]
+        assert self.setopt_values(curl_b, lib.HTTPHEADER) == [
+            ["Authorization: Bearer sk_test_B"]
+        ]
+
+    def test_close_closes_this_threads_curl_handle(
+        self, mocked_request_lib, created_curls
+    ):
+        client = self.REQUEST_CLIENT(proxy=self.PROXY, _lib=mocked_request_lib)
+        client.request("get", self.valid_url, {})
+
+        client.close()
+
+        created_curls[0].close.assert_called_once_with()
+        client.request("get", self.valid_url, {})
+        assert len(created_curls) == 2
 
 
 class TestPycurlClientHttpProxy(TestPycurlClient):
