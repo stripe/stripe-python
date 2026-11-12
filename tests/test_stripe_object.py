@@ -241,6 +241,28 @@ class TestStripeObject(object):
             stripe.PromotionCode.Restrictions.CurrencyOptions,
         )
 
+    def test_map_to_nested_object_is_serializable(self):
+        obj = stripe.PromotionCode.construct_from(SAMPLE_PROMOTION_CODE, "key")
+
+        assert json.loads(str(obj)) == SAMPLE_PROMOTION_CODE
+        assert json.loads(json.dumps(obj.to_dict())) == SAMPLE_PROMOTION_CODE
+        assert (
+            type(obj.to_dict()["restrictions"]["currency_options"]["gbp"])
+            is dict
+        )
+
+    def test_refresh_on_null_map_to_nested_object(self):
+        obj = stripe.PromotionCode.construct_from(
+            {
+                "id": "promo_123",
+                "object": "promotion_code",
+                "restrictions": {"currency_options": None},
+            },
+            "key",
+        )
+
+        assert obj.restrictions.currency_options is None
+
     def test_to_json(self):
         obj = StripeObject.construct_from(SAMPLE_INVOICE, "key")
 
