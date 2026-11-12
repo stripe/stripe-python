@@ -44,6 +44,7 @@ class AlertListParams(TypedDict):
                     "api_error",
                     "api_latency",
                     "authorization_rate_drop",
+                    "custom_payment_method_adapter_degraded",
                     "elements_error",
                     "event_generation_failure",
                     "fraud_rate",

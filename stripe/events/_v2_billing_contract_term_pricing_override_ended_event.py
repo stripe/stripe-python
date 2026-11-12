@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
     from stripe._stripe_client import StripeClient
-    from stripe._subscription import Subscription
+    from stripe.v2.billing._contract_term import ContractTerm
 
 
-class V1CustomerSubscriptionItemAddedEventNotification(EventNotification):
-    LOOKUP_TYPE = "v1.customer.subscription.item_added"
-    type: Literal["v1.customer.subscription.item_added"]
+class V2BillingContractTermPricingOverrideEndedEventNotification(
+    EventNotification,
+):
+    LOOKUP_TYPE = "v2.billing.contract_term.pricing_override_ended"
+    type: Literal["v2.billing.contract_term.pricing_override_ended"]
     related_object: RelatedObject
 
     def __init__(
@@ -26,13 +31,13 @@ class V1CustomerSubscriptionItemAddedEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1CustomerSubscriptionItemAddedEvent":
+    def fetch_event(self) -> "V2BillingContractTermPricingOverrideEndedEvent":
         return cast(
-            "V1CustomerSubscriptionItemAddedEvent",
+            "V2BillingContractTermPricingOverrideEndedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "ContractTerm":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -41,7 +46,7 @@ class V1CustomerSubscriptionItemAddedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -51,13 +56,13 @@ class V1CustomerSubscriptionItemAddedEventNotification(EventNotification):
     @override
     async def fetch_event_async(
         self,
-    ) -> "V1CustomerSubscriptionItemAddedEvent":
+    ) -> "V2BillingContractTermPricingOverrideEndedEvent":
         return cast(
-            "V1CustomerSubscriptionItemAddedEvent",
+            "V2BillingContractTermPricingOverrideEndedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Subscription":
+    async def fetch_related_object_async(self) -> "ContractTerm":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -66,7 +71,7 @@ class V1CustomerSubscriptionItemAddedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -74,9 +79,44 @@ class V1CustomerSubscriptionItemAddedEventNotification(EventNotification):
         )
 
 
-class V1CustomerSubscriptionItemAddedEvent(Event):
-    LOOKUP_TYPE = "v1.customer.subscription.item_added"
-    type: Literal["v1.customer.subscription.item_added"]
+class V2BillingContractTermPricingOverrideEndedEvent(Event):
+    LOOKUP_TYPE = "v2.billing.contract_term.pricing_override_ended"
+    type: Literal["v2.billing.contract_term.pricing_override_ended"]
+
+    class V2BillingContractTermPricingOverrideEndedEventData(StripeObject):
+        contract: str
+        """
+        The Contract containing this term.
+        """
+
+    data: V2BillingContractTermPricingOverrideEndedEventData
+    """
+    Data for the v2.billing.contract_term.pricing_override_ended event
+    """
+
+    @classmethod
+    def _construct_from(
+        cls,
+        *,
+        values: Dict[str, Any],
+        last_response: Optional[StripeResponse] = None,
+        requestor: "_APIRequestor",
+        api_mode: ApiMode,
+    ) -> "V2BillingContractTermPricingOverrideEndedEvent":
+        evt = super()._construct_from(
+            values=values,
+            last_response=last_response,
+            requestor=requestor,
+            api_mode=api_mode,
+        )
+        if hasattr(evt, "data"):
+            evt.data = V2BillingContractTermPricingOverrideEndedEvent.V2BillingContractTermPricingOverrideEndedEventData._construct_from(
+                values=evt.data,
+                last_response=last_response,
+                requestor=requestor,
+                api_mode=api_mode,
+            )
+        return evt
 
     class RelatedObject(StripeObject):
         id: str
@@ -97,12 +137,12 @@ class V1CustomerSubscriptionItemAddedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "ContractTerm":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Subscription",
+            "ContractTerm",
             self._requestor.request(
                 "get",
                 self.related_object.url,

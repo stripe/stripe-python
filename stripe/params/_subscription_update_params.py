@@ -1300,6 +1300,10 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUpi(
     TypedDict
 ):
+    debit_behavior: NotRequired[str]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
     mandate_options: NotRequired[
         "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions"
     ]

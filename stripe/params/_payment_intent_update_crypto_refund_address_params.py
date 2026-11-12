@@ -11,7 +11,10 @@ class PaymentIntentUpdateCryptoRefundAddressParams(RequestOptions):
     Specifies which fields in the response should be expanded.
     """
     network: Union[
-        Literal["base", "ethereum", "polygon", "solana", "sui", "tempo"], str
+        Literal[
+            "base", "ethereum", "polygon", "solana", "sui", "tempo", "tron"
+        ],
+        str,
     ]
     """
     The blockchain network for the refund address.

@@ -19,6 +19,12 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    link_shared_data: NotRequired[
+        "VerificationSessionCreateParamsLinkSharedData"
+    ]
+    """
+    An authorized LinkSharedData grant used to populate and submit a document-only session.
+    """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -60,6 +66,17 @@ class VerificationSessionCreateParams(RequestOptions):
     verification_flow: NotRequired[str]
     """
     The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
+    """
+
+
+class VerificationSessionCreateParamsLinkSharedData(TypedDict):
+    granted_token: str
+    """
+    The LinkSharedData grant authorizing use of a shared identity document. Requires confirm=true.
+    """
+    identity_document: str
+    """
+    The identity_data.identity_documents[].key returned for this grant. Required even when the grant contains only one document.
     """
 
 

@@ -391,7 +391,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             cls, **params: Unpack["ReceivedCreditCreateParams"]
         ) -> "ReceivedCredit":
             """
-            Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
+            Simulates a test ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredit objects initiated by third parties.
             """
             return cast(
                 "ReceivedCredit",
@@ -407,7 +407,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             cls, **params: Unpack["ReceivedCreditCreateParams"]
         ) -> "ReceivedCredit":
             """
-            Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
+            Simulates a test ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredit objects initiated by third parties.
             """
             return cast(
                 "ReceivedCredit",

@@ -224,6 +224,41 @@ class Alert(StripeObject):
             "previous_percentage": "decimal_string",
         }
 
+    class CustomPaymentMethodAdapterDegraded(StripeObject):
+        class CustomPaymentMethodTypeDetails(StripeObject):
+            auto_disabled_at: Optional[str]
+            """
+            The time when the custom payment method was automatically disabled. Null when it is enabled.
+            """
+            display_name: str
+            """
+            The display name of the custom payment method type.
+            """
+            reverse_api_url: str
+            """
+            The URL of the user's self-hosted adapter endpoint.
+            """
+            type: str
+            """
+            The identifier of the custom payment method type (e.g., "cpmt_...").
+            """
+
+        custom_payment_method_disabled_from_checkout: bool
+        """
+        Whether the custom payment method was disabled in Checkout as a result of the degradation. True while the alert is open and false when it is resolved.
+        """
+        custom_payment_method_type_details: CustomPaymentMethodTypeDetails
+        """
+        The custom payment method type whose adapter is unhealthy.
+        """
+        degraded_health_reason: str
+        """
+        The reason the adapter's health is degraded.
+        """
+        _inner_class_types = {
+            "custom_payment_method_type_details": CustomPaymentMethodTypeDetails,
+        }
+
     class DocumentationLink(StripeObject):
         label: str
         """
@@ -528,6 +563,12 @@ class Alert(StripeObject):
     """
     Time at which the health alert was created.
     """
+    custom_payment_method_adapter_degraded: Optional[
+        CustomPaymentMethodAdapterDegraded
+    ]
+    """
+    Populated when type is custom_payment_method_adapter_degraded.
+    """
     documentation_links: List[DocumentationLink]
     """
     Links to relevant documentation for diagnosing and resolving the alert.
@@ -625,6 +666,7 @@ class Alert(StripeObject):
             "api_error",
             "api_latency",
             "authorization_rate_drop",
+            "custom_payment_method_adapter_degraded",
             "elements_error",
             "event_generation_failure",
             "fraud_rate",
@@ -651,6 +693,7 @@ class Alert(StripeObject):
         "api_error": ApiError,
         "api_latency": ApiLatency,
         "authorization_rate_drop": AuthorizationRateDrop,
+        "custom_payment_method_adapter_degraded": CustomPaymentMethodAdapterDegraded,
         "documentation_links": DocumentationLink,
         "elements_error": ElementsError,
         "event_generation_failure": EventGenerationFailure,

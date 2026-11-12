@@ -1,21 +1,28 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
     from stripe._stripe_client import StripeClient
-    from stripe._subscription import Subscription
+    from stripe.v2.billing._contract_term import ContractTerm
 
 
-class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
+class V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification(
     EventNotification,
 ):
-    LOOKUP_TYPE = "v1.customer.subscription.item_tax_rates_changed"
-    type: Literal["v1.customer.subscription.item_tax_rates_changed"]
+    LOOKUP_TYPE = (
+        "v2.billing.contract_term.scheduled_fee_service_period_started"
+    )
+    type: Literal[
+        "v2.billing.contract_term.scheduled_fee_service_period_started"
+    ]
     related_object: RelatedObject
 
     def __init__(
@@ -28,13 +35,15 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1CustomerSubscriptionItemTaxRatesChangedEvent":
+    def fetch_event(
+        self,
+    ) -> "V2BillingContractTermScheduledFeeServicePeriodStartedEvent":
         return cast(
-            "V1CustomerSubscriptionItemTaxRatesChangedEvent",
+            "V2BillingContractTermScheduledFeeServicePeriodStartedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "ContractTerm":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -43,7 +52,7 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -53,13 +62,13 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
     @override
     async def fetch_event_async(
         self,
-    ) -> "V1CustomerSubscriptionItemTaxRatesChangedEvent":
+    ) -> "V2BillingContractTermScheduledFeeServicePeriodStartedEvent":
         return cast(
-            "V1CustomerSubscriptionItemTaxRatesChangedEvent",
+            "V2BillingContractTermScheduledFeeServicePeriodStartedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Subscription":
+    async def fetch_related_object_async(self) -> "ContractTerm":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -68,7 +77,7 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Subscription",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -76,9 +85,50 @@ class V1CustomerSubscriptionItemTaxRatesChangedEventNotification(
         )
 
 
-class V1CustomerSubscriptionItemTaxRatesChangedEvent(Event):
-    LOOKUP_TYPE = "v1.customer.subscription.item_tax_rates_changed"
-    type: Literal["v1.customer.subscription.item_tax_rates_changed"]
+class V2BillingContractTermScheduledFeeServicePeriodStartedEvent(Event):
+    LOOKUP_TYPE = (
+        "v2.billing.contract_term.scheduled_fee_service_period_started"
+    )
+    type: Literal[
+        "v2.billing.contract_term.scheduled_fee_service_period_started"
+    ]
+
+    class V2BillingContractTermScheduledFeeServicePeriodStartedEventData(
+        StripeObject,
+    ):
+        contract: str
+        """
+        The Contract containing this term.
+        """
+
+    data: V2BillingContractTermScheduledFeeServicePeriodStartedEventData
+    """
+    Data for the v2.billing.contract_term.scheduled_fee_service_period_started event
+    """
+
+    @classmethod
+    def _construct_from(
+        cls,
+        *,
+        values: Dict[str, Any],
+        last_response: Optional[StripeResponse] = None,
+        requestor: "_APIRequestor",
+        api_mode: ApiMode,
+    ) -> "V2BillingContractTermScheduledFeeServicePeriodStartedEvent":
+        evt = super()._construct_from(
+            values=values,
+            last_response=last_response,
+            requestor=requestor,
+            api_mode=api_mode,
+        )
+        if hasattr(evt, "data"):
+            evt.data = V2BillingContractTermScheduledFeeServicePeriodStartedEvent.V2BillingContractTermScheduledFeeServicePeriodStartedEventData._construct_from(
+                values=evt.data,
+                last_response=last_response,
+                requestor=requestor,
+                api_mode=api_mode,
+            )
+        return evt
 
     class RelatedObject(StripeObject):
         id: str
@@ -99,12 +149,12 @@ class V1CustomerSubscriptionItemTaxRatesChangedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Subscription":
+    def fetch_related_object(self) -> "ContractTerm":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Subscription",
+            "ContractTerm",
             self._requestor.request(
                 "get",
                 self.related_object.url,

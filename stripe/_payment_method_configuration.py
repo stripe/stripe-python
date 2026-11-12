@@ -468,6 +468,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Dbarai(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Eps(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1551,6 +1573,7 @@ class PaymentMethodConfiguration(
     cashapp: Optional[Cashapp]
     crypto: Optional[Crypto]
     customer_balance: Optional[CustomerBalance]
+    dbarai: Optional[Dbarai]
     eps: Optional[Eps]
     fpx: Optional[Fpx]
     giropay: Optional[Giropay]
@@ -1782,6 +1805,7 @@ class PaymentMethodConfiguration(
         "cashapp": Cashapp,
         "crypto": Crypto,
         "customer_balance": CustomerBalance,
+        "dbarai": Dbarai,
         "eps": Eps,
         "fpx": Fpx,
         "giropay": Giropay,

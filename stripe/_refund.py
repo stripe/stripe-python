@@ -58,6 +58,9 @@ class Refund(
         class Alipay(StripeObject):
             pass
 
+        class AlipayPlus(StripeObject):
+            pass
+
         class Alma(StripeObject):
             pass
 
@@ -318,6 +321,7 @@ class Refund(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        alipay_plus: Optional[AlipayPlus]
         alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_bank_transfer: Optional[AuBankTransfer]
@@ -362,6 +366,7 @@ class Refund(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alipay_plus": AlipayPlus,
             "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_bank_transfer": AuBankTransfer,

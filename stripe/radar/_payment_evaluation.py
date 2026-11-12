@@ -792,6 +792,23 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     """
     Recommended action for this payment based on its evaluated signals and rules.
     """
+    requested_signals: Optional[
+        List[
+            Union[
+                Literal[
+                    "bank_initiated_return",
+                    "card_testing",
+                    "early_fraud_warning",
+                    "fraudulent_dispute",
+                    "fraudulent_payment",
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    The signals requested for this payment evaluation. Only returned when creating a payment evaluation. Includes the default signal list when `requested_signals` is omitted from the request.
+    """
     rules: Optional[Rules]
     """
     Details about Radar Rules associated with the payment evaluation.

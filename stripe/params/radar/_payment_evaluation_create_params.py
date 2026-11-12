@@ -29,6 +29,23 @@ class PaymentEvaluationCreateParams(RequestOptions):
     """
     Details about the payment.
     """
+    requested_signals: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "bank_initiated_return",
+                    "card_testing",
+                    "early_fraud_warning",
+                    "fraudulent_dispute",
+                    "fraudulent_payment",
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    The signals to return in the Payment Evaluation response. Must include `fraudulent_payment`. If omitted, only `fraudulent_payment` is returned.
+    """
 
 
 class PaymentEvaluationCreateParamsClientDeviceMetadataDetails(TypedDict):

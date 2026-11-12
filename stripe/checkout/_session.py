@@ -144,7 +144,12 @@ class Session(
         Indicates whether automatic surcharge is enabled for the session.
         """
         provider: Optional[
-            Union[Literal["daikin", "interpayments", "proserv", "yeeld"], str]
+            Union[
+                Literal[
+                    "daikin", "dealerfx", "interpayments", "proserv", "yeeld"
+                ],
+                str,
+            ]
         ]
         """
         The surcharge provider used for this session.
@@ -1729,6 +1734,24 @@ class Session(
         price: str
         quantity: int
         _inner_class_types = {"adjustable_quantity": AdjustableQuantity}
+
+    class PassThroughFeeCost(StripeObject):
+        amount_subtotal: int
+        """
+        The pass-through fee before tax.
+        """
+        amount_tax: int
+        """
+        The tax on the pass-through fee. Pass-through fees aren't taxed, so this is always 0.
+        """
+        amount_total: int
+        """
+        The pass-through fee after tax.
+        """
+        calculation_basis_amount: int
+        """
+        The amount the provider calculated the fee on.
+        """
 
     class PaymentMethodConfigurationDetails(StripeObject):
         id: str
@@ -3613,6 +3636,10 @@ class Session(
         """
         This is the sum of all the discounts.
         """
+        amount_pass_through_fee: Optional[int]
+        """
+        The pass-through fee added to the Checkout Session, before tax.
+        """
         amount_shipping: Optional[int]
         """
         This is the sum of all the shipping amounts.
@@ -3887,6 +3914,7 @@ class Session(
     """
     Where the user is coming from. This informs the optimizations that are applied to the session.
     """
+    pass_through_fee_cost: Optional[PassThroughFeeCost]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     """
     The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://docs.stripe.com/api/checkout/sessions/expire) instead.
@@ -4516,6 +4544,7 @@ class Session(
         "marketing_attributions": MarketingAttribution,
         "name_collection": NameCollection,
         "optional_items": OptionalItem,
+        "pass_through_fee_cost": PassThroughFeeCost,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
         "payment_settings": PaymentSettings,

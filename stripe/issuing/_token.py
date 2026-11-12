@@ -290,6 +290,10 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
             """
+            token_service_provider_id: Optional[str]
+            """
+            The ID of the token service provider, specific to Visa.
+            """
 
         class WalletProvider(StripeObject):
             class CardholderAddress(StripeObject):

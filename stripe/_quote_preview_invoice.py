@@ -784,6 +784,20 @@ class QuotePreviewInvoice(StripeObject):
             """
             The billing cadence that generated this invoice
             """
+            billing_group: Optional[str]
+            """
+            The billing group that generated this invoice
+            """
+
+        class BillingGroupDetails(StripeObject):
+            billing_cadence: str
+            """
+            The billing cadence that generated this invoice
+            """
+            billing_group: Optional[str]
+            """
+            The billing group that generated this invoice
+            """
 
         class QuoteDetails(StripeObject):
             quote: str
@@ -840,6 +854,10 @@ class QuotePreviewInvoice(StripeObject):
         """
         Details about the billing cadence that generated this invoice
         """
+        billing_group_details: Optional[BillingGroupDetails]
+        """
+        Details about the billing group that generated this invoice
+        """
         quote_details: Optional[QuoteDetails]
         """
         Details about the quote that generated this invoice
@@ -866,6 +884,7 @@ class QuotePreviewInvoice(StripeObject):
         """
         _inner_class_types = {
             "billing_cadence_details": BillingCadenceDetails,
+            "billing_group_details": BillingGroupDetails,
             "quote_details": QuoteDetails,
             "schedule_details": ScheduleDetails,
             "subscription_details": SubscriptionDetails,

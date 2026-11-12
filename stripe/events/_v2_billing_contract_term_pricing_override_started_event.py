@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
+from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
     from stripe._stripe_client import StripeClient
-    from stripe.financial_connections._account import Account
+    from stripe.v2.billing._contract_term import ContractTerm
 
 
-class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
+class V2BillingContractTermPricingOverrideStartedEventNotification(
     EventNotification,
 ):
-    LOOKUP_TYPE = "v1.financial_connections.account.ownership_refresh_failed"
-    type: Literal["v1.financial_connections.account.ownership_refresh_failed"]
+    LOOKUP_TYPE = "v2.billing.contract_term.pricing_override_started"
+    type: Literal["v2.billing.contract_term.pricing_override_started"]
     related_object: RelatedObject
 
     def __init__(
@@ -30,13 +33,13 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
     @override
     def fetch_event(
         self,
-    ) -> "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent":
+    ) -> "V2BillingContractTermPricingOverrideStartedEvent":
         return cast(
-            "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent",
+            "V2BillingContractTermPricingOverrideStartedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Account":
+    def fetch_related_object(self) -> "ContractTerm":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -45,7 +48,7 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Account",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -55,13 +58,13 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
     @override
     async def fetch_event_async(
         self,
-    ) -> "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent":
+    ) -> "V2BillingContractTermPricingOverrideStartedEvent":
         return cast(
-            "V1FinancialConnectionsAccountOwnershipRefreshFailedEvent",
+            "V2BillingContractTermPricingOverrideStartedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Account":
+    async def fetch_related_object_async(self) -> "ContractTerm":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -70,7 +73,7 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Account",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -78,9 +81,44 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification(
         )
 
 
-class V1FinancialConnectionsAccountOwnershipRefreshFailedEvent(Event):
-    LOOKUP_TYPE = "v1.financial_connections.account.ownership_refresh_failed"
-    type: Literal["v1.financial_connections.account.ownership_refresh_failed"]
+class V2BillingContractTermPricingOverrideStartedEvent(Event):
+    LOOKUP_TYPE = "v2.billing.contract_term.pricing_override_started"
+    type: Literal["v2.billing.contract_term.pricing_override_started"]
+
+    class V2BillingContractTermPricingOverrideStartedEventData(StripeObject):
+        contract: str
+        """
+        The Contract containing this term.
+        """
+
+    data: V2BillingContractTermPricingOverrideStartedEventData
+    """
+    Data for the v2.billing.contract_term.pricing_override_started event
+    """
+
+    @classmethod
+    def _construct_from(
+        cls,
+        *,
+        values: Dict[str, Any],
+        last_response: Optional[StripeResponse] = None,
+        requestor: "_APIRequestor",
+        api_mode: ApiMode,
+    ) -> "V2BillingContractTermPricingOverrideStartedEvent":
+        evt = super()._construct_from(
+            values=values,
+            last_response=last_response,
+            requestor=requestor,
+            api_mode=api_mode,
+        )
+        if hasattr(evt, "data"):
+            evt.data = V2BillingContractTermPricingOverrideStartedEvent.V2BillingContractTermPricingOverrideStartedEventData._construct_from(
+                values=evt.data,
+                last_response=last_response,
+                requestor=requestor,
+                api_mode=api_mode,
+            )
+        return evt
 
     class RelatedObject(StripeObject):
         id: str
@@ -101,12 +139,12 @@ class V1FinancialConnectionsAccountOwnershipRefreshFailedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Account":
+    def fetch_related_object(self) -> "ContractTerm":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Account",
+            "ContractTerm",
             self._requestor.request(
                 "get",
                 self.related_object.url,

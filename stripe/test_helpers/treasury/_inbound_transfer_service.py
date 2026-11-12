@@ -28,7 +28,7 @@ class InboundTransferService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
-        Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+        Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
         return cast(
             "InboundTransfer",
@@ -51,7 +51,7 @@ class InboundTransferService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
-        Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+        Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
         return cast(
             "InboundTransfer",
@@ -74,7 +74,7 @@ class InboundTransferService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
-        Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
         return cast(
             "InboundTransfer",
@@ -97,7 +97,7 @@ class InboundTransferService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
-        Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
         return cast(
             "InboundTransfer",
@@ -120,7 +120,7 @@ class InboundTransferService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
-        Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
         return cast(
             "InboundTransfer",
@@ -143,7 +143,7 @@ class InboundTransferService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
-        Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
         return cast(
             "InboundTransfer",

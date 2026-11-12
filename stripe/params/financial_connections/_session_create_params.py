@@ -110,7 +110,7 @@ class SessionCreateParamsFilters(TypedDict):
     """
     country: NotRequired[str]
     """
-    Country from which to collect accounts.
+    Country from which to collect accounts. Supported values are `US` and `CA`.
     """
     institution: NotRequired[str]
     """

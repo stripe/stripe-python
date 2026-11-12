@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.identity._verification_session_create_params import (
         VerificationSessionCreateParams as VerificationSessionCreateParams,
+        VerificationSessionCreateParamsLinkSharedData as VerificationSessionCreateParamsLinkSharedData,
         VerificationSessionCreateParamsOptions as VerificationSessionCreateParamsOptions,
         VerificationSessionCreateParamsOptionsDocument as VerificationSessionCreateParamsOptionsDocument,
         VerificationSessionCreateParamsProvidedDetails as VerificationSessionCreateParamsProvidedDetails,
@@ -99,6 +100,10 @@ _import_map = {
         False,
     ),
     "VerificationSessionCreateParams": (
+        "stripe.params.identity._verification_session_create_params",
+        False,
+    ),
+    "VerificationSessionCreateParamsLinkSharedData": (
         "stripe.params.identity._verification_session_create_params",
         False,
     ),

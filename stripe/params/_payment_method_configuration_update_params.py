@@ -99,6 +99,10 @@ class PaymentMethodConfigurationUpdateParams(TypedDict):
     """
     Uses a customer's [cash balance](https://docs.stripe.com/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://docs.stripe.com/payments/bank-transfers) for more details.
     """
+    dbarai: NotRequired["PaymentMethodConfigurationUpdateParamsDbarai"]
+    """
+    d-Barai is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with d-Barai, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    """
     eps: NotRequired["PaymentMethodConfigurationUpdateParamsEps"]
     """
     EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://docs.stripe.com/payments/eps) for more details.
@@ -655,6 +659,22 @@ class PaymentMethodConfigurationUpdateParamsCustomerBalance(TypedDict):
 class PaymentMethodConfigurationUpdateParamsCustomerBalanceDisplayPreference(
     TypedDict,
 ):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationUpdateParamsDbarai(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationUpdateParamsDbaraiDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationUpdateParamsDbaraiDisplayPreference(TypedDict):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.

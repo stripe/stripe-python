@@ -15,6 +15,9 @@ if TYPE_CHECKING:
     from stripe.params._invoice_rendering_template_archive_params import (
         InvoiceRenderingTemplateArchiveParams,
     )
+    from stripe.params._invoice_rendering_template_create_params import (
+        InvoiceRenderingTemplateCreateParams,
+    )
     from stripe.params._invoice_rendering_template_list_params import (
         InvoiceRenderingTemplateListParams,
     )
@@ -23,6 +26,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._invoice_rendering_template_unarchive_params import (
         InvoiceRenderingTemplateUnarchiveParams,
+    )
+    from stripe.params._invoice_rendering_template_update_params import (
+        InvoiceRenderingTemplateUpdateParams,
     )
 
 
@@ -58,6 +64,44 @@ class InvoiceRenderingTemplateService(StripeService):
             "ListObject[InvoiceRenderingTemplate]",
             await self._request_async(
                 "get",
+                "/v1/invoice_rendering_templates",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def create(
+        self,
+        params: Optional["InvoiceRenderingTemplateCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Creates an invoice rendering template.
+        """
+        return cast(
+            "InvoiceRenderingTemplate",
+            self._request(
+                "post",
+                "/v1/invoice_rendering_templates",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: Optional["InvoiceRenderingTemplateCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Creates an invoice rendering template.
+        """
+        return cast(
+            "InvoiceRenderingTemplate",
+            await self._request_async(
+                "post",
                 "/v1/invoice_rendering_templates",
                 base_address="api",
                 params=params,
@@ -102,6 +146,52 @@ class InvoiceRenderingTemplateService(StripeService):
             "InvoiceRenderingTemplate",
             await self._request_async(
                 "get",
+                "/v1/invoice_rendering_templates/{template}".format(
+                    template=sanitize_id(template),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        template: str,
+        /,
+        params: Optional["InvoiceRenderingTemplateUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Updates an existing invoice rendering template.
+        """
+        return cast(
+            "InvoiceRenderingTemplate",
+            self._request(
+                "post",
+                "/v1/invoice_rendering_templates/{template}".format(
+                    template=sanitize_id(template),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        template: str,
+        /,
+        params: Optional["InvoiceRenderingTemplateUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Updates an existing invoice rendering template.
+        """
+        return cast(
+            "InvoiceRenderingTemplate",
+            await self._request_async(
+                "post",
                 "/v1/invoice_rendering_templates/{template}".format(
                     template=sanitize_id(template),
                 ),
