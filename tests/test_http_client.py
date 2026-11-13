@@ -1,7 +1,6 @@
 import io
 import base64
 import json
-import sys
 import threading
 from typing import Any, Callable, Dict, List, Optional
 from unittest.mock import MagicMock, Mock, call, patch
@@ -9,10 +8,7 @@ from unittest.mock import MagicMock, Mock, call, patch
 import pytest
 from typing_extensions import Type
 
-if sys.version_info >= (3, 8):
-    from unittest.mock import AsyncMock
-else:
-    from mock import AsyncMock
+from unittest.mock import AsyncMock
 
 from contextlib import contextmanager
 
