@@ -61,10 +61,12 @@ from stripe._http_client import (
 
 from stripe._base_address import BaseAddress
 from stripe._api_mode import ApiMode
+from stripe._stripe_object import API_KEY_SERIALIZATION_CONSTANT
 
 if TYPE_CHECKING:
     from stripe._app_info import AppInfo
     from stripe._stripe_object import StripeObject
+    from stripe._stripe_context import StripeContext
 
 HttpVerb = Literal["get", "post", "delete"]
 
@@ -165,11 +167,35 @@ class _APIRequestor(object):
         """
         Returns a new _APIRequestor instance with the same HTTP client but a (potentially) updated set of options. Useful for ensuring the original isn't modified, but any options the original had are still used.
         """
+        if self.api_key == API_KEY_SERIALIZATION_CONSTANT:
+            raise error.AuthenticationError(
+                "This object was unpickled without API credentials. "
+                "Call reattach_api_key(api_key) on the object before making requests."
+            )
+
         options = options or {}
         new_options = self._options.to_dict()
         for key in PERSISTENT_OPTIONS_KEYS:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
+        return _APIRequestor(
+            options=RequestorOptions(**new_options), client=self._client
+        )
+
+    def with_stripe_context(
+        self, stripe_context: "Optional[Union[str, StripeContext]]"
+    ) -> "_APIRequestor":
+        """
+        Returns a new _APIRequestor with the same configuration as this one, but
+        scoped to a different stripe_context. Unlike _new_requestor_with_options,
+        this always replaces stripe_context (even with None) and clears
+        stripe_account, since a context is self-contained and a stripe_account
+        inherited from whatever request produced this requestor should not leak
+        into requests scoped by it.
+        """
+        new_options = self._options.to_dict()
+        new_options["stripe_context"] = stripe_context
+        new_options["stripe_account"] = None
         return _APIRequestor(
             options=RequestorOptions(**new_options), client=self._client
         )
@@ -677,6 +703,12 @@ class _APIRequestor(object):
         """
         Mechanism for issuing an API call.  Used by request_raw and request_raw_async.
         """
+        if self.api_key == API_KEY_SERIALIZATION_CONSTANT:
+            raise error.AuthenticationError(
+                "This object was unpickled without API credentials. "
+                "Call reattach_api_key(api_key) on the object before making requests."
+            )
+
         request_options = merge_options(self._options, options)
 
         # Special stripe_version handling for v2 requests:
