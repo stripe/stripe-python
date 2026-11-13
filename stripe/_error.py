@@ -52,7 +52,9 @@ class StripeError(Exception):
             self.headers,
             self.code,
         )
-        self.request_id = self.headers.get("request-id", None)
+        from stripe._util import get_header
+
+        self.request_id = get_header(self.headers, "Request-Id")
         self.error = self._construct_error_object()
 
     def __str__(self):

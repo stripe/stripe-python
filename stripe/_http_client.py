@@ -203,8 +203,8 @@ class HTTPClient(object):
 
     def _record_request_metrics(self, response, request_start, usage):
         _, _, rheaders = response
-        if "Request-Id" in rheaders and stripe.enable_telemetry:
-            request_id = rheaders["Request-Id"]
+        request_id = _util.get_header(rheaders, "Request-Id")
+        if request_id is not None and stripe.enable_telemetry:
             request_duration_ms = _now_ms() - request_start
             self._thread_local.last_request_metrics = RequestMetrics(
                 request_id, request_duration_ms, usage=usage
@@ -904,9 +904,13 @@ class PycurlClient(HTTPClient):
         return curl
 
     def parse_headers(self, data):
-        if "\r\n" not in data:
+        # libcurl reports the headers of every response on the connection, so
+        # an interim response (100 Continue, a proxy's reply to CONNECT) comes
+        # before the final one. Only the last block describes the response.
+        blocks = [block for block in data.split("\r\n\r\n") if block.strip()]
+        if not blocks or "\r\n" not in blocks[-1]:
             return {}
-        raw_headers = data.split("\r\n", 1)[1]
+        raw_headers = blocks[-1].split("\r\n", 1)[1]
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in dict(headers).items())
 
@@ -1225,11 +1229,39 @@ class HTTPXClient(HTTPClient):
         else:
             kwargs["verify"] = False
 
-        self._client_async = self.httpx.AsyncClient(**kwargs)
+        self._client_async = self.httpx.AsyncClient(
+            **kwargs,
+            **self._proxy_mounts(
+                self.httpx.AsyncHTTPTransport, kwargs["verify"]
+            ),
+        )
         self._client = None
         if allow_sync_methods:
-            self._client = self.httpx.Client(**kwargs)
+            self._client = self.httpx.Client(
+                **kwargs,
+                **self._proxy_mounts(
+                    self.httpx.HTTPTransport, kwargs["verify"]
+                ),
+            )
         self._timeout = timeout
+
+    def _proxy_mounts(self, transport_class, verify) -> Dict[str, Any]:
+        """
+        Builds the client argument that routes each URL scheme through its
+        configured proxy. httpx only accepts proxies on the client, not on
+        individual requests.
+        """
+        if not self._proxy:
+            return {}
+        return {
+            "mounts": {
+                f"{scheme}://": transport_class(
+                    proxy=self.httpx.Proxy(cast(str, proxy_url)),
+                    verify=verify,
+                )
+                for scheme, proxy_url in self._proxy.items()
+            }
+        }
 
     def sleep_async(self, secs):
         return self.anyio.sleep(secs)
@@ -1237,16 +1269,15 @@ class HTTPXClient(HTTPClient):
     def _get_request_args_kwargs(
         self, method: str, url: str, headers: Mapping[str, str], post_data
     ):
-        kwargs = {}
-
-        if self._proxy:
-            kwargs["proxies"] = self._proxy
-
-        if self._timeout:
-            kwargs["timeout"] = self._timeout
         return [
             (method, url),
-            {"headers": headers, "data": post_data or {}, **kwargs},
+            {
+                "headers": headers,
+                "data": post_data or {},
+                # Passed even when None, which is how httpx disables timeouts;
+                # omitting it would apply httpx's own 5 second default.
+                "timeout": self._timeout,
+            },
         ]
 
     def request(
@@ -1354,6 +1385,8 @@ class HTTPXClient(HTTPClient):
 
     async def close_async(self):
         await self._client_async.aclose()
+        if self._client is not None:
+            self._client.close()
 
 
 class AIOHTTPClient(HTTPClient):
@@ -1399,9 +1432,7 @@ class AIOHTTPClient(HTTPClient):
                         ssl=ssl_context
                     )
                 else:
-                    kwargs["connector"] = self.aiohttp.TCPConnector(
-                        verify_ssl=False
-                    )
+                    kwargs["connector"] = self.aiohttp.TCPConnector(ssl=False)
 
                 self._cached_session = self.aiohttp.ClientSession(**kwargs)
 
@@ -1421,11 +1452,12 @@ class AIOHTTPClient(HTTPClient):
         args = (method, url)
         kwargs = {}
         if self._proxy:
-            if self._proxy["http"] != self._proxy["https"]:
+            proxy_urls = set(self._proxy.values())
+            if len(proxy_urls) > 1:
                 raise ValueError(
                     "AIOHTTPClient does not support different proxies for HTTP and HTTPS."
                 )
-            kwargs["proxy"] = self._proxy["https"]
+            kwargs["proxy"] = proxy_urls.pop()
         if self._timeout:
             kwargs["timeout"] = self._timeout
 

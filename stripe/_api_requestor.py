@@ -7,6 +7,7 @@ from typing import (
     AsyncIterable,
     Callable,
     Dict,
+    Iterable,
     List,
     Mapping,
     Optional,
@@ -32,13 +33,14 @@ from stripe._util import (
     validate_path,
     _convert_to_stripe_object,
     get_api_mode,
+    get_header,
 )
 from stripe._version import VERSION
 import stripe._error as error
 import stripe.oauth_error as oauth_error
 from stripe._multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode
-from stripe._encode import _api_encode, _make_suitable_for_json
+from stripe._encode import _api_encode, _json_default
 from stripe._stripe_response import (
     StripeResponse,
     StripeStreamResponse,
@@ -78,7 +80,7 @@ def _maybe_emit_stripe_notice(
     rheaders: Mapping[str, str],
     environ: Optional[Mapping[str, str]] = None,
 ) -> None:
-    notice = rheaders.get("Stripe-Notice")
+    notice = get_header(rheaders, "Stripe-Notice")
     if not notice:
         return
 
@@ -381,12 +383,16 @@ class _APIRequestor(object):
         try:
             error_data = resp["error"]
         except (KeyError, TypeError):
+            error_data = None
+
+        if not isinstance(error_data, (dict, str)):
             raise error.APIError(
-                "Invalid response object from API: %r (HTTP response code "
-                "was %d)" % (rbody, rcode),
+                f"Invalid response object from API: {rbody!r} (HTTP response "
+                f"code was {rcode})",
                 rbody,
                 rcode,
                 resp,
+                rheaders,
             )
 
         err = None
@@ -585,7 +591,7 @@ class _APIRequestor(object):
         elif error_code == "unsupported_response_type":
             return oauth_error.UnsupportedResponseTypeError(*args)
 
-        return None
+        return oauth_error.OAuthError(*args)
 
     AI_AGENTS = [
         # aiAgents: The beginning of the section generated from our OpenAPI spec
@@ -750,9 +756,12 @@ class _APIRequestor(object):
             # this could theoretically work for other lists that we want to merge too, but that doesn't seem to be a use case
             # it never would have worked before, so I think we can start with `expand` and go from there
             if "expand" in existing_params and "expand" in params:
-                params["expand"] = list(  # type:ignore - this is a dict
-                    set([*existing_params["expand"], *params["expand"]])
-                )
+                params = {
+                    **params,
+                    "expand": list(
+                        set([*existing_params["expand"], *params["expand"]])
+                    ),
+                }
 
             params = {
                 **existing_params,
@@ -768,9 +777,7 @@ class _APIRequestor(object):
         encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
 
         if api_mode == "V2":
-            encoded_body = json.dumps(
-                params or {}, default=_make_suitable_for_json
-            )
+            encoded_body = json.dumps(params or {}, default=_json_default)
         else:
             encoded_body = encoded_params
 
@@ -903,8 +910,8 @@ class _APIRequestor(object):
         log_info("Stripe API response", path=abs_url, response_code=rcode)
         log_debug("API response body", body=rcontent)
 
-        if "Request-Id" in rheaders:
-            request_id = rheaders["Request-Id"]
+        request_id = get_header(rheaders, "Request-Id")
+        if request_id is not None:
             log_debug(
                 "Dashboard link for request",
                 link=dashboard_link(request_id),
@@ -987,8 +994,8 @@ class _APIRequestor(object):
         log_info("Stripe API response", path=abs_url, response_code=rcode)
         log_debug("API response body", body=rcontent)
 
-        if "Request-Id" in rheaders:
-            request_id = rheaders["Request-Id"]
+        request_id = get_header(rheaders, "Request-Id")
+        if request_id is not None:
             log_debug(
                 "Dashboard link for request",
                 link=dashboard_link(request_id),
@@ -1018,11 +1025,11 @@ class _APIRequestor(object):
             )
         except Exception:
             raise error.APIError(
-                "Invalid response body from API: %s "
-                "(HTTP response code was %d)" % (rbody, rcode),
+                f"Invalid response body from API: {rbody} "
+                f"(HTTP response code was {rcode})",
                 cast(bytes, rbody),
                 rcode,
-                rheaders,
+                headers=cast(Dict[str, str], rheaders),
             )
         if self._should_handle_code_as_error(rcode):
             self.handle_error_response(
@@ -1042,10 +1049,17 @@ class _APIRequestor(object):
         # received, we need to read from the stream and parse the received JSON,
         # treating it like a standard JSON response.
         if self._should_handle_code_as_error(rcode):
+            # Not every HTTP client returns a file-like object here: some
+            # return the raw content, or an iterator of chunks.
+            content: Any = stream
             if hasattr(stream, "getvalue"):
                 json_content = cast(BytesIO, stream).getvalue()
             elif hasattr(stream, "read"):
                 json_content = stream.read()
+            elif isinstance(content, (bytes, str)):
+                json_content = content
+            elif isinstance(content, Iterable):
+                json_content = b"".join(content)
             else:
                 raise NotImplementedError(
                     "HTTP client %s does not return an IOBase object which "

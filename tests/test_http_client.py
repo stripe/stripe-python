@@ -356,6 +356,23 @@ class TestHTTPClient:
         telemetry = json.loads(args[2]["X-Stripe-Client-Telemetry"])
         assert telemetry["last_request_metrics"]["request_id"] == "req_123"
 
+    def test_records_telemetry_for_lowercase_header_names(self, mocker):
+        class TestClient(_http_client.HTTPClient):
+            pass
+
+        stripe.enable_telemetry = True
+        client = TestClient()
+        client.request = mocker.MagicMock(
+            return_value=["", 200, {"request-id": "req_123"}]
+        )
+
+        client.request_with_retries("get", "http://fake.url", {}, None)
+        client.request_with_retries("get", "http://fake.url", {}, None)
+
+        args, _ = client.request.call_args
+        telemetry = json.loads(args[2]["X-Stripe-Client-Telemetry"])
+        assert telemetry["last_request_metrics"]["request_id"] == "req_123"
+
 
 class ClientTestBase:
     REQUEST_CLIENT: Type[_http_client.HTTPClient]
@@ -1289,6 +1306,37 @@ class TestPycurlClient(ClientTestBase):
             if c.args[0] == option
         ]
 
+    @pytest.mark.parametrize(
+        "interim_response",
+        [
+            "",
+            "HTTP/1.1 100 Continue\r\n\r\n",
+            "HTTP/1.1 200 Connection established\r\n\r\n",
+        ],
+    )
+    def test_parse_headers_reads_the_final_response(
+        self, mocked_request_lib, interim_response
+    ):
+        client = self.REQUEST_CLIENT(_lib=mocked_request_lib)
+
+        headers = client.parse_headers(
+            interim_response
+            + "HTTP/1.1 200 OK\r\n"
+            + "Request-Id: req_123\r\n"
+            + "Stripe-Should-Retry: false\r\n\r\n"
+        )
+
+        assert headers == {
+            "request-id": "req_123",
+            "stripe-should-retry": "false",
+        }
+
+    def test_parse_headers_without_headers(self, mocked_request_lib):
+        client = self.REQUEST_CLIENT(_lib=mocked_request_lib)
+
+        assert client.parse_headers("") == {}
+        assert client.parse_headers("HTTP/1.1 200 OK\r\n\r\n") == {}
+
     def test_uses_one_curl_handle_per_thread(
         self, mocked_request_lib, created_curls
     ):
@@ -1498,7 +1546,6 @@ class TestHTTPXClient(ClientTestBase):
                 "headers": headers,
                 "data": post_data or {},
                 "timeout": timeout,
-                "proxies": {"http": "http://slap/", "https": "http://slap/"},
             }
 
             if is_streaming:
@@ -1527,7 +1574,6 @@ class TestHTTPXClient(ClientTestBase):
                 "headers": headers,
                 "data": post_data,
                 "timeout": timeout,
-                "proxies": {"http": "http://slap/", "https": "http://slap/"},
             }
 
             if is_streaming:
@@ -1638,6 +1684,73 @@ class TestHTTPXClient(ClientTestBase):
     async def test_request_stream_forwards_stream_param(self):
         # TODO
         pass
+
+    def test_proxy_is_configured_on_the_clients(self, request_mock):
+        client = self.REQUEST_CLIENT(
+            proxy={"http": "http://slap/", "https": "http://slop/"},
+            allow_sync_methods=True,
+            _lib=request_mock,
+        )
+
+        request_mock.Proxy.assert_any_call("http://slap/")
+        request_mock.Proxy.assert_any_call("http://slop/")
+        for client_class, transport_class in [
+            (request_mock.AsyncClient, request_mock.AsyncHTTPTransport),
+            (request_mock.Client, request_mock.HTTPTransport),
+        ]:
+            assert transport_class.call_count == 2
+            assert client_class.call_args.kwargs["mounts"] == {
+                "http://": transport_class.return_value,
+                "https://": transport_class.return_value,
+            }
+        _, kwargs = client._get_request_args_kwargs(
+            "get", "http://foo", {}, None
+        )
+        assert "proxies" not in kwargs
+
+    def test_no_mounts_without_proxy(self, request_mock):
+        self.REQUEST_CLIENT(allow_sync_methods=True, _lib=request_mock)
+
+        assert "mounts" not in request_mock.AsyncClient.call_args.kwargs
+        assert "mounts" not in request_mock.Client.call_args.kwargs
+
+    def test_timeout_none_is_forwarded(self, request_mock):
+        client = self.REQUEST_CLIENT(timeout=None, _lib=request_mock)
+
+        _, kwargs = client._get_request_args_kwargs(
+            "get", "http://foo", {}, None
+        )
+        assert kwargs["timeout"] is None
+
+    @pytest.mark.anyio
+    async def test_proxy_request_with_real_httpx(self):
+        # Nothing listens on port 9, so the request fails, but it has to fail
+        # while connecting to the proxy rather than while building the call.
+        client = _http_client.HTTPXClient(
+            proxy="http://127.0.0.1:9", allow_sync_methods=True
+        )
+
+        with pytest.raises(stripe.APIConnectionError) as excinfo:
+            await client.request_async("get", "http://stripe.invalid/", {})
+        assert not isinstance(excinfo.value.__cause__, TypeError)
+
+        with pytest.raises(stripe.APIConnectionError) as excinfo:
+            client.request("get", "http://stripe.invalid/", {})
+        assert not isinstance(excinfo.value.__cause__, TypeError)
+
+        await client.close_async()
+
+    @pytest.mark.anyio
+    async def test_close_async_closes_both_clients(self, request_mock):
+        request_mock.AsyncClient().aclose = AsyncMock()
+        client = self.REQUEST_CLIENT(
+            allow_sync_methods=True, _lib=request_mock
+        )
+
+        await client.close_async()
+
+        request_mock.AsyncClient().aclose.assert_called_once()
+        request_mock.Client().close.assert_called_once()
 
     def test_allow_sync_methods(self, request_mock, mock_response):
         client = self.REQUEST_CLIENT(_lib=request_mock)
@@ -2047,6 +2160,25 @@ class TestAIOHTTPClient(ClientTestBase):
     async def test_request_stream_forwards_stream_param(self):
         # TODO
         pass
+
+    def test_proxy_for_a_single_scheme(self, mocked_request_lib):
+        client = self.REQUEST_CLIENT(
+            proxy={"https": "http://slap/"}, _lib=mocked_request_lib
+        )
+
+        _, kwargs = client._get_request_args_kwargs(
+            "get", "https://foo", {}, None
+        )
+        assert kwargs["proxy"] == "http://slap/"
+
+    def test_different_proxies_are_rejected(self, mocked_request_lib):
+        client = self.REQUEST_CLIENT(
+            proxy={"http": "http://slap/", "https": "http://slop/"},
+            _lib=mocked_request_lib,
+        )
+
+        with pytest.raises(ValueError):
+            client._get_request_args_kwargs("get", "https://foo", {}, None)
 
 
 class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):

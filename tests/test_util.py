@@ -134,6 +134,10 @@ class TestUtil(object):
                 props={"key with space": True},
                 expected="'key with space'=True",
             ),
+            FmtTestCase(
+                props={"body": b"\xff\xfeok"},
+                expected="body=��ok",
+            ),
         ]
         for case in cases:
             result = logfmt(case.props)

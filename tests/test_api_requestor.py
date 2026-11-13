@@ -215,6 +215,53 @@ class TestAPIRequestor(object):
             is_json=True,
         )
 
+    def test_encodes_stripe_object_values_preview(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "post", path=self.v2_path, rbody="{}", rcode=200
+        )
+
+        requestor.request(
+            "post",
+            self.v2_path,
+            {"metadata": StripeObject.construct_from({"foo": "bar"}, "key")},
+            base_address="api",
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            content_type="application/json",
+            post_data='{"metadata": {"foo": "bar"}}',
+            is_json=True,
+        )
+
+    def test_unserializable_value_preview(self, requestor):
+        with pytest.raises(TypeError, match="date is not JSON serializable"):
+            requestor.request(
+                "post",
+                self.v2_path,
+                {"day": datetime.date(2024, 1, 2)},
+                base_address="api",
+            )
+
+    def test_merging_expand_does_not_modify_params(self, requestor):
+        params = {"expand": ["bar"]}
+
+        _, abs_url, *_ = requestor._args_for_request_with_retries(
+            "get",
+            self.v1_path + "?expand[]=foo",
+            params,
+            base_address="api",
+            api_mode="V1",
+        )
+
+        expanded = {
+            pair.split("=")[1] for pair in urlsplit(abs_url).query.split("&")
+        }
+        assert expanded == {"foo", "bar"}
+        assert params == {"expand": ["bar"]}
+
     def test_encodes_null_values_preview(self, requestor, http_client_mock):
         http_client_mock.stub_request(
             "post", path=self.v2_path, rbody="{}", rcode=200
@@ -1064,6 +1111,73 @@ class TestAPIRequestor(object):
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request("get", self.v1_path, {}, base_address="api")
 
+    def test_unrecognized_oauth_error(self, requestor, http_client_mock):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody='{"error": "access_denied", "error_description": "The user denied your request"}',
+            rcode=400,
+            rheaders={"request-id": "req_123"},
+        )
+
+        with pytest.raises(stripe.oauth_error.OAuthError) as excinfo:
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+        assert excinfo.value.code == "access_denied"
+        assert excinfo.value.user_message == "The user denied your request"
+        assert excinfo.value.request_id == "req_123"
+
+    @pytest.mark.parametrize(
+        "rbody",
+        [
+            '{"error": null}',
+            '{"error": ["foo"]}',
+            '{"error": 5}',
+            '{"message": "foo"}',
+            "[]",
+        ],
+    )
+    def test_malformed_error_body(self, requestor, http_client_mock, rbody):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody=rbody,
+            rcode=500,
+            rheaders={"request-id": "req_123"},
+        )
+
+        with pytest.raises(stripe.APIError) as excinfo:
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+        assert excinfo.value.http_status == 500
+        assert excinfo.value.request_id == "req_123"
+
+    def test_non_json_error_body_keeps_headers(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="<html>502 Bad Gateway</html>",
+            rcode=502,
+            rheaders={"request-id": "req_123"},
+        )
+
+        with pytest.raises(stripe.APIError) as excinfo:
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+        assert excinfo.value.http_status == 502
+        assert excinfo.value.request_id == "req_123"
+        assert excinfo.value.json_body is None
+
+    def test_non_utf8_error_body(self, requestor, http_client_mock):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody=b"\xff\xfe", rcode=500
+        )
+
+        with pytest.raises(stripe.APIError):
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
     def test_extract_error_from_stream_request_for_bytes(
         self, requestor, http_client_mock
     ):
@@ -1071,6 +1185,29 @@ class TestAPIRequestor(object):
             "get",
             path=self.v1_path,
             rbody=io.BytesIO(b'{"error": "invalid_grant"}'),
+            rcode=400,
+        )
+
+        with pytest.raises(stripe.oauth_error.InvalidGrantError):
+            requestor.request_stream(
+                "get", self.v1_path, {}, base_address="api"
+            )
+
+    @pytest.mark.parametrize(
+        "make_rbody",
+        [
+            lambda: b'{"error": "invalid_grant"}',
+            lambda: iter([b'{"error": ', b'"invalid_grant"}']),
+        ],
+        ids=["bytes", "iterator"],
+    )
+    def test_extract_error_from_stream_request_for_raw_content(
+        self, requestor, http_client_mock, make_rbody
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody=make_rbody(),
             rcode=400,
         )
 
@@ -1111,6 +1248,12 @@ class TestAPIRequestor(object):
 
         with pytest.warns(UserWarning, match="test notice value"):
             requestor.request("get", self.v1_path, {}, base_address="api")
+
+    def test_stripe_notice_with_lowercase_header_name(self):
+        with pytest.warns(UserWarning, match="test notice value"):
+            _maybe_emit_stripe_notice(
+                {"stripe-notice": "test notice value"}, {}
+            )
 
     def test_stripe_notice_tells_humans_how_to_suppress_notices(self):
         with pytest.warns(UserWarning) as warning:

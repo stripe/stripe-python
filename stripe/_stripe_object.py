@@ -464,21 +464,25 @@ class StripeObject:
             ) or self._get_inner_class_type(k)
             is_dict = self._get_inner_class_is_beneath_dict(k)
             if is_dict:
-                obj = {
-                    k: None
+                obj = (
+                    None
                     if v is None
-                    else cast(
-                        StripeObject,
-                        _util._convert_to_stripe_object(  # pyright: ignore[reportPrivateUsage]
-                            resp=v,
-                            params=None,
-                            klass_=inner_class,
-                            requestor=self._requestor,
-                            api_mode=api_mode,
-                        ),
-                    )
-                    for k, v in v.items()
-                }
+                    else {
+                        k: None
+                        if v is None
+                        else cast(
+                            StripeObject,
+                            _util._convert_to_stripe_object(  # pyright: ignore[reportPrivateUsage]
+                                resp=v,
+                                params=None,
+                                klass_=inner_class,
+                                requestor=self._requestor,
+                                api_mode=api_mode,
+                            ),
+                        )
+                        for k, v in v.items()
+                    }
+                )
             else:
                 obj = cast(
                     Union[StripeObject, List[StripeObject]],
@@ -624,22 +628,30 @@ class StripeObject:
         used by __str__ to serialize the whole object
         """
 
-        def maybe_to_dict_recursive(
-            value: Optional[Union[StripeObject, Dict[str, Any]]],
-        ) -> Optional[Dict[str, Any]]:
+        def maybe_to_dict_recursive(value: Any) -> Any:
             if value is None:
                 return None
             elif isinstance(value, StripeObject):
                 return value._to_dict_recursive(for_json=for_json)
+            elif isinstance(value, list):
+                return [
+                    maybe_to_dict_recursive(item)
+                    for item in cast(List[Any], value)
+                ]
+            elif isinstance(value, dict):
+                # Map-of-objects fields are stored as plain dicts whose
+                # values are StripeObjects.
+                return {
+                    k: maybe_to_dict_recursive(v)
+                    for k, v in cast(Dict[str, Any], value).items()
+                }
             elif for_json:
                 return _make_suitable_for_json(value)
             else:
                 return value
 
         return {
-            key: list(map(maybe_to_dict_recursive, cast(List[Any], value)))
-            if isinstance(value, list)
-            else maybe_to_dict_recursive(value)
+            key: maybe_to_dict_recursive(value)
             for key, value in self._data.items()
         }
 
@@ -675,7 +687,7 @@ class StripeObject:
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
     def __copy__(self) -> "StripeObject":
-        copied = StripeObject(
+        copied = type(self)(
             getattr(self, "id", None),
             self.api_key,
             stripe_version=self.stripe_version,
