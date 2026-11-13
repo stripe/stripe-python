@@ -1236,3 +1236,21 @@ class StripeClient(object):
         return self.v1.webhook_endpoints
 
     # deprecated v1 services: The end of the section generated from our OpenAPI spec
+
+    def close(self) -> None:
+        self._requestor.close()
+
+    async def close_async(self) -> None:
+        await self._requestor.close_async()
+
+    def __enter__(self) -> "StripeClient":
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        self.close()
+
+    async def __aenter__(self) -> "StripeClient":
+        return self
+
+    async def __aexit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        await self.close_async()

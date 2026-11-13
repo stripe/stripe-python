@@ -161,6 +161,14 @@ class _APIRequestor(object):
             return stripe.default_http_client
         return client
 
+    def close(self) -> None:
+        client = self._get_http_client()
+        client.close()
+
+    async def close_async(self) -> None:
+        client = self._get_http_client()
+        await client.close_async()
+
     def _new_requestor_with_options(
         self, options: Optional[RequestOptions]
     ) -> "_APIRequestor":

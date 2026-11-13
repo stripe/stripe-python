@@ -503,6 +503,18 @@ class HTTPClient(object):
             "HTTPClient subclasses must implement `sleep`"
         )
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        self.close()
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        await self.close_async()
+
 
 class RequestsClient(HTTPClient):
     name = "requests"
