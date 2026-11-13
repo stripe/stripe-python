@@ -5,7 +5,7 @@ import os
 import warnings
 import time
 
-import httpx
+import httpx2
 import aiohttp
 import sys
 import stripe
@@ -420,7 +420,7 @@ class TestIntegration(object):
 
         expected_message = ""
         if isinstance(hc, stripe.HTTPXClient):
-            hc._timeout = httpx.Timeout(None, read=0.01)
+            hc._timeout = httpx2.Timeout(None, read=0.01)
             expected_message = "A ReadTimeout was raised"
         elif isinstance(hc, stripe.AIOHTTPClient):
             hc._timeout = aiohttp.ClientTimeout(sock_read=0.01)
