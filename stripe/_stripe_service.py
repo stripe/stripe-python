@@ -9,9 +9,22 @@ from stripe._stripe_object import StripeObject
 from stripe._request_options import RequestOptions
 from stripe._base_address import BaseAddress
 
-from typing import Any, Dict, Mapping, Optional
+from typing import Any, Dict, Mapping, Optional, Tuple
+from urllib.parse import quote
 
 from stripe._encode import _coerce_v2_params, _SchemaNode
+
+
+def _split_v2_search_params(
+    url: str, params: Optional[Mapping[str, Any]]
+) -> Tuple[str, Optional[Mapping[str, Any]]]:
+    url = url.split("?", 1)[0]
+    if params is None or "limit" not in params:
+        return url, params
+    body_params = dict(params)
+    limit = body_params.pop("limit")
+    url = "%s?limit=%s" % (url, quote(str(limit), safe=""))
+    return url, body_params
 
 
 class StripeService(object):
@@ -60,6 +73,48 @@ class StripeService(object):
             options,
             base_address=base_address,
             usage=["stripe_client"],
+        )
+
+    # V2 search uses POST but sends limit in the URL rather than the JSON body.
+    # Rebuild the initial query from params; pagination uses the ordinary request path.
+    def _request_v2_search(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        _param_encodings: Optional[Dict[str, _SchemaNode]] = None,
+    ) -> StripeObject:
+        url, params = _split_v2_search_params(url, params)
+        return self._request(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            _param_encodings=_param_encodings,
+        )
+
+    async def _request_v2_search_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        options: Optional[RequestOptions] = None,
+        *,
+        base_address: BaseAddress,
+        _param_encodings: Optional[Dict[str, _SchemaNode]] = None,
+    ) -> StripeObject:
+        url, params = _split_v2_search_params(url, params)
+        return await self._request_async(
+            method,
+            url,
+            params,
+            options,
+            base_address=base_address,
+            _param_encodings=_param_encodings,
         )
 
     def _request_stream(

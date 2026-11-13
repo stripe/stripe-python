@@ -58,7 +58,7 @@ class SettingsService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Settings":
         """
-        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set. Check the returned Tax Settings object and validate that its status is active.
         """
         return cast(
             "Settings",
@@ -77,7 +77,7 @@ class SettingsService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Settings":
         """
-        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set. Check the returned Tax Settings object and validate that its status is active.
         """
         return cast(
             "Settings",

@@ -19,7 +19,7 @@ class AccountSessionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",
@@ -38,7 +38,7 @@ class AccountSessionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",

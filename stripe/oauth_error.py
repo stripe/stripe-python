@@ -15,6 +15,14 @@ class OAuthError(StripeError):
         super(OAuthError, self).__init__(
             description, http_body, http_status, json_body, headers, code
         )
+        self.args = (
+            self.code,
+            self._message,
+            self.http_body,
+            self.http_status,
+            self.json_body,
+            self.headers,
+        )
 
     def _construct_error_object(self):
         if self.json_body is None:

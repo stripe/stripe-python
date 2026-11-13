@@ -9,7 +9,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -52,6 +52,12 @@ class InvoiceItem(
     """
 
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
+
+    class InvoicingRule(StripeObject):
+        type: Union[Literal["defer_until_credited_items_resolved"], str]
+        """
+        The type of invoicing rule.
+        """
 
     class Parent(StripeObject):
         class SubscriptionDetails(StripeObject):
@@ -124,7 +130,7 @@ class InvoiceItem(
             When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
             """
             invoice_line_item_details: Optional[InvoiceLineItemDetails]
-            type: Literal["invoice_item", "invoice_line_items"]
+            type: Union[Literal["invoice_item", "invoice_line_items"], str]
             """
             Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
             """
@@ -144,11 +150,11 @@ class InvoiceItem(
 
         credited_items: Optional[CreditedItems]
         """
-        For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
+        For a credit proration, links to the debit that the credit applies to. The reference is to an invoice item if the debit was pending when the credit was created, and to invoice line items if the debit was already invoiced.
         """
         discount_amounts: List[DiscountAmount]
         """
-        Discount amounts applied when the proration was created.
+        Discount amounts applied when the proration was created. This field is only populated for prorations created from subscriptions with `billing_mode=flexible`.
         """
         _inner_class_types = {
             "credited_items": CreditedItems,
@@ -191,6 +197,12 @@ class InvoiceItem(
     """
     The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """
+    frozen_fields: Optional[
+        List[Union[Literal["discounts", "pricing", "quantity"], str]]
+    ]
+    """
+    Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -198,6 +210,10 @@ class InvoiceItem(
     invoice: Optional[ExpandableField["Invoice"]]
     """
     The ID of the invoice this invoice item belongs to.
+    """
+    invoicing_rules: Optional[List[InvoicingRule]]
+    """
+    The rules that control when this invoice item is eligible for invoicing. All rules must be satisfied for the item to be invoiced.
     """
     livemode: bool
     """
@@ -280,7 +296,7 @@ class InvoiceItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -298,7 +314,7 @@ class InvoiceItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -315,7 +331,7 @@ class InvoiceItem(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
@@ -329,7 +345,7 @@ class InvoiceItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -347,7 +363,7 @@ class InvoiceItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["InvoiceItemDeleteParams"]
+        sid: str, /, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -364,7 +380,7 @@ class InvoiceItem(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
@@ -418,7 +434,7 @@ class InvoiceItem(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["InvoiceItemModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceItemModifyParams"]
     ) -> "InvoiceItem":
         """
         Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
@@ -435,7 +451,7 @@ class InvoiceItem(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["InvoiceItemModifyParams"]
+        cls, id: str, /, **params: Unpack["InvoiceItemModifyParams"]
     ) -> "InvoiceItem":
         """
         Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
@@ -473,6 +489,7 @@ class InvoiceItem(
         return instance
 
     _inner_class_types = {
+        "invoicing_rules": InvoicingRule,
         "parent": Parent,
         "period": Period,
         "pricing": Pricing,

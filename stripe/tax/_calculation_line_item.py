@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class CalculationLineItem(StripeObject):
+    """
+    A Tax Calculation Line Item represents a single item in a tax calculation.
+    """
+
     OBJECT_NAME: ClassVar[Literal["tax.calculation_line_item"]] = (
         "tax.calculation_line_item"
     )
@@ -40,23 +44,39 @@ class CalculationLineItem(StripeObject):
             """
             The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
             """
-            tax_type: Literal[
-                "amusement_tax",
-                "communications_tax",
-                "gst",
-                "hst",
-                "igst",
-                "jct",
-                "lease_tax",
-                "mass_transit_parking_tax",
-                "parking_tax",
-                "pst",
-                "qst",
-                "retail_delivery_fee",
-                "rst",
-                "sales_tax",
-                "service_tax",
-                "vat",
+            tax_type: Union[
+                Literal[
+                    "admissions_tax",
+                    "amusement_tax",
+                    "attendance_tax",
+                    "communications_tax",
+                    "digital_excise_tax",
+                    "entertainment_tax",
+                    "get_fund",
+                    "gross_receipts_tax",
+                    "gst",
+                    "hospitality_tax",
+                    "hst",
+                    "igst",
+                    "jct",
+                    "lease_tax",
+                    "luxury_tax",
+                    "mass_transit_parking_tax",
+                    "nhil",
+                    "parking_tax",
+                    "pst",
+                    "qst",
+                    "recycling_fee",
+                    "resort_tax",
+                    "retail_delivery_fee",
+                    "rst",
+                    "sales_tax",
+                    "service_tax",
+                    "tourism_tax",
+                    "utility_users_tax",
+                    "vat",
+                ],
+                str,
             ]
             """
             The tax type, such as `vat` or `sales_tax`.
@@ -67,7 +87,7 @@ class CalculationLineItem(StripeObject):
         The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
         jurisdiction: Jurisdiction
-        sourcing: Literal["destination", "origin"]
+        sourcing: Union[Literal["destination", "origin", "performance"], str]
         """
         Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
         """
@@ -130,6 +150,10 @@ class CalculationLineItem(StripeObject):
     object: Literal["tax.calculation_line_item"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    performance_location: Optional[str]
+    """
+    Indicates the line item represents a performance where the venue location might determine the tax, not the customer address. Leave empty if the tax code doesn't require a tax location. If you provide this value for tax codes with an `optional` location requirement, it overrides the customer address.
     """
     product: Optional[str]
     """

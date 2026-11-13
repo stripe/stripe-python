@@ -97,6 +97,7 @@ class PriceService(StripeService):
     def retrieve(
         self,
         price: str,
+        /,
         params: Optional["PriceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Price":
@@ -117,6 +118,7 @@ class PriceService(StripeService):
     async def retrieve_async(
         self,
         price: str,
+        /,
         params: Optional["PriceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Price":
@@ -137,6 +139,7 @@ class PriceService(StripeService):
     def update(
         self,
         price: str,
+        /,
         params: Optional["PriceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Price":
@@ -157,6 +160,7 @@ class PriceService(StripeService):
     async def update_async(
         self,
         price: str,
+        /,
         params: Optional["PriceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Price":

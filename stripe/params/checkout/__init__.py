@@ -38,6 +38,7 @@ if TYPE_CHECKING:
         SessionCreateParamsLineItemAdjustableQuantity as SessionCreateParamsLineItemAdjustableQuantity,
         SessionCreateParamsLineItemPriceData as SessionCreateParamsLineItemPriceData,
         SessionCreateParamsLineItemPriceDataProductData as SessionCreateParamsLineItemPriceDataProductData,
+        SessionCreateParamsLineItemPriceDataProductDataTaxDetails as SessionCreateParamsLineItemPriceDataProductDataTaxDetails,
         SessionCreateParamsLineItemPriceDataRecurring as SessionCreateParamsLineItemPriceDataRecurring,
         SessionCreateParamsManagedPayments as SessionCreateParamsManagedPayments,
         SessionCreateParamsNameCollection as SessionCreateParamsNameCollection,
@@ -63,6 +64,8 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions,
         SessionCreateParamsPaymentMethodOptionsBancontact as SessionCreateParamsPaymentMethodOptionsBancontact,
         SessionCreateParamsPaymentMethodOptionsBillie as SessionCreateParamsPaymentMethodOptionsBillie,
+        SessionCreateParamsPaymentMethodOptionsBlik as SessionCreateParamsPaymentMethodOptionsBlik,
+        SessionCreateParamsPaymentMethodOptionsBlikMandateOptions as SessionCreateParamsPaymentMethodOptionsBlikMandateOptions,
         SessionCreateParamsPaymentMethodOptionsBoleto as SessionCreateParamsPaymentMethodOptionsBoleto,
         SessionCreateParamsPaymentMethodOptionsCard as SessionCreateParamsPaymentMethodOptionsCard,
         SessionCreateParamsPaymentMethodOptionsCardInstallments as SessionCreateParamsPaymentMethodOptionsCardInstallments,
@@ -104,6 +107,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsScalapay as SessionCreateParamsPaymentMethodOptionsScalapay,
         SessionCreateParamsPaymentMethodOptionsSepaDebit as SessionCreateParamsPaymentMethodOptionsSepaDebit,
         SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SessionCreateParamsPaymentMethodOptionsSequra as SessionCreateParamsPaymentMethodOptionsSequra,
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
         SessionCreateParamsPaymentMethodOptionsSunbit as SessionCreateParamsPaymentMethodOptionsSunbit,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
@@ -130,6 +134,7 @@ if TYPE_CHECKING:
         SessionCreateParamsSubscriptionDataBillingMode as SessionCreateParamsSubscriptionDataBillingMode,
         SessionCreateParamsSubscriptionDataBillingModeFlexible as SessionCreateParamsSubscriptionDataBillingModeFlexible,
         SessionCreateParamsSubscriptionDataInvoiceSettings as SessionCreateParamsSubscriptionDataInvoiceSettings,
+        SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField as SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField,
         SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer as SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer,
         SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval as SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval,
         SessionCreateParamsSubscriptionDataTransferData as SessionCreateParamsSubscriptionDataTransferData,
@@ -162,7 +167,9 @@ if TYPE_CHECKING:
         SessionModifyParamsLineItemAdjustableQuantity as SessionModifyParamsLineItemAdjustableQuantity,
         SessionModifyParamsLineItemPriceData as SessionModifyParamsLineItemPriceData,
         SessionModifyParamsLineItemPriceDataProductData as SessionModifyParamsLineItemPriceDataProductData,
+        SessionModifyParamsLineItemPriceDataProductDataTaxDetails as SessionModifyParamsLineItemPriceDataProductDataTaxDetails,
         SessionModifyParamsLineItemPriceDataRecurring as SessionModifyParamsLineItemPriceDataRecurring,
+        SessionModifyParamsPaymentIntentData as SessionModifyParamsPaymentIntentData,
         SessionModifyParamsShippingOption as SessionModifyParamsShippingOption,
         SessionModifyParamsShippingOptionShippingRateData as SessionModifyParamsShippingOptionShippingRateData,
         SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate as SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -183,7 +190,9 @@ if TYPE_CHECKING:
         SessionUpdateParamsLineItemAdjustableQuantity as SessionUpdateParamsLineItemAdjustableQuantity,
         SessionUpdateParamsLineItemPriceData as SessionUpdateParamsLineItemPriceData,
         SessionUpdateParamsLineItemPriceDataProductData as SessionUpdateParamsLineItemPriceDataProductData,
+        SessionUpdateParamsLineItemPriceDataProductDataTaxDetails as SessionUpdateParamsLineItemPriceDataProductDataTaxDetails,
         SessionUpdateParamsLineItemPriceDataRecurring as SessionUpdateParamsLineItemPriceDataRecurring,
+        SessionUpdateParamsPaymentIntentData as SessionUpdateParamsPaymentIntentData,
         SessionUpdateParamsShippingOption as SessionUpdateParamsShippingOption,
         SessionUpdateParamsShippingOptionShippingRateData as SessionUpdateParamsShippingOptionShippingRateData,
         SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate as SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -327,6 +336,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsLineItemPriceDataProductDataTaxDetails": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsLineItemPriceDataRecurring": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -424,6 +437,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsBillie": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBlik": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBlikMandateOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -591,6 +612,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsSequra": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsSofort": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -695,6 +720,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -783,7 +812,15 @@ _import_map = {
         "stripe.params.checkout._session_modify_params",
         False,
     ),
+    "SessionModifyParamsLineItemPriceDataProductDataTaxDetails": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
     "SessionModifyParamsLineItemPriceDataRecurring": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsPaymentIntentData": (
         "stripe.params.checkout._session_modify_params",
         False,
     ),
@@ -851,7 +888,15 @@ _import_map = {
         "stripe.params.checkout._session_update_params",
         False,
     ),
+    "SessionUpdateParamsLineItemPriceDataProductDataTaxDetails": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
     "SessionUpdateParamsLineItemPriceDataRecurring": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsPaymentIntentData": (
         "stripe.params.checkout._session_update_params",
         False,
     ),

@@ -27,7 +27,10 @@ class SessionCreateParams(RequestOptions):
     Customize manual entry behavior
     """
     permissions: List[
-        Literal["balances", "ownership", "payment_method", "transactions"]
+        Union[
+            Literal["balances", "ownership", "payment_method", "transactions"],
+            str,
+        ]
     ]
     """
     List of data features that you would like to request access to.
@@ -83,9 +86,9 @@ class SessionCreateParamsFilters(TypedDict):
     """
     Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
     """
-    countries: NotRequired[List[str]]
+    country: NotRequired[str]
     """
-    List of countries from which to collect accounts.
+    Country from which to collect accounts.
     """
     require_payment_method_support: NotRequired[
         Literal["all", "at_least_one", "none"]

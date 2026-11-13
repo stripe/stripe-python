@@ -18,6 +18,7 @@ class QuoteLineItemService(StripeService):
     def list(
         self,
         quote: str,
+        /,
         params: Optional["QuoteLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[LineItem]":
@@ -40,6 +41,7 @@ class QuoteLineItemService(StripeService):
     async def list_async(
         self,
         quote: str,
+        /,
         params: Optional["QuoteLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[LineItem]":

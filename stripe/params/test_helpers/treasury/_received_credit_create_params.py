@@ -31,7 +31,7 @@ class ReceivedCreditCreateParams(TypedDict):
     """
     Initiating payment method details for the object.
     """
-    network: Union[Literal["ach", "us_domestic_wire"], str]
+    network: Union[Literal["ach", "rtp", "us_domestic_wire"], str]
     """
     Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
     """

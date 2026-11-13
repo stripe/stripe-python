@@ -4,7 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -24,7 +24,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
     """
     Invoice Payments represent payments made against invoices. Invoice Payments can
     be accessed in two ways:
-    1. By expanding the `payments` field on the [Invoice](https://api.stripe.com#invoice) resource.
+    1. By expanding the `payments` field on the [Invoice](https://docs.stripe.com/api#invoice) resource.
     2. By using the Invoice Payment retrieve and list endpoints.
 
     Invoice Payments include the mapping between payment objects, such as Payment Intent, and Invoices.
@@ -37,7 +37,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
     class Payment(StripeObject):
         charge: Optional[ExpandableField["Charge"]]
         """
-        ID of the successful charge for this payment when `type` is `charge`.Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
+        ID of the successful charge for this payment when `type` is `charge`. Note: charge is only surfaced if the charge object is not associated with a payment intent. If the charge object does have a payment intent, the Invoice Payment surfaces the payment intent instead.
         """
         payment_intent: Optional[ExpandableField["PaymentIntent"]]
         """
@@ -47,7 +47,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
         """
         ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
         """
-        type: Literal["charge", "payment_intent", "payment_record"]
+        type: Union[Literal["charge", "payment_intent", "payment_record"], str]
         """
         Type of payment object associated with this invoice payment.
         """

@@ -1,7 +1,13 @@
 # pyright: strict
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Type, Literal, Self, deprecated
+from typing_extensions import (
+    TYPE_CHECKING,
+    NoReturn,
+    Type,
+    Literal,
+    Self,
+)
 from typing import (
     Any,
     Dict,
@@ -41,6 +47,9 @@ from stripe._base_address import BaseAddress
 
 if TYPE_CHECKING:
     from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
+
+
+API_KEY_SERIALIZATION_CONSTANT = "API_KEY_SERIALIZATION_CONSTANT"
 
 
 @overload
@@ -86,6 +95,20 @@ def _serialize_list(
 
 
 class StripeObject:
+    """
+    The base class for every response returned by the Stripe API.
+
+    A `StripeObject` is **not** a `dict` even though `str()` on one prints JSON. It deliberately keeps a small surface so that API fields never collide with `dict` method names (for example, `Subscription.items` is the API's `items` field, not `dict.items`).
+
+    If you want to do dict operations, on a StripeObject, call `.to_dict()` first. See [the readme](https://github.com/stripe/stripe-python#working-with-api-resources) for more information.
+    """
+
+    # Names we know people reach for out of dict habit. Used to give a pointed
+    # error instead of a bare `AttributeError: get`.
+    _DICT_METHOD_NAMES = frozenset(
+        {"get", "keys", "values", "items", "pop", "setdefault"}
+    )
+
     _retrieve_params: Mapping[str, Any]
     _previous: Optional[Mapping[str, Any]]
 
@@ -136,6 +159,50 @@ class StripeObject:
     def stripe_version(self):
         return self._requestor.stripe_version
 
+    def reattach_api_key(self, api_key: str) -> None:
+        """Attach credentials to an unpickled object and its nested objects.
+
+        Each object retains its saved API version and connected account.
+        Objects that already have credentials cannot be reattached.
+        """
+        if self.api_key != API_KEY_SERIALIZATION_CONSTANT:
+            raise ValueError(
+                "API credentials can only be reattached to an unpickled "
+                "object that has not already been reattached."
+            )
+        if (
+            not isinstance(cast(object, api_key), str)
+            or not api_key.strip()
+            or api_key == API_KEY_SERIALIZATION_CONSTANT
+        ):
+            raise ValueError("api_key must be a non-empty, valid API key.")
+
+        from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
+
+        seen: Set[int] = set()
+
+        def reattach(value: Any) -> None:
+            if id(value) in seen:
+                return
+            seen.add(id(value))
+            if isinstance(value, StripeObject):
+                if value.api_key == API_KEY_SERIALIZATION_CONSTANT:
+                    value._requestor = _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                        api_key=api_key,
+                        stripe_version=value.stripe_version,
+                        stripe_account=value.stripe_account,
+                    )
+                for nested in value._data.values():
+                    reattach(nested)
+            elif isinstance(value, dict):
+                for nested in cast(Dict[Any, Any], value).values():
+                    reattach(nested)
+            elif isinstance(value, (list, tuple)):
+                for nested in cast(Union[List[Any], Tuple[Any, ...]], value):
+                    reattach(nested)
+
+        reattach(self)
+
     @property
     def last_response(self) -> Optional[StripeResponse]:
         return self._last_response
@@ -167,9 +234,17 @@ class StripeObject:
 
             try:
                 if k in self._field_remappings:
-                    k = self._field_remappings[k]
-                return self[k]
+                    key = self._field_remappings[k]
+                else:
+                    key = k
+                return self[key]
             except KeyError as err:
+                # Stays an AttributeError (rather than becoming a TypeError) so
+                # that hasattr() and getattr(obj, "get", None) keep working.
+                if k in self._DICT_METHOD_NAMES:
+                    raise AttributeError(
+                        f"'{k}' is a dict method, but a {type(self).__name__} is not a dict. Use .to_dict() to convert it. Docs: https://github.com/stripe/stripe-python#working-with-api-resources"
+                    ) from err
                 raise AttributeError(*err.args) from err
 
         def __delattr__(self, k):
@@ -233,6 +308,23 @@ class StripeObject:
     def __contains__(self, k: object) -> bool:
         return k in self._data
 
+    # Defining __getitem__ without __iter__ makes dict(obj), list(obj), and
+    # `for k in obj` fall back to Python's legacy *sequence* protocol, which asks
+    # for obj[0] and surfaces a baffling "KeyError: 0". Raising here names the
+    # actual problem instead. This can't collide with an API field name;
+    # subclasses that are genuinely iterable (ListObject, SearchResultObject)
+    # override it.
+    #
+    # Hidden from type checkers so that they still report iterating a
+    # StripeObject as an error, and so the iterable subclasses don't look like
+    # incompatible overrides of a NoReturn method.
+    if not TYPE_CHECKING:
+
+        def __iter__(self) -> NoReturn:
+            raise TypeError(
+                f"{type(self).__name__} is not iterable or a mapping; call .to_dict() for a plain dict. Docs: https://github.com/stripe/stripe-python#working-with-api-resources"
+            )
+
     def __eq__(self, other: object) -> bool:
         if isinstance(other, StripeObject):
             return type(self) is type(other) and self._data == other._data
@@ -253,7 +345,7 @@ class StripeObject:
             type(self),  # callable
             (  # args
                 getattr(self, "id", None),
-                self.api_key,
+                API_KEY_SERIALIZATION_CONSTANT,
                 self.stripe_version,
                 self.stripe_account,
             ),
@@ -367,7 +459,9 @@ class StripeObject:
         for k, v in values.items():
             # Apply field encoding coercion (e.g. int64_string: str → int)
             v = self._coerce_field_value(k, v)
-            inner_class = self._get_inner_class_type(k)
+            inner_class = self._get_union_variant_class(
+                k, v
+            ) or self._get_inner_class_type(k)
             is_dict = self._get_inner_class_is_beneath_dict(k)
             if is_dict:
                 obj = {
@@ -399,23 +493,6 @@ class StripeObject:
             self._data[k] = obj
 
         self._previous = values
-
-    @deprecated("This will be removed in a future version of stripe-python.")
-    def request(
-        self,
-        method: Literal["get", "post", "delete"],
-        url: str,
-        params: Optional[Dict[str, Any]] = None,
-        *,
-        base_address: BaseAddress = "api",
-    ) -> "StripeObject":
-        return StripeObject._request(
-            self,
-            method,
-            url,
-            params=params,
-            base_address=base_address,
-        )
 
     def _request(
         self,
@@ -636,10 +713,40 @@ class StripeObject:
     _inner_class_dicts: ClassVar[List[str]] = []
     _field_encodings: ClassVar[Dict[str, str]] = {}
 
+    # Maps a discriminated-union field to (discriminator, {value: class}). Generated
+    # subclasses override this; every other object keeps the empty default so the
+    # lookup in _update_attributes stays cheap.
+    _inner_class_union_variant_types: ClassVar[
+        Dict[str, Tuple[str, Dict[str, Type["StripeObject"]]]]
+    ] = {}
+
     def _get_inner_class_type(
         self, field_name: str
     ) -> Optional[Type["StripeObject"]]:
         return self._inner_class_types.get(field_name)
+
+    def _get_union_variant_class(
+        self, field_name: str, value: Any
+    ) -> Optional[Type["StripeObject"]]:
+        """
+        Returns the variant class that a discriminated union field's value should
+        become, based on the discriminator carried in the value itself.
+
+        Returns None rather than raising when the discriminator is absent, is not a
+        string, or names a variant this version of the SDK does not know about. The
+        caller then converts without a class, so a variant the API adds after this
+        release still deserializes instead of blowing up.
+        """
+        union = self._inner_class_union_variant_types.get(field_name)
+        if union is None or not isinstance(value, dict):
+            return None
+
+        discriminator, variants = union
+        discriminator_value = cast(Dict[str, Any], value).get(discriminator)
+        if not isinstance(discriminator_value, str):
+            return None
+
+        return variants.get(discriminator_value)
 
     def _get_inner_class_is_beneath_dict(self, field_name: str):
         return field_name in self._inner_class_dicts

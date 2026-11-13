@@ -104,6 +104,7 @@ class DisputeService(StripeService):
     def retrieve(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -126,6 +127,7 @@ class DisputeService(StripeService):
     async def retrieve_async(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -148,6 +150,7 @@ class DisputeService(StripeService):
     def update(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -170,6 +173,7 @@ class DisputeService(StripeService):
     async def update_async(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -192,6 +196,7 @@ class DisputeService(StripeService):
     def submit(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeSubmitParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
@@ -214,6 +219,7 @@ class DisputeService(StripeService):
     async def submit_async(
         self,
         dispute: str,
+        /,
         params: Optional["DisputeSubmitParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Dispute":

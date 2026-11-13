@@ -1,5 +1,7 @@
 import json
-from typing import Callable
+import pickle
+import stripe
+from typing import Any, Callable, Dict, Optional, Union
 from typing_extensions import assert_type
 
 import pytest
@@ -14,14 +16,57 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterErrorReportTriggeredEvent,
 )
-from stripe.v2.core._event import UnknownEventNotification
+from stripe.events._v1_product_updated_event import (
+    V1ProductUpdatedEvent,
+    V1ProductUpdatedEventNotification,
+)
+from stripe.v2.core._event import (
+    EventNotification,
+    RelatedSingletonObject,
+    UnknownEventNotification,
+)
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
-from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
+from stripe._webhook import WebhookPayload, WebhookSignature
+from tests.test_webhook import (
+    ASCII_WHITESPACE_WEBHOOK_SECRETS,
+    DUMMY_WEBHOOK_SECRET,
+)
 
 EventParser = Callable[[str], ALL_EVENT_NOTIFICATIONS]
 
+BINARY_ENCODERS = [
+    lambda p: p.encode("utf-8"),
+    lambda p: bytearray(p, "utf-8"),
+]
+
 
 class TestV2Event(object):
+    def test_pickled_event_requires_reattachment(
+        self, http_client_mock, v2_payload_no_data
+    ):
+        event = V1BillingMeterErrorReportTriggeredEvent.construct_from(
+            json.loads(v2_payload_no_data), "producer-key-sentinel"
+        )
+        restored = pickle.loads(pickle.dumps(event))
+        with pytest.raises(
+            stripe.AuthenticationError, match="reattach_api_key"
+        ):
+            restored.fetch_related_object()
+        http_client_mock.assert_no_request()
+        restored.reattach_api_key("worker-key-sentinel")
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/billing/meters/mtr_123",
+            rbody='{"id": "mtr_123", "object": "billing.meter"}',
+        )
+        restored.fetch_related_object()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/billing/meters/mtr_123",
+            api_key="worker-key-sentinel",
+            stripe_context="acct_123",
+        )
+
     @pytest.fixture(scope="function")
     def v2_payload_no_data(self):
         return json.dumps(
@@ -83,7 +128,11 @@ class TestV2Event(object):
 
         def _parse_event_notif(payload: str):
             return stripe_client.parse_event_notification(
-                payload, generate_header(payload=payload), DUMMY_WEBHOOK_SECRET
+                payload,
+                WebhookSignature.generate_signature_header(
+                    payload, DUMMY_WEBHOOK_SECRET
+                ),
+                DUMMY_WEBHOOK_SECRET,
             )
 
         return _parse_event_notif
@@ -97,6 +146,7 @@ class TestV2Event(object):
             notif, V1BillingMeterErrorReportTriggeredEventNotification
         )
         assert notif.id == "evt_234"
+        assert notif.object == "v2.core.event"
 
         assert notif.related_object
         assert notif.related_object.id == "mtr_123"
@@ -118,6 +168,52 @@ class TestV2Event(object):
         # this isn't for constructing events, it's for parsing thin ones
         assert not hasattr(notif, "data")
         assert notif.reason is None
+
+    @pytest.mark.parametrize(
+        "encode", BINARY_ENCODERS, ids=["bytes", "bytearray"]
+    )
+    def test_parses_binary_event_notif(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        encode: Callable[[str], WebhookPayload],
+    ):
+        """The body can arrive as bytes or a bytearray, which is how many frameworks expose it"""
+        notif = stripe_client.parse_event_notification(
+            encode(v2_payload_no_data),
+            WebhookSignature.generate_signature_header(
+                v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+            ),
+            DUMMY_WEBHOOK_SECRET,
+        )
+
+        assert isinstance(
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert notif.id == "evt_234"
+
+    @pytest.mark.parametrize(
+        "to_payload",
+        [lambda p: p, *BINARY_ENCODERS, json.loads],
+        ids=["str", "bytes", "bytearray", "dict"],
+    )
+    def test_from_json_accepts_every_payload_shape(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        to_payload: Callable[[str], Union[WebhookPayload, Dict[str, Any]]],
+    ):
+        """`from_json` is public (for pre-verified payloads & tests), so it takes the same shapes the parse methods do"""
+        notif = EventNotification.from_json(
+            to_payload(v2_payload_no_data), stripe_client
+        )
+
+        assert isinstance(
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
+        )
+        assert notif.id == "evt_234"
+        assert notif.related_object
+        assert notif.related_object.id == "mtr_123"
 
     def test_parses_unknown_event_notif(self, parse_event_notif: EventParser):
         event = parse_event_notif(
@@ -141,6 +237,19 @@ class TestV2Event(object):
         assert type(event) is UnknownEventNotification
         assert event.related_object
 
+    def test_related_singleton_object_omits_id(self):
+        """
+        events whose related object is a singleton get a `RelatedSingletonObject`,
+        which has no `id` at all (instead of a perpetually-`None` one)
+        """
+        related_object = RelatedSingletonObject(
+            {"type": "balance", "url": "/v1/balance"}
+        )
+
+        assert related_object.type == "balance"
+        assert related_object.url == "/v1/balance"
+        assert not hasattr(related_object, "id")
+
     def test_raise_on_v1_payload(self, parse_event_notif: EventParser):
         v1_payload = json.dumps(
             {
@@ -161,6 +270,47 @@ class TestV2Event(object):
         with pytest.raises(SignatureVerificationError):
             stripe_client.parse_event_notification(
                 v2_payload_no_data, "bad header", DUMMY_WEBHOOK_SECRET
+            )
+
+    @pytest.mark.parametrize("secret", [None, ""])
+    def test_rejects_missing_secret(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        secret: Optional[str],
+    ):
+        """`secret` is typed as optional for web framework ergonomics, but a missing one is still an error"""
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_client.parse_event_notification(
+                v2_payload_no_data,
+                WebhookSignature.generate_signature_header(
+                    v2_payload_no_data,
+                    DUMMY_WEBHOOK_SECRET,
+                ),
+                secret,
+            )
+
+    @pytest.mark.parametrize("secret", ASCII_WHITESPACE_WEBHOOK_SECRETS)
+    def test_rejects_ascii_whitespace_secret(
+        self,
+        stripe_client: StripeClient,
+        v2_payload_no_data: str,
+        secret: str,
+    ):
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No webhook secret value was provided",
+        ):
+            stripe_client.parse_event_notification(
+                v2_payload_no_data,
+                WebhookSignature.generate_signature_header(
+                    v2_payload_no_data,
+                    secret,
+                ),
+                secret,
             )
 
     def test_v2_events_data_type(self, http_client_mock, v2_payload_with_data):
@@ -232,7 +382,9 @@ class TestV2Event(object):
 
         event_notif = stripe_client.parse_event_notification(
             v2_payload_no_data,
-            generate_header(payload=v2_payload_no_data),
+            WebhookSignature.generate_signature_header(
+                v2_payload_no_data, DUMMY_WEBHOOK_SECRET
+            ),
             DUMMY_WEBHOOK_SECRET,
         )
         assert event_notif.type == "v1.billing.meter.error_report_triggered"
@@ -278,3 +430,176 @@ class TestV2Event(object):
 
         assert isinstance(meter, Meter)
         assert meter.event_name == "cool event"
+
+    def test_related_object_retains_event_context(
+        self, http_client_mock: HTTPClientMock
+    ):
+        payload = json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.product.updated",
+                "created": "2022-02-15T00:27:45.330Z",
+                "livemode": False,
+                "context": "acct_child",
+                "related_object": {
+                    "id": "prod_shared",
+                    "type": "product",
+                    "url": "/v1/products/prod_shared",
+                },
+            }
+        )
+        path = "/v1/products/prod_shared"
+        http_client_mock.stub_request(
+            "get",
+            path=path,
+            rbody=json.dumps({"id": "prod_shared", "object": "product"}),
+        )
+        http_client_mock.stub_request(
+            "delete",
+            path=path,
+            rbody=json.dumps(
+                {"id": "prod_shared", "object": "product", "deleted": True}
+            ),
+        )
+        client = StripeClient(
+            api_key="sk_test_1234",
+            stripe_context="acct_platform",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        notification = client.parse_event_notification(
+            payload,
+            WebhookSignature.generate_signature_header(
+                payload, DUMMY_WEBHOOK_SECRET
+            ),
+            DUMMY_WEBHOOK_SECRET,
+        )
+        assert isinstance(notification, V1ProductUpdatedEventNotification)
+
+        product = notification.fetch_related_object()
+        product.delete()
+
+        http_client_mock.assert_requested(
+            "get", path=path, stripe_context="acct_child"
+        )
+        http_client_mock.assert_requested(
+            "delete", path=path, stripe_context="acct_child"
+        )
+
+    @pytest.mark.anyio
+    async def test_related_object_retains_event_context_async(
+        self, http_client_mock: HTTPClientMock
+    ):
+        payload = json.dumps(
+            {
+                "id": "evt_123",
+                "object": "v2.core.event",
+                "type": "v1.product.updated",
+                "created": "2022-02-15T00:27:45.330Z",
+                "livemode": False,
+                "context": "acct_child",
+                "related_object": {
+                    "id": "prod_shared",
+                    "type": "product",
+                    "url": "/v1/products/prod_shared",
+                },
+            }
+        )
+        path = "/v1/products/prod_shared"
+        http_client_mock.stub_request(
+            "get",
+            path=path,
+            query_string="usage[0]=fetch_related_object",
+            rbody=json.dumps({"id": "prod_shared", "object": "product"}),
+        )
+        http_client_mock.stub_request(
+            "delete",
+            path=path,
+            rbody=json.dumps(
+                {"id": "prod_shared", "object": "product", "deleted": True}
+            ),
+        )
+        client = StripeClient(
+            api_key="sk_test_1234",
+            stripe_context="acct_platform",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        notification = client.parse_event_notification(
+            payload,
+            WebhookSignature.generate_signature_header(
+                payload, DUMMY_WEBHOOK_SECRET
+            ),
+            DUMMY_WEBHOOK_SECRET,
+        )
+        assert isinstance(notification, V1ProductUpdatedEventNotification)
+
+        product = await notification.fetch_related_object_async()
+        await product.delete_async()
+
+        http_client_mock.assert_requested(
+            "get", path=path, stripe_context="acct_child"
+        )
+        http_client_mock.assert_requested(
+            "delete", path=path, stripe_context="acct_child"
+        )
+
+    def test_direct_retrieve_related_object_retains_event_context(
+        self, http_client_mock: HTTPClientMock
+    ):
+        """
+        Unlike EventNotification (built from a webhook), a directly-retrieved
+        Event doesn't go through StripeClient.with_stripe_context in its own
+        construction, so historically it kept whatever stripe_account retrieved
+        it. Make sure fetch_related_object() only ever uses the event's own
+        context, with no stale account from the retrieving client leaking in.
+        """
+        event_path = "/v2/core/events/evt_123"
+        related_path = "/v1/products/prod_shared"
+
+        http_client_mock.stub_request(
+            "get",
+            path=event_path,
+            rbody=json.dumps(
+                {
+                    "id": "evt_123",
+                    "object": "v2.core.event",
+                    "type": "v1.product.updated",
+                    "created": "2022-02-15T00:27:45.330Z",
+                    "livemode": False,
+                    "context": "acct_child",
+                    "related_object": {
+                        "id": "prod_shared",
+                        "type": "product",
+                        "url": related_path,
+                    },
+                }
+            ),
+        )
+        http_client_mock.stub_request(
+            "get",
+            path=related_path,
+            rbody=json.dumps({"id": "prod_shared", "object": "product"}),
+        )
+
+        client = StripeClient(
+            api_key="sk_test_1234",
+            stripe_account="acct_platform",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        event = client.v2.core.events.retrieve("evt_123")
+        assert isinstance(event, V1ProductUpdatedEvent)
+
+        product = event.fetch_related_object()
+        assert product.id == "prod_shared"
+
+        http_client_mock.assert_requested(
+            "get", path=related_path, stripe_context="acct_child"
+        )
+
+        assert len(http_client_mock.get_all_calls()) == 2
+        related_call = http_client_mock.get_last_call()
+        assert related_call.headers is not None
+        assert "Stripe-Account" not in related_call.headers

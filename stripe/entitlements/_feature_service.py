@@ -103,6 +103,7 @@ class FeatureService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["FeatureRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Feature":
@@ -123,6 +124,7 @@ class FeatureService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["FeatureRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Feature":
@@ -143,6 +145,7 @@ class FeatureService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["FeatureUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Feature":
@@ -163,6 +166,7 @@ class FeatureService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["FeatureUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Feature":

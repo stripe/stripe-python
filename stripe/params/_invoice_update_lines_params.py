@@ -126,7 +126,9 @@ class InvoiceUpdateLinesParamsLinePriceData(TypedDict):
     """
     Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -161,9 +163,26 @@ class InvoiceUpdateLinesParamsLinePriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired[
+        "InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired[str]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+
+
+class InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 
@@ -233,7 +252,7 @@ class InvoiceUpdateLinesParamsLineTaxAmountTaxRateData(TypedDict):
     [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
     """
     tax_type: NotRequired[
-        "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'mass_transit_parking_tax', 'parking_tax', 'pst', 'qst', 'retail_delivery_fee', 'rst', 'sales_tax', 'service_tax', 'vat']|str"
+        "Literal['admissions_tax', 'amusement_tax', 'attendance_tax', 'communications_tax', 'digital_excise_tax', 'entertainment_tax', 'get_fund', 'gross_receipts_tax', 'gst', 'hospitality_tax', 'hst', 'igst', 'jct', 'lease_tax', 'luxury_tax', 'mass_transit_parking_tax', 'nhil', 'parking_tax', 'pst', 'qst', 'resort_tax', 'retail_delivery_fee', 'rst', 'sales_tax', 'service_tax', 'tourism_tax', 'utility_users_tax', 'vat']|str"
     ]
     """
     The high-level tax type, such as `vat` or `sales_tax`.

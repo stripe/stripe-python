@@ -18,6 +18,14 @@ class PaymentLinkUpdateParams(TypedDict):
     """
     Enables user redeemable promotion codes.
     """
+    application_fee_amount: NotRequired["Literal['']|int"]
+    """
+    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Can only be applied when there are no line items with recurring prices.
+    """
+    application_fee_percent: NotRequired["Literal['']|float"]
+    """
+    A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
+    """
     automatic_tax: NotRequired["PaymentLinkUpdateParamsAutomaticTax"]
     """
     Configuration for automatic tax collection.
@@ -34,11 +42,11 @@ class PaymentLinkUpdateParams(TypedDict):
         "Literal['']|List[PaymentLinkUpdateParamsCustomField]"
     ]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: NotRequired["PaymentLinkUpdateParamsCustomText"]
     """
-    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     """
     customer_creation: NotRequired["Literal['always', 'if_required']|str"]
     """
@@ -69,6 +77,10 @@ class PaymentLinkUpdateParams(TypedDict):
     ]
     """
     Controls settings applied for collecting the customer's name.
+    """
+    on_behalf_of: NotRequired["Literal['']|str"]
+    """
+    The account on behalf of which to charge.
     """
     optional_items: NotRequired[
         "Literal['']|List[PaymentLinkUpdateParamsOptionalItem]"
@@ -101,7 +113,7 @@ class PaymentLinkUpdateParams(TypedDict):
     Payment-method-specific configuration.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Union[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
+        "Literal['']|List[Union[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip'], str]]"
     ]
     """
     The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -145,6 +157,12 @@ class PaymentLinkUpdateParams(TypedDict):
     tax_id_collection: NotRequired["PaymentLinkUpdateParamsTaxIdCollection"]
     """
     Controls tax ID collection during checkout.
+    """
+    transfer_data: NotRequired[
+        "Literal['']|PaymentLinkUpdateParamsTransferData"
+    ]
+    """
+    The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
     """
 
 
@@ -267,7 +285,7 @@ class PaymentLinkUpdateParamsCustomField(TypedDict):
 class PaymentLinkUpdateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
     """
     options: List["PaymentLinkUpdateParamsCustomFieldDropdownOption"]
     """
@@ -289,7 +307,7 @@ class PaymentLinkUpdateParamsCustomFieldDropdownOption(TypedDict):
 class PaymentLinkUpdateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """
@@ -458,7 +476,7 @@ class PaymentLinkUpdateParamsInvoiceCreationInvoiceDataRenderingOptions(
     TypedDict,
 ):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -942,11 +960,42 @@ class PaymentLinkUpdateParamsSubscriptionData(TypedDict):
 
 
 class PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings(TypedDict):
+    account_tax_ids: NotRequired["Literal['']|List[str]"]
+    """
+    The account tax IDs associated with the subscription. Will be set on invoices generated by the subscription.
+    """
+    custom_fields: NotRequired[
+        "Literal['']|List[PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField]"
+    ]
+    """
+    A list of up to 4 custom fields to be displayed on the invoice.
+    """
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    footer: NotRequired[str]
+    """
+    Footer to be displayed on the invoice.
+    """
     issuer: NotRequired[
         "PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer"
     ]
     """
     The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+    """
+
+
+class PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField(
+    TypedDict,
+):
+    name: str
+    """
+    The name of the custom field. This may be up to 40 characters.
+    """
+    value: str
+    """
+    The value of the custom field. This may be up to 140 characters.
     """
 
 
@@ -988,5 +1037,19 @@ class PaymentLinkUpdateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired["Literal['if_supported', 'never']|str"]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
+    """
+
+
+class PaymentLinkUpdateParamsTransferData(TypedDict):
+    amount: NotRequired["Literal['']|int"]
+    """
+    The amount that will be transferred automatically when a charge succeeds.
+    """
+    destination: str
+    """
+    If specified, successful charges will be attributed to the destination
+     account for tax reporting, and the funds from charges will be transferred
+     to the destination account. The ID of the resulting transfer will be
+     returned on the successful charge's `transfer` field.
     """

@@ -117,6 +117,7 @@ class EventDestinationService(StripeService):
     def delete(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -137,6 +138,7 @@ class EventDestinationService(StripeService):
     async def delete_async(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -157,6 +159,7 @@ class EventDestinationService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -177,6 +180,7 @@ class EventDestinationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -197,6 +201,7 @@ class EventDestinationService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -217,6 +222,7 @@ class EventDestinationService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -237,6 +243,7 @@ class EventDestinationService(StripeService):
     def disable(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationDisableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -259,6 +266,7 @@ class EventDestinationService(StripeService):
     async def disable_async(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationDisableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -281,6 +289,7 @@ class EventDestinationService(StripeService):
     def enable(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationEnableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -303,6 +312,7 @@ class EventDestinationService(StripeService):
     async def enable_async(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationEnableParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
@@ -325,6 +335,7 @@ class EventDestinationService(StripeService):
     def ping(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationPingParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Event":
@@ -347,6 +358,7 @@ class EventDestinationService(StripeService):
     async def ping_async(
         self,
         id: str,
+        /,
         params: Optional["EventDestinationPingParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Event":

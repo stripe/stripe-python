@@ -60,128 +60,149 @@ class Transaction(APIResource["Transaction"]):
             """
 
         class TaxId(StripeObject):
-            type: Literal[
-                "ad_nrt",
-                "ae_trn",
-                "al_tin",
-                "am_tin",
-                "ao_tin",
-                "ar_cuit",
-                "au_abn",
-                "au_arn",
-                "aw_tin",
-                "az_tin",
-                "ba_tin",
-                "bb_tin",
-                "bd_bin",
-                "bf_ifu",
-                "bg_uic",
-                "bh_vat",
-                "bj_ifu",
-                "bo_tin",
-                "br_cnpj",
-                "br_cpf",
-                "bs_tin",
-                "by_tin",
-                "ca_bn",
-                "ca_gst_hst",
-                "ca_pst_bc",
-                "ca_pst_mb",
-                "ca_pst_sk",
-                "ca_qst",
-                "cd_nif",
-                "ch_uid",
-                "ch_vat",
-                "cl_tin",
-                "cm_niu",
-                "cn_tin",
-                "co_nit",
-                "cr_tin",
-                "cv_nif",
-                "de_stn",
-                "do_rcn",
-                "ec_ruc",
-                "eg_tin",
-                "es_cif",
-                "et_tin",
-                "eu_oss_vat",
-                "eu_vat",
-                "fo_vat",
-                "gb_vat",
-                "ge_vat",
-                "gi_tin",
-                "gn_nif",
-                "hk_br",
-                "hr_oib",
-                "hu_tin",
-                "ic_nif",
-                "id_npwp",
-                "il_vat",
-                "in_gst",
-                "is_vat",
-                "it_cf",
-                "jp_cn",
-                "jp_rn",
-                "jp_trn",
-                "ke_pin",
-                "kg_tin",
-                "kh_tin",
-                "kr_brn",
-                "kz_bin",
-                "la_tin",
-                "li_uid",
-                "li_vat",
-                "lk_vat",
-                "ma_vat",
-                "md_vat",
-                "me_pib",
-                "mk_vat",
-                "mr_nif",
-                "mx_rfc",
-                "my_frp",
-                "my_itn",
-                "my_sst",
-                "ng_tin",
-                "no_vat",
-                "no_voec",
-                "np_pan",
-                "nz_gst",
-                "om_vat",
-                "pe_ruc",
-                "ph_tin",
-                "pl_nip",
-                "py_ruc",
-                "ro_tin",
-                "rs_pib",
-                "ru_inn",
-                "ru_kpp",
-                "sa_vat",
-                "sg_gst",
-                "sg_uen",
-                "si_tin",
-                "sn_ninea",
-                "sr_fin",
-                "sv_nit",
-                "th_vat",
-                "tj_tin",
-                "tr_tin",
-                "tw_vat",
-                "tz_vat",
-                "ua_vat",
-                "ug_tin",
-                "unknown",
-                "us_ein",
-                "uy_ruc",
-                "uz_tin",
-                "uz_vat",
-                "ve_rif",
-                "vn_tin",
-                "za_vat",
-                "zm_tin",
-                "zw_tin",
+            type: Union[
+                Literal[
+                    "ad_nrt",
+                    "ae_trn",
+                    "al_tin",
+                    "am_tin",
+                    "ao_tin",
+                    "ar_cuit",
+                    "au_abn",
+                    "au_acn",
+                    "au_arn",
+                    "au_wpn",
+                    "aw_tin",
+                    "az_tin",
+                    "ba_tin",
+                    "bb_tin",
+                    "bd_bin",
+                    "bf_ifu",
+                    "bg_uic",
+                    "bh_vat",
+                    "bj_ifu",
+                    "bo_tin",
+                    "br_cnpj",
+                    "br_cpf",
+                    "bs_tin",
+                    "bw_vat",
+                    "by_tin",
+                    "ca_bn",
+                    "ca_gst_hst",
+                    "ca_pst_bc",
+                    "ca_pst_mb",
+                    "ca_pst_sk",
+                    "ca_qst",
+                    "cd_nif",
+                    "ch_uid",
+                    "ch_vat",
+                    "ci_vat",
+                    "cl_tin",
+                    "cm_niu",
+                    "cn_tin",
+                    "co_nit",
+                    "cr_tin",
+                    "cv_nif",
+                    "cz_dic",
+                    "de_stn",
+                    "do_rcn",
+                    "ec_ruc",
+                    "eg_tin",
+                    "es_cif",
+                    "et_tin",
+                    "eu_oss_vat",
+                    "eu_vat",
+                    "fo_vat",
+                    "fr_siren",
+                    "fr_siret",
+                    "fr_spi",
+                    "gb_vat",
+                    "ge_vat",
+                    "gh_tin",
+                    "gi_tin",
+                    "gn_nif",
+                    "hk_br",
+                    "hr_oib",
+                    "hu_tin",
+                    "ic_nif",
+                    "id_npwp",
+                    "il_vat",
+                    "in_gst",
+                    "is_kt",
+                    "is_vat",
+                    "it_cf",
+                    "jp_cn",
+                    "jp_rn",
+                    "jp_trn",
+                    "ke_pin",
+                    "kg_tin",
+                    "kh_tin",
+                    "kr_brn",
+                    "kz_bin",
+                    "la_tin",
+                    "li_uid",
+                    "li_vat",
+                    "lk_vat",
+                    "ma_vat",
+                    "md_cf",
+                    "md_vat",
+                    "me_pib",
+                    "mk_vat",
+                    "mr_nif",
+                    "mu_vat",
+                    "mx_rfc",
+                    "my_frp",
+                    "my_itn",
+                    "my_sst",
+                    "mz_nuit",
+                    "ng_tin",
+                    "no_vat",
+                    "no_voec",
+                    "np_pan",
+                    "nz_bn",
+                    "nz_gst",
+                    "om_vat",
+                    "pe_ruc",
+                    "ph_tin",
+                    "pl_nip",
+                    "pt_nif",
+                    "py_ruc",
+                    "ro_tin",
+                    "rs_pib",
+                    "ru_inn",
+                    "ru_kpp",
+                    "sa_vat",
+                    "sg_gst",
+                    "sg_uen",
+                    "si_tin",
+                    "sm_coe",
+                    "sn_ninea",
+                    "sr_fin",
+                    "sv_nit",
+                    "th_vat",
+                    "tj_tin",
+                    "tr_tin",
+                    "tt_bir",
+                    "tt_vat",
+                    "tw_vat",
+                    "tz_vat",
+                    "ua_vat",
+                    "ug_tin",
+                    "unknown",
+                    "us_ein",
+                    "uy_ruc",
+                    "uz_tin",
+                    "uz_vat",
+                    "ve_rif",
+                    "vn_tin",
+                    "za_vat",
+                    "zm_tin",
+                    "zw_tin",
+                ],
+                str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, `gh_tin`, `bw_vat`, `ci_vat`, or `unknown`
             """
             value: str
             """
@@ -280,23 +301,39 @@ class Transaction(APIResource["Transaction"]):
                 """
                 The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
                 """
-                tax_type: Literal[
-                    "amusement_tax",
-                    "communications_tax",
-                    "gst",
-                    "hst",
-                    "igst",
-                    "jct",
-                    "lease_tax",
-                    "mass_transit_parking_tax",
-                    "parking_tax",
-                    "pst",
-                    "qst",
-                    "retail_delivery_fee",
-                    "rst",
-                    "sales_tax",
-                    "service_tax",
-                    "vat",
+                tax_type: Union[
+                    Literal[
+                        "admissions_tax",
+                        "amusement_tax",
+                        "attendance_tax",
+                        "communications_tax",
+                        "digital_excise_tax",
+                        "entertainment_tax",
+                        "get_fund",
+                        "gross_receipts_tax",
+                        "gst",
+                        "hospitality_tax",
+                        "hst",
+                        "igst",
+                        "jct",
+                        "lease_tax",
+                        "luxury_tax",
+                        "mass_transit_parking_tax",
+                        "nhil",
+                        "parking_tax",
+                        "pst",
+                        "qst",
+                        "recycling_fee",
+                        "resort_tax",
+                        "retail_delivery_fee",
+                        "rst",
+                        "sales_tax",
+                        "service_tax",
+                        "tourism_tax",
+                        "utility_users_tax",
+                        "vat",
+                    ],
+                    str,
                 ]
                 """
                 The tax type, such as `vat` or `sales_tax`.
@@ -307,7 +344,9 @@ class Transaction(APIResource["Transaction"]):
             The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
             jurisdiction: Jurisdiction
-            sourcing: Literal["destination", "origin"]
+            sourcing: Union[
+                Literal["destination", "origin", "performance"], str
+            ]
             """
             Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
             """
@@ -503,6 +542,7 @@ class Transaction(APIResource["Transaction"]):
     def _cls_list_line_items(
         cls,
         transaction: str,
+        /,
         **params: Unpack["TransactionListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
@@ -522,7 +562,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     def list_line_items(
-        transaction: str, **params: Unpack["TransactionListLineItemsParams"]
+        transaction: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -539,7 +579,7 @@ class Transaction(APIResource["Transaction"]):
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
@@ -560,6 +600,7 @@ class Transaction(APIResource["Transaction"]):
     async def _cls_list_line_items_async(
         cls,
         transaction: str,
+        /,
         **params: Unpack["TransactionListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
@@ -579,7 +620,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     async def list_line_items_async(
-        transaction: str, **params: Unpack["TransactionListLineItemsParams"]
+        transaction: str, /, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -596,7 +637,7 @@ class Transaction(APIResource["Transaction"]):
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """

@@ -1,5 +1,6 @@
+from stripe._any_iterator import AnyIterator
 from stripe._stripe_object import StripeObject
-from typing import List, Optional, TypeVar, Generic
+from typing import AsyncIterator, Iterator, List, Optional, TypeVar, Generic
 
 
 T = TypeVar("T", bound=StripeObject)
@@ -40,7 +41,13 @@ class ListObject(StripeObject, Generic[T]):
     def __reversed__(self):
         return getattr(self, "data", []).__reversed__()
 
-    def auto_paging_iter(self):
+    def auto_paging_iter(self) -> AnyIterator[T]:
+        return AnyIterator(
+            self._auto_paging_iter(),
+            self._auto_paging_iter_async(),
+        )
+
+    def _auto_paging_iter(self) -> Iterator[T]:
         page = self.data
         next_page_url = self.next_page_url
         while True:
@@ -50,6 +57,24 @@ class ListObject(StripeObject, Generic[T]):
                 break
 
             result = self._request(
+                "get",
+                next_page_url,
+                base_address="api",
+            )
+            assert isinstance(result, ListObject)
+            page = result.data
+            next_page_url = result.next_page_url
+
+    async def _auto_paging_iter_async(self) -> AsyncIterator[T]:
+        page = self.data
+        next_page_url = self.next_page_url
+        while True:
+            for item in page:
+                yield item
+            if next_page_url is None:
+                break
+
+            result = await self._request_async(
                 "get",
                 next_page_url,
                 base_address="api",

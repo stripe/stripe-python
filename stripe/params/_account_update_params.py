@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class AccountUpdateParams(TypedDict):
     account_token: NotRequired[str]
     """
-    An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
+    An [account token](https://docs.stripe.com/api#create_account_token), used to securely provide details to the account.
     """
     business_profile: NotRequired["AccountUpdateParamsBusinessProfile"]
     """
@@ -128,6 +128,10 @@ class AccountUpdateParamsBusinessProfile(TypedDict):
     product_description: NotRequired[str]
     """
     Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
+    """
+    specified_commercial_transactions_act_url: NotRequired["Literal['']|str"]
+    """
+    A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
     """
     support_address: NotRequired[
         "AccountUpdateParamsBusinessProfileSupportAddress"
@@ -278,6 +282,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     blik_payments: NotRequired["AccountUpdateParamsCapabilitiesBlikPayments"]
     """
     The blik_payments capability.
+    """
+    blik_recurring_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesBlikRecurringPayments"
+    ]
+    """
+    The blik_recurring_payments capability.
     """
     boleto_payments: NotRequired[
         "AccountUpdateParamsCapabilitiesBoletoPayments"
@@ -451,6 +461,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The paynow_payments capability.
     """
+    paypay_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesPaypayPayments"
+    ]
+    """
+    The paypay_payments capability.
+    """
     payto_payments: NotRequired["AccountUpdateParamsCapabilitiesPaytoPayments"]
     """
     The payto_payments capability.
@@ -500,6 +516,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     ]
     """
     The sepa_debit_payments capability.
+    """
+    sequra_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesSequraPayments"
+    ]
+    """
+    The sequra_payments capability.
     """
     sofort_payments: NotRequired[
         "AccountUpdateParamsCapabilitiesSofortPayments"
@@ -556,6 +578,10 @@ class AccountUpdateParamsCapabilities(TypedDict):
     ]
     """
     The us_bank_transfer_payments capability.
+    """
+    wero_payments: NotRequired["AccountUpdateParamsCapabilitiesWeroPayments"]
+    """
+    The wero_payments capability.
     """
     zip_payments: NotRequired["AccountUpdateParamsCapabilitiesZipPayments"]
     """
@@ -648,6 +674,13 @@ class AccountUpdateParamsCapabilitiesBizumPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesBlikPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesBlikRecurringPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -878,6 +911,13 @@ class AccountUpdateParamsCapabilitiesPaynowPayments(TypedDict):
     """
 
 
+class AccountUpdateParamsCapabilitiesPaypayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountUpdateParamsCapabilitiesPaytoPayments(TypedDict):
     requested: NotRequired[bool]
     """
@@ -935,6 +975,13 @@ class AccountUpdateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesSepaDebitPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesSequraPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1018,6 +1065,13 @@ class AccountUpdateParamsCapabilitiesUsBankTransferPayments(TypedDict):
     """
 
 
+class AccountUpdateParamsCapabilitiesWeroPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountUpdateParamsCapabilitiesZipPayments(TypedDict):
     requested: NotRequired[bool]
     """
@@ -1041,6 +1095,9 @@ class AccountUpdateParamsCompany(TypedDict):
     administrative_address: NotRequired[
         "AccountUpdateParamsCompanyAdministrativeAddress"
     ]
+    """
+    The location where the business is administered.
+    """
     directors_provided: NotRequired[bool]
     """
     Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
@@ -1095,9 +1152,16 @@ class AccountUpdateParamsCompany(TypedDict):
     """
     The company's phone number (used for verification).
     """
+    physical_address: NotRequired["AccountUpdateParamsCompanyPhysicalAddress"]
+    """
+    A location where the business has a meaningful physical operating presence.
+    """
     principal_place_of_business: NotRequired[
         "AccountUpdateParamsCompanyPrincipalPlaceOfBusiness"
     ]
+    """
+    The primary location where the business conducts operations.
+    """
     registration_date: NotRequired[
         "Literal['']|AccountUpdateParamsCompanyRegistrationDate"
     ]
@@ -1283,6 +1347,33 @@ class AccountUpdateParamsCompanyOwnershipDeclaration(TypedDict):
     """
 
 
+class AccountUpdateParamsCompanyPhysicalAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
 class AccountUpdateParamsCompanyPrincipalPlaceOfBusiness(TypedDict):
     city: NotRequired[str]
     """
@@ -1350,11 +1441,11 @@ class AccountUpdateParamsCompanyVerification(TypedDict):
 class AccountUpdateParamsCompanyVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -1397,6 +1488,12 @@ class AccountUpdateParamsDocuments(TypedDict):
     """
     One or more documents that demonstrate proof of address.
     """
+    proof_of_business_presence: NotRequired[
+        "AccountUpdateParamsDocumentsProofOfBusinessPresence"
+    ]
+    """
+    One or more documents that demonstrate proof of business presence.
+    """
     proof_of_registration: NotRequired[
         "AccountUpdateParamsDocumentsProofOfRegistration"
     ]
@@ -1414,56 +1511,63 @@ class AccountUpdateParamsDocuments(TypedDict):
 class AccountUpdateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyLicense(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyMemorandumOfAssociation(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyMinisterialDecree(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyRegistrationVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyTaxIdVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsProofOfAddress(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
+    """
+
+
+class AccountUpdateParamsDocumentsProofOfBusinessPresence(TypedDict):
+    files: NotRequired[List[str]]
+    """
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsProofOfRegistration(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountUpdateParamsDocumentsProofOfRegistrationSigner"
@@ -1485,7 +1589,7 @@ class AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership(
 ):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner"
@@ -1510,7 +1614,7 @@ class AccountUpdateParamsBankAccount(TypedDict):
     """
     The name of the person or business that owns the bank account.This field is required when attaching the bank account to a `Customer` object.
     """
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     The type of entity that holds the account. It can be `company` or `individual`. This field is required when attaching the bank account to a `Customer` object.
     """
@@ -1835,22 +1939,22 @@ class AccountUpdateParamsIndividualVerification(TypedDict):
 class AccountUpdateParamsIndividualVerificationAdditionalDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountUpdateParamsIndividualVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -1884,6 +1988,10 @@ class AccountUpdateParamsSettings(TypedDict):
     payouts: NotRequired["AccountUpdateParamsSettingsPayouts"]
     """
     Settings specific to the account's payouts.
+    """
+    paypay_payments: NotRequired["AccountUpdateParamsSettingsPaypayPayments"]
+    """
+    Settings specific to the PayPay payments method.
     """
     sepa_debit_payments: NotRequired[
         "AccountUpdateParamsSettingsSepaDebitPayments"
@@ -2025,7 +2133,9 @@ class AccountUpdateParamsSettingsPayoutsSchedule(TypedDict):
     """
     The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
     """
-    interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
+    interval: NotRequired[
+        "Literal['daily', 'manual', 'monthly', 'weekly']|str"
+    ]
     """
     How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
     """
@@ -2038,15 +2148,7 @@ class AccountUpdateParamsSettingsPayoutsSchedule(TypedDict):
     The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
     """
     weekly_anchor: NotRequired[
-        Literal[
-            "friday",
-            "monday",
-            "saturday",
-            "sunday",
-            "thursday",
-            "tuesday",
-            "wednesday",
-        ]
+        "Literal['friday', 'monday', 'saturday', 'sunday', 'thursday', 'tuesday', 'wednesday']|str"
     ]
     """
     The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
@@ -2063,6 +2165,68 @@ class AccountUpdateParamsSettingsPayoutsSchedule(TypedDict):
     ]
     """
     The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPayments(TypedDict):
+    additional_files: NotRequired[List[str]]
+    """
+    Additional files that are required to support the onboarding process of your business.
+    """
+    goods_type: NotRequired[Literal["digital_content", "other"]]
+    """
+    The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+    """
+    site: NotRequired["AccountUpdateParamsSettingsPaypayPaymentsSite"]
+    """
+    Details regarding your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSite(TypedDict):
+    accessible: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    in_development: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    restricted: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    type: NotRequired[Literal["accessible", "in_development", "restricted"]]
+    """
+    The status of your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible(TypedDict):
+    pass
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment(TypedDict):
+    password: str
+    """
+    The password needed to access your business's website.
+    """
+    username: NotRequired[str]
+    """
+    The username needed to access your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted(TypedDict):
+    payment_flow_file: NotRequired[str]
+    """
+    The file explaining the payment flow for your business.
     """
 
 

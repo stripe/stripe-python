@@ -11,6 +11,10 @@ class PaymentRecordReportPaymentParams(RequestOptions):
     """
     The amount you initially requested for this payment.
     """
+    canceled: NotRequired["PaymentRecordReportPaymentParamsCanceled"]
+    """
+    Information about the payment attempt cancelation.
+    """
     customer_details: NotRequired[
         "PaymentRecordReportPaymentParamsCustomerDetails"
     ]
@@ -47,7 +51,7 @@ class PaymentRecordReportPaymentParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    outcome: NotRequired["Literal['failed', 'guaranteed']|str"]
+    outcome: NotRequired["Literal['canceled', 'failed', 'guaranteed']|str"]
     """
     The outcome of the reported payment.
     """
@@ -82,6 +86,13 @@ class PaymentRecordReportPaymentParamsAmountRequested(TypedDict):
     """
 
 
+class PaymentRecordReportPaymentParamsCanceled(TypedDict):
+    canceled_at: int
+    """
+    When the reported payment was canceled. Measured in seconds since the Unix epoch.
+    """
+
+
 class PaymentRecordReportPaymentParamsCustomerDetails(TypedDict):
     customer: NotRequired[str]
     """
@@ -89,7 +100,7 @@ class PaymentRecordReportPaymentParamsCustomerDetails(TypedDict):
     """
     email: NotRequired[str]
     """
-    The customer's phone number.
+    The customer's email address.
     """
     name: NotRequired[str]
     """

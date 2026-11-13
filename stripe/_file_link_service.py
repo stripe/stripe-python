@@ -95,6 +95,7 @@ class FileLinkService(StripeService):
     def retrieve(
         self,
         link: str,
+        /,
         params: Optional["FileLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
@@ -115,6 +116,7 @@ class FileLinkService(StripeService):
     async def retrieve_async(
         self,
         link: str,
+        /,
         params: Optional["FileLinkRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
@@ -135,6 +137,7 @@ class FileLinkService(StripeService):
     def update(
         self,
         link: str,
+        /,
         params: Optional["FileLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
@@ -155,6 +158,7 @@ class FileLinkService(StripeService):
     async def update_async(
         self,
         link: str,
+        /,
         params: Optional["FileLinkUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "FileLink":

@@ -50,7 +50,7 @@ class SetupIntent(
     """
     A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
     For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-    Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+    Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
     Create a SetupIntent when you're ready to collect your customer's payment credentials.
     Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -61,9 +61,9 @@ class SetupIntent(
     For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
     [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
     to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-    If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+    If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
     it automatically attaches the resulting payment method to that Customer after successful setup.
-    We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+    We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
     PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
     By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -88,209 +88,226 @@ class SetupIntent(
     class LastSetupError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
         For card errors, the ID of the failed charge.
         """
         code: Optional[
-            Literal[
-                "account_closed",
-                "account_country_invalid_address",
-                "account_error_country_change_requires_additional_steps",
-                "account_information_mismatch",
-                "account_invalid",
-                "account_number_invalid",
-                "account_token_required_for_v2_account",
-                "acss_debit_session_incomplete",
-                "action_blocked",
-                "alipay_upgrade_required",
-                "amount_too_large",
-                "amount_too_small",
-                "anomalous_money_movement_request",
-                "api_key_expired",
-                "application_fees_not_allowed",
-                "approval_required",
-                "authentication_required",
-                "balance_insufficient",
-                "balance_invalid_parameter",
-                "bank_account_bad_routing_numbers",
-                "bank_account_declined",
-                "bank_account_exists",
-                "bank_account_restricted",
-                "bank_account_unusable",
-                "bank_account_unverified",
-                "bank_account_verification_failed",
-                "billing_invalid_mandate",
-                "bitcoin_upgrade_required",
-                "capture_charge_authorization_expired",
-                "capture_unauthorized_payment",
-                "card_decline_rate_limit_exceeded",
-                "card_declined",
-                "cardholder_phone_number_required",
-                "charge_already_captured",
-                "charge_already_refunded",
-                "charge_disputed",
-                "charge_exceeds_source_limit",
-                "charge_exceeds_transaction_limit",
-                "charge_expired_for_capture",
-                "charge_invalid_parameter",
-                "charge_not_refundable",
-                "clearing_code_unsupported",
-                "country_code_invalid",
-                "country_unsupported",
-                "coupon_expired",
-                "customer_max_payment_methods",
-                "customer_max_subscriptions",
-                "customer_session_expired",
-                "customer_tax_location_invalid",
-                "debit_not_authorized",
-                "email_invalid",
-                "expired_card",
-                "failed_tax_calculation",
-                "financial_account_balance_does_not_support_currency",
-                "financial_account_capability_not_enabled",
-                "financial_account_capability_restricted",
-                "financial_connections_account_inactive",
-                "financial_connections_account_pending_account_numbers",
-                "financial_connections_account_unavailable_account_numbers",
-                "financial_connections_no_successful_transaction_refresh",
-                "forwarding_api_inactive",
-                "forwarding_api_invalid_parameter",
-                "forwarding_api_retryable_upstream_error",
-                "forwarding_api_upstream_connection_error",
-                "forwarding_api_upstream_connection_timeout",
-                "forwarding_api_upstream_error",
-                "idempotency_key_in_use",
-                "incorrect_address",
-                "incorrect_cvc",
-                "incorrect_number",
-                "incorrect_zip",
-                "india_recurring_payment_mandate_canceled",
-                "instant_payouts_config_disabled",
-                "instant_payouts_currency_disabled",
-                "instant_payouts_limit_exceeded",
-                "instant_payouts_unsupported",
-                "insufficient_funds",
-                "intent_invalid_state",
-                "intent_verification_method_missing",
-                "invalid_card_type",
-                "invalid_characters",
-                "invalid_charge_amount",
-                "invalid_cvc",
-                "invalid_expiry_month",
-                "invalid_expiry_year",
-                "invalid_mandate_reference_prefix_format",
-                "invalid_number",
-                "invalid_source_usage",
-                "invalid_tax_location",
-                "invoice_no_customer_line_items",
-                "invoice_no_payment_method_types",
-                "invoice_no_subscription_line_items",
-                "invoice_not_editable",
-                "invoice_on_behalf_of_not_editable",
-                "invoice_payment_intent_requires_action",
-                "invoice_upcoming_none",
-                "livemode_mismatch",
-                "lock_timeout",
-                "missing",
-                "no_account",
-                "not_allowed_on_standard_account",
-                "out_of_inventory",
-                "ownership_declaration_not_allowed",
-                "parameter_invalid_empty",
-                "parameter_invalid_integer",
-                "parameter_invalid_string_blank",
-                "parameter_invalid_string_empty",
-                "parameter_missing",
-                "parameter_unknown",
-                "parameters_exclusive",
-                "payment_intent_action_required",
-                "payment_intent_authentication_failure",
-                "payment_intent_incompatible_payment_method",
-                "payment_intent_invalid_parameter",
-                "payment_intent_konbini_rejected_confirmation_number",
-                "payment_intent_mandate_invalid",
-                "payment_intent_payment_attempt_expired",
-                "payment_intent_payment_attempt_failed",
-                "payment_intent_rate_limit_exceeded",
-                "payment_intent_unexpected_state",
-                "payment_method_bank_account_already_verified",
-                "payment_method_bank_account_blocked",
-                "payment_method_billing_details_address_missing",
-                "payment_method_configuration_failures",
-                "payment_method_currency_mismatch",
-                "payment_method_customer_decline",
-                "payment_method_invalid_parameter",
-                "payment_method_invalid_parameter_testmode",
-                "payment_method_microdeposit_failed",
-                "payment_method_microdeposit_processing_error",
-                "payment_method_microdeposit_verification_amounts_invalid",
-                "payment_method_microdeposit_verification_amounts_mismatch",
-                "payment_method_microdeposit_verification_attempts_exceeded",
-                "payment_method_microdeposit_verification_descriptor_code_mismatch",
-                "payment_method_microdeposit_verification_timeout",
-                "payment_method_not_available",
-                "payment_method_provider_decline",
-                "payment_method_provider_timeout",
-                "payment_method_unactivated",
-                "payment_method_unexpected_state",
-                "payment_method_unsupported_type",
-                "payout_reconciliation_not_ready",
-                "payouts_limit_exceeded",
-                "payouts_not_allowed",
-                "platform_account_required",
-                "platform_api_key_expired",
-                "postal_code_invalid",
-                "processing_error",
-                "product_inactive",
-                "progressive_onboarding_limit_exceeded",
-                "rate_limit",
-                "refer_to_customer",
-                "refund_disputed_payment",
-                "request_blocked",
-                "resource_already_exists",
-                "resource_missing",
-                "return_intent_already_processed",
-                "routing_number_invalid",
-                "secret_key_required",
-                "sepa_unsupported_account",
-                "service_period_coupon_with_metered_tiered_item_unsupported",
-                "setup_attempt_failed",
-                "setup_intent_authentication_failure",
-                "setup_intent_invalid_parameter",
-                "setup_intent_mandate_invalid",
-                "setup_intent_mobile_wallet_unsupported",
-                "setup_intent_setup_attempt_expired",
-                "setup_intent_unexpected_state",
-                "shipping_address_invalid",
-                "shipping_calculation_failed",
-                "siret_invalid",
-                "sku_inactive",
-                "state_unsupported",
-                "status_transition_invalid",
-                "storer_capability_missing",
-                "storer_capability_not_active",
-                "stripe_tax_inactive",
-                "tax_id_invalid",
-                "tax_id_prohibited",
-                "taxes_calculation_failed",
-                "terminal_location_country_unsupported",
-                "terminal_reader_busy",
-                "terminal_reader_hardware_fault",
-                "terminal_reader_invalid_location_for_activation",
-                "terminal_reader_invalid_location_for_payment",
-                "terminal_reader_offline",
-                "terminal_reader_timeout",
-                "testmode_charges_only",
-                "tls_version_unsupported",
-                "token_already_used",
-                "token_card_network_invalid",
-                "token_in_use",
-                "transfer_source_balance_parameters_mismatch",
-                "transfers_not_allowed",
-                "url_invalid",
+            Union[
+                Literal[
+                    "account_closed",
+                    "account_country_invalid_address",
+                    "account_error_country_change_requires_additional_steps",
+                    "account_information_mismatch",
+                    "account_invalid",
+                    "account_number_invalid",
+                    "account_token_required_for_v2_account",
+                    "acss_debit_session_incomplete",
+                    "action_blocked",
+                    "alipay_upgrade_required",
+                    "amount_too_large",
+                    "amount_too_small",
+                    "anomalous_money_movement_request",
+                    "api_key_expired",
+                    "application_fees_not_allowed",
+                    "approval_required",
+                    "authentication_failure",
+                    "authentication_required",
+                    "balance_insufficient",
+                    "balance_invalid_parameter",
+                    "bank_account_bad_routing_numbers",
+                    "bank_account_declined",
+                    "bank_account_exists",
+                    "bank_account_restricted",
+                    "bank_account_unusable",
+                    "bank_account_unverified",
+                    "bank_account_verification_failed",
+                    "billing_invalid_mandate",
+                    "bitcoin_upgrade_required",
+                    "capability_not_active",
+                    "capture_charge_authorization_expired",
+                    "capture_unauthorized_payment",
+                    "card_decline_rate_limit_exceeded",
+                    "card_declined",
+                    "cardholder_phone_number_required",
+                    "charge_already_captured",
+                    "charge_already_refunded",
+                    "charge_disputed",
+                    "charge_exceeds_source_limit",
+                    "charge_exceeds_transaction_limit",
+                    "charge_expired_for_capture",
+                    "charge_invalid_parameter",
+                    "charge_not_refundable",
+                    "clearing_code_unsupported",
+                    "country_code_invalid",
+                    "country_unsupported",
+                    "coupon_expired",
+                    "customer_max_payment_methods",
+                    "customer_max_subscriptions",
+                    "customer_session_expired",
+                    "customer_tax_location_invalid",
+                    "debit_not_authorized",
+                    "dispute_evidence_page_limit_exceeded",
+                    "email_invalid",
+                    "expired_card",
+                    "expired_payment_method",
+                    "failed_tax_calculation",
+                    "financial_account_balance_does_not_support_currency",
+                    "financial_account_capability_not_enabled",
+                    "financial_account_capability_restricted",
+                    "financial_connections_account_inactive",
+                    "financial_connections_account_pending_account_numbers",
+                    "financial_connections_account_unavailable_account_numbers",
+                    "financial_connections_consent_locale_invalid",
+                    "financial_connections_consent_locale_unsupported",
+                    "financial_connections_no_successful_transaction_refresh",
+                    "forwarding_api_inactive",
+                    "forwarding_api_invalid_parameter",
+                    "forwarding_api_retryable_upstream_error",
+                    "forwarding_api_upstream_connection_error",
+                    "forwarding_api_upstream_connection_timeout",
+                    "forwarding_api_upstream_error",
+                    "idempotency_key_in_use",
+                    "incorrect_address",
+                    "incorrect_cvc",
+                    "incorrect_number",
+                    "incorrect_postal_code",
+                    "incorrect_zip",
+                    "india_recurring_payment_mandate_canceled",
+                    "instant_payouts_config_disabled",
+                    "instant_payouts_currency_disabled",
+                    "instant_payouts_limit_exceeded",
+                    "instant_payouts_unsupported",
+                    "insufficient_funds",
+                    "intent_invalid_state",
+                    "intent_verification_method_missing",
+                    "invalid_canceled_subscription_fields",
+                    "invalid_card_type",
+                    "invalid_characters",
+                    "invalid_charge_amount",
+                    "invalid_cvc",
+                    "invalid_expiry_month",
+                    "invalid_expiry_year",
+                    "invalid_mandate_reference_prefix_format",
+                    "invalid_number",
+                    "invalid_source_usage",
+                    "invalid_tax_location",
+                    "invoice_no_customer_line_items",
+                    "invoice_no_payment_method_types",
+                    "invoice_no_subscription_line_items",
+                    "invoice_not_editable",
+                    "invoice_on_behalf_of_not_editable",
+                    "invoice_payment_intent_requires_action",
+                    "invoice_upcoming_none",
+                    "livemode_mismatch",
+                    "lock_timeout",
+                    "missing",
+                    "no_account",
+                    "not_allowed_on_standard_account",
+                    "out_of_inventory",
+                    "ownership_declaration_not_allowed",
+                    "parameter_invalid_empty",
+                    "parameter_invalid_integer",
+                    "parameter_invalid_string_blank",
+                    "parameter_invalid_string_empty",
+                    "parameter_missing",
+                    "parameter_unknown",
+                    "parameters_exclusive",
+                    "payment_evaluation_on_api_version_not_supported",
+                    "payment_intent_action_required",
+                    "payment_intent_authentication_failure",
+                    "payment_intent_incompatible_payment_method",
+                    "payment_intent_invalid_parameter",
+                    "payment_intent_konbini_rejected_confirmation_number",
+                    "payment_intent_mandate_invalid",
+                    "payment_intent_payment_attempt_expired",
+                    "payment_intent_payment_attempt_failed",
+                    "payment_intent_rate_limit_exceeded",
+                    "payment_intent_unexpected_state",
+                    "payment_method_bank_account_already_verified",
+                    "payment_method_bank_account_blocked",
+                    "payment_method_billing_details_address_missing",
+                    "payment_method_configuration_failures",
+                    "payment_method_currency_mismatch",
+                    "payment_method_customer_decline",
+                    "payment_method_invalid_parameter",
+                    "payment_method_invalid_parameter_testmode",
+                    "payment_method_microdeposit_failed",
+                    "payment_method_microdeposit_processing_error",
+                    "payment_method_microdeposit_verification_amounts_invalid",
+                    "payment_method_microdeposit_verification_amounts_mismatch",
+                    "payment_method_microdeposit_verification_attempts_exceeded",
+                    "payment_method_microdeposit_verification_descriptor_code_mismatch",
+                    "payment_method_microdeposit_verification_timeout",
+                    "payment_method_not_available",
+                    "payment_method_provider_decline",
+                    "payment_method_provider_timeout",
+                    "payment_method_restricted",
+                    "payment_method_unactivated",
+                    "payment_method_unexpected_state",
+                    "payment_method_unsupported_type",
+                    "payout_reconciliation_not_ready",
+                    "payouts_limit_exceeded",
+                    "payouts_not_allowed",
+                    "platform_account_required",
+                    "platform_api_key_expired",
+                    "postal_code_invalid",
+                    "processing_error",
+                    "product_inactive",
+                    "progressive_onboarding_limit_exceeded",
+                    "rate_limit",
+                    "refer_to_customer",
+                    "refund_disputed_payment",
+                    "request_blocked",
+                    "resource_already_exists",
+                    "resource_missing",
+                    "return_intent_already_processed",
+                    "routing_number_invalid",
+                    "secret_key_required",
+                    "sepa_unsupported_account",
+                    "service_period_coupon_with_metered_tiered_item_unsupported",
+                    "setup_attempt_failed",
+                    "setup_intent_authentication_failure",
+                    "setup_intent_invalid_parameter",
+                    "setup_intent_mandate_invalid",
+                    "setup_intent_mobile_wallet_unsupported",
+                    "setup_intent_setup_attempt_expired",
+                    "setup_intent_unexpected_state",
+                    "shipping_address_invalid",
+                    "shipping_calculation_failed",
+                    "siret_invalid",
+                    "sku_inactive",
+                    "smart_disputes_not_available",
+                    "state_unsupported",
+                    "status_transition_invalid",
+                    "storer_capability_missing",
+                    "storer_capability_not_active",
+                    "stripe_tax_inactive",
+                    "subscription_update_trial_after_billing_cycle_anchor",
+                    "tax_id_invalid",
+                    "tax_id_prohibited",
+                    "taxes_calculation_failed",
+                    "terminal_location_country_unsupported",
+                    "terminal_reader_busy",
+                    "terminal_reader_hardware_fault",
+                    "terminal_reader_invalid_location_for_activation",
+                    "terminal_reader_invalid_location_for_payment",
+                    "terminal_reader_offline",
+                    "terminal_reader_timeout",
+                    "testmode_charges_only",
+                    "three_d_secure_authentication_not_supported",
+                    "three_d_secure_authentication_upstream_error",
+                    "tls_version_unsupported",
+                    "token_already_used",
+                    "token_card_network_invalid",
+                    "token_in_use",
+                    "transfer_source_balance_parameters_mismatch",
+                    "transfers_not_allowed",
+                    "url_invalid",
+                ],
+                str,
             ]
         ]
         """
@@ -354,7 +371,7 @@ class SetupIntent(
         """
         A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
         For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-        Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+        Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -365,9 +382,9 @@ class SetupIntent(
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
         [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
         to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-        If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+        If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
-        We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+        We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
         PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -377,11 +394,14 @@ class SetupIntent(
         source: Optional[
             Union["Account", "BankAccount", "CardResource", "Source"]
         ]
-        type: Literal[
-            "api_error",
-            "card_error",
-            "idempotency_error",
-            "invalid_request_error",
+        type: Union[
+            Literal[
+                "api_error",
+                "card_error",
+                "idempotency_error",
+                "invalid_request_error",
+            ],
+            str,
         ]
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
@@ -589,13 +609,27 @@ class SetupIntent(
         class Bizum(StripeObject):
             pass
 
+        class Blik(StripeObject):
+            class MandateOptions(StripeObject):
+                expires_at: Optional[int]
+                """
+                Date at which the mandate expires.
+                """
+                type: Optional[Literal["off_session"]]
+                """
+                Type of the mandate.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Card(StripeObject):
             class MandateOptions(StripeObject):
                 amount: int
                 """
                 Amount to be charged for future payments, specified in the presentment currency.
                 """
-                amount_type: Literal["fixed", "maximum"]
+                amount_type: Union[Literal["fixed", "maximum"], str]
                 """
                 One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
                 """
@@ -611,7 +645,9 @@ class SetupIntent(
                 """
                 End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
                 """
-                interval: Literal["day", "month", "sporadic", "week", "year"]
+                interval: Union[
+                    Literal["day", "month", "sporadic", "week", "year"], str
+                ]
                 """
                 Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
                 """
@@ -637,20 +673,23 @@ class SetupIntent(
             Configuration options for setting up an eMandate for cards issued in India.
             """
             network: Optional[
-                Literal[
-                    "amex",
-                    "cartes_bancaires",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "girocard",
-                    "interac",
-                    "jcb",
-                    "link",
-                    "mastercard",
-                    "unionpay",
-                    "unknown",
-                    "visa",
+                Union[
+                    Literal[
+                        "amex",
+                        "cartes_bancaires",
+                        "diners",
+                        "discover",
+                        "eftpos_au",
+                        "girocard",
+                        "interac",
+                        "jcb",
+                        "link",
+                        "mastercard",
+                        "unionpay",
+                        "unknown",
+                        "visa",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -661,6 +700,12 @@ class SetupIntent(
             ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            """
+            setup_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            Set to indicate the future transaction type usage for the card being set up.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -904,6 +949,7 @@ class SetupIntent(
         amazon_pay: Optional[AmazonPay]
         bacs_debit: Optional[BacsDebit]
         bizum: Optional[Bizum]
+        blik: Optional[Blik]
         card: Optional[Card]
         card_present: Optional[CardPresent]
         klarna: Optional[Klarna]
@@ -919,6 +965,7 @@ class SetupIntent(
             "amazon_pay": AmazonPay,
             "bacs_debit": BacsDebit,
             "bizum": Bizum,
+            "blik": Blik,
             "card": Card,
             "card_present": CardPresent,
             "klarna": Klarna,
@@ -951,6 +998,7 @@ class SetupIntent(
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -971,6 +1019,7 @@ class SetupIntent(
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -1022,6 +1071,7 @@ class SetupIntent(
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -1054,7 +1104,7 @@ class SetupIntent(
     Settings for dynamic payment methods compatible with this Setup Intent
     """
     cancellation_reason: Optional[
-        Literal["abandoned", "duplicate", "requested_by_customer"]
+        Union[Literal["abandoned", "duplicate", "requested_by_customer"], str]
     ]
     """
     Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
@@ -1126,6 +1176,7 @@ class SetupIntent(
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
@@ -1134,6 +1185,7 @@ class SetupIntent(
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "sofort",
                     "sunbit",
                     "swish",
@@ -1150,7 +1202,7 @@ class SetupIntent(
     """
     Payment method types that are excluded from this SetupIntent.
     """
-    flow_directions: Optional[List[Literal["inbound", "outbound"]]]
+    flow_directions: Optional[List[Union[Literal["inbound", "outbound"], str]]]
     """
     Indicates the directions of money movement for which this payment method is intended to be used.
 
@@ -1215,13 +1267,16 @@ class SetupIntent(
     """
     ID of the single_use Mandate generated by the SetupIntent.
     """
-    status: Literal[
-        "canceled",
-        "processing",
-        "requires_action",
-        "requires_confirmation",
-        "requires_payment_method",
-        "succeeded",
+    status: Union[
+        Literal[
+            "canceled",
+            "processing",
+            "requires_action",
+            "requires_confirmation",
+            "requires_payment_method",
+            "succeeded",
+        ],
+        str,
     ]
     """
     [Status](https://docs.stripe.com/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
@@ -1235,7 +1290,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_cancel(
-        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1256,7 +1311,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def cancel(
-        intent: str, **params: Unpack["SetupIntentCancelParams"]
+        intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1277,7 +1332,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1298,7 +1353,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1319,7 +1374,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def cancel_async(
-        intent: str, **params: Unpack["SetupIntentCancelParams"]
+        intent: str, /, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -1340,7 +1395,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
@@ -1361,7 +1416,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_confirm(
-        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1393,7 +1448,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def confirm(
-        intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1436,7 +1491,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1468,7 +1523,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_confirm_async(
-        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        cls, intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1500,7 +1555,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def confirm_async(
-        intent: str, **params: Unpack["SetupIntentConfirmParams"]
+        intent: str, /, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -1543,7 +1598,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm_async")
-    async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_async(
         self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
@@ -1653,7 +1708,7 @@ class SetupIntent(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1670,7 +1725,7 @@ class SetupIntent(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
+        cls, id: str, /, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -1719,6 +1774,7 @@ class SetupIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
+        /,
         **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
@@ -1738,7 +1794,9 @@ class SetupIntent(
     @overload
     @staticmethod
     def verify_microdeposits(
-        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -1755,7 +1813,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
+    def verify_microdeposits(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
@@ -1776,6 +1834,7 @@ class SetupIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
+        /,
         **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
@@ -1795,7 +1854,9 @@ class SetupIntent(
     @overload
     @staticmethod
     async def verify_microdeposits_async(
-        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
+        intent: str,
+        /,
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -1812,7 +1873,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits_async")
-    async def verify_microdeposits_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def verify_microdeposits_async(
         self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """

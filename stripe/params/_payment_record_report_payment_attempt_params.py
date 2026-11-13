@@ -7,6 +7,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentRecordReportPaymentAttemptParams(RequestOptions):
+    canceled: NotRequired["PaymentRecordReportPaymentAttemptParamsCanceled"]
+    """
+    Information about the payment attempt cancelation.
+    """
     description: NotRequired[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
@@ -35,7 +39,7 @@ class PaymentRecordReportPaymentAttemptParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    outcome: NotRequired["Literal['failed', 'guaranteed']|str"]
+    outcome: NotRequired["Literal['canceled', 'failed', 'guaranteed']|str"]
     """
     The outcome of the reported payment.
     """
@@ -50,6 +54,13 @@ class PaymentRecordReportPaymentAttemptParams(RequestOptions):
     ]
     """
     Shipping information for this payment.
+    """
+
+
+class PaymentRecordReportPaymentAttemptParamsCanceled(TypedDict):
+    canceled_at: int
+    """
+    When the reported payment was canceled. Measured in seconds since the Unix epoch.
     """
 
 

@@ -27,6 +27,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "boleto",
                     "capchase_pay",
                     "card",
+                    "card_present",
                     "cashapp",
                     "check_scan",
                     "click_to_pay",
@@ -47,6 +48,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "grabpay",
                     "id_bank_transfer",
                     "ideal",
+                    "interac_present",
                     "kakao_pay",
                     "klarna",
                     "knet",
@@ -98,6 +100,7 @@ class SetupIntentConfirmParams(RequestOptions):
                     "swish",
                     "tamara",
                     "test_pay",
+                    "touch_n_go",
                     "truemoney",
                     "twint",
                     "upi",
@@ -130,7 +133,7 @@ class SetupIntentConfirmParams(RequestOptions):
     ]
     payment_method: NotRequired[str]
     """
-    ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    The ID of a PaymentMethod to attach to this SetupIntent.
     """
     payment_method_data: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodData"
@@ -183,7 +186,7 @@ class SetupIntentConfirmParamsMandateDataCustomerAcceptance(TypedDict):
     """
     If this is a Mandate accepted online, this hash contains details about the online acceptance.
     """
-    type: Literal["offline", "online"]
+    type: Union[Literal["offline", "online"], str]
     """
     The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
     """
@@ -233,13 +236,13 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     alma: NotRequired["SetupIntentConfirmParamsPaymentMethodDataAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAmazonPay"
     ]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataAuBecsDebit"
@@ -397,6 +400,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["SetupIntentConfirmParamsPaymentMethodDataPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -442,6 +449,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+    """
+    sequra: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     """
     sofort: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSofort"]
     """
@@ -498,6 +509,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -506,6 +518,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -690,36 +703,7 @@ class SetupIntentConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
 
 class SetupIntentConfirmParamsPaymentMethodDataEps(TypedDict):
     bank: NotRequired[
-        Literal[
-            "arzte_und_apotheker_bank",
-            "austrian_anadi_bank_ag",
-            "bank_austria",
-            "bankhaus_carl_spangler",
-            "bankhaus_schelhammer_und_schattera_ag",
-            "bawag_psk_ag",
-            "bks_bank_ag",
-            "brull_kallmus_bank_ag",
-            "btv_vier_lander_bank",
-            "capital_bank_grawe_gruppe_ag",
-            "deutsche_bank_ag",
-            "dolomitenbank",
-            "easybank_ag",
-            "erste_bank_und_sparkassen",
-            "hypo_alpeadriabank_international_ag",
-            "hypo_bank_burgenland_aktiengesellschaft",
-            "hypo_noe_lb_fur_niederosterreich_u_wien",
-            "hypo_oberosterreich_salzburg_steiermark",
-            "hypo_tirol_bank_ag",
-            "hypo_vorarlberg_bank_ag",
-            "marchfelder_bank",
-            "oberbank_ag",
-            "raiffeisen_bankengruppe_osterreich",
-            "schoellerbank_ag",
-            "sparda_bank_wien",
-            "volksbank_gruppe",
-            "volkskreditbank_ag",
-            "vr_bank_braunau",
-        ]
+        "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|str"
     ]
     """
     The customer's bank.
@@ -727,36 +711,39 @@ class SetupIntentConfirmParamsPaymentMethodDataEps(TypedDict):
 
 
 class SetupIntentConfirmParamsPaymentMethodDataFpx(TypedDict):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Account holder type for FPX transaction
     """
-    bank: Literal[
-        "affin_bank",
-        "agrobank",
-        "alliance_bank",
-        "ambank",
-        "bank_islam",
-        "bank_muamalat",
-        "bank_of_china",
-        "bank_rakyat",
-        "bnp_paribas",
-        "bsn",
-        "cimb",
-        "citibank",
-        "deutsche_bank",
-        "hong_leong_bank",
-        "hsbc",
-        "kfh",
-        "maybank2e",
-        "maybank2u",
-        "mbsb_bank",
-        "ocbc",
-        "pb_enterprise",
-        "public_bank",
-        "rhb",
-        "standard_chartered",
-        "uob",
+    bank: Union[
+        Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bnp_paribas",
+            "bsn",
+            "cimb",
+            "citibank",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "mbsb_bank",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ],
+        str,
     ]
     """
     The customer's bank.
@@ -773,28 +760,7 @@ class SetupIntentConfirmParamsPaymentMethodDataGrabpay(TypedDict):
 
 class SetupIntentConfirmParamsPaymentMethodDataIdeal(TypedDict):
     bank: NotRequired[
-        Literal[
-            "abn_amro",
-            "adyen",
-            "asn_bank",
-            "bunq",
-            "buut",
-            "finom",
-            "handelsbanken",
-            "ing",
-            "knab",
-            "mollie",
-            "moneyou",
-            "n26",
-            "nn",
-            "rabobank",
-            "regiobank",
-            "revolut",
-            "sns_bank",
-            "triodos_bank",
-            "van_lanschot",
-            "yoursafe",
-        ]
+        "Literal['abn_amro', 'adyen', 'asn_bank', 'bunq', 'buut', 'finom', 'handelsbanken', 'ing', 'knab', 'mollie', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|str"
     ]
     """
     The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -915,6 +881,10 @@ class SetupIntentConfirmParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -966,6 +936,10 @@ class SetupIntentConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataSequra(TypedDict):
+    pass
 
 
 class SetupIntentConfirmParamsPaymentMethodDataSofort(TypedDict):
@@ -1068,6 +1042,10 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     bizum: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsBizum"]
     """
     If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
+    blik: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsBlik"]
+    """
+    If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     """
     card: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsCard"]
     """
@@ -1193,6 +1171,28 @@ class SetupIntentConfirmParamsPaymentMethodOptionsBizum(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodOptionsBlik(TypedDict):
+    code: NotRequired[str]
+    """
+    The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+    """
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Details of the BLIK mandate
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsBlikMandateOptions(
+    TypedDict
+):
+    expires_at: NotRequired[int]
+    """
+    Expiry date of the mandate.
+    """
+
+
 class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     mandate_options: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsCardMandateOptions"
@@ -1207,21 +1207,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     parameter can only be provided during confirmation.
     """
     network: NotRequired[
-        Literal[
-            "amex",
-            "cartes_bancaires",
-            "diners",
-            "discover",
-            "eftpos_au",
-            "girocard",
-            "interac",
-            "jcb",
-            "link",
-            "mastercard",
-            "unionpay",
-            "unknown",
-            "visa",
-        ]
+        "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'girocard', 'interac', 'jcb', 'link', 'mastercard', 'unionpay', 'unknown', 'visa']|str"
     ]
     """
     Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
@@ -1231,6 +1217,12 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    """
+    setup_credential_usage: NotRequired[
+        "Literal['installment', 'recurring', 'unscheduled']|str"
+    ]
+    """
+    Set to indicate the future transaction type usage for the card being set up.
     """
     three_d_secure: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure"
@@ -1248,7 +1240,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCardMandateOptions(
     """
     Amount to be charged for future payments, specified in the presentment currency.
     """
-    amount_type: Literal["fixed", "maximum"]
+    amount_type: Union[Literal["fixed", "maximum"], str]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -1264,7 +1256,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCardMandateOptions(
     """
     End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
     """
-    interval: Literal["day", "month", "sporadic", "week", "year"]
+    interval: Union[Literal["day", "month", "sporadic", "week", "year"], str]
     """
     Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
     """
@@ -1652,7 +1644,12 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnecti
     """
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -1673,7 +1670,9 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnecti
 class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
     TypedDict,
 ):
-    account_subcategories: NotRequired[List[Literal["checking", "savings"]]]
+    account_subcategories: NotRequired[
+        List[Union[Literal["checking", "savings"], str]]
+    ]
     """
     The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
     """
@@ -1691,7 +1690,9 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountMandateOptions(
 class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(
     TypedDict,
 ):
-    requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
+    requested: NotRequired[
+        List[Union[Literal["ach", "us_domestic_wire"], str]]
+    ]
     """
     Triggers validations to run across the selected networks
     """

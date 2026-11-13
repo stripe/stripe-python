@@ -30,6 +30,12 @@ class ConfigurationCreateParams(RequestOptions):
     """
     Configurations for collecting transactions offline.
     """
+    reader_security: NotRequired[
+        "Literal['']|ConfigurationCreateParamsReaderSecurity"
+    ]
+    """
+    Configurations for reader security settings.
+    """
     reboot_window: NotRequired["ConfigurationCreateParamsRebootWindow"]
     """
     Reboot time settings for readers. that support customized reboot time configuration.
@@ -41,6 +47,10 @@ class ConfigurationCreateParams(RequestOptions):
     stripe_s710: NotRequired["ConfigurationCreateParamsStripeS710"]
     """
     An object containing device type specific settings for Stripe S710 readers.
+    """
+    stripe_t600: NotRequired["ConfigurationCreateParamsStripeT600"]
+    """
+    An object containing device type specific settings for Stripe T600 readers.
     """
     tipping: NotRequired["Literal['']|ConfigurationCreateParamsTipping"]
     """
@@ -89,14 +99,21 @@ class ConfigurationCreateParamsBbposWiseposE(TypedDict):
 class ConfigurationCreateParamsCellular(TypedDict):
     enabled: bool
     """
-    Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+    Determines whether to allow the reader to connect to a cellular network.
     """
 
 
 class ConfigurationCreateParamsOffline(TypedDict):
     enabled: bool
     """
-    Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+    Determines whether to allow transactions to be collected while reader is offline.
+    """
+
+
+class ConfigurationCreateParamsReaderSecurity(TypedDict):
+    admin_menu_passcode: NotRequired["Literal['']|str"]
+    """
+    Passcode used to access a reader's admin menu.
     """
 
 
@@ -119,6 +136,13 @@ class ConfigurationCreateParamsStripeS700(TypedDict):
 
 
 class ConfigurationCreateParamsStripeS710(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationCreateParamsStripeT600(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image you want to display on the reader.

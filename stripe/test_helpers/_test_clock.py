@@ -92,7 +92,7 @@ class TestClock(
 
     @classmethod
     def _cls_advance(
-        cls, test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        cls, test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -111,7 +111,7 @@ class TestClock(
     @overload
     @staticmethod
     def advance(
-        test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -128,7 +128,7 @@ class TestClock(
         ...
 
     @class_method_variant("_cls_advance")
-    def advance(  # pyright: ignore[reportGeneralTypeIssues]
+    def advance(
         self, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
@@ -147,7 +147,7 @@ class TestClock(
 
     @classmethod
     async def _cls_advance_async(
-        cls, test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        cls, test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -166,7 +166,7 @@ class TestClock(
     @overload
     @staticmethod
     async def advance_async(
-        test_clock: str, **params: Unpack["TestClockAdvanceParams"]
+        test_clock: str, /, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -183,7 +183,7 @@ class TestClock(
         ...
 
     @class_method_variant("_cls_advance_async")
-    async def advance_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def advance_async(
         self, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
@@ -232,7 +232,7 @@ class TestClock(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["TestClockDeleteParams"]
+        cls, sid: str, /, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -250,7 +250,7 @@ class TestClock(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["TestClockDeleteParams"]
+        sid: str, /, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -265,9 +265,7 @@ class TestClock(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TestClockDeleteParams"]
-    ) -> "TestClock":
+    def delete(self, **params: Unpack["TestClockDeleteParams"]) -> "TestClock":
         """
         Deletes a test clock.
         """
@@ -279,7 +277,7 @@ class TestClock(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["TestClockDeleteParams"]
+        cls, sid: str, /, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -297,7 +295,7 @@ class TestClock(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["TestClockDeleteParams"]
+        sid: str, /, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -314,7 +312,7 @@ class TestClock(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """

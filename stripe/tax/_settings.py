@@ -102,14 +102,14 @@ class Settings(
     """
     status: Union[Literal["active", "pending"], str]
     """
-    The status of the Tax `Settings`.
+    Whether these settings have the information Stripe Tax needs to calculate tax. It doesn't reflect whether your integration is ready to collect tax.
     """
     status_details: StatusDetails
 
     @classmethod
     def modify(cls, **params: Unpack["SettingsModifyParams"]) -> "Settings":
         """
-        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set. Check the returned Tax Settings object and validate that its status is active.
         """
         return cast(
             "Settings",
@@ -125,7 +125,7 @@ class Settings(
         cls, **params: Unpack["SettingsModifyParams"]
     ) -> "Settings":
         """
-        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set. Check the returned Tax Settings object and validate that its status is active.
         """
         return cast(
             "Settings",

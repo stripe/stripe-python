@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -31,6 +32,7 @@ class PersonService(StripeService):
     def list(
         self,
         account_id: str,
+        /,
         params: Optional["PersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountPerson]":
@@ -53,6 +55,7 @@ class PersonService(StripeService):
     async def list_async(
         self,
         account_id: str,
+        /,
         params: Optional["PersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountPerson]":
@@ -75,6 +78,7 @@ class PersonService(StripeService):
     def create(
         self,
         account_id: str,
+        /,
         params: Optional["PersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -89,7 +93,10 @@ class PersonService(StripeService):
                     account_id=sanitize_id(account_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )
@@ -97,6 +104,7 @@ class PersonService(StripeService):
     async def create_async(
         self,
         account_id: str,
+        /,
         params: Optional["PersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -111,7 +119,10 @@ class PersonService(StripeService):
                     account_id=sanitize_id(account_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )
@@ -120,6 +131,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -144,6 +156,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
@@ -168,6 +181,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -192,6 +206,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -216,6 +231,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -231,7 +247,10 @@ class PersonService(StripeService):
                     id=sanitize_id(id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )
@@ -240,6 +259,7 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
@@ -255,7 +275,10 @@ class PersonService(StripeService):
                     id=sanitize_id(id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )

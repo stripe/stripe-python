@@ -35,11 +35,11 @@ typecheck: install-test-deps install-dev-deps
 
 # ⭐ format all code
 format: install-dev-deps
-    ruff format . --quiet
+    ruff format . > /dev/null
 
 # verify formatting, but don't modify files
 format-check: install-dev-deps
-    ruff format . --check  --quiet
+    ruff format . --check > /dev/null
 
 # remove venv & build artifacts
 clean:
@@ -75,9 +75,6 @@ install group: venv
     # always log deps in CI, but don't do it locally
     python -I -m pip install -r deps/{{ group }}-requirements.txt --disable-pip-version-check {{ if env("CI", "") == "true" {""} else if is_dependency() == "true" {"--quiet"} else {""} }}
 
-update-certs:
-    curl -o stripe/data/ca-certificates.crt https://curl.se/ca/cacert.pem
-
 # create a virtualenv if it doesn't exist; always installs the local package
 [private]
 venv:
@@ -103,3 +100,10 @@ profile-imports name:
 profile name:
     python -m cProfile -o {{ name }}.prof stripe/main.py
     tuna {{ name }}.prof
+
+# ⭐ print the API version this SDK pins and the lowest runtime it supports
+print-version-info:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "pinned-api-version: $(rg -N --color never -m1 -o '[0-9]{4}-[0-9]{2}-[0-9]{2}[.\w-]*' stripe/_api_version.py)"
+    echo "minimum-runtime-version: $(rg -N --color never -o 'requires-python = ">=([^"]+)"' --replace '$1' pyproject.toml)"

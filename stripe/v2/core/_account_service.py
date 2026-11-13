@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -110,7 +111,18 @@ class AccountService(StripeService):
                 "post",
                 "/v2/core/accounts",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "identity": {
+                            "individual": {
+                                "relationship": {
+                                    "percent_ownership": "decimal_string",
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -129,7 +141,18 @@ class AccountService(StripeService):
                 "post",
                 "/v2/core/accounts",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "identity": {
+                            "individual": {
+                                "relationship": {
+                                    "percent_ownership": "decimal_string",
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -137,6 +160,7 @@ class AccountService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -157,6 +181,7 @@ class AccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -177,6 +202,7 @@ class AccountService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -189,7 +215,18 @@ class AccountService(StripeService):
                 "post",
                 "/v2/core/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "identity": {
+                            "individual": {
+                                "relationship": {
+                                    "percent_ownership": "decimal_string",
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -197,6 +234,7 @@ class AccountService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -209,7 +247,18 @@ class AccountService(StripeService):
                 "post",
                 "/v2/core/accounts/{id}".format(id=sanitize_id(id)),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "identity": {
+                            "individual": {
+                                "relationship": {
+                                    "percent_ownership": "decimal_string",
+                                },
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -217,6 +266,7 @@ class AccountService(StripeService):
     def close(
         self,
         id: str,
+        /,
         params: Optional["AccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
@@ -237,6 +287,7 @@ class AccountService(StripeService):
     async def close_async(
         self,
         id: str,
+        /,
         params: Optional["AccountCloseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Account":

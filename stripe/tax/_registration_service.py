@@ -103,6 +103,7 @@ class RegistrationService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["RegistrationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Registration":
@@ -123,6 +124,7 @@ class RegistrationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["RegistrationRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Registration":
@@ -143,6 +145,7 @@ class RegistrationService(StripeService):
     def update(
         self,
         id: str,
+        /,
         params: Optional["RegistrationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Registration":
@@ -165,6 +168,7 @@ class RegistrationService(StripeService):
     async def update_async(
         self,
         id: str,
+        /,
         params: Optional["RegistrationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Registration":

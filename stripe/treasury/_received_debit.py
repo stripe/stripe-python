@@ -23,7 +23,9 @@ if TYPE_CHECKING:
 
 class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
-    ReceivedDebits represent funds pulled from a [FinancialAccount](https://api.stripe.com#financial_accounts). These are not initiated from the FinancialAccount.
+    Legacy ReceivedDebits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Debits](https://docs.stripe.com/api/v2/money-management/received-debits?api-version=preview) instead of building a new v1 integration.
+
+    ReceivedDebits represent funds pulled from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts). These are not initiated from the FinancialAccount.
     """
 
     OBJECT_NAME: ClassVar[Literal["treasury.received_debit"]] = (
@@ -101,7 +103,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         financial_account: Optional[FinancialAccount]
         issuing_card: Optional[str]
         """
-        Set when `type` is `issuing_card`. This is an [Issuing Card](https://api.stripe.com#issuing_cards) ID.
+        Set when `type` is `issuing_card`. This is an [Issuing Card](https://docs.stripe.com/api#issuing_cards) ID.
         """
         type: Union[
             Literal[
@@ -134,19 +136,19 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         issuing_authorization: Optional[str]
         """
-        Set if the ReceivedDebit was created due to an [Issuing Authorization](https://api.stripe.com#issuing_authorizations) object.
+        Set if the ReceivedDebit was created due to an [Issuing Authorization](https://docs.stripe.com/api#issuing_authorizations) object.
         """
         issuing_transaction: Optional[str]
         """
-        Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://api.stripe.com#issuing_disputes) object.
+        Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://docs.stripe.com/api#issuing_disputes) object.
         """
         payout: Optional[str]
         """
-        Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
+        Set if the ReceivedDebit was created due to a [Payout](https://docs.stripe.com/api#payouts) object.
         """
         topup: Optional[str]
         """
-        Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
+        Set if the ReceivedDebit was created due to a [Topup](https://docs.stripe.com/api#topups) object.
         """
 
     class ReversalDetails(StripeObject):

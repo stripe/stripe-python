@@ -23,6 +23,7 @@ class ReaderService(StripeService):
     def present_payment_method(
         self,
         reader: str,
+        /,
         params: Optional["ReaderPresentPaymentMethodParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -45,6 +46,7 @@ class ReaderService(StripeService):
     async def present_payment_method_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderPresentPaymentMethodParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -67,6 +69,7 @@ class ReaderService(StripeService):
     def succeed_input_collection(
         self,
         reader: str,
+        /,
         params: Optional["ReaderSucceedInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -89,6 +92,7 @@ class ReaderService(StripeService):
     async def succeed_input_collection_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderSucceedInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -111,6 +115,7 @@ class ReaderService(StripeService):
     def timeout_input_collection(
         self,
         reader: str,
+        /,
         params: Optional["ReaderTimeoutInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -133,6 +138,7 @@ class ReaderService(StripeService):
     async def timeout_input_collection_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderTimeoutInputCollectionParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":

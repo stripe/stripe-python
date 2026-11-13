@@ -18,7 +18,7 @@ class AccountListExternalAccountsParams(RequestOptions):
     """
     A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     """
-    object: NotRequired[Literal["bank_account", "card"]]
+    object: NotRequired["Literal['bank_account', 'card']|str"]
     """
     Filter external accounts according to a particular object type.
     """

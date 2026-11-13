@@ -839,6 +839,23 @@ class UrlFetchClient(HTTPClient):
         pass
 
 
+def _assert_no_header_injection(headers: Mapping[str, str]) -> None:
+    """Rejects CR, LF and NUL in a header name or value.
+
+    pycurl's HTTPHEADER option takes raw "name: value" strings, assembled
+    here by string formatting rather than passed to a validating library
+    call. A CR or LF in either half would let the remainder be parsed as an
+    additional header line.
+    """
+    for key, value in headers.items():
+        for part in (key, value):
+            if "\r" in part or "\n" in part or "\0" in part:
+                raise ValueError(
+                    "Header names and values may not contain CR, LF or "
+                    "NUL characters."
+                )
+
+
 class PycurlClient(HTTPClient):
     class _ParsedProxy(TypedDict, total=False):
         http: Optional["ParseResult"]
@@ -866,8 +883,6 @@ class PycurlClient(HTTPClient):
             _lib = pycurl
 
         self.pycurl = _lib
-        # Initialize this within the object so that we can reuse connections.
-        self._curl = _lib.Curl()
 
         self._parsed_proxy = {}
         # need to urlparse the proxy, since PyCurl
@@ -880,6 +895,20 @@ class PycurlClient(HTTPClient):
                 # In general, TypedDict.items() gives you (key: str, value: object)
                 # but we know value to be a string because all the value types on Proxy_ are strings.
                 self._parsed_proxy[scheme] = urlparse(cast(str, value))
+
+    def _get_curl(self):
+        """
+        Returns this thread's Curl handle, creating it on first use.
+
+        A libcurl easy handle must never be used by more than one thread at a
+        time, so each thread gets its own. Reusing a handle within a thread
+        lets us keep its established connections.
+        """
+        curl = getattr(self._thread_local, "curl", None)
+        if curl is None:
+            curl = self.pycurl.Curl()
+            self._thread_local.curl = curl
+        return curl
 
     def parse_headers(self, data):
         if "\r\n" not in data:
@@ -939,47 +968,49 @@ class PycurlClient(HTTPClient):
         # pristine state, but notably reset() doesn't reset connections, so we
         # still get to take advantage of those by virtue of re-using the same
         # object.
-        self._curl.reset()
+        curl = self._get_curl()
+        curl.reset()
 
         proxy = self._get_proxy(url)
         if proxy:
             if proxy.hostname:
-                self._curl.setopt(self.pycurl.PROXY, proxy.hostname)
+                curl.setopt(self.pycurl.PROXY, proxy.hostname)
             if proxy.port:
-                self._curl.setopt(self.pycurl.PROXYPORT, proxy.port)
+                curl.setopt(self.pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
-                self._curl.setopt(
+                curl.setopt(
                     self.pycurl.PROXYUSERPWD,
                     "%s:%s" % (proxy.username, proxy.password),
                 )
 
         if method == "get":
-            self._curl.setopt(self.pycurl.HTTPGET, 1)
+            curl.setopt(self.pycurl.HTTPGET, 1)
         elif method == "post":
-            self._curl.setopt(self.pycurl.POST, 1)
-            self._curl.setopt(self.pycurl.POSTFIELDS, post_data)
+            curl.setopt(self.pycurl.POST, 1)
+            curl.setopt(self.pycurl.POSTFIELDS, post_data)
         else:
-            self._curl.setopt(self.pycurl.CUSTOMREQUEST, method.upper())
+            curl.setopt(self.pycurl.CUSTOMREQUEST, method.upper())
 
         # pycurl doesn't like unicode URLs
-        self._curl.setopt(self.pycurl.URL, url)
+        curl.setopt(self.pycurl.URL, url)
 
-        self._curl.setopt(self.pycurl.WRITEFUNCTION, b.write)
-        self._curl.setopt(self.pycurl.HEADERFUNCTION, rheaders.write)
-        self._curl.setopt(self.pycurl.NOSIGNAL, 1)
-        self._curl.setopt(self.pycurl.CONNECTTIMEOUT, 30)
-        self._curl.setopt(self.pycurl.TIMEOUT, 80)
-        self._curl.setopt(
+        curl.setopt(self.pycurl.WRITEFUNCTION, b.write)
+        curl.setopt(self.pycurl.HEADERFUNCTION, rheaders.write)
+        curl.setopt(self.pycurl.NOSIGNAL, 1)
+        curl.setopt(self.pycurl.CONNECTTIMEOUT, 30)
+        curl.setopt(self.pycurl.TIMEOUT, 80)
+        _assert_no_header_injection(headers)
+        curl.setopt(
             self.pycurl.HTTPHEADER,
             ["%s: %s" % (k, v) for k, v in dict(headers).items()],
         )
         if self._verify_ssl_certs:
-            self._curl.setopt(self.pycurl.CAINFO, stripe.ca_bundle_path)
+            curl.setopt(self.pycurl.CAINFO, stripe.ca_bundle_path)
         else:
-            self._curl.setopt(self.pycurl.SSL_VERIFYHOST, False)
+            curl.setopt(self.pycurl.SSL_VERIFYHOST, False)
 
         try:
-            self._curl.perform()
+            curl.perform()
         except self.pycurl.error as e:
             self._handle_request_error(e)
 
@@ -989,7 +1020,7 @@ class PycurlClient(HTTPClient):
         else:
             rcontent = b.getvalue().decode("utf-8")
 
-        rcode = self._curl.getinfo(self.pycurl.RESPONSE_CODE)
+        rcode = curl.getinfo(self.pycurl.RESPONSE_CODE)
         headers = self.parse_headers(rheaders.getvalue().decode("utf-8"))
 
         return rcontent, rcode, headers
@@ -1038,7 +1069,10 @@ class PycurlClient(HTTPClient):
         return None
 
     def close(self):
-        pass
+        curl = getattr(self._thread_local, "curl", None)
+        if curl is not None:
+            curl.close()
+            self._thread_local.curl = None
 
 
 class UrllibClient(HTTPClient):

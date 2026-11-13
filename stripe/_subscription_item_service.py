@@ -30,6 +30,7 @@ class SubscriptionItemService(StripeService):
     def delete(
         self,
         item: str,
+        /,
         params: Optional["SubscriptionItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionItem":
@@ -50,6 +51,7 @@ class SubscriptionItemService(StripeService):
     async def delete_async(
         self,
         item: str,
+        /,
         params: Optional["SubscriptionItemDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionItem":
@@ -70,6 +72,7 @@ class SubscriptionItemService(StripeService):
     def retrieve(
         self,
         item: str,
+        /,
         params: Optional["SubscriptionItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionItem":
@@ -90,6 +93,7 @@ class SubscriptionItemService(StripeService):
     async def retrieve_async(
         self,
         item: str,
+        /,
         params: Optional["SubscriptionItemRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionItem":
@@ -110,6 +114,7 @@ class SubscriptionItemService(StripeService):
     def update(
         self,
         item: str,
+        /,
         params: Optional["SubscriptionItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionItem":
@@ -130,6 +135,7 @@ class SubscriptionItemService(StripeService):
     async def update_async(
         self,
         item: str,
+        /,
         params: Optional["SubscriptionItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "SubscriptionItem":

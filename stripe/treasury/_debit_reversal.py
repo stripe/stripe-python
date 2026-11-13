@@ -26,7 +26,9 @@ class DebitReversal(
     ListableAPIResource["DebitReversal"],
 ):
     """
-    You can reverse some [ReceivedDebits](https://api.stripe.com#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
+    Legacy DebitReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect).
+
+    You can reverse some [ReceivedDebits](https://docs.stripe.com/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
     """
 
     OBJECT_NAME: ClassVar[Literal["treasury.debit_reversal"]] = (

@@ -1,3 +1,5 @@
+import io
+import os
 import sys
 from collections import namedtuple
 
@@ -11,6 +13,8 @@ from stripe._util import (
     log_info,
     log_debug,
     sanitize_id,
+    claude_code_hint_line,
+    _emit_claude_code_hint,
 )
 from stripe import Balance
 from stripe._api_mode import ApiMode
@@ -178,3 +182,36 @@ class TestUtil(object):
     )
     def test_get_api_mode(self, url: str, expected: ApiMode):
         assert get_api_mode(url) == expected
+
+
+class TestEmitClaudeCodeHint:
+    _HINT = claude_code_hint_line()
+
+    def _capture(self, env_vars: dict) -> str:
+        buf = io.StringIO()
+        original = os.environ.copy()
+        try:
+            for k in ("CLAUDECODE", "CLAUDE_CODE_CHILD_SESSION"):
+                os.environ.pop(k, None)
+            os.environ.update(env_vars)
+            old_stderr, sys.stderr = sys.stderr, buf
+            try:
+                _emit_claude_code_hint()
+            finally:
+                sys.stderr = old_stderr
+        finally:
+            os.environ.clear()
+            os.environ.update(original)
+        return buf.getvalue()
+
+    def test_emits_when_CLAUDECODE_set(self):
+        assert self._capture({"CLAUDECODE": "1"}) == self._HINT
+
+    def test_emits_when_CLAUDE_CODE_CHILD_SESSION_set(self):
+        assert (
+            self._capture({"CLAUDE_CODE_CHILD_SESSION": "session-id"})
+            == self._HINT
+        )
+
+    def test_no_emit_without_env_vars(self):
+        assert self._capture({}) == ""

@@ -46,6 +46,7 @@ class ReaderService(StripeService):
     def delete(
         self,
         reader: str,
+        /,
         params: Optional["ReaderDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -68,6 +69,7 @@ class ReaderService(StripeService):
     async def delete_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -90,6 +92,7 @@ class ReaderService(StripeService):
     def retrieve(
         self,
         reader: str,
+        /,
         params: Optional["ReaderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -112,6 +115,7 @@ class ReaderService(StripeService):
     async def retrieve_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -134,6 +138,7 @@ class ReaderService(StripeService):
     def update(
         self,
         reader: str,
+        /,
         params: Optional["ReaderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -156,6 +161,7 @@ class ReaderService(StripeService):
     async def update_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -254,6 +260,7 @@ class ReaderService(StripeService):
     def cancel_action(
         self,
         reader: str,
+        /,
         params: Optional["ReaderCancelActionParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -276,6 +283,7 @@ class ReaderService(StripeService):
     async def cancel_action_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderCancelActionParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -298,6 +306,7 @@ class ReaderService(StripeService):
     def collect_inputs(
         self,
         reader: str,
+        /,
         params: "ReaderCollectInputsParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -320,6 +329,7 @@ class ReaderService(StripeService):
     async def collect_inputs_async(
         self,
         reader: str,
+        /,
         params: "ReaderCollectInputsParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -342,6 +352,7 @@ class ReaderService(StripeService):
     def collect_payment_method(
         self,
         reader: str,
+        /,
         params: "ReaderCollectPaymentMethodParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -364,6 +375,7 @@ class ReaderService(StripeService):
     async def collect_payment_method_async(
         self,
         reader: str,
+        /,
         params: "ReaderCollectPaymentMethodParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -386,6 +398,7 @@ class ReaderService(StripeService):
     def confirm_payment_intent(
         self,
         reader: str,
+        /,
         params: "ReaderConfirmPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -408,6 +421,7 @@ class ReaderService(StripeService):
     async def confirm_payment_intent_async(
         self,
         reader: str,
+        /,
         params: "ReaderConfirmPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -430,6 +444,7 @@ class ReaderService(StripeService):
     def process_payment_intent(
         self,
         reader: str,
+        /,
         params: "ReaderProcessPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -452,6 +467,7 @@ class ReaderService(StripeService):
     async def process_payment_intent_async(
         self,
         reader: str,
+        /,
         params: "ReaderProcessPaymentIntentParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -474,6 +490,7 @@ class ReaderService(StripeService):
     def process_setup_intent(
         self,
         reader: str,
+        /,
         params: "ReaderProcessSetupIntentParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -496,6 +513,7 @@ class ReaderService(StripeService):
     async def process_setup_intent_async(
         self,
         reader: str,
+        /,
         params: "ReaderProcessSetupIntentParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -518,6 +536,7 @@ class ReaderService(StripeService):
     def refund_payment(
         self,
         reader: str,
+        /,
         params: Optional["ReaderRefundPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -540,6 +559,7 @@ class ReaderService(StripeService):
     async def refund_payment_async(
         self,
         reader: str,
+        /,
         params: Optional["ReaderRefundPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -562,6 +582,7 @@ class ReaderService(StripeService):
     def set_reader_display(
         self,
         reader: str,
+        /,
         params: "ReaderSetReaderDisplayParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":
@@ -584,6 +605,7 @@ class ReaderService(StripeService):
     async def set_reader_display_async(
         self,
         reader: str,
+        /,
         params: "ReaderSetReaderDisplayParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Reader":

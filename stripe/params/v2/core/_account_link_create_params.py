@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List, Union
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -11,7 +11,9 @@ class AccountLinkCreateParams(TypedDict):
     """
     use_case: "AccountLinkCreateParamsUseCase"
     """
-    The use case of the AccountLink.
+    Specifies the Stripe-hosted flow for this Account Link. Set `type` and the matching options hash—for example,
+    `account_onboarding`—to configure the flow, including which Account configurations to collect information for and
+    any flow-specific collection or redirect options.
     """
 
 
@@ -38,12 +40,6 @@ class AccountLinkCreateParamsUseCaseAccountOnboarding(TypedDict):
     ]
     """
     Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
-    """
-    configurations: List[
-        Union[Literal["customer", "merchant", "recipient"], str]
-    ]
-    """
-    Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
     """
     refresh_url: str
     """
@@ -74,12 +70,6 @@ class AccountLinkCreateParamsUseCaseAccountUpdate(TypedDict):
     ]
     """
     Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
-    """
-    configurations: List[
-        Union[Literal["customer", "merchant", "recipient"], str]
-    ]
-    """
-    Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
     """
     refresh_url: str
     """

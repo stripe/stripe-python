@@ -48,7 +48,7 @@ class MeterEventAdjustment(StripeObject):
     """
     Open Enum. The meter event adjustment's status.
     """
-    type: Literal["cancel"]
+    type: Union[Literal["cancel"], str]
     """
     Open Enum. Specifies the type of cancellation. Currently supports canceling a single event.
     """

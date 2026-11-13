@@ -41,7 +41,7 @@ class RequestSnapshot:
 
 class MyTestHandler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
-    timeout = 30
+    timeout = 0.5
 
     num_requests = 0
 

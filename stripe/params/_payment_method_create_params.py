@@ -31,11 +31,11 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     alma: NotRequired["PaymentMethodCreateParamsAlma"]
     """
-    If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     """
     amazon_pay: NotRequired["PaymentMethodCreateParamsAmazonPay"]
     """
-    If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     """
     au_becs_debit: NotRequired["PaymentMethodCreateParamsAuBecsDebit"]
     """
@@ -193,6 +193,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["PaymentMethodCreateParamsPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
     payto: NotRequired["PaymentMethodCreateParamsPayto"]
     """
     If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -229,6 +233,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    sequra: NotRequired["PaymentMethodCreateParamsSequra"]
+    """
+    If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+    """
     sofort: NotRequired["PaymentMethodCreateParamsSofort"]
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -246,7 +254,7 @@ class PaymentMethodCreateParams(RequestOptions):
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
     type: NotRequired[
-        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']|str"
+        "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sequra', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']|str"
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -458,36 +466,7 @@ class PaymentMethodCreateParamsCustomerBalance(TypedDict):
 
 class PaymentMethodCreateParamsEps(TypedDict):
     bank: NotRequired[
-        Literal[
-            "arzte_und_apotheker_bank",
-            "austrian_anadi_bank_ag",
-            "bank_austria",
-            "bankhaus_carl_spangler",
-            "bankhaus_schelhammer_und_schattera_ag",
-            "bawag_psk_ag",
-            "bks_bank_ag",
-            "brull_kallmus_bank_ag",
-            "btv_vier_lander_bank",
-            "capital_bank_grawe_gruppe_ag",
-            "deutsche_bank_ag",
-            "dolomitenbank",
-            "easybank_ag",
-            "erste_bank_und_sparkassen",
-            "hypo_alpeadriabank_international_ag",
-            "hypo_bank_burgenland_aktiengesellschaft",
-            "hypo_noe_lb_fur_niederosterreich_u_wien",
-            "hypo_oberosterreich_salzburg_steiermark",
-            "hypo_tirol_bank_ag",
-            "hypo_vorarlberg_bank_ag",
-            "marchfelder_bank",
-            "oberbank_ag",
-            "raiffeisen_bankengruppe_osterreich",
-            "schoellerbank_ag",
-            "sparda_bank_wien",
-            "volksbank_gruppe",
-            "volkskreditbank_ag",
-            "vr_bank_braunau",
-        ]
+        "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|str"
     ]
     """
     The customer's bank.
@@ -495,36 +474,39 @@ class PaymentMethodCreateParamsEps(TypedDict):
 
 
 class PaymentMethodCreateParamsFpx(TypedDict):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Account holder type for FPX transaction
     """
-    bank: Literal[
-        "affin_bank",
-        "agrobank",
-        "alliance_bank",
-        "ambank",
-        "bank_islam",
-        "bank_muamalat",
-        "bank_of_china",
-        "bank_rakyat",
-        "bnp_paribas",
-        "bsn",
-        "cimb",
-        "citibank",
-        "deutsche_bank",
-        "hong_leong_bank",
-        "hsbc",
-        "kfh",
-        "maybank2e",
-        "maybank2u",
-        "mbsb_bank",
-        "ocbc",
-        "pb_enterprise",
-        "public_bank",
-        "rhb",
-        "standard_chartered",
-        "uob",
+    bank: Union[
+        Literal[
+            "affin_bank",
+            "agrobank",
+            "alliance_bank",
+            "ambank",
+            "bank_islam",
+            "bank_muamalat",
+            "bank_of_china",
+            "bank_rakyat",
+            "bnp_paribas",
+            "bsn",
+            "cimb",
+            "citibank",
+            "deutsche_bank",
+            "hong_leong_bank",
+            "hsbc",
+            "kfh",
+            "maybank2e",
+            "maybank2u",
+            "mbsb_bank",
+            "ocbc",
+            "pb_enterprise",
+            "public_bank",
+            "rhb",
+            "standard_chartered",
+            "uob",
+        ],
+        str,
     ]
     """
     The customer's bank.
@@ -541,28 +523,7 @@ class PaymentMethodCreateParamsGrabpay(TypedDict):
 
 class PaymentMethodCreateParamsIdeal(TypedDict):
     bank: NotRequired[
-        Literal[
-            "abn_amro",
-            "adyen",
-            "asn_bank",
-            "bunq",
-            "buut",
-            "finom",
-            "handelsbanken",
-            "ing",
-            "knab",
-            "mollie",
-            "moneyou",
-            "n26",
-            "nn",
-            "rabobank",
-            "regiobank",
-            "revolut",
-            "sns_bank",
-            "triodos_bank",
-            "van_lanschot",
-            "yoursafe",
-        ]
+        "Literal['abn_amro', 'adyen', 'asn_bank', 'bunq', 'buut', 'finom', 'handelsbanken', 'ing', 'knab', 'mollie', 'moneyou', 'n26', 'nn', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|str"
     ]
     """
     The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -683,6 +644,10 @@ class PaymentMethodCreateParamsPaypal(TypedDict):
     pass
 
 
+class PaymentMethodCreateParamsPaypay(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -734,6 +699,10 @@ class PaymentMethodCreateParamsSepaDebit(TypedDict):
     """
     IBAN of the bank account.
     """
+
+
+class PaymentMethodCreateParamsSequra(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsSofort(TypedDict):

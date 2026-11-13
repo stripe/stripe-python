@@ -23,6 +23,7 @@ class InboundTransferService(StripeService):
     def fail(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferFailParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
@@ -45,6 +46,7 @@ class InboundTransferService(StripeService):
     async def fail_async(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferFailParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
@@ -67,6 +69,7 @@ class InboundTransferService(StripeService):
     def return_inbound_transfer(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferReturnInboundTransferParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
@@ -89,6 +92,7 @@ class InboundTransferService(StripeService):
     async def return_inbound_transfer_async(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferReturnInboundTransferParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
@@ -111,6 +115,7 @@ class InboundTransferService(StripeService):
     def succeed(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferSucceedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
@@ -133,6 +138,7 @@ class InboundTransferService(StripeService):
     async def succeed_async(
         self,
         id: str,
+        /,
         params: Optional["InboundTransferSucceedParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":

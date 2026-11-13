@@ -57,6 +57,7 @@ class CountrySpecService(StripeService):
     def retrieve(
         self,
         country: str,
+        /,
         params: Optional["CountrySpecRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CountrySpec":
@@ -79,6 +80,7 @@ class CountrySpecService(StripeService):
     async def retrieve_async(
         self,
         country: str,
+        /,
         params: Optional["CountrySpecRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CountrySpec":

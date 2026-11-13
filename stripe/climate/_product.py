@@ -49,7 +49,7 @@ class Product(ListableAPIResource["Product"]):
     """
     delivery_year: Optional[int]
     """
-    The year in which the carbon removal is expected to be delivered.
+    The year in which the carbon removal is expected to be delivered. If the year is in the past, this represents spot inventory with guaranteed delivery.
     """
     id: str
     """

@@ -24,7 +24,7 @@ class ProductListParams(RequestOptions):
     """
     ids: NotRequired[List[str]]
     """
-    Only return products with the given IDs. Cannot be used with [starting_after](https://api.stripe.com#list_products-starting_after) or [ending_before](https://api.stripe.com#list_products-ending_before).
+    Only return products with the given IDs. Cannot be used with [starting_after](https://docs.stripe.com/api#list_products-starting_after) or [ending_before](https://docs.stripe.com/api#list_products-ending_before).
     """
     limit: NotRequired[int]
     """
@@ -38,7 +38,7 @@ class ProductListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    type: NotRequired[Literal["good", "service"]]
+    type: NotRequired["Literal['good', 'service']|str"]
     """
     Only return products of this type.
     """

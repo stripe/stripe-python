@@ -12,6 +12,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._application import Application
+    from stripe.billing._feedback_option import FeedbackOption
     from stripe.params.billing_portal._configuration_create_params import (
         ConfigurationCreateParams,
     )
@@ -98,6 +99,12 @@ class Configuration(
                 """
                 Whether the feature is enabled.
                 """
+                feedback_options: Optional[
+                    List[ExpandableField["FeedbackOption"]]
+                ]
+                """
+                The IDs of custom feedback options configured for this cancellation reason.
+                """
                 options: List[
                     Union[
                         Literal[
@@ -126,13 +133,44 @@ class Configuration(
             """
             Whether to cancel subscriptions immediately or at the end of the billing period.
             """
-            proration_behavior: Literal[
-                "always_invoice", "create_prorations", "none"
+            proration_behavior: Union[
+                Literal["always_invoice", "create_prorations", "none"], str
             ]
             """
             Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`.
             """
             _inner_class_types = {"cancellation_reason": CancellationReason}
+
+        class SubscriptionPause(StripeObject):
+            class Duration(StripeObject):
+                class IntervalOption(StripeObject):
+                    interval: Union[
+                        Literal["day", "month", "week", "year"], str
+                    ]
+                    """
+                    Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+                    """
+                    interval_count: int
+                    """
+                    The number of intervals in the pause duration. The maximum duration is three years.
+                    """
+
+                interval_options: List[IntervalOption]
+                """
+                The preset pause durations customers can choose from.
+                """
+                type: Union[Literal["indefinite", "interval_options"], str]
+                """
+                Whether subscriptions can be paused indefinitely or for a preset duration.
+                """
+                _inner_class_types = {"interval_options": IntervalOption}
+
+            duration: Duration
+            enabled: bool
+            """
+            Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](https://docs.stripe.com/customer-management).
+            """
+            _inner_class_types = {"duration": Duration}
 
         class SubscriptionUpdate(StripeObject):
             class Product(StripeObject):
@@ -181,7 +219,9 @@ class Configuration(
                 """
                 _inner_class_types = {"conditions": Condition}
 
-            billing_cycle_anchor: Optional[Literal["now", "unchanged"]]
+            billing_cycle_anchor: Optional[
+                Union[Literal["now", "unchanged"], str]
+            ]
             """
             Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
             """
@@ -199,8 +239,8 @@ class Configuration(
             """
             The list of up to 10 products that support subscription updates.
             """
-            proration_behavior: Literal[
-                "always_invoice", "create_prorations", "none"
+            proration_behavior: Union[
+                Literal["always_invoice", "create_prorations", "none"], str
             ]
             """
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
@@ -221,12 +261,14 @@ class Configuration(
         invoice_history: InvoiceHistory
         payment_method_update: PaymentMethodUpdate
         subscription_cancel: SubscriptionCancel
+        subscription_pause: SubscriptionPause
         subscription_update: SubscriptionUpdate
         _inner_class_types = {
             "customer_update": CustomerUpdate,
             "invoice_history": InvoiceHistory,
             "payment_method_update": PaymentMethodUpdate,
             "subscription_cancel": SubscriptionCancel,
+            "subscription_pause": SubscriptionPause,
             "subscription_update": SubscriptionUpdate,
         }
 
@@ -364,7 +406,7 @@ class Configuration(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a configuration that describes the functionality of the customer portal.
@@ -381,7 +423,7 @@ class Configuration(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a configuration that describes the functionality of the customer portal.

@@ -82,7 +82,12 @@ class TaxRate(
     The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
     """
     jurisdiction_level: Optional[
-        Literal["city", "country", "county", "district", "multiple", "state"]
+        Union[
+            Literal[
+                "city", "country", "county", "district", "multiple", "state"
+            ],
+            str,
+        ]
     ]
     """
     The level of the jurisdiction that imposes this tax rate. Will be `null` for manually defined tax rates.
@@ -114,21 +119,33 @@ class TaxRate(
     tax_type: Optional[
         Union[
             Literal[
+                "admissions_tax",
                 "amusement_tax",
+                "attendance_tax",
                 "communications_tax",
+                "digital_excise_tax",
+                "entertainment_tax",
+                "get_fund",
+                "gross_receipts_tax",
                 "gst",
+                "hospitality_tax",
                 "hst",
                 "igst",
                 "jct",
                 "lease_tax",
+                "luxury_tax",
                 "mass_transit_parking_tax",
+                "nhil",
                 "parking_tax",
                 "pst",
                 "qst",
+                "resort_tax",
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
                 "service_tax",
+                "tourism_tax",
+                "utility_users_tax",
                 "vat",
             ],
             str,
@@ -210,7 +227,7 @@ class TaxRate(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["TaxRateModifyParams"]
+        cls, id: str, /, **params: Unpack["TaxRateModifyParams"]
     ) -> "TaxRate":
         """
         Updates an existing tax rate.
@@ -227,7 +244,7 @@ class TaxRate(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["TaxRateModifyParams"]
+        cls, id: str, /, **params: Unpack["TaxRateModifyParams"]
     ) -> "TaxRate":
         """
         Updates an existing tax rate.

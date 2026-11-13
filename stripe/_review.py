@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -117,7 +117,7 @@ class Review(ListableAPIResource["Review"]):
     """
     If `true`, the review needs action.
     """
-    opened_reason: Literal["manual", "rule"]
+    opened_reason: Union[Literal["manual", "rule"], str]
     """
     The reason the review was opened. One of `rule` or `manual`.
     """
@@ -136,7 +136,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     def _cls_approve(
-        cls, review: str, **params: Unpack["ReviewApproveParams"]
+        cls, review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -155,7 +155,7 @@ class Review(ListableAPIResource["Review"]):
     @overload
     @staticmethod
     def approve(
-        review: str, **params: Unpack["ReviewApproveParams"]
+        review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -170,9 +170,7 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @class_method_variant("_cls_approve")
-    def approve(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ReviewApproveParams"]
-    ) -> "Review":
+    def approve(self, **params: Unpack["ReviewApproveParams"]) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
@@ -189,7 +187,7 @@ class Review(ListableAPIResource["Review"]):
 
     @classmethod
     async def _cls_approve_async(
-        cls, review: str, **params: Unpack["ReviewApproveParams"]
+        cls, review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -208,7 +206,7 @@ class Review(ListableAPIResource["Review"]):
     @overload
     @staticmethod
     async def approve_async(
-        review: str, **params: Unpack["ReviewApproveParams"]
+        review: str, /, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -225,7 +223,7 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @class_method_variant("_cls_approve_async")
-    async def approve_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def approve_async(
         self, **params: Unpack["ReviewApproveParams"]
     ) -> "Review":
         """

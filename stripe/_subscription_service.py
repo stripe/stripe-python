@@ -24,6 +24,9 @@ if TYPE_CHECKING:
     from stripe.params._subscription_migrate_params import (
         SubscriptionMigrateParams,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams,
     )
@@ -42,13 +45,14 @@ class SubscriptionService(StripeService):
     def cancel(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
-        Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to false.
+        Pending invoice items are included on a final invoice if you generate one. Otherwise, they remain pending and can be billed on another invoice for the customer. To prevent billing, manually [delete](https://docs.stripe.com/api/invoiceitems/delete) them. If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to false.
 
         By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
         """
@@ -70,13 +74,14 @@ class SubscriptionService(StripeService):
     async def cancel_async(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
-        Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to false.
+        Pending invoice items are included on a final invoice if you generate one. Otherwise, they remain pending and can be billed on another invoice for the customer. To prevent billing, manually [delete](https://docs.stripe.com/api/invoiceitems/delete) them. If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to false.
 
         By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
         """
@@ -98,6 +103,7 @@ class SubscriptionService(StripeService):
     def retrieve(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
@@ -122,6 +128,7 @@ class SubscriptionService(StripeService):
     async def retrieve_async(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
@@ -146,6 +153,7 @@ class SubscriptionService(StripeService):
     def update(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
@@ -154,7 +162,7 @@ class SubscriptionService(StripeService):
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
         To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
 
-        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
 
         Switching prices does not normally change the billing date or generate an immediate charge unless:
 
@@ -190,6 +198,7 @@ class SubscriptionService(StripeService):
     async def update_async(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
@@ -198,7 +207,7 @@ class SubscriptionService(StripeService):
         When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
         To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
 
-        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+        By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
 
         Switching prices does not normally change the billing date or generate an immediate charge unless:
 
@@ -234,6 +243,7 @@ class SubscriptionService(StripeService):
     def delete_discount(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Discount":
@@ -258,6 +268,7 @@ class SubscriptionService(StripeService):
     async def delete_discount_async(
         self,
         subscription_exposed_id: str,
+        /,
         params: Optional["SubscriptionDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Discount":
@@ -414,6 +425,7 @@ class SubscriptionService(StripeService):
     def migrate(
         self,
         subscription: str,
+        /,
         params: "SubscriptionMigrateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
@@ -436,6 +448,7 @@ class SubscriptionService(StripeService):
     async def migrate_async(
         self,
         subscription: str,
+        /,
         params: "SubscriptionMigrateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
@@ -455,9 +468,56 @@ class SubscriptionService(StripeService):
             ),
         )
 
+    def pause(
+        self,
+        subscription: str,
+        /,
+        params: Optional["SubscriptionPauseParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def pause_async(
+        self,
+        subscription: str,
+        /,
+        params: Optional["SubscriptionPauseParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def resume(
         self,
         subscription: str,
+        /,
         params: Optional["SubscriptionResumeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
@@ -480,6 +540,7 @@ class SubscriptionService(StripeService):
     async def resume_async(
         self,
         subscription: str,
+        /,
         params: Optional["SubscriptionResumeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":

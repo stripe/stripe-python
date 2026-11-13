@@ -31,6 +31,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
+        /,
         params: Optional["AccountPersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
@@ -55,6 +56,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
+        /,
         params: Optional["AccountPersonDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
@@ -79,6 +81,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
+        /,
         params: Optional["AccountPersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
@@ -103,6 +106,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
+        /,
         params: Optional["AccountPersonRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
@@ -127,6 +131,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
+        /,
         params: Optional["AccountPersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
@@ -151,6 +156,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
+        /,
         params: Optional["AccountPersonUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
@@ -174,6 +180,7 @@ class AccountPersonService(StripeService):
     def list(
         self,
         account: str,
+        /,
         params: Optional["AccountPersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Person]":
@@ -196,6 +203,7 @@ class AccountPersonService(StripeService):
     async def list_async(
         self,
         account: str,
+        /,
         params: Optional["AccountPersonListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Person]":
@@ -218,6 +226,7 @@ class AccountPersonService(StripeService):
     def create(
         self,
         account: str,
+        /,
         params: Optional["AccountPersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":
@@ -240,6 +249,7 @@ class AccountPersonService(StripeService):
     async def create_async(
         self,
         account: str,
+        /,
         params: Optional["AccountPersonCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Person":

@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -99,7 +99,7 @@ class CreditNoteCreateParamsLine(TypedDict):
     """
     The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and `tax_amounts` is not used.
     """
-    type: Literal["custom_line_item", "invoice_line_item"]
+    type: Union[Literal["custom_line_item", "invoice_line_item"], str]
     """
     Type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. `custom_line_item` is not valid when the invoice is set up with `automatic_tax[enabled]=true`.
     """

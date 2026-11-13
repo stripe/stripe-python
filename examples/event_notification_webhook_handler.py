@@ -25,17 +25,17 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 api_key = os.environ.get("STRIPE_API_KEY", "")
-webhook_secret = os.environ.get("WEBHOOK_SECRET", "")
+webhook_secret = os.environ["WEBHOOK_SECRET"]
 
 client = StripeClient(api_key)
 
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    webhook_body = request.data
-    sig_header = request.headers.get("Stripe-Signature")
-
     try:
+        webhook_body = request.data
+        sig_header = request.headers.get("Stripe-Signature")
+
         event_notif = client.parse_event_notification(
             webhook_body, sig_header, webhook_secret
         )

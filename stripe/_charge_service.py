@@ -63,9 +63,7 @@ class ChargeService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
-        to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
-        object used to request payment.
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -84,9 +82,7 @@ class ChargeService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
-        to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
-        object used to request payment.
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -102,6 +98,7 @@ class ChargeService(StripeService):
     def retrieve(
         self,
         charge: str,
+        /,
         params: Optional["ChargeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -122,6 +119,7 @@ class ChargeService(StripeService):
     async def retrieve_async(
         self,
         charge: str,
+        /,
         params: Optional["ChargeRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -142,6 +140,7 @@ class ChargeService(StripeService):
     def update(
         self,
         charge: str,
+        /,
         params: Optional["ChargeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -162,6 +161,7 @@ class ChargeService(StripeService):
     async def update_async(
         self,
         charge: str,
+        /,
         params: Optional["ChargeUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
@@ -226,15 +226,12 @@ class ChargeService(StripeService):
     def capture(
         self,
         charge: str,
+        /,
         params: Optional["ChargeCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",
@@ -252,15 +249,12 @@ class ChargeService(StripeService):
     async def capture_async(
         self,
         charge: str,
+        /,
         params: Optional["ChargeCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
-        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+        This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
         """
         return cast(
             "Charge",

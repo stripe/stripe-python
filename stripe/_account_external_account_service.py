@@ -33,6 +33,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
+        /,
         params: Optional["AccountExternalAccountDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -57,6 +58,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
+        /,
         params: Optional["AccountExternalAccountDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -81,6 +83,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
+        /,
         params: Optional["AccountExternalAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -105,6 +108,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
+        /,
         params: Optional["AccountExternalAccountRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -129,6 +133,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
+        /,
         params: Optional["AccountExternalAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -160,6 +165,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
+        /,
         params: Optional["AccountExternalAccountUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -190,6 +196,7 @@ class AccountExternalAccountService(StripeService):
     def list(
         self,
         account: str,
+        /,
         params: Optional["AccountExternalAccountListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Union[BankAccount, Card]]":
@@ -212,6 +219,7 @@ class AccountExternalAccountService(StripeService):
     async def list_async(
         self,
         account: str,
+        /,
         params: Optional["AccountExternalAccountListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Union[BankAccount, Card]]":
@@ -234,6 +242,7 @@ class AccountExternalAccountService(StripeService):
     def create(
         self,
         account: str,
+        /,
         params: "AccountExternalAccountCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":
@@ -256,6 +265,7 @@ class AccountExternalAccountService(StripeService):
     async def create_async(
         self,
         account: str,
+        /,
         params: "AccountExternalAccountCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Union[BankAccount, Card]":

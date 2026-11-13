@@ -22,6 +22,8 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     later. You can also store multiple debit cards on a recipient in order to
     transfer to those cards later.
 
+    This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
+
     Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
     """
 
@@ -34,6 +36,9 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         """
 
     account: Optional[ExpandableField["Account"]]
+    """
+    The account this card belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](https://docs.stripe.com/api/external_account_cards/object) where [controller.is_controller](https://docs.stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
+    """
     address_city: Optional[str]
     """
     City/District/Suburb/Town/Village.
@@ -72,7 +77,9 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """
-    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
+    available_payout_methods: Optional[
+        List[Union[Literal["instant", "standard"], str]]
+    ]
     """
     A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     """
@@ -174,7 +181,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["CardDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -192,7 +199,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["CardDeleteParams"]
+        sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -209,7 +216,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
@@ -223,7 +230,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["CardDeleteParams"]
+        cls, sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -241,7 +248,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["CardDeleteParams"]
+        sid: str, /, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -258,7 +265,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """

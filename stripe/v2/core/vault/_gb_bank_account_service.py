@@ -1,0 +1,244 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
+    from stripe.params.v2.core.vault._gb_bank_account_archive_params import (
+        GbBankAccountArchiveParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_create_params import (
+        GbBankAccountCreateParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_list_params import (
+        GbBankAccountListParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
+        GbBankAccountRetrieveParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_unarchive_params import (
+        GbBankAccountUnarchiveParams,
+    )
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.core.vault._gb_bank_account import GbBankAccount
+
+
+class GbBankAccountService(StripeService):
+    def list(
+        self,
+        params: Optional["GbBankAccountListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[GbBankAccount]":
+        """
+        List objects that can be used as destinations for outbound money movement via OutboundPayment.
+        """
+        return cast(
+            "ListObject[GbBankAccount]",
+            self._request(
+                "get",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["GbBankAccountListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[GbBankAccount]":
+        """
+        List objects that can be used as destinations for outbound money movement via OutboundPayment.
+        """
+        return cast(
+            "ListObject[GbBankAccount]",
+            await self._request_async(
+                "get",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def create(
+        self,
+        params: "GbBankAccountCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Create a GB bank account.
+        """
+        return cast(
+            "GbBankAccount",
+            self._request(
+                "post",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "GbBankAccountCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Create a GB bank account.
+        """
+        return cast(
+            "GbBankAccount",
+            await self._request_async(
+                "post",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Retrieve a GB bank account.
+        """
+        return cast(
+            "GbBankAccount",
+            self._request(
+                "get",
+                "/v2/core/vault/gb_bank_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Retrieve a GB bank account.
+        """
+        return cast(
+            "GbBankAccount",
+            await self._request_async(
+                "get",
+                "/v2/core/vault/gb_bank_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def archive(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountArchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
+        and will not appear in the outbound destination list.
+        """
+        return cast(
+            "GbBankAccount",
+            self._request(
+                "post",
+                "/v2/core/vault/gb_bank_accounts/{id}/archive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def archive_async(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountArchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
+        and will not appear in the outbound destination list.
+        """
+        return cast(
+            "GbBankAccount",
+            await self._request_async(
+                "post",
+                "/v2/core/vault/gb_bank_accounts/{id}/archive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def unarchive(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountUnarchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Unarchive a GBBankAccount object.
+        """
+        return cast(
+            "GbBankAccount",
+            self._request(
+                "post",
+                "/v2/core/vault/gb_bank_accounts/{id}/unarchive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def unarchive_async(
+        self,
+        id: str,
+        /,
+        params: Optional["GbBankAccountUnarchiveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
+        """
+        Unarchive a GBBankAccount object.
+        """
+        return cast(
+            "GbBankAccount",
+            await self._request_async(
+                "post",
+                "/v2/core/vault/gb_bank_accounts/{id}/unarchive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )

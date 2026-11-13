@@ -335,6 +335,20 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class PaymentMethodSettings(StripeObject):
+            class Features(StripeObject):
+                disable_stripe_user_authentication: bool
+                """
+                Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Payments(StripeObject):
             class Features(StripeObject):
                 capture_payments: bool
@@ -428,6 +442,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class ReportingChart(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class TaxRegistrations(StripeObject):
             class Features(StripeObject):
                 pass
@@ -440,6 +465,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             _inner_class_types = {"features": Features}
 
         class TaxSettings(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class TerminalHardwareOrders(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class TerminalHardwareShop(StripeObject):
             class Features(StripeObject):
                 pass
 
@@ -464,13 +511,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payment_disputes: PaymentDisputes
+        payment_method_settings: PaymentMethodSettings
         payments: Payments
         payout_details: PayoutDetails
         payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
+        reporting_chart: ReportingChart
         tax_registrations: TaxRegistrations
         tax_settings: TaxSettings
+        terminal_hardware_orders: TerminalHardwareOrders
+        terminal_hardware_shop: TerminalHardwareShop
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
@@ -486,13 +537,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payment_disputes": PaymentDisputes,
+            "payment_method_settings": PaymentMethodSettings,
             "payments": Payments,
             "payout_details": PayoutDetails,
             "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
+            "reporting_chart": ReportingChart,
             "tax_registrations": TaxRegistrations,
             "tax_settings": TaxSettings,
+            "terminal_hardware_orders": TerminalHardwareOrders,
+            "terminal_hardware_shop": TerminalHardwareShop,
         }
 
     account: str
@@ -526,7 +581,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",
@@ -542,7 +597,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
-        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
         return cast(
             "AccountSession",

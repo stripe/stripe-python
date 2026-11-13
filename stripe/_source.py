@@ -28,9 +28,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     just like a `Card` object: once chargeable, they can be charged, or can be
     attached to customers.
 
-    Stripe doesn't recommend using the deprecated [Sources API](https://docs.stripe.com/api/sources).
-    We recommend that you adopt the [PaymentMethods API](https://docs.stripe.com/api/payment_methods).
-    This newer API provides access to our latest features and payment method types.
+    This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
 
     Related guides: [Sources API](https://docs.stripe.com/sources) and [Sources & Customers](https://docs.stripe.com/sources/customers).
     """
@@ -565,26 +563,29 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     The status of the source, one of `canceled`, `chargeable`, `consumed`, `failed`, or `pending`. Only `chargeable` sources can be used to create a charge.
     """
     three_d_secure: Optional[ThreeDSecure]
-    type: Literal[
-        "ach_credit_transfer",
-        "ach_debit",
-        "acss_debit",
-        "alipay",
-        "au_becs_debit",
-        "bancontact",
-        "card",
-        "card_present",
-        "eps",
-        "giropay",
-        "ideal",
-        "klarna",
-        "multibanco",
-        "p24",
-        "sepa_credit_transfer",
-        "sepa_debit",
-        "sofort",
-        "three_d_secure",
-        "wechat",
+    type: Union[
+        Literal[
+            "ach_credit_transfer",
+            "ach_debit",
+            "acss_debit",
+            "alipay",
+            "au_becs_debit",
+            "bancontact",
+            "card",
+            "card_present",
+            "eps",
+            "giropay",
+            "ideal",
+            "klarna",
+            "multibanco",
+            "p24",
+            "sepa_credit_transfer",
+            "sepa_debit",
+            "sofort",
+            "three_d_secure",
+            "wechat",
+        ],
+        str,
     ]
     """
     The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://docs.stripe.com/sources) used.
@@ -629,6 +630,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def _cls_list_source_transactions(
         cls,
         source: str,
+        /,
         **params: Unpack["SourceListSourceTransactionsParams"],
     ) -> ListObject["SourceTransaction"]:
         """
@@ -648,7 +650,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     def list_source_transactions(
-        source: str, **params: Unpack["SourceListSourceTransactionsParams"]
+        source: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -665,7 +667,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_list_source_transactions")
-    def list_source_transactions(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_source_transactions(
         self, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
@@ -686,6 +688,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     async def _cls_list_source_transactions_async(
         cls,
         source: str,
+        /,
         **params: Unpack["SourceListSourceTransactionsParams"],
     ) -> ListObject["SourceTransaction"]:
         """
@@ -705,7 +708,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     async def list_source_transactions_async(
-        source: str, **params: Unpack["SourceListSourceTransactionsParams"]
+        source: str, /, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -722,7 +725,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_list_source_transactions_async")
-    async def list_source_transactions_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_source_transactions_async(
         self, **params: Unpack["SourceListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
         """
@@ -741,7 +744,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SourceModifyParams"]
+        cls, id: str, /, **params: Unpack["SourceModifyParams"]
     ) -> "Source":
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -760,7 +763,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SourceModifyParams"]
+        cls, id: str, /, **params: Unpack["SourceModifyParams"]
     ) -> "Source":
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -801,7 +804,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     def _cls_verify(
-        cls, source: str, **params: Unpack["SourceVerifyParams"]
+        cls, source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -820,7 +823,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     def verify(
-        source: str, **params: Unpack["SourceVerifyParams"]
+        source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -835,9 +838,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_verify")
-    def verify(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SourceVerifyParams"]
-    ) -> "Source":
+    def verify(self, **params: Unpack["SourceVerifyParams"]) -> "Source":
         """
         Verify a given source.
         """
@@ -854,7 +855,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
 
     @classmethod
     async def _cls_verify_async(
-        cls, source: str, **params: Unpack["SourceVerifyParams"]
+        cls, source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -873,7 +874,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @overload
     @staticmethod
     async def verify_async(
-        source: str, **params: Unpack["SourceVerifyParams"]
+        source: str, /, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """
         Verify a given source.
@@ -890,7 +891,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_verify_async")
-    async def verify_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def verify_async(
         self, **params: Unpack["SourceVerifyParams"]
     ) -> "Source":
         """

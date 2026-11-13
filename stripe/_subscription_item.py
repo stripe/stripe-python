@@ -52,6 +52,20 @@ class SubscriptionItem(
         Usage threshold that triggers the subscription to create an invoice
         """
 
+    class CurrentTrial(StripeObject):
+        end_date: int
+        """
+        The time the current trial ends.
+        """
+        start_date: int
+        """
+        The time the current trial started.
+        """
+        trial_offer: str
+        """
+        The Trial Offer ID applied to the subscription item.
+        """
+
     billed_until: Optional[int]
     """
     The time period the subscription item has been billed for.
@@ -71,6 +85,10 @@ class SubscriptionItem(
     current_period_start: int
     """
     The start time of this subscription item's current billing period.
+    """
+    current_trial: Optional[CurrentTrial]
+    """
+    The current trial that is applied to this subscription item.
     """
     deleted: Optional[Literal[True]]
     """
@@ -94,10 +112,10 @@ class SubscriptionItem(
     """
     plan: "Plan"
     """
-    You can now model subscriptions more flexibly using the [Prices API](https://api.stripe.com#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
 
     Plans define the base price, currency, and billing cycle for recurring purchases of products.
-    [Products](https://api.stripe.com#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+    [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
 
     For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
 
@@ -106,7 +124,7 @@ class SubscriptionItem(
     price: "Price"
     """
     Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.
-    [Products](https://api.stripe.com#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
+    [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
 
     For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
 
@@ -159,7 +177,7 @@ class SubscriptionItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -177,7 +195,7 @@ class SubscriptionItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -194,7 +212,7 @@ class SubscriptionItem(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
@@ -208,7 +226,7 @@ class SubscriptionItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        cls, sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -226,7 +244,7 @@ class SubscriptionItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
+        sid: str, /, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -243,7 +261,7 @@ class SubscriptionItem(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
@@ -297,7 +315,7 @@ class SubscriptionItem(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SubscriptionItemModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionItemModifyParams"]
     ) -> "SubscriptionItem":
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -314,7 +332,7 @@ class SubscriptionItem(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SubscriptionItemModifyParams"]
+        cls, id: str, /, **params: Unpack["SubscriptionItemModifyParams"]
     ) -> "SubscriptionItem":
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -351,4 +369,7 @@ class SubscriptionItem(
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"billing_thresholds": BillingThresholds}
+    _inner_class_types = {
+        "billing_thresholds": BillingThresholds,
+        "current_trial": CurrentTrial,
+    }

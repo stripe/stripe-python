@@ -375,9 +375,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnersh
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -388,9 +388,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -401,9 +401,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumO
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -414,9 +414,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMinisterial
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -427,9 +427,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyRegistratio
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -440,9 +440,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerifi
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -453,9 +453,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificatio
 ):
     front_back: "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
-    type: Literal["front_back"]
+    type: Union[Literal["front_back"], str]
     """
     The format of the verification document. Currently supports `front_back` only.
     """
@@ -466,11 +466,11 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificatio
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -479,9 +479,9 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -492,7 +492,7 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistratio
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
@@ -500,7 +500,7 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistratio
     """
     Person that is signing the document.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -520,7 +520,7 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBen
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
     signer: NotRequired[
         "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
@@ -528,7 +528,7 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBen
     """
     Person that is signing the document.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -1046,9 +1046,9 @@ class AccountTokenCreateParamsIdentityIndividualDocumentsCompanyAuthorization(
 ):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -1057,9 +1057,9 @@ class AccountTokenCreateParamsIdentityIndividualDocumentsCompanyAuthorization(
 class AccountTokenCreateParamsIdentityIndividualDocumentsPassport(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """
@@ -1070,9 +1070,9 @@ class AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerification(
 ):
     front_back: "AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
-    type: Literal["front_back"]
+    type: Union[Literal["front_back"], str]
     """
     The format of the verification document. Currently supports `front_back` only.
     """
@@ -1083,11 +1083,11 @@ class AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerificationFron
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -1096,9 +1096,9 @@ class AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerification(
 ):
     front_back: "AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBack"
     """
-    The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+    The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
     """
-    type: Literal["front_back"]
+    type: Union[Literal["front_back"], str]
     """
     The format of the verification document. Currently supports `front_back` only.
     """
@@ -1109,20 +1109,20 @@ class AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerificationFr
 ):
     back: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountTokenCreateParamsIdentityIndividualDocumentsVisa(TypedDict):
     files: List[str]
     """
-    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
     """
-    type: Literal["files"]
+    type: Union[Literal["files"], str]
     """
     The format of the document. Currently supports `files` only.
     """

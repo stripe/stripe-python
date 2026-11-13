@@ -59,6 +59,7 @@ class VerificationReportService(StripeService):
     def retrieve(
         self,
         report: str,
+        /,
         params: Optional["VerificationReportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationReport":
@@ -81,6 +82,7 @@ class VerificationReportService(StripeService):
     async def retrieve_async(
         self,
         report: str,
+        /,
         params: Optional["VerificationReportRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "VerificationReport":

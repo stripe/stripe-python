@@ -140,7 +140,7 @@ class Session(
             """
             The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
             """
-            type: Literal["file", "url"]
+            type: Union[Literal["file", "url"], str]
             """
             The type of image for the icon. Must be one of `file` or `url`.
             """
@@ -154,7 +154,7 @@ class Session(
             """
             The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
             """
-            type: Literal["file", "url"]
+            type: Union[Literal["file", "url"], str]
             """
             The type of image for the logo. Must be one of `file` or `url`.
             """
@@ -167,7 +167,7 @@ class Session(
         """
         A hex color value starting with `#` representing the background color for the Checkout Session.
         """
-        border_style: Literal["pill", "rectangular", "rounded"]
+        border_style: Union[Literal["pill", "rectangular", "rounded"], str]
         """
         The border style for the Checkout Session. Must be one of `rounded`, `rectangular`, or `pill`.
         """
@@ -243,7 +243,7 @@ class Session(
         _inner_class_types = {"shipping_details": ShippingDetails}
 
     class Consent(StripeObject):
-        promotions: Optional[Literal["opt_in", "opt_out"]]
+        promotions: Optional[Union[Literal["opt_in", "opt_out"], str]]
         """
         If `opt_in`, the customer consents to receiving promotional communications
         from the merchant about this Checkout Session.
@@ -255,7 +255,7 @@ class Session(
 
     class ConsentCollection(StripeObject):
         class PaymentMethodReuseAgreement(StripeObject):
-            position: Literal["auto", "hidden"]
+            position: Union[Literal["auto", "hidden"], str]
             """
             Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's defaults will be used.
 
@@ -266,13 +266,13 @@ class Session(
         """
         If set to `hidden`, it will hide legal text related to the reuse of a payment method.
         """
-        promotions: Optional[Literal["auto", "none"]]
+        promotions: Optional[Union[Literal["auto", "none"], str]]
         """
         If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         Session will determine whether to display an option to opt into promotional communication
         from the merchant depending on the customer's locale. Only available to US merchants and US customers.
         """
-        terms_of_service: Optional[Literal["none", "required"]]
+        terms_of_service: Optional[Union[Literal["none", "required"], str]]
         """
         If set to `required`, it requires customers to accept the terms of service before being able to pay.
         """
@@ -328,7 +328,7 @@ class Session(
         class Label(StripeObject):
             custom: Optional[str]
             """
-            Custom text for the label, displayed to the customer. Up to 50 characters.
+            Custom text for the label, displayed to the customer. Up to 100 characters.
             """
             type: Literal["custom"]
             """
@@ -470,128 +470,149 @@ class Session(
             """
 
         class TaxId(StripeObject):
-            type: Literal[
-                "ad_nrt",
-                "ae_trn",
-                "al_tin",
-                "am_tin",
-                "ao_tin",
-                "ar_cuit",
-                "au_abn",
-                "au_arn",
-                "aw_tin",
-                "az_tin",
-                "ba_tin",
-                "bb_tin",
-                "bd_bin",
-                "bf_ifu",
-                "bg_uic",
-                "bh_vat",
-                "bj_ifu",
-                "bo_tin",
-                "br_cnpj",
-                "br_cpf",
-                "bs_tin",
-                "by_tin",
-                "ca_bn",
-                "ca_gst_hst",
-                "ca_pst_bc",
-                "ca_pst_mb",
-                "ca_pst_sk",
-                "ca_qst",
-                "cd_nif",
-                "ch_uid",
-                "ch_vat",
-                "cl_tin",
-                "cm_niu",
-                "cn_tin",
-                "co_nit",
-                "cr_tin",
-                "cv_nif",
-                "de_stn",
-                "do_rcn",
-                "ec_ruc",
-                "eg_tin",
-                "es_cif",
-                "et_tin",
-                "eu_oss_vat",
-                "eu_vat",
-                "fo_vat",
-                "gb_vat",
-                "ge_vat",
-                "gi_tin",
-                "gn_nif",
-                "hk_br",
-                "hr_oib",
-                "hu_tin",
-                "ic_nif",
-                "id_npwp",
-                "il_vat",
-                "in_gst",
-                "is_vat",
-                "it_cf",
-                "jp_cn",
-                "jp_rn",
-                "jp_trn",
-                "ke_pin",
-                "kg_tin",
-                "kh_tin",
-                "kr_brn",
-                "kz_bin",
-                "la_tin",
-                "li_uid",
-                "li_vat",
-                "lk_vat",
-                "ma_vat",
-                "md_vat",
-                "me_pib",
-                "mk_vat",
-                "mr_nif",
-                "mx_rfc",
-                "my_frp",
-                "my_itn",
-                "my_sst",
-                "ng_tin",
-                "no_vat",
-                "no_voec",
-                "np_pan",
-                "nz_gst",
-                "om_vat",
-                "pe_ruc",
-                "ph_tin",
-                "pl_nip",
-                "py_ruc",
-                "ro_tin",
-                "rs_pib",
-                "ru_inn",
-                "ru_kpp",
-                "sa_vat",
-                "sg_gst",
-                "sg_uen",
-                "si_tin",
-                "sn_ninea",
-                "sr_fin",
-                "sv_nit",
-                "th_vat",
-                "tj_tin",
-                "tr_tin",
-                "tw_vat",
-                "tz_vat",
-                "ua_vat",
-                "ug_tin",
-                "unknown",
-                "us_ein",
-                "uy_ruc",
-                "uz_tin",
-                "uz_vat",
-                "ve_rif",
-                "vn_tin",
-                "za_vat",
-                "zm_tin",
-                "zw_tin",
+            type: Union[
+                Literal[
+                    "ad_nrt",
+                    "ae_trn",
+                    "al_tin",
+                    "am_tin",
+                    "ao_tin",
+                    "ar_cuit",
+                    "au_abn",
+                    "au_acn",
+                    "au_arn",
+                    "au_wpn",
+                    "aw_tin",
+                    "az_tin",
+                    "ba_tin",
+                    "bb_tin",
+                    "bd_bin",
+                    "bf_ifu",
+                    "bg_uic",
+                    "bh_vat",
+                    "bj_ifu",
+                    "bo_tin",
+                    "br_cnpj",
+                    "br_cpf",
+                    "bs_tin",
+                    "bw_vat",
+                    "by_tin",
+                    "ca_bn",
+                    "ca_gst_hst",
+                    "ca_pst_bc",
+                    "ca_pst_mb",
+                    "ca_pst_sk",
+                    "ca_qst",
+                    "cd_nif",
+                    "ch_uid",
+                    "ch_vat",
+                    "ci_vat",
+                    "cl_tin",
+                    "cm_niu",
+                    "cn_tin",
+                    "co_nit",
+                    "cr_tin",
+                    "cv_nif",
+                    "cz_dic",
+                    "de_stn",
+                    "do_rcn",
+                    "ec_ruc",
+                    "eg_tin",
+                    "es_cif",
+                    "et_tin",
+                    "eu_oss_vat",
+                    "eu_vat",
+                    "fo_vat",
+                    "fr_siren",
+                    "fr_siret",
+                    "fr_spi",
+                    "gb_vat",
+                    "ge_vat",
+                    "gh_tin",
+                    "gi_tin",
+                    "gn_nif",
+                    "hk_br",
+                    "hr_oib",
+                    "hu_tin",
+                    "ic_nif",
+                    "id_npwp",
+                    "il_vat",
+                    "in_gst",
+                    "is_kt",
+                    "is_vat",
+                    "it_cf",
+                    "jp_cn",
+                    "jp_rn",
+                    "jp_trn",
+                    "ke_pin",
+                    "kg_tin",
+                    "kh_tin",
+                    "kr_brn",
+                    "kz_bin",
+                    "la_tin",
+                    "li_uid",
+                    "li_vat",
+                    "lk_vat",
+                    "ma_vat",
+                    "md_cf",
+                    "md_vat",
+                    "me_pib",
+                    "mk_vat",
+                    "mr_nif",
+                    "mu_vat",
+                    "mx_rfc",
+                    "my_frp",
+                    "my_itn",
+                    "my_sst",
+                    "mz_nuit",
+                    "ng_tin",
+                    "no_vat",
+                    "no_voec",
+                    "np_pan",
+                    "nz_bn",
+                    "nz_gst",
+                    "om_vat",
+                    "pe_ruc",
+                    "ph_tin",
+                    "pl_nip",
+                    "pt_nif",
+                    "py_ruc",
+                    "ro_tin",
+                    "rs_pib",
+                    "ru_inn",
+                    "ru_kpp",
+                    "sa_vat",
+                    "sg_gst",
+                    "sg_uen",
+                    "si_tin",
+                    "sm_coe",
+                    "sn_ninea",
+                    "sr_fin",
+                    "sv_nit",
+                    "th_vat",
+                    "tj_tin",
+                    "tr_tin",
+                    "tt_bir",
+                    "tt_vat",
+                    "tw_vat",
+                    "tz_vat",
+                    "ua_vat",
+                    "ug_tin",
+                    "unknown",
+                    "us_ein",
+                    "uy_ruc",
+                    "uz_tin",
+                    "uz_vat",
+                    "ve_rif",
+                    "vn_tin",
+                    "za_vat",
+                    "zm_tin",
+                    "zw_tin",
+                ],
+                str,
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, `gh_tin`, `bw_vat`, `ci_vat`, or `unknown`
             """
             value: Optional[str]
             """
@@ -623,7 +644,7 @@ class Session(
         """
         The customer's phone number after a completed Checkout Session.
         """
-        tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
+        tax_exempt: Optional[Union[Literal["exempt", "none", "reverse"], str]]
         """
         The customer's tax exempt status after a completed Checkout Session.
         """
@@ -869,7 +890,7 @@ class Session(
             """
 
         class Alipay(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -947,7 +968,9 @@ class Session(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Bancontact(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -992,16 +1015,25 @@ class Session(
             class Restrictions(StripeObject):
                 brands_blocked: Optional[
                     List[
-                        Literal[
-                            "american_express",
-                            "discover_global_network",
-                            "mastercard",
-                            "visa",
+                        Union[
+                            Literal[
+                                "american_express",
+                                "discover_global_network",
+                                "mastercard",
+                                "visa",
+                            ],
+                            str,
                         ]
                     ]
                 ]
                 """
                 The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+                """
+                funding_types_blocked: Optional[
+                    List[Union[Literal["credit", "debit", "prepaid"], str]]
+                ]
+                """
+                Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
                 """
 
             capture_method: Optional[Literal["manual"]]
@@ -1084,7 +1116,9 @@ class Session(
         class CustomerBalance(StripeObject):
             class BankTransfer(StripeObject):
                 class EuBankTransfer(StripeObject):
-                    country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                    country: Union[
+                        Literal["BE", "DE", "ES", "FR", "IE", "NL"], str
+                    ]
                     """
                     The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                     """
@@ -1641,6 +1675,12 @@ class Session(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Sequra(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class Sofort(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -1799,11 +1839,11 @@ class Session(
             """
             The app ID registered with WeChat Pay. Only required when client is iOS or Android.
             """
-            client: Optional[Literal["android", "ios", "web"]]
+            client: Optional[Union[Literal["android", "ios", "web"], str]]
             """
             The client type that the end customer will pay from
             """
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Union[Literal["none"], str]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1853,6 +1893,7 @@ class Session(
         satispay: Optional[Satispay]
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
+        sequra: Optional[Sequra]
         sofort: Optional[Sofort]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
@@ -1900,6 +1941,7 @@ class Session(
             "satispay": Satispay,
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
+            "sequra": Sequra,
             "sofort": Sofort,
             "sunbit": Sunbit,
             "swish": Swish,
@@ -1911,14 +1953,14 @@ class Session(
 
     class Permissions(StripeObject):
         update_shipping_details: Optional[
-            Literal["client_only", "server_only"]
+            Union[Literal["client_only", "server_only"], str]
         ]
         """
         Determines which entity is allowed to update the shipping details.
 
         Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        This parameter is only supported when `ui_mode=elements`.
         """
 
     class PhoneNumberCollection(StripeObject):
@@ -2301,7 +2343,7 @@ class Session(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+                A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
                 Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -2395,6 +2437,10 @@ class Session(
     """
     Enables user redeemable promotion codes.
     """
+    allowed_payment_method_types: Optional[List[str]]
+    """
+    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+    """
     amount_subtotal: Optional[int]
     """
     Total of all items before discounts or taxes are applied.
@@ -2452,7 +2498,7 @@ class Session(
     """
     custom_fields: List[CustomField]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: CustomText
     customer: Optional[ExpandableField["Customer"]]
@@ -2537,6 +2583,7 @@ class Session(
                 "fil",
                 "fr",
                 "fr-CA",
+                "hi-IN",
                 "hr",
                 "hu",
                 "id",
@@ -2607,7 +2654,7 @@ class Session(
         Union[Literal["always", "if_required"], str]
     ]
     """
-    Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
+    Configure whether a Checkout Session should collect a payment method. Can only be set in `subscription` mode. Defaults to `always`.
     """
     payment_method_configuration_details: Optional[
         PaymentMethodConfigurationDetails
@@ -2673,7 +2720,7 @@ class Session(
     """
     The shipping rate options applied to this Session.
     """
-    status: Optional[Literal["complete", "expired", "open"]]
+    status: Optional[Union[Literal["complete", "expired", "open"], str]]
     """
     The status of the Checkout Session, one of `open`, `complete`, or `expired`.
     """
@@ -2747,7 +2794,7 @@ class Session(
 
     @classmethod
     def _cls_expire(
-        cls, session: str, **params: Unpack["SessionExpireParams"]
+        cls, session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2768,7 +2815,7 @@ class Session(
     @overload
     @staticmethod
     def expire(
-        session: str, **params: Unpack["SessionExpireParams"]
+        session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2787,9 +2834,7 @@ class Session(
         ...
 
     @class_method_variant("_cls_expire")
-    def expire(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SessionExpireParams"]
-    ) -> "Session":
+    def expire(self, **params: Unpack["SessionExpireParams"]) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
 
@@ -2808,7 +2853,7 @@ class Session(
 
     @classmethod
     async def _cls_expire_async(
-        cls, session: str, **params: Unpack["SessionExpireParams"]
+        cls, session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2829,7 +2874,7 @@ class Session(
     @overload
     @staticmethod
     async def expire_async(
-        session: str, **params: Unpack["SessionExpireParams"]
+        session: str, /, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2850,7 +2895,7 @@ class Session(
         ...
 
     @class_method_variant("_cls_expire_async")
-    async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def expire_async(
         self, **params: Unpack["SessionExpireParams"]
     ) -> "Session":
         """
@@ -2911,7 +2956,7 @@ class Session(
 
     @classmethod
     def _cls_list_line_items(
-        cls, session: str, **params: Unpack["SessionListLineItemsParams"]
+        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2930,7 +2975,7 @@ class Session(
     @overload
     @staticmethod
     def list_line_items(
-        session: str, **params: Unpack["SessionListLineItemsParams"]
+        session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2947,7 +2992,7 @@ class Session(
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
+    def list_line_items(
         self, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -2966,7 +3011,7 @@ class Session(
 
     @classmethod
     async def _cls_list_line_items_async(
-        cls, session: str, **params: Unpack["SessionListLineItemsParams"]
+        cls, session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2985,7 +3030,7 @@ class Session(
     @overload
     @staticmethod
     async def list_line_items_async(
-        session: str, **params: Unpack["SessionListLineItemsParams"]
+        session: str, /, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3002,7 +3047,7 @@ class Session(
         ...
 
     @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def list_line_items_async(
         self, **params: Unpack["SessionListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
@@ -3021,7 +3066,7 @@ class Session(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SessionModifyParams"]
+        cls, id: str, /, **params: Unpack["SessionModifyParams"]
     ) -> "Session":
         """
         Updates a Checkout Session object.
@@ -3040,7 +3085,7 @@ class Session(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SessionModifyParams"]
+        cls, id: str, /, **params: Unpack["SessionModifyParams"]
     ) -> "Session":
         """
         Updates a Checkout Session object.

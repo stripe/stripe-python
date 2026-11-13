@@ -28,8 +28,13 @@ class TestFileUpload(object):
         self,
         file_stripe_mock_stripe_client,
         http_client_mock,
+        monkeypatch,
     ):
-        MultipartDataGenerator._initialize_boundary = lambda self: 1234567890
+        monkeypatch.setattr(
+            MultipartDataGenerator,
+            "_initialize_boundary",
+            lambda self: "abc123",
+        )
         test_file = tempfile.TemporaryFile()
 
         # We create a new client here instead of re-using the stripe_mock_stripe_client fixture
@@ -46,6 +51,6 @@ class TestFileUpload(object):
             "post",
             api_base=stripe.upload_api_base,
             path="/v1/files",
-            content_type="multipart/form-data; boundary=1234567890",
+            content_type="multipart/form-data; boundary=abc123",
         )
         assert isinstance(resource, File)

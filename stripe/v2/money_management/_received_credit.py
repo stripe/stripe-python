@@ -1,0 +1,266 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
+from typing import ClassVar, Optional, Union
+from typing_extensions import Literal
+
+
+class ReceivedCredit(StripeObject):
+    """
+    Use ReceivedCredits API to retrieve information on when, where, and how funds are sent into your FinancialAccount.
+    """
+
+    OBJECT_NAME: ClassVar[Literal["v2.money_management.received_credit"]] = (
+        "v2.money_management.received_credit"
+    )
+
+    class BalanceTransfer(StripeObject):
+        from_account: Optional[str]
+        """
+        The ID of the account that owns the source object originated the ReceivedCredit.
+        """
+        outbound_payment: Optional[str]
+        """
+        The ID of the outbound payment object that originated the ReceivedCredit.
+        """
+        outbound_transfer: Optional[str]
+        """
+        The ID of the outbound transfer object that originated the ReceivedCredit.
+        """
+        payout: Optional[str]
+        """
+        The ID of the payout object that originated the ReceivedCredit.
+        """
+        transfer: Optional[str]
+        """
+        The ID of the v1 transfer object that originated the ReceivedCredit.
+        """
+        type: Union[
+            Literal[
+                "outbound_payment", "outbound_transfer", "payout", "transfer"
+            ],
+            str,
+        ]
+        """
+        Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
+        """
+
+    class BankTransfer(StripeObject):
+        class OriginatingBankAccount(StripeObject):
+            class Aba(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that sent the payment.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                routing_number: Optional[str]
+                """
+                The routing number of the account that originated the transfer.
+                """
+
+            class Iban(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The account holder name of the bank account the transfer was received from.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                bic: Optional[str]
+                """
+                The BIC/SWIFT code of the account that originated the transfer.
+                """
+                country: Optional[str]
+                """
+                The origination country of the bank transfer.
+                """
+                iban: Optional[str]
+                """
+                The IBAN that originated the transfer.
+                """
+
+            class SortCode(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The account holder name of the bank account the transfer was received from.
+                """
+                bank_name: Optional[str]
+                """
+                The bank name the transfer was received from.
+                """
+                last4: Optional[str]
+                """
+                The last 4 digits of the account number that originated the transfer.
+                """
+                sort_code: Optional[str]
+                """
+                The sort code of the account that originated the transfer.
+                """
+
+            aba: Optional[Aba]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `aba`.
+            """
+            iban: Optional[Iban]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `iban`.
+            """
+            sort_code: Optional[SortCode]
+            """
+            Hash containing the transaction bank details. Present if `type` field value is `sort_code`.
+            """
+            type: Union[Literal["aba", "iban", "sort_code"], str]
+            """
+            Open Enum. The type of bank transfer that originated this ReceivedCredit.
+            """
+            _inner_class_types = {
+                "aba": Aba,
+                "iban": Iban,
+                "sort_code": SortCode,
+            }
+
+        financial_address: str
+        """
+        Financial Address on which funds for ReceivedCredit were received.
+        """
+        network: Union[
+            Literal[
+                "ach", "chaps", "fedwire", "fps", "rtp", "sepa", "sepa_instant"
+            ],
+            str,
+        ]
+        """
+        The money transmission network used to send funds for this ReceivedCredit.
+        """
+        originating_bank_account: OriginatingBankAccount
+        """
+        Hash containing the originating bank account details and type for this bank transfer.
+        """
+        statement_descriptor: Optional[str]
+        """
+        Freeform string set by originator of the external ReceivedCredit.
+        """
+        _inner_class_types = {
+            "originating_bank_account": OriginatingBankAccount,
+        }
+
+    class StatusDetails(StripeObject):
+        class Failed(StripeObject):
+            reason: Union[
+                Literal[
+                    "capability_inactive",
+                    "currency_unsupported_on_financial_address",
+                    "financial_address_inactive",
+                    "stripe_rejected",
+                ],
+                str,
+            ]
+            """
+            Open Enum. The `failed` status reason.
+            """
+
+        class Returned(StripeObject):
+            reason: Union[Literal["originator_initiated_reversal"], str]
+            """
+            Open Enum. The `returned` status reason.
+            """
+
+        failed: Optional[Failed]
+        """
+        Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
+        """
+        returned: Optional[Returned]
+        """
+        Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
+        """
+        _inner_class_types = {"failed": Failed, "returned": Returned}
+
+    class StatusTransitions(StripeObject):
+        failed_at: Optional[str]
+        """
+        Timestamp describing when the ReceivedCredit was marked as `failed`.
+        Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        """
+        returned_at: Optional[str]
+        """
+        Timestamp describing when the ReceivedCredit changed status to `returned`.
+        Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        """
+        succeeded_at: Optional[str]
+        """
+        Timestamp describing when the ReceivedCredit was marked as `succeeded`.
+        Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        """
+
+    amount: Amount
+    """
+    The amount and currency credited to the FinancialAccount.
+    """
+    amount_received: Amount
+    """
+    The amount and currency Stripe received from the external source, before any conversion or fees.
+    """
+    balance_transfer: Optional[BalanceTransfer]
+    """
+    This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
+    """
+    bank_transfer: Optional[BankTransfer]
+    """
+    This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
+    """
+    created: str
+    """
+    Time at which the ReceivedCredit was created.
+    Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    description: Optional[str]
+    """
+    Freeform string set by originator of the ReceivedCredit.
+    """
+    financial_account: str
+    """
+    Financial Account ID on which funds for ReceivedCredit were received.
+    """
+    id: str
+    """
+    Unique identifier for the ReceivedCredit.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    object: Literal["v2.money_management.received_credit"]
+    """
+    String representing the object's type. Objects of the same type share the same value of the object field.
+    """
+    status: Union[Literal["failed", "pending", "returned", "succeeded"], str]
+    """
+    Open Enum. The status of the ReceivedCredit.
+    """
+    status_details: Optional[StatusDetails]
+    """
+    This hash contains detailed information that elaborates on the specific status of the ReceivedCredit. e.g the reason behind a failure if the status is marked as `failed`.
+    """
+    status_transitions: Optional[StatusTransitions]
+    """
+    Hash containing timestamps of when the object transitioned to a particular status.
+    """
+    type: Union[Literal["balance_transfer", "bank_transfer"], str]
+    """
+    Open Enum. The type of flow that caused the ReceivedCredit.
+    """
+    _inner_class_types = {
+        "balance_transfer": BalanceTransfer,
+        "bank_transfer": BankTransfer,
+        "status_details": StatusDetails,
+        "status_transitions": StatusTransitions,
+    }

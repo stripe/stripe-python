@@ -26,6 +26,16 @@ if TYPE_CHECKING:
     from stripe.params.tax._calculation_retrieve_params import (
         CalculationRetrieveParams as CalculationRetrieveParams,
     )
+    from stripe.params.tax._location_create_params import (
+        LocationCreateParams as LocationCreateParams,
+        LocationCreateParamsAddress as LocationCreateParamsAddress,
+    )
+    from stripe.params.tax._location_list_params import (
+        LocationListParams as LocationListParams,
+    )
+    from stripe.params.tax._location_retrieve_params import (
+        LocationRetrieveParams as LocationRetrieveParams,
+    )
     from stripe.params.tax._registration_create_params import (
         RegistrationCreateParams as RegistrationCreateParams,
         RegistrationCreateParamsCountryOptions as RegistrationCreateParamsCountryOptions,
@@ -60,6 +70,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsBj as RegistrationCreateParamsCountryOptionsBj,
         RegistrationCreateParamsCountryOptionsBs as RegistrationCreateParamsCountryOptionsBs,
         RegistrationCreateParamsCountryOptionsBsStandard as RegistrationCreateParamsCountryOptionsBsStandard,
+        RegistrationCreateParamsCountryOptionsBw as RegistrationCreateParamsCountryOptionsBw,
         RegistrationCreateParamsCountryOptionsBy as RegistrationCreateParamsCountryOptionsBy,
         RegistrationCreateParamsCountryOptionsCa as RegistrationCreateParamsCountryOptionsCa,
         RegistrationCreateParamsCountryOptionsCaProvinceStandard as RegistrationCreateParamsCountryOptionsCaProvinceStandard,
@@ -67,6 +78,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsCdStandard as RegistrationCreateParamsCountryOptionsCdStandard,
         RegistrationCreateParamsCountryOptionsCh as RegistrationCreateParamsCountryOptionsCh,
         RegistrationCreateParamsCountryOptionsChStandard as RegistrationCreateParamsCountryOptionsChStandard,
+        RegistrationCreateParamsCountryOptionsCi as RegistrationCreateParamsCountryOptionsCi,
         RegistrationCreateParamsCountryOptionsCl as RegistrationCreateParamsCountryOptionsCl,
         RegistrationCreateParamsCountryOptionsCm as RegistrationCreateParamsCountryOptionsCm,
         RegistrationCreateParamsCountryOptionsCo as RegistrationCreateParamsCountryOptionsCo,
@@ -95,6 +107,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsGb as RegistrationCreateParamsCountryOptionsGb,
         RegistrationCreateParamsCountryOptionsGbStandard as RegistrationCreateParamsCountryOptionsGbStandard,
         RegistrationCreateParamsCountryOptionsGe as RegistrationCreateParamsCountryOptionsGe,
+        RegistrationCreateParamsCountryOptionsGh as RegistrationCreateParamsCountryOptionsGh,
         RegistrationCreateParamsCountryOptionsGn as RegistrationCreateParamsCountryOptionsGn,
         RegistrationCreateParamsCountryOptionsGnStandard as RegistrationCreateParamsCountryOptionsGnStandard,
         RegistrationCreateParamsCountryOptionsGr as RegistrationCreateParamsCountryOptionsGr,
@@ -136,6 +149,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsMrStandard as RegistrationCreateParamsCountryOptionsMrStandard,
         RegistrationCreateParamsCountryOptionsMt as RegistrationCreateParamsCountryOptionsMt,
         RegistrationCreateParamsCountryOptionsMtStandard as RegistrationCreateParamsCountryOptionsMtStandard,
+        RegistrationCreateParamsCountryOptionsMu as RegistrationCreateParamsCountryOptionsMu,
         RegistrationCreateParamsCountryOptionsMx as RegistrationCreateParamsCountryOptionsMx,
         RegistrationCreateParamsCountryOptionsMy as RegistrationCreateParamsCountryOptionsMy,
         RegistrationCreateParamsCountryOptionsNg as RegistrationCreateParamsCountryOptionsNg,
@@ -179,12 +193,21 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsUa as RegistrationCreateParamsCountryOptionsUa,
         RegistrationCreateParamsCountryOptionsUg as RegistrationCreateParamsCountryOptionsUg,
         RegistrationCreateParamsCountryOptionsUs as RegistrationCreateParamsCountryOptionsUs,
+        RegistrationCreateParamsCountryOptionsUsAdmissionsTax as RegistrationCreateParamsCountryOptionsUsAdmissionsTax,
+        RegistrationCreateParamsCountryOptionsUsAttendanceTax as RegistrationCreateParamsCountryOptionsUsAttendanceTax,
+        RegistrationCreateParamsCountryOptionsUsEntertainmentTax as RegistrationCreateParamsCountryOptionsUsEntertainmentTax,
+        RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax as RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax,
+        RegistrationCreateParamsCountryOptionsUsHospitalityTax as RegistrationCreateParamsCountryOptionsUsHospitalityTax,
         RegistrationCreateParamsCountryOptionsUsLocalAmusementTax as RegistrationCreateParamsCountryOptionsUsLocalAmusementTax,
         RegistrationCreateParamsCountryOptionsUsLocalLeaseTax as RegistrationCreateParamsCountryOptionsUsLocalLeaseTax,
+        RegistrationCreateParamsCountryOptionsUsLuxuryTax as RegistrationCreateParamsCountryOptionsUsLuxuryTax,
         RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax as RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax,
         RegistrationCreateParamsCountryOptionsUsParkingTax as RegistrationCreateParamsCountryOptionsUsParkingTax,
+        RegistrationCreateParamsCountryOptionsUsResortTax as RegistrationCreateParamsCountryOptionsUsResortTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTax as RegistrationCreateParamsCountryOptionsUsStateSalesTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection as RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection,
+        RegistrationCreateParamsCountryOptionsUsTourismTax as RegistrationCreateParamsCountryOptionsUsTourismTax,
+        RegistrationCreateParamsCountryOptionsUsUtilityUsersTax as RegistrationCreateParamsCountryOptionsUsUtilityUsersTax,
         RegistrationCreateParamsCountryOptionsUy as RegistrationCreateParamsCountryOptionsUy,
         RegistrationCreateParamsCountryOptionsUyStandard as RegistrationCreateParamsCountryOptionsUyStandard,
         RegistrationCreateParamsCountryOptionsUz as RegistrationCreateParamsCountryOptionsUz,
@@ -288,6 +311,19 @@ _import_map = {
     ),
     "CalculationRetrieveParams": (
         "stripe.params.tax._calculation_retrieve_params",
+        False,
+    ),
+    "LocationCreateParams": (
+        "stripe.params.tax._location_create_params",
+        False,
+    ),
+    "LocationCreateParamsAddress": (
+        "stripe.params.tax._location_create_params",
+        False,
+    ),
+    "LocationListParams": ("stripe.params.tax._location_list_params", False),
+    "LocationRetrieveParams": (
+        "stripe.params.tax._location_retrieve_params",
         False,
     ),
     "RegistrationCreateParams": (
@@ -422,6 +458,10 @@ _import_map = {
         "stripe.params.tax._registration_create_params",
         False,
     ),
+    "RegistrationCreateParamsCountryOptionsBw": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
     "RegistrationCreateParamsCountryOptionsBy": (
         "stripe.params.tax._registration_create_params",
         False,
@@ -447,6 +487,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsChStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCi": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
@@ -559,6 +603,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsGe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGh": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
@@ -723,6 +771,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsMtStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMu": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
@@ -898,11 +950,35 @@ _import_map = {
         "stripe.params.tax._registration_create_params",
         False,
     ),
+    "RegistrationCreateParamsCountryOptionsUsAdmissionsTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsAttendanceTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsEntertainmentTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsHospitalityTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
     "RegistrationCreateParamsCountryOptionsUsLocalAmusementTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
     "RegistrationCreateParamsCountryOptionsUsLocalLeaseTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsLuxuryTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
@@ -914,11 +990,23 @@ _import_map = {
         "stripe.params.tax._registration_create_params",
         False,
     ),
+    "RegistrationCreateParamsCountryOptionsUsResortTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
     "RegistrationCreateParamsCountryOptionsUsStateSalesTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
     "RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsTourismTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsUtilityUsersTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),

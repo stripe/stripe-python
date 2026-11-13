@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -20,6 +21,7 @@ class PersonTokenService(StripeService):
     def create(
         self,
         account_id: str,
+        /,
         params: Optional["PersonTokenCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":
@@ -35,7 +37,10 @@ class PersonTokenService(StripeService):
                     account_id=sanitize_id(account_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )
@@ -43,6 +48,7 @@ class PersonTokenService(StripeService):
     async def create_async(
         self,
         account_id: str,
+        /,
         params: Optional["PersonTokenCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":
@@ -58,7 +64,10 @@ class PersonTokenService(StripeService):
                     account_id=sanitize_id(account_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"relationship": {"percent_ownership": "decimal_string"}},
+                ),
                 options=options,
             ),
         )
@@ -67,6 +76,7 @@ class PersonTokenService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":
@@ -91,6 +101,7 @@ class PersonTokenService(StripeService):
         self,
         account_id: str,
         id: str,
+        /,
         params: Optional["PersonTokenRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPersonToken":

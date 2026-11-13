@@ -83,209 +83,226 @@ class Reader(
         class ApiError(StripeObject):
             advice_code: Optional[str]
             """
-            For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+            For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
             """
             charge: Optional[str]
             """
             For card errors, the ID of the failed charge.
             """
             code: Optional[
-                Literal[
-                    "account_closed",
-                    "account_country_invalid_address",
-                    "account_error_country_change_requires_additional_steps",
-                    "account_information_mismatch",
-                    "account_invalid",
-                    "account_number_invalid",
-                    "account_token_required_for_v2_account",
-                    "acss_debit_session_incomplete",
-                    "action_blocked",
-                    "alipay_upgrade_required",
-                    "amount_too_large",
-                    "amount_too_small",
-                    "anomalous_money_movement_request",
-                    "api_key_expired",
-                    "application_fees_not_allowed",
-                    "approval_required",
-                    "authentication_required",
-                    "balance_insufficient",
-                    "balance_invalid_parameter",
-                    "bank_account_bad_routing_numbers",
-                    "bank_account_declined",
-                    "bank_account_exists",
-                    "bank_account_restricted",
-                    "bank_account_unusable",
-                    "bank_account_unverified",
-                    "bank_account_verification_failed",
-                    "billing_invalid_mandate",
-                    "bitcoin_upgrade_required",
-                    "capture_charge_authorization_expired",
-                    "capture_unauthorized_payment",
-                    "card_decline_rate_limit_exceeded",
-                    "card_declined",
-                    "cardholder_phone_number_required",
-                    "charge_already_captured",
-                    "charge_already_refunded",
-                    "charge_disputed",
-                    "charge_exceeds_source_limit",
-                    "charge_exceeds_transaction_limit",
-                    "charge_expired_for_capture",
-                    "charge_invalid_parameter",
-                    "charge_not_refundable",
-                    "clearing_code_unsupported",
-                    "country_code_invalid",
-                    "country_unsupported",
-                    "coupon_expired",
-                    "customer_max_payment_methods",
-                    "customer_max_subscriptions",
-                    "customer_session_expired",
-                    "customer_tax_location_invalid",
-                    "debit_not_authorized",
-                    "email_invalid",
-                    "expired_card",
-                    "failed_tax_calculation",
-                    "financial_account_balance_does_not_support_currency",
-                    "financial_account_capability_not_enabled",
-                    "financial_account_capability_restricted",
-                    "financial_connections_account_inactive",
-                    "financial_connections_account_pending_account_numbers",
-                    "financial_connections_account_unavailable_account_numbers",
-                    "financial_connections_no_successful_transaction_refresh",
-                    "forwarding_api_inactive",
-                    "forwarding_api_invalid_parameter",
-                    "forwarding_api_retryable_upstream_error",
-                    "forwarding_api_upstream_connection_error",
-                    "forwarding_api_upstream_connection_timeout",
-                    "forwarding_api_upstream_error",
-                    "idempotency_key_in_use",
-                    "incorrect_address",
-                    "incorrect_cvc",
-                    "incorrect_number",
-                    "incorrect_zip",
-                    "india_recurring_payment_mandate_canceled",
-                    "instant_payouts_config_disabled",
-                    "instant_payouts_currency_disabled",
-                    "instant_payouts_limit_exceeded",
-                    "instant_payouts_unsupported",
-                    "insufficient_funds",
-                    "intent_invalid_state",
-                    "intent_verification_method_missing",
-                    "invalid_card_type",
-                    "invalid_characters",
-                    "invalid_charge_amount",
-                    "invalid_cvc",
-                    "invalid_expiry_month",
-                    "invalid_expiry_year",
-                    "invalid_mandate_reference_prefix_format",
-                    "invalid_number",
-                    "invalid_source_usage",
-                    "invalid_tax_location",
-                    "invoice_no_customer_line_items",
-                    "invoice_no_payment_method_types",
-                    "invoice_no_subscription_line_items",
-                    "invoice_not_editable",
-                    "invoice_on_behalf_of_not_editable",
-                    "invoice_payment_intent_requires_action",
-                    "invoice_upcoming_none",
-                    "livemode_mismatch",
-                    "lock_timeout",
-                    "missing",
-                    "no_account",
-                    "not_allowed_on_standard_account",
-                    "out_of_inventory",
-                    "ownership_declaration_not_allowed",
-                    "parameter_invalid_empty",
-                    "parameter_invalid_integer",
-                    "parameter_invalid_string_blank",
-                    "parameter_invalid_string_empty",
-                    "parameter_missing",
-                    "parameter_unknown",
-                    "parameters_exclusive",
-                    "payment_intent_action_required",
-                    "payment_intent_authentication_failure",
-                    "payment_intent_incompatible_payment_method",
-                    "payment_intent_invalid_parameter",
-                    "payment_intent_konbini_rejected_confirmation_number",
-                    "payment_intent_mandate_invalid",
-                    "payment_intent_payment_attempt_expired",
-                    "payment_intent_payment_attempt_failed",
-                    "payment_intent_rate_limit_exceeded",
-                    "payment_intent_unexpected_state",
-                    "payment_method_bank_account_already_verified",
-                    "payment_method_bank_account_blocked",
-                    "payment_method_billing_details_address_missing",
-                    "payment_method_configuration_failures",
-                    "payment_method_currency_mismatch",
-                    "payment_method_customer_decline",
-                    "payment_method_invalid_parameter",
-                    "payment_method_invalid_parameter_testmode",
-                    "payment_method_microdeposit_failed",
-                    "payment_method_microdeposit_processing_error",
-                    "payment_method_microdeposit_verification_amounts_invalid",
-                    "payment_method_microdeposit_verification_amounts_mismatch",
-                    "payment_method_microdeposit_verification_attempts_exceeded",
-                    "payment_method_microdeposit_verification_descriptor_code_mismatch",
-                    "payment_method_microdeposit_verification_timeout",
-                    "payment_method_not_available",
-                    "payment_method_provider_decline",
-                    "payment_method_provider_timeout",
-                    "payment_method_unactivated",
-                    "payment_method_unexpected_state",
-                    "payment_method_unsupported_type",
-                    "payout_reconciliation_not_ready",
-                    "payouts_limit_exceeded",
-                    "payouts_not_allowed",
-                    "platform_account_required",
-                    "platform_api_key_expired",
-                    "postal_code_invalid",
-                    "processing_error",
-                    "product_inactive",
-                    "progressive_onboarding_limit_exceeded",
-                    "rate_limit",
-                    "refer_to_customer",
-                    "refund_disputed_payment",
-                    "request_blocked",
-                    "resource_already_exists",
-                    "resource_missing",
-                    "return_intent_already_processed",
-                    "routing_number_invalid",
-                    "secret_key_required",
-                    "sepa_unsupported_account",
-                    "service_period_coupon_with_metered_tiered_item_unsupported",
-                    "setup_attempt_failed",
-                    "setup_intent_authentication_failure",
-                    "setup_intent_invalid_parameter",
-                    "setup_intent_mandate_invalid",
-                    "setup_intent_mobile_wallet_unsupported",
-                    "setup_intent_setup_attempt_expired",
-                    "setup_intent_unexpected_state",
-                    "shipping_address_invalid",
-                    "shipping_calculation_failed",
-                    "siret_invalid",
-                    "sku_inactive",
-                    "state_unsupported",
-                    "status_transition_invalid",
-                    "storer_capability_missing",
-                    "storer_capability_not_active",
-                    "stripe_tax_inactive",
-                    "tax_id_invalid",
-                    "tax_id_prohibited",
-                    "taxes_calculation_failed",
-                    "terminal_location_country_unsupported",
-                    "terminal_reader_busy",
-                    "terminal_reader_hardware_fault",
-                    "terminal_reader_invalid_location_for_activation",
-                    "terminal_reader_invalid_location_for_payment",
-                    "terminal_reader_offline",
-                    "terminal_reader_timeout",
-                    "testmode_charges_only",
-                    "tls_version_unsupported",
-                    "token_already_used",
-                    "token_card_network_invalid",
-                    "token_in_use",
-                    "transfer_source_balance_parameters_mismatch",
-                    "transfers_not_allowed",
-                    "url_invalid",
+                Union[
+                    Literal[
+                        "account_closed",
+                        "account_country_invalid_address",
+                        "account_error_country_change_requires_additional_steps",
+                        "account_information_mismatch",
+                        "account_invalid",
+                        "account_number_invalid",
+                        "account_token_required_for_v2_account",
+                        "acss_debit_session_incomplete",
+                        "action_blocked",
+                        "alipay_upgrade_required",
+                        "amount_too_large",
+                        "amount_too_small",
+                        "anomalous_money_movement_request",
+                        "api_key_expired",
+                        "application_fees_not_allowed",
+                        "approval_required",
+                        "authentication_failure",
+                        "authentication_required",
+                        "balance_insufficient",
+                        "balance_invalid_parameter",
+                        "bank_account_bad_routing_numbers",
+                        "bank_account_declined",
+                        "bank_account_exists",
+                        "bank_account_restricted",
+                        "bank_account_unusable",
+                        "bank_account_unverified",
+                        "bank_account_verification_failed",
+                        "billing_invalid_mandate",
+                        "bitcoin_upgrade_required",
+                        "capability_not_active",
+                        "capture_charge_authorization_expired",
+                        "capture_unauthorized_payment",
+                        "card_decline_rate_limit_exceeded",
+                        "card_declined",
+                        "cardholder_phone_number_required",
+                        "charge_already_captured",
+                        "charge_already_refunded",
+                        "charge_disputed",
+                        "charge_exceeds_source_limit",
+                        "charge_exceeds_transaction_limit",
+                        "charge_expired_for_capture",
+                        "charge_invalid_parameter",
+                        "charge_not_refundable",
+                        "clearing_code_unsupported",
+                        "country_code_invalid",
+                        "country_unsupported",
+                        "coupon_expired",
+                        "customer_max_payment_methods",
+                        "customer_max_subscriptions",
+                        "customer_session_expired",
+                        "customer_tax_location_invalid",
+                        "debit_not_authorized",
+                        "dispute_evidence_page_limit_exceeded",
+                        "email_invalid",
+                        "expired_card",
+                        "expired_payment_method",
+                        "failed_tax_calculation",
+                        "financial_account_balance_does_not_support_currency",
+                        "financial_account_capability_not_enabled",
+                        "financial_account_capability_restricted",
+                        "financial_connections_account_inactive",
+                        "financial_connections_account_pending_account_numbers",
+                        "financial_connections_account_unavailable_account_numbers",
+                        "financial_connections_consent_locale_invalid",
+                        "financial_connections_consent_locale_unsupported",
+                        "financial_connections_no_successful_transaction_refresh",
+                        "forwarding_api_inactive",
+                        "forwarding_api_invalid_parameter",
+                        "forwarding_api_retryable_upstream_error",
+                        "forwarding_api_upstream_connection_error",
+                        "forwarding_api_upstream_connection_timeout",
+                        "forwarding_api_upstream_error",
+                        "idempotency_key_in_use",
+                        "incorrect_address",
+                        "incorrect_cvc",
+                        "incorrect_number",
+                        "incorrect_postal_code",
+                        "incorrect_zip",
+                        "india_recurring_payment_mandate_canceled",
+                        "instant_payouts_config_disabled",
+                        "instant_payouts_currency_disabled",
+                        "instant_payouts_limit_exceeded",
+                        "instant_payouts_unsupported",
+                        "insufficient_funds",
+                        "intent_invalid_state",
+                        "intent_verification_method_missing",
+                        "invalid_canceled_subscription_fields",
+                        "invalid_card_type",
+                        "invalid_characters",
+                        "invalid_charge_amount",
+                        "invalid_cvc",
+                        "invalid_expiry_month",
+                        "invalid_expiry_year",
+                        "invalid_mandate_reference_prefix_format",
+                        "invalid_number",
+                        "invalid_source_usage",
+                        "invalid_tax_location",
+                        "invoice_no_customer_line_items",
+                        "invoice_no_payment_method_types",
+                        "invoice_no_subscription_line_items",
+                        "invoice_not_editable",
+                        "invoice_on_behalf_of_not_editable",
+                        "invoice_payment_intent_requires_action",
+                        "invoice_upcoming_none",
+                        "livemode_mismatch",
+                        "lock_timeout",
+                        "missing",
+                        "no_account",
+                        "not_allowed_on_standard_account",
+                        "out_of_inventory",
+                        "ownership_declaration_not_allowed",
+                        "parameter_invalid_empty",
+                        "parameter_invalid_integer",
+                        "parameter_invalid_string_blank",
+                        "parameter_invalid_string_empty",
+                        "parameter_missing",
+                        "parameter_unknown",
+                        "parameters_exclusive",
+                        "payment_evaluation_on_api_version_not_supported",
+                        "payment_intent_action_required",
+                        "payment_intent_authentication_failure",
+                        "payment_intent_incompatible_payment_method",
+                        "payment_intent_invalid_parameter",
+                        "payment_intent_konbini_rejected_confirmation_number",
+                        "payment_intent_mandate_invalid",
+                        "payment_intent_payment_attempt_expired",
+                        "payment_intent_payment_attempt_failed",
+                        "payment_intent_rate_limit_exceeded",
+                        "payment_intent_unexpected_state",
+                        "payment_method_bank_account_already_verified",
+                        "payment_method_bank_account_blocked",
+                        "payment_method_billing_details_address_missing",
+                        "payment_method_configuration_failures",
+                        "payment_method_currency_mismatch",
+                        "payment_method_customer_decline",
+                        "payment_method_invalid_parameter",
+                        "payment_method_invalid_parameter_testmode",
+                        "payment_method_microdeposit_failed",
+                        "payment_method_microdeposit_processing_error",
+                        "payment_method_microdeposit_verification_amounts_invalid",
+                        "payment_method_microdeposit_verification_amounts_mismatch",
+                        "payment_method_microdeposit_verification_attempts_exceeded",
+                        "payment_method_microdeposit_verification_descriptor_code_mismatch",
+                        "payment_method_microdeposit_verification_timeout",
+                        "payment_method_not_available",
+                        "payment_method_provider_decline",
+                        "payment_method_provider_timeout",
+                        "payment_method_restricted",
+                        "payment_method_unactivated",
+                        "payment_method_unexpected_state",
+                        "payment_method_unsupported_type",
+                        "payout_reconciliation_not_ready",
+                        "payouts_limit_exceeded",
+                        "payouts_not_allowed",
+                        "platform_account_required",
+                        "platform_api_key_expired",
+                        "postal_code_invalid",
+                        "processing_error",
+                        "product_inactive",
+                        "progressive_onboarding_limit_exceeded",
+                        "rate_limit",
+                        "refer_to_customer",
+                        "refund_disputed_payment",
+                        "request_blocked",
+                        "resource_already_exists",
+                        "resource_missing",
+                        "return_intent_already_processed",
+                        "routing_number_invalid",
+                        "secret_key_required",
+                        "sepa_unsupported_account",
+                        "service_period_coupon_with_metered_tiered_item_unsupported",
+                        "setup_attempt_failed",
+                        "setup_intent_authentication_failure",
+                        "setup_intent_invalid_parameter",
+                        "setup_intent_mandate_invalid",
+                        "setup_intent_mobile_wallet_unsupported",
+                        "setup_intent_setup_attempt_expired",
+                        "setup_intent_unexpected_state",
+                        "shipping_address_invalid",
+                        "shipping_calculation_failed",
+                        "siret_invalid",
+                        "sku_inactive",
+                        "smart_disputes_not_available",
+                        "state_unsupported",
+                        "status_transition_invalid",
+                        "storer_capability_missing",
+                        "storer_capability_not_active",
+                        "stripe_tax_inactive",
+                        "subscription_update_trial_after_billing_cycle_anchor",
+                        "tax_id_invalid",
+                        "tax_id_prohibited",
+                        "taxes_calculation_failed",
+                        "terminal_location_country_unsupported",
+                        "terminal_reader_busy",
+                        "terminal_reader_hardware_fault",
+                        "terminal_reader_invalid_location_for_activation",
+                        "terminal_reader_invalid_location_for_payment",
+                        "terminal_reader_offline",
+                        "terminal_reader_timeout",
+                        "testmode_charges_only",
+                        "three_d_secure_authentication_not_supported",
+                        "three_d_secure_authentication_upstream_error",
+                        "tls_version_unsupported",
+                        "token_already_used",
+                        "token_card_network_invalid",
+                        "token_in_use",
+                        "transfer_source_balance_parameters_mismatch",
+                        "transfers_not_allowed",
+                        "url_invalid",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -349,7 +366,7 @@ class Reader(
             """
             A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
             For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-            Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+            Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
 
             Create a SetupIntent when you're ready to collect your customer's payment credentials.
             Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -360,9 +377,9 @@ class Reader(
             For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
             [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
             to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-            If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+            If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
             it automatically attaches the resulting payment method to that Customer after successful setup.
-            We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+            We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
             PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
             By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -370,11 +387,14 @@ class Reader(
             Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
             """
             source: Optional[Union["Account", "BankAccount", "Card", "Source"]]
-            type: Literal[
-                "api_error",
-                "card_error",
-                "idempotency_error",
-                "invalid_request_error",
+            type: Union[
+                Literal[
+                    "api_error",
+                    "card_error",
+                    "idempotency_error",
+                    "invalid_request_error",
+                ],
+                str,
             ]
             """
             The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
@@ -521,13 +541,16 @@ class Reader(
                 """
                 List of toggles being collected. Values are present if collection is complete.
                 """
-                type: Literal[
-                    "email",
-                    "numeric",
-                    "phone",
-                    "selection",
-                    "signature",
-                    "text",
+                type: Union[
+                    Literal[
+                        "email",
+                        "numeric",
+                        "phone",
+                        "selection",
+                        "signature",
+                        "text",
+                    ],
+                    str,
                 ]
                 """
                 Type of input being collected.
@@ -720,7 +743,12 @@ class Reader(
             Payment intent that is being refunded.
             """
             reason: Optional[
-                Literal["duplicate", "fraudulent", "requested_by_customer"]
+                Union[
+                    Literal[
+                        "duplicate", "fraudulent", "requested_by_customer"
+                    ],
+                    str,
+                ]
             ]
             """
             The reason for the refund.
@@ -883,6 +911,7 @@ class Reader(
             "mobile_phone_reader",
             "simulated_stripe_s700",
             "simulated_stripe_s710",
+            "simulated_stripe_t600",
             "simulated_verifone_m425",
             "simulated_verifone_p630",
             "simulated_verifone_ux700",
@@ -891,6 +920,7 @@ class Reader(
             "stripe_m2",
             "stripe_s700",
             "stripe_s710",
+            "stripe_t600",
             "verifone_P400",
             "verifone_m425",
             "verifone_p630",
@@ -938,14 +968,14 @@ class Reader(
     """
     Serial number of the reader.
     """
-    status: Optional[Literal["offline", "online"]]
+    status: Optional[Union[Literal["offline", "online"], str]]
     """
-    The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
+    The networking status of the reader. This value is `null` for mobile readers. We do not recommend using this field in flows that may block taking payments.
     """
 
     @classmethod
     def _cls_cancel_action(
-        cls, reader: str, **params: Unpack["ReaderCancelActionParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -964,7 +994,7 @@ class Reader(
     @overload
     @staticmethod
     def cancel_action(
-        reader: str, **params: Unpack["ReaderCancelActionParams"]
+        reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -981,7 +1011,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_cancel_action")
-    def cancel_action(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel_action(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
@@ -1000,7 +1030,7 @@ class Reader(
 
     @classmethod
     async def _cls_cancel_action_async(
-        cls, reader: str, **params: Unpack["ReaderCancelActionParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1019,7 +1049,7 @@ class Reader(
     @overload
     @staticmethod
     async def cancel_action_async(
-        reader: str, **params: Unpack["ReaderCancelActionParams"]
+        reader: str, /, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
         Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
@@ -1036,7 +1066,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_cancel_action_async")
-    async def cancel_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_action_async(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
@@ -1055,7 +1085,7 @@ class Reader(
 
     @classmethod
     def _cls_collect_inputs(
-        cls, reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1074,7 +1104,7 @@ class Reader(
     @overload
     @staticmethod
     def collect_inputs(
-        reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1091,7 +1121,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_inputs")
-    def collect_inputs(  # pyright: ignore[reportGeneralTypeIssues]
+    def collect_inputs(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
@@ -1110,7 +1140,7 @@ class Reader(
 
     @classmethod
     async def _cls_collect_inputs_async(
-        cls, reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        cls, reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1129,7 +1159,7 @@ class Reader(
     @overload
     @staticmethod
     async def collect_inputs_async(
-        reader: str, **params: Unpack["ReaderCollectInputsParams"]
+        reader: str, /, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
         Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
@@ -1146,7 +1176,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_inputs_async")
-    async def collect_inputs_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def collect_inputs_async(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
@@ -1165,7 +1195,10 @@ class Reader(
 
     @classmethod
     def _cls_collect_payment_method(
-        cls, reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderCollectPaymentMethodParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1184,7 +1217,7 @@ class Reader(
     @overload
     @staticmethod
     def collect_payment_method(
-        reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        reader: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1201,7 +1234,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_payment_method")
-    def collect_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+    def collect_payment_method(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
@@ -1220,7 +1253,10 @@ class Reader(
 
     @classmethod
     async def _cls_collect_payment_method_async(
-        cls, reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderCollectPaymentMethodParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1239,7 +1275,7 @@ class Reader(
     @overload
     @staticmethod
     async def collect_payment_method_async(
-        reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
+        reader: str, /, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
@@ -1256,7 +1292,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_collect_payment_method_async")
-    async def collect_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def collect_payment_method_async(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
@@ -1275,7 +1311,10 @@ class Reader(
 
     @classmethod
     def _cls_confirm_payment_intent(
-        cls, reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderConfirmPaymentIntentParams"],
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1294,7 +1333,7 @@ class Reader(
     @overload
     @staticmethod
     def confirm_payment_intent(
-        reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1311,7 +1350,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_confirm_payment_intent")
-    def confirm_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def confirm_payment_intent(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1330,7 +1369,10 @@ class Reader(
 
     @classmethod
     async def _cls_confirm_payment_intent_async(
-        cls, reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderConfirmPaymentIntentParams"],
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1349,7 +1391,7 @@ class Reader(
     @overload
     @staticmethod
     async def confirm_payment_intent_async(
-        reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
@@ -1366,7 +1408,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_confirm_payment_intent_async")
-    async def confirm_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def confirm_payment_intent_async(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1415,7 +1457,7 @@ class Reader(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ReaderDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1432,7 +1474,9 @@ class Reader(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["ReaderDeleteParams"]) -> "Reader":
+    def delete(
+        sid: str, /, **params: Unpack["ReaderDeleteParams"]
+    ) -> "Reader":
         """
         Deletes a Reader object.
         """
@@ -1446,9 +1490,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ReaderDeleteParams"]
-    ) -> "Reader":
+    def delete(self, **params: Unpack["ReaderDeleteParams"]) -> "Reader":
         """
         Deletes a Reader object.
         """
@@ -1460,7 +1502,7 @@ class Reader(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ReaderDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1478,7 +1520,7 @@ class Reader(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ReaderDeleteParams"]
+        sid: str, /, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -1495,7 +1537,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ReaderDeleteParams"]
     ) -> "Reader":
         """
@@ -1549,7 +1591,7 @@ class Reader(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ReaderModifyParams"]
+        cls, id: str, /, **params: Unpack["ReaderModifyParams"]
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1566,7 +1608,7 @@ class Reader(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ReaderModifyParams"]
+        cls, id: str, /, **params: Unpack["ReaderModifyParams"]
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1583,7 +1625,10 @@ class Reader(
 
     @classmethod
     def _cls_process_payment_intent(
-        cls, reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderProcessPaymentIntentParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1602,7 +1647,7 @@ class Reader(
     @overload
     @staticmethod
     def process_payment_intent(
-        reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1619,7 +1664,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_payment_intent")
-    def process_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def process_payment_intent(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1638,7 +1683,10 @@ class Reader(
 
     @classmethod
     async def _cls_process_payment_intent_async(
-        cls, reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        cls,
+        reader: str,
+        /,
+        **params: Unpack["ReaderProcessPaymentIntentParams"],
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1657,7 +1705,7 @@ class Reader(
     @overload
     @staticmethod
     async def process_payment_intent_async(
-        reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
@@ -1674,7 +1722,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_payment_intent_async")
-    async def process_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def process_payment_intent_async(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
@@ -1693,7 +1741,7 @@ class Reader(
 
     @classmethod
     def _cls_process_setup_intent(
-        cls, reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1712,7 +1760,7 @@ class Reader(
     @overload
     @staticmethod
     def process_setup_intent(
-        reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1729,7 +1777,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_setup_intent")
-    def process_setup_intent(  # pyright: ignore[reportGeneralTypeIssues]
+    def process_setup_intent(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
@@ -1748,7 +1796,7 @@ class Reader(
 
     @classmethod
     async def _cls_process_setup_intent_async(
-        cls, reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1767,7 +1815,7 @@ class Reader(
     @overload
     @staticmethod
     async def process_setup_intent_async(
-        reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
+        reader: str, /, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
         Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
@@ -1784,7 +1832,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_setup_intent_async")
-    async def process_setup_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def process_setup_intent_async(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
@@ -1803,7 +1851,7 @@ class Reader(
 
     @classmethod
     def _cls_refund_payment(
-        cls, reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1822,7 +1870,7 @@ class Reader(
     @overload
     @staticmethod
     def refund_payment(
-        reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1839,7 +1887,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_refund_payment")
-    def refund_payment(  # pyright: ignore[reportGeneralTypeIssues]
+    def refund_payment(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
@@ -1858,7 +1906,7 @@ class Reader(
 
     @classmethod
     async def _cls_refund_payment_async(
-        cls, reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        cls, reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1877,7 +1925,7 @@ class Reader(
     @overload
     @staticmethod
     async def refund_payment_async(
-        reader: str, **params: Unpack["ReaderRefundPaymentParams"]
+        reader: str, /, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
         Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
@@ -1894,7 +1942,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_refund_payment_async")
-    async def refund_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def refund_payment_async(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
@@ -1935,7 +1983,7 @@ class Reader(
 
     @classmethod
     def _cls_set_reader_display(
-        cls, reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        cls, reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -1954,7 +2002,7 @@ class Reader(
     @overload
     @staticmethod
     def set_reader_display(
-        reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -1971,7 +2019,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_set_reader_display")
-    def set_reader_display(  # pyright: ignore[reportGeneralTypeIssues]
+    def set_reader_display(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
@@ -1990,7 +2038,7 @@ class Reader(
 
     @classmethod
     async def _cls_set_reader_display_async(
-        cls, reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        cls, reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2009,7 +2057,7 @@ class Reader(
     @overload
     @staticmethod
     async def set_reader_display_async(
-        reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
+        reader: str, /, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
         Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
@@ -2026,7 +2074,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_set_reader_display_async")
-    async def set_reader_display_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def set_reader_display_async(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
@@ -2050,6 +2098,7 @@ class Reader(
         def _cls_present_payment_method(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
@@ -2069,7 +2118,9 @@ class Reader(
         @overload
         @staticmethod
         def present_payment_method(
-            reader: str, **params: Unpack["ReaderPresentPaymentMethodParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -2086,7 +2137,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_present_payment_method")
-        def present_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+        def present_payment_method(
             self, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
@@ -2107,6 +2158,7 @@ class Reader(
         async def _cls_present_payment_method_async(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
@@ -2126,7 +2178,9 @@ class Reader(
         @overload
         @staticmethod
         async def present_payment_method_async(
-            reader: str, **params: Unpack["ReaderPresentPaymentMethodParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderPresentPaymentMethodParams"],
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -2143,7 +2197,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_present_payment_method_async")
-        async def present_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def present_payment_method_async(
             self, **params: Unpack["ReaderPresentPaymentMethodParams"]
         ) -> "Reader":
             """
@@ -2164,6 +2218,7 @@ class Reader(
         def _cls_succeed_input_collection(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2183,7 +2238,9 @@ class Reader(
         @overload
         @staticmethod
         def succeed_input_collection(
-            reader: str, **params: Unpack["ReaderSucceedInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to trigger a successful input collection on a simulated reader.
@@ -2200,7 +2257,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_succeed_input_collection")
-        def succeed_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+        def succeed_input_collection(
             self, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2221,6 +2278,7 @@ class Reader(
         async def _cls_succeed_input_collection_async(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2240,7 +2298,9 @@ class Reader(
         @overload
         @staticmethod
         async def succeed_input_collection_async(
-            reader: str, **params: Unpack["ReaderSucceedInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderSucceedInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to trigger a successful input collection on a simulated reader.
@@ -2257,7 +2317,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_succeed_input_collection_async")
-        async def succeed_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def succeed_input_collection_async(
             self, **params: Unpack["ReaderSucceedInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2278,6 +2338,7 @@ class Reader(
         def _cls_timeout_input_collection(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2297,7 +2358,9 @@ class Reader(
         @overload
         @staticmethod
         def timeout_input_collection(
-            reader: str, **params: Unpack["ReaderTimeoutInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to complete an input collection with a timeout error on a simulated reader.
@@ -2314,7 +2377,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_timeout_input_collection")
-        def timeout_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+        def timeout_input_collection(
             self, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """
@@ -2335,6 +2398,7 @@ class Reader(
         async def _cls_timeout_input_collection_async(
             cls,
             reader: str,
+            /,
             **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
@@ -2354,7 +2418,9 @@ class Reader(
         @overload
         @staticmethod
         async def timeout_input_collection_async(
-            reader: str, **params: Unpack["ReaderTimeoutInputCollectionParams"]
+            reader: str,
+            /,
+            **params: Unpack["ReaderTimeoutInputCollectionParams"],
         ) -> "Reader":
             """
             Use this endpoint to complete an input collection with a timeout error on a simulated reader.
@@ -2371,7 +2437,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_timeout_input_collection_async")
-        async def timeout_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def timeout_input_collection_async(
             self, **params: Unpack["ReaderTimeoutInputCollectionParams"]
         ) -> "Reader":
             """

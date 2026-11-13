@@ -44,7 +44,9 @@ class OutboundPayment(
     ListableAPIResource["OutboundPayment"],
 ):
     """
-    Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://api.stripe.com#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://api.stripe.com#outbound_transfers).
+    Legacy OutboundPayments are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Payments](https://docs.stripe.com/api/v2/money-management/outbound-payments) instead of building a new v1 integration.
+
+    Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://docs.stripe.com/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://docs.stripe.com/api#outbound_transfers).
 
     Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
 
@@ -326,7 +328,7 @@ class OutboundPayment(
 
     @classmethod
     def _cls_cancel(
-        cls, id: str, **params: Unpack["OutboundPaymentCancelParams"]
+        cls, id: str, /, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -345,7 +347,7 @@ class OutboundPayment(
     @overload
     @staticmethod
     def cancel(
-        id: str, **params: Unpack["OutboundPaymentCancelParams"]
+        id: str, /, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -362,7 +364,7 @@ class OutboundPayment(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
+    def cancel(
         self, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
@@ -381,7 +383,7 @@ class OutboundPayment(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, id: str, **params: Unpack["OutboundPaymentCancelParams"]
+        cls, id: str, /, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -400,7 +402,7 @@ class OutboundPayment(
     @overload
     @staticmethod
     async def cancel_async(
-        id: str, **params: Unpack["OutboundPaymentCancelParams"]
+        id: str, /, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
         Cancel an OutboundPayment.
@@ -417,7 +419,7 @@ class OutboundPayment(
         ...
 
     @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def cancel_async(
         self, **params: Unpack["OutboundPaymentCancelParams"]
     ) -> "OutboundPayment":
         """
@@ -533,7 +535,7 @@ class OutboundPayment(
 
         @classmethod
         def _cls_fail(
-            cls, id: str, **params: Unpack["OutboundPaymentFailParams"]
+            cls, id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -552,7 +554,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         def fail(
-            id: str, **params: Unpack["OutboundPaymentFailParams"]
+            id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -569,7 +571,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # pyright: ignore[reportGeneralTypeIssues]
+        def fail(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
@@ -588,7 +590,7 @@ class OutboundPayment(
 
         @classmethod
         async def _cls_fail_async(
-            cls, id: str, **params: Unpack["OutboundPaymentFailParams"]
+            cls, id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -607,7 +609,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         async def fail_async(
-            id: str, **params: Unpack["OutboundPaymentFailParams"]
+            id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -624,7 +626,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_fail_async")
-        async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def fail_async(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
@@ -643,7 +645,7 @@ class OutboundPayment(
 
         @classmethod
         def _cls_post(
-            cls, id: str, **params: Unpack["OutboundPaymentPostParams"]
+            cls, id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -662,7 +664,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         def post(
-            id: str, **params: Unpack["OutboundPaymentPostParams"]
+            id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -679,7 +681,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_post")
-        def post(  # pyright: ignore[reportGeneralTypeIssues]
+        def post(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
@@ -698,7 +700,7 @@ class OutboundPayment(
 
         @classmethod
         async def _cls_post_async(
-            cls, id: str, **params: Unpack["OutboundPaymentPostParams"]
+            cls, id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -717,7 +719,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         async def post_async(
-            id: str, **params: Unpack["OutboundPaymentPostParams"]
+            id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
             Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -734,7 +736,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_post_async")
-        async def post_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def post_async(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
@@ -755,6 +757,7 @@ class OutboundPayment(
         def _cls_return_outbound_payment(
             cls,
             id: str,
+            /,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
@@ -775,6 +778,7 @@ class OutboundPayment(
         @staticmethod
         def return_outbound_payment(
             id: str,
+            /,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
@@ -793,7 +797,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_return_outbound_payment")
-        def return_outbound_payment(  # pyright: ignore[reportGeneralTypeIssues]
+        def return_outbound_payment(
             self,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
@@ -815,6 +819,7 @@ class OutboundPayment(
         async def _cls_return_outbound_payment_async(
             cls,
             id: str,
+            /,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
@@ -835,6 +840,7 @@ class OutboundPayment(
         @staticmethod
         async def return_outbound_payment_async(
             id: str,
+            /,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
@@ -853,7 +859,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_return_outbound_payment_async")
-        async def return_outbound_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def return_outbound_payment_async(
             self,
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
@@ -873,7 +879,7 @@ class OutboundPayment(
 
         @classmethod
         def _cls_update(
-            cls, id: str, **params: Unpack["OutboundPaymentUpdateParams"]
+            cls, id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
             Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
@@ -892,7 +898,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         def update(
-            id: str, **params: Unpack["OutboundPaymentUpdateParams"]
+            id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
             Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
@@ -909,7 +915,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_update")
-        def update(  # pyright: ignore[reportGeneralTypeIssues]
+        def update(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
@@ -928,7 +934,7 @@ class OutboundPayment(
 
         @classmethod
         async def _cls_update_async(
-            cls, id: str, **params: Unpack["OutboundPaymentUpdateParams"]
+            cls, id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
             Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
@@ -947,7 +953,7 @@ class OutboundPayment(
         @overload
         @staticmethod
         async def update_async(
-            id: str, **params: Unpack["OutboundPaymentUpdateParams"]
+            id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
             Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
@@ -964,7 +970,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_update_async")
-        async def update_async(  # pyright: ignore[reportGeneralTypeIssues]
+        async def update_async(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """

@@ -22,8 +22,6 @@ class StripeError(Exception):
         headers: Optional[Dict[str, str]] = None,
         code: Optional[str] = None,
     ):
-        super(StripeError, self).__init__(message)
-
         body: Optional[str] = None
         if http_body:
             # http_body can sometimes be a memoryview which must be cast
@@ -46,6 +44,14 @@ class StripeError(Exception):
         self.json_body = json_body
         self.headers = headers or {}
         self.code = code
+        super(StripeError, self).__init__(
+            message,
+            self.http_body,
+            self.http_status,
+            self.json_body,
+            self.headers,
+            self.code,
+        )
         self.request_id = self.headers.get("request-id", None)
         self.error = self._construct_error_object()
 
@@ -113,6 +119,7 @@ class APIConnectionError(StripeError):
             message, http_body, http_status, json_body, headers, code
         )
         self.should_retry = should_retry
+        self.args = self.args + (self.should_retry,)
 
 
 class StripeErrorWithParamCode(StripeError):
@@ -146,6 +153,15 @@ class CardError(StripeErrorWithParamCode):
             message, http_body, http_status, json_body, headers, code
         )
         self.param = param
+        self.args = (
+            self._message,
+            self.param,
+            self.code,
+            self.http_body,
+            self.http_status,
+            self.json_body,
+            self.headers,
+        )
 
 
 class IdempotencyError(StripeError):
@@ -167,6 +183,15 @@ class InvalidRequestError(StripeErrorWithParamCode):
             message, http_body, http_status, json_body, headers, code
         )
         self.param = param
+        self.args = (
+            self._message,
+            self.param,
+            self.code,
+            self.http_body,
+            self.http_status,
+            self.json_body,
+            self.headers,
+        )
 
 
 class AuthenticationError(StripeError):
@@ -185,11 +210,192 @@ class SignatureVerificationError(StripeError):
     def __init__(self, message, sig_header, http_body=None):
         super(SignatureVerificationError, self).__init__(message, http_body)
         self.sig_header = sig_header
+        self.args = (self._message, self.sig_header, self.http_body)
 
 
 # classDefinitions: The beginning of the section generated from our OpenAPI spec
+class AlreadyCanceledError(StripeError):
+    pass
+
+
+class BlockedByStripeError(StripeError):
+    pass
+
+
+class CannotProceedError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        reason=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.reason = reason
+
+
+class CapabilityNotEnabledError(StripeError):
+    pass
+
+
+class ControlledByAlternateResourceError(StripeError):
+    pass
+
+
+class FeatureNotEnabledError(StripeError):
+    pass
+
+
+class FinancialAccountNotOpenError(StripeError):
+    pass
+
+
+class FxQuoteNeedsRefreshError(StripeError):
+    pass
+
+
+class InsufficientFundsError(StripeError):
+    pass
+
+
+class InvalidPaymentMethodError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        invalid_param=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.invalid_param = invalid_param
+
+
+class InvalidPayoutMethodError(StripeError):
+    pass
+
+
+class InvalidVaultedCredentialError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        invalid_param=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.invalid_param = invalid_param
+
+
+class NotCancelableError(StripeError):
+    pass
+
+
+class QuotaExceededError(StripeError):
+    pass
+
+
+class RecipientNotNotifiableError(StripeError):
+    pass
+
+
 class TemporarySessionExpiredError(StripeError):
     pass
+
+
+class VerificationAttemptFailedError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        verification_status=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.verification_status = verification_status
+
+
+class VerificationExpiredError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        verification_status=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.verification_status = verification_status
+
+
+class VerificationNotInitiatedError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        verification_status=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.verification_status = verification_status
 
 
 # classDefinitions: The end of the section generated from our OpenAPI spec

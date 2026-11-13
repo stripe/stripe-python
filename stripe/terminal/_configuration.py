@@ -69,6 +69,12 @@ class Configuration(
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         """
 
+    class ReaderSecurity(StripeObject):
+        admin_menu_passcode: str
+        """
+        Passcode used to access a reader's admin menu.
+        """
+
     class RebootWindow(StripeObject):
         end_hour: int
         """
@@ -86,6 +92,12 @@ class Configuration(
         """
 
     class StripeS710(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
+    class StripeT600(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
         A File ID representing an image to display on the reader
@@ -558,9 +570,11 @@ class Configuration(
     String representing the object's type. Objects of the same type share the same value.
     """
     offline: Optional[Offline]
+    reader_security: Optional[ReaderSecurity]
     reboot_window: Optional[RebootWindow]
     stripe_s700: Optional[StripeS700]
     stripe_s710: Optional[StripeS710]
+    stripe_t600: Optional[StripeT600]
     tipping: Optional[Tipping]
     verifone_m425: Optional[VerifoneM425]
     verifone_p400: Optional[VerifoneP400]
@@ -603,7 +617,7 @@ class Configuration(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -621,7 +635,7 @@ class Configuration(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -638,7 +652,7 @@ class Configuration(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+    def delete(
         self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
@@ -652,7 +666,7 @@ class Configuration(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        cls, sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -670,7 +684,7 @@ class Configuration(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ConfigurationDeleteParams"]
+        sid: str, /, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -687,7 +701,7 @@ class Configuration(
         ...
 
     @class_method_variant("_cls_delete_async")
-    async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def delete_async(
         self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
@@ -741,7 +755,7 @@ class Configuration(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a new Configuration object.
@@ -758,7 +772,7 @@ class Configuration(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
+        cls, id: str, /, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a new Configuration object.
@@ -800,9 +814,11 @@ class Configuration(
         "bbpos_wisepos_e": BbposWiseposE,
         "cellular": Cellular,
         "offline": Offline,
+        "reader_security": ReaderSecurity,
         "reboot_window": RebootWindow,
         "stripe_s700": StripeS700,
         "stripe_s710": StripeS710,
+        "stripe_t600": StripeT600,
         "tipping": Tipping,
         "verifone_m425": VerifoneM425,
         "verifone_p400": VerifoneP400,

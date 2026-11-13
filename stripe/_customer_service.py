@@ -101,6 +101,7 @@ class CustomerService(StripeService):
     def delete(
         self,
         customer: str,
+        /,
         params: Optional["CustomerDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":
@@ -123,6 +124,7 @@ class CustomerService(StripeService):
     async def delete_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":
@@ -145,6 +147,7 @@ class CustomerService(StripeService):
     def retrieve(
         self,
         customer: str,
+        /,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":
@@ -167,6 +170,7 @@ class CustomerService(StripeService):
     async def retrieve_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":
@@ -189,6 +193,7 @@ class CustomerService(StripeService):
     def update(
         self,
         customer: str,
+        /,
         params: Optional["CustomerUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":
@@ -213,6 +218,7 @@ class CustomerService(StripeService):
     async def update_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Customer":
@@ -237,6 +243,7 @@ class CustomerService(StripeService):
     def delete_discount(
         self,
         customer: str,
+        /,
         params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Discount":
@@ -259,6 +266,7 @@ class CustomerService(StripeService):
     async def delete_discount_async(
         self,
         customer: str,
+        /,
         params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Discount":

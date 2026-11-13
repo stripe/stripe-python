@@ -108,6 +108,10 @@ class RegistrationCreateParamsCountryOptions(
     """
     Options for the registration in BS.
     """
+    bw: NotRequired["RegistrationCreateParamsCountryOptionsBw"]
+    """
+    Options for the registration in BW.
+    """
     by: NotRequired["RegistrationCreateParamsCountryOptionsBy"]
     """
     Options for the registration in BY.
@@ -123,6 +127,10 @@ class RegistrationCreateParamsCountryOptions(
     ch: NotRequired["RegistrationCreateParamsCountryOptionsCh"]
     """
     Options for the registration in CH.
+    """
+    ci: NotRequired["RegistrationCreateParamsCountryOptionsCi"]
+    """
+    Options for the registration in CI.
     """
     cl: NotRequired["RegistrationCreateParamsCountryOptionsCl"]
     """
@@ -195,6 +203,10 @@ class RegistrationCreateParamsCountryOptions(
     ge: NotRequired["RegistrationCreateParamsCountryOptionsGe"]
     """
     Options for the registration in GE.
+    """
+    gh: NotRequired["RegistrationCreateParamsCountryOptionsGh"]
+    """
+    Options for the registration in GH.
     """
     gn: NotRequired["RegistrationCreateParamsCountryOptionsGn"]
     """
@@ -291,6 +303,10 @@ class RegistrationCreateParamsCountryOptions(
     mt: NotRequired["RegistrationCreateParamsCountryOptionsMt"]
     """
     Options for the registration in MT.
+    """
+    mu: NotRequired["RegistrationCreateParamsCountryOptionsMu"]
+    """
+    Options for the registration in MU.
     """
     mx: NotRequired["RegistrationCreateParamsCountryOptionsMx"]
     """
@@ -739,6 +755,13 @@ class RegistrationCreateParamsCountryOptionsBsStandard(TypedDict):
     """
 
 
+class RegistrationCreateParamsCountryOptionsBw(TypedDict):
+    type: Literal["simplified"]
+    """
+    Type of registration to be created in `country`.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsBy(TypedDict):
     type: Literal["simplified"]
     """
@@ -803,6 +826,13 @@ class RegistrationCreateParamsCountryOptionsChStandard(TypedDict):
     ]
     """
     Place of supply scheme used in an standard registration.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsCi(TypedDict):
+    type: Literal["simplified"]
+    """
+    Type of registration to be created in `country`.
     """
 
 
@@ -962,7 +992,7 @@ class RegistrationCreateParamsCountryOptionsEs(TypedDict):
     """
     type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
     """
-    Type of registration to be created in an EU country.
+    Type of registration to be created in ES.
     """
 
 
@@ -1056,6 +1086,13 @@ class RegistrationCreateParamsCountryOptionsGbStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsGe(TypedDict):
+    type: Literal["simplified"]
+    """
+    Type of registration to be created in `country`.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsGh(TypedDict):
     type: Literal["simplified"]
     """
     Type of registration to be created in `country`.
@@ -1439,6 +1476,13 @@ class RegistrationCreateParamsCountryOptionsMtStandard(TypedDict):
     """
 
 
+class RegistrationCreateParamsCountryOptionsMu(TypedDict):
+    type: Literal["simplified"]
+    """
+    Type of registration to be created in `country`.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsMx(TypedDict):
     type: Literal["simplified"]
     """
@@ -1763,7 +1807,7 @@ class RegistrationCreateParamsCountryOptionsSrStandard(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsTh(TypedDict):
-    type: Literal["simplified"]
+    type: Union[Literal["simplified"], str]
     """
     Type of registration to be created in `country`.
     """
@@ -1812,6 +1856,36 @@ class RegistrationCreateParamsCountryOptionsUg(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsUs(TypedDict):
+    admissions_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsAdmissionsTax"
+    ]
+    """
+    Options for the admission tax registration.
+    """
+    attendance_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsAttendanceTax"
+    ]
+    """
+    Options for the attendance tax registration.
+    """
+    entertainment_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsEntertainmentTax"
+    ]
+    """
+    Options for the entertainment tax registration.
+    """
+    gross_receipts_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax"
+    ]
+    """
+    Options for the gross receipts tax registration.
+    """
+    hospitality_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsHospitalityTax"
+    ]
+    """
+    Options for the hospitality tax registration.
+    """
     local_amusement_tax: NotRequired[
         "RegistrationCreateParamsCountryOptionsUsLocalAmusementTax"
     ]
@@ -1823,6 +1897,12 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     ]
     """
     Options for the local lease tax registration.
+    """
+    luxury_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsLuxuryTax"
+    ]
+    """
+    Options for the luxury tax registration.
     """
     mass_transit_parking_tax: NotRequired[
         "RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax"
@@ -1836,6 +1916,12 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
     Options for the parking tax registration.
     """
+    resort_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsResortTax"
+    ]
+    """
+    Options for the resort tax registration.
+    """
     state: str
     """
     Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
@@ -1846,17 +1932,77 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
     Options for the state sales tax registration.
     """
-    type: Literal[
-        "local_amusement_tax",
-        "local_lease_tax",
-        "mass_transit_parking_tax",
-        "parking_tax",
-        "state_communications_tax",
-        "state_retail_delivery_fee",
-        "state_sales_tax",
+    tourism_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsTourismTax"
+    ]
+    """
+    Options for the tourism tax registration.
+    """
+    type: Union[
+        Literal[
+            "admissions_tax",
+            "attendance_tax",
+            "digital_excise_tax",
+            "entertainment_tax",
+            "gross_receipts_tax",
+            "hospitality_tax",
+            "local_amusement_tax",
+            "local_lease_tax",
+            "luxury_tax",
+            "mass_transit_parking_tax",
+            "parking_tax",
+            "resort_tax",
+            "state_communications_tax",
+            "state_retail_delivery_fee",
+            "state_sales_tax",
+            "tourism_tax",
+            "utility_users_tax",
+        ],
+        str,
     ]
     """
     Type of registration to be created in the US.
+    """
+    utility_users_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsUtilityUsersTax"
+    ]
+    """
+    Options for the utility users tax registration.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsAdmissionsTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=admissions_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsAttendanceTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=attendance_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsEntertainmentTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=entertainment_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=gross_receipts_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsHospitalityTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=hospitality_tax#registration-types).
     """
 
 
@@ -1874,6 +2020,13 @@ class RegistrationCreateParamsCountryOptionsUsLocalLeaseTax(TypedDict):
     """
 
 
+class RegistrationCreateParamsCountryOptionsUsLuxuryTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=luxury_tax#registration-types).
+    """
+
+
 class RegistrationCreateParamsCountryOptionsUsMassTransitParkingTax(TypedDict):
     jurisdiction: str
     """
@@ -1885,6 +2038,13 @@ class RegistrationCreateParamsCountryOptionsUsParkingTax(TypedDict):
     jurisdiction: str
     """
     A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsResortTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=resort_tax#registration-types).
     """
 
 
@@ -1900,7 +2060,7 @@ class RegistrationCreateParamsCountryOptionsUsStateSalesTax(TypedDict):
 class RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection(TypedDict):
     jurisdiction: NotRequired[str]
     """
-    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
+    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
     """
     type: Union[
         Literal[
@@ -1912,6 +2072,20 @@ class RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection(TypedDict):
     ]
     """
     The type of the election for the state sales tax registration.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsTourismTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=tourism_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsUtilityUsersTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=utility_users_tax#registration-types).
     """
 
 

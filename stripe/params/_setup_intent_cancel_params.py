@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired
 
 class SetupIntentCancelParams(RequestOptions):
     cancellation_reason: NotRequired[
-        Literal["abandoned", "duplicate", "requested_by_customer"]
+        "Literal['abandoned', 'duplicate', 'requested_by_customer']|str"
     ]
     """
     Reason for canceling this SetupIntent. Possible values are: `abandoned`, `requested_by_customer`, or `duplicate`

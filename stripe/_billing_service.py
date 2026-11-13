@@ -13,6 +13,7 @@ if TYPE_CHECKING:
         CreditBalanceTransactionService,
     )
     from stripe.billing._credit_grant_service import CreditGrantService
+    from stripe.billing._feedback_option_service import FeedbackOptionService
     from stripe.billing._meter_event_adjustment_service import (
         MeterEventAdjustmentService,
     )
@@ -33,6 +34,10 @@ _subservices = {
         "stripe.billing._credit_grant_service",
         "CreditGrantService",
     ],
+    "feedback_options": [
+        "stripe.billing._feedback_option_service",
+        "FeedbackOptionService",
+    ],
     "meters": ["stripe.billing._meter_service", "MeterService"],
     "meter_events": [
         "stripe.billing._meter_event_service",
@@ -50,6 +55,7 @@ class BillingService(StripeService):
     credit_balance_summary: "CreditBalanceSummaryService"
     credit_balance_transactions: "CreditBalanceTransactionService"
     credit_grants: "CreditGrantService"
+    feedback_options: "FeedbackOptionService"
     meters: "MeterService"
     meter_events: "MeterEventService"
     meter_event_adjustments: "MeterEventAdjustmentService"

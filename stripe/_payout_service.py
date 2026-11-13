@@ -105,6 +105,7 @@ class PayoutService(StripeService):
     def retrieve(
         self,
         payout: str,
+        /,
         params: Optional["PayoutRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":
@@ -125,6 +126,7 @@ class PayoutService(StripeService):
     async def retrieve_async(
         self,
         payout: str,
+        /,
         params: Optional["PayoutRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":
@@ -145,6 +147,7 @@ class PayoutService(StripeService):
     def update(
         self,
         payout: str,
+        /,
         params: Optional["PayoutUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":
@@ -165,6 +168,7 @@ class PayoutService(StripeService):
     async def update_async(
         self,
         payout: str,
+        /,
         params: Optional["PayoutUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":
@@ -185,6 +189,7 @@ class PayoutService(StripeService):
     def cancel(
         self,
         payout: str,
+        /,
         params: Optional["PayoutCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":
@@ -207,6 +212,7 @@ class PayoutService(StripeService):
     async def cancel_async(
         self,
         payout: str,
+        /,
         params: Optional["PayoutCancelParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":
@@ -229,6 +235,7 @@ class PayoutService(StripeService):
     def reverse(
         self,
         payout: str,
+        /,
         params: Optional["PayoutReverseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":
@@ -253,6 +260,7 @@ class PayoutService(StripeService):
     async def reverse_async(
         self,
         payout: str,
+        /,
         params: Optional["PayoutReverseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Payout":

@@ -59,6 +59,7 @@ class EarlyFraudWarningService(StripeService):
     def retrieve(
         self,
         early_fraud_warning: str,
+        /,
         params: Optional["EarlyFraudWarningRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EarlyFraudWarning":
@@ -83,6 +84,7 @@ class EarlyFraudWarningService(StripeService):
     async def retrieve_async(
         self,
         early_fraud_warning: str,
+        /,
         params: Optional["EarlyFraudWarningRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "EarlyFraudWarning":

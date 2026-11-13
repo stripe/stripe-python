@@ -38,7 +38,7 @@ class Event(ListableAPIResource["Event"]):
     class Data(StripeObject):
         object: UntypedStripeObject[Any]
         """
-        Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://api.stripe.com#invoice_object) as the value of the object key.
+        Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://docs.stripe.com/api#invoice_object) as the value of the object key.
         """
         previous_attributes: Optional[UntypedStripeObject[Any]]
         """
@@ -102,6 +102,9 @@ class Event(ListableAPIResource["Event"]):
         "application_fee.created",
         "application_fee.refund.updated",
         "application_fee.refunded",
+        "apps.install.created",
+        "apps.install.deleted",
+        "apps.install.updated",
         "balance.available",
         "balance_settings.updated",
         "billing.alert.triggered",
@@ -320,6 +323,13 @@ class Event(ListableAPIResource["Event"]):
         "test_helpers.test_clock.deleted",
         "test_helpers.test_clock.internal_failure",
         "test_helpers.test_clock.ready",
+        "three_d_secure.authentication.canceled",
+        "three_d_secure.authentication.challenge_started",
+        "three_d_secure.authentication.errored",
+        "three_d_secure.authentication.failed",
+        "three_d_secure.authentication.requires_challenge",
+        "three_d_secure.authentication.requires_submission",
+        "three_d_secure.authentication.succeeded",
         "topup.canceled",
         "topup.created",
         "topup.failed",

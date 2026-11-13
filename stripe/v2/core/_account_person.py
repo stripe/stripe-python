@@ -136,9 +136,9 @@ class AccountPerson(StripeObject):
         class CompanyAuthorization(StripeObject):
             files: List[str]
             """
-            One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             """
-            type: Literal["files"]
+            type: Union[Literal["files"], str]
             """
             The format of the document. Currently supports `files` only.
             """
@@ -146,9 +146,9 @@ class AccountPerson(StripeObject):
         class Passport(StripeObject):
             files: List[str]
             """
-            One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             """
-            type: Literal["files"]
+            type: Union[Literal["files"], str]
             """
             The format of the document. Currently supports `files` only.
             """
@@ -157,18 +157,18 @@ class AccountPerson(StripeObject):
             class FrontBack(StripeObject):
                 back: Optional[str]
                 """
-                A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 """
                 front: str
                 """
-                A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 """
 
             front_back: FrontBack
             """
-            The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+            The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
             """
-            type: Literal["front_back"]
+            type: Union[Literal["front_back"], str]
             """
             The format of the verification document. Currently supports `front_back` only.
             """
@@ -178,18 +178,18 @@ class AccountPerson(StripeObject):
             class FrontBack(StripeObject):
                 back: Optional[str]
                 """
-                A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 """
                 front: str
                 """
-                A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 """
 
             front_back: FrontBack
             """
-            The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+            The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
             """
-            type: Literal["front_back"]
+            type: Union[Literal["front_back"], str]
             """
             The format of the verification document. Currently supports `front_back` only.
             """
@@ -198,9 +198,9 @@ class AccountPerson(StripeObject):
         class Visa(StripeObject):
             files: List[str]
             """
-            One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             """
-            type: Literal["files"]
+            type: Union[Literal["files"], str]
             """
             The format of the document. Currently supports `files` only.
             """

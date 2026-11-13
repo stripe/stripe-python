@@ -23,6 +23,7 @@ class PersonalizationDesignService(StripeService):
     def activate(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -45,6 +46,7 @@ class PersonalizationDesignService(StripeService):
     async def activate_async(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -67,6 +69,7 @@ class PersonalizationDesignService(StripeService):
     def deactivate(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -89,6 +92,7 @@ class PersonalizationDesignService(StripeService):
     async def deactivate_async(
         self,
         personalization_design: str,
+        /,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -111,6 +115,7 @@ class PersonalizationDesignService(StripeService):
     def reject(
         self,
         personalization_design: str,
+        /,
         params: "PersonalizationDesignRejectParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
@@ -133,6 +138,7 @@ class PersonalizationDesignService(StripeService):
     async def reject_async(
         self,
         personalization_design: str,
+        /,
         params: "PersonalizationDesignRejectParams",
         options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":

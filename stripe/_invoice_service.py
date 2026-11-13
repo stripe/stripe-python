@@ -78,6 +78,7 @@ class InvoiceService(StripeService):
     def delete(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -98,6 +99,7 @@ class InvoiceService(StripeService):
     async def delete_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -118,6 +120,7 @@ class InvoiceService(StripeService):
     def retrieve(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -138,6 +141,7 @@ class InvoiceService(StripeService):
     async def retrieve_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -158,12 +162,14 @@ class InvoiceService(StripeService):
     def update(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-        monetary values, as well as collection_method, become uneditable.
+        you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+        this also includes description.
 
         If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
         sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
@@ -183,12 +189,14 @@ class InvoiceService(StripeService):
     async def update_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-        monetary values, as well as collection_method, become uneditable.
+        you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+        this also includes description.
 
         If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
         sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
@@ -328,6 +336,7 @@ class InvoiceService(StripeService):
     def add_lines(
         self,
         invoice: str,
+        /,
         params: "InvoiceAddLinesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -350,6 +359,7 @@ class InvoiceService(StripeService):
     async def add_lines_async(
         self,
         invoice: str,
+        /,
         params: "InvoiceAddLinesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -372,6 +382,7 @@ class InvoiceService(StripeService):
     def attach_payment(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceAttachPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -403,6 +414,7 @@ class InvoiceService(StripeService):
     async def attach_payment_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceAttachPaymentParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -434,6 +446,7 @@ class InvoiceService(StripeService):
     def finalize_invoice(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceFinalizeInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -456,6 +469,7 @@ class InvoiceService(StripeService):
     async def finalize_invoice_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceFinalizeInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -478,6 +492,7 @@ class InvoiceService(StripeService):
     def mark_uncollectible(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceMarkUncollectibleParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -500,6 +515,7 @@ class InvoiceService(StripeService):
     async def mark_uncollectible_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceMarkUncollectibleParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -522,6 +538,7 @@ class InvoiceService(StripeService):
     def pay(
         self,
         invoice: str,
+        /,
         params: Optional["InvoicePayParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -544,6 +561,7 @@ class InvoiceService(StripeService):
     async def pay_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoicePayParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -566,6 +584,7 @@ class InvoiceService(StripeService):
     def remove_lines(
         self,
         invoice: str,
+        /,
         params: "InvoiceRemoveLinesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -588,6 +607,7 @@ class InvoiceService(StripeService):
     async def remove_lines_async(
         self,
         invoice: str,
+        /,
         params: "InvoiceRemoveLinesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -610,6 +630,7 @@ class InvoiceService(StripeService):
     def send_invoice(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceSendInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -634,6 +655,7 @@ class InvoiceService(StripeService):
     async def send_invoice_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceSendInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -658,6 +680,7 @@ class InvoiceService(StripeService):
     def update_lines(
         self,
         invoice: str,
+        /,
         params: "InvoiceUpdateLinesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -680,6 +703,7 @@ class InvoiceService(StripeService):
     async def update_lines_async(
         self,
         invoice: str,
+        /,
         params: "InvoiceUpdateLinesParams",
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -702,6 +726,7 @@ class InvoiceService(StripeService):
     def void_invoice(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceVoidInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
@@ -726,6 +751,7 @@ class InvoiceService(StripeService):
     async def void_invoice_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceVoidInvoiceParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":

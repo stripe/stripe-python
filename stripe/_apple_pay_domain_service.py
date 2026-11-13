@@ -27,6 +27,7 @@ class ApplePayDomainService(StripeService):
     def delete(
         self,
         domain: str,
+        /,
         params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApplePayDomain":
@@ -49,6 +50,7 @@ class ApplePayDomainService(StripeService):
     async def delete_async(
         self,
         domain: str,
+        /,
         params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApplePayDomain":
@@ -71,6 +73,7 @@ class ApplePayDomainService(StripeService):
     def retrieve(
         self,
         domain: str,
+        /,
         params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApplePayDomain":
@@ -93,6 +96,7 @@ class ApplePayDomainService(StripeService):
     async def retrieve_async(
         self,
         domain: str,
+        /,
         params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ApplePayDomain":

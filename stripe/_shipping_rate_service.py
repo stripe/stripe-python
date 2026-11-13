@@ -101,6 +101,7 @@ class ShippingRateService(StripeService):
     def retrieve(
         self,
         shipping_rate_token: str,
+        /,
         params: Optional["ShippingRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ShippingRate":
@@ -123,6 +124,7 @@ class ShippingRateService(StripeService):
     async def retrieve_async(
         self,
         shipping_rate_token: str,
+        /,
         params: Optional["ShippingRateRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ShippingRate":
@@ -145,6 +147,7 @@ class ShippingRateService(StripeService):
     def update(
         self,
         shipping_rate_token: str,
+        /,
         params: Optional["ShippingRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ShippingRate":
@@ -167,6 +170,7 @@ class ShippingRateService(StripeService):
     async def update_async(
         self,
         shipping_rate_token: str,
+        /,
         params: Optional["ShippingRateUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ShippingRate":

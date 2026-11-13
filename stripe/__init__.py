@@ -30,6 +30,7 @@ connect_api_base: str = DEFAULT_CONNECT_API_BASE
 upload_api_base: str = DEFAULT_UPLOAD_API_BASE
 meter_events_api_base: str = DEFAULT_METER_EVENTS_API_BASE
 api_version: str = _ApiVersion.CURRENT
+major_api_version: str = _ApiVersion.CURRENT_MAJOR
 verify_ssl_certs: bool = True
 proxy: Optional[str] = None
 default_http_client: Optional["HTTPClient"] = None
@@ -106,6 +107,10 @@ def set_app_info(
     }
 
 
+from stripe._util import _emit_claude_code_hint
+
+_emit_claude_code_hint()
+
 # The beginning of the section generated from our OpenAPI spec
 from importlib import import_module
 
@@ -124,6 +129,7 @@ if TYPE_CHECKING:
         identity as identity,
         issuing as issuing,
         params as params,
+        product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
         reserve as reserve,
@@ -131,6 +137,7 @@ if TYPE_CHECKING:
         tax as tax,
         terminal as terminal,
         test_helpers as test_helpers,
+        three_d_secure as three_d_secure,
         treasury as treasury,
         v2 as v2,
     )
@@ -280,22 +287,47 @@ if TYPE_CHECKING:
     from stripe._error import (
         APIConnectionError as APIConnectionError,
         APIError as APIError,
+        AlreadyCanceledError as AlreadyCanceledError,
         AuthenticationError as AuthenticationError,
+        BlockedByStripeError as BlockedByStripeError,
+        CannotProceedError as CannotProceedError,
+        CapabilityNotEnabledError as CapabilityNotEnabledError,
         CardError as CardError,
+        ControlledByAlternateResourceError as ControlledByAlternateResourceError,
+        FeatureNotEnabledError as FeatureNotEnabledError,
+        FinancialAccountNotOpenError as FinancialAccountNotOpenError,
+        FxQuoteNeedsRefreshError as FxQuoteNeedsRefreshError,
         IdempotencyError as IdempotencyError,
+        InsufficientFundsError as InsufficientFundsError,
+        InvalidPaymentMethodError as InvalidPaymentMethodError,
+        InvalidPayoutMethodError as InvalidPayoutMethodError,
         InvalidRequestError as InvalidRequestError,
+        InvalidVaultedCredentialError as InvalidVaultedCredentialError,
+        NotCancelableError as NotCancelableError,
         PermissionError as PermissionError,
+        QuotaExceededError as QuotaExceededError,
         RateLimitError as RateLimitError,
+        RecipientNotNotifiableError as RecipientNotNotifiableError,
         SignatureVerificationError as SignatureVerificationError,
         StripeError as StripeError,
         StripeErrorWithParamCode as StripeErrorWithParamCode,
         TemporarySessionExpiredError as TemporarySessionExpiredError,
+        VerificationAttemptFailedError as VerificationAttemptFailedError,
+        VerificationExpiredError as VerificationExpiredError,
+        VerificationNotInitiatedError as VerificationNotInitiatedError,
     )
     from stripe._error_object import (
         ErrorObject as ErrorObject,
         OAuthErrorObject as OAuthErrorObject,
     )
     from stripe._event import Event as Event
+    from stripe._event_notification_handler import (
+        AsyncStripeEventNotificationHandler as AsyncStripeEventNotificationHandler,
+        AsyncStripeEventNotificationHandlerWithoutVerification as AsyncStripeEventNotificationHandlerWithoutVerification,
+        StripeEventNotificationHandler as StripeEventNotificationHandler,
+        StripeEventNotificationHandlerWithoutVerification as StripeEventNotificationHandlerWithoutVerification,
+        UnhandledNotificationDetails as UnhandledNotificationDetails,
+    )
     from stripe._event_service import EventService as EventService
     from stripe._exchange_rate import ExchangeRate as ExchangeRate
     from stripe._exchange_rate_service import (
@@ -409,6 +441,9 @@ if TYPE_CHECKING:
     from stripe._price import Price as Price
     from stripe._price_service import PriceService as PriceService
     from stripe._product import Product as Product
+    from stripe._product_catalog_service import (
+        ProductCatalogService as ProductCatalogService,
+    )
     from stripe._product_feature import ProductFeature as ProductFeature
     from stripe._product_feature_service import (
         ProductFeatureService as ProductFeatureService,
@@ -435,7 +470,6 @@ if TYPE_CHECKING:
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
-    from stripe._reversal import Reversal as Reversal
     from stripe._review import Review as Review
     from stripe._review_service import ReviewService as ReviewService
     from stripe._search_result_object import (
@@ -511,11 +545,15 @@ if TYPE_CHECKING:
     from stripe._test_helpers_service import (
         TestHelpersService as TestHelpersService,
     )
+    from stripe._three_d_secure_service import (
+        ThreeDSecureService as ThreeDSecureService,
+    )
     from stripe._token import Token as Token
     from stripe._token_service import TokenService as TokenService
     from stripe._topup import Topup as Topup
     from stripe._topup_service import TopupService as TopupService
     from stripe._transfer import Transfer as Transfer
+    from stripe._transfer_reversal import TransferReversal as TransferReversal
     from stripe._transfer_reversal_service import (
         TransferReversalService as TransferReversalService,
     )
@@ -554,6 +592,7 @@ _import_map = {
     "identity": ("stripe.identity", True),
     "issuing": ("stripe.issuing", True),
     "params": ("stripe.params", True),
+    "product_catalog": ("stripe.product_catalog", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
     "reserve": ("stripe.reserve", True),
@@ -561,6 +600,7 @@ _import_map = {
     "tax": ("stripe.tax", True),
     "terminal": ("stripe.terminal", True),
     "test_helpers": ("stripe.test_helpers", True),
+    "three_d_secure": ("stripe.three_d_secure", True),
     "treasury": ("stripe.treasury", True),
     "v2": ("stripe.v2", True),
     "Account": ("stripe._account", False),
@@ -678,19 +718,57 @@ _import_map = {
     "EphemeralKeyService": ("stripe._ephemeral_key_service", False),
     "APIConnectionError": ("stripe._error", False),
     "APIError": ("stripe._error", False),
+    "AlreadyCanceledError": ("stripe._error", False),
     "AuthenticationError": ("stripe._error", False),
+    "BlockedByStripeError": ("stripe._error", False),
+    "CannotProceedError": ("stripe._error", False),
+    "CapabilityNotEnabledError": ("stripe._error", False),
     "CardError": ("stripe._error", False),
+    "ControlledByAlternateResourceError": ("stripe._error", False),
+    "FeatureNotEnabledError": ("stripe._error", False),
+    "FinancialAccountNotOpenError": ("stripe._error", False),
+    "FxQuoteNeedsRefreshError": ("stripe._error", False),
     "IdempotencyError": ("stripe._error", False),
+    "InsufficientFundsError": ("stripe._error", False),
+    "InvalidPaymentMethodError": ("stripe._error", False),
+    "InvalidPayoutMethodError": ("stripe._error", False),
     "InvalidRequestError": ("stripe._error", False),
+    "InvalidVaultedCredentialError": ("stripe._error", False),
+    "NotCancelableError": ("stripe._error", False),
     "PermissionError": ("stripe._error", False),
+    "QuotaExceededError": ("stripe._error", False),
     "RateLimitError": ("stripe._error", False),
+    "RecipientNotNotifiableError": ("stripe._error", False),
     "SignatureVerificationError": ("stripe._error", False),
     "StripeError": ("stripe._error", False),
     "StripeErrorWithParamCode": ("stripe._error", False),
     "TemporarySessionExpiredError": ("stripe._error", False),
+    "VerificationAttemptFailedError": ("stripe._error", False),
+    "VerificationExpiredError": ("stripe._error", False),
+    "VerificationNotInitiatedError": ("stripe._error", False),
     "ErrorObject": ("stripe._error_object", False),
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
+    "AsyncStripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "AsyncStripeEventNotificationHandlerWithoutVerification": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "StripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "StripeEventNotificationHandlerWithoutVerification": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "UnhandledNotificationDetails": (
+        "stripe._event_notification_handler",
+        False,
+    ),
     "EventService": ("stripe._event_service", False),
     "ExchangeRate": ("stripe._exchange_rate", False),
     "ExchangeRateService": ("stripe._exchange_rate_service", False),
@@ -784,6 +862,7 @@ _import_map = {
     "Price": ("stripe._price", False),
     "PriceService": ("stripe._price_service", False),
     "Product": ("stripe._product", False),
+    "ProductCatalogService": ("stripe._product_catalog_service", False),
     "ProductFeature": ("stripe._product_feature", False),
     "ProductFeatureService": ("stripe._product_feature_service", False),
     "ProductService": ("stripe._product_service", False),
@@ -803,7 +882,6 @@ _import_map = {
     "RequestOptions": ("stripe._request_options", False),
     "RequestorOptions": ("stripe._requestor_options", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
-    "Reversal": ("stripe._reversal", False),
     "Review": ("stripe._review", False),
     "ReviewService": ("stripe._review_service", False),
     "SearchResultObject": ("stripe._search_result_object", False),
@@ -851,11 +929,13 @@ _import_map = {
     "TerminalService": ("stripe._terminal_service", False),
     "APIResourceTestHelpers": ("stripe._test_helpers", False),
     "TestHelpersService": ("stripe._test_helpers_service", False),
+    "ThreeDSecureService": ("stripe._three_d_secure_service", False),
     "Token": ("stripe._token", False),
     "TokenService": ("stripe._token_service", False),
     "Topup": ("stripe._topup", False),
     "TopupService": ("stripe._topup_service", False),
     "Transfer": ("stripe._transfer", False),
+    "TransferReversal": ("stripe._transfer_reversal", False),
     "TransferReversalService": ("stripe._transfer_reversal_service", False),
     "TransferService": ("stripe._transfer_service", False),
     "TreasuryService": ("stripe._treasury_service", False),

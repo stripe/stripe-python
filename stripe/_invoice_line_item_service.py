@@ -21,6 +21,7 @@ class InvoiceLineItemService(StripeService):
     def list(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[InvoiceLineItem]":
@@ -43,6 +44,7 @@ class InvoiceLineItemService(StripeService):
     async def list_async(
         self,
         invoice: str,
+        /,
         params: Optional["InvoiceLineItemListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[InvoiceLineItem]":
@@ -66,6 +68,7 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         line_item_id: str,
+        /,
         params: Optional["InvoiceLineItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceLineItem":
@@ -93,6 +96,7 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         line_item_id: str,
+        /,
         params: Optional["InvoiceLineItemUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceLineItem":

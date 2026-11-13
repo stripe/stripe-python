@@ -20,6 +20,78 @@ class SessionCreateParams(RequestOptions):
     """
     Enables user redeemable promotion codes.
     """
+    allowed_payment_method_types: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "link",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "sequra",
+                    "sofort",
+                    "sunbit",
+                    "swish",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+
+    Unlike `payment_method_types`, this acts as a filter on the dynamically computed set of
+    eligible payment methods rather than an explicit static list. Only payment methods that
+    are both dynamically eligible and present in this list will be offered to the customer.
+    """
     automatic_tax: NotRequired["SessionCreateParamsAutomaticTax"]
     """
     Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
@@ -48,15 +120,15 @@ class SessionCreateParams(RequestOptions):
     """
     currency: NotRequired[str]
     """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `payment_method_types` is not set.
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `allowed_payment_method_types` is not set.
     """
     custom_fields: NotRequired[List["SessionCreateParamsCustomField"]]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     """
     custom_text: NotRequired["SessionCreateParamsCustomText"]
     """
-    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     """
     customer: NotRequired[str]
     """
@@ -145,6 +217,7 @@ class SessionCreateParams(RequestOptions):
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
@@ -153,6 +226,7 @@ class SessionCreateParams(RequestOptions):
                     "satispay",
                     "scalapay",
                     "sepa_debit",
+                    "sequra",
                     "sofort",
                     "sunbit",
                     "swish",
@@ -194,7 +268,7 @@ class SessionCreateParams(RequestOptions):
     For `subscription` mode, there is a maximum of 20 line items with recurring Prices and 20 line items with one-time Prices. Line items with one-time Prices will be on the initial invoice only.
     """
     locale: NotRequired[
-        "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-GB', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']|str"
+        "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-GB', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hi-IN', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']|str"
     ]
     """
     The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
@@ -229,7 +303,7 @@ class SessionCreateParams(RequestOptions):
 
     For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
 
-    You can't set this parameter if `ui_mode` is `custom`.
+    You can't set this parameter if `ui_mode` is `elements` or `form`.
     """
     origin_context: NotRequired["Literal['mobile_app', 'web']|str"]
     """
@@ -264,85 +338,9 @@ class SessionCreateParams(RequestOptions):
     """
     Payment-method-specific configuration.
     """
-    payment_method_types: NotRequired[
-        List[
-            Union[
-                Literal[
-                    "acss_debit",
-                    "affirm",
-                    "afterpay_clearpay",
-                    "alipay",
-                    "alma",
-                    "amazon_pay",
-                    "au_becs_debit",
-                    "bacs_debit",
-                    "bancontact",
-                    "billie",
-                    "bizum",
-                    "blik",
-                    "boleto",
-                    "card",
-                    "cashapp",
-                    "crypto",
-                    "customer_balance",
-                    "eps",
-                    "fpx",
-                    "giropay",
-                    "grabpay",
-                    "ideal",
-                    "kakao_pay",
-                    "klarna",
-                    "konbini",
-                    "kr_card",
-                    "link",
-                    "mb_way",
-                    "mobilepay",
-                    "multibanco",
-                    "naver_pay",
-                    "nz_bank_account",
-                    "oxxo",
-                    "p24",
-                    "pay_by_bank",
-                    "payco",
-                    "paynow",
-                    "paypal",
-                    "payto",
-                    "pix",
-                    "promptpay",
-                    "revolut_pay",
-                    "samsung_pay",
-                    "satispay",
-                    "scalapay",
-                    "sepa_debit",
-                    "sofort",
-                    "sunbit",
-                    "swish",
-                    "twint",
-                    "upi",
-                    "us_bank_account",
-                    "wechat_pay",
-                    "zip",
-                ],
-                str,
-            ]
-        ]
-    ]
-    """
-    A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
-
-    You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-    See [Dynamic Payment Methods](https://docs.stripe.com/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
-
-    Read more about the supported payment methods and their requirements in our [payment
-    method details guide](https://docs.stripe.com/docs/payments/checkout/payment-methods).
-
-    If multiple payment methods are passed, Checkout will dynamically reorder them to
-    prioritize the most relevant payment methods based on the customer's location and
-    other characteristics.
-    """
     permissions: NotRequired["SessionCreateParamsPermissions"]
     """
-    This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
+    This property is used to set up permissions for various actions (for example, update) on the CheckoutSession object. Can only be set when creating `embedded_page` or `elements` sessions.
 
     For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
     """
@@ -605,7 +603,7 @@ class SessionCreateParamsCustomField(TypedDict):
 class SessionCreateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
     """
     options: List["SessionCreateParamsCustomFieldDropdownOption"]
     """
@@ -627,7 +625,7 @@ class SessionCreateParamsCustomFieldDropdownOption(TypedDict):
 class SessionCreateParamsCustomFieldLabel(TypedDict):
     custom: str
     """
-    Custom text for the label, displayed to the customer. Up to 50 characters.
+    Custom text for the label, displayed to the customer. Up to 100 characters.
     """
     type: Literal["custom"]
     """
@@ -816,7 +814,7 @@ class SessionCreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
 
 class SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
     amount_tax_display: NotRequired[
-        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
+        "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|str"
     ]
     """
     How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -844,7 +842,7 @@ class SessionCreateParamsLineItem(TypedDict):
     """
     price_data: NotRequired["SessionCreateParamsLineItemPriceData"]
     """
-    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
     """
     quantity: NotRequired[int]
     """
@@ -890,7 +888,9 @@ class SessionCreateParamsLineItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -925,14 +925,31 @@ class SessionCreateParamsLineItemPriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired[
+        "SessionCreateParamsLineItemPriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired[str]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
     """
 
 
+class SessionCreateParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+    """
+
+
 class SessionCreateParamsLineItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -1045,26 +1062,17 @@ class SessionCreateParamsPaymentIntentData(TypedDict):
     """
     setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
     """
-    Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
-    method collected by this Checkout Session.
+    Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
 
-    When setting this to `on_session`, Checkout will show a notice to the
-    customer that their payment details will be saved.
+    When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
 
-    When setting this to `off_session`, Checkout will show a notice to the
-    customer that their payment details will be saved and used for future
-    payments.
+    When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
 
-    If a Customer has been provided or Checkout creates a new Customer,
-    Checkout will attach the payment method to the Customer.
+    If a Customer has been provided or Checkout creates a new Customer, Checkout will attach the payment method to the Customer.
 
-    If Checkout does not create a Customer, the payment method is not attached
-    to a Customer. To reuse the payment method, you can retrieve it from the
-    Checkout Session's PaymentIntent.
+    If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
 
-    When processing card payments, Checkout also uses `setup_future_usage`
-    to dynamically optimize your payment flow and comply with regional
-    legislation and network rules, such as SCA.
+    When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
     """
     shipping: NotRequired["SessionCreateParamsPaymentIntentDataShipping"]
     """
@@ -1213,6 +1221,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Billie payment method options.
     """
+    blik: NotRequired["SessionCreateParamsPaymentMethodOptionsBlik"]
+    """
+    contains details about the BLIK payment method options.
+    """
     boleto: NotRequired["SessionCreateParamsPaymentMethodOptionsBoleto"]
     """
     contains details about the Boleto payment method options.
@@ -1351,6 +1363,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Sepa Debit payment method options.
     """
+    sequra: NotRequired["SessionCreateParamsPaymentMethodOptionsSequra"]
+    """
+    contains details about the SeQura payment method options.
+    """
     sofort: NotRequired["SessionCreateParamsPaymentMethodOptionsSofort"]
     """
     contains details about the Sofort payment method options.
@@ -1484,7 +1500,7 @@ class SessionCreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
 
 
 class SessionCreateParamsPaymentMethodOptionsAlipay(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1572,7 +1588,7 @@ class SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions(
 
 
 class SessionCreateParamsPaymentMethodOptionsBancontact(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none', 'off_session']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1588,6 +1604,25 @@ class SessionCreateParamsPaymentMethodOptionsBillie(TypedDict):
     capture_method: NotRequired[Literal["manual"]]
     """
     Controls when the funds will be captured from the customer's account.
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsBlik(TypedDict):
+    mandate_options: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']|str"
+    ]
+
+
+class SessionCreateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
+    expires_at: NotRequired[int]
+    """
+    Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
     """
 
 
@@ -1651,7 +1686,7 @@ class SessionCreateParamsPaymentMethodOptionsCard(TypedDict):
         "SessionCreateParamsPaymentMethodOptionsCardRestrictions"
     ]
     """
-    Restrictions to apply to the card payment method. For example, you can block specific card brands. You can't set this parameter if `ui_mode` is `custom`.
+    Restrictions to apply to the card payment method. For example, you can block specific card brands. You can't set this parameter if `ui_mode` is `elements`.
     """
     setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
     """
@@ -1697,6 +1732,12 @@ class SessionCreateParamsPaymentMethodOptionsCardRestrictions(TypedDict):
     ]
     """
     The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+    """
+    funding_types_blocked: NotRequired[
+        List[Union[Literal["credit", "debit", "prepaid"], str]]
+    ]
+    """
+    Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
     """
 
 
@@ -2227,7 +2268,7 @@ class SessionCreateParamsPaymentMethodOptionsPix(TypedDict):
     """
     expires_after_seconds: NotRequired[int]
     """
-    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
     """
     mandate_options: NotRequired[
         "SessionCreateParamsPaymentMethodOptionsPixMandateOptions"
@@ -2366,6 +2407,13 @@ class SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions(
     """
 
 
+class SessionCreateParamsPaymentMethodOptionsSequra(TypedDict):
+    capture_method: NotRequired[Literal["manual"]]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+
+
 class SessionCreateParamsPaymentMethodOptionsSofort(TypedDict):
     setup_future_usage: NotRequired[Literal["none"]]
     """
@@ -2481,7 +2529,12 @@ class SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
 ):
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -2500,11 +2553,11 @@ class SessionCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The app ID registered with WeChat Pay. Only required when client is ios or android.
     """
-    client: Literal["android", "ios", "web"]
+    client: Union[Literal["android", "ios", "web"], str]
     """
     The client type that the end customer will pay from
     """
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired["Literal['none']|str"]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2525,7 +2578,7 @@ class SessionCreateParamsPermissions(TypedDict):
 
     Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
 
-    When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+    This parameter is only supported when `ui_mode=elements`.
     """
 
 
@@ -2856,7 +2909,9 @@ class SessionCreateParamsShippingOptionShippingRateData(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """
@@ -2937,7 +2992,9 @@ class SessionCreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOption
     """
     A non-negative integer in cents representing how much to charge.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
     """
@@ -3057,18 +3114,47 @@ class SessionCreateParamsSubscriptionDataBillingMode(TypedDict):
 
 
 class SessionCreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """
 
 
 class SessionCreateParamsSubscriptionDataInvoiceSettings(TypedDict):
+    account_tax_ids: NotRequired["Literal['']|List[str]"]
+    """
+    The account tax IDs associated with the subscription. Will be set on invoices generated by the subscription.
+    """
+    custom_fields: NotRequired[
+        "Literal['']|List[SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField]"
+    ]
+    """
+    A list of up to 4 custom fields to be displayed on the invoice.
+    """
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    footer: NotRequired[str]
+    """
+    Footer to be displayed on the invoice.
+    """
     issuer: NotRequired[
         "SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer"
     ]
     """
     The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+    """
+
+
+class SessionCreateParamsSubscriptionDataInvoiceSettingsCustomField(TypedDict):
+    name: str
+    """
+    The name of the custom field. This may be up to 40 characters.
+    """
+    value: str
+    """
+    The value of the custom field. This may be up to 140 characters.
     """
 
 
@@ -3084,7 +3170,7 @@ class SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
 
 
 class SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
     """
@@ -3128,7 +3214,7 @@ class SessionCreateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired["Literal['if_supported', 'never']|str"]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
     """
 
 

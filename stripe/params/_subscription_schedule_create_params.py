@@ -46,6 +46,12 @@ class SubscriptionScheduleCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    pause_schedules: NotRequired[
+        List["SubscriptionScheduleCreateParamsPauseSchedule"]
+    ]
+    """
+    Configures the subscription's pause behavior and, optionally, its resume behavior. Only one entry is supported.
+    """
     phases: NotRequired[List["SubscriptionScheduleCreateParamsPhase"]]
     """
     List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
@@ -70,7 +76,7 @@ class SubscriptionScheduleCreateParamsBillingMode(TypedDict):
 
 
 class SubscriptionScheduleCreateParamsBillingModeFlexible(TypedDict):
-    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    proration_discounts: NotRequired["Literal['included', 'itemized']|str"]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
     """
@@ -87,7 +93,9 @@ class SubscriptionScheduleCreateParamsDefaultSettings(TypedDict):
     """
     Default settings for automatic tax computation.
     """
-    billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
+    billing_cycle_anchor: NotRequired[
+        "Literal['automatic', 'phase_start']|str"
+    ]
     """
     Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -98,7 +106,7 @@ class SubscriptionScheduleCreateParamsDefaultSettings(TypedDict):
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -229,6 +237,163 @@ class SubscriptionScheduleCreateParamsDefaultSettingsTransferData(TypedDict):
     """
 
 
+class SubscriptionScheduleCreateParamsPauseSchedule(TypedDict):
+    key: NotRequired[str]
+    """
+    A unique identifier for this pause schedule entry.
+    """
+    pause: NotRequired["SubscriptionScheduleCreateParamsPauseSchedulePause"]
+    """
+    Configuration for when and how the subscription pauses.
+    """
+    resume: NotRequired["SubscriptionScheduleCreateParamsPauseScheduleResume"]
+    """
+    Configuration for when and how the subscription resumes.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseSchedulePause(TypedDict):
+    pause_at: "SubscriptionScheduleCreateParamsPauseSchedulePausePauseAt"
+    """
+    When to pause the subscription.
+    """
+    settings: NotRequired[
+        "SubscriptionScheduleCreateParamsPauseSchedulePauseSettings"
+    ]
+    """
+    Settings controlling billing behavior during the pause.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseSchedulePausePauseAt(TypedDict):
+    timestamp: NotRequired[int]
+    """
+    The Unix timestamp at which to pause the subscription. Required when `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    When to pause the subscription. Use `now` to pause immediately or `timestamp` to pause at a specific time.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseSchedulePauseSettings(TypedDict):
+    bill_for: NotRequired[
+        "SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillFor"
+    ]
+    """
+    Controls what to bill for when pausing the subscription.
+    """
+    invoicing_behavior: NotRequired[
+        "Literal['invoice', 'pending_invoice_item']|str"
+    ]
+    """
+    Determines whether to generate an invoice for outstanding amounts when pausing. When adding a pause schedule, defaults to `pending_invoice_item`. On updates, the existing value is preserved if not provided.
+    """
+    type: NotRequired["Literal['subscription']|str"]
+    """
+    The pause type. Currently only `subscription` is supported.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillFor(
+    TypedDict,
+):
+    outstanding_usage_through: NotRequired[
+        "SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough"
+    ]
+    """
+    Controls whether to collect metered usage accrued up to the pause date.
+    """
+    unused_time_from: NotRequired[
+        "SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom"
+    ]
+    """
+    Controls how unused time on subscription items is credited when pausing.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough(
+    TypedDict,
+):
+    type: NotRequired["Literal['none', 'pause_at']|str"]
+    """
+    Determines whether to collect metered usage accrued up to the pause date. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom(
+    TypedDict,
+):
+    type: NotRequired[
+        "Literal['item_current_period_start', 'none', 'pause_at']|str"
+    ]
+    """
+    Determines which point in the billing period unused time is credited from. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseScheduleResume(TypedDict):
+    resume_at: "SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAt"
+    """
+    When to resume the subscription.
+    """
+    settings: NotRequired[
+        "SubscriptionScheduleCreateParamsPauseScheduleResumeSettings"
+    ]
+    """
+    Settings controlling how the subscription resumes.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAt(TypedDict):
+    duration: NotRequired[
+        "SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAtDuration"
+    ]
+    """
+    The duration after which to resume the subscription. Required when `type` is `duration`.
+    """
+    timestamp: NotRequired[int]
+    """
+    The Unix timestamp at which to resume the subscription. Required when `type` is `timestamp`.
+    """
+    type: Union[Literal["duration", "now", "timestamp"], str]
+    """
+    When to resume the subscription. Use `now` to resume immediately, `duration` to resume after a set duration, or `timestamp` to resume at a specific time.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAtDuration(
+    TypedDict,
+):
+    interval: Union[Literal["day", "month", "week", "year"], str]
+    """
+    The time unit for the resume duration. One of `day`, `week`, `month`, or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals after which the subscription resumes.
+    """
+
+
+class SubscriptionScheduleCreateParamsPauseScheduleResumeSettings(TypedDict):
+    billing_cycle_anchor: NotRequired["Literal['resume_at', 'unchanged']|str"]
+    """
+    Controls the billing cycle anchor when the subscription resumes. When adding a pause schedule, defaults to `resume_at`. On updates, the existing value is preserved if not provided.
+    """
+    payment_behavior: NotRequired[
+        "Literal['resume_on_payment_attempt', 'resume_on_payment_success']|str"
+    ]
+    """
+    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. When adding a pause schedule, defaults to `resume_on_payment_success`. On updates, the existing value is preserved if not provided.
+    """
+    proration_behavior: NotRequired[
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
+    ]
+    """
+    Determines how to handle prorations when the subscription resumes. When adding a pause schedule, defaults to `create_prorations`. On updates, the existing value is preserved if not provided.
+    """
+
+
 class SubscriptionScheduleCreateParamsPhase(TypedDict):
     add_invoice_items: NotRequired[
         List["SubscriptionScheduleCreateParamsPhaseAddInvoiceItem"]
@@ -246,7 +411,9 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
     """
     Automatic tax settings for this phase.
     """
-    billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
+    billing_cycle_anchor: NotRequired[
+        "Literal['automatic', 'phase_start']|str"
+    ]
     """
     Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
@@ -257,7 +424,7 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
@@ -434,7 +601,9 @@ class SubscriptionScheduleCreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
     """
     The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -499,7 +668,7 @@ class SubscriptionScheduleCreateParamsPhaseDiscount(TypedDict):
 
 
 class SubscriptionScheduleCreateParamsPhaseDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies phase duration. Either `day`, `week`, `month` or `year`.
     """
@@ -640,7 +809,9 @@ class SubscriptionScheduleCreateParamsPhaseItemPriceData(TypedDict):
     """
     The recurring components of a price such as `interval` and `interval_count`.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
     """
     Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
@@ -655,7 +826,7 @@ class SubscriptionScheduleCreateParamsPhaseItemPriceData(TypedDict):
 
 
 class SubscriptionScheduleCreateParamsPhaseItemPriceDataRecurring(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies billing frequency. Either `day`, `week`, `month` or `year`.
     """

@@ -98,6 +98,7 @@ class RequestService(StripeService):
     def retrieve(
         self,
         id: str,
+        /,
         params: Optional["RequestRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Request":
@@ -118,6 +119,7 @@ class RequestService(StripeService):
     async def retrieve_async(
         self,
         id: str,
+        /,
         params: Optional["RequestRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Request":

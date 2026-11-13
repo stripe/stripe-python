@@ -611,14 +611,17 @@ class PaymentMethod(
             link: Optional[Link]
             masterpass: Optional[Masterpass]
             samsung_pay: Optional[SamsungPay]
-            type: Literal[
-                "amex_express_checkout",
-                "apple_pay",
-                "google_pay",
-                "link",
-                "masterpass",
-                "samsung_pay",
-                "visa_checkout",
+            type: Union[
+                Literal[
+                    "amex_express_checkout",
+                    "apple_pay",
+                    "google_pay",
+                    "link",
+                    "masterpass",
+                    "samsung_pay",
+                    "visa_checkout",
+                ],
+                str,
             ]
             """
             The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
@@ -871,35 +874,38 @@ class PaymentMethod(
 
     class Eps(StripeObject):
         bank: Optional[
-            Literal[
-                "arzte_und_apotheker_bank",
-                "austrian_anadi_bank_ag",
-                "bank_austria",
-                "bankhaus_carl_spangler",
-                "bankhaus_schelhammer_und_schattera_ag",
-                "bawag_psk_ag",
-                "bks_bank_ag",
-                "brull_kallmus_bank_ag",
-                "btv_vier_lander_bank",
-                "capital_bank_grawe_gruppe_ag",
-                "deutsche_bank_ag",
-                "dolomitenbank",
-                "easybank_ag",
-                "erste_bank_und_sparkassen",
-                "hypo_alpeadriabank_international_ag",
-                "hypo_bank_burgenland_aktiengesellschaft",
-                "hypo_noe_lb_fur_niederosterreich_u_wien",
-                "hypo_oberosterreich_salzburg_steiermark",
-                "hypo_tirol_bank_ag",
-                "hypo_vorarlberg_bank_ag",
-                "marchfelder_bank",
-                "oberbank_ag",
-                "raiffeisen_bankengruppe_osterreich",
-                "schoellerbank_ag",
-                "sparda_bank_wien",
-                "volksbank_gruppe",
-                "volkskreditbank_ag",
-                "vr_bank_braunau",
+            Union[
+                Literal[
+                    "arzte_und_apotheker_bank",
+                    "austrian_anadi_bank_ag",
+                    "bank_austria",
+                    "bankhaus_carl_spangler",
+                    "bankhaus_schelhammer_und_schattera_ag",
+                    "bawag_psk_ag",
+                    "bks_bank_ag",
+                    "brull_kallmus_bank_ag",
+                    "btv_vier_lander_bank",
+                    "capital_bank_grawe_gruppe_ag",
+                    "deutsche_bank_ag",
+                    "dolomitenbank",
+                    "easybank_ag",
+                    "erste_bank_und_sparkassen",
+                    "hypo_alpeadriabank_international_ag",
+                    "hypo_bank_burgenland_aktiengesellschaft",
+                    "hypo_noe_lb_fur_niederosterreich_u_wien",
+                    "hypo_oberosterreich_salzburg_steiermark",
+                    "hypo_tirol_bank_ag",
+                    "hypo_vorarlberg_bank_ag",
+                    "marchfelder_bank",
+                    "oberbank_ag",
+                    "raiffeisen_bankengruppe_osterreich",
+                    "schoellerbank_ag",
+                    "sparda_bank_wien",
+                    "volksbank_gruppe",
+                    "volkskreditbank_ag",
+                    "vr_bank_braunau",
+                ],
+                str,
             ]
         ]
         """
@@ -907,36 +913,41 @@ class PaymentMethod(
         """
 
     class Fpx(StripeObject):
-        account_holder_type: Optional[Literal["company", "individual"]]
+        account_holder_type: Optional[
+            Union[Literal["company", "individual"], str]
+        ]
         """
         Account holder type, if provided. Can be one of `individual` or `company`.
         """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bnp_paribas",
-            "bsn",
-            "cimb",
-            "citibank",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "mbsb_bank",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
+        bank: Union[
+            Literal[
+                "affin_bank",
+                "agrobank",
+                "alliance_bank",
+                "ambank",
+                "bank_islam",
+                "bank_muamalat",
+                "bank_of_china",
+                "bank_rakyat",
+                "bnp_paribas",
+                "bsn",
+                "cimb",
+                "citibank",
+                "deutsche_bank",
+                "hong_leong_bank",
+                "hsbc",
+                "kfh",
+                "maybank2e",
+                "maybank2u",
+                "mbsb_bank",
+                "ocbc",
+                "pb_enterprise",
+                "public_bank",
+                "rhb",
+                "standard_chartered",
+                "uob",
+            ],
+            str,
         ]
         """
         The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
@@ -950,55 +961,61 @@ class PaymentMethod(
 
     class Ideal(StripeObject):
         bank: Optional[
-            Literal[
-                "abn_amro",
-                "adyen",
-                "asn_bank",
-                "bunq",
-                "buut",
-                "finom",
-                "handelsbanken",
-                "ing",
-                "knab",
-                "mollie",
-                "moneyou",
-                "n26",
-                "nn",
-                "rabobank",
-                "regiobank",
-                "revolut",
-                "sns_bank",
-                "triodos_bank",
-                "van_lanschot",
-                "yoursafe",
+            Union[
+                Literal[
+                    "abn_amro",
+                    "adyen",
+                    "asn_bank",
+                    "bunq",
+                    "buut",
+                    "finom",
+                    "handelsbanken",
+                    "ing",
+                    "knab",
+                    "mollie",
+                    "moneyou",
+                    "n26",
+                    "nn",
+                    "rabobank",
+                    "regiobank",
+                    "revolut",
+                    "sns_bank",
+                    "triodos_bank",
+                    "van_lanschot",
+                    "yoursafe",
+                ],
+                str,
             ]
         ]
         """
         The customer's bank, if provided. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         """
         bic: Optional[
-            Literal[
-                "ABNANL2A",
-                "ADYBNL2A",
-                "ASNBNL21",
-                "BITSNL2A",
-                "BUNQNL2A",
-                "BUUTNL2A",
-                "FNOMNL22",
-                "FVLBNL22",
-                "HANDNL2A",
-                "INGBNL2A",
-                "KNABNL2H",
-                "MLLENL2A",
-                "MOYONL21",
-                "NNBANL2G",
-                "NTSBDEB1",
-                "RABONL2U",
-                "RBRBNL21",
-                "REVOIE23",
-                "REVOLT21",
-                "SNSBNL2A",
-                "TRIONL2U",
+            Union[
+                Literal[
+                    "ABNANL2A",
+                    "ADYBNL2A",
+                    "ASNBNL21",
+                    "BITSNL2A",
+                    "BUNQNL2A",
+                    "BUUTNL2A",
+                    "FNOMNL22",
+                    "FVLBNL22",
+                    "HANDNL2A",
+                    "INGBNL2A",
+                    "KNABNL2H",
+                    "MLLENL2A",
+                    "MOYONL21",
+                    "NNBANL2G",
+                    "NTSBDEB1",
+                    "RABONL2U",
+                    "RBRBNL21",
+                    "REVOIE23",
+                    "REVOLT21",
+                    "SNSBNL2A",
+                    "TRIONL2U",
+                ],
+                str,
             ]
         ]
         """
@@ -1272,6 +1289,9 @@ class PaymentMethod(
         PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
         """
 
+    class Paypay(StripeObject):
+        pass
+
     class Payto(StripeObject):
         bsb_number: Optional[str]
         """
@@ -1350,6 +1370,9 @@ class PaymentMethod(
         """
         _inner_class_types = {"generated_from": GeneratedFrom}
 
+    class Sequra(StripeObject):
+        pass
+
     class Sofort(StripeObject):
         country: Optional[str]
         """
@@ -1377,7 +1400,7 @@ class PaymentMethod(
             """
             The preferred network.
             """
-            supported: List[Literal["ach", "us_domestic_wire"]]
+            supported: List[Union[Literal["ach", "us_domestic_wire"], str]]
             """
             All supported networks.
             """
@@ -1549,6 +1572,7 @@ class PaymentMethod(
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
+    paypay: Optional[Paypay]
     payto: Optional[Payto]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
@@ -1561,6 +1585,7 @@ class PaymentMethod(
     satispay: Optional[Satispay]
     scalapay: Optional[Scalapay]
     sepa_debit: Optional[SepaDebit]
+    sequra: Optional[Sequra]
     sofort: Optional[Sofort]
     sunbit: Optional[Sunbit]
     swish: Optional[Swish]
@@ -1608,6 +1633,7 @@ class PaymentMethod(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -1616,6 +1642,7 @@ class PaymentMethod(
             "satispay",
             "scalapay",
             "sepa_debit",
+            "sequra",
             "sofort",
             "sunbit",
             "swish",
@@ -1637,7 +1664,10 @@ class PaymentMethod(
 
     @classmethod
     def _cls_attach(
-        cls, payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodAttachParams"],
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1668,7 +1698,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def attach(
-        payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1709,7 +1739,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_attach")
-    def attach(  # pyright: ignore[reportGeneralTypeIssues]
+    def attach(
         self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
@@ -1740,7 +1770,10 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_attach_async(
-        cls, payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodAttachParams"],
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1771,7 +1804,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def attach_async(
-        payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1812,7 +1845,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_attach_async")
-    async def attach_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def attach_async(
         self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
@@ -1879,7 +1912,10 @@ class PaymentMethod(
 
     @classmethod
     def _cls_detach(
-        cls, payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodDetachParams"],
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -1898,7 +1934,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def detach(
-        payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -1915,7 +1951,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_detach")
-    def detach(  # pyright: ignore[reportGeneralTypeIssues]
+    def detach(
         self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
@@ -1934,7 +1970,10 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_detach_async(
-        cls, payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        cls,
+        payment_method: str,
+        /,
+        **params: Unpack["PaymentMethodDetachParams"],
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -1953,7 +1992,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def detach_async(
-        payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
+        payment_method: str, /, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
@@ -1970,7 +2009,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_detach_async")
-    async def detach_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def detach_async(
         self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
@@ -2029,7 +2068,7 @@ class PaymentMethod(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentMethodModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentMethodModifyParams"]
     ) -> "PaymentMethod":
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
@@ -2046,7 +2085,7 @@ class PaymentMethod(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentMethodModifyParams"]
+        cls, id: str, /, **params: Unpack["PaymentMethodModifyParams"]
     ) -> "PaymentMethod":
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
@@ -2126,6 +2165,7 @@ class PaymentMethod(
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
+        "paypay": Paypay,
         "payto": Payto,
         "pix": Pix,
         "promptpay": Promptpay,
@@ -2135,6 +2175,7 @@ class PaymentMethod(
         "satispay": Satispay,
         "scalapay": Scalapay,
         "sepa_debit": SepaDebit,
+        "sequra": Sequra,
         "sofort": Sofort,
         "sunbit": Sunbit,
         "swish": Swish,

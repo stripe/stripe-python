@@ -17,7 +17,7 @@ class ErrorObject(StripeObject):
     # errorAnnotations: The beginning of the section generated from our OpenAPI spec
     advice_code: Optional[str]
     """
-    For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+    For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
     """
     charge: Optional[str]
     """

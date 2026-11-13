@@ -203,7 +203,7 @@ class PromotionCode(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PromotionCodeModifyParams"]
+        cls, id: str, /, **params: Unpack["PromotionCodeModifyParams"]
     ) -> "PromotionCode":
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
@@ -220,7 +220,7 @@ class PromotionCode(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PromotionCodeModifyParams"]
+        cls, id: str, /, **params: Unpack["PromotionCodeModifyParams"]
     ) -> "PromotionCode":
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.

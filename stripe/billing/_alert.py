@@ -90,7 +90,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     def _cls_activate(
-        cls, id: str, **params: Unpack["AlertActivateParams"]
+        cls, id: str, /, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -106,7 +106,9 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @overload
     @staticmethod
-    def activate(id: str, **params: Unpack["AlertActivateParams"]) -> "Alert":
+    def activate(
+        id: str, /, **params: Unpack["AlertActivateParams"]
+    ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
         """
@@ -120,9 +122,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         ...
 
     @class_method_variant("_cls_activate")
-    def activate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AlertActivateParams"]
-    ) -> "Alert":
+    def activate(self, **params: Unpack["AlertActivateParams"]) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
         """
@@ -139,7 +139,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def _cls_activate_async(
-        cls, id: str, **params: Unpack["AlertActivateParams"]
+        cls, id: str, /, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -156,7 +156,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     async def activate_async(
-        id: str, **params: Unpack["AlertActivateParams"]
+        id: str, /, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -173,7 +173,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         ...
 
     @class_method_variant("_cls_activate_async")
-    async def activate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def activate_async(
         self, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
@@ -192,7 +192,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     def _cls_archive(
-        cls, id: str, **params: Unpack["AlertArchiveParams"]
+        cls, id: str, /, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -208,7 +208,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @overload
     @staticmethod
-    def archive(id: str, **params: Unpack["AlertArchiveParams"]) -> "Alert":
+    def archive(id: str, /, **params: Unpack["AlertArchiveParams"]) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
         """
@@ -222,9 +222,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         ...
 
     @class_method_variant("_cls_archive")
-    def archive(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AlertArchiveParams"]
-    ) -> "Alert":
+    def archive(self, **params: Unpack["AlertArchiveParams"]) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
         """
@@ -241,7 +239,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def _cls_archive_async(
-        cls, id: str, **params: Unpack["AlertArchiveParams"]
+        cls, id: str, /, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -258,7 +256,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     async def archive_async(
-        id: str, **params: Unpack["AlertArchiveParams"]
+        id: str, /, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -275,7 +273,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         ...
 
     @class_method_variant("_cls_archive_async")
-    async def archive_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def archive_async(
         self, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
@@ -324,7 +322,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     def _cls_deactivate(
-        cls, id: str, **params: Unpack["AlertDeactivateParams"]
+        cls, id: str, /, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -343,7 +341,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     def deactivate(
-        id: str, **params: Unpack["AlertDeactivateParams"]
+        id: str, /, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -358,9 +356,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         ...
 
     @class_method_variant("_cls_deactivate")
-    def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["AlertDeactivateParams"]
-    ) -> "Alert":
+    def deactivate(self, **params: Unpack["AlertDeactivateParams"]) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
         """
@@ -377,7 +373,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def _cls_deactivate_async(
-        cls, id: str, **params: Unpack["AlertDeactivateParams"]
+        cls, id: str, /, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -396,7 +392,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     async def deactivate_async(
-        id: str, **params: Unpack["AlertDeactivateParams"]
+        id: str, /, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -413,7 +409,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         ...
 
     @class_method_variant("_cls_deactivate_async")
-    async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
+    async def deactivate_async(
         self, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """

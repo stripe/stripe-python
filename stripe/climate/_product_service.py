@@ -57,6 +57,7 @@ class ProductService(StripeService):
     def retrieve(
         self,
         product: str,
+        /,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":
@@ -79,6 +80,7 @@ class ProductService(StripeService):
     async def retrieve_async(
         self,
         product: str,
+        /,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Product":

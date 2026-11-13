@@ -11,7 +11,7 @@ class SubscriptionListParams(RequestOptions):
     Filter subscriptions by their automatic tax settings.
     """
     collection_method: NotRequired[
-        Literal["charge_automatically", "send_invoice"]
+        "Literal['charge_automatically', 'send_invoice']|str"
     ]
     """
     The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.

@@ -23,6 +23,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "application": ("stripe._application", "Application"),
     "application_fee": ("stripe._application_fee", "ApplicationFee"),
     "fee_refund": ("stripe._application_fee_refund", "ApplicationFeeRefund"),
+    "apps.install": ("stripe.apps._install", "Install"),
     "apps.secret": ("stripe.apps._secret", "Secret"),
     "balance": ("stripe._balance", "Balance"),
     "balance_settings": ("stripe._balance_settings", "BalanceSettings"),
@@ -50,6 +51,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CreditBalanceTransaction",
     ),
     "billing.credit_grant": ("stripe.billing._credit_grant", "CreditGrant"),
+    "billing.feedback_option": (
+        "stripe.billing._feedback_option",
+        "FeedbackOption",
+    ),
     "billing.meter": ("stripe.billing._meter", "Meter"),
     "billing.meter_event": ("stripe.billing._meter_event", "MeterEvent"),
     "billing.meter_event_adjustment": (
@@ -196,6 +201,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "plan": ("stripe._plan", "Plan"),
     "price": ("stripe._price", "Price"),
     "product": ("stripe._product", "Product"),
+    "product_catalog.trial_offer": (
+        "stripe.product_catalog._trial_offer",
+        "TrialOffer",
+    ),
     "product_feature": ("stripe._product_feature", "ProductFeature"),
     "promotion_code": ("stripe._promotion_code", "PromotionCode"),
     "quote": ("stripe._quote", "Quote"),
@@ -222,7 +231,6 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._reserve_transaction",
         "ReserveTransaction",
     ),
-    "transfer_reversal": ("stripe._reversal", "Reversal"),
     "review": ("stripe._review", "Review"),
     "setup_attempt": ("stripe._setup_attempt", "SetupAttempt"),
     "setup_intent": ("stripe._setup_intent", "SetupIntent"),
@@ -249,6 +257,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.tax._calculation_line_item",
         "CalculationLineItem",
     ),
+    "tax.location": ("stripe.tax._location", "Location"),
     "tax.registration": ("stripe.tax._registration", "Registration"),
     "tax.settings": ("stripe.tax._settings", "Settings"),
     "tax.transaction": ("stripe.tax._transaction", "Transaction"),
@@ -281,9 +290,14 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.test_helpers._test_clock",
         "TestClock",
     ),
+    "three_d_secure.authentication": (
+        "stripe.three_d_secure._authentication",
+        "Authentication",
+    ),
     "token": ("stripe._token", "Token"),
     "topup": ("stripe._topup", "Topup"),
     "transfer": ("stripe._transfer", "Transfer"),
+    "transfer_reversal": ("stripe._transfer_reversal", "TransferReversal"),
     "treasury.credit_reversal": (
         "stripe.treasury._credit_reversal",
         "CreditReversal",
@@ -330,7 +344,12 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
 }
 
 V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
+    "v2.search_result": (
+        "stripe.v2._search_result_object",
+        "SearchResultObject",
+    ),
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    "list": ("stripe.v2._list_object", "ListObject"),
     "v2.billing.meter_event": ("stripe.v2.billing._meter_event", "MeterEvent"),
     "v2.billing.meter_event_adjustment": (
         "stripe.v2.billing._meter_event_adjustment",
@@ -359,6 +378,70 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",
         "EventDestination",
+    ),
+    "v2.core.vault.gb_bank_account": (
+        "stripe.v2.core.vault._gb_bank_account",
+        "GbBankAccount",
+    ),
+    "v2.core.vault.us_bank_account": (
+        "stripe.v2.core.vault._us_bank_account",
+        "UsBankAccount",
+    ),
+    "v2.money_management.adjustment": (
+        "stripe.v2.money_management._adjustment",
+        "Adjustment",
+    ),
+    "v2.money_management.financial_account": (
+        "stripe.v2.money_management._financial_account",
+        "FinancialAccount",
+    ),
+    "v2.money_management.financial_address": (
+        "stripe.v2.money_management._financial_address",
+        "FinancialAddress",
+    ),
+    "v2.money_management.financial_address_credit_simulation": (
+        "stripe.v2.money_management._financial_address_credit_simulation",
+        "FinancialAddressCreditSimulation",
+    ),
+    "v2.money_management.inbound_transfer": (
+        "stripe.v2.money_management._inbound_transfer",
+        "InboundTransfer",
+    ),
+    "v2.money_management.outbound_payment": (
+        "stripe.v2.money_management._outbound_payment",
+        "OutboundPayment",
+    ),
+    "v2.money_management.outbound_setup_intent": (
+        "stripe.v2.money_management._outbound_setup_intent",
+        "OutboundSetupIntent",
+    ),
+    "v2.money_management.payout_intent": (
+        "stripe.v2.money_management._payout_intent",
+        "PayoutIntent",
+    ),
+    "v2.money_management.payout_method": (
+        "stripe.v2.money_management._payout_method",
+        "PayoutMethod",
+    ),
+    "v2.money_management.payout_methods_bank_account_spec": (
+        "stripe.v2.money_management._payout_methods_bank_account_spec",
+        "PayoutMethodsBankAccountSpec",
+    ),
+    "v2.money_management.received_credit": (
+        "stripe.v2.money_management._received_credit",
+        "ReceivedCredit",
+    ),
+    "v2.money_management.recipient_verification": (
+        "stripe.v2.money_management._recipient_verification",
+        "RecipientVerification",
+    ),
+    "v2.money_management.transaction": (
+        "stripe.v2.money_management._transaction",
+        "Transaction",
+    ),
+    "v2.money_management.transaction_entry": (
+        "stripe.v2.money_management._transaction_entry",
+        "TransactionEntry",
     ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

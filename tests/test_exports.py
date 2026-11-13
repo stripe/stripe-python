@@ -4,6 +4,8 @@ import stripe
 import subprocess
 import sys
 
+from stripe._util import claude_code_hint_line
+
 
 def assert_output(code: str, expected: str) -> None:
     process = subprocess.Popen(
@@ -14,6 +16,7 @@ def assert_output(code: str, expected: str) -> None:
 
     stdout, stderr = process.communicate()
 
+    stderr = stderr.replace(claude_code_hint_line().encode(), b"")
     assert not stderr, f"Error: {stderr.decode()}"
 
     output = stdout.decode().strip()
@@ -39,6 +42,16 @@ def test_can_import_webhook_members() -> None:
     from stripe import (
         Webhook,  # pyright: ignore[reportUnusedImport]
         WebhookSignature,  # pyright: ignore[reportUnusedImport]
+    )
+
+
+def test_can_import_event_notification_members() -> None:
+    from stripe.v2.core import (
+        EventNotification,  # pyright: ignore[reportUnusedImport]
+        Reason,  # pyright: ignore[reportUnusedImport]
+        ReasonRequest,  # pyright: ignore[reportUnusedImport]
+        RelatedObject,  # pyright: ignore[reportUnusedImport]
+        RelatedSingletonObject,  # pyright: ignore[reportUnusedImport]
     )
 
 

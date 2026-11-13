@@ -24,6 +24,7 @@ class AccountCapabilityService(StripeService):
     def list(
         self,
         account: str,
+        /,
         params: Optional["AccountCapabilityListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Capability]":
@@ -46,6 +47,7 @@ class AccountCapabilityService(StripeService):
     async def list_async(
         self,
         account: str,
+        /,
         params: Optional["AccountCapabilityListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Capability]":
@@ -69,6 +71,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
+        /,
         params: Optional["AccountCapabilityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Capability":
@@ -93,6 +96,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
+        /,
         params: Optional["AccountCapabilityRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Capability":
@@ -117,6 +121,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
+        /,
         params: Optional["AccountCapabilityUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Capability":
@@ -141,6 +146,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
+        /,
         params: Optional["AccountCapabilityUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Capability":

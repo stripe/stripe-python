@@ -208,6 +208,10 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     """
     PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://docs.stripe.com/payments/paypal) for more details.
     """
+    paypay: NotRequired["PaymentMethodConfigurationModifyParamsPaypay"]
+    """
+    Customers can pay with PayPay online or using the PayPay app.
+    """
     payto: NotRequired["PaymentMethodConfigurationModifyParamsPayto"]
     """
     PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
@@ -243,6 +247,10 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     sepa_debit: NotRequired["PaymentMethodConfigurationModifyParamsSepaDebit"]
     """
     The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://docs.stripe.com/payments/sepa-debit) for more details.
+    """
+    sequra: NotRequired["PaymentMethodConfigurationModifyParamsSequra"]
+    """
+    SeQura is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers customers payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with SeQura, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
     """
     sofort: NotRequired["PaymentMethodConfigurationModifyParamsSofort"]
     """
@@ -1028,6 +1036,22 @@ class PaymentMethodConfigurationModifyParamsPaypalDisplayPreference(TypedDict):
     """
 
 
+class PaymentMethodConfigurationModifyParamsPaypay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsPaypayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsPaypayDisplayPreference(TypedDict):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
 class PaymentMethodConfigurationModifyParamsPayto(TypedDict):
     display_preference: NotRequired[
         "PaymentMethodConfigurationModifyParamsPaytoDisplayPreference"
@@ -1162,6 +1186,22 @@ class PaymentMethodConfigurationModifyParamsSepaDebit(TypedDict):
 class PaymentMethodConfigurationModifyParamsSepaDebitDisplayPreference(
     TypedDict,
 ):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsSequra(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsSequraDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsSequraDisplayPreference(TypedDict):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
