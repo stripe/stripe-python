@@ -862,12 +862,6 @@ class PycurlClient(HTTPClient):
         timeout: int = 80,
         connect_timeout: int = 30,
     ):
-        """
-        `timeout` is the maximum number of seconds the whole request may take
-        (curl's `TIMEOUT`), and `connect_timeout` is the maximum number of
-        seconds to wait for the connection to be established (curl's
-        `CONNECTTIMEOUT`). curl only accepts whole seconds for both.
-        """
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
             proxy=proxy,
