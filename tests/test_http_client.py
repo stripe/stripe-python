@@ -1167,6 +1167,107 @@ class TestPycurlClient(ClientTestBase):
             with pytest.raises(ValueError):
                 make_request("get", self.valid_url, headers, None)
 
+    @pytest.mark.parametrize(
+        "client_kwargs,expected_connect_timeout,expected_timeout",
+        [
+            ({}, 30, 80),
+            ({"connect_timeout": 5, "timeout": 10}, 5, 10),
+            ({"connect_timeout": 5}, 5, 80),
+            ({"timeout": 10}, 30, 10),
+        ],
+    )
+    def test_timeout(
+        self,
+        mocked_request_lib,
+        mock_response,
+        make_request,
+        client_kwargs,
+        expected_connect_timeout,
+        expected_timeout,
+    ):
+        mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
+        make_request(
+            "GET", self.valid_url, {}, None, client_kwargs=client_kwargs
+        )
+
+        curl_mock = mocked_request_lib.Curl()
+        curl_mock.setopt.assert_any_call(
+            mocked_request_lib.CONNECTTIMEOUT, expected_connect_timeout
+        )
+        curl_mock.setopt.assert_any_call(
+            mocked_request_lib.TIMEOUT, expected_timeout
+        )
+
+    def test_timeout_stream(
+        self, mocked_request_lib, mock_response, make_streamed_request
+    ):
+        mock_response(mocked_request_lib, "some streamed content", 200)
+        make_streamed_request(
+            "GET",
+            self.valid_url,
+            {},
+            None,
+            client_kwargs={"connect_timeout": 5, "timeout": 10},
+        )
+
+        curl_mock = mocked_request_lib.Curl()
+        curl_mock.setopt.assert_any_call(mocked_request_lib.CONNECTTIMEOUT, 5)
+        curl_mock.setopt.assert_any_call(mocked_request_lib.TIMEOUT, 10)
+
+    def test_timeout_reapplied_after_reset(
+        self, mocked_request_lib, mock_response, make_client
+    ):
+        mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
+        client = make_client(connect_timeout=5, timeout=10)
+
+        client.request("get", self.valid_url, {})
+        client.request("get", self.valid_url, {})
+
+        curl_mock = mocked_request_lib.Curl()
+        # reset() clears every option, so each request must set the
+        # timeouts again after its own reset() call.
+        relevant_calls = [
+            c
+            for c in curl_mock.mock_calls
+            if c == call.reset()
+            or (
+                c[0] == "setopt"
+                and c[1][0]
+                in (
+                    mocked_request_lib.CONNECTTIMEOUT,
+                    mocked_request_lib.TIMEOUT,
+                )
+            )
+        ]
+        assert (
+            relevant_calls
+            == [
+                call.reset(),
+                call.setopt(mocked_request_lib.CONNECTTIMEOUT, 5),
+                call.setopt(mocked_request_lib.TIMEOUT, 10),
+            ]
+            * 2
+        )
+
+    def test_positional_args(self, mocked_request_lib):
+        client = self.REQUEST_CLIENT(False, None, None, mocked_request_lib)
+
+        assert client.pycurl is mocked_request_lib
+        assert client._verify_ssl_certs is False
+        assert client._connect_timeout == 30
+        assert client._timeout == 80
+
+        # Timeouts are keyword-only so they can't be confused with each
+        # other or with the existing positional parameters.
+        with pytest.raises(TypeError):
+            self.REQUEST_CLIENT(
+                False,
+                None,
+                None,
+                mocked_request_lib,
+                10,  # pyright: ignore[reportGeneralTypeIssues]
+            )
+
     @pytest.fixture
     def created_curls(self, mocked_request_lib):
         curls: List[Mock] = []
