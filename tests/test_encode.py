@@ -1,3 +1,4 @@
+import datetime
 import warnings
 
 from stripe._stripe_object import StripeObject
@@ -85,6 +86,19 @@ class TestApiEncode:
         """Test that boolean values are encoded as lowercase strings."""
         result = list(_api_encode({"active": True, "deleted": False}))
         assert result == [("active", "true"), ("deleted", "false")]
+
+    def test_encode_list_with_boolean_values(self):
+        """Booleans inside a list are encoded as lowercase strings, like top-level booleans."""
+        result = list(_api_encode({"flags": [True, False]}))
+        assert result == [("flags[0]", "true"), ("flags[1]", "false")]
+
+    def test_encode_list_with_datetime_values(self):
+        """Datetimes inside a list are encoded as unix timestamps, like top-level datetimes."""
+        dt = datetime.datetime(
+            2024, 1, 2, 3, 4, 5, tzinfo=datetime.timezone.utc
+        )
+        result = list(_api_encode({"created": [dt]}))
+        assert result == [("created[0]", 1704164645)]
 
     def test_encode_list_value(self):
         """Test that list values are encoded with indexed keys."""
