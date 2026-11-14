@@ -1448,7 +1448,14 @@ class AIOHTTPClient(HTTPClient):
             method, url, headers, post_data=post_data
         )
 
-        return (await content.read()), status_code, response_headers
+        # aiohttp only reads the body here, after `request()` has returned, so
+        # a dropped connection or timeout mid-body surfaces from `read()`
+        try:
+            body = await content.read()
+        except Exception as e:
+            self._handle_request_error(e)
+
+        return body, status_code, response_headers
 
     def _handle_request_error(self, e: Exception) -> NoReturn:
         msg = (

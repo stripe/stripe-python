@@ -2015,6 +2015,20 @@ class TestAIOHTTPClient(ClientTestBase):
         with pytest.raises(stripe.APIConnectionError):
             await make_async_request("get", self.valid_url, {}, None)
 
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_body_read_exception(
+        self, mocked_request_lib, mock_response, make_async_request
+    ):
+        response = mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
+        response.content.read = AsyncMock(side_effect=TimeoutError())
+
+        with pytest.raises(stripe.APIConnectionError) as error:
+            await make_async_request("get", self.valid_url, {}, None)
+
+        assert error.value.should_retry
+        assert isinstance(error.value.__cause__, TimeoutError)
+
     def test_timeout(self):
         pass
 
@@ -2196,6 +2210,29 @@ class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):
         _, code, _ = await make_async_request_with_args()
         assert code == 409
         check_call_numbers(self.max_retries + 1)
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_retry_body_read_error_until_response(
+        self,
+        mock_retry,
+        mock_response,
+        mocked_request_lib,
+        check_call_numbers,
+        make_async_request_with_args,
+    ):
+        truncated = mock_response(mocked_request_lib, code=200)
+        truncated.content.read = AsyncMock(side_effect=TimeoutError())
+        mock_retry(
+            responses=[
+                truncated,
+                mock_response(mocked_request_lib, '{"foo": "baz"}', 202),
+            ]
+        )
+        body, code, _ = await make_async_request_with_args()
+        assert code == 202
+        assert body == '{"foo": "baz"}'
+        check_call_numbers(2)
 
     def connection_error(self, client, given_exception):
         with pytest.raises(stripe.APIConnectionError) as error:
