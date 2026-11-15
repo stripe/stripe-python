@@ -222,6 +222,16 @@ class TestWebhookSignature(object):
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
             )
 
+    def test_raise_on_non_ascii_signature_in_header(self):
+        header = "t=1,v1=é"
+        with pytest.raises(
+            SignatureVerificationError,
+            match="No signatures found matching the expected signature for payload",
+        ):
+            stripe.WebhookSignature.verify_header(
+                DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+            )
+
     def test_diagnose_secret_mismatch(self):
         dashboard_url_base = "https://dashboard.stripe.com/webhooks"
         cases = [

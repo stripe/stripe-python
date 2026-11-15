@@ -105,7 +105,14 @@ def logfmt(props):
 if hasattr(hmac, "compare_digest"):
     # Prefer the stdlib implementation, when available.
     def secure_compare(val1, val2):
-        return hmac.compare_digest(val1, val2)
+        try:
+            return hmac.compare_digest(val1, val2)
+        except TypeError:
+            if isinstance(val1, str) and isinstance(val2, str):
+                return hmac.compare_digest(
+                    val1.encode("utf-8"), val2.encode("utf-8")
+                )
+            return False
 
 else:
 
