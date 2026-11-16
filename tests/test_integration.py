@@ -1,3 +1,4 @@
+import importlib
 import platform
 from threading import Thread, Lock
 import json
@@ -229,7 +230,7 @@ class TestIntegration(object):
 
     @pytest.fixture(params=["httpx2", "httpx"])
     def httpx_lib(self, request):
-        return pytest.importorskip(request.param)
+        return importlib.import_module(request.param)
 
     def test_hits_proxy_through_httpx_client(self, httpx_lib):
         class MockServerRequestHandler(MyTestHandler):
