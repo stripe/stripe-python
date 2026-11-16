@@ -2,6 +2,8 @@ from __future__ import absolute_import, division, print_function
 
 import datetime
 
+import pytest
+
 import stripe
 
 from tests.test_api_requestor import GMT1
@@ -172,28 +174,80 @@ class TestRawRequest(object):
             is_json=True,
         )
 
-    # TODO(jar) this test is not applicable yet, but may be some day
-    #    @pytest.mark.anyio
-    #    async def test_form_request_get_async(
-    #        self, http_client_mock, stripe_mock_stripe_client
-    #    ):
-    #        http_client_mock.stub_request(
-    #            "get",
-    #            path=self.GET_REL_URL,
-    #            rbody='{"id": "acct_123", "object": "account"}',
-    #            rcode=200,
-    #            rheaders={},
-    #        )
-    #
-    #        resp = await stripe_mock_stripe_client.raw_request_async(
-    #            "get", self.GET_REL_URL
-    #        )
-    #
-    #        http_client_mock.assert_requested("get", path=self.GET_REL_URL)
-    #
-    #        deserialized = stripe_mock_stripe_client.deserialize(resp)
-    #        assert isinstance(deserialized, stripe.Account)
-    #
+    @pytest.mark.anyio
+    async def test_form_request_get_async(
+        self, http_client_mock, stripe_mock_stripe_client
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.GET_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
+
+        resp = await stripe_mock_stripe_client.raw_request_async(
+            "get", self.GET_REL_URL
+        )
+
+        http_client_mock.assert_requested(
+            "get", path=self.GET_REL_URL, usage=["raw_request", "async"]
+        )
+
+        deserialized = stripe_mock_stripe_client.deserialize(
+            resp, api_mode="V1"
+        )
+        assert isinstance(deserialized, stripe.Account)
+
+    @pytest.mark.anyio
+    async def test_raw_request_async_reports_passed_usage(
+        self, http_client_mock, stripe_mock_stripe_client
+    ):
+        http_client_mock.stub_request(
+            "post",
+            path=self.POST_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
+
+        await stripe_mock_stripe_client.raw_request_async(
+            "post",
+            self.POST_REL_URL,
+            usage=["fetch_related_object"],
+            **self.ENCODE_INPUTS,
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            path=self.POST_REL_URL,
+            post_data="type=standard&int=123&datetime=1356994801",
+            usage=["fetch_related_object", "async"],
+        )
+
+    @pytest.mark.anyio
+    async def test_raw_request_async_sends_non_list_usage_as_param(
+        self, http_client_mock, stripe_mock_stripe_client
+    ):
+        http_client_mock.stub_request(
+            "post",
+            path="/v1/setup_intents",
+            rbody='{"id": "seti_123", "object": "setup_intent"}',
+            rcode=200,
+            rheaders={},
+        )
+
+        await stripe_mock_stripe_client.raw_request_async(
+            "post", "/v1/setup_intents", usage="off_session"
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/setup_intents",
+            post_data="usage=off_session",
+            usage=["raw_request", "async"],
+        )
+
     def test_raw_request_usage_reported(
         self, http_client_mock, stripe_mock_stripe_client
     ):
