@@ -45,6 +45,7 @@ SUPPORTED_LIBS = frozenset(
         "requests",
         "pycurl",
         "httpx2",
+        "httpx",
         "aiohttp",
         "anyio",
     )
@@ -111,10 +112,14 @@ class TestImports:
     @pytest.mark.parametrize(
         ["available_libs", "expected"],
         [
-            # needs both httpx2 and anyio
+            # needs both httpx2 (or httpx) and anyio
             [["httpx2"], NoImportFoundAsyncClient],
+            [["httpx"], NoImportFoundAsyncClient],
             [["anyio"], NoImportFoundAsyncClient],
             [["httpx2", "anyio"], HTTPXClient],
+            [["httpx", "anyio"], HTTPXClient],
+            [["httpx2", "httpx", "anyio"], HTTPXClient],
+            [["httpx", "anyio", "aiohttp"], HTTPXClient],
             # having only one required lib means we proceed
             [["anyio", "aiohttp"], AIOHTTPClient],
             [["aiohttp"], AIOHTTPClient],
