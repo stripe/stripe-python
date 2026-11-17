@@ -45,7 +45,7 @@ SUPPORTED_LIBS = frozenset(
         "requests",
         "pycurl",
         "httpx2",
-        "httpx", # TODO: (DEVSDK-3427) drop in the next major version.
+        "httpx",  # TODO: (DEVSDK-3427) drop in the next major version.
         "aiohttp",
         "anyio",
     )
