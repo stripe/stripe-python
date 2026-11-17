@@ -5,4 +5,4 @@ pr_url: https://github.com/stripe/stripe-python/pull/1997
 github_issues_resolved: 
 - https://github.com/stripe/stripe-python/issues/1886
 ---
-`HTTPXClient` and the default async client now use `httpx2` when it's installed and fall back to `httpx` otherwise. Requests send their encoded body as `content=`, and proxies are configured on the client instead of per request.
+`HTTPXClient` and the default async client now use `httpx2` when it's installed and fall back to `httpx` otherwise. `httpx` support is deprecated and will be removed in the next major version; we recommend installing `httpx2` for async use.

@@ -371,9 +371,11 @@ There is no `.save_async` as `.save` is [deprecated since stripe-python v5](http
 
 The default HTTP client uses `requests` for making synchronous requests but
 `httpx2` for making async requests, falling back to `httpx` if `httpx2` isn't
-installed (and to `aiohttp` if neither is). If you're migrating to async, we recommend
-you to explicitly initialize your own http client and pass it to StripeClient
-or set it as the global default.
+installed (and to `aiohttp` if neither is). We recommend `pip install httpx2`
+for async use, since `httpx` is no longer actively maintained. `httpx` support
+is deprecated and will be removed in the next major version of stripe-python.
+If you're migrating to async, we recommend you to explicitly initialize your own
+http client and pass it to StripeClient or set it as the global default.
 
 If you don't already have a dependency on an async-compatible HTTP library, `pip install stripe[async]` will install one for you (new in `v13.0.1`).
 

@@ -1253,6 +1253,7 @@ class HTTPXClient(HTTPClient):
         super(HTTPXClient, self).__init__(**kwargs)
 
         if _lib is None:
+            # TODO: drop the httpx fallback in the next major version.
             try:
                 import httpx2 as _lib
             except ImportError:
@@ -1619,6 +1620,7 @@ def _resolve_async_client():
     try:
         import anyio  # noqa: F401
 
+        # TODO: drop the httpx fallback in the next major version.
         try:
             import httpx2  # noqa: F401
         except ImportError:
