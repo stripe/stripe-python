@@ -1604,6 +1604,10 @@ class NoImportFoundAsyncClient(HTTPClient):
 #   3. aiohttp
 #   4. NoImportFoundAsyncClient (raises on use)
 #
+# Note: httpx is no longer maintained, so we only fall back to it for users who
+# haven't installed httpx2 yet. That fallback is deprecated and will be removed
+# in the next major version (DEVSDK-3427).
+#
 # To add a new client: define the class above, then add it to the appropriate
 # cascade below. The resolved class is stored directly — new_default_http_client()
 # and new_http_client_async_fallback() just call it.
