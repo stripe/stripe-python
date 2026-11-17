@@ -385,7 +385,7 @@ If you don't already have a dependency on an async-compatible HTTP library, `pip
 # make sure you don't unintentionally make a synchronous request.
 my_http_client = stripe.HTTPXClient()
 
-# If you want to use httpx2 (or httpx) to make sync requests, you can disable this
+# If you want to use httpx2 to make sync requests, you can disable this
 # behavior.
 my_http_client = stripe.HTTPXClient(allow_sync_methods=True)
 

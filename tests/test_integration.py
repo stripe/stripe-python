@@ -228,6 +228,7 @@ class TestIntegration(object):
 
         assert MockServerRequestHandler.num_requests == 1
 
+    # TODO: (DEVSDK-3427) drop the httpx param in the next major version.
     @pytest.fixture(params=["httpx2", "httpx"])
     def httpx_lib(self, request):
         return importlib.import_module(request.param)

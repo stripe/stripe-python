@@ -3,6 +3,7 @@
 
 httpx2 >= 2.0.0
 # fallback when httpx2 isn't installed
+# TODO: (DEVSDK-3427) remove httpx in the next major version
 httpx >= 0.27.0
 aiohttp == 3.12.15
 # httpx2 requires anyio >= 4.10 since 2.9.0

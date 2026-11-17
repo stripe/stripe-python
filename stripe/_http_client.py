@@ -1253,7 +1253,7 @@ class HTTPXClient(HTTPClient):
         super(HTTPXClient, self).__init__(**kwargs)
 
         if _lib is None:
-            # TODO: drop the httpx fallback in the next major version.
+            # TODO: (DEVSDK-3427) drop the httpx fallback in the next major version.
             try:
                 import httpx2 as _lib
             except ImportError:
@@ -1546,8 +1546,8 @@ class NoImportFoundAsyncClient(HTTPClient):
     def raise_async_client_import_error() -> Never:
         raise ImportError(
             (
-                "Import httpx2 or httpx not found. To make async http requests, "
-                "you must either install httpx2 (or httpx) or define your own "
+                "Import httpx2 not found. To make async http requests, "
+                "you must either install httpx2 or define your own "
                 "async http client by subclassing stripe.HTTPClient "
                 "and setting stripe.default_http_client to an instance of it."
             )
@@ -1582,7 +1582,7 @@ class NoImportFoundAsyncClient(HTTPClient):
 #
 # Async client precedence:
 #   1. httpx2 + anyio (both required)
-#   2. httpx + anyio (both required)
+#   2. (deprecated, see note) httpx + anyio (both required)
 #   3. aiohttp
 #   4. NoImportFoundAsyncClient (raises on use)
 #
@@ -1620,7 +1620,7 @@ def _resolve_async_client():
     try:
         import anyio  # noqa: F401
 
-        # TODO: drop the httpx fallback in the next major version.
+        # TODO: (DEVSDK-3427) drop the httpx fallback in the next major version.
         try:
             import httpx2  # noqa: F401
         except ImportError:

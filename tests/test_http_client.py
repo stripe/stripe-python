@@ -45,7 +45,7 @@ SUPPORTED_LIBS = frozenset(
         "requests",
         "pycurl",
         "httpx2",
-        "httpx",
+        "httpx", # TODO: (DEVSDK-3427) drop in the next major version.
         "aiohttp",
         "anyio",
     )
@@ -112,6 +112,7 @@ class TestImports:
     @pytest.mark.parametrize(
         ["available_libs", "expected"],
         [
+            # TODO: (DEVSDK-3427) delete the httpx-only cases in the next major version.
             # needs both httpx2 (or httpx) and anyio
             [["httpx2"], NoImportFoundAsyncClient],
             [["httpx"], NoImportFoundAsyncClient],
