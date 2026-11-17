@@ -1,3 +1,4 @@
+import importlib
 import io
 import base64
 import json
@@ -1837,6 +1838,62 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
 
     def test_timeout_async(self):
         pass
+
+
+class TestHTTPXClientTimeout:
+    @pytest.fixture(params=["httpx2", "httpx"])
+    def lib(self, request):
+        return importlib.import_module(request.param)
+
+    @pytest.fixture
+    def other_lib(self, lib):
+        name = "httpx" if lib.__name__ == "httpx2" else "httpx2"
+        return importlib.import_module(name)
+
+    @pytest.mark.parametrize("timeout", [None, 5, 2.5, 80])
+    def test_numeric_timeout_is_unchanged(self, lib, timeout):
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert client._timeout == timeout
+
+    def test_timeout_from_same_lib_is_unchanged(self, lib):
+        timeout = lib.Timeout(30.0, connect=5.0)
+
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert client._timeout is timeout
+
+    def test_timeout_from_other_lib_is_converted(self, lib, other_lib):
+        timeout = other_lib.Timeout(30.0, connect=5.0, read=10.0)
+
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert isinstance(client._timeout, lib.Timeout)
+        assert client._timeout == lib.Timeout(30.0, connect=5.0, read=10.0)
+
+    @pytest.mark.anyio
+    async def test_converted_timeout_is_accepted_by_request(
+        self, lib, other_lib
+    ):
+        seen = {}
+
+        def handler(request):
+            seen.update(request.extensions["timeout"])
+            return lib.Response(200, request=request, content=b"{}")
+
+        client = HTTPXClient(
+            timeout=other_lib.Timeout(5.0, read=1.0), _lib=lib
+        )
+        client._client_async = lib.AsyncClient(
+            transport=lib.MockTransport(handler)
+        )
+
+        _, status, _ = await client.request_async(
+            "get", "https://api.stripe.com/", {}, None
+        )
+
+        assert status == 200
+        assert seen == {"connect": 5.0, "read": 1.0, "write": 5.0, "pool": 5.0}
 
 
 class TestAIOHTTPClient(ClientTestBase):

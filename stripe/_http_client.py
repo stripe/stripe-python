@@ -1238,6 +1238,24 @@ def _get_httpx_sync_mounts(
     }
 
 
+# TODO: (DEVSDK-3427) No longer necessary in the next major version.
+def _coerce_httpx_timeout(httpx_lib: Any, timeout: Any) -> Any:
+    """
+    `httpx` and `httpx2` each define their own `Timeout` class and neither
+    recognizes the other's, so a `Timeout` from the library that isn't in use
+    is rebuilt as one from the library that is.
+    """
+    if timeout is None or isinstance(timeout, (int, float, httpx_lib.Timeout)):
+        return timeout
+
+    return httpx_lib.Timeout(
+        connect=timeout.connect,
+        read=timeout.read,
+        write=timeout.write,
+        pool=timeout.pool,
+    )
+
+
 class HTTPXClient(HTTPClient):
     name = "httpx"
 
@@ -1278,7 +1296,7 @@ class HTTPXClient(HTTPClient):
                 verify=verify,
                 mounts=_get_httpx_sync_mounts(self.httpx, self._proxy, verify),
             )
-        self._timeout = timeout
+        self._timeout = _coerce_httpx_timeout(self.httpx, timeout)
 
     def sleep_async(self, secs):
         return self.anyio.sleep(secs)
