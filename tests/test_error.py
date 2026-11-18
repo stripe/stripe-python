@@ -42,11 +42,11 @@ class TestStripeError(object):
 
     def test_formatting_with_request_id(self):
         err = StripeError("öre", headers={"request-id": "123"})
-        assert str(err) == "Request 123: öre"
+        assert str(err) == "[123] öre"
 
     def test_formatting_with_none(self):
         err = StripeError(None, headers={"request-id": "123"})
-        assert str(err) == "Request 123: <empty message>"
+        assert str(err) == "[123] <empty message>"
 
     def test_formatting_with_message_none_and_request_id_none(self):
         err = StripeError(None)
