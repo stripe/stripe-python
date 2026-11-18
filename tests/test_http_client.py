@@ -1,7 +1,7 @@
+import importlib
 import io
 import base64
 import json
-import sys
 import threading
 from typing import Any, Callable, Dict, List, Optional
 from unittest.mock import MagicMock, Mock, call, patch
@@ -9,10 +9,7 @@ from unittest.mock import MagicMock, Mock, call, patch
 import pytest
 from typing_extensions import Type
 
-if sys.version_info >= (3, 8):
-    from unittest.mock import AsyncMock
-else:
-    from mock import AsyncMock
+from unittest.mock import AsyncMock
 
 from contextlib import contextmanager
 
@@ -44,7 +41,15 @@ def mocked_request_lib():
 
 
 SUPPORTED_LIBS = frozenset(
-    ("google.appengine.api", "requests", "pycurl", "httpx", "aiohttp", "anyio")
+    (
+        "google.appengine.api",
+        "requests",
+        "pycurl",
+        "httpx2",
+        "httpx",  # TODO: (DEVSDK-3427) drop in the next major version.
+        "aiohttp",
+        "anyio",
+    )
 )
 
 
@@ -108,10 +113,15 @@ class TestImports:
     @pytest.mark.parametrize(
         ["available_libs", "expected"],
         [
-            # needs both httpx and anyio
+            # TODO: (DEVSDK-3427) delete the httpx-only cases in the next major version.
+            # needs both httpx2 (or httpx) and anyio
+            [["httpx2"], NoImportFoundAsyncClient],
             [["httpx"], NoImportFoundAsyncClient],
             [["anyio"], NoImportFoundAsyncClient],
+            [["httpx2", "anyio"], HTTPXClient],
             [["httpx", "anyio"], HTTPXClient],
+            [["httpx2", "httpx", "anyio"], HTTPXClient],
+            [["httpx", "anyio", "aiohttp"], HTTPXClient],
             # having only one required lib means we proceed
             [["anyio", "aiohttp"], AIOHTTPClient],
             [["aiohttp"], AIOHTTPClient],
@@ -1184,6 +1194,107 @@ class TestPycurlClient(ClientTestBase):
             with pytest.raises(ValueError):
                 make_request("get", self.valid_url, headers, None)
 
+    @pytest.mark.parametrize(
+        "client_kwargs,expected_connect_timeout,expected_timeout",
+        [
+            ({}, 30, 80),
+            ({"connect_timeout": 5, "timeout": 10}, 5, 10),
+            ({"connect_timeout": 5}, 5, 80),
+            ({"timeout": 10}, 30, 10),
+        ],
+    )
+    def test_timeout(
+        self,
+        mocked_request_lib,
+        mock_response,
+        make_request,
+        client_kwargs,
+        expected_connect_timeout,
+        expected_timeout,
+    ):
+        mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
+        make_request(
+            "GET", self.valid_url, {}, None, client_kwargs=client_kwargs
+        )
+
+        curl_mock = mocked_request_lib.Curl()
+        curl_mock.setopt.assert_any_call(
+            mocked_request_lib.CONNECTTIMEOUT, expected_connect_timeout
+        )
+        curl_mock.setopt.assert_any_call(
+            mocked_request_lib.TIMEOUT, expected_timeout
+        )
+
+    def test_timeout_stream(
+        self, mocked_request_lib, mock_response, make_streamed_request
+    ):
+        mock_response(mocked_request_lib, "some streamed content", 200)
+        make_streamed_request(
+            "GET",
+            self.valid_url,
+            {},
+            None,
+            client_kwargs={"connect_timeout": 5, "timeout": 10},
+        )
+
+        curl_mock = mocked_request_lib.Curl()
+        curl_mock.setopt.assert_any_call(mocked_request_lib.CONNECTTIMEOUT, 5)
+        curl_mock.setopt.assert_any_call(mocked_request_lib.TIMEOUT, 10)
+
+    def test_timeout_reapplied_after_reset(
+        self, mocked_request_lib, mock_response, make_client
+    ):
+        mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
+        client = make_client(connect_timeout=5, timeout=10)
+
+        client.request("get", self.valid_url, {})
+        client.request("get", self.valid_url, {})
+
+        curl_mock = mocked_request_lib.Curl()
+        # reset() clears every option, so each request must set the
+        # timeouts again after its own reset() call.
+        relevant_calls = [
+            c
+            for c in curl_mock.mock_calls
+            if c == call.reset()
+            or (
+                c[0] == "setopt"
+                and c[1][0]
+                in (
+                    mocked_request_lib.CONNECTTIMEOUT,
+                    mocked_request_lib.TIMEOUT,
+                )
+            )
+        ]
+        assert (
+            relevant_calls
+            == [
+                call.reset(),
+                call.setopt(mocked_request_lib.CONNECTTIMEOUT, 5),
+                call.setopt(mocked_request_lib.TIMEOUT, 10),
+            ]
+            * 2
+        )
+
+    def test_positional_args(self, mocked_request_lib):
+        client = self.REQUEST_CLIENT(False, None, None, mocked_request_lib)
+
+        assert client.pycurl is mocked_request_lib
+        assert client._verify_ssl_certs is False
+        assert client._connect_timeout == 30
+        assert client._timeout == 80
+
+        # Timeouts are keyword-only so they can't be confused with each
+        # other or with the existing positional parameters.
+        with pytest.raises(TypeError):
+            self.REQUEST_CLIENT(
+                False,
+                None,
+                None,
+                mocked_request_lib,
+                10,  # pyright: ignore[reportGeneralTypeIssues]
+            )
+
     @pytest.fixture
     def created_curls(self, mocked_request_lib):
         curls: List[Mock] = []
@@ -1371,7 +1482,7 @@ class TestHTTPXClient(ClientTestBase):
 
     @pytest.fixture
     def request_mock(self, mocked_request_lib):
-        # Set up the httpx library mock structure
+        # Set up the httpx2 library mock structure
         async_client_instance = Mock()
         sync_client_instance = Mock()
 
@@ -1443,7 +1554,7 @@ class TestHTTPXClient(ClientTestBase):
             args = (method, url)
             kwargs = {
                 "headers": headers,
-                "data": post_data or {},
+                "content": post_data or None,
                 "timeout": timeout,
             }
 
@@ -1471,7 +1582,7 @@ class TestHTTPXClient(ClientTestBase):
             args = (method, url)
             kwargs = {
                 "headers": headers,
-                "data": post_data,
+                "content": post_data or None,
                 "timeout": timeout,
             }
 
@@ -1591,13 +1702,14 @@ class TestHTTPXClient(ClientTestBase):
             _lib=request_mock,
         )
 
-        request_mock.Proxy.assert_any_call("http://slap/")
-        request_mock.Proxy.assert_any_call("http://slop/")
         for client_class, transport_class in [
             (request_mock.AsyncClient, request_mock.AsyncHTTPTransport),
             (request_mock.Client, request_mock.HTTPTransport),
         ]:
             assert transport_class.call_count == 2
+            assert {
+                call.kwargs["proxy"] for call in transport_class.call_args_list
+            } == {"http://slap/", "http://slop/"}
             assert client_class.call_args.kwargs["mounts"] == {
                 "http://": transport_class.return_value,
                 "https://": transport_class.return_value,
@@ -1610,8 +1722,8 @@ class TestHTTPXClient(ClientTestBase):
     def test_no_mounts_without_proxy(self, request_mock):
         self.REQUEST_CLIENT(allow_sync_methods=True, _lib=request_mock)
 
-        assert "mounts" not in request_mock.AsyncClient.call_args.kwargs
-        assert "mounts" not in request_mock.Client.call_args.kwargs
+        assert request_mock.AsyncClient.call_args.kwargs["mounts"] is None
+        assert request_mock.Client.call_args.kwargs["mounts"] is None
 
     def test_timeout_none_is_forwarded(self, request_mock):
         client = self.REQUEST_CLIENT(timeout=None, _lib=request_mock)
@@ -1842,6 +1954,62 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
 
     def test_timeout_async(self):
         pass
+
+
+class TestHTTPXClientTimeout:
+    @pytest.fixture(params=["httpx2", "httpx"])
+    def lib(self, request):
+        return importlib.import_module(request.param)
+
+    @pytest.fixture
+    def other_lib(self, lib):
+        name = "httpx" if lib.__name__ == "httpx2" else "httpx2"
+        return importlib.import_module(name)
+
+    @pytest.mark.parametrize("timeout", [None, 5, 2.5, 80])
+    def test_numeric_timeout_is_unchanged(self, lib, timeout):
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert client._timeout == timeout
+
+    def test_timeout_from_same_lib_is_unchanged(self, lib):
+        timeout = lib.Timeout(30.0, connect=5.0)
+
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert client._timeout is timeout
+
+    def test_timeout_from_other_lib_is_converted(self, lib, other_lib):
+        timeout = other_lib.Timeout(30.0, connect=5.0, read=10.0)
+
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert isinstance(client._timeout, lib.Timeout)
+        assert client._timeout == lib.Timeout(30.0, connect=5.0, read=10.0)
+
+    @pytest.mark.anyio
+    async def test_converted_timeout_is_accepted_by_request(
+        self, lib, other_lib
+    ):
+        seen = {}
+
+        def handler(request):
+            seen.update(request.extensions["timeout"])
+            return lib.Response(200, request=request, content=b"{}")
+
+        client = HTTPXClient(
+            timeout=other_lib.Timeout(5.0, read=1.0), _lib=lib
+        )
+        client._client_async = lib.AsyncClient(
+            transport=lib.MockTransport(handler)
+        )
+
+        _, status, _ = await client.request_async(
+            "get", "https://api.stripe.com/", {}, None
+        )
+
+        assert status == 200
+        assert seen == {"connect": 5.0, "read": 1.0, "write": 5.0, "pool": 5.0}
 
 
 class TestAIOHTTPClient(ClientTestBase):
@@ -2274,7 +2442,7 @@ class TestLiveHTTPClients:
     @pytest.mark.anyio
     async def test_httpx_request_async_https(self):
         """
-        Test to ensure that httpx https calls succeed by making a live test call
+        Test to ensure that httpx2 https calls succeed by making a live test call
         to the public stripe API.
         """
         method = "get"

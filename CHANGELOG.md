@@ -12,7 +12,7 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
   StripeObject pickles no longer preserve API keys. Before making requests through an unpickled object, call `reattach_api_key(api_key)`. This also reattaches API keys to nested objects.
 
-  See the [v17 migration guide](https://github.com/stripe/stripe-python/blob/master/.hark/migration-guides/v17.md#api-keys-are-no-longer-preserved-in-pickled-stripeobjects) for details.
+  See the [v17 migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v17#api-keys-are-no-longer-preserved-in-pickled-stripeobjects) for details.
 * Fix stale Stripe-Account header when fetching an object related to a directly-retrieved Event
 * Reject header values containing CR, LF or NUL in the pycurl HTTP client
 
