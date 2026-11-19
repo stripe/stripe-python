@@ -166,6 +166,23 @@ class OutboundPayment(
         """
 
     class ReturnedDetails(StripeObject):
+        class NetworkDetails(StripeObject):
+            class Ach(StripeObject):
+                return_code: Optional[str]
+                """
+                NACHA ACH return code.
+                """
+                return_reason: Optional[str]
+                """
+                NACHA ACH return reason.
+                """
+
+            ach: Optional[Ach]
+            """
+            ACH return details.
+            """
+            _inner_class_types = {"ach": Ach}
+
         code: Union[
             Literal[
                 "account_closed",
@@ -184,10 +201,15 @@ class OutboundPayment(
         """
         Reason for the return.
         """
+        network_details: Optional[NetworkDetails]
+        """
+        Money movement network-specific details regarding the failure.
+        """
         transaction: ExpandableField["Transaction"]
         """
         The Transaction associated with this object.
         """
+        _inner_class_types = {"network_details": NetworkDetails}
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[int]
@@ -542,7 +564,7 @@ class OutboundPayment(
             cls, id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -561,7 +583,7 @@ class OutboundPayment(
             id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -570,7 +592,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -579,7 +601,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -597,7 +619,7 @@ class OutboundPayment(
             cls, id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -616,7 +638,7 @@ class OutboundPayment(
             id: str, /, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -625,7 +647,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -634,7 +656,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentFailParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -652,7 +674,7 @@ class OutboundPayment(
             cls, id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -671,7 +693,7 @@ class OutboundPayment(
             id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -680,7 +702,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -689,7 +711,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -707,7 +729,7 @@ class OutboundPayment(
             cls, id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -726,7 +748,7 @@ class OutboundPayment(
             id: str, /, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -735,7 +757,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             ...
 
@@ -744,7 +766,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentPostParams"]
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
             """
             return cast(
                 "OutboundPayment",
@@ -765,7 +787,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             return cast(
                 "OutboundPayment",
@@ -786,7 +808,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             ...
 
@@ -796,7 +818,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             ...
 
@@ -806,7 +828,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             return cast(
                 "OutboundPayment",
@@ -827,7 +849,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             return cast(
                 "OutboundPayment",
@@ -848,7 +870,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             ...
 
@@ -858,7 +880,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             ...
 
@@ -868,7 +890,7 @@ class OutboundPayment(
             **params: Unpack["OutboundPaymentReturnOutboundPaymentParams"],
         ) -> "OutboundPayment":
             """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            Transitions a test OutboundPayment to the returned status. The OutboundPayment must already be in the posted state.
             """
             return cast(
                 "OutboundPayment",
@@ -886,7 +908,7 @@ class OutboundPayment(
             cls, id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundPayment",
@@ -905,7 +927,7 @@ class OutboundPayment(
             id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -914,7 +936,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -923,7 +945,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundPayment",
@@ -941,7 +963,7 @@ class OutboundPayment(
             cls, id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundPayment",
@@ -960,7 +982,7 @@ class OutboundPayment(
             id: str, /, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -969,7 +991,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -978,7 +1000,7 @@ class OutboundPayment(
             self, **params: Unpack["OutboundPaymentUpdateParams"]
         ) -> "OutboundPayment":
             """
-            Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundPayment",

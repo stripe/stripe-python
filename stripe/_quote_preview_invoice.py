@@ -179,6 +179,20 @@ class QuotePreviewInvoice(StripeObject):
         State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         """
 
+    class CustomerBalance(StripeObject):
+        applied_balance: int
+        """
+        The total amount of customer balance applied to this invoice (automatically + manually).
+        """
+        automatically_applied_balance: int
+        """
+        The amount of customer balance automatically applied during invoice finalization.
+        """
+        manually_applied_balance: int
+        """
+        The total amount of customer balance manually applied after finalization.
+        """
+
     class CustomerShipping(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -481,6 +495,7 @@ class QuotePreviewInvoice(StripeObject):
                     "forwarding_api_upstream_connection_timeout",
                     "forwarding_api_upstream_error",
                     "idempotency_key_in_use",
+                    "inactive_api_operation_confirmation_required",
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
@@ -1621,6 +1636,10 @@ class QuotePreviewInvoice(StripeObject):
     """
     The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     """
+    customer_balance: Optional[CustomerBalance]
+    """
+    The customer balance amounts applied to this invoice.
+    """
     customer_email: Optional[str]
     """
     The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
@@ -1842,6 +1861,7 @@ class QuotePreviewInvoice(StripeObject):
         "confirmation_secret": ConfirmationSecret,
         "custom_fields": CustomField,
         "customer_address": CustomerAddress,
+        "customer_balance": CustomerBalance,
         "customer_shipping": CustomerShipping,
         "customer_tax_ids": CustomerTaxId,
         "from_invoice": FromInvoice,

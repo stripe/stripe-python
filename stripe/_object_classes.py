@@ -435,7 +435,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._bill_setting_version",
         "BillSettingVersion",
     ),
-    "v2.billing.cadence": ("stripe.v2.billing._cadence", "Cadence"),
     "v2.billing.collection_setting": (
         "stripe.v2.billing._collection_setting",
         "CollectionSetting",
@@ -474,6 +473,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "ApprovalRequest",
     ),
     "v2.core.batch_job": ("stripe.v2.core._batch_job", "BatchJob"),
+    "v2.core.claimable_sandbox": (
+        "stripe.v2.core._claimable_sandbox",
+        "ClaimableSandbox",
+    ),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",

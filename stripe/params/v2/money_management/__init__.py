@@ -91,6 +91,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._outbound_setup_intent_create_params import (
         OutboundSetupIntentCreateParams as OutboundSetupIntentCreateParams,
         OutboundSetupIntentCreateParamsPayoutMethodData as OutboundSetupIntentCreateParamsPayoutMethodData,
+        OutboundSetupIntentCreateParamsPayoutMethodDataApplePay as OutboundSetupIntentCreateParamsPayoutMethodDataApplePay,
         OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount as OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount,
         OutboundSetupIntentCreateParamsPayoutMethodDataCard as OutboundSetupIntentCreateParamsPayoutMethodDataCard,
         OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet as OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet,
@@ -193,6 +194,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._received_debit_list_params import (
         ReceivedDebitListParams as ReceivedDebitListParams,
+        ReceivedDebitListParamsCreated as ReceivedDebitListParamsCreated,
     )
     from stripe.params.v2.money_management._received_debit_retrieve_params import (
         ReceivedDebitRetrieveParams as ReceivedDebitRetrieveParams,
@@ -410,6 +412,10 @@ _import_map = {
         "stripe.params.v2.money_management._outbound_setup_intent_create_params",
         False,
     ),
+    "OutboundSetupIntentCreateParamsPayoutMethodDataApplePay": (
+        "stripe.params.v2.money_management._outbound_setup_intent_create_params",
+        False,
+    ),
     "OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount": (
         "stripe.params.v2.money_management._outbound_setup_intent_create_params",
         False,
@@ -623,6 +629,10 @@ _import_map = {
         False,
     ),
     "ReceivedDebitListParams": (
+        "stripe.params.v2.money_management._received_debit_list_params",
+        False,
+    ),
+    "ReceivedDebitListParamsCreated": (
         "stripe.params.v2.money_management._received_debit_list_params",
         False,
     ),

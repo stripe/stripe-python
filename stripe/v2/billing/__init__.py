@@ -15,10 +15,6 @@ if TYPE_CHECKING:
     from stripe.v2.billing._bill_setting_version import (
         BillSettingVersion as BillSettingVersion,
     )
-    from stripe.v2.billing._cadence import Cadence as Cadence
-    from stripe.v2.billing._cadence_service import (
-        CadenceService as CadenceService,
-    )
     from stripe.v2.billing._collection_setting import (
         CollectionSetting as CollectionSetting,
     )
@@ -59,8 +55,6 @@ _import_map = {
     "BillSetting": ("stripe.v2.billing._bill_setting", False),
     "BillSettingService": ("stripe.v2.billing._bill_setting_service", False),
     "BillSettingVersion": ("stripe.v2.billing._bill_setting_version", False),
-    "Cadence": ("stripe.v2.billing._cadence", False),
-    "CadenceService": ("stripe.v2.billing._cadence_service", False),
     "CollectionSetting": ("stripe.v2.billing._collection_setting", False),
     "CollectionSettingService": (
         "stripe.v2.billing._collection_setting_service",

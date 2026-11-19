@@ -3,13 +3,19 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
-from typing_extensions import Literal, NotRequired
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class CustomerCreateBalanceTransactionParams(RequestOptions):
     amount: int
     """
     The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.
+    """
+    applied_to_invoice: NotRequired[
+        "CustomerCreateBalanceTransactionParamsAppliedToInvoice"
+    ]
+    """
+    Required when `type` is `applied_to_invoice`. Identifies the open invoice to apply the customer's balance credit to.
     """
     currency: str
     """
@@ -28,4 +34,15 @@ class CustomerCreateBalanceTransactionParams(RequestOptions):
     ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+    type: NotRequired["Literal['adjustment', 'applied_to_invoice']|str"]
+    """
+    The type of customer balance transaction. Defaults to `adjustment`, which updates the customer's credit balance directly. Set to `applied_to_invoice` to apply the customer's existing credit balance to a specific open invoice.
+    """
+
+
+class CustomerCreateBalanceTransactionParamsAppliedToInvoice(TypedDict):
+    invoice: str
+    """
+    The ID of the open invoice to apply the customer's balance credit to.
     """

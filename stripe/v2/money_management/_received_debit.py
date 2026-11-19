@@ -16,6 +16,31 @@ class ReceivedDebit(StripeObject):
     )
 
     class BankTransfer(StripeObject):
+        class OriginatingBankAccount(StripeObject):
+            class Aba(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that originated the debit, as provided by the ACH network.
+                """
+                bank_name: Optional[str]
+                """
+                The name of the bank the debit originated from.
+                """
+                routing_number: Optional[str]
+                """
+                The routing number of the bank that originated the debit.
+                """
+
+            aba: Optional[Aba]
+            """
+            Details of the originating account. Present when type is `aba`.
+            """
+            type: Union[Literal["aba"], str]
+            """
+            The credential type identifying the originating bank account.
+            """
+            _inner_class_types = {"aba": Aba}
+
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
             """
@@ -34,8 +59,17 @@ class ReceivedDebit(StripeObject):
         """
         The Financial Address that was debited.
         """
+        network: Union[Literal["ach"], str]
+        """
+        The bank network the debit was originated on.
+        """
+        originating_bank_account: OriginatingBankAccount
+        """
+        The originating bank account's credential details.
+        """
         payment_method_type: Union[Literal["us_bank_account"], str]
         """
+        Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
         Open Enum. The type of the payment method used to originate the debit.
         """
         statement_descriptor: Optional[str]
@@ -44,10 +78,14 @@ class ReceivedDebit(StripeObject):
         """
         us_bank_account: Optional[UsBankAccount]
         """
+        Deprecated: Use `bank_transfer.originating_bank_account.aba` instead.
         Object containing details of the US Bank Account that originated the debit.
         Present when the debit was originated via ACH.
         """
-        _inner_class_types = {"us_bank_account": UsBankAccount}
+        _inner_class_types = {
+            "originating_bank_account": OriginatingBankAccount,
+            "us_bank_account": UsBankAccount,
+        }
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):

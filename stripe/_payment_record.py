@@ -484,7 +484,7 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
                     ]
                 ]
                 """
-                If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If you provide an address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[
                     Union[
@@ -977,7 +977,13 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
             network: Optional[
                 Union[
                     Literal[
-                        "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                        "base",
+                        "ethereum",
+                        "polygon",
+                        "solana",
+                        "sui",
+                        "tempo",
+                        "tron",
                     ],
                     str,
                 ]
@@ -1799,7 +1805,10 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
             }
 
         class Paypay(StripeObject):
-            pass
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+            """
 
         class Payto(StripeObject):
             bsb_number: Optional[str]

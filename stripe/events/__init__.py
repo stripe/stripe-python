@@ -1251,6 +1251,26 @@ if TYPE_CHECKING:
         V2CoreBatchJobValidationFailedEvent as V2CoreBatchJobValidationFailedEvent,
         V2CoreBatchJobValidationFailedEventNotification as V2CoreBatchJobValidationFailedEventNotification,
     )
+    from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+        V2CoreClaimableSandboxClaimedEvent as V2CoreClaimableSandboxClaimedEvent,
+        V2CoreClaimableSandboxClaimedEventNotification as V2CoreClaimableSandboxClaimedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_created_event import (
+        V2CoreClaimableSandboxCreatedEvent as V2CoreClaimableSandboxCreatedEvent,
+        V2CoreClaimableSandboxCreatedEventNotification as V2CoreClaimableSandboxCreatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expired_event import (
+        V2CoreClaimableSandboxExpiredEvent as V2CoreClaimableSandboxExpiredEvent,
+        V2CoreClaimableSandboxExpiredEventNotification as V2CoreClaimableSandboxExpiredEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+        V2CoreClaimableSandboxExpiringEvent as V2CoreClaimableSandboxExpiringEvent,
+        V2CoreClaimableSandboxExpiringEventNotification as V2CoreClaimableSandboxExpiringEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_updated_event import (
+        V2CoreClaimableSandboxUpdatedEvent as V2CoreClaimableSandboxUpdatedEvent,
+        V2CoreClaimableSandboxUpdatedEventNotification as V2CoreClaimableSandboxUpdatedEventNotification,
+    )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEvent as V2CoreEventDestinationPingEvent,
         V2CoreEventDestinationPingEventNotification as V2CoreEventDestinationPingEventNotification,
@@ -3898,6 +3918,46 @@ _import_map = {
     ),
     "V2CoreBatchJobValidationFailedEventNotification": (
         "stripe.events._v2_core_batch_job_validation_failed_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxClaimedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxClaimedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxCreatedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxCreatedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiredEvent": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiredEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiringEvent": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxExpiringEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxUpdatedEvent": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
+        False,
+    ),
+    "V2CoreClaimableSandboxUpdatedEventNotification": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
         False,
     ),
     "V2CoreEventDestinationPingEvent": (

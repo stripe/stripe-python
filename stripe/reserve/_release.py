@@ -106,7 +106,7 @@ class Release(ListableAPIResource["Release"]):
         cls, **params: Unpack["ReleaseListParams"]
     ) -> ListObject["Release"]:
         """
-        Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+        Returns a list of ReserveReleases on your account or on one of your connected accounts. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
         """
         result = cls._static_request(
             "get",
@@ -126,7 +126,7 @@ class Release(ListableAPIResource["Release"]):
         cls, **params: Unpack["ReleaseListParams"]
     ) -> ListObject["Release"]:
         """
-        Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+        Returns a list of ReserveReleases on your account or on one of your connected accounts. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
         """
         result = await cls._static_request_async(
             "get",
@@ -146,7 +146,7 @@ class Release(ListableAPIResource["Release"]):
         cls, id: str, **params: Unpack["ReleaseRetrieveParams"]
     ) -> "Release":
         """
-        Retrieve a ReserveRelease.
+        Retrieve a ReserveRelease on your account or on one of your connected accounts.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -157,7 +157,7 @@ class Release(ListableAPIResource["Release"]):
         cls, id: str, **params: Unpack["ReleaseRetrieveParams"]
     ) -> "Release":
         """
-        Retrieve a ReserveRelease.
+        Retrieve a ReserveRelease on your account or on one of your connected accounts.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

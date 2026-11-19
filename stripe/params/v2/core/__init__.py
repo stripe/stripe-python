@@ -34,6 +34,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesBilliePayments as AccountCreateParamsConfigurationMerchantCapabilitiesBilliePayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments,
@@ -52,15 +53,19 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesKonbiniPayments as AccountCreateParamsConfigurationMerchantCapabilitiesKonbiniPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesKrCardPayments as AccountCreateParamsConfigurationMerchantCapabilitiesKrCardPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesLinkPayments as AccountCreateParamsConfigurationMerchantCapabilitiesLinkPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesMultibancoPayments as AccountCreateParamsConfigurationMerchantCapabilitiesMultibancoPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesMxBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesMxBankTransferPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPayments as AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesP24Payments as AccountCreateParamsConfigurationMerchantCapabilitiesP24Payments,
         AccountCreateParamsConfigurationMerchantCapabilitiesPayByBankPayments as AccountCreateParamsConfigurationMerchantCapabilitiesPayByBankPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesPaycoPayments as AccountCreateParamsConfigurationMerchantCapabilitiesPaycoPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPayments as AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesPixPayments as AccountCreateParamsConfigurationMerchantCapabilitiesPixPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
@@ -78,6 +83,11 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantKonbiniPayments as AccountCreateParamsConfigurationMerchantKonbiniPayments,
         AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport,
         AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
+        AccountCreateParamsConfigurationMerchantPaypayPayments as AccountCreateParamsConfigurationMerchantPaypayPayments,
+        AccountCreateParamsConfigurationMerchantPaypayPaymentsSite as AccountCreateParamsConfigurationMerchantPaypayPaymentsSite,
+        AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteAccessible as AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteAccessible,
+        AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment as AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment,
+        AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteRestricted as AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteRestricted,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptor as AccountCreateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji,
@@ -194,6 +204,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._account_link_create_params import (
         AccountLinkCreateParams as AccountLinkCreateParams,
         AccountLinkCreateParamsUseCase as AccountLinkCreateParamsUseCase,
+        AccountLinkCreateParamsUseCaseAccountDashboard as AccountLinkCreateParamsUseCaseAccountDashboard,
         AccountLinkCreateParamsUseCaseAccountOnboarding as AccountLinkCreateParamsUseCaseAccountOnboarding,
         AccountLinkCreateParamsUseCaseAccountOnboardingCollectionOptions as AccountLinkCreateParamsUseCaseAccountOnboardingCollectionOptions,
         AccountLinkCreateParamsUseCaseAccountUpdate as AccountLinkCreateParamsUseCaseAccountUpdate,
@@ -295,6 +306,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBacsDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBacsDebitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBancontactPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBancontactPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesBilliePayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBilliePayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBlikRecurringPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBoletoPayments,
@@ -313,15 +325,19 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesKonbiniPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesKonbiniPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesKrCardPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesKrCardPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesLinkPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesLinkPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesMbWayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesMbWayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesMobilepayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesMobilepayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesMultibancoPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesMultibancoPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesMxBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesMxBankTransferPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesNaverPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesNaverPayPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesOxxoPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesOxxoPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesP24Payments as AccountUpdateParamsConfigurationMerchantCapabilitiesP24Payments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesPayByBankPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesPayByBankPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesPaycoPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesPaycoPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesPaynowPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesPaynowPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesPaypayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesPaypayPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesPixPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesPixPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesPromptpayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesPromptpayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesRevolutPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesRevolutPayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
@@ -339,6 +355,11 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantKonbiniPayments as AccountUpdateParamsConfigurationMerchantKonbiniPayments,
         AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport,
         AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
+        AccountUpdateParamsConfigurationMerchantPaypayPayments as AccountUpdateParamsConfigurationMerchantPaypayPayments,
+        AccountUpdateParamsConfigurationMerchantPaypayPaymentsSite as AccountUpdateParamsConfigurationMerchantPaypayPaymentsSite,
+        AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteAccessible as AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteAccessible,
+        AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment as AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment,
+        AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteRestricted as AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteRestricted,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji,
@@ -476,6 +497,18 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._batch_job_retrieve_params import (
         BatchJobRetrieveParams as BatchJobRetrieveParams,
+    )
+    from stripe.params.v2.core._claimable_sandbox_create_params import (
+        ClaimableSandboxCreateParams as ClaimableSandboxCreateParams,
+        ClaimableSandboxCreateParamsOnboardingLinkDetails as ClaimableSandboxCreateParamsOnboardingLinkDetails,
+        ClaimableSandboxCreateParamsPrefill as ClaimableSandboxCreateParamsPrefill,
+    )
+    from stripe.params.v2.core._claimable_sandbox_renew_onboarding_link_params import (
+        ClaimableSandboxRenewOnboardingLinkParams as ClaimableSandboxRenewOnboardingLinkParams,
+        ClaimableSandboxRenewOnboardingLinkParamsOnboardingLinkDetails as ClaimableSandboxRenewOnboardingLinkParamsOnboardingLinkDetails,
+    )
+    from stripe.params.v2.core._claimable_sandbox_retrieve_params import (
+        ClaimableSandboxRetrieveParams as ClaimableSandboxRetrieveParams,
     )
     from stripe.params.v2.core._event_destination_create_params import (
         EventDestinationCreateParams as EventDestinationCreateParams,
@@ -621,6 +654,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesBilliePayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -693,6 +730,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -706,6 +747,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -726,6 +771,14 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesPixPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -794,6 +847,26 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantPaypayPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantPaypayPaymentsSite": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteAccessible": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteRestricted": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1253,6 +1326,10 @@ _import_map = {
         "stripe.params.v2.core._account_link_create_params",
         False,
     ),
+    "AccountLinkCreateParamsUseCaseAccountDashboard": (
+        "stripe.params.v2.core._account_link_create_params",
+        False,
+    ),
     "AccountLinkCreateParamsUseCaseAccountOnboarding": (
         "stripe.params.v2.core._account_link_create_params",
         False,
@@ -1614,6 +1691,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesBilliePayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesBlikPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1686,6 +1767,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesMbWayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesMobilepayPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1699,6 +1784,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesNaverPayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1719,6 +1808,14 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesPaynowPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesPaypayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesPixPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1787,6 +1884,26 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantPaypayPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantPaypayPaymentsSite": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteAccessible": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantPaypayPaymentsSiteRestricted": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -2280,6 +2397,30 @@ _import_map = {
     ),
     "BatchJobRetrieveParams": (
         "stripe.params.v2.core._batch_job_retrieve_params",
+        False,
+    ),
+    "ClaimableSandboxCreateParams": (
+        "stripe.params.v2.core._claimable_sandbox_create_params",
+        False,
+    ),
+    "ClaimableSandboxCreateParamsOnboardingLinkDetails": (
+        "stripe.params.v2.core._claimable_sandbox_create_params",
+        False,
+    ),
+    "ClaimableSandboxCreateParamsPrefill": (
+        "stripe.params.v2.core._claimable_sandbox_create_params",
+        False,
+    ),
+    "ClaimableSandboxRenewOnboardingLinkParams": (
+        "stripe.params.v2.core._claimable_sandbox_renew_onboarding_link_params",
+        False,
+    ),
+    "ClaimableSandboxRenewOnboardingLinkParamsOnboardingLinkDetails": (
+        "stripe.params.v2.core._claimable_sandbox_renew_onboarding_link_params",
+        False,
+    ),
+    "ClaimableSandboxRetrieveParams": (
+        "stripe.params.v2.core._claimable_sandbox_retrieve_params",
         False,
     ),
     "EventDestinationCreateParams": (

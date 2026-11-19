@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 class Hold(ListableAPIResource["Hold"]):
     """
-    ReserveHolds are used to place a temporary ReserveHold on a merchant's funds.
+    A ReserveHold holds a portion of an account's funds until it's released. Stripe or the account's platform can create a ReserveHold directly, and a ReservePlan creates ReserveHolds automatically from incoming Charges.
     """
 
     OBJECT_NAME: ClassVar[Literal["reserve.hold"]] = "reserve.hold"
@@ -110,7 +110,7 @@ class Hold(ListableAPIResource["Hold"]):
     @classmethod
     def list(cls, **params: Unpack["HoldListParams"]) -> ListObject["Hold"]:
         """
-        Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+        Returns a list of ReserveHolds on your account or on one of your connected accounts. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
         """
         result = cls._static_request(
             "get",
@@ -130,7 +130,7 @@ class Hold(ListableAPIResource["Hold"]):
         cls, **params: Unpack["HoldListParams"]
     ) -> ListObject["Hold"]:
         """
-        Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+        Returns a list of ReserveHolds on your account or on one of your connected accounts. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
         """
         result = await cls._static_request_async(
             "get",
@@ -150,7 +150,7 @@ class Hold(ListableAPIResource["Hold"]):
         cls, id: str, **params: Unpack["HoldRetrieveParams"]
     ) -> "Hold":
         """
-        Retrieve a ReserveHold.
+        Retrieve a ReserveHold on your account or on one of your connected accounts.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -161,7 +161,7 @@ class Hold(ListableAPIResource["Hold"]):
         cls, id: str, **params: Unpack["HoldRetrieveParams"]
     ) -> "Hold":
         """
-        Retrieve a ReserveHold.
+        Retrieve a ReserveHold on your account or on one of your connected accounts.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

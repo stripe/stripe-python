@@ -6,7 +6,6 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.v2.billing._bill_setting_service import BillSettingService
-    from stripe.v2.billing._cadence_service import CadenceService
     from stripe.v2.billing._collection_setting_service import (
         CollectionSettingService,
     )
@@ -27,7 +26,6 @@ _subservices = {
         "stripe.v2.billing._bill_setting_service",
         "BillSettingService",
     ],
-    "cadences": ["stripe.v2.billing._cadence_service", "CadenceService"],
     "collection_settings": [
         "stripe.v2.billing._collection_setting_service",
         "CollectionSettingService",
@@ -54,7 +52,6 @@ _subservices = {
 
 class BillingService(StripeService):
     bill_settings: "BillSettingService"
-    cadences: "CadenceService"
     collection_settings: "CollectionSettingService"
     meter_events: "MeterEventService"
     meter_event_adjustments: "MeterEventAdjustmentService"
