@@ -97,6 +97,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsEeStandard as RegistrationCreateParamsCountryOptionsEeStandard,
         RegistrationCreateParamsCountryOptionsEg as RegistrationCreateParamsCountryOptionsEg,
         RegistrationCreateParamsCountryOptionsEs as RegistrationCreateParamsCountryOptionsEs,
+        RegistrationCreateParamsCountryOptionsEsIgic as RegistrationCreateParamsCountryOptionsEsIgic,
         RegistrationCreateParamsCountryOptionsEsStandard as RegistrationCreateParamsCountryOptionsEsStandard,
         RegistrationCreateParamsCountryOptionsEt as RegistrationCreateParamsCountryOptionsEt,
         RegistrationCreateParamsCountryOptionsEtStandard as RegistrationCreateParamsCountryOptionsEtStandard,
@@ -563,6 +564,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsEs": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEsIgic": (
         "stripe.params.tax._registration_create_params",
         False,
     ),

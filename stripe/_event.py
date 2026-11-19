@@ -86,7 +86,7 @@ class Event(ListableAPIResource["Event"]):
     """
     pending_webhooks: int
     """
-    Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
+    Number of webhooks that haven't been successfully delivered (for example, to return a 20x response). This count can include deliveries to endpoints that belong to Connect platforms or apps with access to your account. These endpoints don't appear when you list your account's webhook endpoints or event destinations. To see the delivery status for each endpoint, view the event in [Workbench](https://docs.stripe.com/workbench/overview#events).
     """
     request: Optional[Request]
     """
@@ -376,7 +376,7 @@ class Event(ListableAPIResource["Event"]):
     @classmethod
     def list(cls, **params: Unpack["EventListParams"]) -> ListObject["Event"]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object api_version attribute (not according to your current Stripe API version or Stripe-Version header). The list includes only events for the account that makes the request. A platform's list doesn't include events from its connected accounts. To list a connected account's events, make the request <a href="https://docs.stripe.com/connect/authentication">as the connected account](https://docs.stripe.com/api/events/object) using the Stripe-Account header.
         """
         result = cls._static_request(
             "get",
@@ -396,7 +396,7 @@ class Event(ListableAPIResource["Event"]):
         cls, **params: Unpack["EventListParams"]
     ) -> ListObject["Event"]:
         """
-        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object api_version attribute (not according to your current Stripe API version or Stripe-Version header). The list includes only events for the account that makes the request. A platform's list doesn't include events from its connected accounts. To list a connected account's events, make the request <a href="https://docs.stripe.com/connect/authentication">as the connected account](https://docs.stripe.com/api/events/object) using the Stripe-Account header.
         """
         result = await cls._static_request_async(
             "get",
