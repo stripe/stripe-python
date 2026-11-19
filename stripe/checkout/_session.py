@@ -112,6 +112,10 @@ class Session(
             Type of the account referenced.
             """
 
+        address_collection_precision: Optional[Literal["full", "minimal"]]
+        """
+        Controls how much address information Checkout collects when automatic tax is enabled.
+        """
         enabled: bool
         """
         Indicates whether automatic tax is enabled for the session
@@ -2766,6 +2770,8 @@ class Session(
     def create(cls, **params: Unpack["SessionCreateParams"]) -> "Session":
         """
         Creates a Checkout Session object.
+
+        Validate requests on your server and protect your application's Session-creation endpoint with access controls and limits on repeated creation. See [Protect your Session-creation endpoint](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=checkout#protect-session-creation).
         """
         return cast(
             "Session",
@@ -2782,6 +2788,8 @@ class Session(
     ) -> "Session":
         """
         Creates a Checkout Session object.
+
+        Validate requests on your server and protect your application's Session-creation endpoint with access controls and limits on repeated creation. See [Protect your Session-creation endpoint](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=checkout#protect-session-creation).
         """
         return cast(
             "Session",

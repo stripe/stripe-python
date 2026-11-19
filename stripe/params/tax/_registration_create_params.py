@@ -986,13 +986,26 @@ class RegistrationCreateParamsCountryOptionsEg(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsEs(TypedDict):
+    igic: NotRequired["RegistrationCreateParamsCountryOptionsEsIgic"]
+    """
+    Options for the IGIC registration.
+    """
     standard: NotRequired["RegistrationCreateParamsCountryOptionsEsStandard"]
     """
     Options for the standard registration.
     """
-    type: Union[Literal["ioss", "oss_non_union", "oss_union", "standard"], str]
+    type: Union[
+        Literal["igic", "ioss", "oss_non_union", "oss_union", "standard"], str
+    ]
     """
     Type of registration to be created in ES.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsEsIgic(TypedDict):
+    place_of_supply_scheme: Literal["inbound_goods", "standard"]
+    """
+    Place of supply scheme used in an IGIC registration.
     """
 
 
