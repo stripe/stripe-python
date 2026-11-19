@@ -176,6 +176,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class ExportTaxTransactions(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class FinancialAccount(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -475,6 +486,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class ProductTaxCodeSelector(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class ReportingChart(StripeObject):
             class Features(StripeObject):
                 pass
@@ -498,6 +520,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             _inner_class_types = {"features": Features}
 
         class TaxSettings(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class TaxThresholdMonitoring(StripeObject):
             class Features(StripeObject):
                 pass
 
@@ -539,6 +572,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         capital_financing_promotion: Optional[CapitalFinancingPromotion]
         disputes_list: DisputesList
         documents: Documents
+        export_tax_transactions: Optional[ExportTaxTransactions]
         financial_account: FinancialAccount
         financial_account_transactions: FinancialAccountTransactions
         instant_payouts_promotion: InstantPayoutsPromotion
@@ -553,9 +587,11 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
+        product_tax_code_selector: Optional[ProductTaxCodeSelector]
         reporting_chart: ReportingChart
         tax_registrations: TaxRegistrations
         tax_settings: TaxSettings
+        tax_threshold_monitoring: Optional[TaxThresholdMonitoring]
         terminal_hardware_orders: TerminalHardwareOrders
         terminal_hardware_shop: TerminalHardwareShop
         _inner_class_types = {
@@ -568,6 +604,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "capital_financing_promotion": CapitalFinancingPromotion,
             "disputes_list": DisputesList,
             "documents": Documents,
+            "export_tax_transactions": ExportTaxTransactions,
             "financial_account": FinancialAccount,
             "financial_account_transactions": FinancialAccountTransactions,
             "instant_payouts_promotion": InstantPayoutsPromotion,
@@ -582,9 +619,11 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
+            "product_tax_code_selector": ProductTaxCodeSelector,
             "reporting_chart": ReportingChart,
             "tax_registrations": TaxRegistrations,
             "tax_settings": TaxSettings,
+            "tax_threshold_monitoring": TaxThresholdMonitoring,
             "terminal_hardware_orders": TerminalHardwareOrders,
             "terminal_hardware_shop": TerminalHardwareShop,
         }

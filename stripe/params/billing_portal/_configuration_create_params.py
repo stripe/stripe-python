@@ -243,7 +243,7 @@ class ConfigurationCreateParamsFeaturesSubscriptionUpdate(TypedDict):
         "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
-    Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+    Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to `none`.
     """
     schedule_at_period_end: NotRequired[
         "ConfigurationCreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd"

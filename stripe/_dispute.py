@@ -492,7 +492,7 @@ class Dispute(
     """
     balance_transactions: List["BalanceTransaction"]
     """
-    List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
+    List of balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
     """
     charge: ExpandableField["Charge"]
     """

@@ -28,39 +28,6 @@ if TYPE_CHECKING:
         BillSettingUpdateParamsInvoice as BillSettingUpdateParamsInvoice,
         BillSettingUpdateParamsInvoiceTimeUntilDue as BillSettingUpdateParamsInvoiceTimeUntilDue,
     )
-    from stripe.params.v2.billing._cadence_cancel_params import (
-        CadenceCancelParams as CadenceCancelParams,
-    )
-    from stripe.params.v2.billing._cadence_create_params import (
-        CadenceCreateParams as CadenceCreateParams,
-        CadenceCreateParamsBillingCycle as CadenceCreateParamsBillingCycle,
-        CadenceCreateParamsBillingCycleDay as CadenceCreateParamsBillingCycleDay,
-        CadenceCreateParamsBillingCycleDayTime as CadenceCreateParamsBillingCycleDayTime,
-        CadenceCreateParamsBillingCycleMonth as CadenceCreateParamsBillingCycleMonth,
-        CadenceCreateParamsBillingCycleMonthTime as CadenceCreateParamsBillingCycleMonthTime,
-        CadenceCreateParamsBillingCycleWeek as CadenceCreateParamsBillingCycleWeek,
-        CadenceCreateParamsBillingCycleWeekTime as CadenceCreateParamsBillingCycleWeekTime,
-        CadenceCreateParamsBillingCycleYear as CadenceCreateParamsBillingCycleYear,
-        CadenceCreateParamsBillingCycleYearTime as CadenceCreateParamsBillingCycleYearTime,
-        CadenceCreateParamsPayer as CadenceCreateParamsPayer,
-        CadenceCreateParamsSettings as CadenceCreateParamsSettings,
-        CadenceCreateParamsSettingsBill as CadenceCreateParamsSettingsBill,
-        CadenceCreateParamsSettingsCollection as CadenceCreateParamsSettingsCollection,
-    )
-    from stripe.params.v2.billing._cadence_list_params import (
-        CadenceListParams as CadenceListParams,
-        CadenceListParamsPayer as CadenceListParamsPayer,
-    )
-    from stripe.params.v2.billing._cadence_retrieve_params import (
-        CadenceRetrieveParams as CadenceRetrieveParams,
-    )
-    from stripe.params.v2.billing._cadence_update_params import (
-        CadenceUpdateParams as CadenceUpdateParams,
-        CadenceUpdateParamsPayer as CadenceUpdateParamsPayer,
-        CadenceUpdateParamsSettings as CadenceUpdateParamsSettings,
-        CadenceUpdateParamsSettingsBill as CadenceUpdateParamsSettingsBill,
-        CadenceUpdateParamsSettingsCollection as CadenceUpdateParamsSettingsCollection,
-    )
     from stripe.params.v2.billing._collection_setting_create_params import (
         CollectionSettingCreateParams as CollectionSettingCreateParams,
         CollectionSettingCreateParamsEmailDelivery as CollectionSettingCreateParamsEmailDelivery,
@@ -185,98 +152,6 @@ _import_map = {
     ),
     "BillSettingUpdateParamsInvoiceTimeUntilDue": (
         "stripe.params.v2.billing._bill_setting_update_params",
-        False,
-    ),
-    "CadenceCancelParams": (
-        "stripe.params.v2.billing._cadence_cancel_params",
-        False,
-    ),
-    "CadenceCreateParams": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycle": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleDay": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleDayTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleMonth": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleMonthTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleWeek": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleWeekTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleYear": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleYearTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsPayer": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsSettings": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsSettingsBill": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsSettingsCollection": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceListParams": (
-        "stripe.params.v2.billing._cadence_list_params",
-        False,
-    ),
-    "CadenceListParamsPayer": (
-        "stripe.params.v2.billing._cadence_list_params",
-        False,
-    ),
-    "CadenceRetrieveParams": (
-        "stripe.params.v2.billing._cadence_retrieve_params",
-        False,
-    ),
-    "CadenceUpdateParams": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsPayer": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsSettings": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsSettingsBill": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsSettingsCollection": (
-        "stripe.params.v2.billing._cadence_update_params",
         False,
     ),
     "CollectionSettingCreateParams": (

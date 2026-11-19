@@ -95,11 +95,11 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             class Checks(StripeObject):
                 address_line1_check: Optional[str]
                 """
-                If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 address_postal_code_check: Optional[str]
                 """
-                If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[str]
                 """
@@ -627,6 +627,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "forwarding_api_upstream_connection_timeout",
                     "forwarding_api_upstream_error",
                     "idempotency_key_in_use",
+                    "inactive_api_operation_confirmation_required",
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",

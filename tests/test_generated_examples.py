@@ -43776,153 +43776,6 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_billing_cadence_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/cadences",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.list()
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/cadences",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_billing_cadence_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/cadences",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.create(
-            {
-                "billing_cycle": {
-                    "day": {
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                    "interval_count": 797691627,
-                    "month": {
-                        "day_of_month": 1361669285,
-                        "month_of_year": 82933018,
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                    "type": "week",
-                    "week": {
-                        "day_of_week": 43636807,
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                    "year": {
-                        "day_of_month": 1361669285,
-                        "month_of_year": 82933018,
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                },
-                "payer": {"billing_profile": "billing_profile"},
-            }
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/cadences",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"billing_cycle":{"day":{"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"interval_count":797691627,"month":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"type":"week","week":{"day_of_week":43636807,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"year":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}}},"payer":{"billing_profile":"billing_profile"}}',
-            is_json=True,
-        )
-
-    def test_v2_billing_cadence_get_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/cadences/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/cadences/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_billing_cadence_post_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/cadences/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.update("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/cadences/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_billing_cadence_post_3_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/cadences/id_123/cancel",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.cancel("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/cadences/id_123/cancel",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
     def test_v2_billing_collection_setting_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -44595,6 +44448,7 @@ class TestGeneratedExamples(object):
             {
                 "account": "account",
                 "use_case": {
+                    "account_dashboard": {"refresh_url": "refresh_url"},
                     "account_onboarding": {
                         "collection_options": {
                             "fields": "eventually_due",
@@ -44611,7 +44465,7 @@ class TestGeneratedExamples(object):
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
-                    "type": "account_onboarding",
+                    "type": "account_dashboard",
                 },
             }
         )
@@ -44620,7 +44474,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_onboarding"}}',
+            post_data='{"account":"account","use_case":{"account_dashboard":{"refresh_url":"refresh_url"},"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_dashboard"}}',
             is_json=True,
         )
 
@@ -44816,6 +44670,83 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/batch_jobs/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_claimable_sandbox_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/claimable_sandboxes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.claimable_sandboxes.create(
+            {
+                "enable_mcp_access": True,
+                "onboarding_link_details": {
+                    "refresh_url": "refresh_url",
+                    "return_url": "return_url",
+                },
+                "prefill": {
+                    "country": "country",
+                    "email": "email",
+                    "name": "name",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/claimable_sandboxes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"enable_mcp_access":true,"onboarding_link_details":{"refresh_url":"refresh_url","return_url":"return_url"},"prefill":{"country":"country","email":"email","name":"name"}}',
+            is_json=True,
+        )
+
+    def test_v2_core_claimable_sandbox_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/claimable_sandboxes/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.claimable_sandboxes.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/claimable_sandboxes/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_claimable_sandbox_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/claimable_sandboxes/id_123/renew_onboarding_link",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.claimable_sandboxes.renew_onboarding_link("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/claimable_sandboxes/id_123/renew_onboarding_link",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",

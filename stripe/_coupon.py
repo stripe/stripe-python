@@ -25,9 +25,12 @@ class Coupon(
     UpdateableAPIResource["Coupon"],
 ):
     """
-    A coupon contains information about a percent-off or amount-off discount you
-    might want to apply to a customer. Coupons may be applied to [subscriptions](https://docs.stripe.com/api#subscriptions), [invoices](https://docs.stripe.com/api#invoices),
-    [checkout sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://docs.stripe.com/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
+    A coupon defines a fixed or custom discount. Fixed discounts take a percentage or amount off, while
+    [custom coupons](https://docs.stripe.com/billing/subscriptions/script-coupons) use scripts to calculate discounts dynamically for subscriptions and invoices.
+    You can apply coupons to customers' [subscriptions](https://docs.stripe.com/api#subscriptions), [invoices](https://docs.stripe.com/api#invoices),
+    [Checkout Sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://docs.stripe.com/api#quotes), and other supported billing objects.
+    The optional [applies_to.products](https://docs.stripe.com/api/coupons/object#coupon_object-applies_to-products) property limits which product line items are eligible for the discount, independently of where you apply the coupon.
+    Coupons don't work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
     """
 
     OBJECT_NAME: ClassVar[Literal["coupon"]] = "coupon"
@@ -43,6 +46,24 @@ class Coupon(
         """
         Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
         """
+
+    class Custom(StripeObject):
+        class Extension(StripeObject):
+            id: str
+            """
+            The Extension Prototype ID.
+            """
+            version: str
+            """
+            The semantic version of the extension.
+            """
+
+        configuration: UntypedStripeObject[Any]
+        """
+        The configuration supplied to the extension.
+        """
+        extension: Extension
+        _inner_class_types = {"extension": Extension}
 
     class Script(StripeObject):
         configuration: UntypedStripeObject[Any]
@@ -75,6 +96,7 @@ class Coupon(
     """
     Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
+    custom: Optional[Custom]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -127,7 +149,9 @@ class Coupon(
     """
     Number of times this coupon has been applied to a customer.
     """
-    type: Optional[Union[Literal["amount_off", "percent_off", "script"], str]]
+    type: Optional[
+        Union[Literal["amount_off", "custom", "percent_off", "script"], str]
+    ]
     """
     The type of coupon logic used to calculate the discount.
     """
@@ -363,5 +387,6 @@ class Coupon(
     _inner_class_types = {
         "applies_to": AppliesTo,
         "currency_options": CurrencyOptions,
+        "custom": Custom,
         "script": Script,
     }

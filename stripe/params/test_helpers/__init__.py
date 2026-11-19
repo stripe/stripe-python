@@ -5,6 +5,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.params.test_helpers import (
+        capital as capital,
         issuing as issuing,
         shared_payment as shared_payment,
         terminal as terminal,
@@ -114,6 +115,7 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "capital": ("stripe.params.test_helpers.capital", True),
     "issuing": ("stripe.params.test_helpers.issuing", True),
     "shared_payment": ("stripe.params.test_helpers.shared_payment", True),
     "terminal": ("stripe.params.test_helpers.terminal", True),
