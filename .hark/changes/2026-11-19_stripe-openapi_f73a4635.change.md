@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1989
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 17.2.0a1
 ---
 
 * Add support for new resources `v2.billing.GroupInvoice`, `v2.billing.GroupSpendModifier`, and `v2.billing.Group`
