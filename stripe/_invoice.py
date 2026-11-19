@@ -164,6 +164,23 @@ class Invoice(
         The status of the payment, one of `open`, `paid`, or `past_due`
         """
 
+    class AppliedCreditMemos(StripeObject):
+        class Data(StripeObject):
+            applied_amount: int
+            """
+            The credit currently applied to this invoice from the Credit Memo, in cents (or local equivalent). Applying credit reduces `amount_due` and `amount_remaining` without changing `amount_paid`.
+            """
+            credit_memo: str
+            """
+            The ID of the Credit Memo whose credit is applied to this invoice.
+            """
+
+        data: List[Data]
+        """
+        The Credit Memos with credit currently applied to this invoice, with one entry per Credit Memo. An invoice can have credit applied from at most 10 Credit Memos, so the list is returned in full.
+        """
+        _inner_class_types = {"data": Data}
+
     class AutomaticTax(StripeObject):
         class EnablementDetails(StripeObject):
             class IntegrationConfigurationDisabledReason(StripeObject):
@@ -601,6 +618,7 @@ class Invoice(
                     "forwarding_api_upstream_connection_timeout",
                     "forwarding_api_upstream_error",
                     "idempotency_key_in_use",
+                    "inactive_api_operation_confirmation_required",
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
@@ -854,10 +872,10 @@ class Invoice(
         """
 
     class Parent(StripeObject):
-        class BillingCadenceDetails(StripeObject):
-            billing_cadence: str
+        class BillingGroupDetails(StripeObject):
+            billing_group: str
             """
-            The billing cadence that generated this invoice
+            The billing group that generated this invoice
             """
 
         class QuoteDetails(StripeObject):
@@ -911,9 +929,9 @@ class Invoice(
             """
             _inner_class_types = {"pause_collection": PauseCollection}
 
-        billing_cadence_details: Optional[BillingCadenceDetails]
+        billing_group_details: Optional[BillingGroupDetails]
         """
-        Details about the billing cadence that generated this invoice
+        Details about the billing group that generated this invoice
         """
         quote_details: Optional[QuoteDetails]
         """
@@ -929,7 +947,7 @@ class Invoice(
         """
         type: Union[
             Literal[
-                "billing_cadence_details",
+                "billing_group_details",
                 "quote_details",
                 "schedule_details",
                 "subscription_details",
@@ -940,7 +958,7 @@ class Invoice(
         The type of parent that generated this invoice
         """
         _inner_class_types = {
-            "billing_cadence_details": BillingCadenceDetails,
+            "billing_group_details": BillingGroupDetails,
             "quote_details": QuoteDetails,
             "schedule_details": ScheduleDetails,
             "subscription_details": SubscriptionDetails,
@@ -1777,6 +1795,7 @@ class Invoice(
     """
     ID of the Connect Application that created the invoice.
     """
+    applied_credit_memos: Optional[AppliedCreditMemos]
     attempt_count: int
     """
     Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule. If a failure is returned with a non-retryable return code, the invoice can no longer be retried unless a new payment method is obtained. Retries will continue to be scheduled, and attempt_count will continue to increment, but retries will only be executed if a new payment method is obtained.
@@ -3652,6 +3671,7 @@ class Invoice(
 
     _inner_class_types = {
         "amounts_due": AmountsDue,
+        "applied_credit_memos": AppliedCreditMemos,
         "automatic_tax": AutomaticTax,
         "confirmation_secret": ConfirmationSecret,
         "custom_fields": CustomField,

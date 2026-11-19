@@ -34,7 +34,7 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
             The currency of the balance.
             """
 
-        balance: Balance
+        balance: Optional[Balance]
         """
         The balance amount of a gift card, including currency and amount.
         """
@@ -139,7 +139,7 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
             The currency of the balance.
             """
 
-        balance: Balance
+        balance: Optional[Balance]
         """
         The balance amount of a gift card, including currency and amount.
         """

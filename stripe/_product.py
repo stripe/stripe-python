@@ -125,6 +125,10 @@ class Product(
         _inner_class_types = {"ineligibility_reasons": IneligibilityReason}
 
     class MarketingFeature(StripeObject):
+        loss_message: Optional[str]
+        """
+        Optional text that describes what a customer loses by canceling, shown for this marketing feature in the Customer Portal cancellation flow. Up to 80 characters long. If you omit it when you update `marketing_features`, Stripe keeps the message stored for the feature with the same name. Duplicate names are matched in order. Set it to an empty string to remove the override. When no override is stored, eligible cancellation flows use the marketing feature name. A renamed feature is treated as a new feature, so send the message again to keep it.
+        """
         name: Optional[str]
         """
         The marketing feature name. Up to 80 characters long.

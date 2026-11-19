@@ -1141,6 +1141,8 @@ if TYPE_CHECKING:
         CouponCreateParams as CouponCreateParams,
         CouponCreateParamsAppliesTo as CouponCreateParamsAppliesTo,
         CouponCreateParamsCurrencyOptions as CouponCreateParamsCurrencyOptions,
+        CouponCreateParamsCustom as CouponCreateParamsCustom,
+        CouponCreateParamsCustomExtension as CouponCreateParamsCustomExtension,
         CouponCreateParamsScript as CouponCreateParamsScript,
         CouponCreateParamsServicePeriod as CouponCreateParamsServicePeriod,
         CouponCreateParamsServicePeriodIterations as CouponCreateParamsServicePeriodIterations,
@@ -1975,14 +1977,41 @@ if TYPE_CHECKING:
     from stripe.params._invoice_rendering_template_archive_params import (
         InvoiceRenderingTemplateArchiveParams as InvoiceRenderingTemplateArchiveParams,
     )
+    from stripe.params._invoice_rendering_template_create_params import (
+        InvoiceRenderingTemplateCreateParams as InvoiceRenderingTemplateCreateParams,
+        InvoiceRenderingTemplateCreateParamsLineItemPolicy as InvoiceRenderingTemplateCreateParamsLineItemPolicy,
+        InvoiceRenderingTemplateCreateParamsRenderingSettings as InvoiceRenderingTemplateCreateParamsRenderingSettings,
+        InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf,
+        InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
+        InvoiceRenderingTemplateCreateParamsSummaryItemPolicy as InvoiceRenderingTemplateCreateParamsSummaryItemPolicy,
+    )
     from stripe.params._invoice_rendering_template_list_params import (
         InvoiceRenderingTemplateListParams as InvoiceRenderingTemplateListParams,
+    )
+    from stripe.params._invoice_rendering_template_modify_params import (
+        InvoiceRenderingTemplateModifyParams as InvoiceRenderingTemplateModifyParams,
+        InvoiceRenderingTemplateModifyParamsLineItemPolicy as InvoiceRenderingTemplateModifyParamsLineItemPolicy,
+        InvoiceRenderingTemplateModifyParamsRenderingSettings as InvoiceRenderingTemplateModifyParamsRenderingSettings,
+        InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf,
+        InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
+        InvoiceRenderingTemplateModifyParamsSummaryItemPolicy as InvoiceRenderingTemplateModifyParamsSummaryItemPolicy,
     )
     from stripe.params._invoice_rendering_template_retrieve_params import (
         InvoiceRenderingTemplateRetrieveParams as InvoiceRenderingTemplateRetrieveParams,
     )
     from stripe.params._invoice_rendering_template_unarchive_params import (
         InvoiceRenderingTemplateUnarchiveParams as InvoiceRenderingTemplateUnarchiveParams,
+    )
+    from stripe.params._invoice_rendering_template_update_params import (
+        InvoiceRenderingTemplateUpdateParams as InvoiceRenderingTemplateUpdateParams,
+        InvoiceRenderingTemplateUpdateParamsLineItemPolicy as InvoiceRenderingTemplateUpdateParamsLineItemPolicy,
+        InvoiceRenderingTemplateUpdateParamsRenderingSettings as InvoiceRenderingTemplateUpdateParamsRenderingSettings,
+        InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdf,
+        InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
+        InvoiceRenderingTemplateUpdateParamsSummaryItemPolicy as InvoiceRenderingTemplateUpdateParamsSummaryItemPolicy,
     )
     from stripe.params._invoice_retrieve_params import (
         InvoiceRetrieveParams as InvoiceRetrieveParams,
@@ -2386,6 +2415,7 @@ if TYPE_CHECKING:
         PaymentAttemptRecordReportFailedParamsPaymentMethodDetails as PaymentAttemptRecordReportFailedParamsPaymentMethodDetails,
         PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCard as PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCard,
         PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCardChecks as PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCardChecks,
+        PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCardThreeDSecure as PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCardThreeDSecure,
         PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsUsBankAccount as PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsUsBankAccount,
         PaymentAttemptRecordReportFailedParamsProcessorDetails as PaymentAttemptRecordReportFailedParamsProcessorDetails,
         PaymentAttemptRecordReportFailedParamsProcessorDetailsCustom as PaymentAttemptRecordReportFailedParamsProcessorDetailsCustom,
@@ -4227,6 +4257,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParams as PaymentMethodConfigurationCreateParams,
         PaymentMethodConfigurationCreateParamsAcssDebit as PaymentMethodConfigurationCreateParamsAcssDebit,
         PaymentMethodConfigurationCreateParamsAcssDebitDisplayPreference as PaymentMethodConfigurationCreateParamsAcssDebitDisplayPreference,
+        PaymentMethodConfigurationCreateParamsAeonPay as PaymentMethodConfigurationCreateParamsAeonPay,
+        PaymentMethodConfigurationCreateParamsAeonPayDisplayPreference as PaymentMethodConfigurationCreateParamsAeonPayDisplayPreference,
         PaymentMethodConfigurationCreateParamsAffirm as PaymentMethodConfigurationCreateParamsAffirm,
         PaymentMethodConfigurationCreateParamsAffirmDisplayPreference as PaymentMethodConfigurationCreateParamsAffirmDisplayPreference,
         PaymentMethodConfigurationCreateParamsAfterpayClearpay as PaymentMethodConfigurationCreateParamsAfterpayClearpay,
@@ -4243,6 +4275,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsApplePayLaterDisplayPreference as PaymentMethodConfigurationCreateParamsApplePayLaterDisplayPreference,
         PaymentMethodConfigurationCreateParamsAuBecsDebit as PaymentMethodConfigurationCreateParamsAuBecsDebit,
         PaymentMethodConfigurationCreateParamsAuBecsDebitDisplayPreference as PaymentMethodConfigurationCreateParamsAuBecsDebitDisplayPreference,
+        PaymentMethodConfigurationCreateParamsAuPay as PaymentMethodConfigurationCreateParamsAuPay,
+        PaymentMethodConfigurationCreateParamsAuPayDisplayPreference as PaymentMethodConfigurationCreateParamsAuPayDisplayPreference,
         PaymentMethodConfigurationCreateParamsBacsDebit as PaymentMethodConfigurationCreateParamsBacsDebit,
         PaymentMethodConfigurationCreateParamsBacsDebitDisplayPreference as PaymentMethodConfigurationCreateParamsBacsDebitDisplayPreference,
         PaymentMethodConfigurationCreateParamsBancontact as PaymentMethodConfigurationCreateParamsBancontact,
@@ -4265,6 +4299,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsCryptoDisplayPreference as PaymentMethodConfigurationCreateParamsCryptoDisplayPreference,
         PaymentMethodConfigurationCreateParamsCustomerBalance as PaymentMethodConfigurationCreateParamsCustomerBalance,
         PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference as PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference,
+        PaymentMethodConfigurationCreateParamsDbarai as PaymentMethodConfigurationCreateParamsDbarai,
+        PaymentMethodConfigurationCreateParamsDbaraiDisplayPreference as PaymentMethodConfigurationCreateParamsDbaraiDisplayPreference,
         PaymentMethodConfigurationCreateParamsEps as PaymentMethodConfigurationCreateParamsEps,
         PaymentMethodConfigurationCreateParamsEpsDisplayPreference as PaymentMethodConfigurationCreateParamsEpsDisplayPreference,
         PaymentMethodConfigurationCreateParamsFpx as PaymentMethodConfigurationCreateParamsFpx,
@@ -4297,6 +4333,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsLinkDisplayPreference as PaymentMethodConfigurationCreateParamsLinkDisplayPreference,
         PaymentMethodConfigurationCreateParamsMbWay as PaymentMethodConfigurationCreateParamsMbWay,
         PaymentMethodConfigurationCreateParamsMbWayDisplayPreference as PaymentMethodConfigurationCreateParamsMbWayDisplayPreference,
+        PaymentMethodConfigurationCreateParamsMerpay as PaymentMethodConfigurationCreateParamsMerpay,
+        PaymentMethodConfigurationCreateParamsMerpayDisplayPreference as PaymentMethodConfigurationCreateParamsMerpayDisplayPreference,
         PaymentMethodConfigurationCreateParamsMobilepay as PaymentMethodConfigurationCreateParamsMobilepay,
         PaymentMethodConfigurationCreateParamsMobilepayDisplayPreference as PaymentMethodConfigurationCreateParamsMobilepayDisplayPreference,
         PaymentMethodConfigurationCreateParamsMultibanco as PaymentMethodConfigurationCreateParamsMultibanco,
@@ -4371,6 +4409,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParams as PaymentMethodConfigurationModifyParams,
         PaymentMethodConfigurationModifyParamsAcssDebit as PaymentMethodConfigurationModifyParamsAcssDebit,
         PaymentMethodConfigurationModifyParamsAcssDebitDisplayPreference as PaymentMethodConfigurationModifyParamsAcssDebitDisplayPreference,
+        PaymentMethodConfigurationModifyParamsAeonPay as PaymentMethodConfigurationModifyParamsAeonPay,
+        PaymentMethodConfigurationModifyParamsAeonPayDisplayPreference as PaymentMethodConfigurationModifyParamsAeonPayDisplayPreference,
         PaymentMethodConfigurationModifyParamsAffirm as PaymentMethodConfigurationModifyParamsAffirm,
         PaymentMethodConfigurationModifyParamsAffirmDisplayPreference as PaymentMethodConfigurationModifyParamsAffirmDisplayPreference,
         PaymentMethodConfigurationModifyParamsAfterpayClearpay as PaymentMethodConfigurationModifyParamsAfterpayClearpay,
@@ -4387,6 +4427,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsApplePayLaterDisplayPreference as PaymentMethodConfigurationModifyParamsApplePayLaterDisplayPreference,
         PaymentMethodConfigurationModifyParamsAuBecsDebit as PaymentMethodConfigurationModifyParamsAuBecsDebit,
         PaymentMethodConfigurationModifyParamsAuBecsDebitDisplayPreference as PaymentMethodConfigurationModifyParamsAuBecsDebitDisplayPreference,
+        PaymentMethodConfigurationModifyParamsAuPay as PaymentMethodConfigurationModifyParamsAuPay,
+        PaymentMethodConfigurationModifyParamsAuPayDisplayPreference as PaymentMethodConfigurationModifyParamsAuPayDisplayPreference,
         PaymentMethodConfigurationModifyParamsBacsDebit as PaymentMethodConfigurationModifyParamsBacsDebit,
         PaymentMethodConfigurationModifyParamsBacsDebitDisplayPreference as PaymentMethodConfigurationModifyParamsBacsDebitDisplayPreference,
         PaymentMethodConfigurationModifyParamsBancontact as PaymentMethodConfigurationModifyParamsBancontact,
@@ -4409,6 +4451,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsCryptoDisplayPreference as PaymentMethodConfigurationModifyParamsCryptoDisplayPreference,
         PaymentMethodConfigurationModifyParamsCustomerBalance as PaymentMethodConfigurationModifyParamsCustomerBalance,
         PaymentMethodConfigurationModifyParamsCustomerBalanceDisplayPreference as PaymentMethodConfigurationModifyParamsCustomerBalanceDisplayPreference,
+        PaymentMethodConfigurationModifyParamsDbarai as PaymentMethodConfigurationModifyParamsDbarai,
+        PaymentMethodConfigurationModifyParamsDbaraiDisplayPreference as PaymentMethodConfigurationModifyParamsDbaraiDisplayPreference,
         PaymentMethodConfigurationModifyParamsEps as PaymentMethodConfigurationModifyParamsEps,
         PaymentMethodConfigurationModifyParamsEpsDisplayPreference as PaymentMethodConfigurationModifyParamsEpsDisplayPreference,
         PaymentMethodConfigurationModifyParamsFpx as PaymentMethodConfigurationModifyParamsFpx,
@@ -4441,6 +4485,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsLinkDisplayPreference as PaymentMethodConfigurationModifyParamsLinkDisplayPreference,
         PaymentMethodConfigurationModifyParamsMbWay as PaymentMethodConfigurationModifyParamsMbWay,
         PaymentMethodConfigurationModifyParamsMbWayDisplayPreference as PaymentMethodConfigurationModifyParamsMbWayDisplayPreference,
+        PaymentMethodConfigurationModifyParamsMerpay as PaymentMethodConfigurationModifyParamsMerpay,
+        PaymentMethodConfigurationModifyParamsMerpayDisplayPreference as PaymentMethodConfigurationModifyParamsMerpayDisplayPreference,
         PaymentMethodConfigurationModifyParamsMobilepay as PaymentMethodConfigurationModifyParamsMobilepay,
         PaymentMethodConfigurationModifyParamsMobilepayDisplayPreference as PaymentMethodConfigurationModifyParamsMobilepayDisplayPreference,
         PaymentMethodConfigurationModifyParamsMultibanco as PaymentMethodConfigurationModifyParamsMultibanco,
@@ -4515,6 +4561,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParams as PaymentMethodConfigurationUpdateParams,
         PaymentMethodConfigurationUpdateParamsAcssDebit as PaymentMethodConfigurationUpdateParamsAcssDebit,
         PaymentMethodConfigurationUpdateParamsAcssDebitDisplayPreference as PaymentMethodConfigurationUpdateParamsAcssDebitDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsAeonPay as PaymentMethodConfigurationUpdateParamsAeonPay,
+        PaymentMethodConfigurationUpdateParamsAeonPayDisplayPreference as PaymentMethodConfigurationUpdateParamsAeonPayDisplayPreference,
         PaymentMethodConfigurationUpdateParamsAffirm as PaymentMethodConfigurationUpdateParamsAffirm,
         PaymentMethodConfigurationUpdateParamsAffirmDisplayPreference as PaymentMethodConfigurationUpdateParamsAffirmDisplayPreference,
         PaymentMethodConfigurationUpdateParamsAfterpayClearpay as PaymentMethodConfigurationUpdateParamsAfterpayClearpay,
@@ -4531,6 +4579,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsApplePayLaterDisplayPreference as PaymentMethodConfigurationUpdateParamsApplePayLaterDisplayPreference,
         PaymentMethodConfigurationUpdateParamsAuBecsDebit as PaymentMethodConfigurationUpdateParamsAuBecsDebit,
         PaymentMethodConfigurationUpdateParamsAuBecsDebitDisplayPreference as PaymentMethodConfigurationUpdateParamsAuBecsDebitDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsAuPay as PaymentMethodConfigurationUpdateParamsAuPay,
+        PaymentMethodConfigurationUpdateParamsAuPayDisplayPreference as PaymentMethodConfigurationUpdateParamsAuPayDisplayPreference,
         PaymentMethodConfigurationUpdateParamsBacsDebit as PaymentMethodConfigurationUpdateParamsBacsDebit,
         PaymentMethodConfigurationUpdateParamsBacsDebitDisplayPreference as PaymentMethodConfigurationUpdateParamsBacsDebitDisplayPreference,
         PaymentMethodConfigurationUpdateParamsBancontact as PaymentMethodConfigurationUpdateParamsBancontact,
@@ -4553,6 +4603,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsCryptoDisplayPreference as PaymentMethodConfigurationUpdateParamsCryptoDisplayPreference,
         PaymentMethodConfigurationUpdateParamsCustomerBalance as PaymentMethodConfigurationUpdateParamsCustomerBalance,
         PaymentMethodConfigurationUpdateParamsCustomerBalanceDisplayPreference as PaymentMethodConfigurationUpdateParamsCustomerBalanceDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsDbarai as PaymentMethodConfigurationUpdateParamsDbarai,
+        PaymentMethodConfigurationUpdateParamsDbaraiDisplayPreference as PaymentMethodConfigurationUpdateParamsDbaraiDisplayPreference,
         PaymentMethodConfigurationUpdateParamsEps as PaymentMethodConfigurationUpdateParamsEps,
         PaymentMethodConfigurationUpdateParamsEpsDisplayPreference as PaymentMethodConfigurationUpdateParamsEpsDisplayPreference,
         PaymentMethodConfigurationUpdateParamsFpx as PaymentMethodConfigurationUpdateParamsFpx,
@@ -4585,6 +4637,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsLinkDisplayPreference as PaymentMethodConfigurationUpdateParamsLinkDisplayPreference,
         PaymentMethodConfigurationUpdateParamsMbWay as PaymentMethodConfigurationUpdateParamsMbWay,
         PaymentMethodConfigurationUpdateParamsMbWayDisplayPreference as PaymentMethodConfigurationUpdateParamsMbWayDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsMerpay as PaymentMethodConfigurationUpdateParamsMerpay,
+        PaymentMethodConfigurationUpdateParamsMerpayDisplayPreference as PaymentMethodConfigurationUpdateParamsMerpayDisplayPreference,
         PaymentMethodConfigurationUpdateParamsMobilepay as PaymentMethodConfigurationUpdateParamsMobilepay,
         PaymentMethodConfigurationUpdateParamsMobilepayDisplayPreference as PaymentMethodConfigurationUpdateParamsMobilepayDisplayPreference,
         PaymentMethodConfigurationUpdateParamsMultibanco as PaymentMethodConfigurationUpdateParamsMultibanco,
@@ -4839,6 +4893,7 @@ if TYPE_CHECKING:
         PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetails as PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetails,
         PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCard as PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCard,
         PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCardChecks as PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCardChecks,
+        PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCardThreeDSecure as PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCardThreeDSecure,
         PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsUsBankAccount as PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsUsBankAccount,
         PaymentRecordReportPaymentAttemptFailedParamsProcessorDetails as PaymentRecordReportPaymentAttemptFailedParamsProcessorDetails,
         PaymentRecordReportPaymentAttemptFailedParamsProcessorDetailsCustom as PaymentRecordReportPaymentAttemptFailedParamsProcessorDetailsCustom,
@@ -6380,6 +6435,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings,
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer,
+        SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsRendering as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsRendering,
         SubscriptionScheduleCreateParamsDefaultSettingsTransferData as SubscriptionScheduleCreateParamsDefaultSettingsTransferData,
         SubscriptionScheduleCreateParamsPauseSchedule as SubscriptionScheduleCreateParamsPauseSchedule,
         SubscriptionScheduleCreateParamsPauseSchedulePause as SubscriptionScheduleCreateParamsPauseSchedulePause,
@@ -6451,6 +6507,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings,
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer,
+        SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsRendering as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsRendering,
         SubscriptionScheduleModifyParamsDefaultSettingsTransferData as SubscriptionScheduleModifyParamsDefaultSettingsTransferData,
         SubscriptionScheduleModifyParamsPauseSchedule as SubscriptionScheduleModifyParamsPauseSchedule,
         SubscriptionScheduleModifyParamsPauseSchedulePause as SubscriptionScheduleModifyParamsPauseSchedulePause,
@@ -6521,6 +6578,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings,
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer,
+        SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsRendering as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsRendering,
         SubscriptionScheduleUpdateParamsDefaultSettingsTransferData as SubscriptionScheduleUpdateParamsDefaultSettingsTransferData,
         SubscriptionScheduleUpdateParamsPauseSchedule as SubscriptionScheduleUpdateParamsPauseSchedule,
         SubscriptionScheduleUpdateParamsPauseSchedulePause as SubscriptionScheduleUpdateParamsPauseSchedulePause,
@@ -10572,6 +10630,11 @@ _import_map = {
         "stripe.params._coupon_create_params",
         False,
     ),
+    "CouponCreateParamsCustom": ("stripe.params._coupon_create_params", False),
+    "CouponCreateParamsCustomExtension": (
+        "stripe.params._coupon_create_params",
+        False,
+    ),
     "CouponCreateParamsScript": ("stripe.params._coupon_create_params", False),
     "CouponCreateParamsServicePeriod": (
         "stripe.params._coupon_create_params",
@@ -12706,8 +12769,64 @@ _import_map = {
         "stripe.params._invoice_rendering_template_archive_params",
         False,
     ),
+    "InvoiceRenderingTemplateCreateParams": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateCreateParamsLineItemPolicy": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateCreateParamsRenderingSettings": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateCreateParamsSummaryItemPolicy": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
     "InvoiceRenderingTemplateListParams": (
         "stripe.params._invoice_rendering_template_list_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParams": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsLineItemPolicy": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsRenderingSettings": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsSummaryItemPolicy": (
+        "stripe.params._invoice_rendering_template_modify_params",
         False,
     ),
     "InvoiceRenderingTemplateRetrieveParams": (
@@ -12716,6 +12835,34 @@ _import_map = {
     ),
     "InvoiceRenderingTemplateUnarchiveParams": (
         "stripe.params._invoice_rendering_template_unarchive_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParams": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsLineItemPolicy": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsRenderingSettings": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdf": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsSummaryItemPolicy": (
+        "stripe.params._invoice_rendering_template_update_params",
         False,
     ),
     "InvoiceRetrieveParams": ("stripe.params._invoice_retrieve_params", False),
@@ -14052,6 +14199,10 @@ _import_map = {
         False,
     ),
     "PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCardChecks": (
+        "stripe.params._payment_attempt_record_report_failed_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCardThreeDSecure": (
         "stripe.params._payment_attempt_record_report_failed_params",
         False,
     ),
@@ -21075,6 +21226,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
+    "PaymentMethodConfigurationCreateParamsAeonPay": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsAeonPayDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
     "PaymentMethodConfigurationCreateParamsAffirm": (
         "stripe.params._payment_method_configuration_create_params",
         False,
@@ -21136,6 +21295,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationCreateParamsAuBecsDebitDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsAuPay": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsAuPayDisplayPreference": (
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
@@ -21224,6 +21391,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsDbarai": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsDbaraiDisplayPreference": (
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
@@ -21352,6 +21527,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationCreateParamsMbWayDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsMerpay": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsMerpayDisplayPreference": (
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
@@ -21635,6 +21818,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
+    "PaymentMethodConfigurationModifyParamsAeonPay": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsAeonPayDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
     "PaymentMethodConfigurationModifyParamsAffirm": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
@@ -21696,6 +21887,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationModifyParamsAuBecsDebitDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsAuPay": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsAuPayDisplayPreference": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
@@ -21784,6 +21983,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationModifyParamsCustomerBalanceDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsDbarai": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsDbaraiDisplayPreference": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
@@ -21912,6 +22119,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationModifyParamsMbWayDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsMerpay": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsMerpayDisplayPreference": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
@@ -22195,6 +22410,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
+    "PaymentMethodConfigurationUpdateParamsAeonPay": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsAeonPayDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
     "PaymentMethodConfigurationUpdateParamsAffirm": (
         "stripe.params._payment_method_configuration_update_params",
         False,
@@ -22256,6 +22479,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationUpdateParamsAuBecsDebitDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsAuPay": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsAuPayDisplayPreference": (
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
@@ -22344,6 +22575,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationUpdateParamsCustomerBalanceDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsDbarai": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsDbaraiDisplayPreference": (
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
@@ -22472,6 +22711,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationUpdateParamsMbWayDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsMerpay": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsMerpayDisplayPreference": (
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
@@ -23320,6 +23567,10 @@ _import_map = {
         False,
     ),
     "PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCardChecks": (
+        "stripe.params._payment_record_report_payment_attempt_failed_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentAttemptFailedParamsPaymentMethodDetailsCardThreeDSecure": (
         "stripe.params._payment_record_report_payment_attempt_failed_params",
         False,
     ),
@@ -28296,6 +28547,10 @@ _import_map = {
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
+    "SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsRendering": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
     "SubscriptionScheduleCreateParamsDefaultSettingsTransferData": (
         "stripe.params._subscription_schedule_create_params",
         False,
@@ -28564,6 +28819,10 @@ _import_map = {
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
+    "SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsRendering": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
     "SubscriptionScheduleModifyParamsDefaultSettingsTransferData": (
         "stripe.params._subscription_schedule_modify_params",
         False,
@@ -28817,6 +29076,10 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsRendering": (
         "stripe.params._subscription_schedule_update_params",
         False,
     ),

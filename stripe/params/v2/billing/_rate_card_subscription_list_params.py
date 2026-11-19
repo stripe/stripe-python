@@ -5,9 +5,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class RateCardSubscriptionListParams(TypedDict):
-    billing_cadence: NotRequired[str]
+    billing_group: NotRequired[str]
     """
-    Optionally filter by a BillingCadence. Mutually exclusive with `payers`, `rate_card`, and `rate_card_version`.
+    Optionally filter by a BillingGroup. Mutually exclusive with `payers`, `rate_card`, and `rate_card_version`.
     """
     limit: NotRequired[int]
     """
@@ -15,16 +15,16 @@ class RateCardSubscriptionListParams(TypedDict):
     """
     payer: NotRequired["RateCardSubscriptionListParamsPayer"]
     """
-    Optionally filter by the payer associated with Billing Cadences which the Rate Card Subscriptions are subscribed to.
-    Mutually exclusive with `billing_cadence`, `rate_card`, and `rate_card_version`.
+    Optionally filter by the payer associated with Billing Groups which the Rate Card Subscriptions are subscribed to.
+    Mutually exclusive with `billing_group`, `rate_card`, and `rate_card_version`.
     """
     rate_card: NotRequired[str]
     """
-    Optionally filter by a RateCard. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card_version`.
+    Optionally filter by a RateCard. Mutually exclusive with `billing_group`, `payers`, and `rate_card_version`.
     """
     rate_card_version: NotRequired[str]
     """
-    Optionally filter by a RateCard version. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card`.
+    Optionally filter by a RateCard version. Mutually exclusive with `billing_group`, `payers`, and `rate_card`.
     """
     servicing_status: NotRequired[
         Literal["active", "canceled", "paused", "pending"]
@@ -37,7 +37,7 @@ class RateCardSubscriptionListParams(TypedDict):
 class RateCardSubscriptionListParamsPayer(TypedDict):
     customer: NotRequired[str]
     """
-    The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Cadences with the specified payer will be returned.
+    The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Groups with the specified payer will be returned.
     """
     type: Union[Literal["customer"], str]
     """

@@ -43599,196 +43599,6 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_billing_cadence_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/cadences",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.list()
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/cadences",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_billing_cadence_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/cadences",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.create(
-            {
-                "billing_cycle": {
-                    "day": {
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                    "interval_count": 797691627,
-                    "month": {
-                        "day_of_month": 1361669285,
-                        "month_of_year": 82933018,
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                    "type": "week",
-                    "week": {
-                        "day_of_week": 43636807,
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                    "year": {
-                        "day_of_month": 1361669285,
-                        "month_of_year": 82933018,
-                        "time": {
-                            "hour": 3208676,
-                            "minute": 1074026988,
-                            "second": 906279820,
-                        },
-                    },
-                },
-                "payer": {"billing_profile": "billing_profile"},
-            }
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/cadences",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"billing_cycle":{"day":{"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"interval_count":797691627,"month":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"type":"week","week":{"day_of_week":43636807,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"year":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}}},"payer":{"billing_profile":"billing_profile"}}',
-            is_json=True,
-        )
-
-    def test_v2_billing_cadence_get_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/cadences/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/cadences/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_billing_cadence_post_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/cadences/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.update("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/cadences/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_billing_cadence_post_3_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/cadences/id_123/cancel",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.cancel("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/cadences/id_123/cancel",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_billing_cadences_spend_modifier_rule_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/cadences/cadence_id_123/spend_modifier_rules",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.spend_modifier_rules.list("cadence_id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/cadences/cadence_id_123/spend_modifier_rules",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_billing_cadences_spend_modifier_rule_get_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/cadences/cadence_id_123/spend_modifier_rules/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.cadences.spend_modifier_rules.retrieve(
-            "cadence_id_123",
-            "id_123",
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/cadences/cadence_id_123/spend_modifier_rules/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
     def test_v2_billing_collection_setting_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -44071,29 +43881,6 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_billing_contracts_pricing_lines_quantity_change_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/contracts/contract_id_123/pricing_lines/pricing_line_id_123/quantity_changes",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.contracts.pricing_lines.quantity_changes.list_contract_pricing_line_quantity_changes(
-            "contract_id_123",
-            "pricing_line_id_123",
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/contracts/contract_id_123/pricing_lines/pricing_line_id_123/quantity_changes",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
     def test_v2_billing_contracts_term_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -44248,6 +44035,177 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="{}",
             is_json=True,
+        )
+
+    def test_v2_billing_group_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/groups",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/groups",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_group_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/groups",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.create({"customer": "customer"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/groups",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"customer":"customer"}',
+            is_json=True,
+        )
+
+    def test_v2_billing_group_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/groups/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/groups/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_group_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/groups/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/groups/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_billing_group_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/groups/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/groups/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_billing_groups_invoice_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/groups/id_123/invoices",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.invoices.create("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/groups/id_123/invoices",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_billing_groups_spend_modifier_rule_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/groups/group_id_123/spend_modifier_rules",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.spend_modifier_rules.list("group_id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/groups/group_id_123/spend_modifier_rules",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_groups_spend_modifier_rule_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/groups/group_id_123/spend_modifier_rules/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.groups.spend_modifier_rules.retrieve(
+            "group_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/groups/group_id_123/spend_modifier_rules/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_billing_intent_get_service(
@@ -45946,7 +45904,7 @@ class TestGeneratedExamples(object):
 
         client.v2.billing.rate_card_subscriptions.create(
             {
-                "billing_cadence": "billing_cadence",
+                "billing_group": "billing_group",
                 "rate_card": "rate_card",
             }
         )
@@ -45955,7 +45913,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/rate_card_subscriptions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"billing_cadence":"billing_cadence","rate_card":"rate_card"}',
+            post_data='{"billing_group":"billing_group","rate_card":"rate_card"}',
             is_json=True,
         )
 
@@ -46514,6 +46472,7 @@ class TestGeneratedExamples(object):
             {
                 "account": "account",
                 "use_case": {
+                    "account_dashboard": {"refresh_url": "refresh_url"},
                     "account_onboarding": {
                         "collection_options": {
                             "fields": "eventually_due",
@@ -46546,7 +46505,7 @@ class TestGeneratedExamples(object):
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
-                    "type": "recipient_onboarding",
+                    "type": "account_dashboard",
                 },
             }
         )
@@ -46555,7 +46514,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"recipient_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"recipient_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"recipient_onboarding"}}',
+            post_data='{"account":"account","use_case":{"account_dashboard":{"refresh_url":"refresh_url"},"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"recipient_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"recipient_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_dashboard"}}',
             is_json=True,
         )
 
@@ -46837,7 +46796,10 @@ class TestGeneratedExamples(object):
         client.v2.core.claimable_sandboxes.create(
             {
                 "enable_mcp_access": True,
-                "onboarding_link_details": {"refresh_url": "refresh_url"},
+                "onboarding_link_details": {
+                    "refresh_url": "refresh_url",
+                    "return_url": "return_url",
+                },
                 "prefill": {
                     "country": "country",
                     "email": "email",
@@ -46850,7 +46812,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/claimable_sandboxes",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"enable_mcp_access":true,"onboarding_link_details":{"refresh_url":"refresh_url"},"prefill":{"country":"country","email":"email","name":"name"}}',
+            post_data='{"enable_mcp_access":true,"onboarding_link_details":{"refresh_url":"refresh_url","return_url":"return_url"},"prefill":{"country":"country","email":"email","name":"name"}}',
             is_json=True,
         )
 
@@ -49260,7 +49222,7 @@ class TestGeneratedExamples(object):
                                     "transaction_purpose": "payroll",
                                 },
                             },
-                            "preferred_networks": ["fedwire"],
+                            "preferred_networks": ["sepa_instant"],
                         },
                         "check_send": {
                             "attachment_file": "attachment_file",
@@ -49278,7 +49240,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]},"check_send":{"attachment_file":"attachment_file","memo":"memo","shipping_speed":"priority","signature":"signature"}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["sepa_instant"]},"check_send":{"attachment_file":"attachment_file","memo":"memo","shipping_speed":"priority","signature":"signature"}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -49355,7 +49317,7 @@ class TestGeneratedExamples(object):
                                     "transaction_purpose": "payroll",
                                 },
                             },
-                            "preferred_networks": ["fedwire"],
+                            "preferred_networks": ["sepa_instant"],
                         },
                     },
                     "recipient": "recipient",
@@ -49367,7 +49329,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payment_quotes",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["sepa_instant"]}},"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -49544,7 +49506,7 @@ class TestGeneratedExamples(object):
                             "preferred_network_options": {
                                 "ach": {"addenda": "addenda"},
                             },
-                            "preferred_networks": ["fedwire"],
+                            "preferred_networks": ["sepa_instant"],
                         },
                     },
                 },
@@ -49555,7 +49517,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_transfers",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda"}},"preferred_networks":["fedwire"]}}}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda"}},"preferred_networks":["sepa_instant"]}}}}',
             is_json=True,
         )
 
@@ -49652,7 +49614,7 @@ class TestGeneratedExamples(object):
                                     "transaction_purpose": "payroll",
                                 },
                             },
-                            "preferred_networks": ["fedwire"],
+                            "preferred_networks": ["sepa_instant"],
                         },
                         "check_send": {
                             "attachment_file": "attachment_file",
@@ -49670,7 +49632,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/payout_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["fedwire"]},"check_send":{"attachment_file":"attachment_file","memo":"memo","shipping_speed":"priority","signature":"signature"}},"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","payout_method_options":{"bank_account":{"preferred_network_options":{"ach":{"addenda":"addenda","submission":"next_day","transaction_purpose":"payroll"}},"preferred_networks":["sepa_instant"]},"check_send":{"attachment_file":"attachment_file","memo":"memo","shipping_speed":"priority","signature":"signature"}},"recipient":"recipient"}}',
             is_json=True,
         )
 

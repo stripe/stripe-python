@@ -1083,18 +1083,6 @@ if TYPE_CHECKING:
         V1TransferUpdatedEvent as V1TransferUpdatedEvent,
         V1TransferUpdatedEventNotification as V1TransferUpdatedEventNotification,
     )
-    from stripe.events._v2_billing_cadence_billed_event import (
-        V2BillingCadenceBilledEvent as V2BillingCadenceBilledEvent,
-        V2BillingCadenceBilledEventNotification as V2BillingCadenceBilledEventNotification,
-    )
-    from stripe.events._v2_billing_cadence_canceled_event import (
-        V2BillingCadenceCanceledEvent as V2BillingCadenceCanceledEvent,
-        V2BillingCadenceCanceledEventNotification as V2BillingCadenceCanceledEventNotification,
-    )
-    from stripe.events._v2_billing_cadence_created_event import (
-        V2BillingCadenceCreatedEvent as V2BillingCadenceCreatedEvent,
-        V2BillingCadenceCreatedEventNotification as V2BillingCadenceCreatedEventNotification,
-    )
     from stripe.events._v2_billing_contract_activated_event import (
         V2BillingContractActivatedEvent as V2BillingContractActivatedEvent,
         V2BillingContractActivatedEventNotification as V2BillingContractActivatedEventNotification,
@@ -1134,6 +1122,30 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_contract_term_deleted_event import (
         V2BillingContractTermDeletedEvent as V2BillingContractTermDeletedEvent,
         V2BillingContractTermDeletedEventNotification as V2BillingContractTermDeletedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_pricing_override_ended_event import (
+        V2BillingContractTermPricingOverrideEndedEvent as V2BillingContractTermPricingOverrideEndedEvent,
+        V2BillingContractTermPricingOverrideEndedEventNotification as V2BillingContractTermPricingOverrideEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_pricing_override_started_event import (
+        V2BillingContractTermPricingOverrideStartedEvent as V2BillingContractTermPricingOverrideStartedEvent,
+        V2BillingContractTermPricingOverrideStartedEventNotification as V2BillingContractTermPricingOverrideStartedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_recurring_price_ended_event import (
+        V2BillingContractTermRecurringPriceEndedEvent as V2BillingContractTermRecurringPriceEndedEvent,
+        V2BillingContractTermRecurringPriceEndedEventNotification as V2BillingContractTermRecurringPriceEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_recurring_price_started_event import (
+        V2BillingContractTermRecurringPriceStartedEvent as V2BillingContractTermRecurringPriceStartedEvent,
+        V2BillingContractTermRecurringPriceStartedEventNotification as V2BillingContractTermRecurringPriceStartedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_scheduled_fee_service_period_ended_event import (
+        V2BillingContractTermScheduledFeeServicePeriodEndedEvent as V2BillingContractTermScheduledFeeServicePeriodEndedEvent,
+        V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification as V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_scheduled_fee_service_period_started_event import (
+        V2BillingContractTermScheduledFeeServicePeriodStartedEvent as V2BillingContractTermScheduledFeeServicePeriodStartedEvent,
+        V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification as V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification,
     )
     from stripe.events._v2_billing_contract_term_updated_event import (
         V2BillingContractTermUpdatedEvent as V2BillingContractTermUpdatedEvent,
@@ -1502,6 +1514,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_authorization_rate_drop_resolved_event import (
         V2CoreHealthAuthorizationRateDropResolvedEvent as V2CoreHealthAuthorizationRateDropResolvedEvent,
         V2CoreHealthAuthorizationRateDropResolvedEventNotification as V2CoreHealthAuthorizationRateDropResolvedEventNotification,
+    )
+    from stripe.events._v2_core_health_custom_payment_method_adapter_degraded_firing_event import (
+        V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEvent as V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEvent,
+        V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification as V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_custom_payment_method_adapter_degraded_resolved_event import (
+        V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEvent as V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEvent,
+        V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification as V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification,
     )
     from stripe.events._v2_core_health_elements_error_firing_event import (
         V2CoreHealthElementsErrorFiringEvent as V2CoreHealthElementsErrorFiringEvent,
@@ -2226,6 +2246,26 @@ if TYPE_CHECKING:
     from stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event import (
         V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent as V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent,
         V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification as V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_canceled_event import (
+        V2SignalsPaymentRetryEvaluationCanceledEvent as V2SignalsPaymentRetryEvaluationCanceledEvent,
+        V2SignalsPaymentRetryEvaluationCanceledEventNotification as V2SignalsPaymentRetryEvaluationCanceledEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_completed_event import (
+        V2SignalsPaymentRetryEvaluationCompletedEvent as V2SignalsPaymentRetryEvaluationCompletedEvent,
+        V2SignalsPaymentRetryEvaluationCompletedEventNotification as V2SignalsPaymentRetryEvaluationCompletedEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_created_event import (
+        V2SignalsPaymentRetryEvaluationCreatedEvent as V2SignalsPaymentRetryEvaluationCreatedEvent,
+        V2SignalsPaymentRetryEvaluationCreatedEventNotification as V2SignalsPaymentRetryEvaluationCreatedEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_expired_event import (
+        V2SignalsPaymentRetryEvaluationExpiredEvent as V2SignalsPaymentRetryEvaluationExpiredEvent,
+        V2SignalsPaymentRetryEvaluationExpiredEventNotification as V2SignalsPaymentRetryEvaluationExpiredEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_updated_event import (
+        V2SignalsPaymentRetryEvaluationUpdatedEvent as V2SignalsPaymentRetryEvaluationUpdatedEvent,
+        V2SignalsPaymentRetryEvaluationUpdatedEventNotification as V2SignalsPaymentRetryEvaluationUpdatedEventNotification,
     )
     from stripe.events._v2_signals_payment_retry_evaluations_retry_recommended_event import (
         V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent as V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent,
@@ -4260,30 +4300,6 @@ _import_map = {
         "stripe.events._v1_transfer_updated_event",
         False,
     ),
-    "V2BillingCadenceBilledEvent": (
-        "stripe.events._v2_billing_cadence_billed_event",
-        False,
-    ),
-    "V2BillingCadenceBilledEventNotification": (
-        "stripe.events._v2_billing_cadence_billed_event",
-        False,
-    ),
-    "V2BillingCadenceCanceledEvent": (
-        "stripe.events._v2_billing_cadence_canceled_event",
-        False,
-    ),
-    "V2BillingCadenceCanceledEventNotification": (
-        "stripe.events._v2_billing_cadence_canceled_event",
-        False,
-    ),
-    "V2BillingCadenceCreatedEvent": (
-        "stripe.events._v2_billing_cadence_created_event",
-        False,
-    ),
-    "V2BillingCadenceCreatedEventNotification": (
-        "stripe.events._v2_billing_cadence_created_event",
-        False,
-    ),
     "V2BillingContractActivatedEvent": (
         "stripe.events._v2_billing_contract_activated_event",
         False,
@@ -4362,6 +4378,54 @@ _import_map = {
     ),
     "V2BillingContractTermDeletedEventNotification": (
         "stripe.events._v2_billing_contract_term_deleted_event",
+        False,
+    ),
+    "V2BillingContractTermPricingOverrideEndedEvent": (
+        "stripe.events._v2_billing_contract_term_pricing_override_ended_event",
+        False,
+    ),
+    "V2BillingContractTermPricingOverrideEndedEventNotification": (
+        "stripe.events._v2_billing_contract_term_pricing_override_ended_event",
+        False,
+    ),
+    "V2BillingContractTermPricingOverrideStartedEvent": (
+        "stripe.events._v2_billing_contract_term_pricing_override_started_event",
+        False,
+    ),
+    "V2BillingContractTermPricingOverrideStartedEventNotification": (
+        "stripe.events._v2_billing_contract_term_pricing_override_started_event",
+        False,
+    ),
+    "V2BillingContractTermRecurringPriceEndedEvent": (
+        "stripe.events._v2_billing_contract_term_recurring_price_ended_event",
+        False,
+    ),
+    "V2BillingContractTermRecurringPriceEndedEventNotification": (
+        "stripe.events._v2_billing_contract_term_recurring_price_ended_event",
+        False,
+    ),
+    "V2BillingContractTermRecurringPriceStartedEvent": (
+        "stripe.events._v2_billing_contract_term_recurring_price_started_event",
+        False,
+    ),
+    "V2BillingContractTermRecurringPriceStartedEventNotification": (
+        "stripe.events._v2_billing_contract_term_recurring_price_started_event",
+        False,
+    ),
+    "V2BillingContractTermScheduledFeeServicePeriodEndedEvent": (
+        "stripe.events._v2_billing_contract_term_scheduled_fee_service_period_ended_event",
+        False,
+    ),
+    "V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification": (
+        "stripe.events._v2_billing_contract_term_scheduled_fee_service_period_ended_event",
+        False,
+    ),
+    "V2BillingContractTermScheduledFeeServicePeriodStartedEvent": (
+        "stripe.events._v2_billing_contract_term_scheduled_fee_service_period_started_event",
+        False,
+    ),
+    "V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification": (
+        "stripe.events._v2_billing_contract_term_scheduled_fee_service_period_started_event",
         False,
     ),
     "V2BillingContractTermUpdatedEvent": (
@@ -5098,6 +5162,22 @@ _import_map = {
     ),
     "V2CoreHealthAuthorizationRateDropResolvedEventNotification": (
         "stripe.events._v2_core_health_authorization_rate_drop_resolved_event",
+        False,
+    ),
+    "V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEvent": (
+        "stripe.events._v2_core_health_custom_payment_method_adapter_degraded_firing_event",
+        False,
+    ),
+    "V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification": (
+        "stripe.events._v2_core_health_custom_payment_method_adapter_degraded_firing_event",
+        False,
+    ),
+    "V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEvent": (
+        "stripe.events._v2_core_health_custom_payment_method_adapter_degraded_resolved_event",
+        False,
+    ),
+    "V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification": (
+        "stripe.events._v2_core_health_custom_payment_method_adapter_degraded_resolved_event",
         False,
     ),
     "V2CoreHealthElementsErrorFiringEvent": (
@@ -6546,6 +6626,46 @@ _import_map = {
     ),
     "V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification": (
         "stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationCanceledEvent": (
+        "stripe.events._v2_signals_payment_retry_evaluation_canceled_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationCanceledEventNotification": (
+        "stripe.events._v2_signals_payment_retry_evaluation_canceled_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationCompletedEvent": (
+        "stripe.events._v2_signals_payment_retry_evaluation_completed_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationCompletedEventNotification": (
+        "stripe.events._v2_signals_payment_retry_evaluation_completed_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationCreatedEvent": (
+        "stripe.events._v2_signals_payment_retry_evaluation_created_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationCreatedEventNotification": (
+        "stripe.events._v2_signals_payment_retry_evaluation_created_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationExpiredEvent": (
+        "stripe.events._v2_signals_payment_retry_evaluation_expired_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationExpiredEventNotification": (
+        "stripe.events._v2_signals_payment_retry_evaluation_expired_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationUpdatedEvent": (
+        "stripe.events._v2_signals_payment_retry_evaluation_updated_event",
+        False,
+    ),
+    "V2SignalsPaymentRetryEvaluationUpdatedEventNotification": (
+        "stripe.events._v2_signals_payment_retry_evaluation_updated_event",
         False,
     ),
     "V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent": (

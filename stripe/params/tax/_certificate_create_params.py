@@ -12,9 +12,9 @@ class CertificateCreateParams(RequestOptions):
     """
     file: str
     """
-    The ID of a file uploaded with purpose `tax_certificate`.
+    The ID of a [file](https://docs.stripe.com/api/files/object) uploaded with purpose `tax_certificate`. The file must belong to the same account and mode as the tax exemption. You can't use a deleted file or a file attached to another certificate that hasn't been deleted.
     """
     tax_exemption: str
     """
-    The ID of an existing tax exemption.
+    The ID of an existing [customer tax exemption](https://docs.stripe.com/api/tax/exemptions/object) that hasn't been deleted.
     """

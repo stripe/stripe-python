@@ -6,7 +6,6 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.v2.billing._bill_setting_service import BillSettingService
-    from stripe.v2.billing._cadence_service import CadenceService
     from stripe.v2.billing._collection_setting_service import (
         CollectionSettingService,
     )
@@ -14,6 +13,7 @@ if TYPE_CHECKING:
     from stripe.v2.billing._custom_pricing_unit_service import (
         CustomPricingUnitService,
     )
+    from stripe.v2.billing._group_service import GroupService
     from stripe.v2.billing._intent_service import IntentService
     from stripe.v2.billing._license_fee_service import LicenseFeeService
     from stripe.v2.billing._licensed_item_service import LicensedItemService
@@ -45,7 +45,6 @@ _subservices = {
         "stripe.v2.billing._bill_setting_service",
         "BillSettingService",
     ],
-    "cadences": ["stripe.v2.billing._cadence_service", "CadenceService"],
     "collection_settings": [
         "stripe.v2.billing._collection_setting_service",
         "CollectionSettingService",
@@ -55,6 +54,7 @@ _subservices = {
         "stripe.v2.billing._custom_pricing_unit_service",
         "CustomPricingUnitService",
     ],
+    "groups": ["stripe.v2.billing._group_service", "GroupService"],
     "intents": ["stripe.v2.billing._intent_service", "IntentService"],
     "license_fees": [
         "stripe.v2.billing._license_fee_service",
@@ -111,10 +111,10 @@ _subservices = {
 
 class BillingService(StripeService):
     bill_settings: "BillSettingService"
-    cadences: "CadenceService"
     collection_settings: "CollectionSettingService"
     contracts: "ContractService"
     custom_pricing_units: "CustomPricingUnitService"
+    groups: "GroupService"
     intents: "IntentService"
     license_fees: "LicenseFeeService"
     licensed_items: "LicensedItemService"

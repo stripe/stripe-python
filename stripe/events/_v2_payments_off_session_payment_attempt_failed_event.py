@@ -84,6 +84,14 @@ class V2PaymentsOffSessionPaymentAttemptFailedEvent(Event):
     type: Literal["v2.payments.off_session_payment.attempt_failed"]
 
     class V2PaymentsOffSessionPaymentAttemptFailedEventData(StripeObject):
+        charge: Optional[str]
+        """
+        The ID of the Charge associated with this attempt.
+        """
+        last_attempt_error: str
+        """
+        The payment error from the failed attempt.
+        """
         payment_attempt_record: str
         """
         The ID of the payment attempt record associated with this failed attempt.

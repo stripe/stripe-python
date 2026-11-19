@@ -176,7 +176,7 @@ class AlertCreateParamsSpendThreshold(TypedDict):
     Filters to scope the spend calculation.
     """
     group_by: NotRequired[
-        "Literal['billing_cadence', 'pricing_plan_subscription']|str"
+        "Literal['billing_group', 'pricing_plan_subscription']|str"
     ]
     """
     Defines the granularity of spend aggregation. Defaults to `pricing_plan_subscription`.
@@ -191,10 +191,6 @@ class AlertCreateParamsSpendThresholdFilters(TypedDict):
     billable_items: NotRequired[List[str]]
     """
     Filter by billable item IDs. Maximum of 20 billable items.
-    """
-    billing_cadence: NotRequired[str]
-    """
-    Filter by billing cadence ID.
     """
     billing_group: NotRequired[str]
     """

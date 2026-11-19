@@ -1139,7 +1139,13 @@ class PaymentRecord(
             network: Optional[
                 Union[
                     Literal[
-                        "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                        "base",
+                        "ethereum",
+                        "polygon",
+                        "solana",
+                        "sui",
+                        "tempo",
+                        "tron",
                     ],
                     str,
                 ]

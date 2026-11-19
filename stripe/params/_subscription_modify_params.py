@@ -22,10 +22,6 @@ class SubscriptionModifyParams(RequestOptions):
     """
     Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     """
-    billing_cadence: NotRequired[str]
-    """
-    The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    """
     billing_cycle_anchor: NotRequired[
         "SubscriptionModifyParamsBillingCycleAnchor"
     ]
@@ -1131,6 +1127,10 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlikMandateOpti
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard(
     TypedDict,
 ):
+    debit_behavior: NotRequired[str]
+    """
+    Controls early collection for eligible recurring payments on India-issued cards. Target-date billing aims to debit on the billing-cycle date but does not guarantee that date.
+    """
     mandate_options: NotRequired[
         "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions"
     ]
@@ -1254,6 +1254,10 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOpt
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPix(
     TypedDict
 ):
+    debit_behavior: NotRequired[str]
+    """
+    Timing configuration for collecting funds from the customer's account.
+    """
     expires_after_seconds: NotRequired[int]
     """
     The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
@@ -1301,6 +1305,10 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUpi(
     TypedDict
 ):
+    debit_behavior: NotRequired[str]
+    """
+    Controls when the funds will be captured from the customer's account. Defaults to `not_specified`. Omit this parameter on an update to preserve the saved value; pass `not_specified` to clear it. Early collection is best effort and doesn't guarantee an exact debit date.
+    """
     mandate_options: NotRequired[
         "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions"
     ]

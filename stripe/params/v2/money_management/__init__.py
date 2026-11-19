@@ -98,6 +98,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._funding_intent_update_params import (
         FundingIntentUpdateParams as FundingIntentUpdateParams,
         FundingIntentUpdateParamsCheck as FundingIntentUpdateParamsCheck,
+        FundingIntentUpdateParamsSettlementTiming as FundingIntentUpdateParamsSettlementTiming,
     )
     from stripe.params.v2.money_management._funding_session_create_params import (
         FundingSessionCreateParams as FundingSessionCreateParams,
@@ -291,6 +292,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._received_debit_list_params import (
         ReceivedDebitListParams as ReceivedDebitListParams,
+        ReceivedDebitListParamsCreated as ReceivedDebitListParamsCreated,
     )
     from stripe.params.v2.money_management._received_debit_mandate_cancel_params import (
         ReceivedDebitMandateCancelParams as ReceivedDebitMandateCancelParams,
@@ -556,6 +558,10 @@ _import_map = {
         False,
     ),
     "FundingIntentUpdateParamsCheck": (
+        "stripe.params.v2.money_management._funding_intent_update_params",
+        False,
+    ),
+    "FundingIntentUpdateParamsSettlementTiming": (
         "stripe.params.v2.money_management._funding_intent_update_params",
         False,
     ),
@@ -992,6 +998,10 @@ _import_map = {
         False,
     ),
     "ReceivedDebitListParams": (
+        "stripe.params.v2.money_management._received_debit_list_params",
+        False,
+    ),
+    "ReceivedDebitListParamsCreated": (
         "stripe.params.v2.money_management._received_debit_list_params",
         False,
     ),

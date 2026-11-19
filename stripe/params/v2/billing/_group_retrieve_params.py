@@ -4,10 +4,10 @@ from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
-class CadenceCancelParams(TypedDict):
+class GroupRetrieveParams(TypedDict):
     include: NotRequired[
-        List[Union[Literal["invoice_discount_rules", "settings_data"], str]]
+        List[Union[Literal["billing_settings", "invoice_discount_rules"], str]]
     ]
     """
-    Additional resource to include in the response.
+    Additional fields to include in the response.
     """

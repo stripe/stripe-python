@@ -59,6 +59,7 @@ class OutboundPaymentQuote(StripeObject):
                     "sepa",
                     "sepa_instant",
                     "swift",
+                    "tips",
                 ],
                 str,
             ]
@@ -201,6 +202,7 @@ class OutboundPaymentQuote(StripeObject):
                                 "sepa_credit",
                                 "sepa_instant",
                                 "swift",
+                                "tips",
                             ],
                             str,
                         ]

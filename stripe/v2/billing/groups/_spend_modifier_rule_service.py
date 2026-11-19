@@ -7,33 +7,33 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._request_options import RequestOptions
-    from stripe.params.v2.billing.cadences._spend_modifier_rule_list_params import (
+    from stripe.params.v2.billing.groups._spend_modifier_rule_list_params import (
         SpendModifierRuleListParams,
     )
-    from stripe.params.v2.billing.cadences._spend_modifier_rule_retrieve_params import (
+    from stripe.params.v2.billing.groups._spend_modifier_rule_retrieve_params import (
         SpendModifierRuleRetrieveParams,
     )
     from stripe.v2._list_object import ListObject
-    from stripe.v2.billing._cadence_spend_modifier import CadenceSpendModifier
+    from stripe.v2.billing._group_spend_modifier import GroupSpendModifier
 
 
 class SpendModifierRuleService(StripeService):
     def list(
         self,
-        cadence_id: str,
+        group_id: str,
         /,
         params: Optional["SpendModifierRuleListParams"] = None,
         options: Optional["RequestOptions"] = None,
-    ) -> "ListObject[CadenceSpendModifier]":
+    ) -> "ListObject[GroupSpendModifier]":
         """
-        List all Spend Modifiers associated with a Billing Cadence.
+        List spend modifiers associated with a billing group.
         """
         return cast(
-            "ListObject[CadenceSpendModifier]",
+            "ListObject[GroupSpendModifier]",
             self._request(
                 "get",
-                "/v2/billing/cadences/{cadence_id}/spend_modifier_rules".format(
-                    cadence_id=sanitize_id(cadence_id),
+                "/v2/billing/groups/{group_id}/spend_modifier_rules".format(
+                    group_id=sanitize_id(group_id),
                 ),
                 base_address="api",
                 params=params,
@@ -43,20 +43,20 @@ class SpendModifierRuleService(StripeService):
 
     async def list_async(
         self,
-        cadence_id: str,
+        group_id: str,
         /,
         params: Optional["SpendModifierRuleListParams"] = None,
         options: Optional["RequestOptions"] = None,
-    ) -> "ListObject[CadenceSpendModifier]":
+    ) -> "ListObject[GroupSpendModifier]":
         """
-        List all Spend Modifiers associated with a Billing Cadence.
+        List spend modifiers associated with a billing group.
         """
         return cast(
-            "ListObject[CadenceSpendModifier]",
+            "ListObject[GroupSpendModifier]",
             await self._request_async(
                 "get",
-                "/v2/billing/cadences/{cadence_id}/spend_modifier_rules".format(
-                    cadence_id=sanitize_id(cadence_id),
+                "/v2/billing/groups/{group_id}/spend_modifier_rules".format(
+                    group_id=sanitize_id(group_id),
                 ),
                 base_address="api",
                 params=params,
@@ -66,21 +66,21 @@ class SpendModifierRuleService(StripeService):
 
     def retrieve(
         self,
-        cadence_id: str,
+        group_id: str,
         id: str,
         /,
         params: Optional["SpendModifierRuleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
-    ) -> "CadenceSpendModifier":
+    ) -> "GroupSpendModifier":
         """
-        Retrieve a Spend Modifier associated with a Billing Cadence.
+        Retrieve a spend modifier associated with a billing group.
         """
         return cast(
-            "CadenceSpendModifier",
+            "GroupSpendModifier",
             self._request(
                 "get",
-                "/v2/billing/cadences/{cadence_id}/spend_modifier_rules/{id}".format(
-                    cadence_id=sanitize_id(cadence_id),
+                "/v2/billing/groups/{group_id}/spend_modifier_rules/{id}".format(
+                    group_id=sanitize_id(group_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",
@@ -91,21 +91,21 @@ class SpendModifierRuleService(StripeService):
 
     async def retrieve_async(
         self,
-        cadence_id: str,
+        group_id: str,
         id: str,
         /,
         params: Optional["SpendModifierRuleRetrieveParams"] = None,
         options: Optional["RequestOptions"] = None,
-    ) -> "CadenceSpendModifier":
+    ) -> "GroupSpendModifier":
         """
-        Retrieve a Spend Modifier associated with a Billing Cadence.
+        Retrieve a spend modifier associated with a billing group.
         """
         return cast(
-            "CadenceSpendModifier",
+            "GroupSpendModifier",
             await self._request_async(
                 "get",
-                "/v2/billing/cadences/{cadence_id}/spend_modifier_rules/{id}".format(
-                    cadence_id=sanitize_id(cadence_id),
+                "/v2/billing/groups/{group_id}/spend_modifier_rules/{id}".format(
+                    group_id=sanitize_id(group_id),
                     id=sanitize_id(id),
                 ),
                 base_address="api",

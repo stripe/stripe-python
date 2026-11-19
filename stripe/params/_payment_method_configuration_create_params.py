@@ -10,6 +10,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     """
     Canadian pre-authorized debit payments, check this [page](https://docs.stripe.com/payments/acss-debit) for more details like country availability.
     """
+    aeon_pay: NotRequired["PaymentMethodConfigurationCreateParamsAeonPay"]
+    """
+    AEON Pay is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with AEON Pay, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    """
     affirm: NotRequired["PaymentMethodConfigurationCreateParamsAffirm"]
     """
     [Affirm](https://www.affirm.com/) gives your customers a way to split purchases over a series of payments. Depending on the purchase, they can pay with four interest-free payments (Split Pay) or pay over a longer term (Installments), which might include interest. Check this [page](https://docs.stripe.com/payments/affirm) for more details like country availability.
@@ -47,6 +51,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     ]
     """
     Stripe users in Australia can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with an Australian bank account. Check this [page](https://docs.stripe.com/payments/au-becs-debit) for more details.
+    """
+    au_pay: NotRequired["PaymentMethodConfigurationCreateParamsAuPay"]
+    """
+    au PAY is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with au PAY, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
     """
     bacs_debit: NotRequired["PaymentMethodConfigurationCreateParamsBacsDebit"]
     """
@@ -95,6 +103,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     ]
     """
     Uses a customer's [cash balance](https://docs.stripe.com/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://docs.stripe.com/payments/bank-transfers) for more details.
+    """
+    dbarai: NotRequired["PaymentMethodConfigurationCreateParamsDbarai"]
+    """
+    d-Barai is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with d-Barai, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
     """
     eps: NotRequired["PaymentMethodConfigurationCreateParamsEps"]
     """
@@ -167,6 +179,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     mb_way: NotRequired["PaymentMethodConfigurationCreateParamsMbWay"]
     """
     MB WAY is the most popular wallet in Portugal. After entering their phone number in your checkout, customers approve the payment directly in their MB WAY app. Check this [page](https://docs.stripe.com/payments/mb-way) for more details.
+    """
+    merpay: NotRequired["PaymentMethodConfigurationCreateParamsMerpay"]
+    """
+    Merpay is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with Merpay, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
     """
     mobilepay: NotRequired["PaymentMethodConfigurationCreateParamsMobilepay"]
     """
@@ -338,6 +354,24 @@ class PaymentMethodConfigurationCreateParamsAcssDebitDisplayPreference(
     """
 
 
+class PaymentMethodConfigurationCreateParamsAeonPay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsAeonPayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsAeonPayDisplayPreference(
+    TypedDict
+):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
 class PaymentMethodConfigurationCreateParamsAffirm(TypedDict):
     display_preference: NotRequired[
         "PaymentMethodConfigurationCreateParamsAffirmDisplayPreference"
@@ -470,6 +504,22 @@ class PaymentMethodConfigurationCreateParamsAuBecsDebit(TypedDict):
 class PaymentMethodConfigurationCreateParamsAuBecsDebitDisplayPreference(
     TypedDict,
 ):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsAuPay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsAuPayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsAuPayDisplayPreference(TypedDict):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
@@ -656,6 +706,22 @@ class PaymentMethodConfigurationCreateParamsCustomerBalance(TypedDict):
 class PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference(
     TypedDict,
 ):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsDbarai(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsDbaraiDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsDbaraiDisplayPreference(TypedDict):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
@@ -926,6 +992,22 @@ class PaymentMethodConfigurationCreateParamsMbWay(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsMbWayDisplayPreference(TypedDict):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsMerpay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsMerpayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsMerpayDisplayPreference(TypedDict):
     preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.

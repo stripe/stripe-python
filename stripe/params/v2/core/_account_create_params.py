@@ -26,7 +26,7 @@ class AccountCreateParams(TypedDict):
     """
     dashboard: NotRequired[Literal["express", "full", "none"]]
     """
-    A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+    Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
     """
     defaults: NotRequired["AccountCreateParamsDefaults"]
     """
@@ -1049,6 +1049,12 @@ class AccountCreateParamsConfigurationMerchant(TypedDict):
     """
     The Merchant Category Code (MCC) for the Merchant Configuration. MCCs classify businesses based on the goods or services they provide.
     """
+    paypay_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantPaypayPayments"
+    ]
+    """
+    Settings for PayPay payments.
+    """
     script_statement_descriptor: NotRequired[
         "AccountCreateParamsConfigurationMerchantScriptStatementDescriptor"
     ]
@@ -1166,6 +1172,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process Bancontact payments.
     """
+    billie_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBilliePayments"
+    ]
+    """
+    Allow the merchant to process Billie payments.
+    """
     blik_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments"
     ]
@@ -1274,6 +1286,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process Link payments.
     """
+    mb_way_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPayments"
+    ]
+    """
+    Allow the merchant to process MB WAY payments.
+    """
     mobilepay_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPayments"
     ]
@@ -1297,6 +1315,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process Naver Pay payments.
+    """
+    nz_bank_account_becs_debit_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments"
+    ]
+    """
+    Allow the merchant to process New Zealand BECS Direct Debit payments.
     """
     oxxo_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPayments"
@@ -1327,6 +1351,18 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process PayNow payments.
+    """
+    paypay_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPayments"
+    ]
+    """
+    Allow the merchant to process PayPay payments.
+    """
+    pix_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPixPayments"
+    ]
+    """
+    Allow the merchant to process Pix payments.
     """
     promptpay_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPayments"
@@ -1388,6 +1424,18 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process Swish payments.
     """
+    touch_n_go_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesTouchNGoPayments"
+    ]
+    """
+    Allow the merchant to process Touch 'n Go payments.
+    """
+    truemoney_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesTruemoneyPayments"
+    ]
+    """
+    Allow the merchant to process TrueMoney payments.
+    """
     twint_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments"
     ]
@@ -1411,6 +1459,24 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process Vipps payments.
+    """
+    wechat_pay_mobile_web_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayMobileWebPayments"
+    ]
+    """
+    Allow the merchant to process WeChat Pay mobile web payments. Requires the wechat_pay_payments capability.
+    """
+    wechat_pay_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayPayments"
+    ]
+    """
+    Allow the merchant to process WeChat Pay payments.
+    """
+    wero_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesWeroPayments"
+    ]
+    """
+    Allow the merchant to process Wero payments.
     """
     zip_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesZipPayments"
@@ -1742,6 +1808,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPaymentsProt
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBilliePayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBilliePaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBilliePaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesBilliePaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBilliePaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -2344,6 +2443,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesLinkPaymentsProtection
     """
 
 
+class AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMbWayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPayments(
     TypedDict,
 ):
@@ -2468,6 +2600,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPaymentsProtec
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesNzBankAccountBecsDebitPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -2633,6 +2798,72 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPaymentsProtecti
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPaypayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPixPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPixPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPixPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesPixPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPixPaymentsProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -2971,6 +3202,72 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesSwishPaymentsProtectio
     """
 
 
+class AccountCreateParamsConfigurationMerchantCapabilitiesTouchNGoPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesTouchNGoPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesTouchNGoPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesTouchNGoPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesTouchNGoPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesTruemoneyPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesTruemoneyPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesTruemoneyPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesTruemoneyPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesTruemoneyPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments(
     TypedDict,
 ):
@@ -3103,6 +3400,105 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesVippsPaymentsProtectio
     """
 
 
+class AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayMobileWebPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayMobileWebPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayMobileWebPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayMobileWebPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayMobileWebPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWechatPayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWeroPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesWeroPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWeroPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesWeroPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesWeroPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMerchantCapabilitiesZipPayments(
     TypedDict,
 ):
@@ -3164,6 +3560,10 @@ class AccountCreateParamsConfigurationMerchantGrossSettlement(TypedDict):
 
 
 class AccountCreateParamsConfigurationMerchantKonbiniPayments(TypedDict):
+    additional_material: NotRequired[str]
+    """
+    Information provided to support the onboarding process for Konbini payments.
+    """
     support: NotRequired[
         "AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport"
     ]
@@ -3201,6 +3601,80 @@ class AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours(
     start_time: NotRequired[str]
     """
     Support hours start time (JST time of day) for in `HH:MM` format.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantPaypayPayments(TypedDict):
+    additional_files: List[str]
+    """
+    Additional files supporting PayPay payments configuration.
+    """
+    goods_type: NotRequired[Literal["digital_content", "other"]]
+    """
+    The type of goods sold by the merchant for PayPay payments.
+    """
+    site: NotRequired[
+        "AccountCreateParamsConfigurationMerchantPaypayPaymentsSite"
+    ]
+    """
+    The business's website for PayPay payments.
+    """
+    specified_commercial_transactions_act_url: NotRequired[str]
+    """
+    URL to the Specified Commercial Transactions Act page for PayPay payments.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantPaypayPaymentsSite(TypedDict):
+    accessible: NotRequired[
+        "AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteAccessible"
+    ]
+    """
+    Additional information about the business's website when it's accessible.
+    """
+    in_development: NotRequired[
+        "AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment"
+    ]
+    """
+    Additional information about the business's website when it's in development.
+    """
+    restricted: NotRequired[
+        "AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteRestricted"
+    ]
+    """
+    Additional information about the business's website when it has restricted access.
+    """
+    type: NotRequired[Literal["accessible", "in_development", "restricted"]]
+    """
+    The status of the business's website.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteAccessible(
+    TypedDict,
+):
+    pass
+
+
+class AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteInDevelopment(
+    TypedDict,
+):
+    password: NotRequired[str]
+    """
+    The password needed to access the business's website.
+    """
+    username: NotRequired[str]
+    """
+    The username needed to access the business's website.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantPaypayPaymentsSiteRestricted(
+    TypedDict,
+):
+    payment_flow_file: NotRequired[str]
+    """
+    The file explaining the payment flow for the business.
     """
 
 
@@ -3419,6 +3893,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilities(TypedDict):
     ]
     """
     Can send or receive business custodial storage-type funds on Stripe.
+    """
+    business_demand_deposit_account_fifth_third_storage: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorage"
+    ]
+    """
+    Capabilities related to business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
     """
     business_storage: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage"
@@ -3645,6 +4125,111 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessCustodialS
 
 
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessCustodialStorageOutboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorage(
+    TypedDict,
+):
+    inbound: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInbound"
+    ]
+    """
+    Can receive funds in business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
+    """
+    outbound: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutbound"
+    ]
+    """
+    Can send funds from business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInbound(
+    TypedDict,
+):
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInboundUsd"
+    ]
+    """
+    Can receive funds in business storage FinancialAccounts backed by Fifth Third demand deposit accounts in USD.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInboundUsd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInboundUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInboundUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInboundUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageInboundUsdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutbound(
+    TypedDict,
+):
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutboundUsd"
+    ]
+    """
+    Can send funds from business storage FinancialAccounts backed by Fifth Third demand deposit accounts in USD.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutboundUsd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutboundUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutboundUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutboundUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessDemandDepositAccountFifthThirdStorageOutboundUsdProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -6930,6 +7515,12 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
     """
+    tips: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsTips"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over TIPS rails.
+    """
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch(
@@ -7295,6 +7886,39 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProt
     """
 
 
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsTips(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsTipsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsTipsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsTipsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsTipsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationRecipientCapabilitiesCards(TypedDict):
     protections: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtections"
@@ -7643,11 +8267,11 @@ class AccountCreateParamsDefaultsResponsibilities(TypedDict):
         "application", "application_custom", "application_express", "stripe"
     ]
     """
-    A value indicating the party responsible for collecting fees from this account.
+    Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
     """
     losses_collector: Literal["application", "stripe"]
     """
-    A value indicating who is responsible for losses when this Account can't pay back negative balances from payments.
+    Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
     """
     requirements_collector: NotRequired[Literal["application", "stripe"]]
     """
@@ -7793,6 +8417,12 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of the Stripe Services Agreement.
     """
+    business_demand_deposit_account_fifth_third: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceBusinessDemandDepositAccountFifthThird"
+    ]
+    """
+    Terms of service acceptances for financial accounts backed by Fifth Third demand deposit accounts.
+    """
     card_creator: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreator"
     ]
@@ -7826,6 +8456,23 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
 
 
 class AccountCreateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceBusinessDemandDepositAccountFifthThird(
+    TypedDict,
+):
     date: str
     """
     The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

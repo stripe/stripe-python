@@ -9,7 +9,7 @@ class RateCardSubscription(StripeObject):
     """
     A Rate Card Subscription represents a customer's subscription to a Rate Card's usage-based pricing. It tracks the
     servicing status (whether usage is being measured) and collection status (whether payments are current). Subscriptions
-    bill according to the service interval defined in the Rate Card and are collected on the associated Billing Cadence.
+    bill according to the service interval defined in the Rate Card and are collected on the associated Billing Group.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.billing.rate_card_subscription"]] = (
@@ -60,9 +60,9 @@ class RateCardSubscription(StripeObject):
         When the servicing is scheduled to cancel.
         """
 
-    billing_cadence: str
+    billing_group: str
     """
-    The ID of the Billing Cadence.
+    The ID of the Billing Group.
     """
     collection_status: Optional[
         Literal[

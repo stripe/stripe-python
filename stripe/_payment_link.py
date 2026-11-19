@@ -82,7 +82,12 @@ class PaymentLink(
         Indicates whether automatic surcharge is enabled for the payment link.
         """
         provider: Optional[
-            Union[Literal["daikin", "interpayments", "proserv", "yeeld"], str]
+            Union[
+                Literal[
+                    "daikin", "dealerfx", "interpayments", "proserv", "yeeld"
+                ],
+                str,
+            ]
         ]
         """
         The surcharge provider used for this payment link.

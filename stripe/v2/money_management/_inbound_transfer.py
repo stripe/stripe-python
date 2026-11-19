@@ -18,6 +18,10 @@ class InboundTransfer(StripeObject):
 
     class From(StripeObject):
         class PaymentMethod(StripeObject):
+            au_becs_debit: Optional[str]
+            """
+            The Australian bank account credential used for AU BECS Direct Debit.
+            """
             bacs_debit: Optional[str]
             """
             The Bacs Direct Debit PaymentMethod identifier.

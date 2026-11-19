@@ -71,7 +71,7 @@ class RateCardSubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardSubscription":
         """
-        Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
+        Create a Rate Card Subscription to bill a Rate Card on a specified Billing Group.
         """
         return cast(
             "RateCardSubscription",
@@ -90,7 +90,7 @@ class RateCardSubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardSubscription":
         """
-        Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
+        Create a Rate Card Subscription to bill a Rate Card on a specified Billing Group.
         """
         return cast(
             "RateCardSubscription",

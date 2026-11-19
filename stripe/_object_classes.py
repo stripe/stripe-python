@@ -526,11 +526,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._bill_setting_version",
         "BillSettingVersion",
     ),
-    "v2.billing.cadence": ("stripe.v2.billing._cadence", "Cadence"),
-    "v2.billing.cadence_spend_modifier": (
-        "stripe.v2.billing._cadence_spend_modifier",
-        "CadenceSpendModifier",
-    ),
     "v2.billing.collection_setting": (
         "stripe.v2.billing._collection_setting",
         "CollectionSetting",
@@ -540,10 +535,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CollectionSettingVersion",
     ),
     "v2.billing.contract": ("stripe.v2.billing._contract", "Contract"),
-    "v2.billing.contract_pricing_line_quantity_change": (
-        "stripe.v2.billing._contract_pricing_line_quantity_change",
-        "ContractPricingLineQuantityChange",
-    ),
     "v2.billing.contract_term": (
         "stripe.v2.billing._contract_term",
         "ContractTerm",
@@ -555,6 +546,15 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.billing.custom_pricing_unit": (
         "stripe.v2.billing._custom_pricing_unit",
         "CustomPricingUnit",
+    ),
+    "v2.billing.group": ("stripe.v2.billing._group", "Group"),
+    "v2.billing.group_invoice": (
+        "stripe.v2.billing._group_invoice",
+        "GroupInvoice",
+    ),
+    "v2.billing.group_spend_modifier": (
+        "stripe.v2.billing._group_spend_modifier",
+        "GroupSpendModifier",
     ),
     "v2.billing.intent": ("stripe.v2.billing._intent", "Intent"),
     "v2.billing.intent_action": (

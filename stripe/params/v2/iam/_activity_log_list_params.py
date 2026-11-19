@@ -11,9 +11,14 @@ class ActivityLogListParams(TypedDict):
                 Literal[
                     "account_security",
                     "api_key",
+                    "app",
                     "authentication",
+                    "connect",
+                    "data_export",
+                    "event_destination",
                     "issuing",
                     "payout",
+                    "radar",
                     "scim",
                     "sso",
                     "user_access",
@@ -37,6 +42,20 @@ class ActivityLogListParams(TypedDict):
                     "api_key_deleted",
                     "api_key_updated",
                     "api_key_viewed",
+                    "application_authorized",
+                    "application_created",
+                    "application_deauthorized",
+                    "app_installed",
+                    "app_uninstalled",
+                    "connect_express_branding_updated",
+                    "connect_oauth_disabled",
+                    "connect_oauth_enabled",
+                    "connect_settings_updated",
+                    "connect_site_link_updated",
+                    "data_export_requested",
+                    "event_destination_added",
+                    "event_destination_removed",
+                    "event_destination_updated",
                     "issuing_activated",
                     "issuing_balance_transfer_created",
                     "issuing_cardholder_created",
@@ -54,6 +73,17 @@ class ActivityLogListParams(TypedDict):
                     "payout_destination_updated",
                     "payout_schedule_edits_disabled",
                     "payout_schedule_edits_enabled",
+                    "payout_schedule_updated",
+                    "radar_adaptive_3ds_disabled",
+                    "radar_dynamic_risk_thresholds_disabled",
+                    "radar_early_fraud_warning_disabled",
+                    "radar_for_setup_intents_disabled",
+                    "radar_fraud_dispute_protection_disabled",
+                    "radar_rule_added",
+                    "radar_rule_disabled",
+                    "radar_rule_enabled",
+                    "radar_rule_removed",
+                    "radar_rule_updated",
                     "scim_group_deleted",
                     "scim_group_member_added",
                     "scim_group_member_removed",
@@ -103,4 +133,8 @@ class ActivityLogListParams(TypedDict):
     limit: NotRequired[int]
     """
     Maximum number of results to return per page.
+    """
+    logs_from: NotRequired[List[str]]
+    """
+    Controls which activity logs an organization-level request returns. Specify `@self` to return logs recorded in the organization context and `@organization_members` to return logs recorded in accounts that belong to the organization. Specify both values to return logs from both sources. Defaults to `["@self"]` when omitted. Cannot be empty.
     """

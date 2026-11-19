@@ -24,5 +24,5 @@ class CertificateListParams(RequestOptions):
     """
     tax_exemption: str
     """
-    The ID of an existing tax exemption.
+    The ID of the [customer tax exemption](https://docs.stripe.com/api/tax/exemptions/object) whose certificates to list. The tax exemption must not be deleted.
     """

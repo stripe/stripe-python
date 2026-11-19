@@ -6,9 +6,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class InvoiceListParams(RequestOptions):
-    billing_cadence: NotRequired[str]
+    billing_group: NotRequired[str]
     """
-    Only return invoices for the cadence specified by this billing cadence ID.
+    Only return invoices for the billing group specified by this billing group ID.
     """
     collection_method: NotRequired[
         "Literal['charge_automatically', 'send_invoice']|str"

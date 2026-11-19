@@ -224,6 +224,41 @@ class AlertHistoryEntry(StripeObject):
             "previous_percentage": "decimal_string",
         }
 
+    class CustomPaymentMethodAdapterDegraded(StripeObject):
+        class CustomPaymentMethodTypeDetails(StripeObject):
+            auto_disabled_at: Optional[str]
+            """
+            The time when the custom payment method was automatically disabled. Null when it is enabled.
+            """
+            display_name: str
+            """
+            The display name of the custom payment method type.
+            """
+            reverse_api_url: str
+            """
+            The URL of the user's self-hosted adapter endpoint.
+            """
+            type: str
+            """
+            The identifier of the custom payment method type (e.g., "cpmt_...").
+            """
+
+        custom_payment_method_disabled_from_checkout: bool
+        """
+        Whether the custom payment method was disabled in Checkout as a result of the degradation. True while the alert is open and false when it is resolved.
+        """
+        custom_payment_method_type_details: CustomPaymentMethodTypeDetails
+        """
+        The custom payment method type whose adapter is unhealthy.
+        """
+        degraded_health_reason: str
+        """
+        The reason the adapter's health is degraded.
+        """
+        _inner_class_types = {
+            "custom_payment_method_type_details": CustomPaymentMethodTypeDetails,
+        }
+
     class ElementsError(StripeObject):
         element_type: Optional[
             Union[Literal["expressCheckout", "payment"], str]
@@ -518,6 +553,12 @@ class AlertHistoryEntry(StripeObject):
     """
     Populated when type is authorization_rate_drop.
     """
+    custom_payment_method_adapter_degraded: Optional[
+        CustomPaymentMethodAdapterDegraded
+    ]
+    """
+    Populated when type is custom_payment_method_adapter_degraded.
+    """
     elements_error: Optional[ElementsError]
     """
     Populated when type is elements_error.
@@ -587,6 +628,7 @@ class AlertHistoryEntry(StripeObject):
             "api_error",
             "api_latency",
             "authorization_rate_drop",
+            "custom_payment_method_adapter_degraded",
             "elements_error",
             "event_generation_failure",
             "fraud_rate",
@@ -613,6 +655,7 @@ class AlertHistoryEntry(StripeObject):
         "api_error": ApiError,
         "api_latency": ApiLatency,
         "authorization_rate_drop": AuthorizationRateDrop,
+        "custom_payment_method_adapter_degraded": CustomPaymentMethodAdapterDegraded,
         "elements_error": ElementsError,
         "event_generation_failure": EventGenerationFailure,
         "fraud_rate": FraudRate,

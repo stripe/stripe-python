@@ -2562,6 +2562,85 @@ class Account(StripeObject):
                         "status_details": StatusDetail,
                     }
 
+                class BilliePayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
                 class BlikPayments(StripeObject):
                     class Protections(StripeObject):
                         class PspMigration(StripeObject):
@@ -3984,6 +4063,85 @@ class Account(StripeObject):
                         "status_details": StatusDetail,
                     }
 
+                class MbWayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
                 class MobilepayPayments(StripeObject):
                     class Protections(StripeObject):
                         class PspMigration(StripeObject):
@@ -4222,6 +4380,85 @@ class Account(StripeObject):
                     }
 
                 class NaverPayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class NzBankAccountBecsDebitPayments(StripeObject):
                     class Protections(StripeObject):
                         class PspMigration(StripeObject):
                             expires_at: Optional[int]
@@ -4617,6 +4854,164 @@ class Account(StripeObject):
                     }
 
                 class PaynowPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class PaypayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class PixPayments(StripeObject):
                     class Protections(StripeObject):
                         class PspMigration(StripeObject):
                             expires_at: Optional[int]
@@ -5578,6 +5973,164 @@ class Account(StripeObject):
                         "status_details": StatusDetail,
                     }
 
+                class TouchNGoPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class TruemoneyPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
                 class TwintPayments(StripeObject):
                     class Protections(StripeObject):
                         class PspMigration(StripeObject):
@@ -5894,6 +6447,243 @@ class Account(StripeObject):
                         "status_details": StatusDetail,
                     }
 
+                class WechatPayMobileWebPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class WechatPayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
+                class WeroPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
+
                 class ZipPayments(StripeObject):
                     class Protections(StripeObject):
                         class PspMigration(StripeObject):
@@ -6013,6 +6803,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Bancontact payments.
                 """
+                billie_payments: Optional[BilliePayments]
+                """
+                Allow the merchant to process Billie payments.
+                """
                 blik_payments: Optional[BlikPayments]
                 """
                 Allow the merchant to process BLIK payments.
@@ -6085,6 +6879,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Link payments.
                 """
+                mb_way_payments: Optional[MbWayPayments]
+                """
+                Allow the merchant to process MB WAY payments.
+                """
                 mobilepay_payments: Optional[MobilepayPayments]
                 """
                 Allow the merchant to process MobilePay payments.
@@ -6100,6 +6898,12 @@ class Account(StripeObject):
                 naver_pay_payments: Optional[NaverPayPayments]
                 """
                 Allow the merchant to process Naver Pay payments.
+                """
+                nz_bank_account_becs_debit_payments: Optional[
+                    NzBankAccountBecsDebitPayments
+                ]
+                """
+                Allow the merchant to process New Zealand BECS Direct Debit payments.
                 """
                 oxxo_payments: Optional[OxxoPayments]
                 """
@@ -6120,6 +6924,14 @@ class Account(StripeObject):
                 paynow_payments: Optional[PaynowPayments]
                 """
                 Allow the merchant to process PayNow payments.
+                """
+                paypay_payments: Optional[PaypayPayments]
+                """
+                Allow the merchant to process PayPay payments.
+                """
+                pix_payments: Optional[PixPayments]
+                """
+                Allow the merchant to process Pix payments.
                 """
                 promptpay_payments: Optional[PromptpayPayments]
                 """
@@ -6165,6 +6977,14 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Swish payments.
                 """
+                touch_n_go_payments: Optional[TouchNGoPayments]
+                """
+                Allow the merchant to process Touch 'n Go payments.
+                """
+                truemoney_payments: Optional[TruemoneyPayments]
+                """
+                Allow the merchant to process TrueMoney payments.
+                """
                 twint_payments: Optional[TwintPayments]
                 """
                 Allow the merchant to process TWINT payments.
@@ -6181,6 +7001,20 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Vipps payments.
                 """
+                wechat_pay_mobile_web_payments: Optional[
+                    WechatPayMobileWebPayments
+                ]
+                """
+                Allow the merchant to process WeChat Pay mobile web payments. Requires the wechat_pay_payments capability.
+                """
+                wechat_pay_payments: Optional[WechatPayPayments]
+                """
+                Allow the merchant to process WeChat Pay payments.
+                """
+                wero_payments: Optional[WeroPayments]
+                """
+                Allow the merchant to process Wero payments.
+                """
                 zip_payments: Optional[ZipPayments]
                 """
                 Allow the merchant to process Zip payments.
@@ -6196,6 +7030,7 @@ class Account(StripeObject):
                     "au_becs_debit_payments": AuBecsDebitPayments,
                     "bacs_debit_payments": BacsDebitPayments,
                     "bancontact_payments": BancontactPayments,
+                    "billie_payments": BilliePayments,
                     "blik_payments": BlikPayments,
                     "blik_recurring_payments": BlikRecurringPayments,
                     "boleto_payments": BoletoPayments,
@@ -6214,15 +7049,19 @@ class Account(StripeObject):
                     "konbini_payments": KonbiniPayments,
                     "kr_card_payments": KrCardPayments,
                     "link_payments": LinkPayments,
+                    "mb_way_payments": MbWayPayments,
                     "mobilepay_payments": MobilepayPayments,
                     "multibanco_payments": MultibancoPayments,
                     "mx_bank_transfer_payments": MxBankTransferPayments,
                     "naver_pay_payments": NaverPayPayments,
+                    "nz_bank_account_becs_debit_payments": NzBankAccountBecsDebitPayments,
                     "oxxo_payments": OxxoPayments,
                     "p24_payments": P24Payments,
                     "pay_by_bank_payments": PayByBankPayments,
                     "payco_payments": PaycoPayments,
                     "paynow_payments": PaynowPayments,
+                    "paypay_payments": PaypayPayments,
+                    "pix_payments": PixPayments,
                     "promptpay_payments": PromptpayPayments,
                     "revolut_pay_payments": RevolutPayPayments,
                     "samsung_pay_payments": SamsungPayPayments,
@@ -6234,10 +7073,15 @@ class Account(StripeObject):
                     "stripe_balance": StripeBalance,
                     "sunbit_payments": SunbitPayments,
                     "swish_payments": SwishPayments,
+                    "touch_n_go_payments": TouchNGoPayments,
+                    "truemoney_payments": TruemoneyPayments,
                     "twint_payments": TwintPayments,
                     "upi_payments": UpiPayments,
                     "us_bank_transfer_payments": UsBankTransferPayments,
                     "vipps_payments": VippsPayments,
+                    "wechat_pay_mobile_web_payments": WechatPayMobileWebPayments,
+                    "wechat_pay_payments": WechatPayPayments,
+                    "wero_payments": WeroPayments,
                     "zip_payments": ZipPayments,
                 }
 
@@ -6290,11 +7134,78 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"hours": Hours}
 
+                additional_material: Optional[str]
+                """
+                Information provided to support the onboarding process for Konbini payments.
+                """
                 support: Optional[Support]
                 """
                 Support for Konbini payments.
                 """
                 _inner_class_types = {"support": Support}
+
+            class PaypayPayments(StripeObject):
+                class Site(StripeObject):
+                    class Accessible(StripeObject):
+                        pass
+
+                    class InDevelopment(StripeObject):
+                        password_provided: bool
+                        """
+                        Whether a password needed to access the business's website has been provided.
+                        """
+                        username: Optional[str]
+                        """
+                        The username needed to access the business's website.
+                        """
+
+                    class Restricted(StripeObject):
+                        payment_flow_file: Optional[str]
+                        """
+                        The file explaining the payment flow for the business.
+                        """
+
+                    accessible: Optional[Accessible]
+                    """
+                    Additional information about the business's website when it's accessible.
+                    """
+                    in_development: Optional[InDevelopment]
+                    """
+                    Additional information about the business's website when it's in development.
+                    """
+                    restricted: Optional[Restricted]
+                    """
+                    Additional information about the business's website when it has restricted access.
+                    """
+                    type: Optional[
+                        Literal["accessible", "in_development", "restricted"]
+                    ]
+                    """
+                    The status of the business's website.
+                    """
+                    _inner_class_types = {
+                        "accessible": Accessible,
+                        "in_development": InDevelopment,
+                        "restricted": Restricted,
+                    }
+
+                additional_files: List[str]
+                """
+                Additional files supporting PayPay payments configuration.
+                """
+                goods_type: Optional[Literal["digital_content", "other"]]
+                """
+                The type of goods sold by the merchant for PayPay payments.
+                """
+                site: Optional[Site]
+                """
+                The business's website for PayPay payments.
+                """
+                specified_commercial_transactions_act_url: Optional[str]
+                """
+                URL to the Specified Commercial Transactions Act page for PayPay payments.
+                """
+                _inner_class_types = {"site": Site}
 
             class ScriptStatementDescriptor(StripeObject):
                 class Kana(StripeObject):
@@ -6441,6 +7352,10 @@ class Account(StripeObject):
             """
             The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             """
+            paypay_payments: Optional[PaypayPayments]
+            """
+            Settings for PayPay payments.
+            """
             script_statement_descriptor: Optional[ScriptStatementDescriptor]
             """
             Settings for the default text that appears on statements for language variations.
@@ -6468,6 +7383,7 @@ class Account(StripeObject):
                 "card_payments": CardPayments,
                 "gross_settlement": GrossSettlement,
                 "konbini_payments": KonbiniPayments,
+                "paypay_payments": PaypayPayments,
                 "script_statement_descriptor": ScriptStatementDescriptor,
                 "sepa_debit_payments": SepaDebitPayments,
                 "smart_disputes": SmartDisputes,
@@ -6851,6 +7767,208 @@ class Account(StripeObject):
                     outbound: Optional[Outbound]
                     """
                     Can send business custodial storage-type funds on Stripe.
+                    """
+                    _inner_class_types = {
+                        "inbound": Inbound,
+                        "outbound": Outbound,
+                    }
+
+                class BusinessDemandDepositAccountFifthThirdStorage(
+                    StripeObject,
+                ):
+                    class Inbound(StripeObject):
+                        class Usd(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
+                            class StatusDetail(StripeObject):
+                                code: Literal[
+                                    "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
+                                    "requirements_past_due",
+                                    "requirements_pending_verification",
+                                    "restricted_other",
+                                    "unsupported_business",
+                                    "unsupported_country",
+                                    "unsupported_entity_type",
+                                ]
+                                """
+                                Machine-readable code explaining the reason for the Capability to be in its current status.
+                                """
+                                resolution: Literal[
+                                    "contact_stripe",
+                                    "no_resolution",
+                                    "provide_info",
+                                ]
+                                """
+                                Machine-readable code explaining how to make the Capability active.
+                                """
+
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
+                            status: Literal[
+                                "active",
+                                "pending",
+                                "rejected",
+                                "restricted",
+                                "unsupported",
+                            ]
+                            """
+                            The status of the Capability.
+                            """
+                            status_details: List[StatusDetail]
+                            """
+                            Additional details about the capability's status. This value is empty when `status` is `active`.
+                            """
+                            _inner_class_types = {
+                                "protections": Protections,
+                                "status_details": StatusDetail,
+                            }
+
+                        usd: Optional[Usd]
+                        """
+                        Can receive funds in business storage FinancialAccounts backed by Fifth Third demand deposit accounts in USD.
+                        """
+                        _inner_class_types = {"usd": Usd}
+
+                    class Outbound(StripeObject):
+                        class Usd(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
+                            class StatusDetail(StripeObject):
+                                code: Literal[
+                                    "determining_status",
+                                    "rejected_fraud",
+                                    "rejected_incomplete_verification",
+                                    "rejected_listed",
+                                    "rejected_other",
+                                    "rejected_platform_fraud",
+                                    "rejected_platform_other",
+                                    "rejected_platform_terms_of_service",
+                                    "rejected_terms_of_service",
+                                    "requirements_past_due",
+                                    "requirements_pending_verification",
+                                    "restricted_other",
+                                    "unsupported_business",
+                                    "unsupported_country",
+                                    "unsupported_entity_type",
+                                ]
+                                """
+                                Machine-readable code explaining the reason for the Capability to be in its current status.
+                                """
+                                resolution: Literal[
+                                    "contact_stripe",
+                                    "no_resolution",
+                                    "provide_info",
+                                ]
+                                """
+                                Machine-readable code explaining how to make the Capability active.
+                                """
+
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
+                            status: Literal[
+                                "active",
+                                "pending",
+                                "rejected",
+                                "restricted",
+                                "unsupported",
+                            ]
+                            """
+                            The status of the Capability.
+                            """
+                            status_details: List[StatusDetail]
+                            """
+                            Additional details about the capability's status. This value is empty when `status` is `active`.
+                            """
+                            _inner_class_types = {
+                                "protections": Protections,
+                                "status_details": StatusDetail,
+                            }
+
+                        usd: Optional[Usd]
+                        """
+                        Can send funds from business storage FinancialAccounts backed by Fifth Third demand deposit accounts in USD.
+                        """
+                        _inner_class_types = {"usd": Usd}
+
+                    inbound: Optional[Inbound]
+                    """
+                    Can receive funds in business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
+                    """
+                    outbound: Optional[Outbound]
+                    """
+                    Can send funds from business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
                     """
                     _inner_class_types = {
                         "inbound": Inbound,
@@ -13838,6 +14956,12 @@ class Account(StripeObject):
                 """
                 Can send or receive business custodial storage-type funds on Stripe.
                 """
+                business_demand_deposit_account_fifth_third_storage: Optional[
+                    BusinessDemandDepositAccountFifthThirdStorage
+                ]
+                """
+                Capabilities related to business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
+                """
                 business_storage: Optional[BusinessStorage]
                 """
                 Can send or receive business storage-type funds on Stripe.
@@ -13872,6 +14996,7 @@ class Account(StripeObject):
                 """
                 _inner_class_types = {
                     "business_custodial_storage": BusinessCustodialStorage,
+                    "business_demand_deposit_account_fifth_third_storage": BusinessDemandDepositAccountFifthThirdStorage,
                     "business_storage": BusinessStorage,
                     "consumer_storage": ConsumerStorage,
                     "inbound_fundings": InboundFundings,
@@ -14962,6 +16087,92 @@ class Account(StripeObject):
                             "status_details": StatusDetail,
                         }
 
+                    class Tips(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "rejected_fraud",
+                                "rejected_incomplete_verification",
+                                "rejected_listed",
+                                "rejected_other",
+                                "rejected_platform_fraud",
+                                "rejected_platform_other",
+                                "rejected_platform_terms_of_service",
+                                "rejected_terms_of_service",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
+                        status: Literal[
+                            "active",
+                            "pending",
+                            "rejected",
+                            "restricted",
+                            "unsupported",
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
+                        """
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
+
                     ach: Optional[Ach]
                     """
                     Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
@@ -15006,6 +16217,10 @@ class Account(StripeObject):
                     """
                     Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
                     """
+                    tips: Optional[Tips]
+                    """
+                    Enables this Account to receive OutboundPayments to linked bank accounts over TIPS rails.
+                    """
                     _inner_class_types = {
                         "ach": Ach,
                         "becs": Becs,
@@ -15018,6 +16233,7 @@ class Account(StripeObject):
                         "sepa": Sepa,
                         "sepa_instant": SepaInstant,
                         "swift": Swift,
+                        "tips": Tips,
                     }
 
                 class Cards(StripeObject):
@@ -15714,11 +16930,11 @@ class Account(StripeObject):
                 ]
             ]
             """
-            Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
+            Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
             """
             losses_collector: Optional[Literal["application", "stripe"]]
             """
-            A value indicating the responsibility for losses on this account.
+            Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
             """
             requirements_collector: Literal["application", "stripe"]
             """
@@ -16196,10 +17412,14 @@ class Account(StripeObject):
                             "bank_accounts.sepa_credit",
                             "bank_accounts.sepa_instant",
                             "bank_accounts.swift",
+                            "bank_accounts.tips",
                             "bank_accounts.wire",
+                            "billie_payments",
                             "blik_payments",
                             "blik_recurring_payments",
                             "boleto_payments",
+                            "business_demand_deposit_account_fifth_third_storage.inbound.usd",
+                            "business_demand_deposit_account_fifth_third_storage.outbound.usd",
                             "business_storage.inbound.eur",
                             "business_storage.inbound.gbp",
                             "business_storage.inbound.usd",
@@ -16246,10 +17466,12 @@ class Account(StripeObject):
                             "konbini_payments",
                             "kr_card_payments",
                             "link_payments",
+                            "mb_way_payments",
                             "mobilepay_payments",
                             "multibanco_payments",
                             "mx_bank_transfer_payments",
                             "naver_pay_payments",
+                            "nz_bank_account_becs_debit_payments",
                             "outbound_payments.bank_accounts",
                             "outbound_payments.cards",
                             "outbound_payments.financial_accounts",
@@ -16261,8 +17483,10 @@ class Account(StripeObject):
                             "paper_checks",
                             "payco_payments",
                             "paynow_payments",
+                            "paypay_payments",
                             "pay_by_bank_payments",
                             "pix",
+                            "pix_payments",
                             "projects",
                             "promptpay_payments",
                             "received_credits.bank_accounts",
@@ -16277,10 +17501,15 @@ class Account(StripeObject):
                             "stripe_balance.stablecoin_custodial",
                             "stripe_balance.stripe_transfers",
                             "swish_payments",
+                            "touch_n_go_payments",
+                            "truemoney_payments",
                             "twint_payments",
                             "upi_payments",
                             "us_bank_transfer_payments",
                             "vipps_payments",
+                            "wechat_pay_mobile_web_payments",
+                            "wechat_pay_payments",
+                            "wero_payments",
                             "zip_payments",
                         ],
                         str,
@@ -16490,6 +17719,20 @@ class Account(StripeObject):
 
             class TermsOfService(StripeObject):
                 class Account(StripeObject):
+                    date: Optional[str]
+                    """
+                    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    """
+                    ip: Optional[str]
+                    """
+                    The IP address from which the Account's representative accepted the terms of service.
+                    """
+                    user_agent: Optional[str]
+                    """
+                    The user agent of the browser from which the Account's representative accepted the terms of service.
+                    """
+
+                class BusinessDemandDepositAccountFifthThird(StripeObject):
                     date: Optional[str]
                     """
                     The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -17603,6 +18846,12 @@ class Account(StripeObject):
                 """
                 Details on the Account's acceptance of the Stripe Services Agreement.
                 """
+                business_demand_deposit_account_fifth_third: Optional[
+                    BusinessDemandDepositAccountFifthThird
+                ]
+                """
+                Terms of service acceptances for financial accounts backed by Fifth Third demand deposit accounts.
+                """
                 card_creator: Optional[CardCreator]
                 """
                 Details on the Account's acceptance of Issuing-specific terms of service.
@@ -17627,6 +18876,7 @@ class Account(StripeObject):
                 """
                 _inner_class_types = {
                     "account": Account,
+                    "business_demand_deposit_account_fifth_third": BusinessDemandDepositAccountFifthThird,
                     "card_creator": CardCreator,
                     "consumer_money_manager": ConsumerMoneyManager,
                     "consumer_privacy_disclosures": ConsumerPrivacyDisclosures,
@@ -19306,10 +20556,14 @@ class Account(StripeObject):
                             "bank_accounts.sepa_credit",
                             "bank_accounts.sepa_instant",
                             "bank_accounts.swift",
+                            "bank_accounts.tips",
                             "bank_accounts.wire",
+                            "billie_payments",
                             "blik_payments",
                             "blik_recurring_payments",
                             "boleto_payments",
+                            "business_demand_deposit_account_fifth_third_storage.inbound.usd",
+                            "business_demand_deposit_account_fifth_third_storage.outbound.usd",
                             "business_storage.inbound.eur",
                             "business_storage.inbound.gbp",
                             "business_storage.inbound.usd",
@@ -19356,10 +20610,12 @@ class Account(StripeObject):
                             "konbini_payments",
                             "kr_card_payments",
                             "link_payments",
+                            "mb_way_payments",
                             "mobilepay_payments",
                             "multibanco_payments",
                             "mx_bank_transfer_payments",
                             "naver_pay_payments",
+                            "nz_bank_account_becs_debit_payments",
                             "outbound_payments.bank_accounts",
                             "outbound_payments.cards",
                             "outbound_payments.financial_accounts",
@@ -19371,8 +20627,10 @@ class Account(StripeObject):
                             "paper_checks",
                             "payco_payments",
                             "paynow_payments",
+                            "paypay_payments",
                             "pay_by_bank_payments",
                             "pix",
+                            "pix_payments",
                             "projects",
                             "promptpay_payments",
                             "received_credits.bank_accounts",
@@ -19387,10 +20645,15 @@ class Account(StripeObject):
                             "stripe_balance.stablecoin_custodial",
                             "stripe_balance.stripe_transfers",
                             "swish_payments",
+                            "touch_n_go_payments",
+                            "truemoney_payments",
                             "twint_payments",
                             "upi_payments",
                             "us_bank_transfer_payments",
                             "vipps_payments",
+                            "wechat_pay_mobile_web_payments",
+                            "wechat_pay_payments",
+                            "wero_payments",
                             "zip_payments",
                         ],
                         str,
@@ -19562,7 +20825,7 @@ class Account(StripeObject):
     """
     dashboard: Optional[Literal["express", "full", "none"]]
     """
-    A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+    Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
     """
     defaults: Optional[Defaults]
     """

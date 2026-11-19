@@ -25,10 +25,6 @@ class AlertTriggered(StripeObject):
         """
 
     class GroupBy(StripeObject):
-        billing_cadence: Optional[str]
-        """
-        The billing cadence ID, populated when type is `billing_cadence`
-        """
         billing_group: Optional[str]
         """
         The billing group ID, populated when type is `billing_group`
@@ -37,9 +33,7 @@ class AlertTriggered(StripeObject):
         """
         The pricing plan subscription ID, populated when type is `pricing_plan_subscription`
         """
-        type: Union[
-            Literal["billing_cadence", "pricing_plan_subscription"], str
-        ]
+        type: Union[Literal["billing_group", "pricing_plan_subscription"], str]
         """
         The type of grouping used for this alert notification
         """

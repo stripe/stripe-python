@@ -6,9 +6,9 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class RateCardSubscriptionCreateParams(TypedDict):
-    billing_cadence: str
+    billing_group: str
     """
-    The ID of the Billing Cadence.
+    The ID of the Billing Group.
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """

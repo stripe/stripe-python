@@ -91,8 +91,6 @@ class FxQuote(
         type: Union[Literal["payment", "transfer"], str]
         """
         The transaction type for which the FX Quote will be used.
-
-        Can be 'payment' or 'transfer'.
         """
         _inner_class_types = {"payment": Payment, "transfer": Transfer}
 

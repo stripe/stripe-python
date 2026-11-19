@@ -4,10 +4,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.billing.contracts import (
-        pricing_lines as pricing_lines,
-        terms as terms,
-    )
+    from stripe.params.v2.billing.contracts import terms as terms
     from stripe.params.v2.billing.contracts._term_list_contract_terms_params import (
         TermListContractTermsParams as TermListContractTermsParams,
     )
@@ -17,10 +14,6 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "pricing_lines": (
-        "stripe.params.v2.billing.contracts.pricing_lines",
-        True,
-    ),
     "terms": ("stripe.params.v2.billing.contracts.terms", True),
     "TermListContractTermsParams": (
         "stripe.params.v2.billing.contracts._term_list_contract_terms_params",

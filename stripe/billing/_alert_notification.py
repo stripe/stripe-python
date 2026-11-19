@@ -42,10 +42,6 @@ class AlertNotification(StripeObject):
     """
     The billing group associated with this notification. Only present for spend threshold alerts grouped by billing group.
     """
-    cadence: Optional[str]
-    """
-    The cadence associated with this notification. Only present for spend threshold alerts grouped by cadence.
-    """
     currency: Optional[str]
     """
     Three-letter ISO currency code for the value, in lowercase. Only present for spend and credit balance threshold alerts.

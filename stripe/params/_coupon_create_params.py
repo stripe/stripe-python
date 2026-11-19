@@ -25,6 +25,10 @@ class CouponCreateParams(RequestOptions):
     """
     Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
+    custom: NotRequired["CouponCreateParamsCustom"]
+    """
+    The custom coupon calculation configuration.
+    """
     duration: NotRequired[
         "Literal['forever', 'once', 'repeating', 'service_period']|str"
     ]
@@ -73,12 +77,16 @@ class CouponCreateParams(RequestOptions):
     """
     A hash specifying the service period for the coupon.
     """
+    type: NotRequired[Literal["custom"]]
+    """
+    The coupon calculation type. Must be `custom` when `custom` is provided.
+    """
 
 
 class CouponCreateParamsAppliesTo(TypedDict):
     products: NotRequired[List[str]]
     """
-    An array of Product IDs that this Coupon will apply to.
+    An array of up to 100 Product IDs that this Coupon will apply to.
     """
 
 
@@ -86,6 +94,28 @@ class CouponCreateParamsCurrencyOptions(TypedDict):
     amount_off: int
     """
     A positive integer representing the amount to subtract from an invoice total.
+    """
+
+
+class CouponCreateParamsCustom(TypedDict):
+    configuration: NotRequired["Dict[str, Any]|UntypedStripeObject[Any]"]
+    """
+    The configuration values of the extension. The keys and values are specific to the extension implementation. May be omitted for extensions that have no configuration schema, in which case an empty configuration is used.
+    """
+    extension: "CouponCreateParamsCustomExtension"
+    """
+    The extension used to calculate the coupon.
+    """
+
+
+class CouponCreateParamsCustomExtension(TypedDict):
+    id: str
+    """
+    The Extension Prototype ID.
+    """
+    version: NotRequired[str]
+    """
+    The semantic version of the extension.
     """
 
 

@@ -113,6 +113,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
                 "bank_accounts.sepa_credit",
                 "bank_accounts.sepa_instant",
                 "bank_accounts.swift",
+                "bank_accounts.tips",
                 "bank_accounts.wire",
                 "cards",
                 "crypto_wallets_v2",

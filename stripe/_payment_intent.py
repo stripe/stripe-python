@@ -405,6 +405,7 @@ class PaymentIntent(
                     "forwarding_api_upstream_connection_timeout",
                     "forwarding_api_upstream_error",
                     "idempotency_key_in_use",
+                    "inactive_api_operation_confirmation_required",
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
@@ -1695,7 +1696,7 @@ class PaymentIntent(
             _inner_class_types = {"qr_code": QrCode}
 
         class VerifyWithMicrodeposits(StripeObject):
-            arrival_date: int
+            arrival_date: Optional[int]
             """
             The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
             """
@@ -4105,21 +4106,21 @@ class PaymentIntent(
 
         class CardPresent(StripeObject):
             class AadeData(StripeObject):
-                mark_data: Optional[str]
-                """
-                The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
-                """
                 mode: Literal["autonomous", "standard"]
                 """
-                The e-invoicing mode under which the mark was generated.
+                The e-invoicing mode under which the provider signature was generated.
                 """
                 provider_id: Optional[int]
                 """
-                The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+                The AADE-assigned approval number of the e-invoicing provider that generated the provider signature. Required when `mode` is `standard`.
                 """
-                signed_mark: Optional[str]
+                provider_signature: Optional[str]
                 """
                 The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
+                """
+                provider_signature_data: Optional[str]
+                """
+                The canonical string that was signed by the e-invoicing provider to produce `provider_signature`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
                 """
                 unbound_pos: Optional[
                     Literal[
@@ -5484,6 +5485,12 @@ class PaymentIntent(
             Controls when the funds will be captured from the customer's account.
             """
             payment_details: Optional[PaymentDetails]
+            request_multicapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
+            """
+            Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5716,6 +5723,12 @@ class PaymentIntent(
         Type of the payment method for which payment is in `processing` state, one of `card`.
         """
         _inner_class_types = {"card": Card}
+
+    class RadarOptions(StripeObject):
+        is_free_trial_transaction: Optional[bool]
+        """
+        The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+        """
 
     class Redaction(StripeObject):
         status: Union[Literal["processing", "redacted", "validated"], str]
@@ -6186,6 +6199,10 @@ class PaymentIntent(
     processing: Optional[Processing]
     """
     If present, this property tells you about the processing state of the payment.
+    """
+    radar_options: Optional[RadarOptions]
+    """
+    Options to configure Radar.
     """
     receipt_email: Optional[str]
     """
@@ -8485,6 +8502,7 @@ class PaymentIntent(
         "payments_orchestration": PaymentsOrchestration,
         "presentment_details": PresentmentDetails,
         "processing": Processing,
+        "radar_options": RadarOptions,
         "redaction": Redaction,
         "shipping": Shipping,
         "transfer_data": TransferData,

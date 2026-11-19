@@ -16,7 +16,7 @@ class PricingPlanSubscription(StripeObject):
     """
     A Pricing Plan Subscription represents a customer's active subscription to a Pricing Plan. It tracks both the servicing
     status (whether the customer is receiving service) and collection status (whether payments are current). Subscriptions
-    are created through Billing Intents and bill according to the associated Billing Cadence.
+    are created through Billing Intents and bill according to the associated Billing Group.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.billing.pricing_plan_subscription"]] = (
@@ -489,9 +489,9 @@ class PricingPlanSubscription(StripeObject):
         When the servicing is scheduled to cancel.
         """
 
-    billing_cadence: str
+    billing_group: str
     """
-    The ID of the Billing Cadence this subscription is billed on.
+    The ID of the Billing Group this subscription is billed on.
     """
     cancellation_details: Optional[CancellationDetails]
     """
@@ -553,7 +553,7 @@ class PricingPlanSubscription(StripeObject):
     """
     test_clock: Optional[str]
     """
-    The ID of the Test Clock of the associated Billing Cadence, if any.
+    The ID of the Test Clock of the associated Billing Group, if any.
     """
     _inner_class_types = {
         "cancellation_details": CancellationDetails,

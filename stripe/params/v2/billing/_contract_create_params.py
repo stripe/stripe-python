@@ -47,21 +47,9 @@ class ContractCreateParams(TypedDict):
     """
     Set of key-value pairs that you can attach to an object.
     """
-    one_time_fees: NotRequired[List["ContractCreateParamsOneTimeFee"]]
-    """
-    A list of one-time fees to create with the contract. Each fee is billed as individual invoice items per its bill_schedule.
-    """
-    pricing_lines: NotRequired[List["ContractCreateParamsPricingLine"]]
-    """
-    A list of pricing lines to create with the contract.
-    """
-    pricing_overrides: NotRequired[List["ContractCreateParamsPricingOverride"]]
-    """
-    A list of pricing overrides to create with the contract.
-    """
     terms: NotRequired[List["ContractCreateParamsTerm"]]
     """
-    Terms to create. Cannot be combined with pricing_lines, pricing_overrides, or one_time_fees.
+    Terms to create with the contract.
     """
 
 
@@ -203,310 +191,7 @@ class ContractCreateParamsBillingSettingsCollectionSettingsDetails(TypedDict):
     """
 
 
-class ContractCreateParamsOneTimeFee(TypedDict):
-    amount: AmountParam
-    """
-    The amount to bill.
-    """
-    bill_at: "ContractCreateParamsOneTimeFeeBillAt"
-    """
-    When this fee should be billed.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Set of key-value pairs that you can attach to an object.
-    """
-    product: str
-    """
-    The id of the product for this fee.
-    """
-
-
-class ContractCreateParamsOneTimeFeeBillAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["now", "timestamp"], str]
-    """
-    The type of the bill_at.
-    """
-
-
-class ContractCreateParamsPricingLine(TypedDict):
-    ends_at: NotRequired["ContractCreateParamsPricingLineEndsAt"]
-    """
-    When the pricing line ends.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key to reference this pricing line.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Set of key-value pairs that you can attach to an object.
-    """
-    pricing: "ContractCreateParamsPricingLinePricing"
-    """
-    The pricing configuration for the pricing line.
-    """
-    starts_at: "ContractCreateParamsPricingLineStartsAt"
-    """
-    When the pricing line starts.
-    """
-
-
-class ContractCreateParamsPricingLineEndsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item ends. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["never", "timestamp"], str]
-    """
-    The type of the ends_at.
-    """
-
-
-class ContractCreateParamsPricingLinePricing(TypedDict):
-    price_details: NotRequired[
-        "ContractCreateParamsPricingLinePricingPriceDetails"
-    ]
-    """
-    V1 price details. Required if `type` is `price`.
-    """
-    type: Union[Literal["price"], str]
-    """
-    The type of pricing.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetails(TypedDict):
-    price: str
-    """
-    The id of the price.
-    """
-    pricing_overrides: NotRequired[
-        List[
-            "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride"
-        ]
-    ]
-    """
-    Pricing overrides embedded directly on this pricing line.
-    """
-    quantity_changes: NotRequired[
-        List[
-            "ContractCreateParamsPricingLinePricingPriceDetailsQuantityChange"
-        ]
-    ]
-    """
-    Quantity changes for the pricing line. For now, at most one entry is allowed.
-    A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride(
-    TypedDict,
-):
-    ends_at: NotRequired[
-        "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt"
-    ]
-    """
-    When the override ends. Defaults to the pricing line's end if not specified.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key to reference this override.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Set of key-value pairs that you can attach to an object.
-    """
-    overwrite_price: NotRequired[
-        "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice"
-    ]
-    """
-    Parameters for the overwrite_price override. Required if `type` is `overwrite_price`.
-    """
-    priority: NotRequired[int]
-    """
-    The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
-    """
-    starts_at: NotRequired[
-        "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt"
-    ]
-    """
-    When the override starts. Defaults to the pricing line's start if not specified.
-    """
-    type: Union[Literal["overwrite_price"], str]
-    """
-    The type of override.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item ends. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["never", "timestamp"], str]
-    """
-    The type of the ends_at.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice(
-    TypedDict,
-):
-    unit_amount: NotRequired[Decimal]
-    """
-    The per-unit amount to be charged in minor currency units.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsQuantityChange(
-    TypedDict,
-):
-    effective_at: "ContractCreateParamsPricingLinePricingPriceDetailsQuantityChangeEffectiveAt"
-    """
-    When this quantity change takes effect.
-    """
-    set: Decimal
-    """
-    The quantity to set.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsQuantityChangeEffectiveAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp for the effective at.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the effective at.
-    """
-
-
-class ContractCreateParamsPricingLineStartsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
-    """
-
-
-class ContractCreateParamsPricingOverride(TypedDict):
-    ends_at: NotRequired["ContractCreateParamsPricingOverrideEndsAt"]
-    """
-    When the pricing override ends.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key to reference this pricing override.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Set of key-value pairs.
-    """
-    multiply_pricing: NotRequired[
-        "ContractCreateParamsPricingOverrideMultiplyPricing"
-    ]
-    """
-    Parameters for a multiply_pricing override. Required if `type` is `multiply_pricing`.
-    """
-    priority: NotRequired[int]
-    """
-    The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
-    """
-    starts_at: "ContractCreateParamsPricingOverrideStartsAt"
-    """
-    When the pricing override starts.
-    """
-    type: Union[Literal["multiply_pricing"], str]
-    """
-    The type of pricing override.
-    """
-
-
-class ContractCreateParamsPricingOverrideEndsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item ends. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["never", "timestamp"], str]
-    """
-    The type of the ends_at.
-    """
-
-
-class ContractCreateParamsPricingOverrideMultiplyPricing(TypedDict):
-    criteria: NotRequired[
-        List["ContractCreateParamsPricingOverrideMultiplyPricingCriterion"]
-    ]
-    """
-    Criteria determining which rates the multiply_pricing override applies to.
-    """
-    factor: Decimal
-    """
-    The multiply_pricing factor. e.g. "0.8" for a 20% reduction.
-    """
-
-
-class ContractCreateParamsPricingOverrideMultiplyPricingCriterion(TypedDict):
-    pricing_line_ids: NotRequired[List[str]]
-    """
-    Filter by pricing line IDs.
-    """
-    pricing_line_lookup_keys: NotRequired[List[str]]
-    """
-    Filter by pricing line lookup keys.
-    """
-    type: Union[Literal["exclude", "include"], str]
-    """
-    Whether to include or exclude items matching these criteria.
-    """
-
-
-class ContractCreateParamsPricingOverrideStartsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
-    """
-
-
 class ContractCreateParamsTerm(TypedDict):
-    ad_hoc_product: NotRequired["ContractCreateParamsTermAdHocProduct"]
-    """
-    Required when type is ad_hoc_product.
-    """
     lookup_key: NotRequired[str]
     """
     Lookup key unique across all term types on the contract.
@@ -523,96 +208,15 @@ class ContractCreateParamsTerm(TypedDict):
     """
     Required when type is recurring_price.
     """
+    scheduled_fee: NotRequired["ContractCreateParamsTermScheduledFee"]
+    """
+    Required when type is scheduled_fee.
+    """
     type: Union[
-        Literal["ad_hoc_product", "pricing_override", "recurring_price"], str
+        Literal["pricing_override", "recurring_price", "scheduled_fee"], str
     ]
     """
     The term type. Production types require exactly one matching payload.
-    """
-
-
-class ContractCreateParamsTermAdHocProduct(TypedDict):
-    bill_schedule: "ContractCreateParamsTermAdHocProductBillSchedule"
-    """
-    Explicit bill dates and amounts.
-    """
-    product: str
-    """
-    The V1 Product being billed.
-    """
-    service_period: NotRequired[
-        "ContractCreateParamsTermAdHocProductServicePeriod"
-    ]
-    """
-    Informational service period, independent of bill dates.
-    """
-
-
-class ContractCreateParamsTermAdHocProductBillSchedule(TypedDict):
-    custom: NotRequired[
-        List["ContractCreateParamsTermAdHocProductBillScheduleCustom"]
-    ]
-    """
-    Between one and ten installments. Empty schedules are allowed only on update.
-    """
-    type: Union[Literal["custom"], str]
-    """
-    The type of schedule.
-    """
-
-
-class ContractCreateParamsTermAdHocProductBillScheduleCustom(TypedDict):
-    amount: AmountParam
-    """
-    Non-negative amount with an explicit currency that must match the contract's currency.
-    """
-    bill_at: "ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt"
-    """
-    A finite bill date. Resolved once per request, including on idempotent retries.
-    """
-
-
-class ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["now", "timestamp"], str]
-    """
-    The type of the bill_at.
-    """
-
-
-class ContractCreateParamsTermAdHocProductServicePeriod(TypedDict):
-    ends_at: "ContractCreateParamsTermAdHocProductServicePeriodEndsAt"
-    """
-    The finite exclusive end; must be after starts_at. Never is not supported.
-    """
-    starts_at: "ContractCreateParamsTermAdHocProductServicePeriodStartsAt"
-    """
-    The finite inclusive start of the service period.
-    """
-
-
-class ContractCreateParamsTermAdHocProductServicePeriodEndsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
-    """
-
-
-class ContractCreateParamsTermAdHocProductServicePeriodStartsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
     """
 
 
@@ -621,7 +225,7 @@ class ContractCreateParamsTermPricingOverride(TypedDict):
         List["ContractCreateParamsTermPricingOverrideCriterion"]
     ]
     """
-    Optional criteria selecting recurring or ad_hoc_product terms. If omitted, the override applies to all recurring and ad_hoc_product terms.
+    Optional criteria selecting recurring or scheduled_fee terms. If omitted, the override applies to all recurring and scheduled_fee terms.
     """
     ends_at: NotRequired["ContractCreateParamsTermPricingOverrideEndsAt"]
     """
@@ -659,7 +263,7 @@ class ContractCreateParamsTermPricingOverrideCriterion(TypedDict):
     """
     type: Union[Literal["exclude", "include"], str]
     """
-    Whether to include or exclude the selected recurring or ad_hoc_product terms.
+    Whether to include or exclude the selected recurring or scheduled_fee terms.
     """
 
 
@@ -683,7 +287,7 @@ class ContractCreateParamsTermPricingOverrideEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["never", "timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -708,7 +312,7 @@ class ContractCreateParamsTermPricingOverrideStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["now", "timestamp"], str]
     """
     The type of the starts_at.
     """
@@ -738,7 +342,7 @@ class ContractCreateParamsTermRecurringPriceEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["never", "timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -749,7 +353,92 @@ class ContractCreateParamsTermRecurringPriceStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the starts_at.
+    """
+
+
+class ContractCreateParamsTermScheduledFee(TypedDict):
+    bill_schedule: "ContractCreateParamsTermScheduledFeeBillSchedule"
+    """
+    Explicit bill dates and amounts.
+    """
+    product: str
+    """
+    The V1 Product being billed.
+    """
+    service_period: NotRequired[
+        "ContractCreateParamsTermScheduledFeeServicePeriod"
+    ]
+    """
+    Informational service period, independent of bill dates.
+    """
+
+
+class ContractCreateParamsTermScheduledFeeBillSchedule(TypedDict):
+    custom: NotRequired[
+        List["ContractCreateParamsTermScheduledFeeBillScheduleCustom"]
+    ]
+    """
+    Between one and ten installments. Empty schedules are allowed only on update.
+    """
+    type: Union[Literal["custom"], str]
+    """
+    The type of schedule.
+    """
+
+
+class ContractCreateParamsTermScheduledFeeBillScheduleCustom(TypedDict):
+    amount: AmountParam
+    """
+    Non-negative amount with an explicit currency that must match the contract's currency.
+    """
+    bill_at: "ContractCreateParamsTermScheduledFeeBillScheduleCustomBillAt"
+    """
+    A finite bill date. Resolved once per request, including on idempotent retries.
+    """
+
+
+class ContractCreateParamsTermScheduledFeeBillScheduleCustomBillAt(TypedDict):
+    timestamp: NotRequired[str]
+    """
+    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the bill_at.
+    """
+
+
+class ContractCreateParamsTermScheduledFeeServicePeriod(TypedDict):
+    ends_at: "ContractCreateParamsTermScheduledFeeServicePeriodEndsAt"
+    """
+    The finite exclusive end; must be after starts_at. Never is not supported.
+    """
+    starts_at: "ContractCreateParamsTermScheduledFeeServicePeriodStartsAt"
+    """
+    The finite inclusive start of the service period.
+    """
+
+
+class ContractCreateParamsTermScheduledFeeServicePeriodEndsAt(TypedDict):
+    timestamp: NotRequired[str]
+    """
+    The timestamp when the item starts. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the starts_at.
+    """
+
+
+class ContractCreateParamsTermScheduledFeeServicePeriodStartsAt(TypedDict):
+    timestamp: NotRequired[str]
+    """
+    The timestamp when the item starts. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
     """
     The type of the starts_at.
     """

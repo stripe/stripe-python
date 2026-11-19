@@ -6,9 +6,9 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.v2.billing import (
         bill_settings as bill_settings,
-        cadences as cadences,
         collection_settings as collection_settings,
         contracts as contracts,
+        groups as groups,
         intents as intents,
         license_fees as license_fees,
         pricing_plans as pricing_plans,
@@ -33,39 +33,6 @@ if TYPE_CHECKING:
         BillSettingUpdateParamsCalculationTax as BillSettingUpdateParamsCalculationTax,
         BillSettingUpdateParamsInvoice as BillSettingUpdateParamsInvoice,
         BillSettingUpdateParamsInvoiceTimeUntilDue as BillSettingUpdateParamsInvoiceTimeUntilDue,
-    )
-    from stripe.params.v2.billing._cadence_cancel_params import (
-        CadenceCancelParams as CadenceCancelParams,
-    )
-    from stripe.params.v2.billing._cadence_create_params import (
-        CadenceCreateParams as CadenceCreateParams,
-        CadenceCreateParamsBillingCycle as CadenceCreateParamsBillingCycle,
-        CadenceCreateParamsBillingCycleDay as CadenceCreateParamsBillingCycleDay,
-        CadenceCreateParamsBillingCycleDayTime as CadenceCreateParamsBillingCycleDayTime,
-        CadenceCreateParamsBillingCycleMonth as CadenceCreateParamsBillingCycleMonth,
-        CadenceCreateParamsBillingCycleMonthTime as CadenceCreateParamsBillingCycleMonthTime,
-        CadenceCreateParamsBillingCycleWeek as CadenceCreateParamsBillingCycleWeek,
-        CadenceCreateParamsBillingCycleWeekTime as CadenceCreateParamsBillingCycleWeekTime,
-        CadenceCreateParamsBillingCycleYear as CadenceCreateParamsBillingCycleYear,
-        CadenceCreateParamsBillingCycleYearTime as CadenceCreateParamsBillingCycleYearTime,
-        CadenceCreateParamsPayer as CadenceCreateParamsPayer,
-        CadenceCreateParamsSettings as CadenceCreateParamsSettings,
-        CadenceCreateParamsSettingsBill as CadenceCreateParamsSettingsBill,
-        CadenceCreateParamsSettingsCollection as CadenceCreateParamsSettingsCollection,
-    )
-    from stripe.params.v2.billing._cadence_list_params import (
-        CadenceListParams as CadenceListParams,
-        CadenceListParamsPayer as CadenceListParamsPayer,
-    )
-    from stripe.params.v2.billing._cadence_retrieve_params import (
-        CadenceRetrieveParams as CadenceRetrieveParams,
-    )
-    from stripe.params.v2.billing._cadence_update_params import (
-        CadenceUpdateParams as CadenceUpdateParams,
-        CadenceUpdateParamsPayer as CadenceUpdateParamsPayer,
-        CadenceUpdateParamsSettings as CadenceUpdateParamsSettings,
-        CadenceUpdateParamsSettingsBill as CadenceUpdateParamsSettingsBill,
-        CadenceUpdateParamsSettingsCollection as CadenceUpdateParamsSettingsCollection,
     )
     from stripe.params.v2.billing._collection_setting_create_params import (
         CollectionSettingCreateParams as CollectionSettingCreateParams,
@@ -116,7 +83,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.billing._contract_cancel_params import (
         ContractCancelParams as ContractCancelParams,
-        ContractCancelParamsCancelPricingLine as ContractCancelParamsCancelPricingLine,
         ContractCancelParamsTerm as ContractCancelParamsTerm,
         ContractCancelParamsTermTerm as ContractCancelParamsTermTerm,
     )
@@ -132,32 +98,7 @@ if TYPE_CHECKING:
         ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue as ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue,
         ContractCreateParamsBillingSettingsBillingProfileDetails as ContractCreateParamsBillingSettingsBillingProfileDetails,
         ContractCreateParamsBillingSettingsCollectionSettingsDetails as ContractCreateParamsBillingSettingsCollectionSettingsDetails,
-        ContractCreateParamsOneTimeFee as ContractCreateParamsOneTimeFee,
-        ContractCreateParamsOneTimeFeeBillAt as ContractCreateParamsOneTimeFeeBillAt,
-        ContractCreateParamsPricingLine as ContractCreateParamsPricingLine,
-        ContractCreateParamsPricingLineEndsAt as ContractCreateParamsPricingLineEndsAt,
-        ContractCreateParamsPricingLinePricing as ContractCreateParamsPricingLinePricing,
-        ContractCreateParamsPricingLinePricingPriceDetails as ContractCreateParamsPricingLinePricingPriceDetails,
-        ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride,
-        ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt,
-        ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice,
-        ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt,
-        ContractCreateParamsPricingLinePricingPriceDetailsQuantityChange as ContractCreateParamsPricingLinePricingPriceDetailsQuantityChange,
-        ContractCreateParamsPricingLinePricingPriceDetailsQuantityChangeEffectiveAt as ContractCreateParamsPricingLinePricingPriceDetailsQuantityChangeEffectiveAt,
-        ContractCreateParamsPricingLineStartsAt as ContractCreateParamsPricingLineStartsAt,
-        ContractCreateParamsPricingOverride as ContractCreateParamsPricingOverride,
-        ContractCreateParamsPricingOverrideEndsAt as ContractCreateParamsPricingOverrideEndsAt,
-        ContractCreateParamsPricingOverrideMultiplyPricing as ContractCreateParamsPricingOverrideMultiplyPricing,
-        ContractCreateParamsPricingOverrideMultiplyPricingCriterion as ContractCreateParamsPricingOverrideMultiplyPricingCriterion,
-        ContractCreateParamsPricingOverrideStartsAt as ContractCreateParamsPricingOverrideStartsAt,
         ContractCreateParamsTerm as ContractCreateParamsTerm,
-        ContractCreateParamsTermAdHocProduct as ContractCreateParamsTermAdHocProduct,
-        ContractCreateParamsTermAdHocProductBillSchedule as ContractCreateParamsTermAdHocProductBillSchedule,
-        ContractCreateParamsTermAdHocProductBillScheduleCustom as ContractCreateParamsTermAdHocProductBillScheduleCustom,
-        ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt as ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt,
-        ContractCreateParamsTermAdHocProductServicePeriod as ContractCreateParamsTermAdHocProductServicePeriod,
-        ContractCreateParamsTermAdHocProductServicePeriodEndsAt as ContractCreateParamsTermAdHocProductServicePeriodEndsAt,
-        ContractCreateParamsTermAdHocProductServicePeriodStartsAt as ContractCreateParamsTermAdHocProductServicePeriodStartsAt,
         ContractCreateParamsTermPricingOverride as ContractCreateParamsTermPricingOverride,
         ContractCreateParamsTermPricingOverrideCriterion as ContractCreateParamsTermPricingOverrideCriterion,
         ContractCreateParamsTermPricingOverrideCriterionTerm as ContractCreateParamsTermPricingOverrideCriterionTerm,
@@ -168,6 +109,13 @@ if TYPE_CHECKING:
         ContractCreateParamsTermRecurringPrice as ContractCreateParamsTermRecurringPrice,
         ContractCreateParamsTermRecurringPriceEndsAt as ContractCreateParamsTermRecurringPriceEndsAt,
         ContractCreateParamsTermRecurringPriceStartsAt as ContractCreateParamsTermRecurringPriceStartsAt,
+        ContractCreateParamsTermScheduledFee as ContractCreateParamsTermScheduledFee,
+        ContractCreateParamsTermScheduledFeeBillSchedule as ContractCreateParamsTermScheduledFeeBillSchedule,
+        ContractCreateParamsTermScheduledFeeBillScheduleCustom as ContractCreateParamsTermScheduledFeeBillScheduleCustom,
+        ContractCreateParamsTermScheduledFeeBillScheduleCustomBillAt as ContractCreateParamsTermScheduledFeeBillScheduleCustomBillAt,
+        ContractCreateParamsTermScheduledFeeServicePeriod as ContractCreateParamsTermScheduledFeeServicePeriod,
+        ContractCreateParamsTermScheduledFeeServicePeriodEndsAt as ContractCreateParamsTermScheduledFeeServicePeriodEndsAt,
+        ContractCreateParamsTermScheduledFeeServicePeriodStartsAt as ContractCreateParamsTermScheduledFeeServicePeriodStartsAt,
     )
     from stripe.params.v2.billing._contract_delete_params import (
         ContractDeleteParams as ContractDeleteParams,
@@ -182,13 +130,6 @@ if TYPE_CHECKING:
         ContractUpdateParams as ContractUpdateParams,
         ContractUpdateParamsAction as ContractUpdateParamsAction,
         ContractUpdateParamsActionAddTerm as ContractUpdateParamsActionAddTerm,
-        ContractUpdateParamsActionAddTermAdHocProduct as ContractUpdateParamsActionAddTermAdHocProduct,
-        ContractUpdateParamsActionAddTermAdHocProductBillSchedule as ContractUpdateParamsActionAddTermAdHocProductBillSchedule,
-        ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom as ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom,
-        ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt as ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt,
-        ContractUpdateParamsActionAddTermAdHocProductServicePeriod as ContractUpdateParamsActionAddTermAdHocProductServicePeriod,
-        ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt as ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt,
-        ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt as ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt,
         ContractUpdateParamsActionAddTermPricingOverride as ContractUpdateParamsActionAddTermPricingOverride,
         ContractUpdateParamsActionAddTermPricingOverrideCriterion as ContractUpdateParamsActionAddTermPricingOverrideCriterion,
         ContractUpdateParamsActionAddTermPricingOverrideCriterionTerm as ContractUpdateParamsActionAddTermPricingOverrideCriterionTerm,
@@ -199,22 +140,29 @@ if TYPE_CHECKING:
         ContractUpdateParamsActionAddTermRecurringPrice as ContractUpdateParamsActionAddTermRecurringPrice,
         ContractUpdateParamsActionAddTermRecurringPriceEndsAt as ContractUpdateParamsActionAddTermRecurringPriceEndsAt,
         ContractUpdateParamsActionAddTermRecurringPriceStartsAt as ContractUpdateParamsActionAddTermRecurringPriceStartsAt,
+        ContractUpdateParamsActionAddTermScheduledFee as ContractUpdateParamsActionAddTermScheduledFee,
+        ContractUpdateParamsActionAddTermScheduledFeeBillSchedule as ContractUpdateParamsActionAddTermScheduledFeeBillSchedule,
+        ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustom as ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustom,
+        ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustomBillAt as ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustomBillAt,
+        ContractUpdateParamsActionAddTermScheduledFeeServicePeriod as ContractUpdateParamsActionAddTermScheduledFeeServicePeriod,
+        ContractUpdateParamsActionAddTermScheduledFeeServicePeriodEndsAt as ContractUpdateParamsActionAddTermScheduledFeeServicePeriodEndsAt,
+        ContractUpdateParamsActionAddTermScheduledFeeServicePeriodStartsAt as ContractUpdateParamsActionAddTermScheduledFeeServicePeriodStartsAt,
         ContractUpdateParamsActionRemoveTerm as ContractUpdateParamsActionRemoveTerm,
         ContractUpdateParamsActionRemoveTermTerm as ContractUpdateParamsActionRemoveTermTerm,
         ContractUpdateParamsActionUpdateTerm as ContractUpdateParamsActionUpdateTerm,
-        ContractUpdateParamsActionUpdateTermAdHocProduct as ContractUpdateParamsActionUpdateTermAdHocProduct,
-        ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule as ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule,
-        ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom as ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom,
-        ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt as ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt,
-        ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod as ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod,
-        ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt as ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt,
-        ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt as ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt,
         ContractUpdateParamsActionUpdateTermPricingOverride as ContractUpdateParamsActionUpdateTermPricingOverride,
         ContractUpdateParamsActionUpdateTermPricingOverrideEndsAt as ContractUpdateParamsActionUpdateTermPricingOverrideEndsAt,
         ContractUpdateParamsActionUpdateTermPricingOverrideStartsAt as ContractUpdateParamsActionUpdateTermPricingOverrideStartsAt,
         ContractUpdateParamsActionUpdateTermRecurringPrice as ContractUpdateParamsActionUpdateTermRecurringPrice,
         ContractUpdateParamsActionUpdateTermRecurringPriceEndsAt as ContractUpdateParamsActionUpdateTermRecurringPriceEndsAt,
         ContractUpdateParamsActionUpdateTermRecurringPriceStartsAt as ContractUpdateParamsActionUpdateTermRecurringPriceStartsAt,
+        ContractUpdateParamsActionUpdateTermScheduledFee as ContractUpdateParamsActionUpdateTermScheduledFee,
+        ContractUpdateParamsActionUpdateTermScheduledFeeBillSchedule as ContractUpdateParamsActionUpdateTermScheduledFeeBillSchedule,
+        ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustom as ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustom,
+        ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustomBillAt as ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustomBillAt,
+        ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriod as ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriod,
+        ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodEndsAt as ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodEndsAt,
+        ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodStartsAt as ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodStartsAt,
         ContractUpdateParamsActionUpdateTermTerm as ContractUpdateParamsActionUpdateTermTerm,
         ContractUpdateParamsBillingSettings as ContractUpdateParamsBillingSettings,
         ContractUpdateParamsBillingSettingsBillSettingsDetails as ContractUpdateParamsBillingSettingsBillSettingsDetails,
@@ -224,52 +172,6 @@ if TYPE_CHECKING:
         ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue as ContractUpdateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue,
         ContractUpdateParamsBillingSettingsBillingProfileDetails as ContractUpdateParamsBillingSettingsBillingProfileDetails,
         ContractUpdateParamsBillingSettingsCollectionSettingsDetails as ContractUpdateParamsBillingSettingsCollectionSettingsDetails,
-        ContractUpdateParamsOneTimeFeeAction as ContractUpdateParamsOneTimeFeeAction,
-        ContractUpdateParamsOneTimeFeeActionAdd as ContractUpdateParamsOneTimeFeeActionAdd,
-        ContractUpdateParamsOneTimeFeeActionAddBillAt as ContractUpdateParamsOneTimeFeeActionAddBillAt,
-        ContractUpdateParamsOneTimeFeeActionRemove as ContractUpdateParamsOneTimeFeeActionRemove,
-        ContractUpdateParamsOneTimeFeeActionUpdate as ContractUpdateParamsOneTimeFeeActionUpdate,
-        ContractUpdateParamsOneTimeFeeActionUpdateBillAt as ContractUpdateParamsOneTimeFeeActionUpdateBillAt,
-        ContractUpdateParamsPricingLineAction as ContractUpdateParamsPricingLineAction,
-        ContractUpdateParamsPricingLineActionAdd as ContractUpdateParamsPricingLineActionAdd,
-        ContractUpdateParamsPricingLineActionAddEndsAt as ContractUpdateParamsPricingLineActionAddEndsAt,
-        ContractUpdateParamsPricingLineActionAddPricing as ContractUpdateParamsPricingLineActionAddPricing,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetails as ContractUpdateParamsPricingLineActionAddPricingPriceDetails,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideEndsAt as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideEndsAt,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChange as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChange,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeEffectiveAt as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeEffectiveAt,
-        ContractUpdateParamsPricingLineActionAddStartsAt as ContractUpdateParamsPricingLineActionAddStartsAt,
-        ContractUpdateParamsPricingLineActionRemove as ContractUpdateParamsPricingLineActionRemove,
-        ContractUpdateParamsPricingLineActionUpdate as ContractUpdateParamsPricingLineActionUpdate,
-        ContractUpdateParamsPricingLineActionUpdateEndsAt as ContractUpdateParamsPricingLineActionUpdateEndsAt,
-        ContractUpdateParamsPricingLineActionUpdatePricing as ContractUpdateParamsPricingLineActionUpdatePricing,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetails as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetails,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideAction as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideAction,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateEndsAt as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateEndsAt,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateStartsAt as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateStartsAt,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChange as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChange,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChangeEffectiveAt as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChangeEffectiveAt,
-        ContractUpdateParamsPricingLineActionUpdateStartsAt as ContractUpdateParamsPricingLineActionUpdateStartsAt,
-        ContractUpdateParamsPricingOverrideAction as ContractUpdateParamsPricingOverrideAction,
-        ContractUpdateParamsPricingOverrideActionAdd as ContractUpdateParamsPricingOverrideActionAdd,
-        ContractUpdateParamsPricingOverrideActionAddEndsAt as ContractUpdateParamsPricingOverrideActionAddEndsAt,
-        ContractUpdateParamsPricingOverrideActionAddMultiplyPricing as ContractUpdateParamsPricingOverrideActionAddMultiplyPricing,
-        ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion as ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion,
-        ContractUpdateParamsPricingOverrideActionAddOverwritePrice as ContractUpdateParamsPricingOverrideActionAddOverwritePrice,
-        ContractUpdateParamsPricingOverrideActionAddStartsAt as ContractUpdateParamsPricingOverrideActionAddStartsAt,
-        ContractUpdateParamsPricingOverrideActionRemove as ContractUpdateParamsPricingOverrideActionRemove,
-        ContractUpdateParamsPricingOverrideActionUpdate as ContractUpdateParamsPricingOverrideActionUpdate,
-        ContractUpdateParamsPricingOverrideActionUpdateEndsAt as ContractUpdateParamsPricingOverrideActionUpdateEndsAt,
-        ContractUpdateParamsPricingOverrideActionUpdateStartsAt as ContractUpdateParamsPricingOverrideActionUpdateStartsAt,
     )
     from stripe.params.v2.billing._custom_pricing_unit_create_params import (
         CustomPricingUnitCreateParams as CustomPricingUnitCreateParams,
@@ -282,6 +184,71 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.billing._custom_pricing_unit_update_params import (
         CustomPricingUnitUpdateParams as CustomPricingUnitUpdateParams,
+    )
+    from stripe.params.v2.billing._group_cancel_params import (
+        GroupCancelParams as GroupCancelParams,
+    )
+    from stripe.params.v2.billing._group_create_params import (
+        GroupCreateParams as GroupCreateParams,
+        GroupCreateParamsBillingSettings as GroupCreateParamsBillingSettings,
+        GroupCreateParamsBillingSettingsEmailDelivery as GroupCreateParamsBillingSettingsEmailDelivery,
+        GroupCreateParamsBillingSettingsEmailDeliveryPaymentDue as GroupCreateParamsBillingSettingsEmailDeliveryPaymentDue,
+        GroupCreateParamsBillingSettingsInvoicePresentation as GroupCreateParamsBillingSettingsInvoicePresentation,
+        GroupCreateParamsBillingSettingsInvoiceTimeUntilDue as GroupCreateParamsBillingSettingsInvoiceTimeUntilDue,
+        GroupCreateParamsBillingSettingsPaymentMethodOptions as GroupCreateParamsBillingSettingsPaymentMethodOptions,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsAcssDebit as GroupCreateParamsBillingSettingsPaymentMethodOptionsAcssDebit,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions as GroupCreateParamsBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsBancontact as GroupCreateParamsBillingSettingsPaymentMethodOptionsBancontact,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsCard as GroupCreateParamsBillingSettingsPaymentMethodOptionsCard,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsCardMandateOptions as GroupCreateParamsBillingSettingsPaymentMethodOptionsCardMandateOptions,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalance as GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalance,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsKonbini as GroupCreateParamsBillingSettingsPaymentMethodOptionsKonbini,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsSepaDebit as GroupCreateParamsBillingSettingsPaymentMethodOptionsSepaDebit,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccount as GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccount,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
+        GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        GroupCreateParamsBillingSettingsTax as GroupCreateParamsBillingSettingsTax,
+        GroupCreateParamsGroupingBehavior as GroupCreateParamsGroupingBehavior,
+        GroupCreateParamsGroupingBehaviorByCadence as GroupCreateParamsGroupingBehaviorByCadence,
+        GroupCreateParamsGroupingBehaviorByCadenceDay as GroupCreateParamsGroupingBehaviorByCadenceDay,
+        GroupCreateParamsGroupingBehaviorByCadenceDayTime as GroupCreateParamsGroupingBehaviorByCadenceDayTime,
+        GroupCreateParamsGroupingBehaviorByCadenceMonth as GroupCreateParamsGroupingBehaviorByCadenceMonth,
+        GroupCreateParamsGroupingBehaviorByCadenceMonthTime as GroupCreateParamsGroupingBehaviorByCadenceMonthTime,
+        GroupCreateParamsGroupingBehaviorByCadenceWeek as GroupCreateParamsGroupingBehaviorByCadenceWeek,
+        GroupCreateParamsGroupingBehaviorByCadenceWeekTime as GroupCreateParamsGroupingBehaviorByCadenceWeekTime,
+        GroupCreateParamsGroupingBehaviorByCadenceYear as GroupCreateParamsGroupingBehaviorByCadenceYear,
+        GroupCreateParamsGroupingBehaviorByCadenceYearTime as GroupCreateParamsGroupingBehaviorByCadenceYearTime,
+    )
+    from stripe.params.v2.billing._group_list_params import (
+        GroupListParams as GroupListParams,
+    )
+    from stripe.params.v2.billing._group_retrieve_params import (
+        GroupRetrieveParams as GroupRetrieveParams,
+    )
+    from stripe.params.v2.billing._group_update_params import (
+        GroupUpdateParams as GroupUpdateParams,
+        GroupUpdateParamsBillingSettings as GroupUpdateParamsBillingSettings,
+        GroupUpdateParamsBillingSettingsEmailDelivery as GroupUpdateParamsBillingSettingsEmailDelivery,
+        GroupUpdateParamsBillingSettingsEmailDeliveryPaymentDue as GroupUpdateParamsBillingSettingsEmailDeliveryPaymentDue,
+        GroupUpdateParamsBillingSettingsInvoicePresentation as GroupUpdateParamsBillingSettingsInvoicePresentation,
+        GroupUpdateParamsBillingSettingsInvoiceTimeUntilDue as GroupUpdateParamsBillingSettingsInvoiceTimeUntilDue,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptions as GroupUpdateParamsBillingSettingsPaymentMethodOptions,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsAcssDebit as GroupUpdateParamsBillingSettingsPaymentMethodOptionsAcssDebit,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions as GroupUpdateParamsBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsBancontact as GroupUpdateParamsBillingSettingsPaymentMethodOptionsBancontact,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsCard as GroupUpdateParamsBillingSettingsPaymentMethodOptionsCard,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsCardMandateOptions as GroupUpdateParamsBillingSettingsPaymentMethodOptionsCardMandateOptions,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalance as GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalance,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsKonbini as GroupUpdateParamsBillingSettingsPaymentMethodOptionsKonbini,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsSepaDebit as GroupUpdateParamsBillingSettingsPaymentMethodOptionsSepaDebit,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccount as GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccount,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
+        GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        GroupUpdateParamsBillingSettingsTax as GroupUpdateParamsBillingSettingsTax,
     )
     from stripe.params.v2.billing._intent_cancel_params import (
         IntentCancelParams as IntentCancelParams,
@@ -330,21 +297,37 @@ if TYPE_CHECKING:
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant,
         IntentCreateParamsActionSubscribeV1SubscriptionDetails as IntentCreateParamsActionSubscribeV1SubscriptionDetails,
         IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem as IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem,
-        IntentCreateParamsCadenceData as IntentCreateParamsCadenceData,
-        IntentCreateParamsCadenceDataBillingCycle as IntentCreateParamsCadenceDataBillingCycle,
-        IntentCreateParamsCadenceDataBillingCycleDay as IntentCreateParamsCadenceDataBillingCycleDay,
-        IntentCreateParamsCadenceDataBillingCycleDayTime as IntentCreateParamsCadenceDataBillingCycleDayTime,
-        IntentCreateParamsCadenceDataBillingCycleMonth as IntentCreateParamsCadenceDataBillingCycleMonth,
-        IntentCreateParamsCadenceDataBillingCycleMonthTime as IntentCreateParamsCadenceDataBillingCycleMonthTime,
-        IntentCreateParamsCadenceDataBillingCycleWeek as IntentCreateParamsCadenceDataBillingCycleWeek,
-        IntentCreateParamsCadenceDataBillingCycleWeekTime as IntentCreateParamsCadenceDataBillingCycleWeekTime,
-        IntentCreateParamsCadenceDataBillingCycleYear as IntentCreateParamsCadenceDataBillingCycleYear,
-        IntentCreateParamsCadenceDataBillingCycleYearTime as IntentCreateParamsCadenceDataBillingCycleYearTime,
-        IntentCreateParamsCadenceDataPayer as IntentCreateParamsCadenceDataPayer,
-        IntentCreateParamsCadenceDataPayerBillingProfileData as IntentCreateParamsCadenceDataPayerBillingProfileData,
-        IntentCreateParamsCadenceDataSettings as IntentCreateParamsCadenceDataSettings,
-        IntentCreateParamsCadenceDataSettingsBill as IntentCreateParamsCadenceDataSettingsBill,
-        IntentCreateParamsCadenceDataSettingsCollection as IntentCreateParamsCadenceDataSettingsCollection,
+        IntentCreateParamsBillingGroupData as IntentCreateParamsBillingGroupData,
+        IntentCreateParamsBillingGroupDataBillingSettings as IntentCreateParamsBillingGroupDataBillingSettings,
+        IntentCreateParamsBillingGroupDataBillingSettingsEmailDelivery as IntentCreateParamsBillingGroupDataBillingSettingsEmailDelivery,
+        IntentCreateParamsBillingGroupDataBillingSettingsEmailDeliveryPaymentDue as IntentCreateParamsBillingGroupDataBillingSettingsEmailDeliveryPaymentDue,
+        IntentCreateParamsBillingGroupDataBillingSettingsInvoicePresentation as IntentCreateParamsBillingGroupDataBillingSettingsInvoicePresentation,
+        IntentCreateParamsBillingGroupDataBillingSettingsInvoiceTimeUntilDue as IntentCreateParamsBillingGroupDataBillingSettingsInvoiceTimeUntilDue,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptions as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptions,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebit as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebit,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsBancontact as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsBancontact,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCard as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCard,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCardMandateOptions as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCardMandateOptions,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalance as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalance,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsKonbini as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsKonbini,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsSepaDebit as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsSepaDebit,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccount as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccount,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
+        IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        IntentCreateParamsBillingGroupDataBillingSettingsTax as IntentCreateParamsBillingGroupDataBillingSettingsTax,
+        IntentCreateParamsBillingGroupDataGroupingBehavior as IntentCreateParamsBillingGroupDataGroupingBehavior,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadence as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadence,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDay as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDay,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDayTime as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDayTime,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonth as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonth,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonthTime as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonthTime,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeek as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeek,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeekTime as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeekTime,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYear as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYear,
+        IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYearTime as IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYearTime,
     )
     from stripe.params.v2.billing._intent_list_params import (
         IntentListParams as IntentListParams,
@@ -536,12 +519,12 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "bill_settings": ("stripe.params.v2.billing.bill_settings", True),
-    "cadences": ("stripe.params.v2.billing.cadences", True),
     "collection_settings": (
         "stripe.params.v2.billing.collection_settings",
         True,
     ),
     "contracts": ("stripe.params.v2.billing.contracts", True),
+    "groups": ("stripe.params.v2.billing.groups", True),
     "intents": ("stripe.params.v2.billing.intents", True),
     "license_fees": ("stripe.params.v2.billing.license_fees", True),
     "pricing_plans": ("stripe.params.v2.billing.pricing_plans", True),
@@ -592,98 +575,6 @@ _import_map = {
     ),
     "BillSettingUpdateParamsInvoiceTimeUntilDue": (
         "stripe.params.v2.billing._bill_setting_update_params",
-        False,
-    ),
-    "CadenceCancelParams": (
-        "stripe.params.v2.billing._cadence_cancel_params",
-        False,
-    ),
-    "CadenceCreateParams": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycle": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleDay": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleDayTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleMonth": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleMonthTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleWeek": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleWeekTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleYear": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsBillingCycleYearTime": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsPayer": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsSettings": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsSettingsBill": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceCreateParamsSettingsCollection": (
-        "stripe.params.v2.billing._cadence_create_params",
-        False,
-    ),
-    "CadenceListParams": (
-        "stripe.params.v2.billing._cadence_list_params",
-        False,
-    ),
-    "CadenceListParamsPayer": (
-        "stripe.params.v2.billing._cadence_list_params",
-        False,
-    ),
-    "CadenceRetrieveParams": (
-        "stripe.params.v2.billing._cadence_retrieve_params",
-        False,
-    ),
-    "CadenceUpdateParams": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsPayer": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsSettings": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsSettingsBill": (
-        "stripe.params.v2.billing._cadence_update_params",
-        False,
-    ),
-    "CadenceUpdateParamsSettingsCollection": (
-        "stripe.params.v2.billing._cadence_update_params",
         False,
     ),
     "CollectionSettingCreateParams": (
@@ -838,10 +729,6 @@ _import_map = {
         "stripe.params.v2.billing._contract_cancel_params",
         False,
     ),
-    "ContractCancelParamsCancelPricingLine": (
-        "stripe.params.v2.billing._contract_cancel_params",
-        False,
-    ),
     "ContractCancelParamsTerm": (
         "stripe.params.v2.billing._contract_cancel_params",
         False,
@@ -894,107 +781,7 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsOneTimeFee": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsOneTimeFeeBillAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLine": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLineEndsAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricing": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricingPriceDetails": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricingPriceDetailsQuantityChange": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLinePricingPriceDetailsQuantityChangeEffectiveAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingLineStartsAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingOverride": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingOverrideEndsAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingOverrideMultiplyPricing": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingOverrideMultiplyPricingCriterion": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingOverrideStartsAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
     "ContractCreateParamsTerm": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsTermAdHocProduct": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsTermAdHocProductBillSchedule": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsTermAdHocProductBillScheduleCustom": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsTermAdHocProductBillScheduleCustomBillAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsTermAdHocProductServicePeriod": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsTermAdHocProductServicePeriodEndsAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsTermAdHocProductServicePeriodStartsAt": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
@@ -1038,6 +825,34 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
+    "ContractCreateParamsTermScheduledFee": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermScheduledFeeBillSchedule": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermScheduledFeeBillScheduleCustom": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermScheduledFeeBillScheduleCustomBillAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermScheduledFeeServicePeriod": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermScheduledFeeServicePeriodEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsTermScheduledFeeServicePeriodStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
     "ContractDeleteParams": (
         "stripe.params.v2.billing._contract_delete_params",
         False,
@@ -1059,34 +874,6 @@ _import_map = {
         False,
     ),
     "ContractUpdateParamsActionAddTerm": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionAddTermAdHocProduct": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionAddTermAdHocProductBillSchedule": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionAddTermAdHocProductServicePeriod": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
@@ -1130,6 +917,34 @@ _import_map = {
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
+    "ContractUpdateParamsActionAddTermScheduledFee": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermScheduledFeeBillSchedule": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustom": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustomBillAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermScheduledFeeServicePeriod": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermScheduledFeeServicePeriodEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermScheduledFeeServicePeriodStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
     "ContractUpdateParamsActionRemoveTerm": (
         "stripe.params.v2.billing._contract_update_params",
         False,
@@ -1139,34 +954,6 @@ _import_map = {
         False,
     ),
     "ContractUpdateParamsActionUpdateTerm": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionUpdateTermAdHocProduct": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
@@ -1191,6 +978,34 @@ _import_map = {
         False,
     ),
     "ContractUpdateParamsActionUpdateTermRecurringPriceStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermScheduledFee": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermScheduledFeeBillSchedule": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustom": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustomBillAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriod": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodStartsAt": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
@@ -1230,190 +1045,6 @@ _import_map = {
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
-    "ContractUpdateParamsOneTimeFeeAction": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsOneTimeFeeActionAdd": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsOneTimeFeeActionAddBillAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsOneTimeFeeActionRemove": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsOneTimeFeeActionUpdate": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsOneTimeFeeActionUpdateBillAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineAction": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAdd": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricing": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetails": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChange": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeEffectiveAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionAddStartsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionRemove": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdate": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdateEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricing": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetails": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideAction": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateStartsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChange": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChangeEffectiveAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingLineActionUpdateStartsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideAction": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAdd": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplyPricing": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddOverwritePrice": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddStartsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionRemove": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionUpdate": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionUpdateEndsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionUpdateStartsAt": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
     "CustomPricingUnitCreateParams": (
         "stripe.params.v2.billing._custom_pricing_unit_create_params",
         False,
@@ -1428,6 +1059,223 @@ _import_map = {
     ),
     "CustomPricingUnitUpdateParams": (
         "stripe.params.v2.billing._custom_pricing_unit_update_params",
+        False,
+    ),
+    "GroupCancelParams": (
+        "stripe.params.v2.billing._group_cancel_params",
+        False,
+    ),
+    "GroupCreateParams": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettings": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsEmailDelivery": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsEmailDeliveryPaymentDue": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsInvoicePresentation": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsInvoiceTimeUntilDue": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptions": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsAcssDebit": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsCard": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsCardMandateOptions": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalance": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsSepaDebit": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccount": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsBillingSettingsTax": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehavior": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadence": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceDay": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceDayTime": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceMonth": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceMonthTime": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceWeek": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceWeekTime": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceYear": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupCreateParamsGroupingBehaviorByCadenceYearTime": (
+        "stripe.params.v2.billing._group_create_params",
+        False,
+    ),
+    "GroupListParams": ("stripe.params.v2.billing._group_list_params", False),
+    "GroupRetrieveParams": (
+        "stripe.params.v2.billing._group_retrieve_params",
+        False,
+    ),
+    "GroupUpdateParams": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettings": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsEmailDelivery": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsEmailDeliveryPaymentDue": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsInvoicePresentation": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsInvoiceTimeUntilDue": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptions": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsAcssDebit": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsCard": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsCardMandateOptions": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalance": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsSepaDebit": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccount": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters": (
+        "stripe.params.v2.billing._group_update_params",
+        False,
+    ),
+    "GroupUpdateParamsBillingSettingsTax": (
+        "stripe.params.v2.billing._group_update_params",
         False,
     ),
     "IntentCancelParams": (
@@ -1598,63 +1446,127 @@ _import_map = {
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceData": (
+    "IntentCreateParamsBillingGroupData": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycle": (
+    "IntentCreateParamsBillingGroupDataBillingSettings": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleDay": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsEmailDelivery": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleDayTime": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsEmailDeliveryPaymentDue": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleMonth": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsInvoicePresentation": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleMonthTime": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsInvoiceTimeUntilDue": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleWeek": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptions": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleWeekTime": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebit": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleYear": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataBillingCycleYearTime": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsBancontact": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataPayer": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCard": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataPayerBillingProfileData": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCardMandateOptions": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataSettings": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalance": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataSettingsBill": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsCadenceDataSettingsCollection": (
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsSepaDebit": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccount": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataBillingSettingsTax": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehavior": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadence": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDay": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDayTime": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonth": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonthTime": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeek": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeekTime": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYear": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYearTime": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
