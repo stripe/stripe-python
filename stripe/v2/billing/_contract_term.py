@@ -16,7 +16,112 @@ class ContractTerm(StripeObject):
         "v2.billing.contract_term"
     )
 
-    class AdHocProduct(StripeObject):
+    class PricingOverride(StripeObject):
+        class Criterion(StripeObject):
+            terms: Optional[List[str]]
+            """
+            Resolved IDs of recurring or scheduled_fee terms. Override terms are not valid targets.
+            """
+            type: Union[Literal["exclude", "include"], str]
+            """
+            Whether to include or exclude the selected recurring or scheduled_fee terms.
+            """
+
+        class EndsAt(StripeObject):
+            timestamp: str
+            """
+            The timestamp when the item ends.
+            """
+
+        class Multiply(StripeObject):
+            factor: Decimal
+            """
+            The multiplier, for example 0.85 for a 15% discount.
+            """
+            _field_encodings = {"factor": "decimal_string"}
+
+        class Overwrite(StripeObject):
+            unit_amount_decimal: Optional[Decimal]
+            """
+            The replacement per-unit amount in minor currency units.
+            """
+            _field_encodings = {"unit_amount_decimal": "decimal_string"}
+
+        class StartsAt(StripeObject):
+            timestamp: str
+            """
+            The timestamp when the item starts.
+            """
+
+        criteria: List[Criterion]
+        """
+        Recurring or scheduled_fee terms selected by this override. An override without criteria applies to all recurring and scheduled_fee terms.
+        """
+        ends_at: Optional[EndsAt]
+        """
+        The exclusive end of the validity window. Null for an open end.
+        """
+        multiply: Optional[Multiply]
+        """
+        Present when type is multiply.
+        """
+        overwrite: Optional[Overwrite]
+        """
+        Present when type is overwrite.
+        """
+        priority: int
+        """
+        Lower numbers win. Equal priorities resolve by display order; overrides do not stack.
+        """
+        starts_at: StartsAt
+        """
+        The inclusive start of the override's validity window.
+        """
+        type: Union[Literal["multiply", "overwrite"], str]
+        """
+        The pricing operation.
+        """
+        _inner_class_types = {
+            "criteria": Criterion,
+            "ends_at": EndsAt,
+            "multiply": Multiply,
+            "overwrite": Overwrite,
+            "starts_at": StartsAt,
+        }
+
+    class RecurringPrice(StripeObject):
+        class EndsAt(StripeObject):
+            timestamp: str
+            """
+            The timestamp when the item ends.
+            """
+
+        class StartsAt(StripeObject):
+            timestamp: str
+            """
+            The timestamp when the item starts.
+            """
+
+        ends_at: Optional[EndsAt]
+        """
+        The exclusive end of the term. Null for an open end.
+        """
+        price: str
+        """
+        The V1 recurring Price.
+        """
+        quantity: Optional[Decimal]
+        """
+        Current licensed quantity. Null for metered Prices; history is available separately.
+        """
+        starts_at: StartsAt
+        """
+        The inclusive start of the term.
+        """
+        _inner_class_types = {"ends_at": EndsAt, "starts_at": StartsAt}
+        _field_encodings = {"quantity": "decimal_string"}
+
+    class ScheduledFee(StripeObject):
         class BillSchedule(StripeObject):
             class Custom(StripeObject):
                 class BillAt(StripeObject):
@@ -85,115 +190,6 @@ class ContractTerm(StripeObject):
             "service_period": ServicePeriod,
         }
 
-    class PricingOverride(StripeObject):
-        class Criterion(StripeObject):
-            terms: Optional[List[str]]
-            """
-            Resolved IDs of recurring or ad_hoc_product terms. Override terms are not valid targets.
-            """
-            type: Union[Literal["exclude", "include"], str]
-            """
-            Whether to include or exclude the selected recurring or ad_hoc_product terms.
-            """
-
-        class EndsAt(StripeObject):
-            timestamp: str
-            """
-            The timestamp when the item ends.
-            """
-
-        class Multiply(StripeObject):
-            factor: Decimal
-            """
-            The multiplier, for example 0.85 for a 15% discount.
-            """
-            _field_encodings = {"factor": "decimal_string"}
-
-        class Overwrite(StripeObject):
-            unit_amount_decimal: Optional[Decimal]
-            """
-            The replacement per-unit amount in minor currency units.
-            """
-            _field_encodings = {"unit_amount_decimal": "decimal_string"}
-
-        class StartsAt(StripeObject):
-            timestamp: str
-            """
-            The timestamp when the item starts.
-            """
-
-        criteria: List[Criterion]
-        """
-        Recurring or ad_hoc_product terms selected by this override. An override without criteria applies to all recurring and ad_hoc_product terms.
-        """
-        ends_at: Optional[EndsAt]
-        """
-        The exclusive end of the validity window. Null for an open end.
-        """
-        multiply: Optional[Multiply]
-        """
-        Present when type is multiply.
-        """
-        overwrite: Optional[Overwrite]
-        """
-        Present when type is overwrite.
-        """
-        priority: int
-        """
-        Lower numbers win. Equal priorities resolve by display order; overrides do not stack.
-        """
-        starts_at: StartsAt
-        """
-        The inclusive start of the override's validity window.
-        """
-        type: Union[Literal["multiply", "overwrite"], str]
-        """
-        The pricing operation.
-        """
-        _inner_class_types = {
-            "criteria": Criterion,
-            "ends_at": EndsAt,
-            "multiply": Multiply,
-            "overwrite": Overwrite,
-            "starts_at": StartsAt,
-        }
-
-    class RecurringPrice(StripeObject):
-        class EndsAt(StripeObject):
-            timestamp: str
-            """
-            The timestamp when the item ends.
-            """
-
-        class StartsAt(StripeObject):
-            timestamp: str
-            """
-            The timestamp when the item starts.
-            """
-
-        ends_at: Optional[EndsAt]
-        """
-        The exclusive end of the term. Null for an open end.
-        """
-        price: str
-        """
-        The V1 recurring Price.
-        """
-        quantity: Optional[Decimal]
-        """
-        Current licensed quantity. Null for metered Prices; history is available separately.
-        """
-        starts_at: StartsAt
-        """
-        The inclusive start of the term.
-        """
-        _inner_class_types = {"ends_at": EndsAt, "starts_at": StartsAt}
-        _field_encodings = {"quantity": "decimal_string"}
-
-    ad_hoc_product: Optional[AdHocProduct]
-    """
-    Present when type is ad_hoc_product.
-    """
     id: str
     """
     The stable ID of the term.
@@ -222,14 +218,18 @@ class ContractTerm(StripeObject):
     """
     Present when type is recurring_price.
     """
+    scheduled_fee: Optional[ScheduledFee]
+    """
+    Present when type is scheduled_fee.
+    """
     type: Union[
-        Literal["ad_hoc_product", "pricing_override", "recurring_price"], str
+        Literal["pricing_override", "recurring_price", "scheduled_fee"], str
     ]
     """
     The type of this term.
     """
     _inner_class_types = {
-        "ad_hoc_product": AdHocProduct,
         "pricing_override": PricingOverride,
         "recurring_price": RecurringPrice,
+        "scheduled_fee": ScheduledFee,
     }

@@ -100,6 +100,8 @@ class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEven
                 "business_custodial_storage.inbound.usdc",
                 "business_custodial_storage.outbound.ousd",
                 "business_custodial_storage.outbound.usdc",
+                "business_demand_deposit_account_fifth_third_storage.inbound.usd",
+                "business_demand_deposit_account_fifth_third_storage.outbound.usd",
                 "business_storage.inbound.cad",
                 "business_storage.inbound.czk",
                 "business_storage.inbound.eur",

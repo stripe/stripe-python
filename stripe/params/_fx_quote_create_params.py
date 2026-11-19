@@ -40,8 +40,6 @@ class FxQuoteCreateParamsUsage(TypedDict):
     type: Union[Literal["payment", "transfer"], str]
     """
     Which transaction the FX Quote will be used for
-
-    Can be “payment” | “transfer”
     """
 
 

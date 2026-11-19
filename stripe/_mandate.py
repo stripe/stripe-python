@@ -139,6 +139,26 @@ class Mandate(ListableAPIResource["Mandate"]):
 
         class Card(StripeObject):
             class India(StripeObject):
+                amount: Optional[int]
+                """
+                The registered amount in the smallest currency unit. For a maximum amount mandate, this is the authorized ceiling.
+                """
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
+                """
+                Whether the registered amount is fixed or a maximum.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                description: Optional[str]
+                """
+                The stored mandate description, before SIHub registration removes non-alphanumeric characters.
+                """
+                end_date: Optional[int]
+                """
+                The registered end date, represented as midnight in India Standard Time, if specified.
+                """
                 inactive_reason: Optional[
                     Union[
                         Literal[
@@ -155,6 +175,27 @@ class Mandate(ListableAPIResource["Mandate"]):
                 ]
                 """
                 The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
+                """
+                interval: Optional[
+                    Union[
+                        Literal["day", "month", "sporadic", "week", "year"],
+                        str,
+                    ]
+                ]
+                """
+                The registered payment interval. This can differ from the interval originally requested.
+                """
+                interval_count: Optional[int]
+                """
+                The number of intervals between registered payments. Null for sporadic mandates.
+                """
+                reference: Optional[str]
+                """
+                The reference registered for this mandate.
+                """
+                start_date: Optional[int]
+                """
+                The registered start date, represented as midnight in India Standard Time.
                 """
 
             india: Optional[India]

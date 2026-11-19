@@ -278,6 +278,12 @@ class SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings(
     """
     The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
     """
+    rendering: NotRequired[
+        "Literal['']|SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsRendering"
+    ]
+    """
+    Settings that control how invoices render in customer-facing interfaces such as the PDF or hosted invoice page.
+    """
 
 
 class SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField(
@@ -303,6 +309,19 @@ class SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer(
     type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
+    """
+
+
+class SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsRendering(
+    TypedDict,
+):
+    template: NotRequired[str]
+    """
+    ID of the invoice rendering template to use for future invoices.
+    """
+    template_version: NotRequired["Literal['']|int"]
+    """
+    The specific version of invoice rendering template to use for future invoices. If set to null, the latest version of the template will be used.
     """
 
 

@@ -255,6 +255,12 @@ class FinancialAccount(StripeObject):
         """
         Array of eligibility objects, segmented by bank name and deposit insurance scheme.
         """
+        funds_holding_structure: Optional[
+            Union[Literal["demand_deposit_account", "for_benefit_of"], str]
+        ]
+        """
+        How funds in this FinancialAccount are held. Defaults to `for_benefit_of` if not specified.
+        """
         funds_usage_type: Optional[Union[Literal["business", "consumer"], str]]
         """
         The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.

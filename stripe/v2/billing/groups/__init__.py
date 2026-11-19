@@ -4,21 +4,18 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.billing.cadences._spend_modifier_rule_list_params import (
-        SpendModifierRuleListParams as SpendModifierRuleListParams,
+    from stripe.v2.billing.groups._invoice_service import (
+        InvoiceService as InvoiceService,
     )
-    from stripe.params.v2.billing.cadences._spend_modifier_rule_retrieve_params import (
-        SpendModifierRuleRetrieveParams as SpendModifierRuleRetrieveParams,
+    from stripe.v2.billing.groups._spend_modifier_rule_service import (
+        SpendModifierRuleService as SpendModifierRuleService,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "SpendModifierRuleListParams": (
-        "stripe.params.v2.billing.cadences._spend_modifier_rule_list_params",
-        False,
-    ),
-    "SpendModifierRuleRetrieveParams": (
-        "stripe.params.v2.billing.cadences._spend_modifier_rule_retrieve_params",
+    "InvoiceService": ("stripe.v2.billing.groups._invoice_service", False),
+    "SpendModifierRuleService": (
+        "stripe.v2.billing.groups._spend_modifier_rule_service",
         False,
     ),
 }

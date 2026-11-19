@@ -1,3 +1,4 @@
+import importlib
 import platform
 from threading import Thread, Lock
 import json
@@ -5,7 +6,7 @@ import os
 import warnings
 import time
 
-import httpx
+import httpx2
 import aiohttp
 import sys
 import stripe
@@ -227,6 +228,49 @@ class TestIntegration(object):
 
         assert MockServerRequestHandler.num_requests == 1
 
+    # TODO: (DEVSDK-3427) drop the httpx param in the next major version.
+    @pytest.fixture(params=["httpx2", "httpx"])
+    def httpx_lib(self, request):
+        return importlib.import_module(request.param)
+
+    def test_hits_proxy_through_httpx_client(self, httpx_lib):
+        class MockServerRequestHandler(MyTestHandler):
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+
+        client = stripe.StripeClient(
+            "sk_test_123",
+            http_client=stripe.HTTPXClient(
+                proxy=f"http://{MOCK_HOST}:{self.mock_server_port}",
+                allow_sync_methods=True,
+                _lib=httpx_lib,
+            ),
+            base_addresses={"api": f"http://{MOCK_HOST}:12111"},
+        )
+        client.balance.retrieve()
+
+        assert MockServerRequestHandler.num_requests == 1
+
+    @pytest.mark.anyio
+    async def test_hits_proxy_through_httpx_client_async(self, httpx_lib):
+        class MockServerRequestHandler(MyTestHandler):
+            pass
+
+        self.setup_mock_server(MockServerRequestHandler)
+
+        client = stripe.StripeClient(
+            "sk_test_123",
+            http_client=stripe.HTTPXClient(
+                proxy=f"http://{MOCK_HOST}:{self.mock_server_port}",
+                _lib=httpx_lib,
+            ),
+            base_addresses={"api": f"http://{MOCK_HOST}:12111"},
+        )
+        await client.balance.retrieve_async()
+
+        assert MockServerRequestHandler.num_requests == 1
+
     def test_passes_client_telemetry_when_enabled(self):
         class MockServerRequestHandler(MyTestHandler):
             def do_request(self, req_num):
@@ -420,7 +464,7 @@ class TestIntegration(object):
 
         expected_message = ""
         if isinstance(hc, stripe.HTTPXClient):
-            hc._timeout = httpx.Timeout(None, read=0.01)
+            hc._timeout = httpx2.Timeout(None, read=0.01)
             expected_message = "A ReadTimeout was raised"
         elif isinstance(hc, stripe.AIOHTTPClient):
             hc._timeout = aiohttp.ClientTimeout(sock_read=0.01)

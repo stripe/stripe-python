@@ -72,6 +72,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class AeonPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Affirm(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -205,6 +227,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class AuBecsDebit(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class AuPay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -447,6 +491,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class CustomerBalance(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Dbarai(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -777,6 +843,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class MbWay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Union[Literal["none", "off", "on"], str]
+            """
+            The account's display preference.
+            """
+            value: Union[Literal["off", "on"], str]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Merpay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -1529,6 +1617,7 @@ class PaymentMethodConfiguration(
     """
     Whether the configuration can be used for new payments.
     """
+    aeon_pay: Optional[AeonPay]
     affirm: Optional[Affirm]
     afterpay_clearpay: Optional[AfterpayClearpay]
     alipay: Optional[Alipay]
@@ -1540,6 +1629,7 @@ class PaymentMethodConfiguration(
     For child configs, the Connect application associated with the configuration.
     """
     au_becs_debit: Optional[AuBecsDebit]
+    au_pay: Optional[AuPay]
     bacs_debit: Optional[BacsDebit]
     bancontact: Optional[Bancontact]
     billie: Optional[Billie]
@@ -1551,6 +1641,7 @@ class PaymentMethodConfiguration(
     cashapp: Optional[Cashapp]
     crypto: Optional[Crypto]
     customer_balance: Optional[CustomerBalance]
+    dbarai: Optional[Dbarai]
     eps: Optional[Eps]
     fpx: Optional[Fpx]
     giropay: Optional[Giropay]
@@ -1578,6 +1669,7 @@ class PaymentMethodConfiguration(
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     mb_way: Optional[MbWay]
+    merpay: Optional[Merpay]
     mobilepay: Optional[Mobilepay]
     multibanco: Optional[Multibanco]
     name: str
@@ -1764,6 +1856,7 @@ class PaymentMethodConfiguration(
 
     _inner_class_types = {
         "acss_debit": AcssDebit,
+        "aeon_pay": AeonPay,
         "affirm": Affirm,
         "afterpay_clearpay": AfterpayClearpay,
         "alipay": Alipay,
@@ -1771,6 +1864,7 @@ class PaymentMethodConfiguration(
         "amazon_pay": AmazonPay,
         "apple_pay": ApplePay,
         "au_becs_debit": AuBecsDebit,
+        "au_pay": AuPay,
         "bacs_debit": BacsDebit,
         "bancontact": Bancontact,
         "billie": Billie,
@@ -1782,6 +1876,7 @@ class PaymentMethodConfiguration(
         "cashapp": Cashapp,
         "crypto": Crypto,
         "customer_balance": CustomerBalance,
+        "dbarai": Dbarai,
         "eps": Eps,
         "fpx": Fpx,
         "giropay": Giropay,
@@ -1797,6 +1892,7 @@ class PaymentMethodConfiguration(
         "kr_card": KrCard,
         "link": Link,
         "mb_way": MbWay,
+        "merpay": Merpay,
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
         "naver_pay": NaverPay,

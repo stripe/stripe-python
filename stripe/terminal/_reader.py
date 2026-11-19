@@ -190,6 +190,7 @@ class Reader(
                         "forwarding_api_upstream_connection_timeout",
                         "forwarding_api_upstream_error",
                         "idempotency_key_in_use",
+                        "inactive_api_operation_confirmation_required",
                         "incorrect_address",
                         "incorrect_cvc",
                         "incorrect_number",
@@ -1011,12 +1012,6 @@ class Reader(
             "set_reader_display": SetReaderDisplay,
         }
 
-    class DeviceHealthDetail(StripeObject):
-        type: Union[Literal["unrecoverable_tamper"], str]
-        """
-        The type of condition affecting the reader's device health.
-        """
-
     action: Optional[Action]
     """
     The most recent action performed by the reader.
@@ -1024,14 +1019,6 @@ class Reader(
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
-    """
-    device_health: Optional[Union[Literal["healthy", "unhealthy"], str]]
-    """
-    The overall device health of the reader: `healthy` or `unhealthy`. Renamed to `no_issues_detected` and `needs_attention` respectively; see `device_health_details` for the specific conditions.
-    """
-    device_health_details: Optional[List[DeviceHealthDetail]]
-    """
-    The set of conditions affecting the reader's device health. Empty when there are no conditions.
     """
     device_sw_version: Optional[str]
     """
@@ -1053,13 +1040,18 @@ class Reader(
             "simulated_wisepos_e",
             "stripe_m2",
             "stripe_s700",
+            "stripe_s700_devkit",
             "stripe_s710",
+            "stripe_s710_devkit",
             "stripe_t600",
+            "stripe_t600_devkit",
             "verifone_P400",
             "verifone_m425",
             "verifone_p630",
             "verifone_ux700",
+            "verifone_ux700_devkit",
             "verifone_v660p",
+            "verifone_v660p_devkit",
         ],
         str,
     ]
@@ -3038,10 +3030,7 @@ class Reader(
     def test_helpers(self):
         return self.TestHelpers(self)
 
-    _inner_class_types = {
-        "action": Action,
-        "device_health_details": DeviceHealthDetail,
-    }
+    _inner_class_types = {"action": Action}
 
 
 Reader.TestHelpers._resource_cls = Reader

@@ -49,6 +49,9 @@ if TYPE_CHECKING:
     from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
 
 
+API_KEY_SERIALIZATION_CONSTANT = "API_KEY_SERIALIZATION_CONSTANT"
+
+
 @overload
 def _compute_diff(
     current: Dict[str, Any], previous: Optional[Dict[str, Any]]
@@ -155,6 +158,50 @@ class StripeObject:
     @property
     def stripe_version(self):
         return self._requestor.stripe_version
+
+    def reattach_api_key(self, api_key: str) -> None:
+        """Attach credentials to an unpickled object and its nested objects.
+
+        Each object retains its saved API version and connected account.
+        Objects that already have credentials cannot be reattached.
+        """
+        if self.api_key != API_KEY_SERIALIZATION_CONSTANT:
+            raise ValueError(
+                "API credentials can only be reattached to an unpickled "
+                "object that has not already been reattached."
+            )
+        if (
+            not isinstance(cast(object, api_key), str)
+            or not api_key.strip()
+            or api_key == API_KEY_SERIALIZATION_CONSTANT
+        ):
+            raise ValueError("api_key must be a non-empty, valid API key.")
+
+        from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
+
+        seen: Set[int] = set()
+
+        def reattach(value: Any) -> None:
+            if id(value) in seen:
+                return
+            seen.add(id(value))
+            if isinstance(value, StripeObject):
+                if value.api_key == API_KEY_SERIALIZATION_CONSTANT:
+                    value._requestor = _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                        api_key=api_key,
+                        stripe_version=value.stripe_version,
+                        stripe_account=value.stripe_account,
+                    )
+                for nested in value._data.values():
+                    reattach(nested)
+            elif isinstance(value, dict):
+                for nested in cast(Dict[Any, Any], value).values():
+                    reattach(nested)
+            elif isinstance(value, (list, tuple)):
+                for nested in cast(Union[List[Any], Tuple[Any, ...]], value):
+                    reattach(nested)
+
+        reattach(self)
 
     @property
     def last_response(self) -> Optional[StripeResponse]:
@@ -298,7 +345,7 @@ class StripeObject:
             type(self),  # callable
             (  # args
                 getattr(self, "id", None),
-                self.api_key,
+                API_KEY_SERIALIZATION_CONSTANT,
                 self.stripe_version,
                 self.stripe_account,
             ),

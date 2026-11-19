@@ -6,9 +6,9 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.v2.billing import (
         bill_settings as bill_settings,
-        cadences as cadences,
         collection_settings as collection_settings,
         contracts as contracts,
+        groups as groups,
         intents as intents,
         license_fees as license_fees,
         pricing_plans as pricing_plans,
@@ -21,13 +21,6 @@ if TYPE_CHECKING:
     from stripe.v2.billing._bill_setting_version import (
         BillSettingVersion as BillSettingVersion,
     )
-    from stripe.v2.billing._cadence import Cadence as Cadence
-    from stripe.v2.billing._cadence_service import (
-        CadenceService as CadenceService,
-    )
-    from stripe.v2.billing._cadence_spend_modifier import (
-        CadenceSpendModifier as CadenceSpendModifier,
-    )
     from stripe.v2.billing._collection_setting import (
         CollectionSetting as CollectionSetting,
     )
@@ -38,9 +31,6 @@ if TYPE_CHECKING:
         CollectionSettingVersion as CollectionSettingVersion,
     )
     from stripe.v2.billing._contract import Contract as Contract
-    from stripe.v2.billing._contract_pricing_line_quantity_change import (
-        ContractPricingLineQuantityChange as ContractPricingLineQuantityChange,
-    )
     from stripe.v2.billing._contract_service import (
         ContractService as ContractService,
     )
@@ -53,6 +43,12 @@ if TYPE_CHECKING:
     )
     from stripe.v2.billing._custom_pricing_unit_service import (
         CustomPricingUnitService as CustomPricingUnitService,
+    )
+    from stripe.v2.billing._group import Group as Group
+    from stripe.v2.billing._group_invoice import GroupInvoice as GroupInvoice
+    from stripe.v2.billing._group_service import GroupService as GroupService
+    from stripe.v2.billing._group_spend_modifier import (
+        GroupSpendModifier as GroupSpendModifier,
     )
     from stripe.v2.billing._intent import Intent as Intent
     from stripe.v2.billing._intent_action import IntentAction as IntentAction
@@ -144,9 +140,9 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "bill_settings": ("stripe.v2.billing.bill_settings", True),
-    "cadences": ("stripe.v2.billing.cadences", True),
     "collection_settings": ("stripe.v2.billing.collection_settings", True),
     "contracts": ("stripe.v2.billing.contracts", True),
+    "groups": ("stripe.v2.billing.groups", True),
     "intents": ("stripe.v2.billing.intents", True),
     "license_fees": ("stripe.v2.billing.license_fees", True),
     "pricing_plans": ("stripe.v2.billing.pricing_plans", True),
@@ -154,12 +150,6 @@ _import_map = {
     "BillSetting": ("stripe.v2.billing._bill_setting", False),
     "BillSettingService": ("stripe.v2.billing._bill_setting_service", False),
     "BillSettingVersion": ("stripe.v2.billing._bill_setting_version", False),
-    "Cadence": ("stripe.v2.billing._cadence", False),
-    "CadenceService": ("stripe.v2.billing._cadence_service", False),
-    "CadenceSpendModifier": (
-        "stripe.v2.billing._cadence_spend_modifier",
-        False,
-    ),
     "CollectionSetting": ("stripe.v2.billing._collection_setting", False),
     "CollectionSettingService": (
         "stripe.v2.billing._collection_setting_service",
@@ -170,10 +160,6 @@ _import_map = {
         False,
     ),
     "Contract": ("stripe.v2.billing._contract", False),
-    "ContractPricingLineQuantityChange": (
-        "stripe.v2.billing._contract_pricing_line_quantity_change",
-        False,
-    ),
     "ContractService": ("stripe.v2.billing._contract_service", False),
     "ContractTerm": ("stripe.v2.billing._contract_term", False),
     "ContractTermQuantityChange": (
@@ -185,6 +171,10 @@ _import_map = {
         "stripe.v2.billing._custom_pricing_unit_service",
         False,
     ),
+    "Group": ("stripe.v2.billing._group", False),
+    "GroupInvoice": ("stripe.v2.billing._group_invoice", False),
+    "GroupService": ("stripe.v2.billing._group_service", False),
+    "GroupSpendModifier": ("stripe.v2.billing._group_spend_modifier", False),
     "Intent": ("stripe.v2.billing._intent", False),
     "IntentAction": ("stripe.v2.billing._intent_action", False),
     "IntentService": ("stripe.v2.billing._intent_service", False),

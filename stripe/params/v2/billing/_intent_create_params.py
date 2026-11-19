@@ -11,13 +11,13 @@ class IntentCreateParams(TypedDict):
     """
     Actions to be performed by this Billing Intent.
     """
-    cadence: NotRequired[str]
+    billing_group: NotRequired[str]
     """
-    ID of an existing Cadence to use.
+    ID of an existing Billing Group to use.
     """
-    cadence_data: NotRequired["IntentCreateParamsCadenceData"]
+    billing_group_data: NotRequired["IntentCreateParamsBillingGroupData"]
     """
-    Data for creating a new Cadence.
+    Data for creating a new Billing Group.
     """
     currency: str
     """
@@ -117,9 +117,9 @@ class IntentCreateParamsActionApplyEffectiveAt(TypedDict):
 
 
 class IntentCreateParamsActionApplyInvoiceDiscountRule(TypedDict):
-    applies_to: Union[Literal["cadence"], str]
+    applies_to: Union[Literal["cadence", "group"], str]
     """
-    The entity that the discount rule applies to, for example, the cadence.
+    The entity that the discount rule applies to, for example, the billing group.
     """
     percent_off: NotRequired[
         "IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff"
@@ -136,7 +136,7 @@ class IntentCreateParamsActionApplyInvoiceDiscountRule(TypedDict):
 class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff(TypedDict):
     maximum_applications: "IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications"
     """
-    The maximum number of times this discount can be applied for this cadence.
+    The maximum number of times this discount can be applied for this billing group.
     """
     percent_off: Decimal
     """
@@ -670,255 +670,536 @@ class IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem(TypedDict):
     """
 
 
-class IntentCreateParamsCadenceData(TypedDict):
-    billing_cycle: "IntentCreateParamsCadenceDataBillingCycle"
-    """
-    The billing cycle configuration for this Cadence.
-    """
-    payer: "IntentCreateParamsCadenceDataPayer"
-    """
-    Information about the payer for this Cadence.
-    """
-    settings: NotRequired["IntentCreateParamsCadenceDataSettings"]
-    """
-    Settings for creating the Cadence.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycle(TypedDict):
-    day: NotRequired["IntentCreateParamsCadenceDataBillingCycleDay"]
-    """
-    Specific configuration for determining billing dates when type=day.
-    """
-    interval_count: NotRequired[int]
-    """
-    The number of intervals (specified in the interval attribute) between
-    cadence billings. For example, type=month and interval_count=3 bills every
-    3 months. If not provided, this defaults to 1.
-    """
-    month: NotRequired["IntentCreateParamsCadenceDataBillingCycleMonth"]
-    """
-    Specific configuration for determining billing dates when type=month.
-    """
-    type: Union[Literal["day", "month", "week", "year"], str]
-    """
-    The frequency at which a cadence bills.
-    """
-    week: NotRequired["IntentCreateParamsCadenceDataBillingCycleWeek"]
-    """
-    Specific configuration for determining billing dates when type=week.
-    """
-    year: NotRequired["IntentCreateParamsCadenceDataBillingCycleYear"]
-    """
-    Specific configuration for determining billing dates when type=year.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleDay(TypedDict):
-    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleDayTime"]
-    """
-    The time at which the billing cycle ends.
-    This field is optional, and if not provided, it defaults to
-    the time at which the cadence was created in UTC timezone.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleDayTime(TypedDict):
-    hour: int
-    """
-    The hour at which the billing cycle ends.
-    This must be an integer between 0 and 23, inclusive.
-    0 represents midnight, and 23 represents 11 PM.
-    """
-    minute: int
-    """
-    The minute at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-    second: int
-    """
-    The second at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleMonth(TypedDict):
-    day_of_month: int
-    """
-    The day to anchor the billing on for a type="month" billing cycle from
-    1-31. If this number is greater than the number of days in the month being
-    billed, this anchors to the last day of the month. If not provided,
-    this defaults to the day the cadence was created.
-    """
-    month_of_year: NotRequired[int]
-    """
-    The month to anchor the billing on for a type="month" billing cycle from
-    1-12. If not provided, this defaults to the month the cadence was created.
-    This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-    All occurrences are calculated from the month provided.
-    """
-    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleMonthTime"]
-    """
-    The time at which the billing cycle ends.
-    This field is optional, and if not provided, it defaults to
-    the time at which the cadence was created in UTC timezone.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleMonthTime(TypedDict):
-    hour: int
-    """
-    The hour at which the billing cycle ends.
-    This must be an integer between 0 and 23, inclusive.
-    0 represents midnight, and 23 represents 11 PM.
-    """
-    minute: int
-    """
-    The minute at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-    second: int
-    """
-    The second at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleWeek(TypedDict):
-    day_of_week: int
-    """
-    The day of the week to bill the type=week billing cycle on.
-    Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
-    week day numbering. If not provided, this defaults to the day the
-    cadence was created.
-    """
-    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleWeekTime"]
-    """
-    The time at which the billing cycle ends.
-    This field is optional, and if not provided, it defaults to
-    the time at which the cadence was created in UTC timezone.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleWeekTime(TypedDict):
-    hour: int
-    """
-    The hour at which the billing cycle ends.
-    This must be an integer between 0 and 23, inclusive.
-    0 represents midnight, and 23 represents 11 PM.
-    """
-    minute: int
-    """
-    The minute at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-    second: int
-    """
-    The second at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleYear(TypedDict):
-    day_of_month: NotRequired[int]
-    """
-    The day to anchor the billing on for a type="month" billing cycle from
-    1-31. If this number is greater than the number of days in the month being
-    billed, this anchors to the last day of the month. If not provided,
-    this defaults to the day the cadence was created.
-    """
-    month_of_year: NotRequired[int]
-    """
-    The month to bill on from 1-12. If not provided, this defaults to the
-    month the cadence was created.
-    """
-    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleYearTime"]
-    """
-    The time at which the billing cycle ends.
-    This field is optional, and if not provided, it defaults to
-    the time at which the cadence was created in UTC timezone.
-    """
-
-
-class IntentCreateParamsCadenceDataBillingCycleYearTime(TypedDict):
-    hour: int
-    """
-    The hour at which the billing cycle ends.
-    This must be an integer between 0 and 23, inclusive.
-    0 represents midnight, and 23 represents 11 PM.
-    """
-    minute: int
-    """
-    The minute at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-    second: int
-    """
-    The second at which the billing cycle ends.
-    Must be an integer between 0 and 59, inclusive.
-    """
-
-
-class IntentCreateParamsCadenceDataPayer(TypedDict):
-    billing_profile: NotRequired[str]
-    """
-    The ID of the Billing Profile object which determines how a bill is paid.
-    """
-    billing_profile_data: NotRequired[
-        "IntentCreateParamsCadenceDataPayerBillingProfileData"
+class IntentCreateParamsBillingGroupData(TypedDict):
+    billing_settings: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettings"
     ]
     """
-    Data for creating a new profile.
+    Billing setting overrides for the group. If omitted, the applicable defaults are used.
     """
-
-
-class IntentCreateParamsCadenceDataPayerBillingProfileData(TypedDict):
     customer: str
     """
-    The customer to associate with the profile.
+    The ID of the Customer object whose invoices are grouped.
     """
     default_payment_method: NotRequired[str]
     """
-    The default payment method to use when billing this profile.
-    If left blank, the `PaymentMethod` from the `PaymentIntent` provided
-    on commit is used to create the profile.
+    The ID of the PaymentMethod object used by default. If unset, the customer's default payment method is used.
+    """
+    grouping_behavior: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehavior"
+    ]
+    """
+    The strategy used to group member invoices.
+    """
+    lookup_key: NotRequired[str]
+    """
+    An internal key you can use to find a particular billing group. Maximum length of 200 characters.
     """
 
 
-class IntentCreateParamsCadenceDataSettings(TypedDict):
-    bill: NotRequired["IntentCreateParamsCadenceDataSettingsBill"]
+class IntentCreateParamsBillingGroupDataBillingSettings(TypedDict):
+    collection_method: NotRequired[
+        Literal["charge_automatically", "send_invoice"]
+    ]
     """
-    Settings that configure bill generation, which includes calculating totals, tax, and presenting invoices.
-    If no setting is provided here, the settings from the customer referenced on the payer will be used.
-    If no customer settings are present, the merchant default settings will be used.
+    How Stripe collects payment.
     """
-    collection: NotRequired["IntentCreateParamsCadenceDataSettingsCollection"]
+    email_delivery: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsEmailDelivery"
+    ]
     """
-    Settings that configure and manage the behavior of collecting payments.
-    If no setting is provided here, the settings from the customer referenced from the payer will be used if they exist.
-    If no customer settings are present, the merchant default settings will be used.
+    Email delivery setting.
+    """
+    invoice_presentation: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsInvoicePresentation"
+    ]
+    """
+    Settings for invoice presentation.
+    """
+    invoice_time_until_due: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsInvoiceTimeUntilDue"
+    ]
+    """
+    The amount of time until the invoice is overdue for payment.
+    """
+    payment_method_configuration: NotRequired[str]
+    """
+    The ID of the payment method configuration, which controls which payment methods are displayed to your customers.
+    """
+    payment_method_options: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptions"
+    ]
+    """
+    Payment Method specific configuration to be stored on the object.
+    """
+    tax: NotRequired["IntentCreateParamsBillingGroupDataBillingSettingsTax"]
+    """
+    Settings for calculating tax.
     """
 
 
-class IntentCreateParamsCadenceDataSettingsBill(TypedDict):
-    id: str
+class IntentCreateParamsBillingGroupDataBillingSettingsEmailDelivery(
+    TypedDict
+):
+    payment_due: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsEmailDeliveryPaymentDue"
+    ]
     """
-    The ID of the referenced settings object.
-    """
-    version: NotRequired[str]
-    """
-    An optional field to specify the version of the Settings to use.
-    If not provided, this defaults to the live version any time the settings are used.
+    Controls emails for when the payment is due. Omit to use the applicable default.
     """
 
 
-class IntentCreateParamsCadenceDataSettingsCollection(TypedDict):
-    id: str
+class IntentCreateParamsBillingGroupDataBillingSettingsEmailDeliveryPaymentDue(
+    TypedDict,
+):
+    enabled: NotRequired[bool]
     """
-    The ID of the referenced settings object.
+    If true an email for the invoice would be generated and sent out.
     """
-    version: NotRequired[str]
+    include_payment_link: NotRequired[bool]
     """
-    An optional field to specify the version of the Settings to use.
-    If not provided, this defaults to the live version any time the settings are used.
+    If true the payment link to hosted invoice page would be included in email and PDF of the invoice.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsInvoicePresentation(
+    TypedDict,
+):
+    invoice_rendering_template: NotRequired[str]
+    """
+    The ID of the invoice rendering template to be used when generating invoices. Omit to use the applicable default.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsInvoiceTimeUntilDue(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    The interval unit for the time until due.
+    """
+    interval_count: int
+    """
+    The number of interval units. For example, if interval=day and interval_count=30, the invoice is due in 30 days.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptions(
+    TypedDict,
+):
+    acss_debit: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebit"
+    ]
+    """
+    This sub-hash contains details about the Canadian pre-authorized debit payment method options.
+    """
+    bancontact: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsBancontact"
+    ]
+    """
+    This sub-hash contains details about the Bancontact payment method.
+    """
+    card: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCard"
+    ]
+    """
+    This sub-hash contains details about the Card payment method options.
+    """
+    customer_balance: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalance"
+    ]
+    """
+    This sub-hash contains details about the Bank transfer payment method options.
+    """
+    konbini: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsKonbini"
+    ]
+    """
+    This sub-hash contains details about the Konbini payment method options.
+    """
+    sepa_debit: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsSepaDebit"
+    ]
+    """
+    This sub-hash contains details about the SEPA Direct Debit payment method options.
+    """
+    us_bank_account: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccount"
+    ]
+    """
+    This sub-hash contains details about the ACH direct debit payment method options.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebit(
+    TypedDict,
+):
+    mandate_options: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation.
+    """
+    verification_method: NotRequired[
+        "Literal['automatic', 'instant', 'microdeposits']|str"
+    ]
+    """
+    Verification method.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsAcssDebitMandateOptions(
+    TypedDict,
+):
+    transaction_type: NotRequired["Literal['business', 'personal']|str"]
+    """
+    Transaction type of the mandate.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsBancontact(
+    TypedDict,
+):
+    preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
+    """
+    Preferred language of the Bancontact authorization page that the customer is redirected to.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCard(
+    TypedDict,
+):
+    mandate_options: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCardMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate for cards issued in India.
+    """
+    network: NotRequired[str]
+    """
+    Selected network to process the payment on. Depends on the available networks of the card.
+    """
+    request_three_d_secure: NotRequired[
+        "Literal['any', 'automatic', 'challenge']|str"
+    ]
+    """
+    An advanced option 3D Secure. We strongly recommend that you rely on our SCA Engine to automatically prompt your customers
+    for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication).
+    However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option.
+    Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCardMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
+    """
+    The AmountType for the mandate. One of `fixed` or `maximum`.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate that is meant to be displayed to the customer.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalance(
+    TypedDict,
+):
+    bank_transfer: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer"
+    ]
+    """
+    Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+    """
+    funding_type: NotRequired["Literal['bank_transfer']|str"]
+    """
+    The funding method type to be used when there are not enough funds in the customer balance. Currently the only supported value is `bank_transfer`.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
+    TypedDict,
+):
+    eu_bank_transfer: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
+    ]
+    """
+    Configuration for `eu_bank_transfer` funding type. Required if `type` is `eu_bank_transfer`.
+    """
+    type: NotRequired[
+        "Literal['eu_bank_transfer', 'gb_bank_transfer', 'jp_bank_transfer', 'mx_bank_transfer', 'us_bank_transfer']|str"
+    ]
+    """
+    The bank transfer type that can be used for funding.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
+    TypedDict,
+):
+    country: Union[Literal["BE", "DE", "ES", "FR", "IE", "NL"], str]
+    """
+    The desired country code of the bank account information.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsKonbini(
+    TypedDict,
+):
+    pass
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsSepaDebit(
+    TypedDict,
+):
+    pass
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccount(
+    TypedDict,
+):
+    financial_connections: "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections"
+    """
+    Additional fields for Financial Connections Session creation.
+    """
+    verification_method: Union[
+        Literal["automatic", "instant", "microdeposits"], str
+    ]
+    """
+    Verification method.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnections(
+    TypedDict,
+):
+    filters: NotRequired[
+        "IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
+    ]
+    """
+    Provide filters for the linked accounts that the customer can select for the payment method.
+    """
+    permissions: NotRequired[
+        List[
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
+        ]
+    ]
+    """
+    The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included.
+    """
+    prefetch: NotRequired[
+        List[Union[Literal["balances", "ownership", "transactions"], str]]
+    ]
+    """
+    List of data features that you would like to retrieve upon account creation.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
+    TypedDict,
+):
+    account_subcategories: NotRequired[
+        List[Union[Literal["checking", "savings"], str]]
+    ]
+    """
+    The account subcategories to use to filter for selectable accounts.
+    """
+
+
+class IntentCreateParamsBillingGroupDataBillingSettingsTax(TypedDict):
+    type: NotRequired["Literal['automatic', 'manual']|str"]
+    """
+    Determines if tax is calculated automatically based on a product tax code or manually based on rules defined by the business. Omit to use the applicable default.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehavior(TypedDict):
+    by_cadence: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadence"
+    ]
+    """
+    The cadence configuration when type is `by_cadence`.
+    """
+    type: Union[Literal["by_cadence"], str]
+    """
+    The grouping strategy.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadence(TypedDict):
+    billing_cycle_anchor: NotRequired[str]
+    """
+    Timestamp that anchors the recurring grouping cadence.
+    """
+    day: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDay"
+    ]
+    """
+    Daily cadence details.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of interval units between groups. Defaults to 1.
+    """
+    month: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonth"
+    ]
+    """
+    Monthly cadence details.
+    """
+    type: Union[Literal["day", "month", "week", "year"], str]
+    """
+    The interval unit for the cadence.
+    """
+    week: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeek"
+    ]
+    """
+    Weekly cadence details.
+    """
+    year: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYear"
+    ]
+    """
+    Yearly cadence details.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDay(
+    TypedDict
+):
+    time: "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDayTime"
+    """
+    The time at which the daily grouping interval begins.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceDayTime(
+    TypedDict,
+):
+    hour: int
+    """
+    The hour, from 0 through 23.
+    """
+    minute: int
+    """
+    The minute, from 0 through 59.
+    """
+    second: int
+    """
+    The second, from 0 through 59.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonth(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of month, from 1 through 31. For shorter months, the cadence anchors to the month's last day.
+    """
+    month_of_year: NotRequired[int]
+    """
+    The month of year, from 1 through 12, from which occurrences are calculated. Defaults to the month when the billing group was created.
+    """
+    time: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonthTime"
+    ]
+    """
+    The time at which the monthly grouping interval begins. Defaults to the time the billing group is created, in UTC.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceMonthTime(
+    TypedDict,
+):
+    hour: int
+    """
+    The hour, from 0 through 23.
+    """
+    minute: int
+    """
+    The minute, from 0 through 59.
+    """
+    second: int
+    """
+    The second, from 0 through 59.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeek(
+    TypedDict,
+):
+    day_of_week: int
+    """
+    The ISO-8601 day of week, from 1 for Monday through 7 for Sunday.
+    """
+    time: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeekTime"
+    ]
+    """
+    The time at which the weekly grouping interval begins. Defaults to the time the billing group is created, in UTC.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceWeekTime(
+    TypedDict,
+):
+    hour: int
+    """
+    The hour, from 0 through 23.
+    """
+    minute: int
+    """
+    The minute, from 0 through 59.
+    """
+    second: int
+    """
+    The second, from 0 through 59.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYear(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of month, from 1 through 31. For shorter months, the cadence anchors to the month's last day.
+    """
+    month_of_year: int
+    """
+    The month of year, from 1 through 12.
+    """
+    time: NotRequired[
+        "IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYearTime"
+    ]
+    """
+    The time at which the yearly grouping interval begins. Defaults to the time the billing group is created, in UTC.
+    """
+
+
+class IntentCreateParamsBillingGroupDataGroupingBehaviorByCadenceYearTime(
+    TypedDict,
+):
+    hour: int
+    """
+    The hour, from 0 through 23.
+    """
+    minute: int
+    """
+    The minute, from 0 through 59.
+    """
+    second: int
+    """
+    The second, from 0 through 59.
     """

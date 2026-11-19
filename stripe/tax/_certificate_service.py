@@ -32,7 +32,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         return cast(
             "Certificate",
@@ -53,7 +53,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         return cast(
             "Certificate",
@@ -74,7 +74,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Certificate":
         """
-        Retrieve a tax certificate associated with a tax exemption.
+        Retrieves a Tax Certificate. Deleted certificates remain retrievable with all their fields and deleted set to true.
         """
         return cast(
             "Certificate",
@@ -95,7 +95,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Certificate":
         """
-        Retrieve a tax certificate associated with a tax exemption.
+        Retrieves a Tax Certificate. Deleted certificates remain retrievable with all their fields and deleted set to true.
         """
         return cast(
             "Certificate",
@@ -114,7 +114,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Certificate]":
         """
-        List certificates for an existing tax exemption.
+        Lists a tax exemption's certificates, ordered from newest to oldest. The list excludes deleted certificates.
         """
         return cast(
             "ListObject[Certificate]",
@@ -133,7 +133,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Certificate]":
         """
-        List certificates for an existing tax exemption.
+        Lists a tax exemption's certificates, ordered from newest to oldest. The list excludes deleted certificates.
         """
         return cast(
             "ListObject[Certificate]",
@@ -152,7 +152,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Certificate":
         """
-        Create a tax certificate associated with a tax exemption.
+        Creates a Tax Certificate associated with a tax exemption. Before creating the certificate, [upload a file](https://docs.stripe.com/api/files/create) with purpose tax_certificate.
         """
         return cast(
             "Certificate",
@@ -171,7 +171,7 @@ class CertificateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Certificate":
         """
-        Create a tax certificate associated with a tax exemption.
+        Creates a Tax Certificate associated with a tax exemption. Before creating the certificate, [upload a file](https://docs.stripe.com/api/files/create) with purpose tax_certificate.
         """
         return cast(
             "Certificate",

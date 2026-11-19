@@ -548,7 +548,7 @@ class AccountSession(StripeObject):
                     "disabled", "enabled"
                 ]
                 """
-                Whether to disable Stripe user authentication in the enabled components.
+                Whether to disable Stripe user authentication in this component.
                 """
                 manage_payout_methods: Literal["disabled", "enabled"]
                 """

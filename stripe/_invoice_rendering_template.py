@@ -1,18 +1,26 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import UntypedStripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, Union, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.params._invoice_rendering_template_archive_params import (
         InvoiceRenderingTemplateArchiveParams,
     )
+    from stripe.params._invoice_rendering_template_create_params import (
+        InvoiceRenderingTemplateCreateParams,
+    )
     from stripe.params._invoice_rendering_template_list_params import (
         InvoiceRenderingTemplateListParams,
+    )
+    from stripe.params._invoice_rendering_template_modify_params import (
+        InvoiceRenderingTemplateModifyParams,
     )
     from stripe.params._invoice_rendering_template_retrieve_params import (
         InvoiceRenderingTemplateRetrieveParams,
@@ -23,7 +31,9 @@ if TYPE_CHECKING:
 
 
 class InvoiceRenderingTemplate(
-    ListableAPIResource["InvoiceRenderingTemplate"]
+    CreateableAPIResource["InvoiceRenderingTemplate"],
+    ListableAPIResource["InvoiceRenderingTemplate"],
+    UpdateableAPIResource["InvoiceRenderingTemplate"],
 ):
     """
     Invoice Rendering Templates are used to configure how invoices are rendered on surfaces like the PDF. Invoice Rendering Templates
@@ -33,6 +43,73 @@ class InvoiceRenderingTemplate(
     OBJECT_NAME: ClassVar[Literal["invoice_rendering_template"]] = (
         "invoice_rendering_template"
     )
+
+    class LineItemPolicy(StripeObject):
+        display: Optional[str]
+        """
+        A CEL expression that takes in a line item and returns a string indicating whether the line item should be 'hidden_if_zero' or 'visible'.
+         If 'hidden_if_zero', the line item will be hidden if the line item's amount is zero on the invoice.
+         If 'visible', the line item will be shown regardless of the line item's amount.
+        """
+
+    class RenderingSettings(StripeObject):
+        class InvoicePdf(StripeObject):
+            class Block(StripeObject):
+                class CustomPlainTextCel(StripeObject):
+                    cel_expression: str
+                    """
+                    A CEL expression that returns text using the invoice context.
+                    """
+
+                custom_plain_text_cel: Optional[CustomPlainTextCel]
+                key: str
+                """
+                The key of this block in the template.
+                """
+                type: Union[
+                    Literal[
+                        "custom_plain_text_cel",
+                        "footer_content",
+                        "invoice_details",
+                        "line_items",
+                        "parties",
+                        "payment_remittance_instructions",
+                        "status_and_memo",
+                        "tax_footnotes",
+                        "title_and_logo",
+                    ],
+                    str,
+                ]
+                """
+                The type of content block
+                """
+                _inner_class_types = {
+                    "custom_plain_text_cel": CustomPlainTextCel,
+                }
+
+            blocks: List[Block]
+            """
+            The ordered invoice PDF blocks.
+            """
+            _inner_class_types = {"blocks": Block}
+
+        invoice_pdf: InvoicePdf
+        _inner_class_types = {"invoice_pdf": InvoicePdf}
+
+    class SummaryItemPolicy(StripeObject):
+        display_items: Optional[str]
+        """
+        Either `all` or `none`. For all summary items created from this policy, if `all`, every line item will be shown under the summary item header. If `none`, the line items will be hidden and only the summary item header will be shown.
+        """
+        filter: Optional[str]
+        """
+        A CEL expression that takes in a line item and returns a boolean indicating whether the line item should be considered when grouping.
+        """
+        group_by: Optional[str]
+        """
+        A CEL expression that takes in a line item and returns a string. Line items with the same string results are put in the same summary items. The string result will become the description of the summary item.
+        """
+
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -40,6 +117,10 @@ class InvoiceRenderingTemplate(
     id: str
     """
     Unique identifier for the object.
+    """
+    line_item_policy: Optional[LineItemPolicy]
+    """
+    The policy that controls how individual line items are rendered
     """
     livemode: bool
     """
@@ -57,9 +138,14 @@ class InvoiceRenderingTemplate(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    rendering_settings: Optional[RenderingSettings]
     status: Union[Literal["active", "archived"], str]
     """
     The status of the template, one of `active` or `archived`.
+    """
+    summary_item_policies: Optional[List[SummaryItemPolicy]]
+    """
+    The policies that control how line items are grouped into summary items
     """
     version: int
     """
@@ -187,6 +273,38 @@ class InvoiceRenderingTemplate(
         )
 
     @classmethod
+    def create(
+        cls, **params: Unpack["InvoiceRenderingTemplateCreateParams"]
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Creates an invoice rendering template.
+        """
+        return cast(
+            "InvoiceRenderingTemplate",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["InvoiceRenderingTemplateCreateParams"]
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Creates an invoice rendering template.
+        """
+        return cast(
+            "InvoiceRenderingTemplate",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list(
         cls, **params: Unpack["InvoiceRenderingTemplateListParams"]
     ) -> ListObject["InvoiceRenderingTemplate"]:
@@ -225,6 +343,46 @@ class InvoiceRenderingTemplate(
             )
 
         return result
+
+    @classmethod
+    def modify(
+        cls,
+        id: str,
+        /,
+        **params: Unpack["InvoiceRenderingTemplateModifyParams"],
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Updates an existing invoice rendering template.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "InvoiceRenderingTemplate",
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls,
+        id: str,
+        /,
+        **params: Unpack["InvoiceRenderingTemplateModifyParams"],
+    ) -> "InvoiceRenderingTemplate":
+        """
+        Updates an existing invoice rendering template.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "InvoiceRenderingTemplate",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
 
     @classmethod
     def retrieve(
@@ -371,3 +529,9 @@ class InvoiceRenderingTemplate(
                 params=params,
             ),
         )
+
+    _inner_class_types = {
+        "line_item_policy": LineItemPolicy,
+        "rendering_settings": RenderingSettings,
+        "summary_item_policies": SummaryItemPolicy,
+    }

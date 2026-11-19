@@ -529,6 +529,10 @@ class Subscription(
                     A description of the mandate or subscription that is meant to be displayed to the customer.
                     """
 
+                debit_behavior: Optional[str]
+                """
+                Controls early collection for eligible recurring payments on India-issued cards. Target-date billing aims to debit on the billing-cycle date but does not guarantee that date.
+                """
                 mandate_options: Optional[MandateOptions]
                 network: Optional[
                     Union[
@@ -663,6 +667,10 @@ class Subscription(
                     Schedule at which the future payments will be charged.
                     """
 
+                debit_behavior: Optional[str]
+                """
+                Timing configuration for collecting funds from the customer's account.
+                """
                 expires_after_seconds: Optional[int]
                 """
                 The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
@@ -697,6 +705,10 @@ class Subscription(
                     End date of the mandate or subscription.
                     """
 
+                debit_behavior: Optional[str]
+                """
+                Controls when the funds will be captured from the customer's account. Defaults to `not_specified`. Omitting this parameter on an update preserves the saved value; passing `not_specified` clears it. Early collection is best effort and doesn't guarantee an exact debit date.
+                """
                 mandate_options: Optional[MandateOptions]
                 _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -961,6 +973,12 @@ class Subscription(
         """
 
     class PendingUpdate(StripeObject):
+        class PresentmentDetails(StripeObject):
+            presentment_currency: str
+            """
+            Currency used for customer payments.
+            """
+
         billing_cycle_anchor: Optional[int]
         """
         If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
@@ -989,6 +1007,7 @@ class Subscription(
         """
         The number of iterations of prebilling to apply.
         """
+        presentment_details: Optional[PresentmentDetails]
         subscription_items: Optional[List["SubscriptionItem"]]
         """
         List of subscription items, each with an attached plan, that will be set if the update is applied.
@@ -1001,6 +1020,7 @@ class Subscription(
         """
         Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
         """
+        _inner_class_types = {"presentment_details": PresentmentDetails}
 
     class Prebilling(StripeObject):
         invoice: ExpandableField["Invoice"]
@@ -1103,10 +1123,6 @@ class Subscription(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     """
     automatic_tax: AutomaticTax
-    billing_cadence: Optional[str]
-    """
-    The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    """
     billing_cycle_anchor: int
     """
     The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.

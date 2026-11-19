@@ -40,6 +40,12 @@ class FinancialAccountCreateParamsStorage(TypedDict):
     """
     Crypto-specific storage configuration. Fiat currencies remain configured only through `holds_currencies`.
     """
+    funds_holding_structure: NotRequired[
+        "Literal['demand_deposit_account', 'for_benefit_of']|str"
+    ]
+    """
+    How funds in this FinancialAccount are held. Defaults to `for_benefit_of` if not specified.
+    """
     funds_usage_type: NotRequired["Literal['business', 'consumer']|str"]
     """
     The usage type for funds in this FinancialAccount. Defaults to BUSINESS if not specified.

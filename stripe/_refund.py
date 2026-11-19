@@ -12,6 +12,7 @@ from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._application import Application
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
     from stripe._customer import Customer
@@ -152,6 +153,12 @@ class Refund(
             reference_status: Optional[str]
             """
             Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class GiftCard(StripeObject):
+            gift_card_operation: Optional[str]
+            """
+            ID of the reload or activation GiftCardOperation created for this refund.
             """
 
         class Giropay(StripeObject):
@@ -331,6 +338,7 @@ class Refund(
         eps: Optional[Eps]
         eu_bank_transfer: Optional[EuBankTransfer]
         gb_bank_transfer: Optional[GbBankTransfer]
+        gift_card: Optional[GiftCard]
         giropay: Optional[Giropay]
         grabpay: Optional[Grabpay]
         id_bank_transfer: Optional[IdBankTransfer]
@@ -375,6 +383,7 @@ class Refund(
             "eps": Eps,
             "eu_bank_transfer": EuBankTransfer,
             "gb_bank_transfer": GbBankTransfer,
+            "gift_card": GiftCard,
             "giropay": Giropay,
             "grabpay": Grabpay,
             "id_bank_transfer": IdBankTransfer,
@@ -439,6 +448,10 @@ class Refund(
     amount: int
     """
     Amount, in cents (or local equivalent).
+    """
+    application: Optional[ExpandableField["Application"]]
+    """
+    ID of the Connect application that created the refund. This can differ from the application on the associated Charge or PaymentIntent. A null value does not necessarily mean the refund was created without a Connect application.
     """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     """

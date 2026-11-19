@@ -390,7 +390,7 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     statement_descriptor_suffix: NotRequired[str]
     """
-    Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+    Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. A suffix longer than 22 characters returns an error. If a valid suffix makes the complete statement descriptor longer than 22 characters, Stripe truncates the descriptor instead of returning an error. Learn how to [fit the suffix in the complete descriptor](https://docs.stripe.com/get-started/account/statement-descriptors#suffix-length).
     """
     transfer_data: NotRequired["PaymentIntentCreateParamsTransferData"]
     """
@@ -5686,21 +5686,21 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentAadeData(
     TypedDict,
 ):
-    mark_data: NotRequired[str]
-    """
-    The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
-    """
     mode: Literal["autonomous", "standard"]
     """
-    The e-invoicing mode under which the mark was generated.
+    The e-invoicing mode under which the provider signature was generated.
     """
     provider_id: NotRequired[int]
     """
-    The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+    The AADE-assigned approval number of the e-invoicing provider that generated the provider signature. Required when `mode` is `standard`.
     """
-    signed_mark: NotRequired[str]
+    provider_signature: NotRequired[str]
     """
     The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
+    """
+    provider_signature_data: NotRequired[str]
+    """
+    The canonical string that was signed by the e-invoicing provider to produce `provider_signature`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
     """
     unbound_pos: NotRequired[
         Literal["interconnection_loss", "lock", "replacement_cash_system"]
@@ -8366,6 +8366,10 @@ class PaymentIntentCreateParamsPaymentMethodOptionsVipps(TypedDict):
     """
     Payment details for payment method specific funding transaction fields.
     """
+    request_multicapture: NotRequired["Literal['if_available', 'never']|str"]
+    """
+    Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+    """
     setup_future_usage: NotRequired[Literal["none"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -8467,6 +8471,10 @@ class PaymentIntentCreateParamsPaymentsOrchestration(TypedDict):
 
 
 class PaymentIntentCreateParamsRadarOptions(TypedDict):
+    is_free_trial_transaction: NotRequired[bool]
+    """
+    Whether this transaction starts a free trial. Set to `true` for a free trial or `false` otherwise. If omitted, retains the previously set value. If never set, Stripe uses Billing or metadata to determine trial status.
+    """
     referrer: NotRequired["Literal['']|str"]
     """
     The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.

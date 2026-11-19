@@ -36,6 +36,10 @@ class Plan(ListableAPIResource["Plan"]):
         """
         The number of days to reserve funds before releasing.
         """
+        days_after_fulfillment: Optional[int]
+        """
+        The number of days after the PaymentIntent's `fulfillment_date` to reserve funds before releasing. Charges without a `fulfillment_date` use `days_after_charge`.
+        """
         expires_on: Optional[int]
         """
         The time at which the ReservePlan expires.

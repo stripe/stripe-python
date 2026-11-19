@@ -9,7 +9,7 @@ class TermListContractTermsParams(TypedDict):
     Maximum results per page.
     """
     type: NotRequired[
-        "Literal['ad_hoc_product', 'pricing_override', 'recurring_price']|str"
+        "Literal['pricing_override', 'recurring_price', 'scheduled_fee']|str"
     ]
     """
     Filter terms by type.

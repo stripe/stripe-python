@@ -48,8 +48,10 @@ if TYPE_CHECKING:
         pass
 
     try:
-        from httpx import Timeout as HTTPXTimeout
-        from httpx import Client as HTTPXClientType
+        from httpx2 import Timeout as HTTPXTimeout
+        from httpx2 import Client as HTTPXClientType
+        from httpx2 import AsyncBaseTransport as HTTPXAsyncTransport
+        from httpx2 import BaseTransport as HTTPXSyncTransport
     except ImportError:
         pass
 
@@ -858,12 +860,17 @@ class PycurlClient(HTTPClient):
         proxy: Optional[HTTPClient._Proxy] = None,
         async_fallback_client: Optional[HTTPClient] = None,
         _lib=None,  # used for internal unit testing
+        *,
+        timeout: int = 80,
+        connect_timeout: int = 30,
     ):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
             proxy=proxy,
             async_fallback_client=async_fallback_client,
         )
+        self._timeout = timeout
+        self._connect_timeout = connect_timeout
 
         if _lib is None:
             import pycurl  # pyright: ignore[reportMissingModuleSource]
@@ -871,8 +878,6 @@ class PycurlClient(HTTPClient):
             _lib = pycurl
 
         self.pycurl = _lib
-        # Initialize this within the object so that we can reuse connections.
-        self._curl = _lib.Curl()
 
         self._parsed_proxy = {}
         # need to urlparse the proxy, since PyCurl
@@ -885,6 +890,20 @@ class PycurlClient(HTTPClient):
                 # In general, TypedDict.items() gives you (key: str, value: object)
                 # but we know value to be a string because all the value types on Proxy_ are strings.
                 self._parsed_proxy[scheme] = urlparse(cast(str, value))
+
+    def _get_curl(self):
+        """
+        Returns this thread's Curl handle, creating it on first use.
+
+        A libcurl easy handle must never be used by more than one thread at a
+        time, so each thread gets its own. Reusing a handle within a thread
+        lets us keep its established connections.
+        """
+        curl = getattr(self._thread_local, "curl", None)
+        if curl is None:
+            curl = self.pycurl.Curl()
+            self._thread_local.curl = curl
+        return curl
 
     def parse_headers(self, data):
         if "\r\n" not in data:
@@ -944,48 +963,49 @@ class PycurlClient(HTTPClient):
         # pristine state, but notably reset() doesn't reset connections, so we
         # still get to take advantage of those by virtue of re-using the same
         # object.
-        self._curl.reset()
+        curl = self._get_curl()
+        curl.reset()
 
         proxy = self._get_proxy(url)
         if proxy:
             if proxy.hostname:
-                self._curl.setopt(self.pycurl.PROXY, proxy.hostname)
+                curl.setopt(self.pycurl.PROXY, proxy.hostname)
             if proxy.port:
-                self._curl.setopt(self.pycurl.PROXYPORT, proxy.port)
+                curl.setopt(self.pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
-                self._curl.setopt(
+                curl.setopt(
                     self.pycurl.PROXYUSERPWD,
                     "%s:%s" % (proxy.username, proxy.password),
                 )
 
         if method == "get":
-            self._curl.setopt(self.pycurl.HTTPGET, 1)
+            curl.setopt(self.pycurl.HTTPGET, 1)
         elif method == "post":
-            self._curl.setopt(self.pycurl.POST, 1)
-            self._curl.setopt(self.pycurl.POSTFIELDS, post_data)
+            curl.setopt(self.pycurl.POST, 1)
+            curl.setopt(self.pycurl.POSTFIELDS, post_data)
         else:
-            self._curl.setopt(self.pycurl.CUSTOMREQUEST, method.upper())
+            curl.setopt(self.pycurl.CUSTOMREQUEST, method.upper())
 
         # pycurl doesn't like unicode URLs
-        self._curl.setopt(self.pycurl.URL, url)
+        curl.setopt(self.pycurl.URL, url)
 
-        self._curl.setopt(self.pycurl.WRITEFUNCTION, b.write)
-        self._curl.setopt(self.pycurl.HEADERFUNCTION, rheaders.write)
-        self._curl.setopt(self.pycurl.NOSIGNAL, 1)
-        self._curl.setopt(self.pycurl.CONNECTTIMEOUT, 30)
-        self._curl.setopt(self.pycurl.TIMEOUT, 80)
+        curl.setopt(self.pycurl.WRITEFUNCTION, b.write)
+        curl.setopt(self.pycurl.HEADERFUNCTION, rheaders.write)
+        curl.setopt(self.pycurl.NOSIGNAL, 1)
+        curl.setopt(self.pycurl.CONNECTTIMEOUT, self._connect_timeout)
+        curl.setopt(self.pycurl.TIMEOUT, self._timeout)
         _assert_no_header_injection(headers)
-        self._curl.setopt(
+        curl.setopt(
             self.pycurl.HTTPHEADER,
             ["%s: %s" % (k, v) for k, v in dict(headers).items()],
         )
         if self._verify_ssl_certs:
-            self._curl.setopt(self.pycurl.CAINFO, stripe.ca_bundle_path)
+            curl.setopt(self.pycurl.CAINFO, stripe.ca_bundle_path)
         else:
-            self._curl.setopt(self.pycurl.SSL_VERIFYHOST, False)
+            curl.setopt(self.pycurl.SSL_VERIFYHOST, False)
 
         try:
-            self._curl.perform()
+            curl.perform()
         except self.pycurl.error as e:
             self._handle_request_error(e)
 
@@ -995,7 +1015,7 @@ class PycurlClient(HTTPClient):
         else:
             rcontent = b.getvalue().decode("utf-8")
 
-        rcode = self._curl.getinfo(self.pycurl.RESPONSE_CODE)
+        rcode = curl.getinfo(self.pycurl.RESPONSE_CODE)
         headers = self.parse_headers(rheaders.getvalue().decode("utf-8"))
 
         return rcontent, rcode, headers
@@ -1044,7 +1064,10 @@ class PycurlClient(HTTPClient):
         return None
 
     def close(self):
-        pass
+        curl = getattr(self._thread_local, "curl", None)
+        if curl is not None:
+            curl.close()
+            self._thread_local.curl = None
 
 
 class UrllibClient(HTTPClient):
@@ -1172,6 +1195,67 @@ class UrllibClient(HTTPClient):
         pass
 
 
+def _get_httpx_async_mounts(
+    httpx: Any,
+    proxy: Optional[HTTPClient._Proxy],
+    verify: Union[ssl.SSLContext, bool],
+) -> Optional[Dict[str, "HTTPXAsyncTransport"]]:
+    """
+    Returns the `mounts` option that routes an `httpx.AsyncClient` (or the
+    `httpx2` equivalent) through `proxy`, or `None` when there's no proxy.
+
+    httpx only accepts proxies at the client level, and needs a transport
+    mounted per URL scheme to use a different proxy for each one.
+    """
+    if not proxy:
+        return None
+
+    return {
+        f"{scheme}://": httpx.AsyncHTTPTransport(
+            proxy=proxy_url, verify=verify
+        )
+        for scheme, proxy_url in proxy.items()
+        if proxy_url
+    }
+
+
+def _get_httpx_sync_mounts(
+    httpx: Any,
+    proxy: Optional[HTTPClient._Proxy],
+    verify: Union[ssl.SSLContext, bool],
+) -> Optional[Dict[str, "HTTPXSyncTransport"]]:
+    """
+    The sync `Client` counterpart of `_get_httpx_async_mounts`, since sync
+    and async clients can't share transports.
+    """
+    if not proxy:
+        return None
+
+    return {
+        f"{scheme}://": httpx.HTTPTransport(proxy=proxy_url, verify=verify)
+        for scheme, proxy_url in proxy.items()
+        if proxy_url
+    }
+
+
+# TODO: (DEVSDK-3427) No longer necessary in the next major version.
+def _coerce_httpx_timeout(httpx_lib: Any, timeout: Any) -> Any:
+    """
+    `httpx` and `httpx2` each define their own `Timeout` class and neither
+    recognizes the other's, so a `Timeout` from the library that isn't in use
+    is rebuilt as one from the library that is.
+    """
+    if timeout is None or isinstance(timeout, (int, float, httpx_lib.Timeout)):
+        return timeout
+
+    return httpx_lib.Timeout(
+        connect=timeout.connect,
+        read=timeout.read,
+        write=timeout.write,
+        pool=timeout.pool,
+    )
+
+
 class HTTPXClient(HTTPClient):
     name = "httpx"
 
@@ -1187,28 +1271,32 @@ class HTTPXClient(HTTPClient):
         super(HTTPXClient, self).__init__(**kwargs)
 
         if _lib is None:
-            import httpx
-
-            _lib = httpx
-        self.httpx = _lib
+            # TODO: (DEVSDK-3427) drop the httpx fallback in the next major version.
+            try:
+                import httpx2 as _lib
+            except ImportError:
+                import httpx as _lib
+        self.httpx: Any = _lib
 
         import anyio
 
         self.anyio = anyio
 
-        kwargs = {}
+        verify: Union[ssl.SSLContext, Literal[False]] = False
         if self._verify_ssl_certs:
-            kwargs["verify"] = ssl.create_default_context(
-                cafile=stripe.ca_bundle_path
-            )
-        else:
-            kwargs["verify"] = False
+            verify = ssl.create_default_context(cafile=stripe.ca_bundle_path)
 
-        self._client_async = self.httpx.AsyncClient(**kwargs)
+        self._client_async = self.httpx.AsyncClient(
+            verify=verify,
+            mounts=_get_httpx_async_mounts(self.httpx, self._proxy, verify),
+        )
         self._client = None
         if allow_sync_methods:
-            self._client = self.httpx.Client(**kwargs)
-        self._timeout = timeout
+            self._client = self.httpx.Client(
+                verify=verify,
+                mounts=_get_httpx_sync_mounts(self.httpx, self._proxy, verify),
+            )
+        self._timeout = _coerce_httpx_timeout(self.httpx, timeout)
 
     def sleep_async(self, secs):
         return self.anyio.sleep(secs)
@@ -1218,14 +1306,13 @@ class HTTPXClient(HTTPClient):
     ):
         kwargs = {}
 
-        if self._proxy:
-            kwargs["proxies"] = self._proxy
-
         if self._timeout:
             kwargs["timeout"] = self._timeout
+        # `post_data` is an already-encoded body, which httpx takes as
+        # `content`; passing it as `data` is deprecated.
         return [
             (method, url),
-            {"headers": headers, "data": post_data or {}, **kwargs},
+            {"headers": headers, "content": post_data or None, **kwargs},
         ]
 
     def request(
@@ -1477,9 +1564,9 @@ class NoImportFoundAsyncClient(HTTPClient):
     def raise_async_client_import_error() -> Never:
         raise ImportError(
             (
-                "Import httpx not found. To make async http requests,"
-                "You must either install httpx or define your own"
-                "async http client by subclassing stripe.HTTPClient"
+                "Import httpx2 not found. To make async http requests, "
+                "you must either install httpx2 or define your own "
+                "async http client by subclassing stripe.HTTPClient "
                 "and setting stripe.default_http_client to an instance of it."
             )
         )
@@ -1500,7 +1587,7 @@ class NoImportFoundAsyncClient(HTTPClient):
 
 # --- Client resolution ---
 # Detect available HTTP libraries at module load time so the expensive imports
-# (e.g. requests, httpx) happen during Python's init phase rather than when
+# (e.g. requests, httpx2) happen during Python's init phase rather than when
 # StripeClient() is constructed. This matters in environments like AWS Lambda
 # where module loading has a generous timeout (10s) but handler invocation
 # does not (often 3s).
@@ -1512,9 +1599,14 @@ class NoImportFoundAsyncClient(HTTPClient):
 #   4. urllib (stdlib fallback, basically always present)
 #
 # Async client precedence:
-#   1. httpx + anyio (both required)
-#   2. aiohttp
-#   3. NoImportFoundAsyncClient (raises on use)
+#   1. httpx2 + anyio (both required)
+#   2. (deprecated, see note) httpx + anyio (both required)
+#   3. aiohttp
+#   4. NoImportFoundAsyncClient (raises on use)
+#
+# Note: httpx is no longer maintained, so we only fall back to it for users who
+# haven't installed httpx2 yet. That fallback is deprecated and will be removed
+# in the next major version (DEVSDK-3427).
 #
 # To add a new client: define the class above, then add it to the appropriate
 # cascade below. The resolved class is stored directly — new_default_http_client()
@@ -1548,8 +1640,13 @@ def _resolve_sync_client():
 
 def _resolve_async_client():
     try:
-        import httpx  # noqa: F401
         import anyio  # noqa: F401
+
+        # TODO: (DEVSDK-3427) drop the httpx fallback in the next major version.
+        try:
+            import httpx2  # noqa: F401
+        except ImportError:
+            import httpx  # noqa: F401
 
         return HTTPXClient
     except ImportError:

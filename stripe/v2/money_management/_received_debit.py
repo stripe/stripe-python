@@ -112,6 +112,53 @@ class ReceivedDebit(StripeObject):
             """
             _inner_class_types = {"ach": Ach}
 
+        class OriginatingBankAccount(StripeObject):
+            class Aba(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that originated the debit, as provided by the ACH network.
+                """
+                bank_name: Optional[str]
+                """
+                The name of the bank the debit originated from.
+                """
+                routing_number: Optional[str]
+                """
+                The routing number of the bank that originated the debit.
+                """
+
+            class SortCode(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The name of the account holder that originated the debit.
+                """
+                bank_name: Optional[str]
+                """
+                The name of the bank the debit originated from.
+                """
+                last4: Optional[str]
+                """
+                Last 4 digits of the bank account number.
+                """
+                sort_code: Optional[str]
+                """
+                The sort code of the bank that originated the debit.
+                """
+
+            aba: Optional[Aba]
+            """
+            Details of the originating account. Present when type is `aba`.
+            """
+            sort_code: Optional[SortCode]
+            """
+            Details of the originating account. Present when type is `sort_code`.
+            """
+            type: Union[Literal["aba", "sort_code"], str]
+            """
+            The credential type identifying the originating bank account.
+            """
+            _inner_class_types = {"aba": Aba, "sort_code": SortCode}
+
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
             """
@@ -132,8 +179,13 @@ class ReceivedDebit(StripeObject):
         """
         gb_bank_account: Optional[GbBankAccount]
         """
+        Deprecated: Use `bank_transfer.originating_bank_account.sort_code` instead.
         Object containing details of the GB Bank Account that originated the debit.
         Present when the debit was originated via BACS.
+        """
+        network: Union[Literal["ach", "bacs"], str]
+        """
+        The bank network the debit was originated on.
         """
         network_details: Optional[NetworkDetails]
         """
@@ -141,12 +193,18 @@ class ReceivedDebit(StripeObject):
         """
         origin_type: Union[Literal["gb_bank_account", "us_bank_account"], str]
         """
+        Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
         Open Enum. Indicates the origin type through which this debit was initiated.
+        """
+        originating_bank_account: OriginatingBankAccount
+        """
+        The originating bank account's credential details.
         """
         payment_method_type: Union[
             Literal["gb_bank_account", "us_bank_account"], str
         ]
         """
+        Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
         Open Enum. The type of the payment method used to originate the debit.
         """
         spending_mandate: Optional[str]
@@ -159,12 +217,14 @@ class ReceivedDebit(StripeObject):
         """
         us_bank_account: Optional[UsBankAccount]
         """
+        Deprecated: Use `bank_transfer.originating_bank_account.aba` instead.
         Object containing details of the US Bank Account that originated the debit.
         Present when the debit was originated via ACH.
         """
         _inner_class_types = {
             "gb_bank_account": GbBankAccount,
             "network_details": NetworkDetails,
+            "originating_bank_account": OriginatingBankAccount,
             "us_bank_account": UsBankAccount,
         }
 

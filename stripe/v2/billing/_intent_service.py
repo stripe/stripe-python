@@ -123,6 +123,17 @@ class IntentService(StripeService):
                                 },
                             },
                         },
+                        "billing_group_data": {
+                            "billing_settings": {
+                                "payment_method_options": {
+                                    "card": {
+                                        "mandate_options": {
+                                            "amount": "int64_string",
+                                        },
+                                    },
+                                },
+                            },
+                        },
                     },
                 ),
                 options=options,
@@ -151,6 +162,17 @@ class IntentService(StripeService):
                                 "invoice_discount_rule": {
                                     "percent_off": {
                                         "percent_off": "decimal_string",
+                                    },
+                                },
+                            },
+                        },
+                        "billing_group_data": {
+                            "billing_settings": {
+                                "payment_method_options": {
+                                    "card": {
+                                        "mandate_options": {
+                                            "amount": "int64_string",
+                                        },
                                     },
                                 },
                             },

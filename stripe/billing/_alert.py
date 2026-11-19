@@ -131,10 +131,6 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     class SpendThreshold(StripeObject):
         class Filters(StripeObject):
-            billing_cadence: Optional[str]
-            """
-            Filter by billing cadence ID.
-            """
             billing_group: Optional[str]
             """
             Filter by billing group ID.
@@ -229,7 +225,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         Filters to scope the spend calculation.
         """
         group_by: Optional[
-            Union[Literal["billing_cadence", "pricing_plan_subscription"], str]
+            Union[Literal["billing_group", "pricing_plan_subscription"], str]
         ]
         """
         Defines the granularity of spend aggregation.

@@ -10,11 +10,15 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class ContractUpdateParams(TypedDict):
     actions: NotRequired[List["ContractUpdateParamsAction"]]
     """
-    Apply all actions atomically. Cannot be combined with the legacy child action arrays.
+    Apply all term actions atomically.
     """
     billing_settings: NotRequired["ContractUpdateParamsBillingSettings"]
     """
     The billing settings to update on the contract.
+    """
+    contract_number: NotRequired[str]
+    """
+    The unique user-provided contract number. This can only be changed while the contract is in draft.
     """
     include: NotRequired[
         List[
@@ -39,24 +43,6 @@ class ContractUpdateParams(TypedDict):
     """
     Set of key-value pairs.
     """
-    one_time_fee_actions: NotRequired[
-        List["ContractUpdateParamsOneTimeFeeAction"]
-    ]
-    """
-    One-time fee actions to apply.
-    """
-    pricing_line_actions: NotRequired[
-        List["ContractUpdateParamsPricingLineAction"]
-    ]
-    """
-    Pricing line actions to apply.
-    """
-    pricing_override_actions: NotRequired[
-        List["ContractUpdateParamsPricingOverrideAction"]
-    ]
-    """
-    Pricing override actions to apply.
-    """
 
 
 class ContractUpdateParamsAction(TypedDict):
@@ -79,12 +65,6 @@ class ContractUpdateParamsAction(TypedDict):
 
 
 class ContractUpdateParamsActionAddTerm(TypedDict):
-    ad_hoc_product: NotRequired[
-        "ContractUpdateParamsActionAddTermAdHocProduct"
-    ]
-    """
-    Required when type is ad_hoc_product.
-    """
     lookup_key: NotRequired[str]
     """
     Lookup key unique across all term types on the contract.
@@ -105,108 +85,15 @@ class ContractUpdateParamsActionAddTerm(TypedDict):
     """
     Required when type is recurring_price.
     """
+    scheduled_fee: NotRequired["ContractUpdateParamsActionAddTermScheduledFee"]
+    """
+    Required when type is scheduled_fee.
+    """
     type: Union[
-        Literal["ad_hoc_product", "pricing_override", "recurring_price"], str
+        Literal["pricing_override", "recurring_price", "scheduled_fee"], str
     ]
     """
     The term type. Production types require exactly one matching payload.
-    """
-
-
-class ContractUpdateParamsActionAddTermAdHocProduct(TypedDict):
-    bill_schedule: "ContractUpdateParamsActionAddTermAdHocProductBillSchedule"
-    """
-    Explicit bill dates and amounts.
-    """
-    product: str
-    """
-    The V1 Product being billed.
-    """
-    service_period: NotRequired[
-        "ContractUpdateParamsActionAddTermAdHocProductServicePeriod"
-    ]
-    """
-    Informational service period, independent of bill dates.
-    """
-
-
-class ContractUpdateParamsActionAddTermAdHocProductBillSchedule(TypedDict):
-    custom: NotRequired[
-        List["ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom"]
-    ]
-    """
-    Between one and ten installments. Empty schedules are allowed only on update.
-    """
-    type: Union[Literal["custom"], str]
-    """
-    The type of schedule.
-    """
-
-
-class ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustom(
-    TypedDict,
-):
-    amount: AmountParam
-    """
-    Non-negative amount with an explicit currency that must match the contract's currency.
-    """
-    bill_at: (
-        "ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt"
-    )
-    """
-    A finite bill date. Resolved once per request, including on idempotent retries.
-    """
-
-
-class ContractUpdateParamsActionAddTermAdHocProductBillScheduleCustomBillAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["now", "timestamp"], str]
-    """
-    The type of the bill_at.
-    """
-
-
-class ContractUpdateParamsActionAddTermAdHocProductServicePeriod(TypedDict):
-    ends_at: "ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt"
-    """
-    The finite exclusive end; must be after starts_at. Never is not supported.
-    """
-    starts_at: (
-        "ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt"
-    )
-    """
-    The finite inclusive start of the service period.
-    """
-
-
-class ContractUpdateParamsActionAddTermAdHocProductServicePeriodEndsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
-    """
-
-
-class ContractUpdateParamsActionAddTermAdHocProductServicePeriodStartsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
     """
 
 
@@ -215,7 +102,7 @@ class ContractUpdateParamsActionAddTermPricingOverride(TypedDict):
         List["ContractUpdateParamsActionAddTermPricingOverrideCriterion"]
     ]
     """
-    Optional criteria selecting recurring or ad_hoc_product terms. If omitted, the override applies to all recurring and ad_hoc_product terms.
+    Optional criteria selecting recurring or scheduled_fee terms. If omitted, the override applies to all recurring and scheduled_fee terms.
     """
     ends_at: NotRequired[
         "ContractUpdateParamsActionAddTermPricingOverrideEndsAt"
@@ -259,7 +146,7 @@ class ContractUpdateParamsActionAddTermPricingOverrideCriterion(TypedDict):
     """
     type: Union[Literal["exclude", "include"], str]
     """
-    Whether to include or exclude the selected recurring or ad_hoc_product terms.
+    Whether to include or exclude the selected recurring or scheduled_fee terms.
     """
 
 
@@ -283,7 +170,7 @@ class ContractUpdateParamsActionAddTermPricingOverrideEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["never", "timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -308,7 +195,7 @@ class ContractUpdateParamsActionAddTermPricingOverrideStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["now", "timestamp"], str]
     """
     The type of the starts_at.
     """
@@ -340,7 +227,7 @@ class ContractUpdateParamsActionAddTermRecurringPriceEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["never", "timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -351,7 +238,104 @@ class ContractUpdateParamsActionAddTermRecurringPriceStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the starts_at.
+    """
+
+
+class ContractUpdateParamsActionAddTermScheduledFee(TypedDict):
+    bill_schedule: "ContractUpdateParamsActionAddTermScheduledFeeBillSchedule"
+    """
+    Explicit bill dates and amounts.
+    """
+    product: str
+    """
+    The V1 Product being billed.
+    """
+    service_period: NotRequired[
+        "ContractUpdateParamsActionAddTermScheduledFeeServicePeriod"
+    ]
+    """
+    Informational service period, independent of bill dates.
+    """
+
+
+class ContractUpdateParamsActionAddTermScheduledFeeBillSchedule(TypedDict):
+    custom: NotRequired[
+        List["ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustom"]
+    ]
+    """
+    Between one and ten installments. Empty schedules are allowed only on update.
+    """
+    type: Union[Literal["custom"], str]
+    """
+    The type of schedule.
+    """
+
+
+class ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustom(
+    TypedDict,
+):
+    amount: AmountParam
+    """
+    Non-negative amount with an explicit currency that must match the contract's currency.
+    """
+    bill_at: (
+        "ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustomBillAt"
+    )
+    """
+    A finite bill date. Resolved once per request, including on idempotent retries.
+    """
+
+
+class ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustomBillAt(
+    TypedDict,
+):
+    timestamp: NotRequired[str]
+    """
+    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the bill_at.
+    """
+
+
+class ContractUpdateParamsActionAddTermScheduledFeeServicePeriod(TypedDict):
+    ends_at: "ContractUpdateParamsActionAddTermScheduledFeeServicePeriodEndsAt"
+    """
+    The finite exclusive end; must be after starts_at. Never is not supported.
+    """
+    starts_at: (
+        "ContractUpdateParamsActionAddTermScheduledFeeServicePeriodStartsAt"
+    )
+    """
+    The finite inclusive start of the service period.
+    """
+
+
+class ContractUpdateParamsActionAddTermScheduledFeeServicePeriodEndsAt(
+    TypedDict,
+):
+    timestamp: NotRequired[str]
+    """
+    The timestamp when the item starts. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the starts_at.
+    """
+
+
+class ContractUpdateParamsActionAddTermScheduledFeeServicePeriodStartsAt(
+    TypedDict,
+):
+    timestamp: NotRequired[str]
+    """
+    The timestamp when the item starts. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
     """
     The type of the starts_at.
     """
@@ -380,12 +364,6 @@ class ContractUpdateParamsActionRemoveTermTerm(TypedDict):
 
 
 class ContractUpdateParamsActionUpdateTerm(TypedDict):
-    ad_hoc_product: NotRequired[
-        "ContractUpdateParamsActionUpdateTermAdHocProduct"
-    ]
-    """
-    Must match the existing term's type.
-    """
     metadata: NotRequired[
         "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
     ]
@@ -404,106 +382,15 @@ class ContractUpdateParamsActionUpdateTerm(TypedDict):
     """
     Must match the existing term's type.
     """
+    scheduled_fee: NotRequired[
+        "ContractUpdateParamsActionUpdateTermScheduledFee"
+    ]
+    """
+    Must match the existing term's type.
+    """
     term: "ContractUpdateParamsActionUpdateTermTerm"
     """
     Select a term by ID or its unique lookup key.
-    """
-
-
-class ContractUpdateParamsActionUpdateTermAdHocProduct(TypedDict):
-    bill_schedule: NotRequired[
-        "ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule"
-    ]
-    """
-    Replace remaining unbilled installments. Billed entries remain immutable.
-    """
-    service_period: NotRequired[
-        "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod"
-    ]
-    """
-    Informational service period; cannot change historical billing.
-    """
-
-
-class ContractUpdateParamsActionUpdateTermAdHocProductBillSchedule(TypedDict):
-    custom: NotRequired[
-        List[
-            "ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom"
-        ]
-    ]
-    """
-    Full replacement of up to ten unbilled installments. An explicit empty array cancels all of them.
-    """
-    type: Union[Literal["custom"], str]
-    """
-    The type of schedule.
-    """
-
-
-class ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustom(
-    TypedDict,
-):
-    amount: AmountParam
-    """
-    Non-negative amount with an explicit currency that must match the contract's currency.
-    """
-    bill_at: "ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt"
-    """
-    A finite bill date. Resolved once per request, including on idempotent retries.
-    """
-
-
-class ContractUpdateParamsActionUpdateTermAdHocProductBillScheduleCustomBillAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["now", "timestamp"], str]
-    """
-    The type of the bill_at.
-    """
-
-
-class ContractUpdateParamsActionUpdateTermAdHocProductServicePeriod(TypedDict):
-    ends_at: (
-        "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt"
-    )
-    """
-    The finite exclusive end; must be after starts_at. Never is not supported.
-    """
-    starts_at: (
-        "ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt"
-    )
-    """
-    The finite inclusive start of the service period.
-    """
-
-
-class ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodEndsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
-    """
-
-
-class ContractUpdateParamsActionUpdateTermAdHocProductServicePeriodStartsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
     """
 
 
@@ -527,7 +414,7 @@ class ContractUpdateParamsActionUpdateTermPricingOverrideEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["never", "timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -538,7 +425,7 @@ class ContractUpdateParamsActionUpdateTermPricingOverrideStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["now", "timestamp"], str]
     """
     The type of the starts_at.
     """
@@ -569,7 +456,7 @@ class ContractUpdateParamsActionUpdateTermRecurringPriceEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["never", "timestamp"], str]
+    type: Union[Literal["never", "now", "timestamp"], str]
     """
     The type of the ends_at.
     """
@@ -580,7 +467,104 @@ class ContractUpdateParamsActionUpdateTermRecurringPriceStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Union[Literal["timestamp"], str]
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the starts_at.
+    """
+
+
+class ContractUpdateParamsActionUpdateTermScheduledFee(TypedDict):
+    bill_schedule: NotRequired[
+        "ContractUpdateParamsActionUpdateTermScheduledFeeBillSchedule"
+    ]
+    """
+    Replace remaining unbilled installments. Billed entries remain immutable.
+    """
+    service_period: NotRequired[
+        "ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriod"
+    ]
+    """
+    Informational service period; cannot change historical billing.
+    """
+
+
+class ContractUpdateParamsActionUpdateTermScheduledFeeBillSchedule(TypedDict):
+    custom: NotRequired[
+        List[
+            "ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustom"
+        ]
+    ]
+    """
+    Full replacement of up to ten unbilled installments. An explicit empty array cancels all of them.
+    """
+    type: Union[Literal["custom"], str]
+    """
+    The type of schedule.
+    """
+
+
+class ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustom(
+    TypedDict,
+):
+    amount: AmountParam
+    """
+    Non-negative amount with an explicit currency that must match the contract's currency.
+    """
+    bill_at: "ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustomBillAt"
+    """
+    A finite bill date. Resolved once per request, including on idempotent retries.
+    """
+
+
+class ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustomBillAt(
+    TypedDict,
+):
+    timestamp: NotRequired[str]
+    """
+    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the bill_at.
+    """
+
+
+class ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriod(TypedDict):
+    ends_at: (
+        "ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodEndsAt"
+    )
+    """
+    The finite exclusive end; must be after starts_at. Never is not supported.
+    """
+    starts_at: (
+        "ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodStartsAt"
+    )
+    """
+    The finite inclusive start of the service period.
+    """
+
+
+class ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodEndsAt(
+    TypedDict,
+):
+    timestamp: NotRequired[str]
+    """
+    The timestamp when the item starts. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
+    """
+    The type of the starts_at.
+    """
+
+
+class ContractUpdateParamsActionUpdateTermScheduledFeeServicePeriodStartsAt(
+    TypedDict,
+):
+    timestamp: NotRequired[str]
+    """
+    The timestamp when the item starts. Required if `type` is `timestamp`.
+    """
+    type: Union[Literal["now", "timestamp"], str]
     """
     The type of the starts_at.
     """
@@ -697,757 +681,4 @@ class ContractUpdateParamsBillingSettingsCollectionSettingsDetails(TypedDict):
     payment_method_configuration: NotRequired[str]
     """
     The payment method configuration.
-    """
-
-
-class ContractUpdateParamsOneTimeFeeAction(TypedDict):
-    add: NotRequired["ContractUpdateParamsOneTimeFeeActionAdd"]
-    """
-    Parameters for adding a one-time fee.
-    """
-    remove: NotRequired["ContractUpdateParamsOneTimeFeeActionRemove"]
-    """
-    Parameters for removing a one-time fee.
-    """
-    type: Literal["add", "remove", "update"]
-    """
-    The type of one-time fee action.
-    """
-    update: NotRequired["ContractUpdateParamsOneTimeFeeActionUpdate"]
-    """
-    Parameters for updating a one-time fee.
-    """
-
-
-class ContractUpdateParamsOneTimeFeeActionAdd(TypedDict):
-    amount: AmountParam
-    """
-    The amount to bill.
-    """
-    bill_at: "ContractUpdateParamsOneTimeFeeActionAddBillAt"
-    """
-    When this fee should be billed.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Metadata for the one-time fee.
-    """
-    product: str
-    """
-    The id of the product for this fee.
-    """
-
-
-class ContractUpdateParamsOneTimeFeeActionAddBillAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["now", "timestamp"], str]
-    """
-    The type of the bill_at.
-    """
-
-
-class ContractUpdateParamsOneTimeFeeActionRemove(TypedDict):
-    id: NotRequired[str]
-    """
-    The id of the one-time fee to remove.
-    """
-    lookup_key: NotRequired[str]
-    """
-    The lookup key of the one-time fee to remove.
-    """
-
-
-class ContractUpdateParamsOneTimeFeeActionUpdate(TypedDict):
-    amount: NotRequired[AmountParam]
-    """
-    The updated amount to bill.
-    """
-    bill_at: NotRequired["ContractUpdateParamsOneTimeFeeActionUpdateBillAt"]
-    """
-    The updated bill_at schedule.
-    """
-    id: NotRequired[str]
-    """
-    The id of the one-time fee to update.
-    """
-    lookup_key: NotRequired[str]
-    """
-    The lookup key of the one-time fee to update.
-    """
-    metadata: NotRequired[
-        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
-    ]
-    """
-    Metadata mutations to apply to the one-time fee.
-    """
-
-
-class ContractUpdateParamsOneTimeFeeActionUpdateBillAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["now", "timestamp"], str]
-    """
-    The type of the bill_at.
-    """
-
-
-class ContractUpdateParamsPricingLineAction(TypedDict):
-    add: NotRequired["ContractUpdateParamsPricingLineActionAdd"]
-    """
-    Add a pricing line.
-    """
-    remove: NotRequired["ContractUpdateParamsPricingLineActionRemove"]
-    """
-    Remove a pricing line.
-    """
-    type: Union[Literal["add", "remove", "update"], str]
-    """
-    The type of pricing line action.
-    """
-    update: NotRequired["ContractUpdateParamsPricingLineActionUpdate"]
-    """
-    Update a pricing line.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAdd(TypedDict):
-    ends_at: NotRequired["ContractUpdateParamsPricingLineActionAddEndsAt"]
-    """
-    The end time for the pricing line.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A lookup key for the pricing line.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Metadata for the pricing line.
-    """
-    pricing: "ContractUpdateParamsPricingLineActionAddPricing"
-    """
-    The pricing configuration for the pricing line.
-    """
-    starts_at: "ContractUpdateParamsPricingLineActionAddStartsAt"
-    """
-    The start time for the pricing line.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddEndsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing ends.
-    """
-    type: Union[Literal["never", "now", "timestamp"], str]
-    """
-    The type of end time to apply.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricing(TypedDict):
-    price_details: NotRequired[
-        "ContractUpdateParamsPricingLineActionAddPricingPriceDetails"
-    ]
-    """
-    V1 price details. Required if `type` is `price`.
-    """
-    type: Union[Literal["price"], str]
-    """
-    The type of pricing.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetails(TypedDict):
-    price: str
-    """
-    The id of the price.
-    """
-    pricing_overrides: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride"
-        ]
-    ]
-    """
-    Pricing overrides embedded directly on this pricing line.
-    """
-    quantity_changes: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChange"
-        ]
-    ]
-    """
-    Quantity changes for the pricing line. For now, at most one entry is allowed.
-    A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride(
-    TypedDict,
-):
-    ends_at: NotRequired[
-        "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideEndsAt"
-    ]
-    """
-    When the override ends. Defaults to the pricing line's end if not specified.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key to reference this override.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Set of key-value pairs that you can attach to an object.
-    """
-    overwrite_price: NotRequired[
-        "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice"
-    ]
-    """
-    Parameters for the overwrite_price override. Required if `type` is `overwrite_price`.
-    """
-    priority: NotRequired[int]
-    """
-    The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
-    """
-    starts_at: NotRequired[
-        "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt"
-    ]
-    """
-    When the override starts. Defaults to the pricing line's start if not specified.
-    """
-    type: Union[Literal["overwrite_price"], str]
-    """
-    The type of override.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideEndsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item ends. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["never", "timestamp"], str]
-    """
-    The type of the ends_at.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice(
-    TypedDict,
-):
-    unit_amount: NotRequired[Decimal]
-    """
-    The per-unit amount to be charged in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the item starts. Required if `type` is `timestamp`.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the starts_at.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChange(
-    TypedDict,
-):
-    effective_at: "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeEffectiveAt"
-    """
-    When this quantity change takes effect.
-    """
-    set: Decimal
-    """
-    The quantity to set.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeEffectiveAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp for the effective at.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the effective at.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddStartsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing starts.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of start time to apply.
-    """
-
-
-class ContractUpdateParamsPricingLineActionRemove(TypedDict):
-    id: str
-    """
-    The id of the pricing line to remove.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdate(TypedDict):
-    ends_at: NotRequired["ContractUpdateParamsPricingLineActionUpdateEndsAt"]
-    """
-    Updated end time.
-    """
-    id: str
-    """
-    The id of the pricing line.
-    """
-    metadata: NotRequired[
-        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
-    ]
-    """
-    Metadata mutations to apply to the pricing line.
-    """
-    pricing: NotRequired["ContractUpdateParamsPricingLineActionUpdatePricing"]
-    """
-    Updated pricing configuration.
-    """
-    starts_at: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdateStartsAt"
-    ]
-    """
-    Updated start time.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdateEndsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing ends.
-    """
-    type: Union[Literal["never", "now", "timestamp"], str]
-    """
-    The type of end time to apply.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricing(TypedDict):
-    price_details: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetails"
-    ]
-    """
-    V1 price details. Present when the pricing line type is `price`.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetails(
-    TypedDict
-):
-    pricing_override_actions: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideAction"
-        ]
-    ]
-    """
-    Pricing override actions to apply to the overrides embedded on this pricing line.
-    """
-    quantity_changes: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChange"
-        ]
-    ]
-    """
-    Quantity changes for the pricing line. Setting this clears all future quantity changes.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideAction(
-    TypedDict,
-):
-    add: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd"
-    ]
-    """
-    Add a pricing line override.
-    """
-    remove: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove"
-    ]
-    """
-    Remove a pricing line override.
-    """
-    type: Union[Literal["add", "remove", "update"], str]
-    """
-    The type of pricing line override action.
-    """
-    update: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate"
-    ]
-    """
-    Update a pricing line override.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd(
-    TypedDict,
-):
-    ends_at: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt"
-    ]
-    """
-    The end time for the override.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A lookup key for the override.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Metadata for the pricing override.
-    """
-    overwrite_price: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice"
-    ]
-    """
-    Parameters for an overwrite_price override. Required if `type` is `overwrite_price`.
-    """
-    priority: NotRequired[int]
-    """
-    The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
-    """
-    starts_at: "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt"
-    """
-    The start time for the override.
-    """
-    type: Union[Literal["overwrite_price"], str]
-    """
-    The type of override to add.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing ends.
-    """
-    type: Union[Literal["never", "now", "timestamp"], str]
-    """
-    The type of end time to apply.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice(
-    TypedDict,
-):
-    unit_amount: NotRequired[Decimal]
-    """
-    The per-unit amount to be charged in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing starts.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of start time to apply.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove(
-    TypedDict,
-):
-    id: NotRequired[str]
-    """
-    The id of the pricing override to remove.
-    """
-    lookup_key: NotRequired[str]
-    """
-    Lookup key of the override to remove.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate(
-    TypedDict,
-):
-    ends_at: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateEndsAt"
-    ]
-    """
-    Updated end time.
-    """
-    id: NotRequired[str]
-    """
-    The id of the pricing override to update.
-    """
-    lookup_key: NotRequired[str]
-    """
-    Updated lookup key.
-    """
-    metadata: NotRequired[
-        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
-    ]
-    """
-    Metadata mutations to apply to the pricing override.
-    """
-    starts_at: NotRequired[
-        "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateStartsAt"
-    ]
-    """
-    Updated start time.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateEndsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing ends.
-    """
-    type: Union[Literal["never", "now", "timestamp"], str]
-    """
-    The type of end time to apply.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateStartsAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing starts.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of start time to apply.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChange(
-    TypedDict,
-):
-    effective_at: "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChangeEffectiveAt"
-    """
-    When this quantity change takes effect.
-    """
-    set: Decimal
-    """
-    The quantity to set.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChangeEffectiveAt(
-    TypedDict,
-):
-    timestamp: NotRequired[str]
-    """
-    The timestamp for the effective at.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of the effective at.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdateStartsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing starts.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of start time to apply.
-    """
-
-
-class ContractUpdateParamsPricingOverrideAction(TypedDict):
-    add: NotRequired["ContractUpdateParamsPricingOverrideActionAdd"]
-    """
-    Add a pricing override.
-    """
-    remove: NotRequired["ContractUpdateParamsPricingOverrideActionRemove"]
-    """
-    Remove a pricing override.
-    """
-    type: Union[Literal["add", "remove", "update"], str]
-    """
-    The type of pricing override action.
-    """
-    update: NotRequired["ContractUpdateParamsPricingOverrideActionUpdate"]
-    """
-    Update a pricing override.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
-    ends_at: NotRequired["ContractUpdateParamsPricingOverrideActionAddEndsAt"]
-    """
-    The end time for the pricing override.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A lookup key for the pricing override.
-    """
-    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
-    """
-    Metadata for the pricing override.
-    """
-    multiply_pricing: NotRequired[
-        "ContractUpdateParamsPricingOverrideActionAddMultiplyPricing"
-    ]
-    """
-    A multiply_pricing override to add.
-    """
-    overwrite_price: NotRequired[
-        "ContractUpdateParamsPricingOverrideActionAddOverwritePrice"
-    ]
-    """
-    An overwrite price override to add.
-    """
-    priority: NotRequired[int]
-    """
-    The priority for the pricing override. The highest priority is 0 and the lowest is 100.
-    """
-    starts_at: "ContractUpdateParamsPricingOverrideActionAddStartsAt"
-    """
-    The start time for the pricing override.
-    """
-    type: Union[Literal["multiply_pricing"], str]
-    """
-    The type of pricing override to add.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddEndsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing ends.
-    """
-    type: Union[Literal["never", "now", "timestamp"], str]
-    """
-    The type of end time to apply.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddMultiplyPricing(TypedDict):
-    criteria: List[
-        "ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion"
-    ]
-    """
-    Criteria determining which rates the multiply_pricing override applies to.
-    """
-    factor: str
-    """
-    The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion(
-    TypedDict,
-):
-    pricing_line_ids: NotRequired[List[str]]
-    """
-    Filter by pricing line IDs.
-    """
-    pricing_line_lookup_keys: NotRequired[List[str]]
-    """
-    Filter by pricing line lookup keys.
-    """
-    type: Union[Literal["exclude", "include"], str]
-    """
-    Whether to include or exclude items matching these criteria.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddOverwritePrice(TypedDict):
-    unit_amount: NotRequired[str]
-    """
-    The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddStartsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing starts.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of start time to apply.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionRemove(TypedDict):
-    id: str
-    """
-    The id of the pricing override to remove.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionUpdate(TypedDict):
-    ends_at: NotRequired[
-        "ContractUpdateParamsPricingOverrideActionUpdateEndsAt"
-    ]
-    """
-    The updated end time for the pricing override.
-    """
-    id: str
-    """
-    The ID of the pricing override.
-    """
-    metadata: NotRequired[
-        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
-    ]
-    """
-    Metadata mutations to apply to the pricing override.
-    """
-    starts_at: NotRequired[
-        "ContractUpdateParamsPricingOverrideActionUpdateStartsAt"
-    ]
-    """
-    The updated start time for the pricing override.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionUpdateEndsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing ends.
-    """
-    type: Union[Literal["never", "now", "timestamp"], str]
-    """
-    The type of end time to apply.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionUpdateStartsAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp when the pricing starts.
-    """
-    type: Union[Literal["timestamp"], str]
-    """
-    The type of start time to apply.
     """

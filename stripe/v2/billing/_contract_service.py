@@ -33,22 +33,14 @@ if TYPE_CHECKING:
     from stripe.v2._deleted_object import DeletedObject
     from stripe.v2._list_object import ListObject
     from stripe.v2.billing._contract import Contract
-    from stripe.v2.billing.contracts._pricing_lines_service import (
-        PricingLinesService,
-    )
     from stripe.v2.billing.contracts._term_service import TermService
 
 _subservices = {
-    "pricing_lines": [
-        "stripe.v2.billing.contracts._pricing_lines_service",
-        "PricingLinesService",
-    ],
     "terms": ["stripe.v2.billing.contracts._term_service", "TermService"],
 }
 
 
 class ContractService(StripeService):
-    pricing_lines: "PricingLinesService"
     terms: "TermService"
 
     def __init__(self, requestor):
@@ -125,23 +117,6 @@ class ContractService(StripeService):
                 params=_coerce_v2_params(
                     params,
                     {
-                        "pricing_lines": {
-                            "pricing": {
-                                "price_details": {
-                                    "pricing_overrides": {
-                                        "overwrite_price": {
-                                            "unit_amount": "decimal_string",
-                                        },
-                                    },
-                                    "quantity_changes": {
-                                        "set": "decimal_string",
-                                    },
-                                },
-                            },
-                        },
-                        "pricing_overrides": {
-                            "multiply_pricing": {"factor": "decimal_string"},
-                        },
                         "terms": {
                             "pricing_override": {
                                 "multiply": {"factor": "decimal_string"},
@@ -174,23 +149,6 @@ class ContractService(StripeService):
                 params=_coerce_v2_params(
                     params,
                     {
-                        "pricing_lines": {
-                            "pricing": {
-                                "price_details": {
-                                    "pricing_overrides": {
-                                        "overwrite_price": {
-                                            "unit_amount": "decimal_string",
-                                        },
-                                    },
-                                    "quantity_changes": {
-                                        "set": "decimal_string",
-                                    },
-                                },
-                            },
-                        },
-                        "pricing_overrides": {
-                            "multiply_pricing": {"factor": "decimal_string"},
-                        },
                         "terms": {
                             "pricing_override": {
                                 "multiply": {"factor": "decimal_string"},
@@ -327,38 +285,6 @@ class ContractService(StripeService):
                                 },
                             },
                         },
-                        "pricing_line_actions": {
-                            "add": {
-                                "pricing": {
-                                    "price_details": {
-                                        "pricing_overrides": {
-                                            "overwrite_price": {
-                                                "unit_amount": "decimal_string",
-                                            },
-                                        },
-                                        "quantity_changes": {
-                                            "set": "decimal_string",
-                                        },
-                                    },
-                                },
-                            },
-                            "update": {
-                                "pricing": {
-                                    "price_details": {
-                                        "pricing_override_actions": {
-                                            "add": {
-                                                "overwrite_price": {
-                                                    "unit_amount": "decimal_string",
-                                                },
-                                            },
-                                        },
-                                        "quantity_changes": {
-                                            "set": "decimal_string",
-                                        },
-                                    },
-                                },
-                            },
-                        },
                     },
                 ),
                 options=options,
@@ -399,38 +325,6 @@ class ContractService(StripeService):
                             "update_term": {
                                 "recurring_price": {
                                     "quantity": "decimal_string",
-                                },
-                            },
-                        },
-                        "pricing_line_actions": {
-                            "add": {
-                                "pricing": {
-                                    "price_details": {
-                                        "pricing_overrides": {
-                                            "overwrite_price": {
-                                                "unit_amount": "decimal_string",
-                                            },
-                                        },
-                                        "quantity_changes": {
-                                            "set": "decimal_string",
-                                        },
-                                    },
-                                },
-                            },
-                            "update": {
-                                "pricing": {
-                                    "price_details": {
-                                        "pricing_override_actions": {
-                                            "add": {
-                                                "overwrite_price": {
-                                                    "unit_amount": "decimal_string",
-                                                },
-                                            },
-                                        },
-                                        "quantity_changes": {
-                                            "set": "decimal_string",
-                                        },
-                                    },
                                 },
                             },
                         },

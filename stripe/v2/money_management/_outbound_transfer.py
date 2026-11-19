@@ -154,6 +154,7 @@ class OutboundTransfer(StripeObject):
                             "sepa_credit",
                             "sepa_instant",
                             "swift",
+                            "tips",
                         ],
                         str,
                     ]

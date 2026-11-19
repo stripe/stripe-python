@@ -209,6 +209,7 @@ class OutboundPayment(StripeObject):
                                 "sepa_credit",
                                 "sepa_instant",
                                 "swift",
+                                "tips",
                             ],
                             str,
                         ]

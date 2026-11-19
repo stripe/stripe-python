@@ -840,15 +840,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_transfer_updated_event import (
         V1TransferUpdatedEventNotification,
     )
-    from stripe.events._v2_billing_cadence_billed_event import (
-        V2BillingCadenceBilledEventNotification,
-    )
-    from stripe.events._v2_billing_cadence_canceled_event import (
-        V2BillingCadenceCanceledEventNotification,
-    )
-    from stripe.events._v2_billing_cadence_created_event import (
-        V2BillingCadenceCreatedEventNotification,
-    )
     from stripe.events._v2_billing_contract_activated_event import (
         V2BillingContractActivatedEventNotification,
     )
@@ -878,6 +869,24 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_billing_contract_term_deleted_event import (
         V2BillingContractTermDeletedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_pricing_override_ended_event import (
+        V2BillingContractTermPricingOverrideEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_pricing_override_started_event import (
+        V2BillingContractTermPricingOverrideStartedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_recurring_price_ended_event import (
+        V2BillingContractTermRecurringPriceEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_recurring_price_started_event import (
+        V2BillingContractTermRecurringPriceStartedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_scheduled_fee_service_period_ended_event import (
+        V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_term_scheduled_fee_service_period_started_event import (
+        V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification,
     )
     from stripe.events._v2_billing_contract_term_updated_event import (
         V2BillingContractTermUpdatedEventNotification,
@@ -1154,6 +1163,12 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_core_health_authorization_rate_drop_resolved_event import (
         V2CoreHealthAuthorizationRateDropResolvedEventNotification,
+    )
+    from stripe.events._v2_core_health_custom_payment_method_adapter_degraded_firing_event import (
+        V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_custom_payment_method_adapter_degraded_resolved_event import (
+        V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification,
     )
     from stripe.events._v2_core_health_elements_error_firing_event import (
         V2CoreHealthElementsErrorFiringEventNotification,
@@ -1698,8 +1713,23 @@ if TYPE_CHECKING:
     from stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event import (
         V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
     )
+    from stripe.events._v2_signals_payment_retry_evaluation_canceled_event import (
+        V2SignalsPaymentRetryEvaluationCanceledEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_completed_event import (
+        V2SignalsPaymentRetryEvaluationCompletedEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_created_event import (
+        V2SignalsPaymentRetryEvaluationCreatedEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_expired_event import (
+        V2SignalsPaymentRetryEvaluationExpiredEventNotification,
+    )
     from stripe.events._v2_signals_payment_retry_evaluations_retry_recommended_event import (
         V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification,
+    )
+    from stripe.events._v2_signals_payment_retry_evaluation_updated_event import (
+        V2SignalsPaymentRetryEvaluationUpdatedEventNotification,
     )
     # event-notification-types: The end of the section generated from our OpenAPI spec
 
@@ -5308,45 +5338,6 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
-    def on_v2_billing_cadence_billed(
-        self,
-        func: "Callable[[V2BillingCadenceBilledEventNotification, StripeClient], CallbackReturn]",
-    ):
-        """
-        Registers a callback for the `V2BillingCadenceBilledEvent` (`v2.billing.cadence.billed`) event notification.
-        """
-        self._register(
-            "v2.billing.cadence.billed",
-            func,
-        )
-        return func
-
-    def on_v2_billing_cadence_canceled(
-        self,
-        func: "Callable[[V2BillingCadenceCanceledEventNotification, StripeClient], CallbackReturn]",
-    ):
-        """
-        Registers a callback for the `V2BillingCadenceCanceledEvent` (`v2.billing.cadence.canceled`) event notification.
-        """
-        self._register(
-            "v2.billing.cadence.canceled",
-            func,
-        )
-        return func
-
-    def on_v2_billing_cadence_created(
-        self,
-        func: "Callable[[V2BillingCadenceCreatedEventNotification, StripeClient], CallbackReturn]",
-    ):
-        """
-        Registers a callback for the `V2BillingCadenceCreatedEvent` (`v2.billing.cadence.created`) event notification.
-        """
-        self._register(
-            "v2.billing.cadence.created",
-            func,
-        )
-        return func
-
     def on_v2_billing_contract_activated(
         self,
         func: "Callable[[V2BillingContractActivatedEventNotification, StripeClient], CallbackReturn]",
@@ -5473,6 +5464,84 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.billing.contract_term.deleted",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_term_pricing_override_ended(
+        self,
+        func: "Callable[[V2BillingContractTermPricingOverrideEndedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractTermPricingOverrideEndedEvent` (`v2.billing.contract_term.pricing_override_ended`) event notification.
+        """
+        self._register(
+            "v2.billing.contract_term.pricing_override_ended",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_term_pricing_override_started(
+        self,
+        func: "Callable[[V2BillingContractTermPricingOverrideStartedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractTermPricingOverrideStartedEvent` (`v2.billing.contract_term.pricing_override_started`) event notification.
+        """
+        self._register(
+            "v2.billing.contract_term.pricing_override_started",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_term_recurring_price_ended(
+        self,
+        func: "Callable[[V2BillingContractTermRecurringPriceEndedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractTermRecurringPriceEndedEvent` (`v2.billing.contract_term.recurring_price_ended`) event notification.
+        """
+        self._register(
+            "v2.billing.contract_term.recurring_price_ended",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_term_recurring_price_started(
+        self,
+        func: "Callable[[V2BillingContractTermRecurringPriceStartedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractTermRecurringPriceStartedEvent` (`v2.billing.contract_term.recurring_price_started`) event notification.
+        """
+        self._register(
+            "v2.billing.contract_term.recurring_price_started",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_term_scheduled_fee_service_period_ended(
+        self,
+        func: "Callable[[V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractTermScheduledFeeServicePeriodEndedEvent` (`v2.billing.contract_term.scheduled_fee_service_period_ended`) event notification.
+        """
+        self._register(
+            "v2.billing.contract_term.scheduled_fee_service_period_ended",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_term_scheduled_fee_service_period_started(
+        self,
+        func: "Callable[[V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractTermScheduledFeeServicePeriodStartedEvent` (`v2.billing.contract_term.scheduled_fee_service_period_started`) event notification.
+        """
+        self._register(
+            "v2.billing.contract_term.scheduled_fee_service_period_started",
             func,
         )
         return func
@@ -6669,6 +6738,32 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.core.health.authorization_rate_drop.resolved",
+            func,
+        )
+        return func
+
+    def on_v2_core_health_custom_payment_method_adapter_degraded_firing(
+        self,
+        func: "Callable[[V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEvent` (`v2.core.health.custom_payment_method_adapter_degraded.firing`) event notification.
+        """
+        self._register(
+            "v2.core.health.custom_payment_method_adapter_degraded.firing",
+            func,
+        )
+        return func
+
+    def on_v2_core_health_custom_payment_method_adapter_degraded_resolved(
+        self,
+        func: "Callable[[V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEvent` (`v2.core.health.custom_payment_method_adapter_degraded.resolved`) event notification.
+        """
+        self._register(
+            "v2.core.health.custom_payment_method_adapter_degraded.resolved",
             func,
         )
         return func
@@ -9026,6 +9121,58 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_signals_payment_retry_evaluation_canceled(
+        self,
+        func: "Callable[[V2SignalsPaymentRetryEvaluationCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsPaymentRetryEvaluationCanceledEvent` (`v2.signals.payment_retry_evaluation.canceled`) event notification.
+        """
+        self._register(
+            "v2.signals.payment_retry_evaluation.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_signals_payment_retry_evaluation_completed(
+        self,
+        func: "Callable[[V2SignalsPaymentRetryEvaluationCompletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsPaymentRetryEvaluationCompletedEvent` (`v2.signals.payment_retry_evaluation.completed`) event notification.
+        """
+        self._register(
+            "v2.signals.payment_retry_evaluation.completed",
+            func,
+        )
+        return func
+
+    def on_v2_signals_payment_retry_evaluation_created(
+        self,
+        func: "Callable[[V2SignalsPaymentRetryEvaluationCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsPaymentRetryEvaluationCreatedEvent` (`v2.signals.payment_retry_evaluation.created`) event notification.
+        """
+        self._register(
+            "v2.signals.payment_retry_evaluation.created",
+            func,
+        )
+        return func
+
+    def on_v2_signals_payment_retry_evaluation_expired(
+        self,
+        func: "Callable[[V2SignalsPaymentRetryEvaluationExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsPaymentRetryEvaluationExpiredEvent` (`v2.signals.payment_retry_evaluation.expired`) event notification.
+        """
+        self._register(
+            "v2.signals.payment_retry_evaluation.expired",
+            func,
+        )
+        return func
+
     def on_v2_signals_payment_retry_evaluations_retry_recommended(
         self,
         func: "Callable[[V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification, StripeClient], CallbackReturn]",
@@ -9035,6 +9182,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.signals.payment_retry_evaluations.retry_recommended",
+            func,
+        )
+        return func
+
+    def on_v2_signals_payment_retry_evaluation_updated(
+        self,
+        func: "Callable[[V2SignalsPaymentRetryEvaluationUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2SignalsPaymentRetryEvaluationUpdatedEvent` (`v2.signals.payment_retry_evaluation.updated`) event notification.
+        """
+        self._register(
+            "v2.signals.payment_retry_evaluation.updated",
             func,
         )
         return func

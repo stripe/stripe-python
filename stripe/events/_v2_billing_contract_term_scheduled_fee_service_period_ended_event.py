@@ -11,12 +11,16 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 if TYPE_CHECKING:
     from stripe._api_requestor import _APIRequestor
     from stripe._stripe_client import StripeClient
-    from stripe.v2.billing._cadence import Cadence
+    from stripe.v2.billing._contract_term import ContractTerm
 
 
-class V2BillingCadenceCreatedEventNotification(EventNotification):
-    LOOKUP_TYPE = "v2.billing.cadence.created"
-    type: Literal["v2.billing.cadence.created"]
+class V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification(
+    EventNotification,
+):
+    LOOKUP_TYPE = "v2.billing.contract_term.scheduled_fee_service_period_ended"
+    type: Literal[
+        "v2.billing.contract_term.scheduled_fee_service_period_ended"
+    ]
     related_object: RelatedObject
 
     def __init__(
@@ -29,13 +33,15 @@ class V2BillingCadenceCreatedEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V2BillingCadenceCreatedEvent":
+    def fetch_event(
+        self,
+    ) -> "V2BillingContractTermScheduledFeeServicePeriodEndedEvent":
         return cast(
-            "V2BillingCadenceCreatedEvent",
+            "V2BillingContractTermScheduledFeeServicePeriodEndedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Cadence":
+    def fetch_related_object(self) -> "ContractTerm":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -44,7 +50,7 @@ class V2BillingCadenceCreatedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Cadence",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -52,13 +58,15 @@ class V2BillingCadenceCreatedEventNotification(EventNotification):
         )
 
     @override
-    async def fetch_event_async(self) -> "V2BillingCadenceCreatedEvent":
+    async def fetch_event_async(
+        self,
+    ) -> "V2BillingContractTermScheduledFeeServicePeriodEndedEvent":
         return cast(
-            "V2BillingCadenceCreatedEvent",
+            "V2BillingContractTermScheduledFeeServicePeriodEndedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Cadence":
+    async def fetch_related_object_async(self) -> "ContractTerm":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -67,7 +75,7 @@ class V2BillingCadenceCreatedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Cadence",
+            "ContractTerm",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -75,19 +83,23 @@ class V2BillingCadenceCreatedEventNotification(EventNotification):
         )
 
 
-class V2BillingCadenceCreatedEvent(Event):
-    LOOKUP_TYPE = "v2.billing.cadence.created"
-    type: Literal["v2.billing.cadence.created"]
+class V2BillingContractTermScheduledFeeServicePeriodEndedEvent(Event):
+    LOOKUP_TYPE = "v2.billing.contract_term.scheduled_fee_service_period_ended"
+    type: Literal[
+        "v2.billing.contract_term.scheduled_fee_service_period_ended"
+    ]
 
-    class V2BillingCadenceCreatedEventData(StripeObject):
-        created: str
+    class V2BillingContractTermScheduledFeeServicePeriodEndedEventData(
+        StripeObject,
+    ):
+        contract: str
         """
-        Timestamp of when the object was created.
+        The Contract containing this term.
         """
 
-    data: V2BillingCadenceCreatedEventData
+    data: V2BillingContractTermScheduledFeeServicePeriodEndedEventData
     """
-    Data for the v2.billing.cadence.created event
+    Data for the v2.billing.contract_term.scheduled_fee_service_period_ended event
     """
 
     @classmethod
@@ -98,7 +110,7 @@ class V2BillingCadenceCreatedEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2BillingCadenceCreatedEvent":
+    ) -> "V2BillingContractTermScheduledFeeServicePeriodEndedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -106,7 +118,7 @@ class V2BillingCadenceCreatedEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2BillingCadenceCreatedEvent.V2BillingCadenceCreatedEventData._construct_from(
+            evt.data = V2BillingContractTermScheduledFeeServicePeriodEndedEvent.V2BillingContractTermScheduledFeeServicePeriodEndedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,
@@ -133,12 +145,12 @@ class V2BillingCadenceCreatedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Cadence":
+    def fetch_related_object(self) -> "ContractTerm":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Cadence",
+            "ContractTerm",
             self._requestor.request(
                 "get",
                 self.related_object.url,

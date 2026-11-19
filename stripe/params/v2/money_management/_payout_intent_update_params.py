@@ -107,6 +107,7 @@ class PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount(TypedDict):
                     "sepa_credit",
                     "sepa_instant",
                     "swift",
+                    "tips",
                 ],
                 str,
             ]

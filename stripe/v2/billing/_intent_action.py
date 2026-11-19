@@ -62,7 +62,7 @@ class IntentAction(StripeObject):
 
                 maximum_applications: MaximumApplications
                 """
-                The maximum number of times this discount can be applied for this Billing Cadence.
+                The maximum number of times this discount can be applied for this billing group.
                 """
                 percent_off: Decimal
                 """
@@ -73,9 +73,9 @@ class IntentAction(StripeObject):
                 }
                 _field_encodings = {"percent_off": "decimal_string"}
 
-            applies_to: Union[Literal["cadence"], str]
+            applies_to: Union[Literal["cadence", "group"], str]
             """
-            The entity that the discount rule applies to, for example, the Billing Cadence.
+            The entity that the discount rule applies to, for example, the Billing Group.
             """
             invoice_discount_rule: Optional[str]
             """

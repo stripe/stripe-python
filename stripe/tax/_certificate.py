@@ -32,7 +32,7 @@ class Certificate(
     ListableAPIResource["Certificate"],
 ):
     """
-    Tax exemption and resale certificates associated with tax exemptions.
+    A Tax Certificate associates an uploaded exemption or resale certificate file with a customer's tax exemption. A tax exemption can have multiple certificates. Deleting a tax exemption also deletes its certificates, but retains their uploaded files.
     """
 
     OBJECT_NAME: ClassVar[Literal["tax.certificate"]] = "tax.certificate"
@@ -42,11 +42,11 @@ class Certificate(
     """
     deleted: bool
     """
-    Whether the certificate has been deleted.
+    If `true`, the certificate has been deleted. If `false`, it hasn't been deleted.
     """
     file: ExpandableField["File"]
     """
-    The uploaded certificate file.
+    The ID of the uploaded certificate [file](https://docs.stripe.com/api/files/object).
     """
     id: str
     """
@@ -62,7 +62,7 @@ class Certificate(
     """
     tax_exemption: Optional[ExpandableField["CustomerTaxExemption"]]
     """
-    The tax exemption associated with this certificate.
+    The ID of the [customer tax exemption](https://docs.stripe.com/api/tax/exemptions/object) associated with this certificate.
     """
 
     @classmethod
@@ -70,7 +70,7 @@ class Certificate(
         cls, **params: Unpack["CertificateCreateParams"]
     ) -> "Certificate":
         """
-        Create a tax certificate associated with a tax exemption.
+        Creates a Tax Certificate associated with a tax exemption. Before creating the certificate, [upload a file](https://docs.stripe.com/api/files/create) with purpose tax_certificate.
         """
         return cast(
             "Certificate",
@@ -86,7 +86,7 @@ class Certificate(
         cls, **params: Unpack["CertificateCreateParams"]
     ) -> "Certificate":
         """
-        Create a tax certificate associated with a tax exemption.
+        Creates a Tax Certificate associated with a tax exemption. Before creating the certificate, [upload a file](https://docs.stripe.com/api/files/create) with purpose tax_certificate.
         """
         return cast(
             "Certificate",
@@ -102,7 +102,7 @@ class Certificate(
         cls, sid: str, /, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
@@ -120,7 +120,7 @@ class Certificate(
         sid: str, /, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         ...
 
@@ -129,7 +129,7 @@ class Certificate(
         self, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         ...
 
@@ -138,7 +138,7 @@ class Certificate(
         self, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         return self._request_and_refresh(
             "delete",
@@ -151,7 +151,7 @@ class Certificate(
         cls, sid: str, /, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(sid))
         return cast(
@@ -169,7 +169,7 @@ class Certificate(
         sid: str, /, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         ...
 
@@ -178,7 +178,7 @@ class Certificate(
         self, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         ...
 
@@ -187,7 +187,7 @@ class Certificate(
         self, **params: Unpack["CertificateDeleteParams"]
     ) -> "Certificate":
         """
-        Delete a tax certificate associated with a tax exemption.
+        Deletes a Tax Certificate without deleting its uploaded file. You can reuse the file to create another certificate, and you can still retrieve the deleted certificate.
         """
         return await self._request_and_refresh_async(
             "delete",
@@ -200,7 +200,7 @@ class Certificate(
         cls, **params: Unpack["CertificateListParams"]
     ) -> ListObject["Certificate"]:
         """
-        List certificates for an existing tax exemption.
+        Lists a tax exemption's certificates, ordered from newest to oldest. The list excludes deleted certificates.
         """
         result = cls._static_request(
             "get",
@@ -220,7 +220,7 @@ class Certificate(
         cls, **params: Unpack["CertificateListParams"]
     ) -> ListObject["Certificate"]:
         """
-        List certificates for an existing tax exemption.
+        Lists a tax exemption's certificates, ordered from newest to oldest. The list excludes deleted certificates.
         """
         result = await cls._static_request_async(
             "get",
@@ -240,7 +240,7 @@ class Certificate(
         cls, id: str, **params: Unpack["CertificateRetrieveParams"]
     ) -> "Certificate":
         """
-        Retrieve a tax certificate associated with a tax exemption.
+        Retrieves a Tax Certificate. Deleted certificates remain retrievable with all their fields and deleted set to true.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -251,7 +251,7 @@ class Certificate(
         cls, id: str, **params: Unpack["CertificateRetrieveParams"]
     ) -> "Certificate":
         """
-        Retrieve a tax certificate associated with a tax exemption.
+        Retrieves a Tax Certificate. Deleted certificates remain retrievable with all their fields and deleted set to true.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

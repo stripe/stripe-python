@@ -4,9 +4,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ClaimableSandboxCreateParams(TypedDict):
-    app_channel: NotRequired[Literal["public", "testing"]]
+    channel: NotRequired[Literal["public", "testing"]]
     """
-    The app channel that will be used when pre-installing your app on the claimable sandbox.
+    The distribution channel used to pre-install your Stripe App on the claimable sandbox.
+    Use `testing` to install your app's external test version or `public` to install its published version.
     This field defaults to `public` if omitted.
     """
     enable_mcp_access: bool
@@ -32,6 +33,10 @@ class ClaimableSandboxCreateParamsOnboardingLinkDetails(TypedDict):
     The URL specified should attempt to generate a new onboarding link,
     and re-direct the user to this new onboarding link so that they can proceed with the onboarding flow.
     """
+    return_url: NotRequired[str]
+    """
+    The URL offered to the user as a way back to your app after they claim the sandbox.
+    """
 
 
 class ClaimableSandboxCreateParamsPrefill(TypedDict):
@@ -42,8 +47,8 @@ class ClaimableSandboxCreateParamsPrefill(TypedDict):
     """
     email: str
     """
-    Email that this sandbox is meant to be claimed by. Stripe will
-    notify this email address before the sandbox expires.
+    Email address of the user who will claim the sandbox.
+    Stripe sends this address an invitation to claim the sandbox and a reminder before the unclaimed sandbox expires.
     """
     name: NotRequired[str]
     """

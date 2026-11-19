@@ -47,6 +47,24 @@ class Coupon(
         Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
         """
 
+    class Custom(StripeObject):
+        class Extension(StripeObject):
+            id: str
+            """
+            The Extension Prototype ID.
+            """
+            version: str
+            """
+            The semantic version of the extension.
+            """
+
+        configuration: UntypedStripeObject[Any]
+        """
+        The configuration supplied to the extension.
+        """
+        extension: Extension
+        _inner_class_types = {"extension": Extension}
+
     class Script(StripeObject):
         configuration: UntypedStripeObject[Any]
         """
@@ -100,6 +118,7 @@ class Coupon(
     """
     Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
+    custom: Optional[Custom]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -155,7 +174,9 @@ class Coupon(
     """
     Number of times this coupon has been applied to a customer.
     """
-    type: Optional[Union[Literal["amount_off", "percent_off", "script"], str]]
+    type: Optional[
+        Union[Literal["amount_off", "custom", "percent_off", "script"], str]
+    ]
     """
     The type of coupon logic used to calculate the discount.
     """
@@ -391,6 +412,7 @@ class Coupon(
     _inner_class_types = {
         "applies_to": AppliesTo,
         "currency_options": CurrencyOptions,
+        "custom": Custom,
         "script": Script,
         "service_period": ServicePeriod,
     }

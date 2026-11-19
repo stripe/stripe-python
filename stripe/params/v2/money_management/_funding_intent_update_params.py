@@ -29,6 +29,10 @@ class FundingIntentUpdateParams(TypedDict):
     """
     Updates to the key-value pairs attached to the FundingIntent.
     """
+    settlement_timing: NotRequired["FundingIntentUpdateParamsSettlementTiming"]
+    """
+    The updated settlement timing. Omit to retain the existing timing.
+    """
 
 
 class FundingIntentUpdateParamsCheck(TypedDict):
@@ -39,4 +43,11 @@ class FundingIntentUpdateParamsCheck(TypedDict):
     front_image: NotRequired[str]
     """
     The ID of a File containing the front image of the check.
+    """
+
+
+class FundingIntentUpdateParamsSettlementTiming(TypedDict):
+    delay_days_override: NotRequired[int]
+    """
+    The number of days to delay the availability of funds after processing completes.
     """
