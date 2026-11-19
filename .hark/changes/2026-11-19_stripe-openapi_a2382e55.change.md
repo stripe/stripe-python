@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-python/pull/1998
 semver_level: minor
 is_stripe_api_change: true
+released_in_version: 17.1.0
 ---
 
 * Add support for new resource `v2.core.ClaimableSandbox`
