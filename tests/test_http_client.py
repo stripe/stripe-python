@@ -1,3 +1,4 @@
+import asyncio
 import importlib
 import io
 import base64
@@ -6,6 +7,7 @@ import threading
 from typing import Any, Callable, Dict, List, Optional
 from unittest.mock import MagicMock, Mock, call, patch
 
+import aiohttp
 import pytest
 from typing_extensions import Type
 
@@ -2117,6 +2119,103 @@ class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):
     responses = None
     _mocked_request_lib = None
     max_retries = 3
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.parametrize(
+        "error_type", [aiohttp.ClientPayloadError, asyncio.TimeoutError]
+    )
+    @pytest.mark.parametrize("max_retries", [0, 2])
+    @pytest.mark.anyio
+    async def test_body_read_error_until_exceeded(
+        self,
+        mocked_request_lib,
+        mock_response,
+        make_async_request,
+        error_type,
+        max_retries,
+    ):
+        response = mock_response(mocked_request_lib)
+        read_errors = []
+
+        async def fail_read():
+            error = error_type("Response body read failed")
+            read_errors.append(error)
+            raise error
+
+        response.content.read = AsyncMock(side_effect=fail_read)
+
+        with pytest.raises(stripe.APIConnectionError) as exc_info:
+            await make_async_request(
+                "GET", self.valid_url, {}, None, max_retries=max_retries
+            )
+
+        assert exc_info.value.should_retry is True
+        assert exc_info.value.__cause__ is read_errors[-1]
+        assert mocked_request_lib.ClientSession().request.await_count == (
+            max_retries + 1
+        )
+        assert response.content.read.await_count == max_retries + 1
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.parametrize(
+        "error_type", [aiohttp.ClientPayloadError, asyncio.TimeoutError]
+    )
+    @pytest.mark.anyio
+    async def test_body_read_error_until_response(
+        self,
+        mocked_request_lib,
+        mock_response,
+        make_async_request,
+        error_type,
+    ):
+        failed_response = mock_response(mocked_request_lib, b"partial")
+        failed_response.content.read = AsyncMock(
+            side_effect=error_type("Response body read failed")
+        )
+        successful_response = mock_response(
+            mocked_request_lib, b"complete response", code=202
+        )
+        successful_response.headers = {"Content-Type": "application/json"}
+        successful_response.content.read = AsyncMock(
+            return_value=b"complete response"
+        )
+        request = mocked_request_lib.ClientSession().request
+        request.side_effect = lambda *args, **kwargs: (
+            failed_response
+            if request.await_count == 1
+            else successful_response
+        )
+
+        result = await make_async_request(
+            "GET", self.valid_url, {}, None, max_retries=2
+        )
+
+        assert result == (
+            b"complete response",
+            202,
+            {"Content-Type": "application/json"},
+        )
+        assert request.await_count == 2
+        failed_response.content.read.assert_awaited_once_with()
+        successful_response.content.read.assert_awaited_once_with()
+
+    @pytest.mark.parametrize("anyio_backend", ["asyncio"])
+    @pytest.mark.anyio
+    async def test_body_read_cancellation(
+        self, mocked_request_lib, mock_response, make_async_request
+    ):
+        response = mock_response(mocked_request_lib)
+        cancellation = asyncio.CancelledError()
+        response.content.read = AsyncMock(side_effect=cancellation)
+
+        with pytest.raises(asyncio.CancelledError) as exc_info:
+            await make_async_request(
+                "GET", self.valid_url, {}, None, max_retries=2
+            )
+
+        assert exc_info.value is cancellation
+        assert mocked_request_lib.ClientSession().request.await_count == 1
+        response.content.read.assert_awaited_once_with()
 
     @pytest.fixture
     def mock_retry(self, mocked_request_lib):
