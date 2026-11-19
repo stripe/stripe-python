@@ -2135,14 +2135,11 @@ class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):
         max_retries,
     ):
         response = mock_response(mocked_request_lib)
-        read_errors = []
-
-        async def fail_read():
-            error = error_type("Response body read failed")
-            read_errors.append(error)
-            raise error
-
-        response.content.read = AsyncMock(side_effect=fail_read)
+        read_errors = [
+            error_type("Response body read failed")
+            for _ in range(max_retries + 1)
+        ]
+        response.content.read = AsyncMock(side_effect=read_errors)
 
         with pytest.raises(stripe.APIConnectionError) as exc_info:
             await make_async_request(
@@ -2168,7 +2165,7 @@ class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):
         make_async_request,
         error_type,
     ):
-        failed_response = mock_response(mocked_request_lib, b"partial")
+        failed_response = mock_response(mocked_request_lib)
         failed_response.content.read = AsyncMock(
             side_effect=error_type("Response body read failed")
         )
@@ -2177,7 +2174,7 @@ class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):
         )
         successful_response.headers = {"Content-Type": "application/json"}
         successful_response.content.read = AsyncMock(
-            return_value=b"complete response"
+            wraps=successful_response.content.read
         )
         request = mocked_request_lib.ClientSession().request
         request.side_effect = lambda *args, **kwargs: (
