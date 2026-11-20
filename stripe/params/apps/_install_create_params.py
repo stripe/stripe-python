@@ -14,7 +14,7 @@ class InstallCreateParams(RequestOptions):
         "Literal['private_live', 'private_test', 'public', 'testing']|str"
     ]
     """
-    The distribution channel to install from. Defaults to `public`. A private app must be installed on `private_test` or `private_live`, matching the mode of the API key.
+    The distribution channel to install from. Defaults to `public`, which only app developers and embedding platforms can use. An account installing its own private app must pass `private_test` or `private_live`, matching the mode of the API key.
     """
     code_challenge: NotRequired[str]
     """

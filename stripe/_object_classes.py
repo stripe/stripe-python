@@ -349,6 +349,7 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "SearchResultObject",
     ),
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    "list": ("stripe.v2._list_object", "ListObject"),
     "v2.billing.meter_event": ("stripe.v2.billing._meter_event", "MeterEvent"),
     "v2.billing.meter_event_adjustment": (
         "stripe.v2.billing._meter_event_adjustment",
@@ -373,10 +374,78 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "AccountPersonToken",
     ),
     "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
+    "v2.core.claimable_sandbox": (
+        "stripe.v2.core._claimable_sandbox",
+        "ClaimableSandbox",
+    ),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",
         "EventDestination",
+    ),
+    "v2.core.vault.gb_bank_account": (
+        "stripe.v2.core.vault._gb_bank_account",
+        "GbBankAccount",
+    ),
+    "v2.core.vault.us_bank_account": (
+        "stripe.v2.core.vault._us_bank_account",
+        "UsBankAccount",
+    ),
+    "v2.money_management.adjustment": (
+        "stripe.v2.money_management._adjustment",
+        "Adjustment",
+    ),
+    "v2.money_management.financial_account": (
+        "stripe.v2.money_management._financial_account",
+        "FinancialAccount",
+    ),
+    "v2.money_management.financial_address": (
+        "stripe.v2.money_management._financial_address",
+        "FinancialAddress",
+    ),
+    "v2.money_management.financial_address_credit_simulation": (
+        "stripe.v2.money_management._financial_address_credit_simulation",
+        "FinancialAddressCreditSimulation",
+    ),
+    "v2.money_management.inbound_transfer": (
+        "stripe.v2.money_management._inbound_transfer",
+        "InboundTransfer",
+    ),
+    "v2.money_management.outbound_payment": (
+        "stripe.v2.money_management._outbound_payment",
+        "OutboundPayment",
+    ),
+    "v2.money_management.outbound_setup_intent": (
+        "stripe.v2.money_management._outbound_setup_intent",
+        "OutboundSetupIntent",
+    ),
+    "v2.money_management.payout_intent": (
+        "stripe.v2.money_management._payout_intent",
+        "PayoutIntent",
+    ),
+    "v2.money_management.payout_method": (
+        "stripe.v2.money_management._payout_method",
+        "PayoutMethod",
+    ),
+    "v2.money_management.payout_methods_bank_account_spec": (
+        "stripe.v2.money_management._payout_methods_bank_account_spec",
+        "PayoutMethodsBankAccountSpec",
+    ),
+    "v2.money_management.received_credit": (
+        "stripe.v2.money_management._received_credit",
+        "ReceivedCredit",
+    ),
+    "v2.money_management.recipient_verification": (
+        "stripe.v2.money_management._recipient_verification",
+        "RecipientVerification",
+    ),
+    "v2.money_management.transaction": (
+        "stripe.v2.money_management._transaction",
+        "Transaction",
+    ),
+    "v2.money_management.transaction_entry": (
+        "stripe.v2.money_management._transaction_entry",
+        "TransactionEntry",
     ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

@@ -133,7 +133,7 @@ class SetupIntentConfirmParams(RequestOptions):
     ]
     payment_method: NotRequired[str]
     """
-    ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    The ID of a PaymentMethod to attach to this SetupIntent.
     """
     payment_method_data: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodData"
@@ -1217,6 +1217,12 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    """
+    setup_credential_usage: NotRequired[
+        "Literal['installment', 'recurring', 'unscheduled']|str"
+    ]
+    """
+    Set to indicate the future transaction type usage for the card being set up.
     """
     three_d_secure: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure"

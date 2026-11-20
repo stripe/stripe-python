@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class InstallListParams(RequestOptions):
     account: NotRequired[str]
     """
-    Only return installs made by this account. Only useful to app developers and embedding platforms, whose lists span the accounts that installed their app.
+    Only return installs made by this account. Only useful to an app developer filtering by its own app with its own key, whose list spans the accounts that installed the app; other lists only accept the authenticated account.
     """
     app: NotRequired[str]
     """
@@ -52,7 +52,7 @@ class InstallListParams(RequestOptions):
         "Literal['install_failed', 'installed', 'installing', 'uninstall_failed', 'uninstalling']|str"
     ]
     """
-    Only return installs with the given status.
+    Only return installs with the given status: `installed`, `installing`, `install_failed`, `uninstalling`, or `uninstall_failed`.
     """
 
 

@@ -133,6 +133,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [payouts list](https://docs.stripe.com/connect/supported-embedded-components/payouts-list/) embedded component.
     """
+    reporting_chart: NotRequired[
+        "AccountSessionCreateParamsComponentsReportingChart"
+    ]
+    """
+    Configuration for the [reporting chart](https://docs.stripe.com/connect/supported-embedded-components/reporting-chart/) embedded component.
+    """
     tax_registrations: NotRequired[
         "AccountSessionCreateParamsComponentsTaxRegistrations"
     ]
@@ -144,6 +150,18 @@ class AccountSessionCreateParamsComponents(TypedDict):
     ]
     """
     Configuration for the [tax settings](https://docs.stripe.com/connect/supported-embedded-components/tax-settings/) embedded component.
+    """
+    terminal_hardware_orders: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareOrders"
+    ]
+    """
+    Configuration for the [Terminal hardware orders](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+    """
+    terminal_hardware_shop: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareShop"
+    ]
+    """
+    Configuration for the [Terminal hardware shop](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
     """
 
 
@@ -698,6 +716,23 @@ class AccountSessionCreateParamsComponentsPayoutsListFeatures(TypedDict):
     pass
 
 
+class AccountSessionCreateParamsComponentsReportingChart(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsReportingChartFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsReportingChartFeatures(TypedDict):
+    pass
+
+
 class AccountSessionCreateParamsComponentsTaxRegistrations(TypedDict):
     enabled: bool
     """
@@ -729,4 +764,42 @@ class AccountSessionCreateParamsComponentsTaxSettings(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsTaxSettingsFeatures(TypedDict):
+    pass
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareOrders(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures(
+    TypedDict,
+):
+    pass
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareShop(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures(
+    TypedDict,
+):
     pass

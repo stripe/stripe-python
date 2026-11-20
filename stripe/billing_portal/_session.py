@@ -35,6 +35,23 @@ class Session(CreateableAPIResource["Session"]):
         "billing_portal.session"
     )
 
+    class AfterExpiration(StripeObject):
+        class CustomerLogin(StripeObject):
+            expires_at: Optional[int]
+            """
+            The time after which the customer can no longer recover this session.
+            """
+
+        customer_login: Optional[CustomerLogin]
+        """
+        Configuration for authenticating the customer after the session expires.
+        """
+        type: Union[Literal["customer_login"], str]
+        """
+        The behavior to apply when the session expires.
+        """
+        _inner_class_types = {"customer_login": CustomerLogin}
+
     class Flow(StripeObject):
         class AfterCompletion(StripeObject):
             class HostedConfirmation(StripeObject):
@@ -100,6 +117,12 @@ class Session(CreateableAPIResource["Session"]):
             """
             _inner_class_types = {"retention": Retention}
 
+        class SubscriptionPause(StripeObject):
+            subscription: str
+            """
+            The ID of the subscription to be paused.
+            """
+
         class SubscriptionUpdate(StripeObject):
             subscription: str
             """
@@ -154,6 +177,10 @@ class Session(CreateableAPIResource["Session"]):
         """
         Configuration when `flow.type=subscription_cancel`.
         """
+        subscription_pause: Optional[SubscriptionPause]
+        """
+        Configuration when `flow.type=subscription_pause`.
+        """
         subscription_update: Optional[SubscriptionUpdate]
         """
         Configuration when `flow.type=subscription_update`.
@@ -167,6 +194,7 @@ class Session(CreateableAPIResource["Session"]):
                 "customer_update",
                 "payment_method_update",
                 "subscription_cancel",
+                "subscription_pause",
                 "subscription_update",
                 "subscription_update_confirm",
             ],
@@ -179,10 +207,15 @@ class Session(CreateableAPIResource["Session"]):
             "after_completion": AfterCompletion,
             "customer_update": CustomerUpdate,
             "subscription_cancel": SubscriptionCancel,
+            "subscription_pause": SubscriptionPause,
             "subscription_update": SubscriptionUpdate,
             "subscription_update_confirm": SubscriptionUpdateConfirm,
         }
 
+    after_expiration: Optional[AfterExpiration]
+    """
+    Behavior after the portal session expires.
+    """
     configuration: ExpandableField["Configuration"]
     """
     The configuration used by this session, describing the features available.
@@ -315,4 +348,4 @@ class Session(CreateableAPIResource["Session"]):
             ),
         )
 
-    _inner_class_types = {"flow": Flow}
+    _inner_class_types = {"after_expiration": AfterExpiration, "flow": Flow}

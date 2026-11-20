@@ -119,6 +119,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesUpiPayments as AccountCreateParamsCapabilitiesUpiPayments,
         AccountCreateParamsCapabilitiesUsBankAccountAchPayments as AccountCreateParamsCapabilitiesUsBankAccountAchPayments,
         AccountCreateParamsCapabilitiesUsBankTransferPayments as AccountCreateParamsCapabilitiesUsBankTransferPayments,
+        AccountCreateParamsCapabilitiesWeroPayments as AccountCreateParamsCapabilitiesWeroPayments,
         AccountCreateParamsCapabilitiesZipPayments as AccountCreateParamsCapabilitiesZipPayments,
         AccountCreateParamsCard as AccountCreateParamsCard,
         AccountCreateParamsCardToken as AccountCreateParamsCardToken,
@@ -129,6 +130,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCompanyAdministrativeAddress as AccountCreateParamsCompanyAdministrativeAddress,
         AccountCreateParamsCompanyDirectorshipDeclaration as AccountCreateParamsCompanyDirectorshipDeclaration,
         AccountCreateParamsCompanyOwnershipDeclaration as AccountCreateParamsCompanyOwnershipDeclaration,
+        AccountCreateParamsCompanyPhysicalAddress as AccountCreateParamsCompanyPhysicalAddress,
         AccountCreateParamsCompanyPrincipalPlaceOfBusiness as AccountCreateParamsCompanyPrincipalPlaceOfBusiness,
         AccountCreateParamsCompanyRegistrationDate as AccountCreateParamsCompanyRegistrationDate,
         AccountCreateParamsCompanyRepresentativeDeclaration as AccountCreateParamsCompanyRepresentativeDeclaration,
@@ -146,6 +148,7 @@ if TYPE_CHECKING:
         AccountCreateParamsDocumentsCompanyRegistrationVerification as AccountCreateParamsDocumentsCompanyRegistrationVerification,
         AccountCreateParamsDocumentsCompanyTaxIdVerification as AccountCreateParamsDocumentsCompanyTaxIdVerification,
         AccountCreateParamsDocumentsProofOfAddress as AccountCreateParamsDocumentsProofOfAddress,
+        AccountCreateParamsDocumentsProofOfBusinessPresence as AccountCreateParamsDocumentsProofOfBusinessPresence,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountCreateParamsGroups as AccountCreateParamsGroups,
@@ -397,10 +400,16 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsPayoutsFeatures as AccountSessionCreateParamsComponentsPayoutsFeatures,
         AccountSessionCreateParamsComponentsPayoutsList as AccountSessionCreateParamsComponentsPayoutsList,
         AccountSessionCreateParamsComponentsPayoutsListFeatures as AccountSessionCreateParamsComponentsPayoutsListFeatures,
+        AccountSessionCreateParamsComponentsReportingChart as AccountSessionCreateParamsComponentsReportingChart,
+        AccountSessionCreateParamsComponentsReportingChartFeatures as AccountSessionCreateParamsComponentsReportingChartFeatures,
         AccountSessionCreateParamsComponentsTaxRegistrations as AccountSessionCreateParamsComponentsTaxRegistrations,
         AccountSessionCreateParamsComponentsTaxRegistrationsFeatures as AccountSessionCreateParamsComponentsTaxRegistrationsFeatures,
         AccountSessionCreateParamsComponentsTaxSettings as AccountSessionCreateParamsComponentsTaxSettings,
         AccountSessionCreateParamsComponentsTaxSettingsFeatures as AccountSessionCreateParamsComponentsTaxSettingsFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrders as AccountSessionCreateParamsComponentsTerminalHardwareOrders,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures as AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareShop as AccountSessionCreateParamsComponentsTerminalHardwareShop,
+        AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures as AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures,
     )
     from stripe.params._account_unreject_params import (
         AccountUnrejectParams as AccountUnrejectParams,
@@ -481,6 +490,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesUpiPayments as AccountUpdateParamsCapabilitiesUpiPayments,
         AccountUpdateParamsCapabilitiesUsBankAccountAchPayments as AccountUpdateParamsCapabilitiesUsBankAccountAchPayments,
         AccountUpdateParamsCapabilitiesUsBankTransferPayments as AccountUpdateParamsCapabilitiesUsBankTransferPayments,
+        AccountUpdateParamsCapabilitiesWeroPayments as AccountUpdateParamsCapabilitiesWeroPayments,
         AccountUpdateParamsCapabilitiesZipPayments as AccountUpdateParamsCapabilitiesZipPayments,
         AccountUpdateParamsCard as AccountUpdateParamsCard,
         AccountUpdateParamsCardToken as AccountUpdateParamsCardToken,
@@ -491,6 +501,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCompanyAdministrativeAddress as AccountUpdateParamsCompanyAdministrativeAddress,
         AccountUpdateParamsCompanyDirectorshipDeclaration as AccountUpdateParamsCompanyDirectorshipDeclaration,
         AccountUpdateParamsCompanyOwnershipDeclaration as AccountUpdateParamsCompanyOwnershipDeclaration,
+        AccountUpdateParamsCompanyPhysicalAddress as AccountUpdateParamsCompanyPhysicalAddress,
         AccountUpdateParamsCompanyPrincipalPlaceOfBusiness as AccountUpdateParamsCompanyPrincipalPlaceOfBusiness,
         AccountUpdateParamsCompanyRegistrationDate as AccountUpdateParamsCompanyRegistrationDate,
         AccountUpdateParamsCompanyRepresentativeDeclaration as AccountUpdateParamsCompanyRepresentativeDeclaration,
@@ -504,6 +515,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsDocumentsCompanyRegistrationVerification as AccountUpdateParamsDocumentsCompanyRegistrationVerification,
         AccountUpdateParamsDocumentsCompanyTaxIdVerification as AccountUpdateParamsDocumentsCompanyTaxIdVerification,
         AccountUpdateParamsDocumentsProofOfAddress as AccountUpdateParamsDocumentsProofOfAddress,
+        AccountUpdateParamsDocumentsProofOfBusinessPresence as AccountUpdateParamsDocumentsProofOfBusinessPresence,
         AccountUpdateParamsDocumentsProofOfRegistration as AccountUpdateParamsDocumentsProofOfRegistration,
         AccountUpdateParamsDocumentsProofOfRegistrationSigner as AccountUpdateParamsDocumentsProofOfRegistrationSigner,
         AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership,
@@ -1035,6 +1047,8 @@ if TYPE_CHECKING:
     from stripe.params._dispute_modify_params import (
         DisputeModifyParams as DisputeModifyParams,
         DisputeModifyParamsEvidence as DisputeModifyParamsEvidence,
+        DisputeModifyParamsEvidenceAppeal as DisputeModifyParamsEvidenceAppeal,
+        DisputeModifyParamsEvidenceAppealCard as DisputeModifyParamsEvidenceAppealCard,
         DisputeModifyParamsEvidenceEnhancedEvidence as DisputeModifyParamsEvidenceEnhancedEvidence,
         DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance as DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance,
         DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3 as DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3,
@@ -1050,6 +1064,8 @@ if TYPE_CHECKING:
     from stripe.params._dispute_update_params import (
         DisputeUpdateParams as DisputeUpdateParams,
         DisputeUpdateParamsEvidence as DisputeUpdateParamsEvidence,
+        DisputeUpdateParamsEvidenceAppeal as DisputeUpdateParamsEvidenceAppeal,
+        DisputeUpdateParamsEvidenceAppealCard as DisputeUpdateParamsEvidenceAppealCard,
         DisputeUpdateParamsEvidenceEnhancedEvidence as DisputeUpdateParamsEvidenceEnhancedEvidence,
         DisputeUpdateParamsEvidenceEnhancedEvidenceMastercardCompliance as DisputeUpdateParamsEvidenceEnhancedEvidenceMastercardCompliance,
         DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3 as DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3,
@@ -1185,6 +1201,17 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetails as InvoiceCreatePreviewParamsScheduleDetails,
         InvoiceCreatePreviewParamsScheduleDetailsBillingMode as InvoiceCreatePreviewParamsScheduleDetailsBillingMode,
         InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible as InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedule as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedule,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePause as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePause,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePausePauseAt as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePausePauseAt,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettings as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillFor as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillFor,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForOutstandingUsageThrough as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForOutstandingUsageThrough,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForUnusedTimeFrom as InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForUnusedTimeFrom,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResume as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResume,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAt as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAt,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAtDuration as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAtDuration,
+        InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeSettings as InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeSettings,
         InvoiceCreatePreviewParamsScheduleDetailsPhase as InvoiceCreatePreviewParamsScheduleDetailsPhase,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount,
@@ -1461,6 +1488,34 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsHooksInputs as PaymentIntentCaptureParamsHooksInputs,
         PaymentIntentCaptureParamsHooksInputsTax as PaymentIntentCaptureParamsHooksInputsTax,
         PaymentIntentCaptureParamsPaymentDetails as PaymentIntentCaptureParamsPaymentDetails,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatum as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatum,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumAffiliate as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumAffiliate,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDistance as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDistance,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDriver as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDriver,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDriverDateOfBirth as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDriverDateOfBirth,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDropOff as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDropOff,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDropOffAddress as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDropOffAddress,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumInsurance as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumInsurance,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumPickup as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumPickup,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumPickupAddress as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumPickupAddress,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotal as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotal,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalDiscounts,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
+        PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumVehicle,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatum as PaymentIntentCaptureParamsPaymentDetailsLodgingDatum,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumAccommodation as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumAccommodation,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumAffiliate as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumAffiliate,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumGuest as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumGuest,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumHost as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumHost,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumHostAddress as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumHostAddress,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumInsurance as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumInsurance,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotal as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotal,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalDiscounts,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTax,
+        PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentCaptureParamsTransferData as PaymentIntentCaptureParamsTransferData,
     )
     from stripe.params._payment_intent_confirm_params import (
@@ -1483,6 +1538,34 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsMandateDataCustomerAcceptanceOffline as PaymentIntentConfirmParamsMandateDataCustomerAcceptanceOffline,
         PaymentIntentConfirmParamsMandateDataCustomerAcceptanceOnline as PaymentIntentConfirmParamsMandateDataCustomerAcceptanceOnline,
         PaymentIntentConfirmParamsPaymentDetails as PaymentIntentConfirmParamsPaymentDetails,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatum as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatum,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumAffiliate as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumAffiliate,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDistance as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDistance,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDriver as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDriver,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDriverDateOfBirth as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDriverDateOfBirth,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDropOff as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDropOff,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDropOffAddress as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDropOffAddress,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumInsurance as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumInsurance,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumPickup as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumPickup,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumPickupAddress as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumPickupAddress,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotal as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotal,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalDiscounts,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTax,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
+        PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumVehicle,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatum as PaymentIntentConfirmParamsPaymentDetailsLodgingDatum,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumAccommodation as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumAccommodation,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumAffiliate as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumAffiliate,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumGuest as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumGuest,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumHost as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumHost,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumHostAddress as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumHostAddress,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumInsurance as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumInsurance,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotal as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotal,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalDiscounts,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalExtraCharge,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTax,
+        PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentConfirmParamsPaymentMethodData as PaymentIntentConfirmParamsPaymentMethodData,
         PaymentIntentConfirmParamsPaymentMethodDataAcssDebit as PaymentIntentConfirmParamsPaymentMethodDataAcssDebit,
         PaymentIntentConfirmParamsPaymentMethodDataAffirm as PaymentIntentConfirmParamsPaymentMethodDataAffirm,
@@ -1654,6 +1737,34 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsMandateDataCustomerAcceptanceOffline as PaymentIntentCreateParamsMandateDataCustomerAcceptanceOffline,
         PaymentIntentCreateParamsMandateDataCustomerAcceptanceOnline as PaymentIntentCreateParamsMandateDataCustomerAcceptanceOnline,
         PaymentIntentCreateParamsPaymentDetails as PaymentIntentCreateParamsPaymentDetails,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatum as PaymentIntentCreateParamsPaymentDetailsCarRentalDatum,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumAffiliate as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumAffiliate,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDistance as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDistance,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDriver as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDriver,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDriverDateOfBirth as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDriverDateOfBirth,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDropOff as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDropOff,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDropOffAddress as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDropOffAddress,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumInsurance as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumInsurance,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumPickup as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumPickup,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumPickupAddress as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumPickupAddress,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotal as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotal,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalDiscounts,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
+        PaymentIntentCreateParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentCreateParamsPaymentDetailsCarRentalDatumVehicle,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatum as PaymentIntentCreateParamsPaymentDetailsLodgingDatum,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumAccommodation as PaymentIntentCreateParamsPaymentDetailsLodgingDatumAccommodation,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumAffiliate as PaymentIntentCreateParamsPaymentDetailsLodgingDatumAffiliate,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumGuest as PaymentIntentCreateParamsPaymentDetailsLodgingDatumGuest,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumHost as PaymentIntentCreateParamsPaymentDetailsLodgingDatumHost,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumHostAddress as PaymentIntentCreateParamsPaymentDetailsLodgingDatumHostAddress,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumInsurance as PaymentIntentCreateParamsPaymentDetailsLodgingDatumInsurance,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotal as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotal,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalDiscounts,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalExtraCharge,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTax,
+        PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentCreateParamsPaymentMethodData as PaymentIntentCreateParamsPaymentMethodData,
         PaymentIntentCreateParamsPaymentMethodDataAcssDebit as PaymentIntentCreateParamsPaymentMethodDataAcssDebit,
         PaymentIntentCreateParamsPaymentMethodDataAffirm as PaymentIntentCreateParamsPaymentMethodDataAffirm,
@@ -1847,6 +1958,34 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsHooksInputs as PaymentIntentModifyParamsHooksInputs,
         PaymentIntentModifyParamsHooksInputsTax as PaymentIntentModifyParamsHooksInputsTax,
         PaymentIntentModifyParamsPaymentDetails as PaymentIntentModifyParamsPaymentDetails,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatum as PaymentIntentModifyParamsPaymentDetailsCarRentalDatum,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumAffiliate as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumAffiliate,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDistance as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDistance,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriver as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriver,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriverDateOfBirth as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriverDateOfBirth,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOff as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOff,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOffAddress as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOffAddress,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumInsurance as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumInsurance,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickup as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickup,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickupAddress as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickupAddress,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotal as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotal,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
+        PaymentIntentModifyParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentModifyParamsPaymentDetailsCarRentalDatumVehicle,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatum as PaymentIntentModifyParamsPaymentDetailsLodgingDatum,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumAccommodation as PaymentIntentModifyParamsPaymentDetailsLodgingDatumAccommodation,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumAffiliate as PaymentIntentModifyParamsPaymentDetailsLodgingDatumAffiliate,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumGuest as PaymentIntentModifyParamsPaymentDetailsLodgingDatumGuest,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumHost as PaymentIntentModifyParamsPaymentDetailsLodgingDatumHost,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumHostAddress as PaymentIntentModifyParamsPaymentDetailsLodgingDatumHostAddress,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumInsurance as PaymentIntentModifyParamsPaymentDetailsLodgingDatumInsurance,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotal as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotal,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalDiscounts,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax,
+        PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentModifyParamsPaymentMethodData as PaymentIntentModifyParamsPaymentMethodData,
         PaymentIntentModifyParamsPaymentMethodDataAcssDebit as PaymentIntentModifyParamsPaymentMethodDataAcssDebit,
         PaymentIntentModifyParamsPaymentMethodDataAffirm as PaymentIntentModifyParamsPaymentMethodDataAffirm,
@@ -2020,6 +2159,34 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsHooksInputs as PaymentIntentUpdateParamsHooksInputs,
         PaymentIntentUpdateParamsHooksInputsTax as PaymentIntentUpdateParamsHooksInputsTax,
         PaymentIntentUpdateParamsPaymentDetails as PaymentIntentUpdateParamsPaymentDetails,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatum as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatum,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumAffiliate as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumAffiliate,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDistance as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDistance,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDriver as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDriver,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDriverDateOfBirth as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDriverDateOfBirth,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDropOff as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDropOff,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDropOffAddress as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDropOffAddress,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumInsurance as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumInsurance,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumPickup as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumPickup,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumPickupAddress as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumPickupAddress,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotal as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotal,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalDiscounts as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalDiscounts,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalExtraCharge as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalExtraCharge,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTax as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTax,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem,
+        PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumVehicle as PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumVehicle,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatum as PaymentIntentUpdateParamsPaymentDetailsLodgingDatum,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumAccommodation as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumAccommodation,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumAffiliate as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumAffiliate,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumGuest as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumGuest,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumHost as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumHost,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumHostAddress as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumHostAddress,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumInsurance as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumInsurance,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotal as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotal,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalDiscounts as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalDiscounts,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalExtraCharge as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalExtraCharge,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTax as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTax,
+        PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem as PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem,
         PaymentIntentUpdateParamsPaymentMethodData as PaymentIntentUpdateParamsPaymentMethodData,
         PaymentIntentUpdateParamsPaymentMethodDataAcssDebit as PaymentIntentUpdateParamsPaymentMethodDataAcssDebit,
         PaymentIntentUpdateParamsPaymentMethodDataAffirm as PaymentIntentUpdateParamsPaymentMethodDataAffirm,
@@ -2222,6 +2389,7 @@ if TYPE_CHECKING:
         PaymentLinkCreateParamsShippingOption as PaymentLinkCreateParamsShippingOption,
         PaymentLinkCreateParamsSubscriptionData as PaymentLinkCreateParamsSubscriptionData,
         PaymentLinkCreateParamsSubscriptionDataInvoiceSettings as PaymentLinkCreateParamsSubscriptionDataInvoiceSettings,
+        PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsCustomField as PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsCustomField,
         PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsIssuer,
         PaymentLinkCreateParamsSubscriptionDataTrialSettings as PaymentLinkCreateParamsSubscriptionDataTrialSettings,
         PaymentLinkCreateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkCreateParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -2280,6 +2448,7 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsShippingOption as PaymentLinkModifyParamsShippingOption,
         PaymentLinkModifyParamsSubscriptionData as PaymentLinkModifyParamsSubscriptionData,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettings as PaymentLinkModifyParamsSubscriptionDataInvoiceSettings,
+        PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsCustomField as PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsCustomField,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer,
         PaymentLinkModifyParamsSubscriptionDataTrialSettings as PaymentLinkModifyParamsSubscriptionDataTrialSettings,
         PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkModifyParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -2332,6 +2501,7 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsShippingOption as PaymentLinkUpdateParamsShippingOption,
         PaymentLinkUpdateParamsSubscriptionData as PaymentLinkUpdateParamsSubscriptionData,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings,
+        PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer,
         PaymentLinkUpdateParamsSubscriptionDataTrialSettings as PaymentLinkUpdateParamsSubscriptionDataTrialSettings,
         PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -4111,6 +4281,7 @@ if TYPE_CHECKING:
         TokenCreateParamsAccountCompanyAdministrativeAddress as TokenCreateParamsAccountCompanyAdministrativeAddress,
         TokenCreateParamsAccountCompanyDirectorshipDeclaration as TokenCreateParamsAccountCompanyDirectorshipDeclaration,
         TokenCreateParamsAccountCompanyOwnershipDeclaration as TokenCreateParamsAccountCompanyOwnershipDeclaration,
+        TokenCreateParamsAccountCompanyPhysicalAddress as TokenCreateParamsAccountCompanyPhysicalAddress,
         TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness as TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness,
         TokenCreateParamsAccountCompanyRegistrationDate as TokenCreateParamsAccountCompanyRegistrationDate,
         TokenCreateParamsAccountCompanyRepresentativeDeclaration as TokenCreateParamsAccountCompanyRepresentativeDeclaration,
@@ -4585,6 +4756,10 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsCapabilitiesWeroPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsCapabilitiesZipPayments": (
         "stripe.params._account_create_params",
         False,
@@ -4619,6 +4794,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCompanyPhysicalAddress": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -4687,6 +4866,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsDocumentsProofOfAddress": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsDocumentsProofOfBusinessPresence": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -5428,6 +5611,14 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountSessionCreateParamsComponentsReportingChart": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsReportingChartFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
     "AccountSessionCreateParamsComponentsTaxRegistrations": (
         "stripe.params._account_session_create_params",
         False,
@@ -5441,6 +5632,22 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsTaxSettingsFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrders": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShop": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),
@@ -5742,6 +5949,10 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsCapabilitiesWeroPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsCapabilitiesZipPayments": (
         "stripe.params._account_update_params",
         False,
@@ -5776,6 +5987,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCompanyPhysicalAddress": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -5828,6 +6043,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsDocumentsProofOfAddress": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsDocumentsProofOfBusinessPresence": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -7015,6 +7234,14 @@ _import_map = {
         "stripe.params._dispute_modify_params",
         False,
     ),
+    "DisputeModifyParamsEvidenceAppeal": (
+        "stripe.params._dispute_modify_params",
+        False,
+    ),
+    "DisputeModifyParamsEvidenceAppealCard": (
+        "stripe.params._dispute_modify_params",
+        False,
+    ),
     "DisputeModifyParamsEvidenceEnhancedEvidence": (
         "stripe.params._dispute_modify_params",
         False,
@@ -7050,6 +7277,14 @@ _import_map = {
     "DisputeRetrieveParams": ("stripe.params._dispute_retrieve_params", False),
     "DisputeUpdateParams": ("stripe.params._dispute_update_params", False),
     "DisputeUpdateParamsEvidence": (
+        "stripe.params._dispute_update_params",
+        False,
+    ),
+    "DisputeUpdateParamsEvidenceAppeal": (
+        "stripe.params._dispute_update_params",
+        False,
+    ),
+    "DisputeUpdateParamsEvidenceAppealCard": (
         "stripe.params._dispute_update_params",
         False,
     ),
@@ -7410,6 +7645,50 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedule": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePause": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePausePauseAt": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillFor": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForOutstandingUsageThrough": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseSchedulePauseSettingsBillForUnusedTimeFrom": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResume": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAt": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeResumeAtDuration": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPauseScheduleResumeSettings": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -8207,6 +8486,118 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatum": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumAffiliate": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDistance": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDriver": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDriverDateOfBirth": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDropOff": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumDropOffAddress": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumInsurance": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumPickup": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumPickupAddress": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotal": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalDiscounts": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTax": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsCarRentalDatumVehicle": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatum": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumAccommodation": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumAffiliate": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumGuest": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumHost": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumHostAddress": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumInsurance": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotal": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalDiscounts": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTax": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
     "PaymentIntentCaptureParamsTransferData": (
         "stripe.params._payment_intent_capture_params",
         False,
@@ -8284,6 +8675,118 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentDetails": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatum": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumAffiliate": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDistance": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDriver": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDriverDateOfBirth": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDropOff": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumDropOffAddress": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumInsurance": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumPickup": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumPickupAddress": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotal": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalDiscounts": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTax": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsCarRentalDatumVehicle": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatum": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumAccommodation": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumAffiliate": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumGuest": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumHost": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumHostAddress": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumInsurance": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotal": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalDiscounts": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTax": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -8960,6 +9463,118 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentDetails": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatum": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumAffiliate": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDistance": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDriver": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDriverDateOfBirth": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDropOff": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumDropOffAddress": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumInsurance": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumPickup": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumPickupAddress": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotal": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalDiscounts": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTax": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsCarRentalDatumVehicle": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatum": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumAccommodation": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumAffiliate": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumGuest": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumHost": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumHostAddress": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumInsurance": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotal": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalDiscounts": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTax": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -9703,6 +10318,118 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatum": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumAffiliate": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDistance": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriver": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriverDateOfBirth": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOff": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOffAddress": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumInsurance": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickup": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickupAddress": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotal": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumVehicle": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatum": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumAccommodation": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumAffiliate": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumGuest": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumHost": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumHostAddress": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumInsurance": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotal": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalDiscounts": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodData": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -10368,6 +11095,118 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentDetails": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatum": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumAffiliate": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDistance": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDriver": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDriverDateOfBirth": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDropOff": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumDropOffAddress": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumInsurance": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumPickup": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumPickupAddress": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotal": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalDiscounts": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTax": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumTotalTaxTaxItem": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsCarRentalDatumVehicle": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatum": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumAccommodation": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumAffiliate": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumGuest": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumHost": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumHostAddress": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumInsurance": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotal": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalDiscounts": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalExtraCharge": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTax": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsLodgingDatumTotalTaxTaxItem": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -11163,6 +12002,10 @@ _import_map = {
         "stripe.params._payment_link_create_params",
         False,
     ),
+    "PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsCustomField": (
+        "stripe.params._payment_link_create_params",
+        False,
+    ),
     "PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsIssuer": (
         "stripe.params._payment_link_create_params",
         False,
@@ -11363,6 +12206,10 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsCustomField": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -11552,6 +12399,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsCustomField": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -17243,6 +18094,10 @@ _import_map = {
         False,
     ),
     "TokenCreateParamsAccountCompanyOwnershipDeclaration": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsAccountCompanyPhysicalAddress": (
         "stripe.params._token_create_params",
         False,
     ),

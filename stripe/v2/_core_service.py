@@ -8,10 +8,14 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_link_service import AccountLinkService
     from stripe.v2.core._account_service import AccountService
     from stripe.v2.core._account_token_service import AccountTokenService
+    from stripe.v2.core._claimable_sandbox_service import (
+        ClaimableSandboxService,
+    )
     from stripe.v2.core._event_destination_service import (
         EventDestinationService,
     )
     from stripe.v2.core._event_service import EventService
+    from stripe.v2.core._vault_service import VaultService
 
 _subservices = {
     "accounts": ["stripe.v2.core._account_service", "AccountService"],
@@ -23,11 +27,16 @@ _subservices = {
         "stripe.v2.core._account_token_service",
         "AccountTokenService",
     ],
+    "claimable_sandboxes": [
+        "stripe.v2.core._claimable_sandbox_service",
+        "ClaimableSandboxService",
+    ],
     "events": ["stripe.v2.core._event_service", "EventService"],
     "event_destinations": [
         "stripe.v2.core._event_destination_service",
         "EventDestinationService",
     ],
+    "vault": ["stripe.v2.core._vault_service", "VaultService"],
 }
 
 
@@ -35,8 +44,10 @@ class CoreService(StripeService):
     accounts: "AccountService"
     account_links: "AccountLinkService"
     account_tokens: "AccountTokenService"
+    claimable_sandboxes: "ClaimableSandboxService"
     events: "EventService"
     event_destinations: "EventDestinationService"
+    vault: "VaultService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

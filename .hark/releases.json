@@ -5,6 +5,24 @@
   },
   "releases": [
     {
+      "version": "17.1.0",
+      "released_on": "2026-11-18",
+      "pinned_api_version": "2026-11-18.endive",
+      "minimum_runtime_version": "3.9"
+    },
+    {
+      "version": "17.0.0",
+      "released_on": "2026-11-11",
+      "pinned_api_version": "2026-10-28.endive",
+      "minimum_runtime_version": "3.9"
+    },
+    {
+      "version": "16.1.0",
+      "released_on": "2026-10-29",
+      "pinned_api_version": "2026-10-28.endive",
+      "minimum_runtime_version": "3.9"
+    },
+    {
       "version": "16.0.0",
       "released_on": "2026-09-30",
       "pinned_api_version": "2026-09-30.endive",

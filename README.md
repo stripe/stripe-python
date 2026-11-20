@@ -370,9 +370,12 @@ async for c in await stripe.Customer.list_async().auto_paging_iter():
 There is no `.save_async` as `.save` is [deprecated since stripe-python v5](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v5#deprecated). Please migrate to `.modify_async`.
 
 The default HTTP client uses `requests` for making synchronous requests but
-`httpx` for making async requests. If you're migrating to async, we recommend
-you to explicitly initialize your own http client and pass it to StripeClient
-or set it as the global default.
+`httpx2` for making async requests, falling back to `httpx` if `httpx2` isn't
+installed (and to `aiohttp` if neither is). We recommend `pip install httpx2`
+for async use, since `httpx` is no longer actively maintained. `httpx` support
+is deprecated and will be removed in the next major version of stripe-python.
+If you're migrating to async, we recommend you to explicitly initialize your own
+http client and pass it to StripeClient or set it as the global default.
 
 If you don't already have a dependency on an async-compatible HTTP library, `pip install stripe[async]` will install one for you (new in `v13.0.1`).
 
@@ -382,7 +385,7 @@ If you don't already have a dependency on an async-compatible HTTP library, `pip
 # make sure you don't unintentionally make a synchronous request.
 my_http_client = stripe.HTTPXClient()
 
-# If you want to use httpx to make sync requests, you can disable this
+# If you want to use httpx2 to make sync requests, you can disable this
 # behavior.
 my_http_client = stripe.HTTPXClient(allow_sync_methods=True)
 
@@ -469,12 +472,6 @@ with:
 ```sh
 just format
 # or: venv/bin/ruff format . --quiet
-```
-
-Update bundled CA certificates from the [Mozilla cURL release][curl]:
-
-```sh
-just update-certs
 ```
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys

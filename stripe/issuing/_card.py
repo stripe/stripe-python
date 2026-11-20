@@ -183,6 +183,10 @@ class Card(
         """
         Additional information that may be required for clearing customs.
         """
+        delivered_at: Optional[int]
+        """
+        The time the card was reported as delivered. Null for undelivered or untracked shipments, or if Stripe has not recorded a delivery time.
+        """
         eta: Optional[int]
         """
         A unix timestamp representing a best estimate of when the card will be delivered.
@@ -202,6 +206,10 @@ class Card(
         service: Union[Literal["express", "priority", "standard"], str]
         """
         Shipment service, such as `standard` or `express`.
+        """
+        shipped_at: Optional[int]
+        """
+        The time the card was reported as shipped. Null if Stripe has not recorded a shipment time.
         """
         status: Optional[
             Union[
@@ -1307,7 +1315,7 @@ class Card(
     """
     latest_fraud_warning: Optional[LatestFraudWarning]
     """
-    Stripe's assessment of whether this card's details have been compromised. If this property isn't null, cancel and reissue the card to prevent fraudulent activity risk.
+    Stripe's assessment of whether this card's details have been compromised. If this property isn't null, cancel and reissue the card to reduce the risk of fraudulent activity. Stripe may remove a fraud warning if the cardholder confirms that the activity on the card is legitimate.
     """
     lifecycle_controls: Optional[LifecycleControls]
     """

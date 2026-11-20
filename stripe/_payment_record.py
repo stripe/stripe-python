@@ -480,7 +480,7 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
                     ]
                 ]
                 """
-                If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If you provide an address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[
                     Union[
@@ -740,6 +740,12 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
             """
             This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
             """
+            stored_credential_usage: Optional[
+                Union[Literal["installment", "recurring", "unscheduled"], str]
+            ]
+            """
+            The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
+            """
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
@@ -967,7 +973,13 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
             network: Optional[
                 Union[
                     Literal[
-                        "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                        "base",
+                        "ethereum",
+                        "polygon",
+                        "solana",
+                        "sui",
+                        "tempo",
+                        "tron",
                     ],
                     str,
                 ]
@@ -978,6 +990,7 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
             token_currency: Optional[
                 Union[
                     Literal[
+                        "ousd",
                         "phantom_cash",
                         "usdc",
                         "usdg",
@@ -1683,7 +1696,10 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
             _inner_class_types = {"seller_protection": SellerProtection}
 
         class Paypay(StripeObject):
-            pass
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+            """
 
         class Payto(StripeObject):
             bsb_number: Optional[str]

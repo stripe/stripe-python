@@ -41,6 +41,8 @@ class InboundTransfer(
     ListableAPIResource["InboundTransfer"],
 ):
     """
+    Legacy InboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Inbound Transfers](https://docs.stripe.com/api/v2/money-management/inbound-transfers) instead of building a new v1 integration.
+
     Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
 
     Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
@@ -51,6 +53,23 @@ class InboundTransfer(
     )
 
     class FailureDetails(StripeObject):
+        class NetworkDetails(StripeObject):
+            class Ach(StripeObject):
+                return_code: Optional[str]
+                """
+                NACHA ACH return code.
+                """
+                return_reason: Optional[str]
+                """
+                NACHA ACH return reason.
+                """
+
+            ach: Optional[Ach]
+            """
+            ACH return details.
+            """
+            _inner_class_types = {"ach": Ach}
+
         code: Union[
             Literal[
                 "account_closed",
@@ -72,6 +91,11 @@ class InboundTransfer(
         """
         Reason for the failure.
         """
+        network_details: Optional[NetworkDetails]
+        """
+        Money movement network-specific details regarding the failure.
+        """
+        _inner_class_types = {"network_details": NetworkDetails}
 
     class LinkedFlows(StripeObject):
         received_debit: Optional[str]
@@ -478,7 +502,7 @@ class InboundTransfer(
             cls, id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",
@@ -497,7 +521,7 @@ class InboundTransfer(
             id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -506,7 +530,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -515,7 +539,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",
@@ -533,7 +557,7 @@ class InboundTransfer(
             cls, id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",
@@ -552,7 +576,7 @@ class InboundTransfer(
             id: str, /, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -561,7 +585,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -570,7 +594,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferFailParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",
@@ -591,7 +615,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             return cast(
                 "InboundTransfer",
@@ -612,7 +636,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             ...
 
@@ -622,7 +646,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             ...
 
@@ -632,7 +656,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             return cast(
                 "InboundTransfer",
@@ -653,7 +677,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             return cast(
                 "InboundTransfer",
@@ -674,7 +698,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             ...
 
@@ -684,7 +708,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             ...
 
@@ -694,7 +718,7 @@ class InboundTransfer(
             **params: Unpack["InboundTransferReturnInboundTransferParams"],
         ) -> "InboundTransfer":
             """
-            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
             """
             return cast(
                 "InboundTransfer",
@@ -712,7 +736,7 @@ class InboundTransfer(
             cls, id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",
@@ -731,7 +755,7 @@ class InboundTransfer(
             id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -740,7 +764,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -749,7 +773,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",
@@ -767,7 +791,7 @@ class InboundTransfer(
             cls, id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",
@@ -786,7 +810,7 @@ class InboundTransfer(
             id: str, /, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -795,7 +819,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             ...
 
@@ -804,7 +828,7 @@ class InboundTransfer(
             self, **params: Unpack["InboundTransferSucceedParams"]
         ) -> "InboundTransfer":
             """
-            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
             """
             return cast(
                 "InboundTransfer",

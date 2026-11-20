@@ -139,6 +139,12 @@ class TokenCreateParamsAccountCompany(TypedDict):
     """
     The company's phone number (used for verification).
     """
+    physical_address: NotRequired[
+        "TokenCreateParamsAccountCompanyPhysicalAddress"
+    ]
+    """
+    A location where the business has a meaningful physical operating presence.
+    """
     principal_place_of_business: NotRequired[
         "TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness"
     ]
@@ -330,6 +336,33 @@ class TokenCreateParamsAccountCompanyOwnershipDeclaration(TypedDict):
     user_agent: NotRequired[str]
     """
     The user agent of the browser from which the beneficial owner attestation was made.
+    """
+
+
+class TokenCreateParamsAccountCompanyPhysicalAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 

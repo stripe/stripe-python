@@ -95,11 +95,11 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             class Checks(StripeObject):
                 address_line1_check: Optional[str]
                 """
-                If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 address_postal_code_check: Optional[str]
                 """
-                If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
                 cvc_check: Optional[str]
                 """
@@ -596,6 +596,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "forwarding_api_upstream_connection_timeout",
                     "forwarding_api_upstream_error",
                     "idempotency_key_in_use",
+                    "inactive_api_operation_confirmation_required",
                     "incorrect_address",
                     "incorrect_cvc",
                     "incorrect_number",
@@ -705,11 +706,13 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "shipping_calculation_failed",
                     "siret_invalid",
                     "sku_inactive",
+                    "smart_disputes_not_available",
                     "state_unsupported",
                     "status_transition_invalid",
                     "storer_capability_missing",
                     "storer_capability_not_active",
                     "stripe_tax_inactive",
+                    "subscription_update_trial_after_billing_cycle_anchor",
                     "tax_id_invalid",
                     "tax_id_prohibited",
                     "taxes_calculation_failed",
@@ -721,6 +724,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "terminal_reader_offline",
                     "terminal_reader_timeout",
                     "testmode_charges_only",
+                    "three_d_secure_authentication_not_supported",
+                    "three_d_secure_authentication_upstream_error",
                     "tls_version_unsupported",
                     "token_already_used",
                     "token_card_network_invalid",

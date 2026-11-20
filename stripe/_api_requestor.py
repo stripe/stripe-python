@@ -61,10 +61,12 @@ from stripe._http_client import (
 
 from stripe._base_address import BaseAddress
 from stripe._api_mode import ApiMode
+from stripe._stripe_object import API_KEY_SERIALIZATION_CONSTANT
 
 if TYPE_CHECKING:
     from stripe._app_info import AppInfo
     from stripe._stripe_object import StripeObject
+    from stripe._stripe_context import StripeContext
 
 HttpVerb = Literal["get", "post", "delete"]
 
@@ -165,11 +167,35 @@ class _APIRequestor(object):
         """
         Returns a new _APIRequestor instance with the same HTTP client but a (potentially) updated set of options. Useful for ensuring the original isn't modified, but any options the original had are still used.
         """
+        if self.api_key == API_KEY_SERIALIZATION_CONSTANT:
+            raise error.AuthenticationError(
+                "This object was unpickled without API credentials. "
+                "Call reattach_api_key(api_key) on the object before making requests."
+            )
+
         options = options or {}
         new_options = self._options.to_dict()
         for key in PERSISTENT_OPTIONS_KEYS:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
+        return _APIRequestor(
+            options=RequestorOptions(**new_options), client=self._client
+        )
+
+    def with_stripe_context(
+        self, stripe_context: "Optional[Union[str, StripeContext]]"
+    ) -> "_APIRequestor":
+        """
+        Returns a new _APIRequestor with the same configuration as this one, but
+        scoped to a different stripe_context. Unlike _new_requestor_with_options,
+        this always replaces stripe_context (even with None) and clears
+        stripe_account, since a context is self-contained and a stripe_account
+        inherited from whatever request produced this requestor should not leak
+        into requests scoped by it.
+        """
+        new_options = self._options.to_dict()
+        new_options["stripe_context"] = stripe_context
+        new_options["stripe_account"] = None
         return _APIRequestor(
             options=RequestorOptions(**new_options), client=self._client
         )
@@ -417,10 +443,64 @@ class _APIRequestor(object):
                 code,
             )
         # switchCases: The beginning of the section generated from our OpenAPI spec
+        elif type == "already_canceled":
+            return error.AlreadyCanceledError(**error_args)
+        elif type == "blocked_by_stripe":
+            return error.BlockedByStripeError(**error_args)
+        elif type == "cannot_proceed":
+            return error.CannotProceedError(
+                **error_args,
+                reason=error_data.get("reason"),
+            )
+        elif type == "capability_not_enabled":
+            return error.CapabilityNotEnabledError(**error_args)
+        elif type == "controlled_by_alternate_resource":
+            return error.ControlledByAlternateResourceError(**error_args)
+        elif type == "feature_not_enabled":
+            return error.FeatureNotEnabledError(**error_args)
+        elif type == "financial_account_not_open":
+            return error.FinancialAccountNotOpenError(**error_args)
+        elif type == "fx_quote_needs_refresh":
+            return error.FxQuoteNeedsRefreshError(**error_args)
+        elif type == "insufficient_funds":
+            return error.InsufficientFundsError(**error_args)
+        elif type == "invalid_payment_method":
+            return error.InvalidPaymentMethodError(
+                **error_args,
+                invalid_param=error_data.get("invalid_param"),
+            )
+        elif type == "invalid_payout_method":
+            return error.InvalidPayoutMethodError(**error_args)
+        elif type == "invalid_vaulted_credential":
+            return error.InvalidVaultedCredentialError(
+                **error_args,
+                invalid_param=error_data.get("invalid_param"),
+            )
+        elif type == "not_cancelable":
+            return error.NotCancelableError(**error_args)
+        elif type == "quota_exceeded":
+            return error.QuotaExceededError(**error_args)
         elif type == "rate_limit":
             return error.RateLimitError(**error_args)
+        elif type == "recipient_not_notifiable":
+            return error.RecipientNotNotifiableError(**error_args)
         elif type == "temporary_session_expired":
             return error.TemporarySessionExpiredError(**error_args)
+        elif type == "verification_attempt_failed":
+            return error.VerificationAttemptFailedError(
+                **error_args,
+                verification_status=error_data.get("verification_status"),
+            )
+        elif type == "verification_expired":
+            return error.VerificationExpiredError(
+                **error_args,
+                verification_status=error_data.get("verification_status"),
+            )
+        elif type == "verification_not_initiated":
+            return error.VerificationNotInitiatedError(
+                **error_args,
+                verification_status=error_data.get("verification_status"),
+            )
         # switchCases: The end of the section generated from our OpenAPI spec
 
         return self.specific_v1_api_error(
@@ -619,6 +699,12 @@ class _APIRequestor(object):
         """
         Mechanism for issuing an API call.  Used by request_raw and request_raw_async.
         """
+        if self.api_key == API_KEY_SERIALIZATION_CONSTANT:
+            raise error.AuthenticationError(
+                "This object was unpickled without API credentials. "
+                "Call reattach_api_key(api_key) on the object before making requests."
+            )
+
         request_options = merge_options(self._options, options)
 
         # Special stripe_version handling for v2 requests:

@@ -13,7 +13,7 @@ from stripe.v2.core._event import (
 from importlib import import_module
 
 if TYPE_CHECKING:
-    from stripe.v2.core import accounts as accounts
+    from stripe.v2.core import accounts as accounts, vault as vault
     from stripe.v2.core._account import Account as Account
     from stripe.v2.core._account_link import AccountLink as AccountLink
     from stripe.v2.core._account_link_service import (
@@ -30,6 +30,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_token_service import (
         AccountTokenService as AccountTokenService,
     )
+    from stripe.v2.core._claimable_sandbox import (
+        ClaimableSandbox as ClaimableSandbox,
+    )
+    from stripe.v2.core._claimable_sandbox_service import (
+        ClaimableSandboxService as ClaimableSandboxService,
+    )
     from stripe.v2.core._event import Event as Event
     from stripe.v2.core._event_destination import (
         EventDestination as EventDestination,
@@ -38,10 +44,12 @@ if TYPE_CHECKING:
         EventDestinationService as EventDestinationService,
     )
     from stripe.v2.core._event_service import EventService as EventService
+    from stripe.v2.core._vault_service import VaultService as VaultService
 
 # name -> (import_target, is_submodule)
 _import_map = {
     "accounts": ("stripe.v2.core.accounts", True),
+    "vault": ("stripe.v2.core.vault", True),
     "Account": ("stripe.v2.core._account", False),
     "AccountLink": ("stripe.v2.core._account_link", False),
     "AccountLinkService": ("stripe.v2.core._account_link_service", False),
@@ -50,6 +58,11 @@ _import_map = {
     "AccountService": ("stripe.v2.core._account_service", False),
     "AccountToken": ("stripe.v2.core._account_token", False),
     "AccountTokenService": ("stripe.v2.core._account_token_service", False),
+    "ClaimableSandbox": ("stripe.v2.core._claimable_sandbox", False),
+    "ClaimableSandboxService": (
+        "stripe.v2.core._claimable_sandbox_service",
+        False,
+    ),
     "Event": ("stripe.v2.core._event", False),
     "EventDestination": ("stripe.v2.core._event_destination", False),
     "EventDestinationService": (
@@ -57,6 +70,7 @@ _import_map = {
         False,
     ),
     "EventService": ("stripe.v2.core._event_service", False),
+    "VaultService": ("stripe.v2.core._vault_service", False),
 }
 if not TYPE_CHECKING:
 

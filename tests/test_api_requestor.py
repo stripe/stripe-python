@@ -669,6 +669,37 @@ class TestAPIRequestor(object):
             stripe_context=context,
         )
 
+    def test_with_stripe_context_clears_stripe_account(
+        self, requestor, http_client_mock: HTTPClientMock
+    ):
+        """
+        with_stripe_context is used to scope a requestor to a v2 Event's own
+        context (see Event's construction in _util._convert_to_stripe_object).
+        Unlike _new_requestor_with_options, it must always clear stripe_account,
+        even though one was already set, so a stale account from whatever
+        request produced the original requestor can't leak into requests made
+        with the new one.
+        """
+        requestor = requestor._new_requestor_with_options(
+            RequestOptions(stripe_account="acct_original")
+        )
+
+        requestor = requestor.with_stripe_context("acct_context")
+
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        http_client_mock.assert_requested(
+            "get",
+            stripe_context="acct_context",
+        )
+        call = http_client_mock.get_last_call()
+        assert call.headers is not None
+        assert "Stripe-Account" not in call.headers
+
     def test_sets_default_http_client(self, mocker):
         assert not stripe.default_http_client
 

@@ -579,6 +579,10 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The us_bank_transfer_payments capability.
     """
+    wero_payments: NotRequired["AccountUpdateParamsCapabilitiesWeroPayments"]
+    """
+    The wero_payments capability.
+    """
     zip_payments: NotRequired["AccountUpdateParamsCapabilitiesZipPayments"]
     """
     The zip_payments capability.
@@ -1061,6 +1065,13 @@ class AccountUpdateParamsCapabilitiesUsBankTransferPayments(TypedDict):
     """
 
 
+class AccountUpdateParamsCapabilitiesWeroPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountUpdateParamsCapabilitiesZipPayments(TypedDict):
     requested: NotRequired[bool]
     """
@@ -1140,6 +1151,10 @@ class AccountUpdateParamsCompany(TypedDict):
     phone: NotRequired[str]
     """
     The company's phone number (used for verification).
+    """
+    physical_address: NotRequired["AccountUpdateParamsCompanyPhysicalAddress"]
+    """
+    A location where the business has a meaningful physical operating presence.
     """
     principal_place_of_business: NotRequired[
         "AccountUpdateParamsCompanyPrincipalPlaceOfBusiness"
@@ -1332,6 +1347,33 @@ class AccountUpdateParamsCompanyOwnershipDeclaration(TypedDict):
     """
 
 
+class AccountUpdateParamsCompanyPhysicalAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
 class AccountUpdateParamsCompanyPrincipalPlaceOfBusiness(TypedDict):
     city: NotRequired[str]
     """
@@ -1446,6 +1488,12 @@ class AccountUpdateParamsDocuments(TypedDict):
     """
     One or more documents that demonstrate proof of address.
     """
+    proof_of_business_presence: NotRequired[
+        "AccountUpdateParamsDocumentsProofOfBusinessPresence"
+    ]
+    """
+    One or more documents that demonstrate proof of business presence.
+    """
     proof_of_registration: NotRequired[
         "AccountUpdateParamsDocumentsProofOfRegistration"
     ]
@@ -1503,6 +1551,13 @@ class AccountUpdateParamsDocumentsCompanyTaxIdVerification(TypedDict):
 
 
 class AccountUpdateParamsDocumentsProofOfAddress(TypedDict):
+    files: NotRequired[List[str]]
+    """
+    One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
+    """
+
+
+class AccountUpdateParamsDocumentsProofOfBusinessPresence(TypedDict):
     files: NotRequired[List[str]]
     """
     One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
