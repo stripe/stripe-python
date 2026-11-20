@@ -205,8 +205,8 @@ class HTTPClient(object):
 
     def _record_request_metrics(self, response, request_start, usage):
         _, _, rheaders = response
-        if "Request-Id" in rheaders and stripe.enable_telemetry:
-            request_id = rheaders["Request-Id"]
+        request_id = _util.get_header(rheaders, "Request-Id")
+        if request_id is not None and stripe.enable_telemetry:
             request_duration_ms = _now_ms() - request_start
             self._thread_local.last_request_metrics = RequestMetrics(
                 request_id, request_duration_ms, usage=usage
@@ -906,9 +906,13 @@ class PycurlClient(HTTPClient):
         return curl
 
     def parse_headers(self, data):
-        if "\r\n" not in data:
+        # libcurl reports the headers of every response on the connection, so
+        # an interim response (100 Continue, a proxy's reply to CONNECT) comes
+        # before the final one. Only the last block describes the response.
+        blocks = [block for block in data.split("\r\n\r\n") if block.strip()]
+        if not blocks or "\r\n" not in blocks[-1]:
             return {}
-        raw_headers = data.split("\r\n", 1)[1]
+        raw_headers = blocks[-1].split("\r\n", 1)[1]
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in dict(headers).items())
 
@@ -1304,15 +1308,17 @@ class HTTPXClient(HTTPClient):
     def _get_request_args_kwargs(
         self, method: str, url: str, headers: Mapping[str, str], post_data
     ):
-        kwargs = {}
-
-        if self._timeout:
-            kwargs["timeout"] = self._timeout
         # `post_data` is an already-encoded body, which httpx takes as
         # `content`; passing it as `data` is deprecated.
         return [
             (method, url),
-            {"headers": headers, "content": post_data or None, **kwargs},
+            {
+                "headers": headers,
+                "content": post_data or None,
+                # Passed even when None, which is how httpx disables timeouts;
+                # omitting it would apply httpx's own 5 second default.
+                "timeout": self._timeout,
+            },
         ]
 
     def request(
@@ -1420,6 +1426,8 @@ class HTTPXClient(HTTPClient):
 
     async def close_async(self):
         await self._client_async.aclose()
+        if self._client is not None:
+            self._client.close()
 
 
 class AIOHTTPClient(HTTPClient):
@@ -1465,9 +1473,7 @@ class AIOHTTPClient(HTTPClient):
                         ssl=ssl_context
                     )
                 else:
-                    kwargs["connector"] = self.aiohttp.TCPConnector(
-                        verify_ssl=False
-                    )
+                    kwargs["connector"] = self.aiohttp.TCPConnector(ssl=False)
 
                 self._cached_session = self.aiohttp.ClientSession(**kwargs)
 
@@ -1487,11 +1493,12 @@ class AIOHTTPClient(HTTPClient):
         args = (method, url)
         kwargs = {}
         if self._proxy:
-            if self._proxy["http"] != self._proxy["https"]:
+            proxy_urls = set(self._proxy.values())
+            if len(proxy_urls) > 1:
                 raise ValueError(
                     "AIOHTTPClient does not support different proxies for HTTP and HTTPS."
                 )
-            kwargs["proxy"] = self._proxy["https"]
+            kwargs["proxy"] = proxy_urls.pop()
         if self._timeout:
             kwargs["timeout"] = self._timeout
 

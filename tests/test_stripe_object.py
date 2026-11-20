@@ -241,6 +241,28 @@ class TestStripeObject(object):
             stripe.PromotionCode.Restrictions.CurrencyOptions,
         )
 
+    def test_map_to_nested_object_is_serializable(self):
+        obj = stripe.PromotionCode.construct_from(SAMPLE_PROMOTION_CODE, "key")
+
+        assert json.loads(str(obj)) == SAMPLE_PROMOTION_CODE
+        assert json.loads(json.dumps(obj.to_dict())) == SAMPLE_PROMOTION_CODE
+        assert (
+            type(obj.to_dict()["restrictions"]["currency_options"]["gbp"])
+            is dict
+        )
+
+    def test_refresh_on_null_map_to_nested_object(self):
+        obj = stripe.PromotionCode.construct_from(
+            {
+                "id": "promo_123",
+                "object": "promotion_code",
+                "restrictions": {"currency_options": None},
+            },
+            "key",
+        )
+
+        assert obj.restrictions.currency_options is None
+
     def test_to_json(self):
         obj = StripeObject.construct_from(SAMPLE_INVOICE, "key")
 
@@ -697,6 +719,35 @@ class TestStripeObject(object):
 
         # Verify that we're actually deep copying nested values.
         assert id(nested) != id(copied.nested)
+
+    @pytest.mark.parametrize("copy_method", [copy, deepcopy])
+    def test_copy_preserves_class(self, copy_method):
+        customer = stripe.Customer.construct_from(
+            {
+                "id": "cus_123",
+                "object": "customer",
+                "address": {"city": "Jaipur"},
+            },
+            "mykey",
+        )
+        listing = stripe.ListObject.construct_from(
+            {
+                "object": "list",
+                "url": "/v1/customers",
+                "has_more": False,
+                "data": [{"id": "cus_123", "object": "customer"}],
+            },
+            "mykey",
+        )
+
+        copied_customer = copy_method(customer)
+        copied_listing = copy_method(listing)
+
+        assert type(copied_customer) is stripe.Customer
+        assert copied_customer == customer
+        assert type(copied_customer.address) is stripe.Customer.Address
+        assert type(copied_listing) is stripe.ListObject
+        assert [item.id for item in copied_listing] == ["cus_123"]
 
     def test_to_dict_recursive(self):
         foo = StripeObject.construct_from({"value": "foo"}, "mykey")

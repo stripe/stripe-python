@@ -44,6 +44,10 @@ class TestStripeError(object):
         err = StripeError("öre", headers={"request-id": "123"})
         assert str(err) == "Request 123: öre"
 
+    def test_request_id_from_canonical_header_name(self):
+        err = StripeError("öre", headers={"Request-Id": "123"})
+        assert err.request_id == "123"
+
     def test_formatting_with_none(self):
         err = StripeError(None, headers={"request-id": "123"})
         assert str(err) == "Request 123: <empty message>"

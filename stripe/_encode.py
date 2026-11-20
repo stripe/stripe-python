@@ -16,6 +16,12 @@ def _encode_datetime(dttime: datetime.datetime):
 
 
 def _encode_decimal(dec) -> str:
+    if isinstance(dec, float):
+        dec = Decimal(repr(dec))
+    if isinstance(dec, Decimal):
+        # str() switches to scientific notation for small or large exponents
+        # ("1E-7"), which is not a plain decimal string.
+        return format(dec, "f")
     return str(dec)
 
 
@@ -37,7 +43,23 @@ def _make_suitable_for_json(value: Any) -> Any:
         return _encode_datetime(value)
     if isinstance(value, Decimal):
         return _encode_decimal(value)
+    if hasattr(value, "_data") and hasattr(value, "to_dict"):
+        return value.to_dict(for_json=True)
     return value
+
+
+def _json_default(value: Any) -> Any:
+    """
+    `default` hook for `json.dumps`. Unlike `_make_suitable_for_json`, it
+    rejects values it cannot convert: returning them unchanged makes
+    `json.dumps` fail with a misleading "Circular reference detected".
+    """
+    converted = _make_suitable_for_json(value)
+    if converted is value:
+        raise TypeError(
+            f"Object of type {type(value).__name__} is not JSON serializable"
+        )
+    return converted
 
 
 # Type for a request encoding schema node: either a leaf encoding string
@@ -181,5 +203,7 @@ def _api_encode(
             yield (key, _encode_datetime(value))
         elif isinstance(value, bool):
             yield (key, str(value).lower())
+        elif isinstance(value, Decimal):
+            yield (key, _encode_decimal(value))
         else:
             yield (key, value)

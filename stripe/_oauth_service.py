@@ -51,8 +51,7 @@ class OAuthService(StripeService):
         params: Optional["OAuth.OAuthAuthorizeUrlParams"] = None,
         options: Optional[OAuthAuthorizeUrlOptions] = None,
     ) -> str:
-        if params is None:
-            params = {}
+        params = {} if params is None else params.copy()
         if options is None:
             options = {}
 
@@ -99,6 +98,7 @@ class OAuthService(StripeService):
     ) -> "OAuth.OAuthDeauthorization":
         if options is None:
             options = {}
+        params = params.copy()
         self._set_client_id(params)
         return cast(
             "OAuth.OAuthDeauthorization",

@@ -292,7 +292,7 @@ class StripeClient(object):
         usage = params.pop("usage", ["raw_request"])
 
         rbody, rcode, rheaders = self._requestor.request_raw(
-            method_,
+            method_.lower(),
             url_,
             params=params,
             options=options,
@@ -312,7 +312,7 @@ class StripeClient(object):
         base_address = params.pop("base", "api")
 
         rbody, rcode, rheaders = await self._requestor.request_raw_async(
-            method_,
+            method_.lower(),
             url_,
             params=params,
             options=options,

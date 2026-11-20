@@ -1,4 +1,5 @@
 import warnings
+from decimal import Decimal
 
 from stripe._stripe_object import StripeObject
 from stripe._encode import _api_encode
@@ -85,6 +86,14 @@ class TestApiEncode:
         """Test that boolean values are encoded as lowercase strings."""
         result = list(_api_encode({"active": True, "deleted": False}))
         assert result == [("active", "true"), ("deleted", "false")]
+
+    def test_encode_decimal_value_in_plain_notation(self):
+        result = list(
+            _api_encode(
+                {"small": Decimal("0.0000001"), "large": Decimal("1E+3")}
+            )
+        )
+        assert result == [("small", "0.0000001"), ("large", "1000")]
 
     def test_encode_list_value(self):
         """Test that list values are encoded with indexed keys."""

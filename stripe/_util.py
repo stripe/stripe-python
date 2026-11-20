@@ -51,6 +51,18 @@ def _console_log_level():
         return None
 
 
+def get_header(headers: Mapping[str, str], name: str) -> Optional[str]:
+    """
+    Looks up a response header whatever case its name is stored in. Some
+    HTTP clients return case-insensitive mappings, while others return plain
+    dicts with lower-cased names.
+    """
+    for key in (name, name.lower()):
+        if key in headers:
+            return headers[key]
+    return None
+
+
 def log_debug(message, **params):
     msg = logfmt(dict(message=message, **params))
     if _console_log_level() == "debug":
@@ -84,7 +96,7 @@ def logfmt(props):
     def fmt(key, val):
         # Handle case where val is a bytes or bytesarray
         if hasattr(val, "decode"):
-            val = val.decode("utf-8")
+            val = val.decode("utf-8", errors="replace")
         # Check if val is already a string to avoid re-encoding into
         # ascii. Since the code is sent through 2to3, we can't just
         # use unicode(val, encoding='utf8') since it will be

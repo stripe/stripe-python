@@ -66,6 +66,28 @@ class TestRawRequest(object):
         )
         assert isinstance(deserialized, stripe.Account)
 
+    def test_form_request_post_with_uppercase_method(
+        self, http_client_mock, stripe_mock_stripe_client
+    ):
+        http_client_mock.stub_request(
+            "post",
+            path=self.POST_REL_URL,
+            rbody='{"id": "acct_123", "object": "account"}',
+            rcode=200,
+            rheaders={},
+        )
+
+        stripe_mock_stripe_client.raw_request(
+            "POST", self.POST_REL_URL, **self.ENCODE_INPUTS
+        )
+
+        http_client_mock.assert_requested(
+            "post",
+            path=self.POST_REL_URL,
+            content_type="application/x-www-form-urlencoded",
+            post_data="type=standard&int=123&datetime=1356994801",
+        )
+
     def test_v2_request_post(
         self, http_client_mock, stripe_mock_stripe_client
     ):
