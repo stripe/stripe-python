@@ -2299,17 +2299,27 @@ class PaymentRecord(ListableAPIResource["PaymentRecord"]):
             An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
             """
 
+        class Stripe(StripeObject):
+            derived_balance_transactions: Optional[List[str]]
+            """
+            Stripe balance transactions associated with this attempt, in no guaranteed order. References can appear at submission or after success. On a PaymentRecord, these references follow the latest attempt.
+            """
+
         custom: Optional[Custom]
         """
         Custom processors represent payment processors not modeled directly in
         the Stripe API. This resource consists of details about the custom processor
         used for this payment attempt.
         """
-        type: Literal["custom"]
+        stripe: Optional[Stripe]
+        """
+        Represents the Stripe processor. This resource consists of details specific to Stripe.
+        """
+        type: Union[Literal["custom", "stripe"], str]
         """
         The processor used for this payment attempt.
         """
-        _inner_class_types = {"custom": Custom}
+        _inner_class_types = {"custom": Custom, "stripe": Stripe}
 
     class ShippingDetails(StripeObject):
         class Address(StripeObject):

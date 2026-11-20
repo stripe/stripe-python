@@ -4,21 +4,18 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.billing.bill_settings._version_list_params import (
-        VersionListParams as VersionListParams,
+    from stripe.v2.payments._off_session_payment import (
+        OffSessionPayment as OffSessionPayment,
     )
-    from stripe.params.v2.billing.bill_settings._version_retrieve_params import (
-        VersionRetrieveParams as VersionRetrieveParams,
+    from stripe.v2.payments._off_session_payment_service import (
+        OffSessionPaymentService as OffSessionPaymentService,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "VersionListParams": (
-        "stripe.params.v2.billing.bill_settings._version_list_params",
-        False,
-    ),
-    "VersionRetrieveParams": (
-        "stripe.params.v2.billing.bill_settings._version_retrieve_params",
+    "OffSessionPayment": ("stripe.v2.payments._off_session_payment", False),
+    "OffSessionPaymentService": (
+        "stripe.v2.payments._off_session_payment_service",
         False,
     ),
 }

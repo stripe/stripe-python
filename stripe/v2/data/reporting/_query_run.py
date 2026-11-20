@@ -43,16 +43,28 @@ class QueryRun(StripeObject):
             _inner_class_types = {"download_url": DownloadUrl}
             _field_encodings = {"size": "int64_string"}
 
+        col_count: Optional[int]
+        """
+        The number of columns in the file.
+        """
         file: Optional[File]
         """
         Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
         its content type, size, and a URL to download its contents.
+        """
+        row_count: Optional[int]
+        """
+        The number of data rows in the file, excluding the column header row.
         """
         type: Union[Literal["file"], str]
         """
         The type of the `ReportRun` or `QueryRun` result.
         """
         _inner_class_types = {"file": File}
+        _field_encodings = {
+            "col_count": "int64_string",
+            "row_count": "int64_string",
+        }
 
     class ResultOptions(StripeObject):
         compress_file: Optional[bool]

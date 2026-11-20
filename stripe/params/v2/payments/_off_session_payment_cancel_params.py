@@ -3,5 +3,5 @@
 from typing_extensions import TypedDict
 
 
-class ProfileRetrieveParams(TypedDict):
+class OffSessionPaymentCancelParams(TypedDict):
     pass

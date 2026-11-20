@@ -3,8 +3,8 @@
 from typing_extensions import NotRequired, TypedDict
 
 
-class VersionListParams(TypedDict):
+class OffSessionPaymentListParams(TypedDict):
     limit: NotRequired[int]
     """
-    Optionally set the maximum number of results per page. Defaults to 20.
+    The page size limit. If not provided, the default is 20.
     """

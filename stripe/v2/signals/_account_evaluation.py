@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 class AccountEvaluation(StripeObject):
     """
-    Account Evaluation resource for the Signals API.
+    Account Evaluation resource for the Signals API. Account evaluations are available through the API for 180 days after creation.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.signals.account_evaluation"]] = (
@@ -87,9 +87,15 @@ class AccountEvaluation(StripeObject):
 
     class EvaluatedSignals(StripeObject):
         class FraudulentWebsite(StripeObject):
-            details: Optional[str]
+            class AdditionalDetails(StripeObject):
+                explanation: str
+                """
+                Human-readable explanation of the fraudulent website evaluation.
+                """
+
+            additional_details: Optional[AdditionalDetails]
             """
-            Human-readable details about the fraudulent website evaluation, when available.
+            Additional information about the fraudulent website evaluation, when available.
             """
             evaluated_at: Optional[str]
             """
@@ -105,6 +111,7 @@ class AccountEvaluation(StripeObject):
             """
             The account signal ID containing the full fraudulent website signal result.
             """
+            _inner_class_types = {"additional_details": AdditionalDetails}
 
         class UserAccountSharing(StripeObject):
             evaluated_at: Optional[str]

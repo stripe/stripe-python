@@ -22,6 +22,12 @@ class ActivityLog(StripeObject):
             Unique identifier of the API key.
             """
 
+        class StripeAction(StripeObject):
+            display_name: str
+            """
+            Public display name captured when the action occurs.
+            """
+
         class User(StripeObject):
             email: str
             """
@@ -32,6 +38,10 @@ class ActivityLog(StripeObject):
         """
         Set when the actor is an API key.
         """
+        stripe_action: Optional[StripeAction]
+        """
+        Set when a display name is available for an action performed by Stripe.
+        """
         type: Literal["api_key", "stripe_action", "user"]
         """
         The type of actor.
@@ -40,7 +50,11 @@ class ActivityLog(StripeObject):
         """
         Set when the actor is a user.
         """
-        _inner_class_types = {"api_key": ApiKey, "user": User}
+        _inner_class_types = {
+            "api_key": ApiKey,
+            "stripe_action": StripeAction,
+            "user": User,
+        }
 
     class Details(StripeObject):
         class AccountSecurity(StripeObject):
@@ -662,6 +676,75 @@ class ActivityLog(StripeObject):
             SSO enforcement level.
             """
 
+        class StripeAccess(StripeObject):
+            class Reason(StripeObject):
+                class AccessRequest(StripeObject):
+                    id: str
+                    """
+                    Identifier of the access request.
+                    """
+
+                class SupportRelationship(StripeObject):
+                    id: str
+                    """
+                    Identifier of the support relationship.
+                    """
+                    name: Optional[str]
+                    """
+                    Name of the support contact, when available.
+                    """
+                    role: Optional[str]
+                    """
+                    Role of the support contact, when available.
+                    """
+
+                class SupportTicket(StripeObject):
+                    id: str
+                    """
+                    Identifier of the support ticket.
+                    """
+
+                access_request: Optional[AccessRequest]
+                """
+                Set when access is granted through an access request.
+                """
+                support_relationship: Optional[SupportRelationship]
+                """
+                Set when access is granted through a support relationship.
+                """
+                support_ticket: Optional[SupportTicket]
+                """
+                Set when access is granted through a support ticket.
+                """
+                type: Union[
+                    Literal[
+                        "access_request",
+                        "support_relationship",
+                        "support_ticket",
+                    ],
+                    str,
+                ]
+                """
+                The type of reason for granting access.
+                """
+                _inner_class_types = {
+                    "access_request": AccessRequest,
+                    "support_relationship": SupportRelationship,
+                    "support_ticket": SupportTicket,
+                }
+
+            access_type: Union[
+                Literal["dashboard_read_only", "dashboard_read_write"], str
+            ]
+            """
+            The level of Dashboard access granted.
+            """
+            reason: Reason
+            """
+            The reason for granting Stripe access.
+            """
+            _inner_class_types = {"reason": Reason}
+
         class UserAccess(StripeObject):
             class DashboardClient(StripeObject):
                 user_agent: str
@@ -728,7 +811,7 @@ class ActivityLog(StripeObject):
             """
             Roles associated with the user access action.
             """
-            surface: Union[Literal["dashboard", "express"], str]
+            surface: Union[Literal["dashboard", "embedded", "express"], str]
             """
             Surface where the user access action started.
             """
@@ -820,6 +903,10 @@ class ActivityLog(StripeObject):
         """
         Details of an SSO action.
         """
+        stripe_access: Optional[StripeAccess]
+        """
+        Details of a Stripe access action.
+        """
         type: Union[
             Literal[
                 "account_security",
@@ -834,6 +921,7 @@ class ActivityLog(StripeObject):
                 "radar",
                 "scim",
                 "sso",
+                "stripe_access",
                 "user_access",
                 "user_invite",
                 "user_profile",
@@ -870,6 +958,7 @@ class ActivityLog(StripeObject):
             "radar": Radar,
             "scim": Scim,
             "sso": Sso,
+            "stripe_access": StripeAccess,
             "user_access": UserAccess,
             "user_invite": UserInvite,
             "user_profile": UserProfile,
@@ -1000,6 +1089,7 @@ class ActivityLog(StripeObject):
             "sso_settings_created",
             "sso_settings_deleted",
             "sso_settings_updated",
+            "stripe_access_started",
             "two_step_authentication_mandate_disabled",
             "two_step_authentication_mandate_enabled",
             "user_access_started",

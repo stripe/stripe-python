@@ -28,11 +28,11 @@ class BalanceTransactionListParams(RequestOptions):
     """
     payout: NotRequired[str]
     """
-    For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.
+    For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. You can't combine this parameter with `source`.
     """
     source: NotRequired[str]
     """
-    Only returns transactions associated with the given object.
+    Only returns transactions associated with the given object. You can't combine this parameter with `payout`.
     """
     starting_after: NotRequired[str]
     """

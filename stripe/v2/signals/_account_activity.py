@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class AccountActivity(StripeObject):
     """
-    Account Activity resource for the Signals API.
+    Account Activity resource for the Signals API. Account activities are available through the API for 180 days after creation.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.signals.account_activity"]] = (

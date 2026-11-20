@@ -427,22 +427,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     ),
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
     "list": ("stripe.v2._list_object", "ListObject"),
-    "v2.billing.bill_setting": (
-        "stripe.v2.billing._bill_setting",
-        "BillSetting",
-    ),
-    "v2.billing.bill_setting_version": (
-        "stripe.v2.billing._bill_setting_version",
-        "BillSettingVersion",
-    ),
-    "v2.billing.collection_setting": (
-        "stripe.v2.billing._collection_setting",
-        "CollectionSetting",
-    ),
-    "v2.billing.collection_setting_version": (
-        "stripe.v2.billing._collection_setting_version",
-        "CollectionSettingVersion",
-    ),
     "v2.billing.meter_event": ("stripe.v2.billing._meter_event", "MeterEvent"),
     "v2.billing.meter_event_adjustment": (
         "stripe.v2.billing._meter_event_adjustment",
@@ -452,7 +436,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._meter_event_session",
         "MeterEventSession",
     ),
-    "v2.billing.profile": ("stripe.v2.billing._profile", "Profile"),
     "v2.commerce.product_catalog_import": (
         "stripe.v2.commerce._product_catalog_import",
         "ProductCatalogImport",
@@ -583,6 +566,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.orchestrated_commerce.agreement": (
         "stripe.v2.orchestrated_commerce._agreement",
         "Agreement",
+    ),
+    "v2.payments.off_session_payment": (
+        "stripe.v2.payments._off_session_payment",
+        "OffSessionPayment",
     ),
     "v2.signals.account_activity": (
         "stripe.v2.signals._account_activity",

@@ -3,5 +3,5 @@
 from typing_extensions import TypedDict
 
 
-class CollectionSettingRetrieveParams(TypedDict):
+class OffSessionPaymentPauseParams(TypedDict):
     pass

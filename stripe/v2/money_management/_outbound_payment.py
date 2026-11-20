@@ -69,6 +69,7 @@ class OutboundPayment(StripeObject):
         class Returned(StripeObject):
             reason: Union[
                 Literal[
+                    "payout_method_account_type_incorrect",
                     "payout_method_canceled_by_customer",
                     "payout_method_closed",
                     "payout_method_currency_unsupported",
@@ -311,10 +312,6 @@ class OutboundPayment(StripeObject):
     purpose: Optional[Union[Literal["payroll"], str]]
     """
     The purpose of the OutboundPayment.
-    """
-    receipt_url: Optional[str]
-    """
-    A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
     """
     recipient_notification: RecipientNotification
     """

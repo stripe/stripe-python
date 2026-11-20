@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
+from typing import Dict
 from typing_extensions import NotRequired, TypedDict
 
 _InboundTransferCreateParamsBase = TypedDict(
@@ -17,6 +19,10 @@ class InboundTransferCreateParams(_InboundTransferCreateParamsBase):
     description: NotRequired[str]
     """
     An optional, freeform description field intended to store metadata.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     to: "InboundTransferCreateParamsTo"
     """

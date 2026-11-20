@@ -8,12 +8,12 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe.issuing._authorization import Authorization
+    from stripe.v2.payments._off_session_payment import OffSessionPayment
 
 
-class V1IssuingAuthorizationRequestEventNotification(EventNotification):
-    LOOKUP_TYPE = "v1.issuing_authorization.request"
-    type: Literal["v1.issuing_authorization.request"]
+class V2PaymentsOffSessionPaymentCanceledEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.payments.off_session_payment.canceled"
+    type: Literal["v2.payments.off_session_payment.canceled"]
     related_object: RelatedObject
 
     def __init__(
@@ -26,13 +26,13 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V1IssuingAuthorizationRequestEvent":
+    def fetch_event(self) -> "V2PaymentsOffSessionPaymentCanceledEvent":
         return cast(
-            "V1IssuingAuthorizationRequestEvent",
+            "V2PaymentsOffSessionPaymentCanceledEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Authorization":
+    def fetch_related_object(self) -> "OffSessionPayment":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -41,7 +41,7 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Authorization",
+            "OffSessionPayment",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -49,13 +49,15 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
         )
 
     @override
-    async def fetch_event_async(self) -> "V1IssuingAuthorizationRequestEvent":
+    async def fetch_event_async(
+        self,
+    ) -> "V2PaymentsOffSessionPaymentCanceledEvent":
         return cast(
-            "V1IssuingAuthorizationRequestEvent",
+            "V2PaymentsOffSessionPaymentCanceledEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Authorization":
+    async def fetch_related_object_async(self) -> "OffSessionPayment":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -64,7 +66,7 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "Authorization",
+            "OffSessionPayment",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -72,9 +74,9 @@ class V1IssuingAuthorizationRequestEventNotification(EventNotification):
         )
 
 
-class V1IssuingAuthorizationRequestEvent(Event):
-    LOOKUP_TYPE = "v1.issuing_authorization.request"
-    type: Literal["v1.issuing_authorization.request"]
+class V2PaymentsOffSessionPaymentCanceledEvent(Event):
+    LOOKUP_TYPE = "v2.payments.off_session_payment.canceled"
+    type: Literal["v2.payments.off_session_payment.canceled"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -95,12 +97,12 @@ class V1IssuingAuthorizationRequestEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Authorization":
+    def fetch_related_object(self) -> "OffSessionPayment":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Authorization",
+            "OffSessionPayment",
             self._requestor.request(
                 "get",
                 self.related_object.url,
