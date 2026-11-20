@@ -2572,6 +2572,7 @@ class Session(
     locale: Optional[
         Union[
             Literal[
+                "ar",
                 "auto",
                 "bg",
                 "cs",
@@ -2587,6 +2588,7 @@ class Session(
                 "fil",
                 "fr",
                 "fr-CA",
+                "he",
                 "hi-IN",
                 "hr",
                 "hu",

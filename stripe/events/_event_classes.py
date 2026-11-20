@@ -34,6 +34,15 @@ if TYPE_CHECKING:
     from stripe.events._v1_application_fee_refund_updated_event import (
         V1ApplicationFeeRefundUpdatedEventNotification,
     )
+    from stripe.events._v1_apps_install_created_event import (
+        V1AppsInstallCreatedEventNotification,
+    )
+    from stripe.events._v1_apps_install_deleted_event import (
+        V1AppsInstallDeletedEventNotification,
+    )
+    from stripe.events._v1_apps_install_updated_event import (
+        V1AppsInstallUpdatedEventNotification,
+    )
     from stripe.events._v1_balance_available_event import (
         V1BalanceAvailableEventNotification,
     )
@@ -462,9 +471,6 @@ if TYPE_CHECKING:
     )
     from stripe.events._v1_issuing_authorization_created_event import (
         V1IssuingAuthorizationCreatedEventNotification,
-    )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEventNotification,
     )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEventNotification,
@@ -1039,6 +1045,18 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_application_fee_refund_updated_event",
         "V1ApplicationFeeRefundUpdatedEvent",
     ),
+    "v1.apps.install.created": (
+        "stripe.events._v1_apps_install_created_event",
+        "V1AppsInstallCreatedEvent",
+    ),
+    "v1.apps.install.deleted": (
+        "stripe.events._v1_apps_install_deleted_event",
+        "V1AppsInstallDeletedEvent",
+    ),
+    "v1.apps.install.updated": (
+        "stripe.events._v1_apps_install_updated_event",
+        "V1AppsInstallUpdatedEvent",
+    ),
     "v1.balance.available": (
         "stripe.events._v1_balance_available_event",
         "V1BalanceAvailableEvent",
@@ -1610,10 +1628,6 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.issuing_authorization.created": (
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEvent",
-    ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEvent",
     ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
@@ -2378,6 +2392,18 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_application_fee_refund_updated_event",
         "V1ApplicationFeeRefundUpdatedEventNotification",
     ),
+    "v1.apps.install.created": (
+        "stripe.events._v1_apps_install_created_event",
+        "V1AppsInstallCreatedEventNotification",
+    ),
+    "v1.apps.install.deleted": (
+        "stripe.events._v1_apps_install_deleted_event",
+        "V1AppsInstallDeletedEventNotification",
+    ),
+    "v1.apps.install.updated": (
+        "stripe.events._v1_apps_install_updated_event",
+        "V1AppsInstallUpdatedEventNotification",
+    ),
     "v1.balance.available": (
         "stripe.events._v1_balance_available_event",
         "V1BalanceAvailableEventNotification",
@@ -2949,10 +2975,6 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.issuing_authorization.created": (
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEventNotification",
-    ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEventNotification",
     ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
@@ -3690,6 +3712,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1ApplicationFeeCreatedEventNotification",
     "V1ApplicationFeeRefundedEventNotification",
     "V1ApplicationFeeRefundUpdatedEventNotification",
+    "V1AppsInstallCreatedEventNotification",
+    "V1AppsInstallDeletedEventNotification",
+    "V1AppsInstallUpdatedEventNotification",
     "V1BalanceAvailableEventNotification",
     "V1BalanceSettingsUpdatedEventNotification",
     "V1BillingAlertTriggeredEventNotification",
@@ -3833,7 +3858,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1InvoiceVoidedEventNotification",
     "V1InvoiceWillBeDueEventNotification",
     "V1IssuingAuthorizationCreatedEventNotification",
-    "V1IssuingAuthorizationRequestEventNotification",
     "V1IssuingAuthorizationUpdatedEventNotification",
     "V1IssuingCardCreatedEventNotification",
     "V1IssuingCardholderCreatedEventNotification",

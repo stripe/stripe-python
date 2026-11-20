@@ -357,6 +357,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfService as AccountUpdateParamsIdentityAttestationsTermsOfService,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount as AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress as AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress,
@@ -1801,6 +1802,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

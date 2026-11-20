@@ -49,6 +49,18 @@ if TYPE_CHECKING:
         V1ApplicationFeeRefundedEvent as V1ApplicationFeeRefundedEvent,
         V1ApplicationFeeRefundedEventNotification as V1ApplicationFeeRefundedEventNotification,
     )
+    from stripe.events._v1_apps_install_created_event import (
+        V1AppsInstallCreatedEvent as V1AppsInstallCreatedEvent,
+        V1AppsInstallCreatedEventNotification as V1AppsInstallCreatedEventNotification,
+    )
+    from stripe.events._v1_apps_install_deleted_event import (
+        V1AppsInstallDeletedEvent as V1AppsInstallDeletedEvent,
+        V1AppsInstallDeletedEventNotification as V1AppsInstallDeletedEventNotification,
+    )
+    from stripe.events._v1_apps_install_updated_event import (
+        V1AppsInstallUpdatedEvent as V1AppsInstallUpdatedEvent,
+        V1AppsInstallUpdatedEventNotification as V1AppsInstallUpdatedEventNotification,
+    )
     from stripe.events._v1_balance_available_event import (
         V1BalanceAvailableEvent as V1BalanceAvailableEvent,
         V1BalanceAvailableEventNotification as V1BalanceAvailableEventNotification,
@@ -620,10 +632,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_issuing_authorization_created_event import (
         V1IssuingAuthorizationCreatedEvent as V1IssuingAuthorizationCreatedEvent,
         V1IssuingAuthorizationCreatedEventNotification as V1IssuingAuthorizationCreatedEventNotification,
-    )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEvent as V1IssuingAuthorizationRequestEvent,
-        V1IssuingAuthorizationRequestEventNotification as V1IssuingAuthorizationRequestEventNotification,
     )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEvent as V1IssuingAuthorizationUpdatedEvent,
@@ -1411,6 +1419,30 @@ _import_map = {
     ),
     "V1ApplicationFeeRefundedEventNotification": (
         "stripe.events._v1_application_fee_refunded_event",
+        False,
+    ),
+    "V1AppsInstallCreatedEvent": (
+        "stripe.events._v1_apps_install_created_event",
+        False,
+    ),
+    "V1AppsInstallCreatedEventNotification": (
+        "stripe.events._v1_apps_install_created_event",
+        False,
+    ),
+    "V1AppsInstallDeletedEvent": (
+        "stripe.events._v1_apps_install_deleted_event",
+        False,
+    ),
+    "V1AppsInstallDeletedEventNotification": (
+        "stripe.events._v1_apps_install_deleted_event",
+        False,
+    ),
+    "V1AppsInstallUpdatedEvent": (
+        "stripe.events._v1_apps_install_updated_event",
+        False,
+    ),
+    "V1AppsInstallUpdatedEventNotification": (
+        "stripe.events._v1_apps_install_updated_event",
         False,
     ),
     "V1BalanceAvailableEvent": (
@@ -2522,14 +2554,6 @@ _import_map = {
     ),
     "V1IssuingAuthorizationCreatedEventNotification": (
         "stripe.events._v1_issuing_authorization_created_event",
-        False,
-    ),
-    "V1IssuingAuthorizationRequestEvent": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        False,
-    ),
-    "V1IssuingAuthorizationRequestEventNotification": (
-        "stripe.events._v1_issuing_authorization_request_event",
         False,
     ),
     "V1IssuingAuthorizationUpdatedEvent": (
