@@ -110,9 +110,10 @@ if hasattr(hmac, "compare_digest"):
         except TypeError:
             if isinstance(val1, str) and isinstance(val2, str):
                 return hmac.compare_digest(
-                    val1.encode("utf-8"), val2.encode("utf-8")
+                    val1.encode("utf-8", "surrogatepass"),
+                    val2.encode("utf-8", "surrogatepass"),
                 )
-            return False
+            raise
 
 else:
 
