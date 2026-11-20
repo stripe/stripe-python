@@ -241,6 +241,7 @@ if TYPE_CHECKING:
     from stripe.params.terminal._reader_refund_payment_params import (
         ReaderRefundPaymentParams as ReaderRefundPaymentParams,
         ReaderRefundPaymentParamsRefundPaymentConfig as ReaderRefundPaymentParamsRefundPaymentConfig,
+        ReaderRefundPaymentParamsRefundPaymentConfigGiftCard as ReaderRefundPaymentParamsRefundPaymentConfigGiftCard,
     )
     from stripe.params.terminal._reader_reload_gift_card_params import (
         ReaderReloadGiftCardParams as ReaderReloadGiftCardParams,
@@ -971,6 +972,10 @@ _import_map = {
         False,
     ),
     "ReaderRefundPaymentParamsRefundPaymentConfig": (
+        "stripe.params.terminal._reader_refund_payment_params",
+        False,
+    ),
+    "ReaderRefundPaymentParamsRefundPaymentConfigGiftCard": (
         "stripe.params.terminal._reader_refund_payment_params",
         False,
     ),

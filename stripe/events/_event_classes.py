@@ -1321,6 +1321,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_debit_dispute_succeeded_event import (
         V2MoneyManagementDebitDisputeSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_dispute_adjustment_created_event import (
+        V2MoneyManagementDisputeAdjustmentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_created_event import (
+        V2MoneyManagementDisputeCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_lost_event import (
+        V2MoneyManagementDisputeLostEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_updated_event import (
+        V2MoneyManagementDisputeUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_won_event import (
+        V2MoneyManagementDisputeWonEventNotification,
+    )
     from stripe.events._v2_money_management_earned_credit_succeeded_event import (
         V2MoneyManagementEarnedCreditSucceededEventNotification,
     )
@@ -1662,6 +1677,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_reporting_report_run_updated_event import (
         V2ReportingReportRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_risk_evaluation_outcome_delinquency_ready_event import (
+        V2RiskEvaluationOutcomeDelinquencyReadyEventNotification,
     )
     from stripe.events._v2_signals_account_evaluation_complete_event import (
         V2SignalsAccountEvaluationCompleteEventNotification,
@@ -3454,6 +3472,26 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
         "V2MoneyManagementDebitDisputeSucceededEvent",
     ),
+    "v2.money_management.dispute_adjustment.created": (
+        "stripe.events._v2_money_management_dispute_adjustment_created_event",
+        "V2MoneyManagementDisputeAdjustmentCreatedEvent",
+    ),
+    "v2.money_management.dispute.created": (
+        "stripe.events._v2_money_management_dispute_created_event",
+        "V2MoneyManagementDisputeCreatedEvent",
+    ),
+    "v2.money_management.dispute.lost": (
+        "stripe.events._v2_money_management_dispute_lost_event",
+        "V2MoneyManagementDisputeLostEvent",
+    ),
+    "v2.money_management.dispute.updated": (
+        "stripe.events._v2_money_management_dispute_updated_event",
+        "V2MoneyManagementDisputeUpdatedEvent",
+    ),
+    "v2.money_management.dispute.won": (
+        "stripe.events._v2_money_management_dispute_won_event",
+        "V2MoneyManagementDisputeWonEvent",
+    ),
     "v2.money_management.earned_credit.succeeded": (
         "stripe.events._v2_money_management_earned_credit_succeeded_event",
         "V2MoneyManagementEarnedCreditSucceededEvent",
@@ -3909,6 +3947,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.reporting.report_run.updated": (
         "stripe.events._v2_reporting_report_run_updated_event",
         "V2ReportingReportRunUpdatedEvent",
+    ),
+    "v2.risk.evaluation_outcome.delinquency_ready": (
+        "stripe.events._v2_risk_evaluation_outcome_delinquency_ready_event",
+        "V2RiskEvaluationOutcomeDelinquencyReadyEvent",
     ),
     "v2.signals.account_evaluation.complete": (
         "stripe.events._v2_signals_account_evaluation_complete_event",
@@ -5725,6 +5767,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
         "V2MoneyManagementDebitDisputeSucceededEventNotification",
     ),
+    "v2.money_management.dispute_adjustment.created": (
+        "stripe.events._v2_money_management_dispute_adjustment_created_event",
+        "V2MoneyManagementDisputeAdjustmentCreatedEventNotification",
+    ),
+    "v2.money_management.dispute.created": (
+        "stripe.events._v2_money_management_dispute_created_event",
+        "V2MoneyManagementDisputeCreatedEventNotification",
+    ),
+    "v2.money_management.dispute.lost": (
+        "stripe.events._v2_money_management_dispute_lost_event",
+        "V2MoneyManagementDisputeLostEventNotification",
+    ),
+    "v2.money_management.dispute.updated": (
+        "stripe.events._v2_money_management_dispute_updated_event",
+        "V2MoneyManagementDisputeUpdatedEventNotification",
+    ),
+    "v2.money_management.dispute.won": (
+        "stripe.events._v2_money_management_dispute_won_event",
+        "V2MoneyManagementDisputeWonEventNotification",
+    ),
     "v2.money_management.earned_credit.succeeded": (
         "stripe.events._v2_money_management_earned_credit_succeeded_event",
         "V2MoneyManagementEarnedCreditSucceededEventNotification",
@@ -6180,6 +6242,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.reporting.report_run.updated": (
         "stripe.events._v2_reporting_report_run_updated_event",
         "V2ReportingReportRunUpdatedEventNotification",
+    ),
+    "v2.risk.evaluation_outcome.delinquency_ready": (
+        "stripe.events._v2_risk_evaluation_outcome_delinquency_ready_event",
+        "V2RiskEvaluationOutcomeDelinquencyReadyEventNotification",
     ),
     "v2.signals.account_evaluation.complete": (
         "stripe.events._v2_signals_account_evaluation_complete_event",
@@ -6682,6 +6748,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementDebitDisputeFailedEventNotification",
     "V2MoneyManagementDebitDisputeSubmittedEventNotification",
     "V2MoneyManagementDebitDisputeSucceededEventNotification",
+    "V2MoneyManagementDisputeAdjustmentCreatedEventNotification",
+    "V2MoneyManagementDisputeCreatedEventNotification",
+    "V2MoneyManagementDisputeLostEventNotification",
+    "V2MoneyManagementDisputeUpdatedEventNotification",
+    "V2MoneyManagementDisputeWonEventNotification",
     "V2MoneyManagementEarnedCreditSucceededEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
     "V2MoneyManagementFinancialAccountStatementCreatedEventNotification",
@@ -6796,6 +6867,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2ReportingReportRunFailedEventNotification",
     "V2ReportingReportRunSucceededEventNotification",
     "V2ReportingReportRunUpdatedEventNotification",
+    "V2RiskEvaluationOutcomeDelinquencyReadyEventNotification",
     "V2SignalsAccountEvaluationCompleteEventNotification",
     "V2SignalsAccountSignalCustomerRiskReadyEventNotification",
     "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",

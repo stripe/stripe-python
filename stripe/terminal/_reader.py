@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
     from stripe._card import Card
     from stripe._charge import Charge
-    from stripe._gift_card import GiftCard
+    from stripe._gift_card import GiftCard as GiftCardResource
     from stripe._gift_card_operation import GiftCardOperation
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
@@ -95,7 +95,7 @@ class Reader(
 
     class Action(StripeObject):
         class ActivateGiftCard(StripeObject):
-            gift_card: Optional[ExpandableField["GiftCard"]]
+            gift_card: Optional[ExpandableField["GiftCardResource"]]
             """
             The gift card used in this reader action.
             """
@@ -436,7 +436,7 @@ class Reader(
             """
 
         class CashoutGiftCard(StripeObject):
-            gift_card: Optional[ExpandableField["GiftCard"]]
+            gift_card: Optional[ExpandableField["GiftCardResource"]]
             """
             The gift card used in this reader action.
             """
@@ -446,7 +446,7 @@ class Reader(
             """
 
         class CheckGiftCardBalance(StripeObject):
-            gift_card: Optional[ExpandableField["GiftCard"]]
+            gift_card: Optional[ExpandableField["GiftCardResource"]]
             """
             The gift card used in this reader action.
             """
@@ -697,7 +697,7 @@ class Reader(
             _inner_class_types = {"confirm_config": ConfirmConfig}
 
         class DeactivateGiftCard(StripeObject):
-            gift_card: Optional[ExpandableField["GiftCard"]]
+            gift_card: Optional[ExpandableField["GiftCardResource"]]
             """
             The gift card used in this reader action.
             """
@@ -798,10 +798,25 @@ class Reader(
 
         class RefundPayment(StripeObject):
             class RefundPaymentConfig(StripeObject):
+                class GiftCard(StripeObject):
+                    brand: Union[Literal["svs"], str]
+                    """
+                    The brand of the destination gift card collected on the reader.
+                    """
+                    operation_type: Literal["activation", "reload"]
+                    """
+                    The gift card operation to perform with the refund amount.
+                    """
+
                 enable_customer_cancellation: Optional[bool]
                 """
                 Enable customer-initiated cancellation when refunding this payment.
                 """
+                gift_card: Optional[GiftCard]
+                """
+                Represents the destination gift card configuration for a refund
+                """
+                _inner_class_types = {"gift_card": GiftCard}
 
             account: Optional[str]
             """
@@ -853,7 +868,7 @@ class Reader(
             _inner_class_types = {"refund_payment_config": RefundPaymentConfig}
 
         class ReloadGiftCard(StripeObject):
-            gift_card: Optional[ExpandableField["GiftCard"]]
+            gift_card: Optional[ExpandableField["GiftCardResource"]]
             """
             The gift card used in this reader action.
             """

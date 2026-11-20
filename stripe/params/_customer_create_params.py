@@ -239,6 +239,14 @@ class CustomerCreateParamsMarketingAttributionAdConversion(TypedDict):
     """
     Whether the customer consented to sending conversion data to an advertising platform.
     """
+    source_url: NotRequired[str]
+    """
+    The URL of the web page where the customer converted.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser where the customer converted.
+    """
 
 
 class CustomerCreateParamsShipping(TypedDict):

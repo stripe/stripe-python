@@ -121,10 +121,23 @@ class ContractService(StripeService):
                             "pricing_override": {
                                 "multiply": {"factor": "decimal_string"},
                                 "overwrite": {
+                                    "tiers": {
+                                        "flat_amount_decimal": "decimal_string",
+                                        "unit_amount_decimal": "decimal_string",
+                                        "up_to": "int64_string",
+                                    },
                                     "unit_amount_decimal": "decimal_string",
                                 },
                             },
                             "recurring_price": {"quantity": "decimal_string"},
+                            "scheduled_fee": {
+                                "bill_schedule": {
+                                    "custom": {
+                                        "quantity": "decimal_string",
+                                        "unit_amount_decimal": "decimal_string",
+                                    },
+                                },
+                            },
                         },
                     },
                 ),
@@ -153,10 +166,23 @@ class ContractService(StripeService):
                             "pricing_override": {
                                 "multiply": {"factor": "decimal_string"},
                                 "overwrite": {
+                                    "tiers": {
+                                        "flat_amount_decimal": "decimal_string",
+                                        "unit_amount_decimal": "decimal_string",
+                                        "up_to": "int64_string",
+                                    },
                                     "unit_amount_decimal": "decimal_string",
                                 },
                             },
                             "recurring_price": {"quantity": "decimal_string"},
+                            "scheduled_fee": {
+                                "bill_schedule": {
+                                    "custom": {
+                                        "quantity": "decimal_string",
+                                        "unit_amount_decimal": "decimal_string",
+                                    },
+                                },
+                            },
                         },
                     },
                 ),
@@ -272,16 +298,37 @@ class ContractService(StripeService):
                                 "pricing_override": {
                                     "multiply": {"factor": "decimal_string"},
                                     "overwrite": {
+                                        "tiers": {
+                                            "flat_amount_decimal": "decimal_string",
+                                            "unit_amount_decimal": "decimal_string",
+                                            "up_to": "int64_string",
+                                        },
                                         "unit_amount_decimal": "decimal_string",
                                     },
                                 },
                                 "recurring_price": {
                                     "quantity": "decimal_string",
                                 },
+                                "scheduled_fee": {
+                                    "bill_schedule": {
+                                        "custom": {
+                                            "quantity": "decimal_string",
+                                            "unit_amount_decimal": "decimal_string",
+                                        },
+                                    },
+                                },
                             },
                             "update_term": {
                                 "recurring_price": {
                                     "quantity": "decimal_string",
+                                },
+                                "scheduled_fee": {
+                                    "bill_schedule": {
+                                        "custom": {
+                                            "quantity": "decimal_string",
+                                            "unit_amount_decimal": "decimal_string",
+                                        },
+                                    },
                                 },
                             },
                         },
@@ -315,16 +362,37 @@ class ContractService(StripeService):
                                 "pricing_override": {
                                     "multiply": {"factor": "decimal_string"},
                                     "overwrite": {
+                                        "tiers": {
+                                            "flat_amount_decimal": "decimal_string",
+                                            "unit_amount_decimal": "decimal_string",
+                                            "up_to": "int64_string",
+                                        },
                                         "unit_amount_decimal": "decimal_string",
                                     },
                                 },
                                 "recurring_price": {
                                     "quantity": "decimal_string",
                                 },
+                                "scheduled_fee": {
+                                    "bill_schedule": {
+                                        "custom": {
+                                            "quantity": "decimal_string",
+                                            "unit_amount_decimal": "decimal_string",
+                                        },
+                                    },
+                                },
                             },
                             "update_term": {
                                 "recurring_price": {
                                     "quantity": "decimal_string",
+                                },
+                                "scheduled_fee": {
+                                    "bill_schedule": {
+                                        "custom": {
+                                            "quantity": "decimal_string",
+                                            "unit_amount_decimal": "decimal_string",
+                                        },
+                                    },
                                 },
                             },
                         },

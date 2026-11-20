@@ -9,6 +9,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management.test_helpers._financial_address_debit_params import (
         FinancialAddressDebitParams as FinancialAddressDebitParams,
+        FinancialAddressDebitParamsNetworkDetails as FinancialAddressDebitParamsNetworkDetails,
+        FinancialAddressDebitParamsNetworkDetailsAch as FinancialAddressDebitParamsNetworkDetailsAch,
     )
     from stripe.params.v2.money_management.test_helpers._financial_address_generate_microdeposits_params import (
         FinancialAddressGenerateMicrodepositsParams as FinancialAddressGenerateMicrodepositsParams,
@@ -21,6 +23,14 @@ _import_map = {
         False,
     ),
     "FinancialAddressDebitParams": (
+        "stripe.params.v2.money_management.test_helpers._financial_address_debit_params",
+        False,
+    ),
+    "FinancialAddressDebitParamsNetworkDetails": (
+        "stripe.params.v2.money_management.test_helpers._financial_address_debit_params",
+        False,
+    ),
+    "FinancialAddressDebitParamsNetworkDetailsAch": (
         "stripe.params.v2.money_management.test_helpers._financial_address_debit_params",
         False,
     ),

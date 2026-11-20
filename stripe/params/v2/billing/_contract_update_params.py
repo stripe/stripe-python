@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from stripe.v2._amount import AmountParam
 from typing import Dict, List, Optional, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -184,9 +183,38 @@ class ContractUpdateParamsActionAddTermPricingOverrideMultiply(TypedDict):
 
 
 class ContractUpdateParamsActionAddTermPricingOverrideOverwrite(TypedDict):
+    billing_scheme: NotRequired[Literal["per_unit", "tiered"]]
+    """
+    Whether the replacement pricing is per unit or tiered.
+    """
+    tiers: NotRequired[
+        List["ContractUpdateParamsActionAddTermPricingOverrideOverwriteTier"]
+    ]
+    """
+    Replacement pricing tiers.
+    """
+    tiers_mode: NotRequired[Literal["graduated", "volume"]]
+    """
+    How the pricing tiers are applied.
+    """
     unit_amount_decimal: NotRequired[Decimal]
     """
     The replacement per-unit amount in minor currency units.
+    """
+
+
+class ContractUpdateParamsActionAddTermPricingOverrideOverwriteTier(TypedDict):
+    flat_amount_decimal: NotRequired[Decimal]
+    """
+    Flat amount in minor currency units.
+    """
+    unit_amount_decimal: NotRequired[Decimal]
+    """
+    Per-unit amount in minor currency units.
+    """
+    up_to: NotRequired[int]
+    """
+    Inclusive whole-number upper bound. Omitted for an unbounded final tier.
     """
 
 
@@ -277,15 +305,19 @@ class ContractUpdateParamsActionAddTermScheduledFeeBillSchedule(TypedDict):
 class ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustom(
     TypedDict,
 ):
-    amount: AmountParam
-    """
-    Non-negative amount with an explicit currency that must match the contract's currency.
-    """
     bill_at: (
         "ContractUpdateParamsActionAddTermScheduledFeeBillScheduleCustomBillAt"
     )
     """
     A finite bill date. Resolved once per request, including on idempotent retries.
+    """
+    quantity: NotRequired[Decimal]
+    """
+    Positive installment quantity. Defaults to 1 when omitted.
+    """
+    unit_amount_decimal: Decimal
+    """
+    Positive unit price in minor units of the contract's currency, before multiplying by quantity.
     """
 
 
@@ -506,13 +538,17 @@ class ContractUpdateParamsActionUpdateTermScheduledFeeBillSchedule(TypedDict):
 class ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustom(
     TypedDict,
 ):
-    amount: AmountParam
-    """
-    Non-negative amount with an explicit currency that must match the contract's currency.
-    """
     bill_at: "ContractUpdateParamsActionUpdateTermScheduledFeeBillScheduleCustomBillAt"
     """
     A finite bill date. Resolved once per request, including on idempotent retries.
+    """
+    quantity: NotRequired[Decimal]
+    """
+    Positive installment quantity. Defaults to 1 when omitted.
+    """
+    unit_amount_decimal: Decimal
+    """
+    Positive unit price in minor units of the contract's currency, before multiplying by quantity.
     """
 
 

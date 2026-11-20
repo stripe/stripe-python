@@ -281,10 +281,12 @@ class ReceivedDebit(StripeObject):
             reason: Union[
                 Literal[
                     "capability_inactive",
+                    "debits_disabled",
                     "financial_address_inactive",
                     "insufficient_funds",
                     "no_mandate",
                     "stripe_rejected",
+                    "transaction_limit_exceeded",
                 ],
                 str,
             ]
@@ -293,7 +295,7 @@ class ReceivedDebit(StripeObject):
             """
 
         class Returned(StripeObject):
-            reason: Union[Literal["originator_initiated"], str]
+            reason: Union[Literal["dispute_won", "originator_initiated"], str]
             """
             Open Enum. The reason the ReceivedDebit was returned.
             """
@@ -370,6 +372,11 @@ class ReceivedDebit(StripeObject):
     dispute_details: Optional[DisputeDetails]
     """
     The dispute details.
+    """
+    disputed: bool
+    """
+    Has the value `true` if the object has an associated Dispute otherwise or the value `false`.
+    Use the Disputes List API with `target` to see details.
     """
     external_amount: Optional[Amount]
     """

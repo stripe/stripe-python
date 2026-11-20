@@ -25,6 +25,16 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._debit_dispute_service import (
         DebitDisputeService as DebitDisputeService,
     )
+    from stripe.v2.money_management._dispute import Dispute as Dispute
+    from stripe.v2.money_management._dispute_adjustment import (
+        DisputeAdjustment as DisputeAdjustment,
+    )
+    from stripe.v2.money_management._dispute_adjustment_service import (
+        DisputeAdjustmentService as DisputeAdjustmentService,
+    )
+    from stripe.v2.money_management._dispute_service import (
+        DisputeService as DisputeService,
+    )
     from stripe.v2.money_management._earned_credit import (
         EarnedCredit as EarnedCredit,
     )
@@ -223,6 +233,16 @@ _import_map = {
         "stripe.v2.money_management._debit_dispute_service",
         False,
     ),
+    "Dispute": ("stripe.v2.money_management._dispute", False),
+    "DisputeAdjustment": (
+        "stripe.v2.money_management._dispute_adjustment",
+        False,
+    ),
+    "DisputeAdjustmentService": (
+        "stripe.v2.money_management._dispute_adjustment_service",
+        False,
+    ),
+    "DisputeService": ("stripe.v2.money_management._dispute_service", False),
     "EarnedCredit": ("stripe.v2.money_management._earned_credit", False),
     "EarnedCreditService": (
         "stripe.v2.money_management._earned_credit_service",

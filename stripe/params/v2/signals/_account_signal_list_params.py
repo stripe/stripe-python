@@ -25,6 +25,7 @@ class AccountSignalListParams(TypedDict):
                 "payment_delinquency_exposure",
                 "user_account_sharing",
                 "user_affinity",
+                "user_buyer_classification",
                 "user_multi_accounting",
             ],
             str,

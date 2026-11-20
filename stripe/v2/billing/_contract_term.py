@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
@@ -41,10 +40,42 @@ class ContractTerm(StripeObject):
             _field_encodings = {"factor": "decimal_string"}
 
         class Overwrite(StripeObject):
+            class Tier(StripeObject):
+                flat_amount_decimal: Optional[Decimal]
+                """
+                Flat amount in minor currency units.
+                """
+                unit_amount_decimal: Optional[Decimal]
+                """
+                Per-unit amount in minor currency units.
+                """
+                up_to: Optional[int]
+                """
+                Inclusive whole-number upper bound. Omitted for an unbounded final tier.
+                """
+                _field_encodings = {
+                    "flat_amount_decimal": "decimal_string",
+                    "unit_amount_decimal": "decimal_string",
+                    "up_to": "int64_string",
+                }
+
+            billing_scheme: Optional[Literal["per_unit", "tiered"]]
+            """
+            Whether the replacement pricing is per unit or tiered.
+            """
+            tiers: Optional[List[Tier]]
+            """
+            Replacement pricing tiers.
+            """
+            tiers_mode: Optional[Literal["graduated", "volume"]]
+            """
+            How the pricing tiers are applied.
+            """
             unit_amount_decimal: Optional[Decimal]
             """
             The replacement per-unit amount in minor currency units.
             """
+            _inner_class_types = {"tiers": Tier}
             _field_encodings = {"unit_amount_decimal": "decimal_string"}
 
         class StartsAt(StripeObject):
@@ -130,15 +161,23 @@ class ContractTerm(StripeObject):
                     The timestamp at which the fee will be billed.
                     """
 
-                amount: Amount
-                """
-                Amount in the contract's currency.
-                """
                 bill_at: BillAt
                 """
                 The resolved bill date.
                 """
+                quantity: Decimal
+                """
+                Resolved installment quantity. Always present; defaults to 1 when omitted on input.
+                """
+                unit_amount_decimal: Decimal
+                """
+                Unit price in minor units of the contract's currency, before multiplying by quantity.
+                """
                 _inner_class_types = {"bill_at": BillAt}
+                _field_encodings = {
+                    "quantity": "decimal_string",
+                    "unit_amount_decimal": "decimal_string",
+                }
 
             custom: List[Custom]
             """

@@ -185,10 +185,69 @@ class Contract(StripeObject):
                                 """
 
                             class OverwritePrice(StripeObject):
+                                class Tier(StripeObject):
+                                    flat_amount: Optional[str]
+                                    """
+                                    Price for the entire tier, represented as a decimal string in minor currency units.
+                                    """
+                                    flat_amount_decimal: Optional[Decimal]
+                                    """
+                                    Price for the entire tier in minor currency units.
+                                    """
+                                    unit_amount: Optional[str]
+                                    """
+                                    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
+                                    """
+                                    unit_amount_decimal: Optional[Decimal]
+                                    """
+                                    Per-unit price for units included in this tier in minor currency units.
+                                    """
+                                    up_to: Optional[int]
+                                    """
+                                    Up to and including this whole-number quantity is contained in the tier. If omitted, the tier has no upper bound.
+                                    """
+                                    up_to_decimal: Optional[Decimal]
+                                    """
+                                    Up to and including this quantity will be contained in the tier.
+                                    """
+                                    up_to_inf: Optional[Literal["inf"]]
+                                    """
+                                    No upper bound to this tier.
+                                    """
+                                    _field_encodings = {
+                                        "flat_amount_decimal": "decimal_string",
+                                        "unit_amount_decimal": "decimal_string",
+                                        "up_to": "int64_string",
+                                        "up_to_decimal": "decimal_string",
+                                    }
+
+                                billing_scheme: Optional[
+                                    Literal["per_unit", "tiered"]
+                                ]
+                                """
+                                Defines whether the price override is billed per unit or by tiers.
+                                """
+                                tiering_mode: Optional[
+                                    Literal["graduated", "volume"]
+                                ]
+                                """
+                                Defines whether the tiered price should be graduated or volume-based.
+                                """
+                                tiers: Optional[List[Tier]]
+                                """
+                                Each element represents a pricing tier.
+                                """
+                                tiers_mode: Optional[
+                                    Literal["graduated", "volume"]
+                                ]
+                                """
+                                Defines whether the tiered price should be graduated or volume-based.
+                                """
                                 unit_amount: Optional[str]
                                 """
                                 The per-unit amount to be charged, represented as a decimal string in minor currency units.
                                 """
+                                _inner_class_types = {"tiers": Tier}
 
                             class StartsAt(StripeObject):
                                 timestamp: str

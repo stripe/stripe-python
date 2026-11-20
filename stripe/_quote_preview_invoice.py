@@ -75,23 +75,6 @@ class QuotePreviewInvoice(StripeObject):
         The status of the payment, one of `open`, `paid`, or `past_due`
         """
 
-    class AppliedCreditMemos(StripeObject):
-        class Data(StripeObject):
-            applied_amount: int
-            """
-            The credit currently applied to this invoice from the Credit Memo, in cents (or local equivalent). Applying credit reduces `amount_due` and `amount_remaining` without changing `amount_paid`.
-            """
-            credit_memo: str
-            """
-            The ID of the Credit Memo whose credit is applied to this invoice.
-            """
-
-        data: List[Data]
-        """
-        The Credit Memos with credit currently applied to this invoice, with one entry per Credit Memo. An invoice can have credit applied from at most 10 Credit Memos, so the list is returned in full.
-        """
-        _inner_class_types = {"data": Data}
-
     class AppliesTo(StripeObject):
         new_reference: Optional[str]
         """
@@ -1717,7 +1700,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     ID of the Connect Application that created the invoice.
     """
-    applied_credit_memos: Optional[AppliedCreditMemos]
     applies_to: AppliesTo
     attempt_count: int
     """
@@ -2010,7 +1992,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     _inner_class_types = {
         "amounts_due": AmountsDue,
-        "applied_credit_memos": AppliedCreditMemos,
         "applies_to": AppliesTo,
         "automatic_tax": AutomaticTax,
         "confirmation_secret": ConfirmationSecret,

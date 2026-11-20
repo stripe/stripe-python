@@ -742,7 +742,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -767,7 +772,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -792,7 +802,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -817,7 +832,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -842,7 +862,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -5727,7 +5752,7 @@ class PaymentIntent(
     class RadarOptions(StripeObject):
         is_free_trial_transaction: Optional[bool]
         """
-        The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+        The value you provided for whether this transaction starts a free trial. This field is omitted if you haven't explicitly set it.
         """
 
     class Redaction(StripeObject):

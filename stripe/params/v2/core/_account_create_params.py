@@ -4270,6 +4270,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     """
     Can receive business storage-type funds on Stripe in CAD.
     """
+    chf: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundChf"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in CHF.
+    """
     czk: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCzk"
     ]
@@ -4287,6 +4293,24 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     ]
     """
     Can receive business storage-type funds on Stripe in GBP.
+    """
+    hkd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHkd"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in HKD.
+    """
+    huf: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHuf"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in HUF.
+    """
+    jpy: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundJpy"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in JPY.
     """
     nok: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundNok"
@@ -4306,6 +4330,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     """
     Can receive business storage-type funds on Stripe in PLN.
     """
+    ron: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundRon"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in RON.
+    """
     sek: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundSek"
     ]
@@ -4323,6 +4353,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     ]
     """
     Can receive business storage-type funds on Stripe in USDC.
+    """
+    zar: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundZar"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in ZAR.
     """
 
 
@@ -4384,6 +4420,39 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
 
 
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCadProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundChf(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundChfProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundChfProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundChfProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundChfProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -4491,6 +4560,105 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     """
 
 
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHkd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHkdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHkdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHkdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHkdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHuf(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHufProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHufProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHufProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundHufProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundJpy(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundJpyProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundJpyProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundJpyProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundJpyProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundNok(
     TypedDict,
 ):
@@ -4582,6 +4750,39 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
 
 
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundPlnProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundRon(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundRonProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundRonProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundRonProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundRonProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -4689,6 +4890,39 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInb
     """
 
 
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundZar(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundZarProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundZarProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundZarProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundZarProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound(
     TypedDict,
 ):
@@ -4703,6 +4937,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
     ]
     """
     Can send business storage-type funds on Stripe in CAD.
+    """
+    chf: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundChf"
+    ]
+    """
+    Can send business storage-type funds on Stripe in CHF.
     """
     czk: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCzk"
@@ -4722,6 +4962,24 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
     """
     Can send business storage-type funds on Stripe in GBP.
     """
+    hkd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHkd"
+    ]
+    """
+    Can send business storage-type funds on Stripe in HKD.
+    """
+    huf: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHuf"
+    ]
+    """
+    Can send business storage-type funds on Stripe in HUF.
+    """
+    jpy: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundJpy"
+    ]
+    """
+    Can send business storage-type funds on Stripe in JPY.
+    """
     nok: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundNok"
     ]
@@ -4740,6 +4998,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
     """
     Can send business storage-type funds on Stripe in PLN.
     """
+    ron: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundRon"
+    ]
+    """
+    Can send business storage-type funds on Stripe in RON.
+    """
     sek: NotRequired[
         "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundSek"
     ]
@@ -4757,6 +5021,12 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
     ]
     """
     Can send business storage-type funds on Stripe in USDC.
+    """
+    zar: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundZar"
+    ]
+    """
+    Can send business storage-type funds on Stripe in ZAR.
     """
 
 
@@ -4818,6 +5088,39 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
 
 
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCadProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundChf(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundChfProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundChfProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundChfProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundChfProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -4925,6 +5228,105 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
     """
 
 
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHkd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHkdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHkdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHkdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHkdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHuf(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHufProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHufProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHufProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundHufProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundJpy(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundJpyProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundJpyProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundJpyProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundJpyProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundNok(
     TypedDict,
 ):
@@ -5024,6 +5426,39 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
     """
 
 
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundRon(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundRonProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundRonProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundRonProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundRonProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundSek(
     TypedDict,
 ):
@@ -5115,6 +5550,39 @@ class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOut
 
 
 class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundZar(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundZarProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundZarProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundZarProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundZarProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -8453,6 +8921,12 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of Treasury-specific terms of service.
     """
+    self_custodial_wallet: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceSelfCustodialWallet"
+    ]
+    """
+    Details on the Account's acceptance of self-custodial wallet terms of service.
+    """
 
 
 class AccountCreateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
@@ -9638,6 +10112,57 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager(
 
 
 class AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceSelfCustodialWallet(
+    TypedDict,
+):
+    account: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceSelfCustodialWalletAccount"
+    ]
+    """
+    Details on the Account's acceptance of the Privy End User Terms.
+    """
+    platform: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceSelfCustodialWalletPlatform"
+    ]
+    """
+    Details on the Account's acceptance of the platform's self-custodial wallet terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceSelfCustodialWalletAccount(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceSelfCustodialWalletPlatform(
     TypedDict,
 ):
     date: str

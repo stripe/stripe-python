@@ -270,6 +270,17 @@ class AccountSignal(StripeObject):
         """
         _field_encodings = {"score": "decimal_string"}
 
+    class UserBuyerClassification(StripeObject):
+        buyer_type: Union[Literal["business", "unknown"], str]
+        """
+        Predicted type of buyer behind the user.
+        """
+        buyer_type_score: Optional[Decimal]
+        """
+        The score for the predicted buyer type, between 0.00 and 100.00. Absent when buyer_type is unknown.
+        """
+        _field_encodings = {"buyer_type_score": "decimal_string"}
+
     class UserMultiAccounting(StripeObject):
         risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
@@ -340,6 +351,7 @@ class AccountSignal(StripeObject):
             "payment_delinquency_exposure",
             "user_account_sharing",
             "user_affinity",
+            "user_buyer_classification",
             "user_multi_accounting",
         ],
         str,
@@ -355,6 +367,10 @@ class AccountSignal(StripeObject):
     """
     Data for the user affinity signal. Present only when type is user_affinity.
     """
+    user_buyer_classification: Optional[UserBuyerClassification]
+    """
+    Data for the user buyer classification signal. Present only when type is user_buyer_classification.
+    """
     user_multi_accounting: Optional[UserMultiAccounting]
     """
     Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
@@ -369,5 +385,6 @@ class AccountSignal(StripeObject):
         "payment_delinquency_exposure": PaymentDelinquencyExposure,
         "user_account_sharing": UserAccountSharing,
         "user_affinity": UserAffinity,
+        "user_buyer_classification": UserBuyerClassification,
         "user_multi_accounting": UserMultiAccounting,
     }

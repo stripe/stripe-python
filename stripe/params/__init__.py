@@ -1983,6 +1983,7 @@ if TYPE_CHECKING:
         InvoiceRenderingTemplateCreateParamsRenderingSettings as InvoiceRenderingTemplateCreateParamsRenderingSettings,
         InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf,
         InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText,
         InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
         InvoiceRenderingTemplateCreateParamsSummaryItemPolicy as InvoiceRenderingTemplateCreateParamsSummaryItemPolicy,
     )
@@ -1995,6 +1996,7 @@ if TYPE_CHECKING:
         InvoiceRenderingTemplateModifyParamsRenderingSettings as InvoiceRenderingTemplateModifyParamsRenderingSettings,
         InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf,
         InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText,
         InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
         InvoiceRenderingTemplateModifyParamsSummaryItemPolicy as InvoiceRenderingTemplateModifyParamsSummaryItemPolicy,
     )
@@ -2010,6 +2012,7 @@ if TYPE_CHECKING:
         InvoiceRenderingTemplateUpdateParamsRenderingSettings as InvoiceRenderingTemplateUpdateParamsRenderingSettings,
         InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdf,
         InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainText as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainText,
         InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
         InvoiceRenderingTemplateUpdateParamsSummaryItemPolicy as InvoiceRenderingTemplateUpdateParamsSummaryItemPolicy,
     )
@@ -12789,6 +12792,10 @@ _import_map = {
         "stripe.params._invoice_rendering_template_create_params",
         False,
     ),
+    "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
     "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel": (
         "stripe.params._invoice_rendering_template_create_params",
         False,
@@ -12818,6 +12825,10 @@ _import_map = {
         False,
     ),
     "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText": (
         "stripe.params._invoice_rendering_template_modify_params",
         False,
     ),
@@ -12854,6 +12865,10 @@ _import_map = {
         False,
     ),
     "InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainText": (
         "stripe.params._invoice_rendering_template_update_params",
         False,
     ),

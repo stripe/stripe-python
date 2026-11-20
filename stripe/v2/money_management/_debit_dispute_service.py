@@ -65,6 +65,7 @@ class DebitDisputeService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "DebitDispute":
         """
+        Deprecated: Use CreateDispute to create a Dispute instead.
         Creates a new DebitDispute for a ReceivedDebit.
         """
         return cast(
@@ -84,6 +85,7 @@ class DebitDisputeService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "DebitDispute":
         """
+        Deprecated: Use CreateDispute to create a Dispute instead.
         Creates a new DebitDispute for a ReceivedDebit.
         """
         return cast(

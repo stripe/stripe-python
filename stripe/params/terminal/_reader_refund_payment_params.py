@@ -2,8 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
-from typing_extensions import NotRequired, TypedDict
+from typing import Dict, List, Union
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ReaderRefundPaymentParams(RequestOptions):
@@ -47,4 +47,21 @@ class ReaderRefundPaymentParamsRefundPaymentConfig(TypedDict):
     enable_customer_cancellation: NotRequired[bool]
     """
     Enables cancel button on transaction screens.
+    """
+    gift_card: NotRequired[
+        "ReaderRefundPaymentParamsRefundPaymentConfigGiftCard"
+    ]
+    """
+    Collect a destination gift card on the reader to reload or activate with the refund amount. If omitted, refund the original gift card without collecting card data.
+    """
+
+
+class ReaderRefundPaymentParamsRefundPaymentConfigGiftCard(TypedDict):
+    brand: Union[Literal["svs"], str]
+    """
+    The brand of the destination gift card to collect on the reader.
+    """
+    operation_type: Literal["activation", "reload"]
+    """
+    The gift card operation to perform with the refund amount.
     """

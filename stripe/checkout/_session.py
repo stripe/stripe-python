@@ -1242,6 +1242,10 @@ class Session(
                 """
                 ID of the invoice rendering template to be used for the generated invoice.
                 """
+                template_version: Optional[int]
+                """
+                The version of the invoice rendering template to be used for the generated invoice. If null, the latest version of the template will be used. Only available in unified mode.
+                """
 
             account_tax_ids: Optional[List[ExpandableField["TaxIdResource"]]]
             """
@@ -1505,6 +1509,56 @@ class Session(
                 "price_configuration": PriceConfiguration,
             }
 
+        class OneTimePrice(StripeObject):
+            class Item(StripeObject):
+                class AdjustableQuantity(StripeObject):
+                    enabled: bool
+                    """
+                    Whether the quantity is adjustable.
+                    """
+                    maximum: Optional[int]
+                    """
+                    The maximum quantity the customer can purchase.
+                    """
+                    minimum: Optional[int]
+                    """
+                    The minimum quantity the customer can purchase.
+                    """
+
+                adjustable_quantity: Optional[AdjustableQuantity]
+                """
+                The adjustable quantity settings for this one-time price item.
+                """
+                price: ExpandableField["Price"]
+                """
+                The price for this one-time price item.
+                """
+                quantity: int
+                """
+                The quantity for this one-time price item.
+                """
+                tax_rates: Optional[List[str]]
+                """
+                The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
+                """
+                _inner_class_types = {
+                    "adjustable_quantity": AdjustableQuantity
+                }
+
+            description: Optional[str]
+            """
+            The description for the one-time price.
+            """
+            items: List[Item]
+            """
+            The items in the one-time price configuration.
+            """
+            metadata: Optional[UntypedStripeObject[str]]
+            """
+            Set of key-value pairs attached to the one-time price.
+            """
+            _inner_class_types = {"items": Item}
+
         class Subscription(StripeObject):
             class Item(StripeObject):
                 class AdjustableQuantity(StripeObject):
@@ -1632,13 +1686,17 @@ class Session(
         The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         """
         metronome_commit: Optional[MetronomeCommit]
+        one_time_price: Optional[OneTimePrice]
         subscription: Optional[Subscription]
-        type: Union[Literal["metronome_commit", "subscription"], str]
+        type: Union[
+            Literal["metronome_commit", "one_time_price", "subscription"], str
+        ]
         """
         The type of the item.
         """
         _inner_class_types = {
             "metronome_commit": MetronomeCommit,
+            "one_time_price": OneTimePrice,
             "subscription": Subscription,
         }
 
@@ -1653,6 +1711,14 @@ class Session(
             consent_collected: bool
             """
             Whether the customer consented to sending conversion data to an advertising platform.
+            """
+            source_url: Optional[str]
+            """
+            The URL of the web page where the customer converted.
+            """
+            user_agent: Optional[str]
+            """
+            The user agent of the browser where the customer converted.
             """
 
         ad_conversion: Optional[AdConversion]

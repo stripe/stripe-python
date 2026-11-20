@@ -282,6 +282,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Cashapp(StripeObject):
             pass
 
+        class Getflex(StripeObject):
+            pass
+
         class IdBankTransfer(StripeObject):
             bank: Optional[
                 Union[
@@ -424,6 +427,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
             """
 
+        class RakutenPay(StripeObject):
+            pass
+
         class RevolutPay(StripeObject):
             pass
 
@@ -499,6 +505,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        getflex: Optional[Getflex]
         id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         kakao_pay: Optional[KakaoPay]
@@ -511,6 +518,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
+        rakuten_pay: Optional[RakutenPay]
         revolut_pay: Optional[RevolutPay]
         satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
@@ -535,6 +543,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "getflex": Getflex,
             "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "kakao_pay": KakaoPay,
@@ -547,6 +556,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
+            "rakuten_pay": RakutenPay,
             "revolut_pay": RevolutPay,
             "satispay": Satispay,
             "sepa_debit": SepaDebit,

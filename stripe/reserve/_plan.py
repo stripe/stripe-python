@@ -38,7 +38,7 @@ class Plan(ListableAPIResource["Plan"]):
         """
         days_after_fulfillment: Optional[int]
         """
-        The number of days after the PaymentIntent's `fulfillment_date` to reserve funds before releasing. Charges without a `fulfillment_date` use `days_after_charge`.
+        The number of days after a payment's `fulfillment_date` to reserve funds before releasing them. The hold releases at midnight UTC that many days after the fulfillment date. Charges without a `fulfillment_date` use `days_after_charge`.
         """
         expires_on: Optional[int]
         """

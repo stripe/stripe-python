@@ -7,7 +7,9 @@ from typing_extensions import Literal
 
 class FeeEntry(StripeObject):
     """
-    A FeeEntry is the atomic, append-only record of an assessed fee.
+    A FeeEntry is an atomic record of an assessed fee. Its assessment attributes are
+    immutable, while its FeeBatch association and derived status can change as the fee
+    progresses through billing.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.fee_entry"]] = "v2.core.fee_entry"
@@ -112,7 +114,10 @@ class FeeEntry(StripeObject):
     """
     fee_batch: Optional[str]
     """
-    The ID of the FeeBatch that collected this fee, if any.
+    The ID of the FeeBatch currently assigned to collect this fee, if any. If Stripe
+    cancels the assigned FeeBatch before billing, Stripe reassigns the FeeEntry to a
+    replacement FeeBatch. During reassociation, this field can temporarily continue
+    to reference the canceled FeeBatch.
     """
     id: str
     """
@@ -143,6 +148,13 @@ class FeeEntry(StripeObject):
     ]
     """
     The reason this fee entry was created.
+    """
+    status: Union[Literal["assessed", "billed"], str]
+    """
+    The current billing status of the fee. Every FeeEntry eventually transitions
+    from `assessed` to `billed` when its associated FeeBatch is billed. While
+    `assessed`, its FeeBatch association can change if the assigned batch is canceled.
+    Once `billed`, the status and FeeBatch association are terminal.
     """
     tax: Optional[Tax]
     """

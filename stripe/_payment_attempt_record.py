@@ -810,6 +810,20 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             }
 
         class CardPresent(StripeObject):
+            class Benefits(StripeObject):
+                class FrMealVoucher(StripeObject):
+                    siret: str
+                    """
+                    The 14-digit SIRET of the meal voucher acceptor used for this charge.
+                    """
+
+                fr_meal_voucher: Optional[FrMealVoucher]
+                issuer: Optional[str]
+                """
+                Issuer of the benefit card utilized on this payment
+                """
+                _inner_class_types = {"fr_meal_voucher": FrMealVoucher}
+
             class Fleet(StripeObject):
                 class TransactionDatum(StripeObject):
                     prompt: Literal[
@@ -954,6 +968,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The authorized amount
             """
+            benefits: Optional[Benefits]
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -1083,6 +1098,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             wallet: Optional[Wallet]
             _inner_class_types = {
+                "benefits": Benefits,
                 "fleet": Fleet,
                 "multicapture": Multicapture,
                 "offline": Offline,
@@ -2573,6 +2589,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
             """
 
+        class Stripe(StripeObject):
+            derived_balance_transactions: Optional[List[str]]
+            """
+            Stripe balance transactions associated with this attempt, in no guaranteed order. References can appear at submission or after success. On a PaymentRecord, these references follow the latest attempt.
+            """
+
         class Svs(StripeObject):
             payment_reference: str
             """
@@ -2593,11 +2615,18 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         Represents the Givex gift card processor.
         """
+        stripe: Optional[Stripe]
+        """
+        Represents the Stripe processor. This resource consists of details specific to Stripe.
+        """
         svs: Optional[Svs]
         """
         Represents the SVS gift card processor.
         """
-        type: Union[Literal["custom", "fiserv_valuelink", "givex", "svs"], str]
+        type: Union[
+            Literal["custom", "fiserv_valuelink", "givex", "stripe", "svs"],
+            str,
+        ]
         """
         The processor used for this payment attempt.
         """
@@ -2605,6 +2634,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "custom": Custom,
             "fiserv_valuelink": FiservValuelink,
             "givex": Givex,
+            "stripe": Stripe,
             "svs": Svs,
         }
 

@@ -79,6 +79,9 @@ class Mandate(ListableAPIResource["Mandate"]):
             Transaction type of the mandate.
             """
 
+        class AeonPay(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -87,6 +90,9 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
             """
+
+        class AuPay(StripeObject):
+            pass
 
         class BacsDebit(StripeObject):
             display_name: Optional[str]
@@ -204,6 +210,9 @@ class Mandate(ListableAPIResource["Mandate"]):
         class Cashapp(StripeObject):
             pass
 
+        class Dbarai(StripeObject):
+            pass
+
         class KakaoPay(StripeObject):
             pass
 
@@ -214,6 +223,9 @@ class Mandate(ListableAPIResource["Mandate"]):
             pass
 
         class Link(StripeObject):
+            pass
+
+        class Merpay(StripeObject):
             pass
 
         class NaverPay(StripeObject):
@@ -339,6 +351,9 @@ class Mandate(ListableAPIResource["Mandate"]):
             Start date of the mandate, in `YYYY-MM-DD`.
             """
 
+        class RakutenPay(StripeObject):
+            pass
+
         class RevolutPay(StripeObject):
             pass
 
@@ -386,21 +401,26 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
 
         acss_debit: Optional[AcssDebit]
+        aeon_pay: Optional[AeonPay]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
+        au_pay: Optional[AuPay]
         bacs_debit: Optional[BacsDebit]
         blik: Optional[Blik]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
+        dbarai: Optional[Dbarai]
         kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        merpay: Optional[Merpay]
         naver_pay: Optional[NaverPay]
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
         pix: Optional[Pix]
+        rakuten_pay: Optional[RakutenPay]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         toss_pay: Optional[TossPay]
@@ -413,21 +433,26 @@ class Mandate(ListableAPIResource["Mandate"]):
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "aeon_pay": AeonPay,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
+            "au_pay": AuPay,
             "bacs_debit": BacsDebit,
             "blik": Blik,
             "card": Card,
             "cashapp": Cashapp,
+            "dbarai": Dbarai,
             "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
+            "merpay": Merpay,
             "naver_pay": NaverPay,
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
             "pix": Pix,
+            "rakuten_pay": RakutenPay,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "toss_pay": TossPay,

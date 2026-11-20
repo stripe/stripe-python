@@ -68,6 +68,35 @@ class FinancialAccount(StripeObject):
         """
         _inner_class_types = {"funded_by": FundedBy}
 
+    class FlowSettings(StripeObject):
+        class ReceivedDebits(StripeObject):
+            class Ach(StripeObject):
+                enabled: bool
+                """
+                Whether ACH received debits are enabled. Defaults to true. Other restrictions still apply.
+                """
+                mandate_behavior: Literal["optional", "required"]
+                """
+                Controls whether ACH debits without a matching active SpendingMandate are allowed or rejected
+                Defaults to `optional`. Other restrictions still apply.
+                """
+                transaction_limit: Optional[Amount]
+                """
+                Account-level per-debit limit. Set to null to clear the limit.
+                """
+
+            ach: Optional[Ach]
+            """
+            Settings for ACH received debits.
+            """
+            _inner_class_types = {"ach": Ach}
+
+        received_debits: Optional[ReceivedDebits]
+        """
+        Settings for received debit flows.
+        """
+        _inner_class_types = {"received_debits": ReceivedDebits}
+
     class MultiprocessorSettlement(StripeObject):
         settlement_currencies: List[str]
         """
@@ -299,6 +328,10 @@ class FinancialAccount(StripeObject):
     """
     A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
     """
+    flow_settings: Optional[FlowSettings]
+    """
+    Settings that control behavior for money movement flows.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -362,6 +395,7 @@ class FinancialAccount(StripeObject):
         "accrued_fees": AccruedFees,
         "balance": Balance,
         "credit": Credit,
+        "flow_settings": FlowSettings,
         "multiprocessor_settlement": MultiprocessorSettlement,
         "other": Other,
         "payments": Payments,
