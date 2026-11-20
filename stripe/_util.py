@@ -7,7 +7,7 @@ import re
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import quote_plus, urlsplit
+from urllib.parse import quote_plus, unquote, urlsplit
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -379,6 +379,13 @@ def validate_path(path: str) -> None:
 
     So, we require that a path starts with a leading slash and that urlsplit
     finds no scheme or authority in it.
+
+    We also reject "." and ".." path segments. HTTP clients such as httpx,
+    requests and aiohttp remove them before sending, so an ID of "." or ".."
+    changes which endpoint is called: retrieving "." from
+    /v1/checkout/sessions/{session} lists every session instead. IDs are
+    escaped with quote_plus, which leaves dots alone, and some clients decode
+    "%2E" back to "." before removing it, so we check the decoded segment.
     """
     if not path.startswith("/") or path.startswith("//"):
         raise ValueError(
@@ -390,6 +397,18 @@ def validate_path(path: str) -> None:
         raise ValueError(
             f"Request path may not contain a scheme or authority, got: {path!r}"
         )
+
+    for segment in parts.path.split("/"):
+        if unquote(segment) in (".", ".."):
+            # Raised as an InvalidRequestError rather than a ValueError because
+            # with the default sync client the API already rejects these paths
+            # with one, so callers' existing error handling keeps working.
+            from stripe._error import InvalidRequestError
+
+            raise InvalidRequestError(
+                f'Request path may not contain a "." or ".." segment, got: {path!r}',
+                None,
+            )
 
 
 def get_api_mode(url: str) -> ApiMode:
