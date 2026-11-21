@@ -5,6 +5,7 @@ import pytest
 
 import stripe
 from stripe._error import SignatureVerificationError
+from stripe._util import secure_compare
 from stripe._webhook import WebhookSignature
 
 
@@ -221,6 +222,34 @@ class TestWebhookSignature(object):
             stripe.WebhookSignature.verify_header(
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
             )
+
+    def test_raise_on_non_ascii_signature_in_header(self):
+        for header in ["t=1,v1=é", "t=1,v1=\udcff"]:
+            with pytest.raises(
+                SignatureVerificationError,
+                match="No signatures found matching the expected signature for payload",
+            ):
+                stripe.WebhookSignature.verify_header(
+                    DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+                )
+
+    def test_header_with_non_ascii_v1_before_valid_v1(self):
+        header = generate_header()
+        # Prepend a non-ASCII v1 before the valid v1
+        header_with_bad_v1 = header.replace("v1=", "v1=é,v1=")
+        assert stripe.WebhookSignature.verify_header(
+            DUMMY_WEBHOOK_PAYLOAD, header_with_bad_v1, DUMMY_WEBHOOK_SECRET
+        )
+
+    def test_secure_compare_non_ascii_strings(self):
+        assert secure_compare("é", "é")
+        assert not secure_compare("é", "è")
+
+    def test_secure_compare_raises_type_error_on_invalid_types(self):
+        with pytest.raises(TypeError):
+            secure_compare(None, "signature")
+        with pytest.raises(TypeError):
+            secure_compare(b"bytes", "str")
 
     def test_diagnose_secret_mismatch(self):
         dashboard_url_base = "https://dashboard.stripe.com/webhooks"
