@@ -5,6 +5,7 @@ import pytest
 
 import stripe
 from stripe._error import SignatureVerificationError
+from stripe._util import secure_compare
 from stripe._webhook import WebhookSignature
 
 
@@ -240,11 +241,15 @@ class TestWebhookSignature(object):
             DUMMY_WEBHOOK_PAYLOAD, header_with_bad_v1, DUMMY_WEBHOOK_SECRET
         )
 
+    def test_secure_compare_non_ascii_strings(self):
+        assert secure_compare("é", "é")
+        assert not secure_compare("é", "è")
+
     def test_secure_compare_raises_type_error_on_invalid_types(self):
         with pytest.raises(TypeError):
-            stripe._util.secure_compare(None, "signature")
+            secure_compare(None, "signature")
         with pytest.raises(TypeError):
-            stripe._util.secure_compare(b"bytes", "str")
+            secure_compare(b"bytes", "str")
 
     def test_diagnose_secret_mismatch(self):
         dashboard_url_base = "https://dashboard.stripe.com/webhooks"
