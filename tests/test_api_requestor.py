@@ -1302,11 +1302,11 @@ class TestAPIRequestor(object):
 
     @pytest.mark.parametrize("path", DOT_SEGMENT_PATHS)
     def test_rejects_dot_segment_path(self, path):
-        with pytest.raises(stripe.InvalidRequestError):
+        with pytest.raises(ValueError):
             validate_path(path)
 
     def test_dot_segment_error_omits_query_string(self):
-        with pytest.raises(stripe.InvalidRequestError) as exc_info:
+        with pytest.raises(ValueError) as exc_info:
             validate_path(
                 "/v1/payment_intents/..?client_secret=pi_123_secret_456"
             )
@@ -1318,7 +1318,7 @@ class TestAPIRequestor(object):
     def test_request_rejects_dot_segment_path_without_issuing_request(
         self, path, requestor, http_client_mock
     ):
-        with pytest.raises(stripe.InvalidRequestError):
+        with pytest.raises(ValueError):
             requestor.request("get", path, base_address="api")
 
         http_client_mock.assert_no_request()
@@ -1328,7 +1328,7 @@ class TestAPIRequestor(object):
     async def test_request_async_rejects_dot_segment_path_without_issuing_request(
         self, path, requestor, http_client_mock
     ):
-        with pytest.raises(stripe.InvalidRequestError):
+        with pytest.raises(ValueError):
             await requestor.request_async("get", path, base_address="api")
 
         http_client_mock.assert_no_request()
@@ -1341,7 +1341,7 @@ class TestAPIRequestor(object):
             "sk_test_123", http_client=http_client_mock.get_mock_http_client()
         )
 
-        with pytest.raises(stripe.InvalidRequestError):
+        with pytest.raises(ValueError):
             client.v1.checkout.sessions.retrieve(session_id)
 
         http_client_mock.assert_no_request()
@@ -1355,7 +1355,7 @@ class TestAPIRequestor(object):
             "sk_test_123", http_client=http_client_mock.get_mock_http_client()
         )
 
-        with pytest.raises(stripe.InvalidRequestError):
+        with pytest.raises(ValueError):
             await client.v1.checkout.sessions.retrieve_async(session_id)
 
         http_client_mock.assert_no_request()
@@ -1367,7 +1367,7 @@ class TestAPIRequestor(object):
             "sk_test_123", http_client=http_client_mock.get_mock_http_client()
         )
 
-        with pytest.raises(stripe.InvalidRequestError):
+        with pytest.raises(ValueError):
             client.v1.customers.payment_methods.retrieve("..", "pm_123")
 
         http_client_mock.assert_no_request()
@@ -1376,7 +1376,7 @@ class TestAPIRequestor(object):
     def test_legacy_retrieve_rejects_dot_id_without_issuing_request(
         self, session_id, http_client_mock
     ):
-        with pytest.raises(stripe.InvalidRequestError):
+        with pytest.raises(ValueError):
             stripe.checkout.Session.retrieve(session_id)
 
         http_client_mock.assert_no_request()
