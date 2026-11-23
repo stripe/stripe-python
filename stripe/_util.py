@@ -400,9 +400,8 @@ def validate_path(path: str) -> None:
 
     for segment in parts.path.split("/"):
         if unquote(segment) in (".", ".."):
-            # Raised as an InvalidRequestError rather than a ValueError because
-            # with the default sync client the API already rejects these paths
-            # with one, so callers' existing error handling keeps working.
+            # Raised as an InvalidRequestError rather than a ValueError, so
+            # callers' existing handling of API errors keeps working.
             from stripe._error import InvalidRequestError
 
             # The message leaves out the query string, which can carry
