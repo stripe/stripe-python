@@ -385,7 +385,10 @@ def validate_path(path: str) -> None:
     changes which endpoint is called: retrieving "." from
     /v1/checkout/sessions/{session} lists every session instead. IDs are
     escaped with quote_plus, which leaves dots alone, and some clients decode
-    "%2E" back to "." before removing it, so we check the decoded segment.
+    "%2E" back to "." before removing it, so we check the decoded segment. An
+    encoded slash ("%2F") also counts as a separator for this check, because a
+    proxy that decodes the path before normalizing it (nginx's proxy_pass, for
+    example) turns it into a real one.
     """
     if not path.startswith("/") or path.startswith("//"):
         raise ValueError(
@@ -398,7 +401,7 @@ def validate_path(path: str) -> None:
             f"Request path may not contain a scheme or authority, got: {path!r}"
         )
 
-    for segment in parts.path.split("/"):
+    for segment in re.split(r"/|%2[fF]", parts.path):
         if unquote(segment) in (".", ".."):
             # The message leaves out the query string, which can carry
             # secrets such as a client_secret.

@@ -1249,6 +1249,8 @@ class TestAPIRequestor(object):
         "/v1/customers?email=a..b%40example.com",
         # A double-encoded dot reaches the API as the literal "%2E".
         "/v1/customers/%252E",
+        # An encoded slash is fine as long as no piece around it is a dot segment.
+        "/v1/coupons/summer%2F2017",
     ]
 
     DOT_SEGMENT_PATHS = [
@@ -1264,6 +1266,11 @@ class TestAPIRequestor(object):
         "/v1/checkout/sessions/%2E",
         "/v1/checkout/sessions/%2e%2E",
         "/v1/checkout/sessions/.%2E",
+        # A proxy that decodes "%2F" before removing dot segments turns these
+        # into real path separators.
+        "/v1/coupons/x%2F..%2F..%2Fcustomers%2Fcus_B",
+        "/v1/customers/cus_123/sources/..%2F..%2Fcus_B",
+        "/v1/coupons/..%2fsummer",
     ]
 
     HOSTILE_PATHS = [
@@ -1369,6 +1376,18 @@ class TestAPIRequestor(object):
 
         with pytest.raises(ValueError):
             client.v1.customers.payment_methods.retrieve("..", "pm_123")
+
+        http_client_mock.assert_no_request()
+
+    def test_service_rejects_id_with_encoded_dot_segments_without_issuing_request(
+        self, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+
+        with pytest.raises(ValueError):
+            client.v1.coupons.retrieve("x/../../customers/cus_B")
 
         http_client_mock.assert_no_request()
 
