@@ -405,8 +405,10 @@ def validate_path(path: str) -> None:
             # with one, so callers' existing error handling keeps working.
             from stripe._error import InvalidRequestError
 
+            # The message leaves out the query string, which can carry
+            # secrets such as a client_secret.
             raise InvalidRequestError(
-                f'Request path may not contain a "." or ".." segment, got: {path!r}',
+                f'Request path may not contain a "." or ".." segment, got: {parts.path!r}',
                 None,
             )
 

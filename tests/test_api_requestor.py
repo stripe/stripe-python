@@ -1305,6 +1305,15 @@ class TestAPIRequestor(object):
         with pytest.raises(stripe.InvalidRequestError):
             validate_path(path)
 
+    def test_dot_segment_error_omits_query_string(self):
+        with pytest.raises(stripe.InvalidRequestError) as exc_info:
+            validate_path(
+                "/v1/payment_intents/..?client_secret=pi_123_secret_456"
+            )
+
+        assert "/v1/payment_intents/.." in str(exc_info.value)
+        assert "pi_123_secret_456" not in str(exc_info.value)
+
     @pytest.mark.parametrize("path", DOT_SEGMENT_PATHS)
     def test_request_rejects_dot_segment_path_without_issuing_request(
         self, path, requestor, http_client_mock
