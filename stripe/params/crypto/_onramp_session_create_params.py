@@ -110,6 +110,10 @@ class OnrampSessionCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    payment_method: NotRequired[str]
+    """
+    ID of a card PaymentMethod (pm_...) owned by the authenticated merchant. Only supported for headless sessions. Mutually exclusive with `payment_token`.
+    """
     settlement_speed: NotRequired["Literal['instant', 'standard']|str"]
     """
     Speed at which the cryptocurrency is delivered to the wallet

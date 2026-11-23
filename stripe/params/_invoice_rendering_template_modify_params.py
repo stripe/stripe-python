@@ -64,13 +64,19 @@ class InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf(
         "Literal['']|List[InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock]"
     ]
     """
-    Ordered invoice PDF blocks. A maximum of 20 blocks is allowed.
+    The complete replacement order of at most 20 invoice PDF blocks. Keys retain saved configuration when its hash is omitted. Omitted custom blocks are removed; include every default type exactly once. Omit blocks to preserve settings, or supply an empty string to reset to defaults.
     """
 
 
 class InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock(
     TypedDict,
 ):
+    custom_plain_text: NotRequired[
+        "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText"
+    ]
+    """
+    Configuration for a repeatable literal text block. Omit this hash on a keyed update to retain saved text; supply it to replace the text.
+    """
     custom_plain_text_cel: NotRequired[
         "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel"
     ]
@@ -82,10 +88,19 @@ class InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock(
     A unique key within this template's blocks. Generated when omitted.
     """
     type: NotRequired[
-        "Literal['custom_plain_text_cel', 'footer_content', 'invoice_details', 'line_items', 'parties', 'payment_remittance_instructions', 'status_and_memo', 'tax_footnotes', 'title_and_logo']|str"
+        "Literal['custom_plain_text', 'custom_plain_text_cel', 'footer_content', 'invoice_details', 'line_items', 'parties', 'payment_remittance_instructions', 'status_and_memo', 'tax_footnotes', 'title_and_logo']|str"
     ]
     """
     The type of content block. Required when updating a block without a key matching an existing block in the current template version. For a matching key, omit type to retain the existing type; if supplied, it must match.
+    """
+
+
+class InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText(
+    TypedDict,
+):
+    plain_text: str
+    """
+    Literal text to render, preserving whitespace and newlines. Required, at most 10,000 characters; an empty string renders no text.
     """
 
 

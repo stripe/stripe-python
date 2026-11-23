@@ -307,6 +307,10 @@ class PaymentLink(
                 """
                 ID of the invoice rendering template to be used for the generated invoice.
                 """
+                template_version: Optional[int]
+                """
+                The version of the invoice rendering template to be used for the generated invoice. If null, the latest version of the template will be used. Only available in unified mode.
+                """
 
             account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
             """

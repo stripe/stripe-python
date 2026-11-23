@@ -1053,7 +1053,7 @@ class SetupIntent(
     class RadarOptions(StripeObject):
         is_free_trial_transaction: Optional[bool]
         """
-        The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+        The value you provided for whether this transaction starts a free trial. This field is omitted if you haven't explicitly set it.
         """
         session: Optional[str]
         """

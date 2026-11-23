@@ -13,6 +13,10 @@ class SpendingMandateListParams(TypedDict):
     """
     The page limit.
     """
+    network: NotRequired["Literal['ach', 'bacs', 'sepa']|str"]
+    """
+    Filter by bank transfer network. If omitted, returns mandates for all networks.
+    """
     statuses: NotRequired[
         List[
             Union[

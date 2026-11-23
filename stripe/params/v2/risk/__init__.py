@@ -4,6 +4,13 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.risk._evaluation_outcome_list_params import (
+        EvaluationOutcomeListParams as EvaluationOutcomeListParams,
+        EvaluationOutcomeListParamsAccountDetails as EvaluationOutcomeListParamsAccountDetails,
+    )
+    from stripe.params.v2.risk._evaluation_outcome_retrieve_params import (
+        EvaluationOutcomeRetrieveParams as EvaluationOutcomeRetrieveParams,
+    )
     from stripe.params.v2.risk._form_retrieve_params import (
         FormRetrieveParams as FormRetrieveParams,
     )
@@ -20,6 +27,18 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "EvaluationOutcomeListParams": (
+        "stripe.params.v2.risk._evaluation_outcome_list_params",
+        False,
+    ),
+    "EvaluationOutcomeListParamsAccountDetails": (
+        "stripe.params.v2.risk._evaluation_outcome_list_params",
+        False,
+    ),
+    "EvaluationOutcomeRetrieveParams": (
+        "stripe.params.v2.risk._evaluation_outcome_retrieve_params",
+        False,
+    ),
     "FormRetrieveParams": (
         "stripe.params.v2.risk._form_retrieve_params",
         False,

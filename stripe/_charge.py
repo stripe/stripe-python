@@ -1256,6 +1256,20 @@ class Charge(
             }
 
         class CardPresent(StripeObject):
+            class Benefits(StripeObject):
+                class FrMealVoucher(StripeObject):
+                    siret: str
+                    """
+                    The 14-digit SIRET of the meal voucher acceptor used for this charge.
+                    """
+
+                fr_meal_voucher: Optional[FrMealVoucher]
+                issuer: Optional[str]
+                """
+                Issuer of the benefit card utilized on this payment
+                """
+                _inner_class_types = {"fr_meal_voucher": FrMealVoucher}
+
             class Fleet(StripeObject):
                 class TransactionDatum(StripeObject):
                     prompt: Literal[
@@ -1400,6 +1414,7 @@ class Charge(
             """
             The authorized amount
             """
+            benefits: Optional[Benefits]
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -1529,6 +1544,7 @@ class Charge(
             """
             wallet: Optional[Wallet]
             _inner_class_types = {
+                "benefits": Benefits,
                 "fleet": Fleet,
                 "multicapture": Multicapture,
                 "offline": Offline,

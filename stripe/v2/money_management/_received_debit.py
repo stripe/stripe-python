@@ -127,6 +127,28 @@ class ReceivedDebit(StripeObject):
                 The routing number of the bank that originated the debit.
                 """
 
+            class Iban(StripeObject):
+                account_holder_name: Optional[str]
+                """
+                The creditor's name.
+                """
+                bank_name: Optional[str]
+                """
+                The name of the creditor's bank.
+                """
+                bic: Optional[str]
+                """
+                The Bank Identifier Code (BIC) of the creditor's bank.
+                """
+                country: Optional[str]
+                """
+                Uppercase ISO 3166-1 alpha-2 country code of the creditor's bank account.
+                """
+                iban: Optional[str]
+                """
+                The creditor's IBAN, masked with X except for the country code and last four characters.
+                """
+
             class SortCode(StripeObject):
                 account_holder_name: Optional[str]
                 """
@@ -149,15 +171,23 @@ class ReceivedDebit(StripeObject):
             """
             Details of the originating account. Present when type is `aba`.
             """
+            iban: Optional[Iban]
+            """
+            Creditor details. Present when type is `iban`.
+            """
             sort_code: Optional[SortCode]
             """
             Details of the originating account. Present when type is `sort_code`.
             """
-            type: Union[Literal["aba", "sort_code"], str]
+            type: Union[Literal["aba", "iban", "sort_code"], str]
             """
             The credential type identifying the originating bank account.
             """
-            _inner_class_types = {"aba": Aba, "sort_code": SortCode}
+            _inner_class_types = {
+                "aba": Aba,
+                "iban": Iban,
+                "sort_code": SortCode,
+            }
 
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
@@ -183,7 +213,7 @@ class ReceivedDebit(StripeObject):
         Object containing details of the GB Bank Account that originated the debit.
         Present when the debit was originated via BACS.
         """
-        network: Union[Literal["ach", "bacs"], str]
+        network: Union[Literal["ach", "bacs", "sepa"], str]
         """
         The bank network the debit was originated on.
         """
@@ -191,7 +221,10 @@ class ReceivedDebit(StripeObject):
         """
         Network-specific details about the bank transfer.
         """
-        origin_type: Union[Literal["gb_bank_account", "us_bank_account"], str]
+        origin_type: Union[
+            Literal["gb_bank_account", "sepa_bank_account", "us_bank_account"],
+            str,
+        ]
         """
         Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
         Open Enum. Indicates the origin type through which this debit was initiated.
@@ -201,7 +234,8 @@ class ReceivedDebit(StripeObject):
         The originating bank account's credential details.
         """
         payment_method_type: Union[
-            Literal["gb_bank_account", "us_bank_account"], str
+            Literal["gb_bank_account", "sepa_bank_account", "us_bank_account"],
+            str,
         ]
         """
         Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
@@ -281,10 +315,12 @@ class ReceivedDebit(StripeObject):
             reason: Union[
                 Literal[
                     "capability_inactive",
+                    "debits_disabled",
                     "financial_address_inactive",
                     "insufficient_funds",
                     "no_mandate",
                     "stripe_rejected",
+                    "transaction_limit_exceeded",
                 ],
                 str,
             ]
@@ -293,7 +329,7 @@ class ReceivedDebit(StripeObject):
             """
 
         class Returned(StripeObject):
-            reason: Union[Literal["originator_initiated"], str]
+            reason: Union[Literal["dispute_won", "originator_initiated"], str]
             """
             Open Enum. The reason the ReceivedDebit was returned.
             """
@@ -370,6 +406,11 @@ class ReceivedDebit(StripeObject):
     dispute_details: Optional[DisputeDetails]
     """
     The dispute details.
+    """
+    disputed: bool
+    """
+    Has the value `true` if the object has an associated Dispute otherwise or the value `false`.
+    Use the Disputes List API with `target` to see details.
     """
     external_amount: Optional[Amount]
     """

@@ -105,6 +105,7 @@ if TYPE_CHECKING:
         ContractCreateParamsTermPricingOverrideEndsAt as ContractCreateParamsTermPricingOverrideEndsAt,
         ContractCreateParamsTermPricingOverrideMultiply as ContractCreateParamsTermPricingOverrideMultiply,
         ContractCreateParamsTermPricingOverrideOverwrite as ContractCreateParamsTermPricingOverrideOverwrite,
+        ContractCreateParamsTermPricingOverrideOverwriteTier as ContractCreateParamsTermPricingOverrideOverwriteTier,
         ContractCreateParamsTermPricingOverrideStartsAt as ContractCreateParamsTermPricingOverrideStartsAt,
         ContractCreateParamsTermRecurringPrice as ContractCreateParamsTermRecurringPrice,
         ContractCreateParamsTermRecurringPriceEndsAt as ContractCreateParamsTermRecurringPriceEndsAt,
@@ -136,6 +137,7 @@ if TYPE_CHECKING:
         ContractUpdateParamsActionAddTermPricingOverrideEndsAt as ContractUpdateParamsActionAddTermPricingOverrideEndsAt,
         ContractUpdateParamsActionAddTermPricingOverrideMultiply as ContractUpdateParamsActionAddTermPricingOverrideMultiply,
         ContractUpdateParamsActionAddTermPricingOverrideOverwrite as ContractUpdateParamsActionAddTermPricingOverrideOverwrite,
+        ContractUpdateParamsActionAddTermPricingOverrideOverwriteTier as ContractUpdateParamsActionAddTermPricingOverrideOverwriteTier,
         ContractUpdateParamsActionAddTermPricingOverrideStartsAt as ContractUpdateParamsActionAddTermPricingOverrideStartsAt,
         ContractUpdateParamsActionAddTermRecurringPrice as ContractUpdateParamsActionAddTermRecurringPrice,
         ContractUpdateParamsActionAddTermRecurringPriceEndsAt as ContractUpdateParamsActionAddTermRecurringPriceEndsAt,
@@ -809,6 +811,10 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
+    "ContractCreateParamsTermPricingOverrideOverwriteTier": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
     "ContractCreateParamsTermPricingOverrideStartsAt": (
         "stripe.params.v2.billing._contract_create_params",
         False,
@@ -898,6 +904,10 @@ _import_map = {
         False,
     ),
     "ContractUpdateParamsActionAddTermPricingOverrideOverwrite": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsActionAddTermPricingOverrideOverwriteTier": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),

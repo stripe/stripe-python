@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
@@ -15,22 +16,37 @@ class SpendingMandate(StripeObject):
     )
 
     class BankTransfer(StripeObject):
+        class Ach(StripeObject):
+            originator_company_id: str
+            """
+            ACH Company ID used to identify the authorized originator.
+            """
+            transaction_limit: Optional[Amount]
+            """
+            Maximum amount authorized for a single debit. If absent, the Financial Account limit applies.
+            """
+
         account_holder_name: Optional[str]
         """
         The name of the account holder that initiated the debit.
+        """
+        ach: Optional[Ach]
+        """
+        ACH-specific authorization details. Present when `network` is `ach`.
         """
         financial_address: str
         """
         The financial address associated with this mandate.
         """
-        network: Union[Literal["bacs"], str]
+        network: Union[Literal["ach", "bacs", "sepa"], str]
         """
         The bank transfer network for this mandate.
         """
         reference: Optional[str]
         """
-        The bank transfer reference provided by the bank. Only present when `network` is `bacs`.
+        The mandate reference provided by the bank for Bacs or the creditor's unique mandate reference (UMR) for SEPA.
         """
+        _inner_class_types = {"ach": Ach}
 
     class StatusDetails(StripeObject):
         class Canceled(StripeObject):

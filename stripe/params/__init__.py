@@ -1983,6 +1983,7 @@ if TYPE_CHECKING:
         InvoiceRenderingTemplateCreateParamsRenderingSettings as InvoiceRenderingTemplateCreateParamsRenderingSettings,
         InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf,
         InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText,
         InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
         InvoiceRenderingTemplateCreateParamsSummaryItemPolicy as InvoiceRenderingTemplateCreateParamsSummaryItemPolicy,
     )
@@ -1995,6 +1996,7 @@ if TYPE_CHECKING:
         InvoiceRenderingTemplateModifyParamsRenderingSettings as InvoiceRenderingTemplateModifyParamsRenderingSettings,
         InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdf,
         InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText,
         InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
         InvoiceRenderingTemplateModifyParamsSummaryItemPolicy as InvoiceRenderingTemplateModifyParamsSummaryItemPolicy,
     )
@@ -2010,6 +2012,7 @@ if TYPE_CHECKING:
         InvoiceRenderingTemplateUpdateParamsRenderingSettings as InvoiceRenderingTemplateUpdateParamsRenderingSettings,
         InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdf as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdf,
         InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock,
+        InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainText as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainText,
         InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel as InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel,
         InvoiceRenderingTemplateUpdateParamsSummaryItemPolicy as InvoiceRenderingTemplateUpdateParamsSummaryItemPolicy,
     )
@@ -2747,12 +2750,14 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptions as PaymentIntentConfirmParamsPaymentMethodOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsAcssDebit as PaymentIntentConfirmParamsPaymentMethodOptionsAcssDebit,
         PaymentIntentConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions,
+        PaymentIntentConfirmParamsPaymentMethodOptionsAeonPay as PaymentIntentConfirmParamsPaymentMethodOptionsAeonPay,
         PaymentIntentConfirmParamsPaymentMethodOptionsAffirm as PaymentIntentConfirmParamsPaymentMethodOptionsAffirm,
         PaymentIntentConfirmParamsPaymentMethodOptionsAfterpayClearpay as PaymentIntentConfirmParamsPaymentMethodOptionsAfterpayClearpay,
         PaymentIntentConfirmParamsPaymentMethodOptionsAlipay as PaymentIntentConfirmParamsPaymentMethodOptionsAlipay,
         PaymentIntentConfirmParamsPaymentMethodOptionsAlma as PaymentIntentConfirmParamsPaymentMethodOptionsAlma,
         PaymentIntentConfirmParamsPaymentMethodOptionsAmazonPay as PaymentIntentConfirmParamsPaymentMethodOptionsAmazonPay,
         PaymentIntentConfirmParamsPaymentMethodOptionsAuBecsDebit as PaymentIntentConfirmParamsPaymentMethodOptionsAuBecsDebit,
+        PaymentIntentConfirmParamsPaymentMethodOptionsAuPay as PaymentIntentConfirmParamsPaymentMethodOptionsAuPay,
         PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebit as PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebit,
         PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebitFinancialConnections as PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions,
@@ -2795,6 +2800,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalance as PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        PaymentIntentConfirmParamsPaymentMethodOptionsDbarai as PaymentIntentConfirmParamsPaymentMethodOptionsDbarai,
         PaymentIntentConfirmParamsPaymentMethodOptionsEps as PaymentIntentConfirmParamsPaymentMethodOptionsEps,
         PaymentIntentConfirmParamsPaymentMethodOptionsFpx as PaymentIntentConfirmParamsPaymentMethodOptionsFpx,
         PaymentIntentConfirmParamsPaymentMethodOptionsGetflex as PaymentIntentConfirmParamsPaymentMethodOptionsGetflex,
@@ -2850,6 +2856,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsKrCard as PaymentIntentConfirmParamsPaymentMethodOptionsKrCard,
         PaymentIntentConfirmParamsPaymentMethodOptionsLink as PaymentIntentConfirmParamsPaymentMethodOptionsLink,
         PaymentIntentConfirmParamsPaymentMethodOptionsMbWay as PaymentIntentConfirmParamsPaymentMethodOptionsMbWay,
+        PaymentIntentConfirmParamsPaymentMethodOptionsMerpay as PaymentIntentConfirmParamsPaymentMethodOptionsMerpay,
         PaymentIntentConfirmParamsPaymentMethodOptionsMobilepay as PaymentIntentConfirmParamsPaymentMethodOptionsMobilepay,
         PaymentIntentConfirmParamsPaymentMethodOptionsMultibanco as PaymentIntentConfirmParamsPaymentMethodOptionsMultibanco,
         PaymentIntentConfirmParamsPaymentMethodOptionsNaverPay as PaymentIntentConfirmParamsPaymentMethodOptionsNaverPay,
@@ -2869,6 +2876,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsPixMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsPixMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsPromptpay as PaymentIntentConfirmParamsPaymentMethodOptionsPromptpay,
         PaymentIntentConfirmParamsPaymentMethodOptionsQris as PaymentIntentConfirmParamsPaymentMethodOptionsQris,
+        PaymentIntentConfirmParamsPaymentMethodOptionsRakutenPay as PaymentIntentConfirmParamsPaymentMethodOptionsRakutenPay,
         PaymentIntentConfirmParamsPaymentMethodOptionsRechnung as PaymentIntentConfirmParamsPaymentMethodOptionsRechnung,
         PaymentIntentConfirmParamsPaymentMethodOptionsRevolutPay as PaymentIntentConfirmParamsPaymentMethodOptionsRevolutPay,
         PaymentIntentConfirmParamsPaymentMethodOptionsSamsungPay as PaymentIntentConfirmParamsPaymentMethodOptionsSamsungPay,
@@ -3100,12 +3108,14 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptions as PaymentIntentCreateParamsPaymentMethodOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsAcssDebit as PaymentIntentCreateParamsPaymentMethodOptionsAcssDebit,
         PaymentIntentCreateParamsPaymentMethodOptionsAcssDebitMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsAcssDebitMandateOptions,
+        PaymentIntentCreateParamsPaymentMethodOptionsAeonPay as PaymentIntentCreateParamsPaymentMethodOptionsAeonPay,
         PaymentIntentCreateParamsPaymentMethodOptionsAffirm as PaymentIntentCreateParamsPaymentMethodOptionsAffirm,
         PaymentIntentCreateParamsPaymentMethodOptionsAfterpayClearpay as PaymentIntentCreateParamsPaymentMethodOptionsAfterpayClearpay,
         PaymentIntentCreateParamsPaymentMethodOptionsAlipay as PaymentIntentCreateParamsPaymentMethodOptionsAlipay,
         PaymentIntentCreateParamsPaymentMethodOptionsAlma as PaymentIntentCreateParamsPaymentMethodOptionsAlma,
         PaymentIntentCreateParamsPaymentMethodOptionsAmazonPay as PaymentIntentCreateParamsPaymentMethodOptionsAmazonPay,
         PaymentIntentCreateParamsPaymentMethodOptionsAuBecsDebit as PaymentIntentCreateParamsPaymentMethodOptionsAuBecsDebit,
+        PaymentIntentCreateParamsPaymentMethodOptionsAuPay as PaymentIntentCreateParamsPaymentMethodOptionsAuPay,
         PaymentIntentCreateParamsPaymentMethodOptionsBacsDebit as PaymentIntentCreateParamsPaymentMethodOptionsBacsDebit,
         PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitFinancialConnections as PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsBacsDebitMandateOptions,
@@ -3148,6 +3158,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalance as PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        PaymentIntentCreateParamsPaymentMethodOptionsDbarai as PaymentIntentCreateParamsPaymentMethodOptionsDbarai,
         PaymentIntentCreateParamsPaymentMethodOptionsEps as PaymentIntentCreateParamsPaymentMethodOptionsEps,
         PaymentIntentCreateParamsPaymentMethodOptionsFpx as PaymentIntentCreateParamsPaymentMethodOptionsFpx,
         PaymentIntentCreateParamsPaymentMethodOptionsGetflex as PaymentIntentCreateParamsPaymentMethodOptionsGetflex,
@@ -3203,6 +3214,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsKrCard as PaymentIntentCreateParamsPaymentMethodOptionsKrCard,
         PaymentIntentCreateParamsPaymentMethodOptionsLink as PaymentIntentCreateParamsPaymentMethodOptionsLink,
         PaymentIntentCreateParamsPaymentMethodOptionsMbWay as PaymentIntentCreateParamsPaymentMethodOptionsMbWay,
+        PaymentIntentCreateParamsPaymentMethodOptionsMerpay as PaymentIntentCreateParamsPaymentMethodOptionsMerpay,
         PaymentIntentCreateParamsPaymentMethodOptionsMobilepay as PaymentIntentCreateParamsPaymentMethodOptionsMobilepay,
         PaymentIntentCreateParamsPaymentMethodOptionsMultibanco as PaymentIntentCreateParamsPaymentMethodOptionsMultibanco,
         PaymentIntentCreateParamsPaymentMethodOptionsNaverPay as PaymentIntentCreateParamsPaymentMethodOptionsNaverPay,
@@ -3222,6 +3234,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsPixMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsPixMandateOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsPromptpay as PaymentIntentCreateParamsPaymentMethodOptionsPromptpay,
         PaymentIntentCreateParamsPaymentMethodOptionsQris as PaymentIntentCreateParamsPaymentMethodOptionsQris,
+        PaymentIntentCreateParamsPaymentMethodOptionsRakutenPay as PaymentIntentCreateParamsPaymentMethodOptionsRakutenPay,
         PaymentIntentCreateParamsPaymentMethodOptionsRechnung as PaymentIntentCreateParamsPaymentMethodOptionsRechnung,
         PaymentIntentCreateParamsPaymentMethodOptionsRevolutPay as PaymentIntentCreateParamsPaymentMethodOptionsRevolutPay,
         PaymentIntentCreateParamsPaymentMethodOptionsSamsungPay as PaymentIntentCreateParamsPaymentMethodOptionsSamsungPay,
@@ -3511,12 +3524,14 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptions as PaymentIntentModifyParamsPaymentMethodOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsAcssDebit as PaymentIntentModifyParamsPaymentMethodOptionsAcssDebit,
         PaymentIntentModifyParamsPaymentMethodOptionsAcssDebitMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsAcssDebitMandateOptions,
+        PaymentIntentModifyParamsPaymentMethodOptionsAeonPay as PaymentIntentModifyParamsPaymentMethodOptionsAeonPay,
         PaymentIntentModifyParamsPaymentMethodOptionsAffirm as PaymentIntentModifyParamsPaymentMethodOptionsAffirm,
         PaymentIntentModifyParamsPaymentMethodOptionsAfterpayClearpay as PaymentIntentModifyParamsPaymentMethodOptionsAfterpayClearpay,
         PaymentIntentModifyParamsPaymentMethodOptionsAlipay as PaymentIntentModifyParamsPaymentMethodOptionsAlipay,
         PaymentIntentModifyParamsPaymentMethodOptionsAlma as PaymentIntentModifyParamsPaymentMethodOptionsAlma,
         PaymentIntentModifyParamsPaymentMethodOptionsAmazonPay as PaymentIntentModifyParamsPaymentMethodOptionsAmazonPay,
         PaymentIntentModifyParamsPaymentMethodOptionsAuBecsDebit as PaymentIntentModifyParamsPaymentMethodOptionsAuBecsDebit,
+        PaymentIntentModifyParamsPaymentMethodOptionsAuPay as PaymentIntentModifyParamsPaymentMethodOptionsAuPay,
         PaymentIntentModifyParamsPaymentMethodOptionsBacsDebit as PaymentIntentModifyParamsPaymentMethodOptionsBacsDebit,
         PaymentIntentModifyParamsPaymentMethodOptionsBacsDebitFinancialConnections as PaymentIntentModifyParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         PaymentIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions,
@@ -3559,6 +3574,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalance as PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        PaymentIntentModifyParamsPaymentMethodOptionsDbarai as PaymentIntentModifyParamsPaymentMethodOptionsDbarai,
         PaymentIntentModifyParamsPaymentMethodOptionsEps as PaymentIntentModifyParamsPaymentMethodOptionsEps,
         PaymentIntentModifyParamsPaymentMethodOptionsFpx as PaymentIntentModifyParamsPaymentMethodOptionsFpx,
         PaymentIntentModifyParamsPaymentMethodOptionsGetflex as PaymentIntentModifyParamsPaymentMethodOptionsGetflex,
@@ -3614,6 +3630,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsKrCard as PaymentIntentModifyParamsPaymentMethodOptionsKrCard,
         PaymentIntentModifyParamsPaymentMethodOptionsLink as PaymentIntentModifyParamsPaymentMethodOptionsLink,
         PaymentIntentModifyParamsPaymentMethodOptionsMbWay as PaymentIntentModifyParamsPaymentMethodOptionsMbWay,
+        PaymentIntentModifyParamsPaymentMethodOptionsMerpay as PaymentIntentModifyParamsPaymentMethodOptionsMerpay,
         PaymentIntentModifyParamsPaymentMethodOptionsMobilepay as PaymentIntentModifyParamsPaymentMethodOptionsMobilepay,
         PaymentIntentModifyParamsPaymentMethodOptionsMultibanco as PaymentIntentModifyParamsPaymentMethodOptionsMultibanco,
         PaymentIntentModifyParamsPaymentMethodOptionsNaverPay as PaymentIntentModifyParamsPaymentMethodOptionsNaverPay,
@@ -3633,6 +3650,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsPixMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsPixMandateOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsPromptpay as PaymentIntentModifyParamsPaymentMethodOptionsPromptpay,
         PaymentIntentModifyParamsPaymentMethodOptionsQris as PaymentIntentModifyParamsPaymentMethodOptionsQris,
+        PaymentIntentModifyParamsPaymentMethodOptionsRakutenPay as PaymentIntentModifyParamsPaymentMethodOptionsRakutenPay,
         PaymentIntentModifyParamsPaymentMethodOptionsRechnung as PaymentIntentModifyParamsPaymentMethodOptionsRechnung,
         PaymentIntentModifyParamsPaymentMethodOptionsRevolutPay as PaymentIntentModifyParamsPaymentMethodOptionsRevolutPay,
         PaymentIntentModifyParamsPaymentMethodOptionsSamsungPay as PaymentIntentModifyParamsPaymentMethodOptionsSamsungPay,
@@ -3882,12 +3900,14 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptions as PaymentIntentUpdateParamsPaymentMethodOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsAcssDebit as PaymentIntentUpdateParamsPaymentMethodOptionsAcssDebit,
         PaymentIntentUpdateParamsPaymentMethodOptionsAcssDebitMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsAcssDebitMandateOptions,
+        PaymentIntentUpdateParamsPaymentMethodOptionsAeonPay as PaymentIntentUpdateParamsPaymentMethodOptionsAeonPay,
         PaymentIntentUpdateParamsPaymentMethodOptionsAffirm as PaymentIntentUpdateParamsPaymentMethodOptionsAffirm,
         PaymentIntentUpdateParamsPaymentMethodOptionsAfterpayClearpay as PaymentIntentUpdateParamsPaymentMethodOptionsAfterpayClearpay,
         PaymentIntentUpdateParamsPaymentMethodOptionsAlipay as PaymentIntentUpdateParamsPaymentMethodOptionsAlipay,
         PaymentIntentUpdateParamsPaymentMethodOptionsAlma as PaymentIntentUpdateParamsPaymentMethodOptionsAlma,
         PaymentIntentUpdateParamsPaymentMethodOptionsAmazonPay as PaymentIntentUpdateParamsPaymentMethodOptionsAmazonPay,
         PaymentIntentUpdateParamsPaymentMethodOptionsAuBecsDebit as PaymentIntentUpdateParamsPaymentMethodOptionsAuBecsDebit,
+        PaymentIntentUpdateParamsPaymentMethodOptionsAuPay as PaymentIntentUpdateParamsPaymentMethodOptionsAuPay,
         PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebit as PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebit,
         PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebitFinancialConnections as PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebitFinancialConnections,
         PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebitMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsBacsDebitMandateOptions,
@@ -3930,6 +3950,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalance as PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        PaymentIntentUpdateParamsPaymentMethodOptionsDbarai as PaymentIntentUpdateParamsPaymentMethodOptionsDbarai,
         PaymentIntentUpdateParamsPaymentMethodOptionsEps as PaymentIntentUpdateParamsPaymentMethodOptionsEps,
         PaymentIntentUpdateParamsPaymentMethodOptionsFpx as PaymentIntentUpdateParamsPaymentMethodOptionsFpx,
         PaymentIntentUpdateParamsPaymentMethodOptionsGetflex as PaymentIntentUpdateParamsPaymentMethodOptionsGetflex,
@@ -3985,6 +4006,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsKrCard as PaymentIntentUpdateParamsPaymentMethodOptionsKrCard,
         PaymentIntentUpdateParamsPaymentMethodOptionsLink as PaymentIntentUpdateParamsPaymentMethodOptionsLink,
         PaymentIntentUpdateParamsPaymentMethodOptionsMbWay as PaymentIntentUpdateParamsPaymentMethodOptionsMbWay,
+        PaymentIntentUpdateParamsPaymentMethodOptionsMerpay as PaymentIntentUpdateParamsPaymentMethodOptionsMerpay,
         PaymentIntentUpdateParamsPaymentMethodOptionsMobilepay as PaymentIntentUpdateParamsPaymentMethodOptionsMobilepay,
         PaymentIntentUpdateParamsPaymentMethodOptionsMultibanco as PaymentIntentUpdateParamsPaymentMethodOptionsMultibanco,
         PaymentIntentUpdateParamsPaymentMethodOptionsNaverPay as PaymentIntentUpdateParamsPaymentMethodOptionsNaverPay,
@@ -4004,6 +4026,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsPixMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsPixMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsPromptpay as PaymentIntentUpdateParamsPaymentMethodOptionsPromptpay,
         PaymentIntentUpdateParamsPaymentMethodOptionsQris as PaymentIntentUpdateParamsPaymentMethodOptionsQris,
+        PaymentIntentUpdateParamsPaymentMethodOptionsRakutenPay as PaymentIntentUpdateParamsPaymentMethodOptionsRakutenPay,
         PaymentIntentUpdateParamsPaymentMethodOptionsRechnung as PaymentIntentUpdateParamsPaymentMethodOptionsRechnung,
         PaymentIntentUpdateParamsPaymentMethodOptionsRevolutPay as PaymentIntentUpdateParamsPaymentMethodOptionsRevolutPay,
         PaymentIntentUpdateParamsPaymentMethodOptionsSamsungPay as PaymentIntentUpdateParamsPaymentMethodOptionsSamsungPay,
@@ -12789,6 +12812,10 @@ _import_map = {
         "stripe.params._invoice_rendering_template_create_params",
         False,
     ),
+    "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText": (
+        "stripe.params._invoice_rendering_template_create_params",
+        False,
+    ),
     "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel": (
         "stripe.params._invoice_rendering_template_create_params",
         False,
@@ -12818,6 +12845,10 @@ _import_map = {
         False,
     ),
     "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlock": (
+        "stripe.params._invoice_rendering_template_modify_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateModifyParamsRenderingSettingsInvoicePdfBlockCustomPlainText": (
         "stripe.params._invoice_rendering_template_modify_params",
         False,
     ),
@@ -12854,6 +12885,10 @@ _import_map = {
         False,
     ),
     "InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlock": (
+        "stripe.params._invoice_rendering_template_update_params",
+        False,
+    ),
+    "InvoiceRenderingTemplateUpdateParamsRenderingSettingsInvoicePdfBlockCustomPlainText": (
         "stripe.params._invoice_rendering_template_update_params",
         False,
     ),
@@ -15458,6 +15493,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsAeonPay": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsAffirm": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -15479,6 +15518,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsAuBecsDebit": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsAuPay": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15647,6 +15690,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsDbarai": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15870,6 +15917,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsMerpay": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsMobilepay": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -15943,6 +15994,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsQris": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsRakutenPay": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -16862,6 +16917,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsAeonPay": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsAffirm": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -16883,6 +16942,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsAuBecsDebit": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsAuPay": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -17051,6 +17114,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsDbarai": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -17274,6 +17341,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsMerpay": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsMobilepay": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -17347,6 +17418,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsQris": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsRakutenPay": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -18466,6 +18541,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsAeonPay": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsAffirm": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -18487,6 +18566,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsAuBecsDebit": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsAuPay": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -18655,6 +18738,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsDbarai": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -18878,6 +18965,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsMerpay": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsMobilepay": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -18951,6 +19042,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsQris": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsRakutenPay": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -19894,6 +19989,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsAeonPay": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsAffirm": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -19915,6 +20014,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsAuBecsDebit": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsAuPay": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -20083,6 +20186,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsDbarai": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -20306,6 +20413,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsMerpay": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsMobilepay": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -20379,6 +20490,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsQris": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsRakutenPay": (
         "stripe.params._payment_intent_update_params",
         False,
     ),

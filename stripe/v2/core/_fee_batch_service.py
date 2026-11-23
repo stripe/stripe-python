@@ -22,7 +22,10 @@ class FeeBatchService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FeeBatch]":
         """
-        List FeeBatches optionally filtered by collection_record.
+        Lists FeeBatches, optionally filtered by `collection_record`, `statuses`, or
+        creation time. If `statuses` is omitted or empty, only pending and billed
+        FeeBatches are returned. Canceled FeeBatches are returned only when explicitly
+        requested.
         """
         return cast(
             "ListObject[FeeBatch]",
@@ -41,7 +44,10 @@ class FeeBatchService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FeeBatch]":
         """
-        List FeeBatches optionally filtered by collection_record.
+        Lists FeeBatches, optionally filtered by `collection_record`, `statuses`, or
+        creation time. If `statuses` is omitted or empty, only pending and billed
+        FeeBatches are returned. Canceled FeeBatches are returned only when explicitly
+        requested.
         """
         return cast(
             "ListObject[FeeBatch]",

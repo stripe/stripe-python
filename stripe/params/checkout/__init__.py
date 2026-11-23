@@ -62,6 +62,12 @@ if TYPE_CHECKING:
         SessionCreateParamsItemMetronomeCommitCommitSpecifier as SessionCreateParamsItemMetronomeCommitCommitSpecifier,
         SessionCreateParamsItemMetronomeCommitCommitTaxDetails as SessionCreateParamsItemMetronomeCommitCommitTaxDetails,
         SessionCreateParamsItemMetronomeCommitPriceConfiguration as SessionCreateParamsItemMetronomeCommitPriceConfiguration,
+        SessionCreateParamsItemOneTimePrice as SessionCreateParamsItemOneTimePrice,
+        SessionCreateParamsItemOneTimePriceItem as SessionCreateParamsItemOneTimePriceItem,
+        SessionCreateParamsItemOneTimePriceItemAdjustableQuantity as SessionCreateParamsItemOneTimePriceItemAdjustableQuantity,
+        SessionCreateParamsItemOneTimePriceItemPriceData as SessionCreateParamsItemOneTimePriceItemPriceData,
+        SessionCreateParamsItemOneTimePriceItemPriceDataProductData as SessionCreateParamsItemOneTimePriceItemPriceDataProductData,
+        SessionCreateParamsItemOneTimePriceItemPriceDataProductDataTaxDetails as SessionCreateParamsItemOneTimePriceItemPriceDataProductDataTaxDetails,
         SessionCreateParamsItemSubscription as SessionCreateParamsItemSubscription,
         SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig as SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig,
         SessionCreateParamsItemSubscriptionBillingMode as SessionCreateParamsItemSubscriptionBillingMode,
@@ -497,6 +503,30 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsItemMetronomeCommitPriceConfiguration": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemOneTimePrice": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemOneTimePriceItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemOneTimePriceItemAdjustableQuantity": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemOneTimePriceItemPriceData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemOneTimePriceItemPriceDataProductData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemOneTimePriceItemPriceDataProductDataTaxDetails": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

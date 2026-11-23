@@ -10,11 +10,17 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._spending_mandate_cancel_params import (
         SpendingMandateCancelParams,
     )
+    from stripe.params.v2.money_management._spending_mandate_create_params import (
+        SpendingMandateCreateParams,
+    )
     from stripe.params.v2.money_management._spending_mandate_list_params import (
         SpendingMandateListParams,
     )
     from stripe.params.v2.money_management._spending_mandate_retrieve_params import (
         SpendingMandateRetrieveParams,
+    )
+    from stripe.params.v2.money_management._spending_mandate_update_params import (
+        SpendingMandateUpdateParams,
     )
     from stripe.v2._list_object import ListObject
     from stripe.v2.money_management._spending_mandate import SpendingMandate
@@ -59,6 +65,44 @@ class SpendingMandateService(StripeService):
             ),
         )
 
+    def create(
+        self,
+        params: "SpendingMandateCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "SpendingMandate":
+        """
+        Creates an active SpendingMandate authorizing an ACH originator to debit a Financial Account.
+        """
+        return cast(
+            "SpendingMandate",
+            self._request(
+                "post",
+                "/v2/money_management/spending_mandates",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "SpendingMandateCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "SpendingMandate":
+        """
+        Creates an active SpendingMandate authorizing an ACH originator to debit a Financial Account.
+        """
+        return cast(
+            "SpendingMandate",
+            await self._request_async(
+                "post",
+                "/v2/money_management/spending_mandates",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def retrieve(
         self,
         id: str,
@@ -96,6 +140,52 @@ class SpendingMandateService(StripeService):
             "SpendingMandate",
             await self._request_async(
                 "get",
+                "/v2/money_management/spending_mandates/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        /,
+        params: Optional["SpendingMandateUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "SpendingMandate":
+        """
+        Updates an active ACH SpendingMandate.
+        """
+        return cast(
+            "SpendingMandate",
+            self._request(
+                "post",
+                "/v2/money_management/spending_mandates/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        /,
+        params: Optional["SpendingMandateUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "SpendingMandate":
+        """
+        Updates an active ACH SpendingMandate.
+        """
+        return cast(
+            "SpendingMandate",
+            await self._request_async(
+                "post",
                 "/v2/money_management/spending_mandates/{id}".format(
                     id=sanitize_id(id),
                 ),

@@ -164,6 +164,25 @@ class AccountEvaluation(StripeObject):
             """
             _field_encodings = {"score": "decimal_string"}
 
+        class UserBuyerClassification(StripeObject):
+            buyer_type: Union[Literal["business", "unknown"], str]
+            """
+            Predicted type of buyer behind the user.
+            """
+            buyer_type_score: Optional[Decimal]
+            """
+            The score for the predicted buyer type, between 0.00 and 100.00. Absent when buyer_type is unknown.
+            """
+            evaluated_at: Optional[str]
+            """
+            Timestamp at which the signal was evaluated.
+            """
+            signal: Optional[str]
+            """
+            The account signal ID containing the full user buyer classification signal result.
+            """
+            _field_encodings = {"buyer_type_score": "decimal_string"}
+
         class UserMultiAccounting(StripeObject):
             evaluated_at: Optional[str]
             """
@@ -201,6 +220,10 @@ class AccountEvaluation(StripeObject):
         """
         User affinity result for the evaluation, when available.
         """
+        user_buyer_classification: Optional[UserBuyerClassification]
+        """
+        User buyer classification result for the evaluation, when available.
+        """
         user_multi_accounting: Optional[UserMultiAccounting]
         """
         User multi-accounting result for the evaluation, when available.
@@ -210,6 +233,7 @@ class AccountEvaluation(StripeObject):
             "fraudulent_website": FraudulentWebsite,
             "user_account_sharing": UserAccountSharing,
             "user_affinity": UserAffinity,
+            "user_buyer_classification": UserBuyerClassification,
             "user_multi_accounting": UserMultiAccounting,
         }
 
@@ -248,6 +272,7 @@ class AccountEvaluation(StripeObject):
                 "fraudulent_website",
                 "user_account_sharing",
                 "user_affinity",
+                "user_buyer_classification",
                 "user_multi_accounting",
             ],
             str,
@@ -263,6 +288,7 @@ class AccountEvaluation(StripeObject):
                 "fraudulent_website",
                 "user_account_sharing",
                 "user_affinity",
+                "user_buyer_classification",
                 "user_multi_accounting",
             ],
             str,

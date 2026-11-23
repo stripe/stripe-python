@@ -1353,6 +1353,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_debit_dispute_succeeded_event import (
         V2MoneyManagementDebitDisputeSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_dispute_adjustment_created_event import (
+        V2MoneyManagementDisputeAdjustmentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_created_event import (
+        V2MoneyManagementDisputeCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_lost_event import (
+        V2MoneyManagementDisputeLostEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_updated_event import (
+        V2MoneyManagementDisputeUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_won_event import (
+        V2MoneyManagementDisputeWonEventNotification,
+    )
     from stripe.events._v2_money_management_earned_credit_succeeded_event import (
         V2MoneyManagementEarnedCreditSucceededEventNotification,
     )
@@ -1694,6 +1709,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_reporting_report_run_updated_event import (
         V2ReportingReportRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_risk_evaluation_outcome_delinquency_ready_event import (
+        V2RiskEvaluationOutcomeDelinquencyReadyEventNotification,
     )
     from stripe.events._v2_signals_account_evaluation_complete_event import (
         V2SignalsAccountEvaluationCompleteEventNotification,
@@ -7561,6 +7579,71 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_money_management_dispute_adjustment_created(
+        self,
+        func: "Callable[[V2MoneyManagementDisputeAdjustmentCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementDisputeAdjustmentCreatedEvent` (`v2.money_management.dispute_adjustment.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.dispute_adjustment.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_dispute_created(
+        self,
+        func: "Callable[[V2MoneyManagementDisputeCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementDisputeCreatedEvent` (`v2.money_management.dispute.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.dispute.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_dispute_lost(
+        self,
+        func: "Callable[[V2MoneyManagementDisputeLostEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementDisputeLostEvent` (`v2.money_management.dispute.lost`) event notification.
+        """
+        self._register(
+            "v2.money_management.dispute.lost",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_dispute_updated(
+        self,
+        func: "Callable[[V2MoneyManagementDisputeUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementDisputeUpdatedEvent` (`v2.money_management.dispute.updated`) event notification.
+        """
+        self._register(
+            "v2.money_management.dispute.updated",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_dispute_won(
+        self,
+        func: "Callable[[V2MoneyManagementDisputeWonEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementDisputeWonEvent` (`v2.money_management.dispute.won`) event notification.
+        """
+        self._register(
+            "v2.money_management.dispute.won",
+            func,
+        )
+        return func
+
     def on_v2_money_management_earned_credit_succeeded(
         self,
         func: "Callable[[V2MoneyManagementEarnedCreditSucceededEventNotification, StripeClient], CallbackReturn]",
@@ -9039,6 +9122,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.reporting.report_run.updated",
+            func,
+        )
+        return func
+
+    def on_v2_risk_evaluation_outcome_delinquency_ready(
+        self,
+        func: "Callable[[V2RiskEvaluationOutcomeDelinquencyReadyEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2RiskEvaluationOutcomeDelinquencyReadyEvent` (`v2.risk.evaluation_outcome.delinquency_ready`) event notification.
+        """
+        self._register(
+            "v2.risk.evaluation_outcome.delinquency_ready",
             func,
         )
         return func

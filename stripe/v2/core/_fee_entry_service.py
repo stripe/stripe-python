@@ -22,7 +22,9 @@ class FeeEntryService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FeeEntry]":
         """
-        List FeeEntries optionally filtered by incurred_by, fee_batch, or collection_record (at most one filter at a time).
+        Lists FeeEntries, optionally filtered by `incurred_by`, `fee_batch`, or
+        `collection_record`. When filtering by `fee_batch`, results reflect current
+        membership; historical membership is unavailable.
         """
         return cast(
             "ListObject[FeeEntry]",
@@ -41,7 +43,9 @@ class FeeEntryService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FeeEntry]":
         """
-        List FeeEntries optionally filtered by incurred_by, fee_batch, or collection_record (at most one filter at a time).
+        Lists FeeEntries, optionally filtered by `incurred_by`, `fee_batch`, or
+        `collection_record`. When filtering by `fee_batch`, results reflect current
+        membership; historical membership is unavailable.
         """
         return cast(
             "ListObject[FeeEntry]",

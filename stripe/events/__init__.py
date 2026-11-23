@@ -1767,6 +1767,26 @@ if TYPE_CHECKING:
         V2MoneyManagementDebitDisputeSucceededEvent as V2MoneyManagementDebitDisputeSucceededEvent,
         V2MoneyManagementDebitDisputeSucceededEventNotification as V2MoneyManagementDebitDisputeSucceededEventNotification,
     )
+    from stripe.events._v2_money_management_dispute_adjustment_created_event import (
+        V2MoneyManagementDisputeAdjustmentCreatedEvent as V2MoneyManagementDisputeAdjustmentCreatedEvent,
+        V2MoneyManagementDisputeAdjustmentCreatedEventNotification as V2MoneyManagementDisputeAdjustmentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_created_event import (
+        V2MoneyManagementDisputeCreatedEvent as V2MoneyManagementDisputeCreatedEvent,
+        V2MoneyManagementDisputeCreatedEventNotification as V2MoneyManagementDisputeCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_lost_event import (
+        V2MoneyManagementDisputeLostEvent as V2MoneyManagementDisputeLostEvent,
+        V2MoneyManagementDisputeLostEventNotification as V2MoneyManagementDisputeLostEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_updated_event import (
+        V2MoneyManagementDisputeUpdatedEvent as V2MoneyManagementDisputeUpdatedEvent,
+        V2MoneyManagementDisputeUpdatedEventNotification as V2MoneyManagementDisputeUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_dispute_won_event import (
+        V2MoneyManagementDisputeWonEvent as V2MoneyManagementDisputeWonEvent,
+        V2MoneyManagementDisputeWonEventNotification as V2MoneyManagementDisputeWonEventNotification,
+    )
     from stripe.events._v2_money_management_earned_credit_succeeded_event import (
         V2MoneyManagementEarnedCreditSucceededEvent as V2MoneyManagementEarnedCreditSucceededEvent,
         V2MoneyManagementEarnedCreditSucceededEventNotification as V2MoneyManagementEarnedCreditSucceededEventNotification,
@@ -2222,6 +2242,10 @@ if TYPE_CHECKING:
     from stripe.events._v2_reporting_report_run_updated_event import (
         V2ReportingReportRunUpdatedEvent as V2ReportingReportRunUpdatedEvent,
         V2ReportingReportRunUpdatedEventNotification as V2ReportingReportRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_risk_evaluation_outcome_delinquency_ready_event import (
+        V2RiskEvaluationOutcomeDelinquencyReadyEvent as V2RiskEvaluationOutcomeDelinquencyReadyEvent,
+        V2RiskEvaluationOutcomeDelinquencyReadyEventNotification as V2RiskEvaluationOutcomeDelinquencyReadyEventNotification,
     )
     from stripe.events._v2_signals_account_evaluation_complete_event import (
         V2SignalsAccountEvaluationCompleteEvent as V2SignalsAccountEvaluationCompleteEvent,
@@ -5668,6 +5692,46 @@ _import_map = {
         "stripe.events._v2_money_management_debit_dispute_succeeded_event",
         False,
     ),
+    "V2MoneyManagementDisputeAdjustmentCreatedEvent": (
+        "stripe.events._v2_money_management_dispute_adjustment_created_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeAdjustmentCreatedEventNotification": (
+        "stripe.events._v2_money_management_dispute_adjustment_created_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeCreatedEvent": (
+        "stripe.events._v2_money_management_dispute_created_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeCreatedEventNotification": (
+        "stripe.events._v2_money_management_dispute_created_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeLostEvent": (
+        "stripe.events._v2_money_management_dispute_lost_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeLostEventNotification": (
+        "stripe.events._v2_money_management_dispute_lost_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeUpdatedEvent": (
+        "stripe.events._v2_money_management_dispute_updated_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeUpdatedEventNotification": (
+        "stripe.events._v2_money_management_dispute_updated_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeWonEvent": (
+        "stripe.events._v2_money_management_dispute_won_event",
+        False,
+    ),
+    "V2MoneyManagementDisputeWonEventNotification": (
+        "stripe.events._v2_money_management_dispute_won_event",
+        False,
+    ),
     "V2MoneyManagementEarnedCreditSucceededEvent": (
         "stripe.events._v2_money_management_earned_credit_succeeded_event",
         False,
@@ -6578,6 +6642,14 @@ _import_map = {
     ),
     "V2ReportingReportRunUpdatedEventNotification": (
         "stripe.events._v2_reporting_report_run_updated_event",
+        False,
+    ),
+    "V2RiskEvaluationOutcomeDelinquencyReadyEvent": (
+        "stripe.events._v2_risk_evaluation_outcome_delinquency_ready_event",
+        False,
+    ),
+    "V2RiskEvaluationOutcomeDelinquencyReadyEventNotification": (
+        "stripe.events._v2_risk_evaluation_outcome_delinquency_ready_event",
         False,
     ),
     "V2SignalsAccountEvaluationCompleteEvent": (

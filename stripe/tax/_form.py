@@ -199,6 +199,10 @@ class Form(CreateableAPIResource["Form"], ListableAPIResource["Form"]):
         Year represented by the information reported on the tax form.
         """
         state_income_tax_withheld: Optional[StateIncomeTaxWithheld]
+        treasury_tipped_occupation_code: Optional[str]
+        """
+        The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        """
         _inner_class_types = {
             "card_not_present_transactions": CardNotPresentTransactions,
             "cash_tips": CashTips,
@@ -420,6 +424,10 @@ class Form(CreateableAPIResource["Form"], ListableAPIResource["Form"]):
         state_income: Optional[StateIncome]
         state_tax_withheld: Optional[StateTaxWithheld]
         substitute_payments: Optional[SubstitutePayments]
+        treasury_tipped_occupation_code: Optional[str]
+        """
+        The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        """
         _inner_class_types = {
             "cash_tips": CashTips,
             "crop_insurance_proceeds": CropInsuranceProceeds,
@@ -523,6 +531,10 @@ class Form(CreateableAPIResource["Form"], ListableAPIResource["Form"]):
         """
         state_income: Optional[StateIncome]
         state_tax_withheld: Optional[StateTaxWithheld]
+        treasury_tipped_occupation_code: Optional[str]
+        """
+        The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        """
         _inner_class_types = {
             "cash_tips": CashTips,
             "federal_income_tax_withheld": FederalIncomeTaxWithheld,

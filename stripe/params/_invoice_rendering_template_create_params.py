@@ -62,13 +62,19 @@ class InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdf(
         "Literal['']|List[InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock]"
     ]
     """
-    Ordered invoice PDF blocks. A maximum of 20 blocks is allowed.
+    Ordered invoice PDF blocks, at most 20. Include every default type exactly once; custom text blocks may repeat.
     """
 
 
 class InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock(
     TypedDict,
 ):
+    custom_plain_text: NotRequired[
+        "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText"
+    ]
+    """
+    Configuration for a repeatable literal text block. Omit this hash on a keyed update to retain saved text; supply it to replace the text.
+    """
     custom_plain_text_cel: NotRequired[
         "InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainTextCel"
     ]
@@ -81,6 +87,7 @@ class InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock(
     """
     type: Union[
         Literal[
+            "custom_plain_text",
             "custom_plain_text_cel",
             "footer_content",
             "invoice_details",
@@ -95,6 +102,15 @@ class InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlock(
     ]
     """
     The type of content block.
+    """
+
+
+class InvoiceRenderingTemplateCreateParamsRenderingSettingsInvoicePdfBlockCustomPlainText(
+    TypedDict,
+):
+    plain_text: str
+    """
+    Literal text to render, preserving whitespace and newlines. Required, at most 10,000 characters; an empty string renders no text.
     """
 
 

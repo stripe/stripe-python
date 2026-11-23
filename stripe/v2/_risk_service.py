@@ -5,12 +5,22 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.risk._evaluation_outcome_service import (
+        EvaluationOutcomeService,
+    )
     from stripe.v2.risk._form_service import FormService
 
-_subservices = {"forms": ["stripe.v2.risk._form_service", "FormService"]}
+_subservices = {
+    "evaluation_outcomes": [
+        "stripe.v2.risk._evaluation_outcome_service",
+        "EvaluationOutcomeService",
+    ],
+    "forms": ["stripe.v2.risk._form_service", "FormService"],
+}
 
 
 class RiskService(StripeService):
+    evaluation_outcomes: "EvaluationOutcomeService"
     forms: "FormService"
 
     def __init__(self, requestor):

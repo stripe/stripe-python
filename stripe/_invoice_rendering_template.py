@@ -55,12 +55,19 @@ class InvoiceRenderingTemplate(
     class RenderingSettings(StripeObject):
         class InvoicePdf(StripeObject):
             class Block(StripeObject):
+                class CustomPlainText(StripeObject):
+                    plain_text: str
+                    """
+                    Literal text to render, preserving whitespace and newlines.
+                    """
+
                 class CustomPlainTextCel(StripeObject):
                     cel_expression: str
                     """
                     A CEL expression that returns text using the invoice context.
                     """
 
+                custom_plain_text: Optional[CustomPlainText]
                 custom_plain_text_cel: Optional[CustomPlainTextCel]
                 key: str
                 """
@@ -68,6 +75,7 @@ class InvoiceRenderingTemplate(
                 """
                 type: Union[
                     Literal[
+                        "custom_plain_text",
                         "custom_plain_text_cel",
                         "footer_content",
                         "invoice_details",
@@ -84,6 +92,7 @@ class InvoiceRenderingTemplate(
                 The type of content block
                 """
                 _inner_class_types = {
+                    "custom_plain_text": CustomPlainText,
                     "custom_plain_text_cel": CustomPlainTextCel,
                 }
 

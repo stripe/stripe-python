@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -38,7 +38,7 @@ class DepositAddress(
         """
         The on-chain contract address for the supported token currency on this specific network.
         """
-        token_currency: Literal["usdc"]
+        token_currency: Union[Literal["ousd", "phantom_cash", "usdc"], str]
         """
         The supported token currency. Supported token currencies include: `usdc`.
         """

@@ -36,10 +36,16 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class AcssDebit(StripeObject):
             pass
 
+        class AeonPay(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
         class AuBecsDebit(StripeObject):
+            pass
+
+        class AuPay(StripeObject):
             pass
 
         class BacsDebit(StripeObject):
@@ -279,7 +285,16 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             """
             _inner_class_types = {"offline": Offline}
 
+        class Carecredit(StripeObject):
+            pass
+
         class Cashapp(StripeObject):
+            pass
+
+        class Dbarai(StripeObject):
+            pass
+
+        class Getflex(StripeObject):
             pass
 
         class IdBankTransfer(StripeObject):
@@ -397,6 +412,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Link(StripeObject):
             pass
 
+        class Merpay(StripeObject):
+            pass
+
         class NaverPay(StripeObject):
             buyer_id: Optional[str]
             """
@@ -423,6 +441,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             """
             Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
             """
+
+        class RakutenPay(StripeObject):
+            pass
 
         class RevolutPay(StripeObject):
             pass
@@ -490,27 +511,34 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             pass
 
         acss_debit: Optional[AcssDebit]
+        aeon_pay: Optional[AeonPay]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
+        au_pay: Optional[AuPay]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         blik: Optional[Blik]
         boleto: Optional[Boleto]
         card: Optional[Card]
         card_present: Optional[CardPresent]
+        carecredit: Optional[Carecredit]
         cashapp: Optional[Cashapp]
+        dbarai: Optional[Dbarai]
+        getflex: Optional[Getflex]
         id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        merpay: Optional[Merpay]
         naver_pay: Optional[NaverPay]
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
+        rakuten_pay: Optional[RakutenPay]
         revolut_pay: Optional[RevolutPay]
         satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
@@ -526,27 +554,34 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "aeon_pay": AeonPay,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
+            "au_pay": AuPay,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "blik": Blik,
             "boleto": Boleto,
             "card": Card,
             "card_present": CardPresent,
+            "carecredit": Carecredit,
             "cashapp": Cashapp,
+            "dbarai": Dbarai,
+            "getflex": Getflex,
             "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
+            "merpay": Merpay,
             "naver_pay": NaverPay,
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
+            "rakuten_pay": RakutenPay,
             "revolut_pay": RevolutPay,
             "satispay": Satispay,
             "sepa_debit": SepaDebit,

@@ -20,7 +20,9 @@ class PaymentIntentSimulateCryptoDepositParams(RequestOptions):
     """
     The blockchain network of the simulated crypto deposit.
     """
-    token_currency: Literal["usdc", "usdg", "usdp"]
+    token_currency: Union[
+        Literal["ousd", "phantom_cash", "usdc", "usdg", "usdp"], str
+    ]
     """
     The token currency of the simulated crypto deposit.
     """

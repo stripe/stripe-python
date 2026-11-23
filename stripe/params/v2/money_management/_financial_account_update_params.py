@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
+from stripe.v2._amount import AmountParam
 from typing import Dict, List, Optional, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -9,6 +10,10 @@ class FinancialAccountUpdateParams(TypedDict):
     display_name: NotRequired[str]
     """
     A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
+    """
+    flow_settings: NotRequired["FinancialAccountUpdateParamsFlowSettings"]
+    """
+    Sparse flow setting updates. Omitting a field leaves its current value unchanged.
     """
     forwarding_settings: NotRequired[
         "FinancialAccountUpdateParamsForwardingSettings"
@@ -26,6 +31,39 @@ class FinancialAccountUpdateParams(TypedDict):
     storage: NotRequired["FinancialAccountUpdateParamsStorage"]
     """
     Parameters for updating storage-specific fields on the FinancialAccount.
+    """
+
+
+class FinancialAccountUpdateParamsFlowSettings(TypedDict):
+    received_debits: NotRequired[
+        "FinancialAccountUpdateParamsFlowSettingsReceivedDebits"
+    ]
+    """
+    Settings for received debit flows.
+    """
+
+
+class FinancialAccountUpdateParamsFlowSettingsReceivedDebits(TypedDict):
+    ach: NotRequired[
+        "FinancialAccountUpdateParamsFlowSettingsReceivedDebitsAch"
+    ]
+    """
+    Settings for ACH received debits.
+    """
+
+
+class FinancialAccountUpdateParamsFlowSettingsReceivedDebitsAch(TypedDict):
+    enabled: NotRequired[bool]
+    """
+    Whether ACH received debits are enabled. Omit to preserve the current setting, which defaults to true. Other restrictions still apply.
+    """
+    mandate_behavior: NotRequired[Literal["optional", "required"]]
+    """
+    Controls whether ACH debits without a matching active mandate are allowed or rejected.
+    """
+    transaction_limit: NotRequired[AmountParam]
+    """
+    Account-level per-debit limit. Set to null to clear the limit.
     """
 
 

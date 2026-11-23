@@ -122,6 +122,11 @@ class FeeBatch(StripeObject):
         """
         Timestamp of when the batch transitioned to BILLED, if applicable.
         """
+        canceled_at: Optional[str]
+        """
+        Present only when `status=canceled`;
+        `billed_at` and `canceled_at` are mutually exclusive.
+        """
 
     class Tax(StripeObject):
         class Amount(StripeObject):
@@ -172,7 +177,7 @@ class FeeBatch(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    status: Union[Literal["billed", "pending"], str]
+    status: Union[Literal["billed", "canceled", "pending"], str]
     """
     The current state of this batch.
     """

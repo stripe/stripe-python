@@ -37,6 +37,22 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._debit_dispute_retrieve_params import (
         DebitDisputeRetrieveParams as DebitDisputeRetrieveParams,
     )
+    from stripe.params.v2.money_management._dispute_adjustment_list_params import (
+        DisputeAdjustmentListParams as DisputeAdjustmentListParams,
+    )
+    from stripe.params.v2.money_management._dispute_adjustment_retrieve_params import (
+        DisputeAdjustmentRetrieveParams as DisputeAdjustmentRetrieveParams,
+    )
+    from stripe.params.v2.money_management._dispute_create_params import (
+        DisputeCreateParams as DisputeCreateParams,
+        DisputeCreateParamsTarget as DisputeCreateParamsTarget,
+    )
+    from stripe.params.v2.money_management._dispute_list_params import (
+        DisputeListParams as DisputeListParams,
+    )
+    from stripe.params.v2.money_management._dispute_retrieve_params import (
+        DisputeRetrieveParams as DisputeRetrieveParams,
+    )
     from stripe.params.v2.money_management._earned_credit_list_params import (
         EarnedCreditListParams as EarnedCreditListParams,
     )
@@ -61,6 +77,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._financial_account_update_params import (
         FinancialAccountUpdateParams as FinancialAccountUpdateParams,
+        FinancialAccountUpdateParamsFlowSettings as FinancialAccountUpdateParamsFlowSettings,
+        FinancialAccountUpdateParamsFlowSettingsReceivedDebits as FinancialAccountUpdateParamsFlowSettingsReceivedDebits,
+        FinancialAccountUpdateParamsFlowSettingsReceivedDebitsAch as FinancialAccountUpdateParamsFlowSettingsReceivedDebitsAch,
         FinancialAccountUpdateParamsForwardingSettings as FinancialAccountUpdateParamsForwardingSettings,
         FinancialAccountUpdateParamsStorage as FinancialAccountUpdateParamsStorage,
         FinancialAccountUpdateParamsStorageCrypto as FinancialAccountUpdateParamsStorageCrypto,
@@ -352,11 +371,21 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._spending_mandate_cancel_params import (
         SpendingMandateCancelParams as SpendingMandateCancelParams,
     )
+    from stripe.params.v2.money_management._spending_mandate_create_params import (
+        SpendingMandateCreateParams as SpendingMandateCreateParams,
+        SpendingMandateCreateParamsBankTransfer as SpendingMandateCreateParamsBankTransfer,
+        SpendingMandateCreateParamsBankTransferAch as SpendingMandateCreateParamsBankTransferAch,
+    )
     from stripe.params.v2.money_management._spending_mandate_list_params import (
         SpendingMandateListParams as SpendingMandateListParams,
     )
     from stripe.params.v2.money_management._spending_mandate_retrieve_params import (
         SpendingMandateRetrieveParams as SpendingMandateRetrieveParams,
+    )
+    from stripe.params.v2.money_management._spending_mandate_update_params import (
+        SpendingMandateUpdateParams as SpendingMandateUpdateParams,
+        SpendingMandateUpdateParamsBankTransfer as SpendingMandateUpdateParamsBankTransfer,
+        SpendingMandateUpdateParamsBankTransferAch as SpendingMandateUpdateParamsBankTransferAch,
     )
     from stripe.params.v2.money_management._test_helper_earned_credits_params import (
         TestHelperEarnedCreditsParams as TestHelperEarnedCreditsParams,
@@ -441,6 +470,30 @@ _import_map = {
         "stripe.params.v2.money_management._debit_dispute_retrieve_params",
         False,
     ),
+    "DisputeAdjustmentListParams": (
+        "stripe.params.v2.money_management._dispute_adjustment_list_params",
+        False,
+    ),
+    "DisputeAdjustmentRetrieveParams": (
+        "stripe.params.v2.money_management._dispute_adjustment_retrieve_params",
+        False,
+    ),
+    "DisputeCreateParams": (
+        "stripe.params.v2.money_management._dispute_create_params",
+        False,
+    ),
+    "DisputeCreateParamsTarget": (
+        "stripe.params.v2.money_management._dispute_create_params",
+        False,
+    ),
+    "DisputeListParams": (
+        "stripe.params.v2.money_management._dispute_list_params",
+        False,
+    ),
+    "DisputeRetrieveParams": (
+        "stripe.params.v2.money_management._dispute_retrieve_params",
+        False,
+    ),
     "EarnedCreditListParams": (
         "stripe.params.v2.money_management._earned_credit_list_params",
         False,
@@ -482,6 +535,18 @@ _import_map = {
         False,
     ),
     "FinancialAccountUpdateParams": (
+        "stripe.params.v2.money_management._financial_account_update_params",
+        False,
+    ),
+    "FinancialAccountUpdateParamsFlowSettings": (
+        "stripe.params.v2.money_management._financial_account_update_params",
+        False,
+    ),
+    "FinancialAccountUpdateParamsFlowSettingsReceivedDebits": (
+        "stripe.params.v2.money_management._financial_account_update_params",
+        False,
+    ),
+    "FinancialAccountUpdateParamsFlowSettingsReceivedDebitsAch": (
         "stripe.params.v2.money_management._financial_account_update_params",
         False,
     ),
@@ -1085,12 +1150,36 @@ _import_map = {
         "stripe.params.v2.money_management._spending_mandate_cancel_params",
         False,
     ),
+    "SpendingMandateCreateParams": (
+        "stripe.params.v2.money_management._spending_mandate_create_params",
+        False,
+    ),
+    "SpendingMandateCreateParamsBankTransfer": (
+        "stripe.params.v2.money_management._spending_mandate_create_params",
+        False,
+    ),
+    "SpendingMandateCreateParamsBankTransferAch": (
+        "stripe.params.v2.money_management._spending_mandate_create_params",
+        False,
+    ),
     "SpendingMandateListParams": (
         "stripe.params.v2.money_management._spending_mandate_list_params",
         False,
     ),
     "SpendingMandateRetrieveParams": (
         "stripe.params.v2.money_management._spending_mandate_retrieve_params",
+        False,
+    ),
+    "SpendingMandateUpdateParams": (
+        "stripe.params.v2.money_management._spending_mandate_update_params",
+        False,
+    ),
+    "SpendingMandateUpdateParamsBankTransfer": (
+        "stripe.params.v2.money_management._spending_mandate_update_params",
+        False,
+    ),
+    "SpendingMandateUpdateParamsBankTransferAch": (
+        "stripe.params.v2.money_management._spending_mandate_update_params",
         False,
     ),
     "TestHelperEarnedCreditsParams": (

@@ -277,6 +277,22 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class GeneratedFrom(StripeObject):
                 class PaymentMethodDetails(StripeObject):
                     class CardPresent(StripeObject):
+                        class Benefits(StripeObject):
+                            class FrMealVoucher(StripeObject):
+                                siret: str
+                                """
+                                The 14-digit SIRET of the meal voucher acceptor used for this charge.
+                                """
+
+                            fr_meal_voucher: Optional[FrMealVoucher]
+                            issuer: Optional[str]
+                            """
+                            Issuer of the benefit card utilized on this payment
+                            """
+                            _inner_class_types = {
+                                "fr_meal_voucher": FrMealVoucher,
+                            }
+
                         class Fleet(StripeObject):
                             class TransactionDatum(StripeObject):
                                 prompt: Literal[
@@ -435,6 +451,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         The authorized amount
                         """
+                        benefits: Optional[Benefits]
                         brand: Optional[str]
                         """
                         Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -564,6 +581,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         wallet: Optional[Wallet]
                         _inner_class_types = {
+                            "benefits": Benefits,
                             "fleet": Fleet,
                             "multicapture": Multicapture,
                             "offline": Offline,
@@ -894,6 +912,16 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             }
 
         class CardPresent(StripeObject):
+            class Benefits(StripeObject):
+                issuer: Optional[str]
+                """
+                Issuer of this benefit card
+                """
+                programs: Optional[List[str]]
+                """
+                Available benefit programs for this card
+                """
+
             class Networks(StripeObject):
                 available: List[str]
                 """
@@ -925,6 +953,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
                 """
 
+            benefits: Optional[Benefits]
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -1004,6 +1033,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             wallet: Optional[Wallet]
             _inner_class_types = {
+                "benefits": Benefits,
                 "networks": Networks,
                 "offline": Offline,
                 "wallet": Wallet,

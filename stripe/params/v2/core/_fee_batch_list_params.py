@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing_extensions import NotRequired, TypedDict
+from typing import List, Union
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FeeBatchListParams(TypedDict):
@@ -31,4 +32,12 @@ class FeeBatchListParams(TypedDict):
     limit: NotRequired[int]
     """
     Maximum number of results to return per page. Defaults to 20.
+    """
+    statuses: NotRequired[
+        List[Union[Literal["billed", "canceled", "pending"], str]]
+    ]
+    """
+    Filters FeeBatches by status. Multiple values use OR semantics. When omitted or
+    empty, returns `pending` and `billed` FeeBatches. To return canceled FeeBatches,
+    include `canceled`.
     """

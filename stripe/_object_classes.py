@@ -728,6 +728,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._debit_dispute",
         "DebitDispute",
     ),
+    "v2.money_management.dispute": (
+        "stripe.v2.money_management._dispute",
+        "Dispute",
+    ),
+    "v2.money_management.dispute_adjustment": (
+        "stripe.v2.money_management._dispute_adjustment",
+        "DisputeAdjustment",
+    ),
     "v2.money_management.earned_credit": (
         "stripe.v2.money_management._earned_credit",
         "EarnedCredit",
@@ -917,6 +925,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.reporting.report_run": (
         "stripe.v2.reporting._report_run",
         "ReportRun",
+    ),
+    "v2.risk.evaluation_outcome": (
+        "stripe.v2.risk._evaluation_outcome",
+        "EvaluationOutcome",
     ),
     "v2.risk.form": ("stripe.v2.risk._form", "Form"),
     "v2.signals.account_activity": (

@@ -742,7 +742,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -767,7 +772,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -792,7 +802,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -817,7 +832,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -842,7 +862,12 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        token_currency: Union[
+                            Literal[
+                                "ousd", "phantom_cash", "usdc", "usdg", "usdp"
+                            ],
+                            str,
+                        ]
                         """
                         The supported token currency.
                         """
@@ -3510,6 +3535,20 @@ class PaymentIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class AeonPay(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Affirm(StripeObject):
             capture_method: Optional[Literal["manual"]]
             """
@@ -3605,6 +3644,20 @@ class PaymentIntent(
             target_date: Optional[str]
             """
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
+
+        class AuPay(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
         class BacsDebit(StripeObject):
@@ -4450,6 +4503,20 @@ class PaymentIntent(
             """
             _inner_class_types = {"bank_transfer": BankTransfer}
 
+        class Dbarai(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Eps(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -4693,6 +4760,20 @@ class PaymentIntent(
 
         class MbWay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class Merpay(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5094,6 +5175,20 @@ class PaymentIntent(
 
         class Qris(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class RakutenPay(StripeObject):
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -5542,12 +5637,14 @@ class PaymentIntent(
             """
 
         acss_debit: Optional[AcssDebit]
+        aeon_pay: Optional[AeonPay]
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
         alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
+        au_pay: Optional[AuPay]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         billie: Optional[Billie]
@@ -5560,6 +5657,7 @@ class PaymentIntent(
         cashapp: Optional[Cashapp]
         crypto: Optional[Crypto]
         customer_balance: Optional[CustomerBalance]
+        dbarai: Optional[Dbarai]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         getflex: Optional[Getflex]
@@ -5576,6 +5674,7 @@ class PaymentIntent(
         kr_card: Optional[KrCard]
         link: Optional[Link]
         mb_way: Optional[MbWay]
+        merpay: Optional[Merpay]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
@@ -5591,6 +5690,7 @@ class PaymentIntent(
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         qris: Optional[Qris]
+        rakuten_pay: Optional[RakutenPay]
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
@@ -5613,12 +5713,14 @@ class PaymentIntent(
         zip: Optional[Zip]
         _inner_class_types = {
             "acss_debit": AcssDebit,
+            "aeon_pay": AeonPay,
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
             "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
+            "au_pay": AuPay,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "billie": Billie,
@@ -5631,6 +5733,7 @@ class PaymentIntent(
             "cashapp": Cashapp,
             "crypto": Crypto,
             "customer_balance": CustomerBalance,
+            "dbarai": Dbarai,
             "eps": Eps,
             "fpx": Fpx,
             "getflex": Getflex,
@@ -5647,6 +5750,7 @@ class PaymentIntent(
             "kr_card": KrCard,
             "link": Link,
             "mb_way": MbWay,
+            "merpay": Merpay,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
@@ -5662,6 +5766,7 @@ class PaymentIntent(
             "pix": Pix,
             "promptpay": Promptpay,
             "qris": Qris,
+            "rakuten_pay": RakutenPay,
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
@@ -5727,7 +5832,7 @@ class PaymentIntent(
     class RadarOptions(StripeObject):
         is_free_trial_transaction: Optional[bool]
         """
-        The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+        The value you provided for whether this transaction starts a free trial. This field is omitted if you haven't explicitly set it.
         """
 
     class Redaction(StripeObject):

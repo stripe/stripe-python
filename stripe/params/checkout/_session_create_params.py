@@ -972,6 +972,10 @@ class SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
     """
     ID of the invoice rendering template to use for this invoice.
     """
+    template_version: NotRequired[int]
+    """
+    The specific version of the invoice rendering template to use for this invoice. If not specified, the latest version of the template will be used. Only available in unified mode.
+    """
 
 
 class SessionCreateParamsItem(TypedDict):
@@ -979,11 +983,17 @@ class SessionCreateParamsItem(TypedDict):
     """
     Configuration for the Metronome commit item.
     """
+    one_time_price: NotRequired["SessionCreateParamsItemOneTimePrice"]
+    """
+    Configuration for the one-time price item.
+    """
     subscription: NotRequired["SessionCreateParamsItemSubscription"]
     """
     Configuration for the subscription item.
     """
-    type: Union[Literal["metronome_commit", "subscription"], str]
+    type: Union[
+        Literal["metronome_commit", "one_time_price", "subscription"], str
+    ]
     """
     The type of item.
     """
@@ -1215,6 +1225,138 @@ class SessionCreateParamsItemMetronomeCommitPriceConfiguration(TypedDict):
     tax_behavior: NotRequired["Literal['exclusive', 'inclusive']|str"]
     """
     Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
+    """
+
+
+class SessionCreateParamsItemOneTimePrice(TypedDict):
+    description: NotRequired[str]
+    """
+    The one-time price's description, meant to be displayable to the customer.
+    """
+    items: List["SessionCreateParamsItemOneTimePriceItem"]
+    """
+    The list of items for the one-time price.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+
+
+class SessionCreateParamsItemOneTimePriceItem(TypedDict):
+    adjustable_quantity: NotRequired[
+        "SessionCreateParamsItemOneTimePriceItemAdjustableQuantity"
+    ]
+    """
+    When set, provides configuration for this item's quantity to be adjusted by the customer during Checkout.
+    """
+    price: NotRequired[str]
+    """
+    The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
+    """
+    price_data: NotRequired["SessionCreateParamsItemOneTimePriceItemPriceData"]
+    """
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    """
+    quantity: int
+    """
+    Quantity for this item.
+    """
+    tax_rates: NotRequired[List[str]]
+    """
+    The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
+    """
+
+
+class SessionCreateParamsItemOneTimePriceItemAdjustableQuantity(TypedDict):
+    enabled: bool
+    """
+    Set to true if the quantity can be adjusted to any non-negative integer.
+    """
+    maximum: NotRequired[int]
+    """
+    The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+    """
+    minimum: NotRequired[int]
+    """
+    The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
+    """
+
+
+class SessionCreateParamsItemOneTimePriceItemPriceData(TypedDict):
+    currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    product: NotRequired[str]
+    """
+    The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+    """
+    product_data: NotRequired[
+        "SessionCreateParamsItemOneTimePriceItemPriceDataProductData"
+    ]
+    """
+    Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+    """
+    tax_behavior: NotRequired[
+        "Literal['exclusive', 'inclusive', 'unspecified']|str"
+    ]
+    """
+    Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+    """
+    unit_amount: NotRequired[int]
+    """
+    A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+    """
+    unit_amount_decimal: NotRequired[Decimal]
+    """
+    Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+    """
+
+
+class SessionCreateParamsItemOneTimePriceItemPriceDataProductData(TypedDict):
+    description: NotRequired[str]
+    """
+    The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+    """
+    images: NotRequired[List[str]]
+    """
+    A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+    name: str
+    """
+    The product's name, meant to be displayable to the customer.
+    """
+    tax_code: NotRequired[str]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+    """
+    tax_details: NotRequired[
+        "SessionCreateParamsItemOneTimePriceItemPriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
+    unit_label: NotRequired[str]
+    """
+    A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+
+
+class SessionCreateParamsItemOneTimePriceItemPriceDataProductDataTaxDetails(
+    TypedDict,
+):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 
@@ -1674,6 +1816,14 @@ class SessionCreateParamsMarketingAttributionAdConversion(TypedDict):
     consent_collected: bool
     """
     Whether the customer consented to sending conversion data to an advertising platform.
+    """
+    source_url: NotRequired[str]
+    """
+    The URL of the web page where the customer converted.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser where the customer converted.
     """
 
 
@@ -2360,6 +2510,15 @@ class SessionCreateParamsPaymentMethodOptionsBlik(TypedDict):
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session']|str"
     ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
 
 
 class SessionCreateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):

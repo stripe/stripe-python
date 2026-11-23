@@ -62,6 +62,19 @@ class Card(
         The type of crypto wallet.
         """
 
+    class FlexibleCredential(StripeObject):
+        class SecondaryCredential(StripeObject):
+            funding: Optional[Union[Literal["credit"], str]]
+            """
+            The funding source that this credential can support.
+            """
+
+        secondary_credentials: Optional[List[SecondaryCredential]]
+        """
+        Details about the secondary credentials for this card.
+        """
+        _inner_class_types = {"secondary_credentials": SecondaryCredential}
+
     class LatestFraudWarning(StripeObject):
         started_at: Optional[int]
         """
@@ -1350,6 +1363,10 @@ class Card(
     """
     The financial account this card is attached to.
     """
+    flexible_credential: Optional[FlexibleCredential]
+    """
+    Details about the flexible credential configuration for this card. This is only populated when enrolled to flex credentials, and is omitted unless you explicitly request it with `include[]=flexible_credential`.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -2113,6 +2130,7 @@ class Card(
 
     _inner_class_types = {
         "crypto_wallet": CryptoWallet,
+        "flexible_credential": FlexibleCredential,
         "latest_fraud_warning": LatestFraudWarning,
         "lifecycle_controls": LifecycleControls,
         "product_graduation_state": ProductGraduationState,
