@@ -171,6 +171,10 @@ def _api_encode(
                     )
                     for k, v in _api_encode(subdict):
                         yield (k, v)
+                elif isinstance(sv, datetime.datetime):
+                    yield (encoded_key, _encode_datetime(sv))
+                elif isinstance(sv, bool):
+                    yield (encoded_key, str(sv).lower())
                 else:
                     yield (encoded_key, sv)
         elif isinstance(value, dict) or hasattr(value, "_data"):
