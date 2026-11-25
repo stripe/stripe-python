@@ -139,6 +139,14 @@ class TestWebhook(object):
         )
         assert isinstance(event, stripe.Event)
 
+    def test_construct_event_from_memoryview(self):
+        header = generate_header()
+        payload = memoryview(bytes(DUMMY_WEBHOOK_PAYLOAD, "utf-8"))
+        event = stripe.Webhook.construct_event(
+            payload, header, DUMMY_WEBHOOK_SECRET
+        )
+        assert event.id == "evt_test_webhook"
+
     def test_construct_event_ignores_payload_mutated_during_verification(
         self, monkeypatch
     ):

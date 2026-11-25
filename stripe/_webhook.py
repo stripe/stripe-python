@@ -4,7 +4,7 @@ import time
 from collections import OrderedDict
 from dataclasses import dataclass
 from hashlib import sha256
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 from urllib.parse import quote
 
 # Used for global variables
@@ -47,8 +47,11 @@ def _decode_payload(payload: WebhookPayload) -> str:
     """
     if isinstance(payload, (bytes, bytearray)):
         return payload.decode("utf-8")
-    # pyright widens `bytearray` to include `memoryview`, so it can't see that only `str` is left
-    return cast(str, payload)
+    # type checkers treat a `bytes`/`bytearray` annotation as also accepting a
+    # `memoryview`, which has no `.decode()`
+    if isinstance(payload, memoryview):
+        return payload.tobytes().decode("utf-8")
+    return payload
 
 
 def maybe_extract_from_cloud_provider_envelope(payload: WebhookPayload):
