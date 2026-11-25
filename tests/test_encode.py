@@ -1,11 +1,55 @@
 import datetime
 import warnings
+from urllib.parse import urlencode
+
+import pytest
 
 from stripe._stripe_object import StripeObject
 from stripe._encode import _api_encode
 
 
 class TestApiEncode:
+    @pytest.mark.parametrize("container", [list, tuple])
+    def test_encode_resource_references_in_array(self, container):
+        resource = StripeObject.construct_from(
+            {
+                "id": "txr_123",
+                "object": "tax_rate",
+                "display_name": "Sales tax",
+            },
+            "sk_test_123",
+        )
+        result = list(
+            _api_encode(
+                {"default_tax_rates": container([resource, "txr_456"])}
+            )
+        )
+
+        assert result == [
+            ("default_tax_rates[0]", "txr_123"),
+            ("default_tax_rates[1]", "txr_456"),
+        ]
+        assert (
+            urlencode(result)
+            == "default_tax_rates%5B0%5D=txr_123&default_tax_rates%5B1%5D=txr_456"
+        )
+
+    def test_encode_nested_resource_references_in_array(self):
+        resource = StripeObject.construct_from(
+            {"id": "txr_123"}, "sk_test_123"
+        )
+        result = list(_api_encode({"items": [{"tax_rates": [resource]}]}))
+        assert result == [("items[0][tax_rates][0]", "txr_123")]
+
+    def test_encode_idless_object_in_array(self):
+        item = StripeObject.construct_from(
+            {"price": "price_123", "quantity": 2}, "sk_test_123"
+        )
+        assert list(_api_encode({"items": [item]})) == [
+            ("items[0][price]", "price_123"),
+            ("items[0][quantity]", 2),
+        ]
+
     def test_encode_stripe_object_without_id_no_deprecation_warning(self):
         """
         Test that encoding a StripeObject without an id (like metadata)

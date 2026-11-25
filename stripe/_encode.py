@@ -169,7 +169,9 @@ def _api_encode(
             for i, sv in enumerate(value):
                 # Always use indexed format for arrays
                 encoded_key = "%s[%d]" % (key, i)
-                if isinstance(sv, dict) or hasattr(sv, "_data"):
+                if hasattr(sv, "id"):
+                    yield (encoded_key, getattr(sv, "id"))
+                elif isinstance(sv, dict) or hasattr(sv, "_data"):
                     subdict = _encode_nested_dict(encoded_key, sv)
                     for k, v in _api_encode(subdict):
                         yield (k, v)
